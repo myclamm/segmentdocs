@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/reporting by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:56 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="upVtGfprXEZAfW8xCOoEPAyjWc9Kp5grJPoOcq5vFC0jD3lk_K6YA405Sy7E4jFHJd3XSBYLWYtlTwRaC7jeXA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Account Reporting</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="Account Reporting">
+    <meta property="og:url" content="reporting.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Account Reporting">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a class='selected' href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          
+<header>
+  <h1>Account Reporting</h1>
+  <p>Keep track of your Stripe account's financial information using our built-in reporting features. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/">common questions</a>.
+</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3>Time zone for reporting</h3>
+    <p>Viewing account activity within the Dashboard uses the time zone specified in your <a href="https://dashboard.stripe.com/account">account settings</a>. Exported CSV-formatted reports use the <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">Universal Time Zone (UTC)</a>.</p>
+    <p>If you use a different time zone for your record-keeping, this needs to be taken into account when using an exported report.</p>
+  </aside>
+
+  <p>Understanding how funds flow in and out of your account is an important part of processing payments. Use the <a href="https://dashboard.stripe.com/">Dashboard</a> to view information about the different types of account activity, which can be exported into a CSV-formatted report for use in spreadsheet apps.</p>
+
+<h2 id="monthly-summary-report">Monthly summary report</h2>
+
+<p>This report includes all your account activity—grouped by month—up to the most recent full day. Account activity includes charges, refunds, fees, and disputes, divided into the sections below. It can be downloaded from your account’s <a href="https://dashboard.stripe.com/account/data">Data settings</a>.</p>
+
+<p>All amounts are expressed in the currency of the bank account that transfers are sent to. If you make use of separate bank accounts to receive transfers in different currencies, the report will include separate information for each transfer currency.</p>
+
+<h3 id="monthly-activity-summary">Monthly activity summary</h3>
+
+<p>The first section of the monthly summary report provides a breakdown of your account balance, excluding transfers and transfer failures:</p>
+
+<ul>
+  <li><strong>Sales</strong></li>
+  <li><strong>Refunds</strong></li>
+  <li><strong>Disputes</strong></li>
+  <li><strong>Dispute Reversals</strong></li>
+  <li><strong>Other Adjustments</strong></li>
+  <li><strong>Net Activity</strong></li>
+</ul>
+
+<p>If you’re using any of the following, you’ll also see separate lines for:</p>
+
+<ul>
+  <li>Other kinds of payments (e.g. <a href="ach.html">ACH</a>, <a href="alipay.html">Alipay</a>, or <a href="bitcoin.html">Bitcoin</a>)</li>
+  <li>Revenue from your <a href="connect/payments-fees.html#collecting-fees">Stripe Connect</a> application</li>
+  <li>Fees for <a href="sending-transfers.html">manual transfers</a></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Month</th>
+      <th style="text-align: right">2017-01-01</th>
+      <th style="text-align: right">2016-12-01</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>Currency</td>
+      <td style="text-align: right">USD</td>
+      <td style="text-align: right">USD</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td style="text-align: right"> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Sales</td>
+      <td>Count</td>
+      <td style="text-align: right">13</td>
+      <td style="text-align: right">17</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Gross Amount</td>
+      <td style="text-align: right">15.26</td>
+      <td style="text-align: right">661.39</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Fees</td>
+      <td style="text-align: right">-3.97</td>
+      <td style="text-align: right">-33</td>
+    </tr>
+    <tr>
+      <td>Refunds</td>
+      <td>Count</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Gross Amount</td>
+      <td style="text-align: right">-4.65</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Fees Returned</td>
+      <td style="text-align: right">0.35</td>
+      <td style="text-align: right">0</td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td>…</td>
+      <td style="text-align: right">…</td>
+      <td style="text-align: right">…</td>
+    </tr>
+    <tr>
+      <td>Net Activity</td>
+      <td> </td>
+      <td style="text-align: right">6.29</td>
+      <td style="text-align: right">628.39</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Declined, failed, or uncaptured charges are not included as they do not impact your Stripe balance.</p>
+
+<h3 id="transfer-summary">Transfer summary</h3>
+
+<p>This section details any transfers that have been created. If you’re using automatic transfers, they are grouped into months based on the date we expect the transfers to post to your account. If you’re using manual transfers, we’ll group transfers based on the date when you requested the transfer.</p>
+
+<p>If there were any failed transfers, this information is also included, along with the date that Stripe was notified of the failure.</p>
+
+<h3 id="balance-summary">Balance summary</h3>
+
+<p>The starting and ending balance in your Stripe account each month. This includes both the available and pending balance.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th style="text-align: right">2017-01-01</th>
+      <th style="text-align: right">2016-12-01</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Currency</td>
+      <td style="text-align: right">USD</td>
+      <td style="text-align: right">USD</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td style="text-align: right"> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Start of Month Balance</td>
+      <td style="text-align: right">623.29</td>
+      <td style="text-align: right">2.52</td>
+    </tr>
+    <tr>
+      <td>Net Activity</td>
+      <td style="text-align: right">11.29</td>
+      <td style="text-align: right">628.39</td>
+    </tr>
+    <tr>
+      <td>Less Net Transfers</td>
+      <td style="text-align: right">-631.97</td>
+      <td style="text-align: right">-7.62</td>
+    </tr>
+    <tr>
+      <td>End of Month Balance</td>
+      <td style="text-align: right">2.61</td>
+      <td style="text-align: right">623.29</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="transfer-reconciliation">Transfer reconciliation</h3>
+  <aside class="note">
+    <h3>Comparing transfer dates</h3>
+    <p>Your bank may report transfers to your account on a date different from what we expect, e.g., due to weekends and holidays.</p>
+  </aside>
+
+<p>This section of the report is included for users that have automatic transfers enabled. If you’re using manual transfers, this section won’t be included.</p>
+
+<p>Use this information to reconcile deposits to your bank account with your account’s activity from each month. Transfer reconciliation is subdivided into several parts.</p>
+
+<ul>
+  <li><strong>Net Activity</strong>: from the monthly activity summary</li>
+  <li><strong>Failed transfers</strong> (if any): from the transfers section</li>
+  <li><strong>Less Activity Transferred in Month</strong>: the amount of this month’s activity transferred in this month</li>
+  <li><strong>Less Activity Transferred in Later Months</strong>: the amount of this month’s activity transferred after the end of the month. This is typically nonzero because activity from the end of the month will be transferred at the beginning of the following month.</li>
+  <li><strong>Untransferred Activity</strong>: The difference between the above two sections. This is typically nonzero for the current month because funds haven’t yet transferred from the most recent days’ activity.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th style="text-align: right">2017-01-01</th>
+      <th style="text-align: right">2016-12-01</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Currency</td>
+      <td style="text-align: right">USD</td>
+      <td style="text-align: right">USD</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td style="text-align: right"> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td>Net Activity</td>
+      <td style="text-align: right">11.29</td>
+      <td style="text-align: right">628.39</td>
+    </tr>
+    <tr>
+      <td>Less Activity Transferred in Month</td>
+      <td style="text-align: right">-8.68</td>
+      <td style="text-align: right">-5.1</td>
+    </tr>
+    <tr>
+      <td>Less Activity Transferred in Later Months</td>
+      <td style="text-align: right">-623.29</td>
+      <td style="text-align: right">-2.52</td>
+    </tr>
+    <tr>
+      <td>Untransferred Activity</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If there have been other issues that led to transfer delays,  an additional line is included that totals the cumulative untransferred funds. This can be used to determine how much has is yet to be transferred.</p></section>
+
+<section>
+<h2 id="account-activity">Account activity reports</h2>
+
+<p>Use the <a href="https://dashboard.stripe.com/balance">Balance</a> area of the Dashboard to review any of your account’s balance history, such as payments, refunds, adjustments, and disputes. Every transaction contributing to your account’s balance and transfers is listed here, making accounting over specific periods of times straightforward. The balance report includes many different pieces of information about each transaction, such as:</p>
+
+<ul>
+  <li>Type and ID of transaction (transfer, charge, adjustment, etc.)</li>
+  <li>Amount</li>
+  <li>Currency</li>
+  <li>Fees</li>
+  <li>Net amount</li>
+  <li>Date created</li>
+  <li>Date available</li>
+  <li>Description</li>
+  <li>Transfer ID</li>
+  <li>Transfer date</li>
+</ul>
+
+<p>In addition, any <a href="charges.html#storing-information-in-metadata">metadata</a> that has been provided is also included in the balance report. Each key has its own column provided with a separate column.</p>
+
+<p>Use the following areas of the Dashboard to report on specific account activity in more detail:</p>
+  <ul>
+    <li><a href="https://dashboard.stripe.com/customers">Customers</a></li>
+    <li><a href="https://dashboard.stripe.com/disputes">Disputes</a></li>
+    <li><a href="https://dashboard.stripe.com/payments">Payments</a></li>
+    <li><a href="https://dashboard.stripe.com/subscriptions">Subscriptions</a></li>
+    <li><a href="https://dashboard.stripe.com/transfers">Transfers</a></li>
+  </ul>
+
+<h3 id="applying-filters">Applying filters</h3>
+
+<p>The balance history and account activity can be filtered to display results within a specified criteria. Use the <strong>Filter</strong> option, located at the top-left of the results, to view and apply the available filter options. Account activity with filtered results can also be exported to a CSV file, reducing the amount of data you need to work with.</p>
+</section>
+
+<section>
+<h2 id="more-reporting-options">Further reporting options</h2>
+
+<p>Information about payments, refunds, fees, and transfers can be exported to a <a href="http://quickbooks.intuit.com/">QuickBooks</a>-compatible IIF file, available in the Dashboard’s <a href="https://dashboard.stripe.com/account/data">Data settings</a>. Refer to our <a href="reporting/quickbooks.html">QuickBooks documentation</a> for a complete overview.</p>
+
+<p>There are also many <a href="../works-with/categories/accounting.html">third-party accounting integrations</a> that can connect to your Stripe account and synchronize your account activity for automatic reconciliation. These types of services automatically detect any new activity and update any information they have.</p>
+
+<p>All account information is accessible through the <a href="api.html">API</a>. If you are a developer or have a developer, you can create a custom reporting tool that provides more flexibility on the information included. Check out our recipe for <a href="recipes/generating-custom-reports.html">generating custom reports</a> to see how this can work.</p></section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/reporting by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:57 GMT -->
+</html>

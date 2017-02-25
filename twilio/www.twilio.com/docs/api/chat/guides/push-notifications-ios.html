@@ -1,0 +1,2325 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/api/chat/guides/push-notifications-ios by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:02 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    
+    
+
+    <title>
+      Push Notifications on iOS - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/api/chat/guides/push-notifications-ios" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    <meta property="og:title" content="Push Notifications on iOS">
+    
+    
+    
+    <meta property="og:url" content="https://www.twilio.com/docs/api/chat/guides/push-notifications-ios?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    <meta name="twitter:title" content="Push Notifications on iOS">
+    
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["marketplace", "enable-video-rooms"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      apireference
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/api" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">API Reference</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+      
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+      <div class="uk-width-3-4 uk-hidden-small">
+      
+      
+        <div class="breadcrumbs">
+          
+            
+          
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api">API Reference</a> &gt;
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api/chat">Programmable Chat</a> &gt;
+            
+          
+            
+          
+          <span>Push Notifications on iOS</span>
+        </div>
+      
+      </div>
+
+      
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+  <div class="search">
+    <form action="https://www.twilio.com/docs/search" method="GET">
+      <div class="wrapper">
+        <input id="search-box" name="q" type="text" value=""/>
+      </div>
+      <button type="submit">
+        <i class="fa fa-fw fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+    
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+  <div class="coderail-container">
+
+    <div class="sidenav-column">
+      <div class="theme-switcher uk-hidden-small">
+  <div class="theme-wrapper">
+    <a data-theme="light" class="selected">
+      <i class="fa fa-fw fa-sun-o"></i>
+    </a>
+    <a data-theme="dark" >
+      <i class="fa fa-fw fa-moon-o"></i>
+    </a>
+  </div>
+</div>
+      
+        <div class="sidenav" data-uk-sticky="{boundary: true}">
+          
+
+<ul id="doc_menu" class="sidenav__section" data-swiftype-index="false">
+
+  <!-- Page entries -->
+  
+    <li id="dynamic-menu">
+      <ul>
+        
+          
+          
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat">
+          Programmable Chat
+      </a>
+  </li>
+
+
+
+        
+          
+            
+<li class="menu-title expanded" role="menu-title" id="doc-navigation-parent">
+  Push Notifications on iOS
+</li>
+<ul class="menu-accordion expanded" role="menu-accordion" id="doc-navigation"></ul>
+
+          
+          
+<li class="menu-title expanded" role="menu-title">
+
+    <span class="heading">Usage</span>
+</li>
+
+
+<ul class="menu-accordion expanded" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/sdks">
+          SDK Download and Install
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/chat-fundamentals">
+          Chat Fundamentals
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/initializing-sdk-clients">
+          Initializing SDK Clients
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/create-tokens">
+          Creating Access Tokens
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/channels">
+          Channels and Messages
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/permissions">
+          Roles and Permissions
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/typing-indicator">
+          Typing Indicator
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/consumption-horizon">
+          Message Consumption Horizon
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/reachability-indicator">
+          Reachability Indicator
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/push-notification-configuration">
+          Push Notification Configuration
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li class="active"
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/push-notifications-ios">
+          Notifications on iOS
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/push-notifications-android">
+          Notifications on Android
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/webhooks">
+          Webhook Events
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">JavaScript SDK</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/changelogs/javascript">
+          Changelog
+      </a>
+  </li>
+
+
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/js/chat/v0.11/docs/" target="_blank">
+        API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/js/common/v0.1/docs" target="_blank">
+        Twilio Common API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">iOS SDK</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/changelogs/ios">
+          Changelog
+      </a>
+  </li>
+
+
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/ios/chat/v0.16/docs/" target="_blank">
+        API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">Android SDK</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/changelogs/android">
+          Changelog
+      </a>
+  </li>
+
+
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/android/chat/v0.11/docs/" target="_blank">
+        API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">REST API</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest">
+          Overview
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/channels">
+          Channels
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/credentials">
+          Credentials
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/members">
+          Members
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/messages">
+          Messages
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/roles">
+          Roles
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/services">
+          Services
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/users">
+          Users
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+        
+      </ul>
+    </li>
+  
+</ul>
+
+        </div>
+      
+    </div>
+
+    <div class="primary-column 
+        ">
+      <div class="docs-prose">
+        
+  
+    
+    <h1 class="page-title ">
+      Push Notifications on iOS
+    </h1>
+    
+  
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>Push notifications are an important part of the mobile experience. Users have grown accustomed to having push notifications be apart of virtually every app that they use. The iOS Programmable Chat SDK is built to have push notifications integrated into it. </p>
+<h3 id="enable-push-notifications-for-your-service-instance"><a class="toclink" href="#enable-push-notifications-for-your-service-instance">Enable push notifications for your Service instance</a></h3>
+<p><strong>IMPORTANT:</strong> The default enabled flag for new Service instances for all Push Notifications is false. This means Push will be disabled until you explicitly enable it. Follow <a href="https://www.twilio.com/docs/api/chat/guides/push-notification-configuration">this guide</a> to do so.</p>
+<p><strong>Note:</strong> You will need to configure the <code>sound</code> setting value for each push notification type you want the <code>sound</code> payload parameter to present for, with required value.  More information can be found in the <a href="https://www.twilio.com/docs/api/chat/guides/push-notification-configuration">Push Notification Configuration Guide</a>.</p>
+<h3 id="managing-your-push-credentials"><a class="toclink" href="#managing-your-push-credentials">Managing your push credentials</a></h3>
+<p>Managing your push credentials will be necessary, as your device token is required for the IPM SDK to be able to send any notifications through APNS. Let's go through the process of managing your push credentials.</p>
+<p>The AppDelegate class contains a series of application lifecycle methods. Many important events that occur like your app moving to the background or foreground have event listeners in this class. </p>
+<p>When working with push notifications in your iOS application, it is quite likely you will find yourself needing to process push registrations or received events prior to your Chat client being initialized.  For this reason, we recommend you create a spot to store any registrations or push messages your application receives prior to the client being fully initialized.  The best option here is to store these in a helper class your application delegate can obtain a reference to so that your Chat client can process these values post-initialization if necessary or real-time otherwise.  If you are doing a quick proof of concept, you could even define these on the application delegate itself but we recommend you refrain from doing this as storing state on the application delegate is not considered a best practice on iOS.</p>
+<p>The properties we will assume are defined somewhere accessible to both your application delegate's methods as well as where you initialize your Chat client are:</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-ip-messaging-push-state-variables" 
+  data-title="IP Messaging Push State Variables" data-pref="mobile">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-ip-messaging-push-state-variables">IP Messaging Push State Variables</a>
+        <ul>
+          
+            <li class="sample-tab active" 
+              data-ext="m">Objective-C</li>
+          
+            <li class="sample-tab " 
+              data-ext="swift">Swift</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+        
+      
+          
+      
+        <pre data-ext="m" data-version="default" class="codehilite"><code><span class="code-line"><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">strong</span><span class="p">)</span> <span class="bp">NSData</span> <span class="o">*</span><span class="n">updatedPushToken</span><span class="p">;</span>
+</span><span class="code-line"><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">strong</span><span class="p">)</span> <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">receivedNotification</span><span class="p">;</span>
+</span><span class="code-line"><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">strong</span><span class="p">)</span> <span class="n">TwilioIPMessagingClient</span> <span class="o">*</span><span class="n">ipMessagingClient</span><span class="p">;</span>
+</span></code></pre>
+      
+        <pre data-ext="swift" data-version="default" class="codehilite"><code><span class="code-line"><span class="kd">var</span> <span class="nv">updatedPushToken</span><span class="p">:</span> <span class="bp">NSData</span><span class="p">?</span>
+</span><span class="code-line"><span class="kd">var</span> <span class="nv">receivedNotification</span><span class="p">:</span> <span class="p">[</span><span class="bp">NSObject</span> <span class="p">:</span> <span class="nb">AnyObject</span><span class="p">]?</span>
+</span><span class="code-line"><span class="kd">var</span> <span class="nv">ipMessagingClient</span><span class="p">:</span> <span class="n">TwilioIPMessagingClient</span><span class="p">?</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      IP Messaging Push State Variables
+    </h5>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>Let's implement the following method</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-user-notification-setttings" 
+  data-title="User Notification Setttings" data-pref="mobile">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-user-notification-setttings">User Notification Setttings</a>
+        <ul>
+          
+            <li class="sample-tab active" 
+              data-ext="m">Objective-C</li>
+          
+            <li class="sample-tab " 
+              data-ext="swift">Swift</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+        
+      
+          
+      
+        <pre data-ext="m" data-version="default" class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didRegisterUserNotificationSettings:</span><span class="p">(</span><span class="bp">UIUserNotificationSettings</span> <span class="o">*</span><span class="p">)</span><span class="nv">notificationSettings</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">notificationSettings</span><span class="p">.</span><span class="n">types</span> <span class="o">==</span> <span class="n">UIUserNotificationTypeNone</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Failed to get token, error: Notifications are not allowed&quot;</span><span class="p">);</span>
+</span><span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class="code-line">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class="code-line">        <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">registerForRemoteNotifications</span><span class="p">];</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+        <pre data-ext="swift" data-version="default" class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didRegisterUserNotificationSettings</span> <span class="n">notificationSettings</span><span class="p">:</span> <span class="bp">UIUserNotificationSettings</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="n">notificationSettings</span><span class="p">.</span><span class="n">types</span> <span class="p">==</span> <span class="p">.</span><span class="n">None</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;Failed to get token, error: Notifications are not allowed&quot;</span><span class="p">)</span>
+</span><span class="code-line">        <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span><span class="code-line">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="n">updatedPushToken</span> <span class="p">=</span> <span class="kc">nil</span>
+</span><span class="code-line">        <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line">    <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="bp">UIApplication</span><span class="p">.</span><span class="n">sharedApplication</span><span class="p">().</span><span class="n">registerForRemoteNotifications</span><span class="p">()</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      User Notification Setttings
+    </h5>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>This method will register for remote notifications if notifications are allowed. The registerForRemoteNotificationTypes method also 2 delegate methods for success and failure, respectively</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-store-registration" 
+  data-title="Store Registration" data-pref="mobile">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-store-registration">Store Registration</a>
+        <ul>
+          
+            <li class="sample-tab active" 
+              data-ext="m">Objective-C</li>
+          
+            <li class="sample-tab " 
+              data-ext="swift">Swift</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+        
+      
+          
+      
+        <pre data-ext="m" data-version="default" class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span><span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didRegisterForRemoteNotificationsWithDeviceToken:</span><span class="p">(</span><span class="bp">NSData</span><span class="o">*</span><span class="p">)</span><span class="nv">deviceToken</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="n">deviceToken</span><span class="p">];</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span> <span class="o">=</span> <span class="n">deviceToken</span><span class="p">;</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span><span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFailToRegisterForRemoteNotificationsWithError:</span><span class="p">(</span><span class="bp">NSError</span><span class="o">*</span><span class="p">)</span><span class="nv">error</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Failed to get token, error: %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+        <pre data-ext="swift" data-version="default" class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didRegisterForRemoteNotificationsWithDeviceToken</span> <span class="n">deviceToken</span><span class="p">:</span> <span class="bp">NSData</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="n">deviceToken</span><span class="p">)</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">updatedPushToken</span> <span class="p">=</span> <span class="n">deviceToken</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didFailToRegisterForRemoteNotificationsWithError</span> <span class="n">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;Failed to get token, error: %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">updatedPushToken</span> <span class="p">=</span> <span class="kc">nil</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Store Registration
+    </h5>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>We print an error it it fails but if it succeeds, we either update the Chat client directly or save the token for later use.</p>
+<h3 id="provisioning-apple-developer-credentials-for-apn-pushes"><a class="toclink" href="#provisioning-apple-developer-credentials-for-apn-pushes">Provisioning Apple Developer credentials for APN Pushes</a></h3>
+<p>We're going to need to export both certificate and private key from Keychain Access:</p>
+<ol>
+<li>Start the “Keychain Access” application on your Mac</li>
+<li>Pick the "My Certificates" Category in the lefthand sidebar</li>
+<li>Right-click "Apple Development iOS Push Services" certificate</li>
+<li>In the popup menu choose "Export…"</li>
+<li>Save it as "cred.p12" without protecting it with password (leave the password blank)</li>
+<li>Extract the certificate from "cred.p12" into a "cert.pem" file</li>
+<li>Run the following command in terminal</li>
+</ol>
+<div class="codehilite"><pre><span class="code-line">openssl pkcs12 -in cred.p12 -nokeys -out cert.pem -nodes
+</span></pre></div>
+
+<ol>
+<li>Strip anything outside of "-----BEGIN CERTIFICATE-----" and "-----END CERTIFICATE-----" boundaries</li>
+<li>Extract your private key from the "cred.p12" (PKCS#12) into the "key.pem" (PKCS#1) file</li>
+<li>Run the following command in terminal</li>
+</ol>
+<div class="codehilite"><pre><span class="code-line">openssl pkcs12 -in cred.p12 -nocerts -out key.pem -nodes
+</span></pre></div>
+
+<p>The resulting file should contain "-----BEGIN RSA PRIVATE KEY-----". If the file contains "-----BEGIN PRIVATE KEY-----" and run the following command:</p>
+<div class="codehilite"><pre><span class="code-line">openssl rsa -in key.pem -out key.pem
+</span></pre></div>
+
+<p>Strip anything outside of "-----BEGIN RSA PRIVATE KEY-----" and "-----END RSA PRIVATE KEY-----" boundaries and upload your credentials into Twilio Platform</p>
+<p>To store  your Credential, simply visit your Chat Push Credentials Console and click on the 'Create a Push Credential' button.  This console is located here:</p>
+<div style="clear:both;height:60px;">
+<a href="https://www.twilio.com/console/chat/credentials"
+    class="button button-block call-to-action"
+    style="display:inline-block !important;width:360px !important;float:left;margin:0 10px 10px 0;"
+    target="_blank">
+    Programmable Chat Push Credentials Console
+</a>
+</div>
+
+<p>The Credential Sid for your new Credential will be listed in the detail page labelled 'Credential SID'.</p>
+<p>You should also ensure you add your credential SID to the Access Token Chat grant for iOS endpoints request tokens.
+Each of the Twilio Helper Libraries make provision to add the 'push_credential_sid'. Please see the relevant documentation for your preferred Helper Library for the details.</p>
+<div class="codehilite"><pre><span class="code-line"><span class="kd">var</span> <span class="nx">ipmGrant</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">IpMessagingGrant</span><span class="p">({</span>
+</span><span class="code-line">    <span class="nx">serviceSid</span><span class="o">:</span> <span class="nx">IPMessagingServicesSid</span><span class="p">,</span>
+</span><span class="code-line">    <span class="nx">endpointId</span><span class="o">:</span> <span class="nx">endpointId</span><span class="p">,</span>
+</span><span class="code-line">    <span class="nx">pushCredentialSid</span><span class="o">:</span> <span class="nx">APNCredentialSid</span><span class="p">,</span>
+</span><span class="code-line"><span class="p">});</span>
+</span></pre></div>
+
+<p>Nice! That's all we need to make sure the client has access to your device token!</p>
+<h2 id="integrating-push-notifications"><a class="toclink" href="#integrating-push-notifications">Integrating Push Notifications</a></h2>
+<p>You could keep your face buried in your phone all day waiting for your crush to send you an IP message telling you that they're interested. Or you could turn on push notifications and go about your life, only getting notified once you receive their message. Sounds like a better option, right? Push notifications are a supremely useful tools to keep users up to date with the status of their communication channels. Let's go through the process for integrating push notifications on iOS.</p>
+<p>The AppDelegate class contains a series of application lifecycle methods. Many important events that occur like your app moving to the background or foreground have event listeners in this class. One of those is the 'applicationDidFinishLaunchingWithOptions' method</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-did-finish-launching" 
+  data-title="Did Finish Launching" data-pref="mobile">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-did-finish-launching">Did Finish Launching</a>
+        <ul>
+          
+            <li class="sample-tab active" 
+              data-ext="m">Objective-C</li>
+          
+            <li class="sample-tab " 
+              data-ext="swift">Swift</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+        
+      
+          
+      
+        <pre data-ext="m" data-version="default" class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span> <span class="p">{</span>
+</span></code></pre>
+      
+        <pre data-ext="swift" data-version="default" class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span>
+</span><span class="code-line">    <span class="n">didFinishLaunchingWithOptions</span> <span class="n">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="bp">NSObject</span><span class="p">:</span> <span class="nb">AnyObject</span><span class="p">]?)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span> <span class="p">{</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Did Finish Launching
+    </h5>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>In this method, we're going to want to integrate push notifications for our app like so</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-notification-types" 
+  data-title="Notification Types" data-pref="mobile">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-notification-types">Notification Types</a>
+        <ul>
+          
+            <li class="sample-tab active" 
+              data-ext="m">Objective-C</li>
+          
+            <li class="sample-tab " 
+              data-ext="swift">Swift</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+        
+      
+          
+      
+        <pre data-ext="m" data-version="default" class="codehilite"><code><span class="code-line"><span class="k">if</span> <span class="p">([[[</span><span class="bp">UIDevice</span> <span class="n">currentDevice</span><span class="p">]</span> <span class="n">systemVersion</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">8.0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">       <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="nl">registerUserNotificationSettings</span><span class="p">:[</span><span class="bp">UIUserNotificationSettings</span> <span class="nl">settingsForTypes</span><span class="p">:(</span><span class="n">UIUserNotificationTypeSound</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeAlert</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeBadge</span><span class="p">)</span> <span class="nl">categories</span><span class="p">:</span><span class="nb">nil</span><span class="p">]];</span>
+</span><span class="code-line"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">       <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="nl">registerForRemoteNotificationTypes</span><span class="p">:</span>
+</span><span class="code-line">        <span class="p">(</span><span class="n">UIUserNotificationTypeBadge</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeSound</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeAlert</span><span class="p">)];</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+        <pre data-ext="swift" data-version="default" class="codehilite"><code><span class="code-line"><span class="bp">UIApplication</span><span class="p">.</span><span class="n">sharedApplication</span><span class="p">().</span><span class="n">registerUserNotificationSettings</span><span class="p">(</span>
+</span><span class="code-line">    <span class="bp">UIUserNotificationSettings</span><span class="p">(</span>
+</span><span class="code-line">        <span class="n">forTypes</span><span class="p">:</span> <span class="p">[.</span><span class="n">Sound</span><span class="p">,</span> <span class="p">.</span><span class="n">Alert</span><span class="p">,</span> <span class="p">.</span><span class="n">Badge</span><span class="p">],</span>
+</span><span class="code-line">        <span class="n">categories</span><span class="p">:</span> <span class="kc">nil</span>
+</span><span class="code-line">    <span class="p">)</span>
+</span><span class="code-line"><span class="p">)</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Notification Types
+    </h5>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>This conditional checks for the iOS version that the device is running and registers for notifications with the appropriate registration method. That's it! We're now registered for notifications. </p>
+<h2 id="receiving-notifications"><a class="toclink" href="#receiving-notifications">Receiving Notifications</a></h2>
+<p>Receiving notifications in our app let's us react to whatever event just occured. It can trigger our app to update a view, change a status, or even send data to a server. Whenever the app receives a notification, the method didReceiveRemoteNotification is fired</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-did-receive-notification" 
+  data-title="Did Receive Notification" data-pref="mobile">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-did-receive-notification">Did Receive Notification</a>
+        <ul>
+          
+            <li class="sample-tab active" 
+              data-ext="m">Objective-C</li>
+          
+            <li class="sample-tab " 
+              data-ext="swift">Swift</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+        
+      
+          
+      
+        <pre data-ext="m" data-version="default" class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didReceiveRemoteNotification:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">userInfo</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">application</span><span class="p">.</span><span class="n">applicationState</span> <span class="o">!=</span> <span class="n">UIApplicationStateActive</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Only address notifications received when not active</span>
+</span><span class="code-line">        <span class="c1">// If your application supports multiple types of push notifications, you may wish to limit which ones you send to the TwilioIPMessagingClient here</span>
+</span><span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="o">&amp;&amp;</span> <span class="n">userInfo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">                <span class="c1">// If your reference to the IP Messaging client exists and is initialized, send the notification to it</span>
+</span><span class="code-line">                <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">handleNotification</span><span class="p">:</span><span class="n">userInfo</span><span class="p">];</span>
+</span><span class="code-line">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">                <span class="c1">// Store the notification for later handling</span>
+</span><span class="code-line">                <span class="nb">self</span><span class="p">.</span><span class="n">receivedNotification</span> <span class="o">=</span> <span class="n">userInfo</span><span class="p">;</span>
+</span><span class="code-line">            <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+        <pre data-ext="swift" data-version="default" class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didReceiveRemoteNotification</span> <span class="n">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="bp">NSObject</span> <span class="p">:</span> <span class="nb">AnyObject</span><span class="p">])</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="n">application</span><span class="p">.</span><span class="n">applicationState</span> <span class="o">!=</span> <span class="p">.</span><span class="n">Active</span> <span class="p">{</span> <span class="c1">// Only address notifications received when not active</span>
+</span><span class="code-line">        <span class="c1">// If your application supports multiple types of push notifications, you may wish to limit which ones you send to the TwilioIPMessagingClient here</span>
+</span><span class="code-line">        <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="c1">// If your reference to the IP Messaging client exists and is initialized, send the notification to it</span>
+</span><span class="code-line">            <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">handleNotification</span><span class="p">(</span><span class="n">userInfo</span><span class="p">)</span>
+</span><span class="code-line">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="c1">// Store the notification for later handling</span>
+</span><span class="code-line">            <span class="n">receivedNotification</span> <span class="p">=</span> <span class="n">userInfo</span>
+</span><span class="code-line">        <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Did Receive Notification
+    </h5>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>We will pass the notification directly on to the Chat client if it is initialized or store the event for later processing if not.</p>
+<p>The userInfo parameter contains the data that the notification passes in from APNS. We can update our IPM client by passing it into the singleton via the receievedNotification method. The manager wraps the IPM client methods that process the notifications appropriately. </p>
+<h2 id="integration-upon-client-startup"><a class="toclink" href="#integration-upon-client-startup">Integration upon client startup</a></h2>
+<p>Once your Chat client up and available, you can provide the push token your application received:</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-register-notifications" 
+  data-title="Register Notifications" data-pref="mobile">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-register-notifications">Register Notifications</a>
+        <ul>
+          
+            <li class="sample-tab active" 
+              data-ext="m">Objective-C</li>
+          
+            <li class="sample-tab " 
+              data-ext="swift">Swift</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+        
+      
+          
+      
+        <pre data-ext="m" data-version="default" class="codehilite"><code><span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span><span class="p">];</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">receivedNotification</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">handleNotification</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">receivedNotification</span><span class="p">];</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+        <pre data-ext="swift" data-version="default" class="codehilite"><code><span class="code-line"><span class="k">if</span> <span class="kd">let</span> <span class="nv">updatedPushToken</span> <span class="p">=</span> <span class="n">updatedPushToken</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="n">updatedPushToken</span><span class="p">)</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="kd">let</span> <span class="nv">receivedNotification</span> <span class="p">=</span> <span class="n">receivedNotification</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">handleNotification</span><span class="p">(</span><span class="n">receivedNotification</span><span class="p">)</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Register Notifications
+    </h5>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+
+    
+
+        
+          
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+// Unique identifiers
+PAGE_URL = "https://www.twilio.com/docs/api/chat/guides/push-notifications-ios";
+
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'http://twiliodocumentation.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+        
+      </div>
+    </div>
+
+    <div class="code-column">
+      
+  <div id="coderail" class="code-rail" data-uk-sticky="{boundary: true}">
+
+  <div class="rail-placeholder"></div>
+
+  <div class="rail-header uk-hidden">
+
+    <div class="rail-header-wrapper">
+
+      <div class="rail-navigation">
+        <div class="inner">
+          <a href="#previous" class="inactive" data-previous>
+            <i class="fa fa-fw fa-arrow-left left"></i>
+          </a>
+        </div>
+        <div class="inner">
+          <span>
+            <span class="current-index">1</span>
+            <span>/</span>
+            <span class="snippet-total">1</span>
+          </span>
+        </div>
+        <div class="inner">
+          <a href="#next" data-next>
+            <i class="fa fa-fw fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="rail-title">
+        <div class="title-content inner">
+          <span>Loading Code Samples...</span>
+          <i class="fa fa-fw fa-chevron-down"></i>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rail-toolbar uk-hidden">
+
+    <div class="rail-current-language">
+      <div class="inner">
+        <span>Language</span>
+        <i class="fa fa-fw fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <a href="#code" class="uk-hidden tab" data-code>Code</a>
+      <a href="#output" class="uk-hidden inactive" data-output>Output</a>
+
+      <span class="separator"></span>
+
+      <a id="download" class="uk-hidden">
+        <i class="fa fa-fw fa-download"></i>
+        <span>Download Project</span>
+      </a>
+
+      <a id="github" class="uk-hidden" target="_blank">
+        <i class="fa fa-fw fa-github-square"></i>
+        <span>View on GitHub</span>
+      </a>
+
+      <a id="defrosty" class="fr-on" href="#defrosty">
+        <i class="fa fa-fw fa-eye"></i>
+        <span class="wider-tooltip">Toggle Highlighted Lines</span>
+      </a>
+
+      <a id="clippy" href="#copy">
+        <i class="fa fa-fw fa-copy"></i>
+        <span>Copy to Clipboard</span>
+      </a>
+
+      <a id="linkcode" href="#linkcode">
+        <i class="fa fa-fw fa-link"></i>
+        <span>Link to this Code</span>
+      </a>
+
+      <a href="#expand" data-expand>
+        <i class="fa fa-fw fa-arrows-alt"></i>
+        <span>Full Screen</span>
+      </a>
+      <a href="#collapse" class="uk-hidden" data-collapse>
+        <i class="fa fa-fw fa-compress"></i>
+        <span>Normal Size</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="rail-samples">
+    <ul>
+      
+        <li>
+          <a href="#code-ip-messaging-push-state-variables">
+            IP Messaging Push State Variables
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-user-notification-setttings">
+            User Notification Setttings
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-store-registration">
+            Store Registration
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-did-finish-launching">
+            Did Finish Launching
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-notification-types">
+            Notification Types
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-did-receive-notification">
+            Did Receive Notification
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-register-notifications">
+            Register Notifications
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="rail-languages"></div>
+
+  <div class="rail-content">
+    <div class="rail-content-inner">
+      
+        
+        <div data-sample-title="IP Messaging Push State Variables"
+            data-sample="code-ip-messaging-push-state-variables" 
+            data-pref="mobile"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/ip-messaging/pushiOS/variables/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="m">Objective-C</option>
+              
+                <option value="swift">Swift</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="m" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/api/chat/guides/variables.m"
+                class="codehilite"><code><span class="code-line"><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">strong</span><span class="p">)</span> <span class="bp">NSData</span> <span class="o">*</span><span class="n">updatedPushToken</span><span class="p">;</span>
+</span><span class="code-line"><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">strong</span><span class="p">)</span> <span class="bp">NSDictionary</span> <span class="o">*</span><span class="n">receivedNotification</span><span class="p">;</span>
+</span><span class="code-line"><span class="k">@property</span> <span class="p">(</span><span class="k">nonatomic</span><span class="p">,</span> <span class="k">strong</span><span class="p">)</span> <span class="n">TwilioIPMessagingClient</span> <span class="o">*</span><span class="n">ipMessagingClient</span><span class="p">;</span>
+</span></code></pre>
+            
+              <pre data-ext="swift" 
+                data-version="default"
+                data-filename="variables.swift"
+                class="codehilite"><code><span class="code-line"><span class="kd">var</span> <span class="nv">updatedPushToken</span><span class="p">:</span> <span class="bp">NSData</span><span class="p">?</span>
+</span><span class="code-line"><span class="kd">var</span> <span class="nv">receivedNotification</span><span class="p">:</span> <span class="p">[</span><span class="bp">NSObject</span> <span class="p">:</span> <span class="nb">AnyObject</span><span class="p">]?</span>
+</span><span class="code-line"><span class="kd">var</span> <span class="nv">ipMessagingClient</span><span class="p">:</span> <span class="n">TwilioIPMessagingClient</span><span class="p">?</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="User Notification Setttings"
+            data-sample="code-user-notification-setttings" 
+            data-pref="mobile"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/ip-messaging/pushiOS/usernotificationsettings/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="m">Objective-C</option>
+              
+                <option value="swift">Swift</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="m" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/api/chat/guides/usernotificationsettings.m"
+                class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didRegisterUserNotificationSettings:</span><span class="p">(</span><span class="bp">UIUserNotificationSettings</span> <span class="o">*</span><span class="p">)</span><span class="nv">notificationSettings</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">notificationSettings</span><span class="p">.</span><span class="n">types</span> <span class="o">==</span> <span class="n">UIUserNotificationTypeNone</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Failed to get token, error: Notifications are not allowed&quot;</span><span class="p">);</span>
+</span><span class="code-line">        <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class="code-line">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class="code-line">        <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">registerForRemoteNotifications</span><span class="p">];</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+              <pre data-ext="swift" 
+                data-version="default"
+                data-filename="usernotificationsettings.swift"
+                class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didRegisterUserNotificationSettings</span> <span class="n">notificationSettings</span><span class="p">:</span> <span class="bp">UIUserNotificationSettings</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="n">notificationSettings</span><span class="p">.</span><span class="n">types</span> <span class="p">==</span> <span class="p">.</span><span class="n">None</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;Failed to get token, error: Notifications are not allowed&quot;</span><span class="p">)</span>
+</span><span class="code-line">        <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span><span class="code-line">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="n">updatedPushToken</span> <span class="p">=</span> <span class="kc">nil</span>
+</span><span class="code-line">        <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line">    <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="bp">UIApplication</span><span class="p">.</span><span class="n">sharedApplication</span><span class="p">().</span><span class="n">registerForRemoteNotifications</span><span class="p">()</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="Store Registration"
+            data-sample="code-store-registration" 
+            data-pref="mobile"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/ip-messaging/pushiOS/remotenotifications/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="m">Objective-C</option>
+              
+                <option value="swift">Swift</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="m" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/api/chat/guides/remotenotifications.m"
+                class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span><span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didRegisterForRemoteNotificationsWithDeviceToken:</span><span class="p">(</span><span class="bp">NSData</span><span class="o">*</span><span class="p">)</span><span class="nv">deviceToken</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="n">deviceToken</span><span class="p">];</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span> <span class="o">=</span> <span class="n">deviceToken</span><span class="p">;</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span><span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFailToRegisterForRemoteNotificationsWithError:</span><span class="p">(</span><span class="bp">NSError</span><span class="o">*</span><span class="p">)</span><span class="nv">error</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Failed to get token, error: %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">);</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+              <pre data-ext="swift" 
+                data-version="default"
+                data-filename="remotenotifications.swift"
+                class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didRegisterForRemoteNotificationsWithDeviceToken</span> <span class="n">deviceToken</span><span class="p">:</span> <span class="bp">NSData</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="n">deviceToken</span><span class="p">)</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">updatedPushToken</span> <span class="p">=</span> <span class="n">deviceToken</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didFailToRegisterForRemoteNotificationsWithError</span> <span class="n">error</span><span class="p">:</span> <span class="bp">NSError</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">NSLog</span><span class="p">(</span><span class="s">&quot;Failed to get token, error: %@&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span><span class="code-line">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">        <span class="n">updatedPushToken</span> <span class="p">=</span> <span class="kc">nil</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="Did Finish Launching"
+            data-sample="code-did-finish-launching" 
+            data-pref="mobile"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/ip-messaging/pushiOS/didfinishlaunching/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="m">Objective-C</option>
+              
+                <option value="swift">Swift</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="m" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/api/chat/guides/didfinishlaunching.m"
+                class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span> <span class="p">{</span>
+</span></code></pre>
+            
+              <pre data-ext="swift" 
+                data-version="default"
+                data-filename="didfinishlaunching.swift"
+                class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span>
+</span><span class="code-line">    <span class="n">didFinishLaunchingWithOptions</span> <span class="n">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="bp">NSObject</span><span class="p">:</span> <span class="nb">AnyObject</span><span class="p">]?)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span> <span class="p">{</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="Notification Types"
+            data-sample="code-notification-types" 
+            data-pref="mobile"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/ip-messaging/pushiOS/systemversion/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="m">Objective-C</option>
+              
+                <option value="swift">Swift</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="m" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/api/chat/guides/systemversion.m"
+                class="codehilite"><code><span class="code-line"><span class="k">if</span> <span class="p">([[[</span><span class="bp">UIDevice</span> <span class="n">currentDevice</span><span class="p">]</span> <span class="n">systemVersion</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">8.0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">       <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="nl">registerUserNotificationSettings</span><span class="p">:[</span><span class="bp">UIUserNotificationSettings</span> <span class="nl">settingsForTypes</span><span class="p">:(</span><span class="n">UIUserNotificationTypeSound</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeAlert</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeBadge</span><span class="p">)</span> <span class="nl">categories</span><span class="p">:</span><span class="nb">nil</span><span class="p">]];</span>
+</span><span class="code-line"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">       <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="nl">registerForRemoteNotificationTypes</span><span class="p">:</span>
+</span><span class="code-line">        <span class="p">(</span><span class="n">UIUserNotificationTypeBadge</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeSound</span> <span class="o">|</span> <span class="n">UIUserNotificationTypeAlert</span><span class="p">)];</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+              <pre data-ext="swift" 
+                data-version="default"
+                data-filename="systemversion.swift"
+                class="codehilite"><code><span class="code-line"><span class="bp">UIApplication</span><span class="p">.</span><span class="n">sharedApplication</span><span class="p">().</span><span class="n">registerUserNotificationSettings</span><span class="p">(</span>
+</span><span class="code-line">    <span class="bp">UIUserNotificationSettings</span><span class="p">(</span>
+</span><span class="code-line">        <span class="n">forTypes</span><span class="p">:</span> <span class="p">[.</span><span class="n">Sound</span><span class="p">,</span> <span class="p">.</span><span class="n">Alert</span><span class="p">,</span> <span class="p">.</span><span class="n">Badge</span><span class="p">],</span>
+</span><span class="code-line">        <span class="n">categories</span><span class="p">:</span> <span class="kc">nil</span>
+</span><span class="code-line">    <span class="p">)</span>
+</span><span class="code-line"><span class="p">)</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="Did Receive Notification"
+            data-sample="code-did-receive-notification" 
+            data-pref="mobile"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/ip-messaging/pushiOS/didreceiveremote/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="m">Objective-C</option>
+              
+                <option value="swift">Swift</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="m" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/api/chat/guides/didreceiveremote.m"
+                class="codehilite"><code><span class="code-line"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="bp">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didReceiveRemoteNotification:</span><span class="p">(</span><span class="bp">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">userInfo</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span><span class="p">(</span><span class="n">application</span><span class="p">.</span><span class="n">applicationState</span> <span class="o">!=</span> <span class="n">UIApplicationStateActive</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Only address notifications received when not active</span>
+</span><span class="code-line">        <span class="c1">// If your application supports multiple types of push notifications, you may wish to limit which ones you send to the TwilioIPMessagingClient here</span>
+</span><span class="code-line">            <span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="o">&amp;&amp;</span> <span class="n">userInfo</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">                <span class="c1">// If your reference to the IP Messaging client exists and is initialized, send the notification to it</span>
+</span><span class="code-line">                <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">handleNotification</span><span class="p">:</span><span class="n">userInfo</span><span class="p">];</span>
+</span><span class="code-line">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">                <span class="c1">// Store the notification for later handling</span>
+</span><span class="code-line">                <span class="nb">self</span><span class="p">.</span><span class="n">receivedNotification</span> <span class="o">=</span> <span class="n">userInfo</span><span class="p">;</span>
+</span><span class="code-line">            <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+              <pre data-ext="swift" 
+                data-version="default"
+                data-filename="didreceiveremote.swift"
+                class="codehilite"><code><span class="code-line"><span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">application</span><span class="p">:</span> <span class="bp">UIApplication</span><span class="p">,</span> <span class="n">didReceiveRemoteNotification</span> <span class="n">userInfo</span><span class="p">:</span> <span class="p">[</span><span class="bp">NSObject</span> <span class="p">:</span> <span class="nb">AnyObject</span><span class="p">])</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="k">if</span> <span class="n">application</span><span class="p">.</span><span class="n">applicationState</span> <span class="o">!=</span> <span class="p">.</span><span class="n">Active</span> <span class="p">{</span> <span class="c1">// Only address notifications received when not active</span>
+</span><span class="code-line">        <span class="c1">// If your application supports multiple types of push notifications, you may wish to limit which ones you send to the TwilioIPMessagingClient here</span>
+</span><span class="code-line">        <span class="k">if</span> <span class="kd">let</span> <span class="nv">ipMessagingClient</span> <span class="p">=</span> <span class="n">ipMessagingClient</span> <span class="k">where</span> <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">userInfo</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="c1">// If your reference to the IP Messaging client exists and is initialized, send the notification to it</span>
+</span><span class="code-line">            <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">handleNotification</span><span class="p">(</span><span class="n">userInfo</span><span class="p">)</span>
+</span><span class="code-line">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line">            <span class="c1">// Store the notification for later handling</span>
+</span><span class="code-line">            <span class="n">receivedNotification</span> <span class="p">=</span> <span class="n">userInfo</span>
+</span><span class="code-line">        <span class="p">}</span>
+</span><span class="code-line">    <span class="p">}</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="Register Notifications"
+            data-sample="code-register-notifications" 
+            data-pref="mobile"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/ip-messaging/pushiOS/registernotifications/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="m">Objective-C</option>
+              
+                <option value="swift">Swift</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="m" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/api/chat/guides/registernotifications.m"
+                class="codehilite"><code><span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">registerWithToken</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">updatedPushToken</span><span class="p">];</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">receivedNotification</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">ipMessagingClient</span> <span class="nl">handleNotification</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">receivedNotification</span><span class="p">];</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+              <pre data-ext="swift" 
+                data-version="default"
+                data-filename="registernotifications.swift"
+                class="codehilite"><code><span class="code-line"><span class="k">if</span> <span class="kd">let</span> <span class="nv">updatedPushToken</span> <span class="p">=</span> <span class="n">updatedPushToken</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">registerWithToken</span><span class="p">(</span><span class="n">updatedPushToken</span><span class="p">)</span>
+</span><span class="code-line"><span class="p">}</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="kd">let</span> <span class="nv">receivedNotification</span> <span class="p">=</span> <span class="n">receivedNotification</span> <span class="p">{</span>
+</span><span class="code-line">    <span class="n">ipMessagingClient</span><span class="p">.</span><span class="n">handleNotification</span><span class="p">(</span><span class="n">receivedNotification</span><span class="p">)</span>
+</span><span class="code-line"><span class="p">}</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
+  </div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/api/chat/guides/push-notifications-ios by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:02 GMT -->
+</html>

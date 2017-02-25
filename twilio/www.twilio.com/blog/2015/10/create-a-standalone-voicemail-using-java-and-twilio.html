@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Create a Standalone Voicemail Using Java and Twilio &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Create a Standalone Voicemail Using Java and Twilio Comments Feed" href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Chris Hranj');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Java,SMS,Tomcat,Voice');
+	__gaTracker('set', 'dimension8', '2015-10-16T09:00:05+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=16178' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F10%2Fcreate-a-standalone-voicemail-using-java-and-twilio.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F10%2Fcreate-a-standalone-voicemail-using-java-and-twilio.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-16178 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-16178" class="row post-16178 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-java tag-sms tag-tomcat tag-voice">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Create a Standalone Voicemail Using Java and Twilio</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="263" src="https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java.jpg" class="img-responsive wp-post-image" alt="" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java.jpg 645w, https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java-300x123.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java-200x82.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/chranj">Chris Hranj</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" rel="bookmark"><time class="entry-date published" datetime="2015-10-16T09:00:05+00:00">October 16, 2015</time><time class="updated" datetime="2015-10-16T04:49:57+00:00">October 16, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" data-text="Create a Standalone Voicemail Using Java and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>Why is receiving voicemails still such a pain in 2015? With landlines you need to deal with overpriced and outdated hardware. On mobile phones you need to call a number, enter a password, and sift through the voicemails until you reach the one you want. Wouldn’t it be easier to just receive a text message to listen to a new voicemail? Fortunately, Twilio plus a little Java code gives you the power to do just that.</p>
+<p>In this blog post we will use <a href="http://tomcat.apache.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://tomcat.apache.org/', 'Apache Tomcat');">Apache Tomcat</a> and Twilio to create a virtual answering machine that will receive and record all incoming calls. The answering machine will then text you a link to hear the message that was left for you.</p>
+<p><img class="&quot; aligncenter" style="width: 264.70px; height: 470.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2015/10/Qx3cVNZX3o-QNi8hMjq9GsCkW3Ca9OwpUuFbXMieLKxWIj-uSq-67Y-nlbMVardgA7qKe8qHRlVOw61ElZab1ZizMkh-QT4cse1ncsJKof227O9Jllg8PLkgUMBgzs6tMbxnlTQ.png" alt="2015-09-10 01.45.06.png" /></p>
+<p>If you don’t want to follow along and just want to see the code, it has all been open sourced in <a href="https://github.com/Brodan/standalone-voicemail-java" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/Brodan/standalone-voicemail-java', 'this');">this</a> Github repository.</p>
+<h1><a name="h.oggr0nvguy90"></a>Getting Started</h1>
+<p>The first step to building our answering machine is to set up our environment. Let’s walk through the setup process now.</p>
+<p>We will be using Tomcat to run our servlets. <a href="https://www.twilio.com/docs/quickstart/java/devenvironment" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/quickstart/java/devenvironment', 'Twilio’s Quickstart');">Twilio’s Quickstart</a> can help you get started with Tomcat and the Twilio SDK. Alternatively, you can just download <a href="https://github.com/Brodan/standalone-voicemail-java/blob/master/call-recording-java-quickstart.zip" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/Brodan/standalone-voicemail-java/blob/master/call-recording-java-quickstart.zip');">this archive</a> I’ve put together that contains Tomcat 8.0.26 and the Twilio Java SDK 4.5.0.</p>
+<p>Your file structure should look similar to this once you’ve extracted the archive or finished going through the quickstart:</p>
+<p><img class="&quot; aligncenter" style="width: 377.00px; height: 381.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2015/10/VgeOgfqzDNM8XCotEp_urcabqyreHnD7NkKhb_zoGMKxpkLBGyZE7NSU4_G1ubfuKk_cmhxWzZvswpZBpXMHyEdvEtPT38arOCtojHM6Cub_cViMUMIpUyeXE_yoKQniMLOxoo.png" alt="call-recording-java_directory.png" />There may be a few extra folders in your <strong>/webapps/</strong> directory that came with Apache. You don’t need to worry about removing them as they are contain the Tomcat homepage and documentation pages. You will not see <strong>AnsweringMachine.java</strong>, <strong>CallRecorder.java</strong>, or <strong>web.xml</strong> because we will be creating those files ourselves.</p>
+<p>If you’ve never used Tomcat before, we should first test that our servlets can run locally. Open a terminal, navigate to the top of your project directory and run the following:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa4ff32430613857" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ sh bin/startup.sh</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa4ff32430613857-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa4ff32430613857-1">$ sh bin/startup.sh</div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>If you run into an error saying 
+			<span id="crayon-58794daa4ff45965138114" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">Cannot find ./bin/catalina.sh</span></span> we can easily fix this by changing some file permissions in our <strong>bin/</strong> directory. Run the following command in your terminal from the top of your project directory to do so (<a href="http://saw.tl/drupal/tomcat-cannot-find-bincatalinash.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://saw.tl/drupal/tomcat-cannot-find-bincatalinash.html', 'source');">source</a>):</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa4ff50089247549" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ chmod x bin/*.sh
+$ chmod x bin/*.jar</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa4ff50089247549-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff50089247549-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa4ff50089247549-1">$ chmod x bin/*.sh</div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff50089247549-2">$ chmod x bin/*.jar</div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>Otherwise, you should see Tomcat started in your terminal. Open a web browser and navigate to <a href="http://localhost:8080/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://localhost:8080/', 'http://localhost:8080/');">http://localhost:8080/</a> and you should see the Apache Tomcat landing page:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 178.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2015/10/SbOix58o1jZd6_OvwlmHoLgiaQqaR-PJEnbn683Sf9jhfAVkLtr0UB9Ka2dR6DefyWZPZ1K2oGwm_K5dfbFMNmxTZuv5hZ0E9mXY8ikGV6nw3YMnd1B54Xlxvr2CCJn5qQs1600.png" alt="U3ytwvu3Zkqa71lw6FSjFWAxHyQqsCCXfrpXNSbrxRHyNCQE30wCMWkEGtBqsygpJOmONLALsdA2ox04VnrVVaxY31BDxCxsBkApbwvs0x17XbLVO4rb0MKQOnPph8AY7trlQ6E.png" /></p>
+<p>If you see a page like the one above then your environment is setup correctly and we can move on!</p>
+<p>You can shut down your Tomcat server at any time by running the following from the top of your project directory:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa4ff60816050476" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ sh bin/shutdown.sh</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa4ff60816050476-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa4ff60816050476-1">$ sh bin/shutdown.sh</div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p>If your terminal shows an error saying 
+			<span id="crayon-58794daa4ff70174544636" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">java.net.ConnectException: Connection refused</span></span> do not worry, it just means that your server is already not running so there is nothing for the script to shut down.</p>
+<h1><a name="h.cgjx5osp418v"></a>*Ring Ring*</h1>
+<p>Now that our setup is out of the way it’s time to start building our web application. We will start by mapping our endpoints to servlets in our server’s <strong>web.xml</strong> file, which will be located in<strong> /webapps/twilio/WEB-INF/</strong>. That file is going to look as such:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa4ff82358187616" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-mixed-highlight" title="Contains Mixed Languages"></span><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
+&lt;web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4"&gt;
+
+    &lt;display-name&gt;Brodan's Voicemail&lt;/display-name&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;AnsweringMachine&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.twilio.AnsweringMachine&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;AnsweringMachine&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/handle-call&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-2">2</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-4">4</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-6">6</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-8">8</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-10">10</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-12">12</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-14">14</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-16">16</div><div class="crayon-num" data-line="crayon-58794daa4ff82358187616-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ff82358187616-18">18</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa4ff82358187616-1"><span class="crayon-ta">&lt;?</span><span class="crayon-e">xml </span><span class="crayon-i">version</span><span class="crayon-o">=</span><span class="crayon-s">"1.0"</span><span class="crayon-h"> </span><span class="crayon-i">encoding</span><span class="crayon-o">=</span><span class="crayon-s">"ISO-8859-1"</span><span class="crayon-ta">?&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-2"><span class="crayon-o">&lt;</span><span class="crayon-i">web</span><span class="crayon-o">-</span><span class="crayon-e">app </span><span class="crayon-v">xmlns</span><span class="crayon-o">=</span><span class="crayon-s">"http://java.sun.com/xml/ns/j2ee"</span></div><div class="crayon-line" id="crayon-58794daa4ff82358187616-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">xmlns</span><span class="crayon-o">:</span><span class="crayon-v">xsi</span><span class="crayon-o">=</span><span class="crayon-s">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">xsi</span><span class="crayon-o">:</span><span class="crayon-v">schemaLocation</span><span class="crayon-o">=</span><span class="crayon-s">"http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"</span></div><div class="crayon-line" id="crayon-58794daa4ff82358187616-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">version</span><span class="crayon-o">=</span><span class="crayon-s">"2.4"</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-6">&nbsp;</div><div class="crayon-line" id="crayon-58794daa4ff82358187616-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">display</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span><span class="crayon-i">Brodan</span>'<span class="crayon-i">s</span><span class="crayon-h"> </span><span class="crayon-i">Voicemail</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">display</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa4ff82358187616-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span><span class="crayon-i">AnsweringMachine</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-t">class</span><span class="crayon-o">&gt;</span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-i">AnsweringMachine</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-t">class</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa4ff82358187616-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-12">&nbsp;</div><div class="crayon-line" id="crayon-58794daa4ff82358187616-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">mapping</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span><span class="crayon-i">AnsweringMachine</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa4ff82358187616-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">url</span><span class="crayon-o">-</span><span class="crayon-i">pattern</span><span class="crayon-o">&gt;</span><span class="crayon-o">/</span><span class="crayon-i">handle</span><span class="crayon-o">-</span><span class="crayon-i">call</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">url</span><span class="crayon-o">-</span><span class="crayon-i">pattern</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">mapping</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa4ff82358187616-17">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ff82358187616-18"><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">web</span><span class="crayon-o">-</span><span class="crayon-i">app</span><span class="crayon-o">&gt;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0142 seconds] -->
+<p>The first few lines are just XML meta-data that we don’t need to modify. The 
+			<span id="crayon-58794daa4ff93975642569" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">&lt;servlet&gt;</span></span> block is where we are naming our servlet and telling Tomcat to look at the <strong>com.twilio.AnsweringMachine</strong> path for a Java class.</p>
+<p>The 
+			<span id="crayon-58794daa4ffa4774213413" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">&lt;servlet-mapping&gt;</span></span> block specifies that requests made to the <strong>/handle-call</strong> endpoint should be handled by the servlet named 
+			<span id="crayon-58794daa4ffb5393716604" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">AnsweringMachine</span></span></span> that we defined just above it. Let’s create the 
+			<span id="crayon-58794daa4ffc6721502503" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">AnsweringMachine</span></span></span> class now!</p>
+<p><img class="aligncenter" src="http://i.giphy.com/kxbkI69yXZcgE.gif" alt="Ring Ring" width="376" height="282" /></p>
+<h1><a name="h.njm0gahpr1dq"></a>Please Leave a Message After the Beep</h1>
+<p>Our 
+			<span id="crayon-58794daa4ffd8456266131" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">AnsweringMachine</span></span></span> servlet will receive all incoming calls to our “voicemail”. By “voicemail” I’m referring to the Twilio phone number we will purchase and set up later on in the post.</p>
+<p>Navigate to <strong>/webapps/twilio/WEB-INF/classes/com/twilio</strong> and create a new file called <strong>AnsweringMachine.java</strong>. The servlet is going to return <a href="https://www.twilio.com/docs/api/twiml" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml', 'TwiML');">TwiML</a> instructions to record all incoming calls using the <a href="https://www.twilio.com/docs/api/twiml/record" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml/record', '&lt;Record&gt;');">&lt;Record&gt;</a> verb.</p>
+<p>We first need to import a number of packages in order to use servlets and the Twilio library. Place the following code at the top of your file:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa4ffea609727360" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+package com.twilio;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import com.twilio.sdk.verbs.TwiMLResponse;
+import com.twilio.sdk.verbs.TwiMLException;
+
+import com.twilio.sdk.verbs.Record;
+import com.twilio.sdk.verbs.Say;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa4ffea609727360-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ffea609727360-2">2</div><div class="crayon-num" data-line="crayon-58794daa4ffea609727360-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ffea609727360-4">4</div><div class="crayon-num" data-line="crayon-58794daa4ffea609727360-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ffea609727360-6">6</div><div class="crayon-num" data-line="crayon-58794daa4ffea609727360-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ffea609727360-8">8</div><div class="crayon-num" data-line="crayon-58794daa4ffea609727360-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa4ffea609727360-10">10</div><div class="crayon-num" data-line="crayon-58794daa4ffea609727360-11">11</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa4ffea609727360-1"><span class="crayon-t">package</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-i">twilio</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ffea609727360-2"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">javax</span><span class="crayon-sy">.</span><span class="crayon-v">servlet</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-i">HttpServlet</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa4ffea609727360-3"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">javax</span><span class="crayon-sy">.</span><span class="crayon-v">servlet</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-i">HttpServletRequest</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ffea609727360-4"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">javax</span><span class="crayon-sy">.</span><span class="crayon-v">servlet</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-i">HttpServletResponse</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa4ffea609727360-5"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">java</span><span class="crayon-sy">.</span><span class="crayon-v">io</span><span class="crayon-sy">.</span><span class="crayon-i">IOException</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ffea609727360-6">&nbsp;</div><div class="crayon-line" id="crayon-58794daa4ffea609727360-7"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-v">verbs</span><span class="crayon-sy">.</span><span class="crayon-i">TwiMLResponse</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ffea609727360-8"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-v">verbs</span><span class="crayon-sy">.</span><span class="crayon-i">TwiMLException</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa4ffea609727360-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794daa4ffea609727360-10"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-v">verbs</span><span class="crayon-sy">.</span><span class="crayon-i">Record</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa4ffea609727360-11"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-v">verbs</span><span class="crayon-sy">.</span><span class="crayon-i">Say</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0071 seconds] -->
+<p>Our 
+			<span id="crayon-58794daa4fffb734020948" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">AnsweringMachine</span></span></span> class is going to have a single method called 
+			<span id="crayon-58794daa50009652268579" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">service</span></span></span> which will handle incoming requests. Use the code below to create the 
+			<span id="crayon-58794daa50014019449989" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">AnsweringMachine</span></span></span> class and 
+			<span id="crayon-58794daa5001e902860779" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">service</span></span></span> method:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa50028149740390" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+public class AnsweringMachine extends HttpServlet {
+
+    public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TwiMLResponse twiml = new TwiMLResponse();
+
+        Say pleaseLeaveMessage = new Say("Please leave your message for Brodan now.");
+        // Record the caller's voice.
+        Record record = new Record();
+        record.setMaxLength(60);
+        record.setTimeout(5);
+        record.setAction("/twilio/handle-recording");
+        record.setPlayBeep(true);
+
+        try {
+            twiml.append(pleaseLeaveMessage);
+            twiml.append(record);
+        } catch (TwiMLException e) {
+            e.printStackTrace();
+        }
+
+        // Respond with TwiML
+        response.setContentType("application/xml");
+        response.getWriter().print(twiml.toXML()); 
+    }
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa50028149740390-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-2">2</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-4">4</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-6">6</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-8">8</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-10">10</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-12">12</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-14">14</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-16">16</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-18">18</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-20">20</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-22">22</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50028149740390-24">24</div><div class="crayon-num" data-line="crayon-58794daa50028149740390-25">25</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa50028149740390-1"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">AnsweringMachine</span><span class="crayon-h"> </span><span class="crayon-r">extends</span><span class="crayon-h"> </span><span class="crayon-e">HttpServlet</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-2">&nbsp;</div><div class="crayon-line" id="crayon-58794daa50028149740390-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-e">service</span><span class="crayon-sy">(</span><span class="crayon-e">HttpServletRequest </span><span class="crayon-i">request</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">HttpServletResponse </span><span class="crayon-i">response</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-m">throws</span><span class="crayon-h"> </span><span class="crayon-e">IOException</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">TwiMLResponse </span><span class="crayon-v">twiml</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">TwiMLResponse</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">Say </span><span class="crayon-v">pleaseLeaveMessage</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">Say</span><span class="crayon-sy">(</span><span class="crayon-s">"Please leave your message for Brodan now."</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// Record the caller's voice.</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">Record </span><span class="crayon-v">record</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">Record</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">record</span><span class="crayon-sy">.</span><span class="crayon-e">setMaxLength</span><span class="crayon-sy">(</span><span class="crayon-cn">60</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">record</span><span class="crayon-sy">.</span><span class="crayon-e">setTimeout</span><span class="crayon-sy">(</span><span class="crayon-cn">5</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">record</span><span class="crayon-sy">.</span><span class="crayon-e">setAction</span><span class="crayon-sy">(</span><span class="crayon-s">"/twilio/handle-recording"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">record</span><span class="crayon-sy">.</span><span class="crayon-e">setPlayBeep</span><span class="crayon-sy">(</span><span class="crayon-t">true</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">try</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-i">pleaseLeaveMessage</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">append</span><span class="crayon-sy">(</span><span class="crayon-i">record</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-st">catch</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">TwiMLException</span><span class="crayon-h"> </span><span class="crayon-i">e</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">e</span><span class="crayon-sy">.</span><span class="crayon-e">printStackTrace</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-20">&nbsp;</div><div class="crayon-line" id="crayon-58794daa50028149740390-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// Respond with TwiML</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">setContentType</span><span class="crayon-sy">(</span><span class="crayon-s">"application/xml"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">getWriter</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">toXML</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50028149740390-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794daa50028149740390-25"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0123 seconds] -->
+<p>You can change “Brodan” to any name you wish in the 
+			<span id="crayon-58794daa50033562826360" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">pleaseLeaveMessage</span></span></span> object. The 
+			<span id="crayon-58794daa5003d831126407" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">TwiMLResponse</span></span></span> object we are building allows us to generate a valid TwiML file without actually writing any XML. 
+			<span id="crayon-58794daa50047672553203" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">getWriter</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">toXML</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></span></span> is going to return a response equivalent to the following XML:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa50051880628155" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+&lt;Response&gt;
+    &lt;Say&gt;Please leave your message for Brodan now.&lt;/Say&gt;
+    &lt;Record maxLength="60" timeout="5" action="https://www.twilio.com/blog/twilio/handle-recording" playBeep="true"/&gt;
+&lt;/Response&gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa50051880628155-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50051880628155-2">2</div><div class="crayon-num" data-line="crayon-58794daa50051880628155-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50051880628155-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa50051880628155-1"><span class="crayon-o">&lt;</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50051880628155-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">Say</span><span class="crayon-o">&gt;</span><span class="crayon-e">Please </span><span class="crayon-e">leave </span><span class="crayon-e">your </span><span class="crayon-e">message </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">Brodan </span><span class="crayon-v">now</span><span class="crayon-sy">.</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Say</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa50051880628155-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-e">Record </span><span class="crayon-v">maxLength</span><span class="crayon-o">=</span><span class="crayon-s">"60"</span><span class="crayon-h"> </span><span class="crayon-v">timeout</span><span class="crayon-o">=</span><span class="crayon-s">"5"</span><span class="crayon-h"> </span><span class="crayon-v">action</span><span class="crayon-o">=</span><span class="crayon-s">"/twilio/handle-recording"</span><span class="crayon-h"> </span><span class="crayon-v">playBeep</span><span class="crayon-o">=</span><span class="crayon-s">"true"</span><span class="crayon-o">/</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50051880628155-4"><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0030 seconds] -->
+<p>You’ll notice we are sending our recording to a <strong>/twilio/handling-recording</strong> endpoint but we don’t have a 
+			<span id="crayon-58794daa5005b432728816" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">&lt;servlet-mapping&gt;</span></span> block for that endpoint in our <strong>web.xml</strong> file. To handle this, we need to create another servlet.</p>
+<p>Open your <strong>web.xml</strong> file again and add the following blocks above 
+			<span id="crayon-58794daa50065555062716" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">&lt;/web-app&gt;</span></span> to create our second servlet:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa5006f038787988" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+&lt;servlet&gt;
+    &lt;servlet-name&gt;CallRecorder&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.twilio.CallRecorder&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;CallRecorder&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/handle-recording&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa5006f038787988-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5006f038787988-2">2</div><div class="crayon-num" data-line="crayon-58794daa5006f038787988-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5006f038787988-4">4</div><div class="crayon-num" data-line="crayon-58794daa5006f038787988-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5006f038787988-6">6</div><div class="crayon-num" data-line="crayon-58794daa5006f038787988-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5006f038787988-8">8</div><div class="crayon-num" data-line="crayon-58794daa5006f038787988-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa5006f038787988-1"><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5006f038787988-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span><span class="crayon-i">CallRecorder</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa5006f038787988-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-t">class</span><span class="crayon-o">&gt;</span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-i">CallRecorder</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-t">class</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5006f038787988-4"><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa5006f038787988-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5006f038787988-6"><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">mapping</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa5006f038787988-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span><span class="crayon-i">CallRecorder</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5006f038787988-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">url</span><span class="crayon-o">-</span><span class="crayon-i">pattern</span><span class="crayon-o">&gt;</span><span class="crayon-o">/</span><span class="crayon-i">handle</span><span class="crayon-o">-</span><span class="crayon-i">recording</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">url</span><span class="crayon-o">-</span><span class="crayon-i">pattern</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58794daa5006f038787988-9"><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-i">mapping</span><span class="crayon-o">&gt;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0050 seconds] -->
+<p>This mapping will send any requests made to the <strong>/twilio/handle-recording</strong> endpoint to the 
+			<span id="crayon-58794daa50079157805248" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">CallRecorder</span></span></span> servlet to be handled. We need to create the 
+			<span id="crayon-58794daa50084228925186" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">CallRecorder</span></span></span> class as well.</p>
+<h1><a name="h.12jvbjokfuaj"></a>Beeeeeeeeeeeep…</h1>
+<p>Navigate to<strong> /webapps/twilio/WEB-INF/classes/com/twilio</strong> and create another new file named <strong>CallRecorder.java</strong>. This servlet will send an outgoing messages notifying the user that they received a voicemail and will contain a link to the recording of the message. Lucky for us, Twilio takes care of storing the recording so we do not have to worry about writing files to our server.</p>
+<p>We need to import a number of packages again. Place the following code at the top of your file:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa5008e260857171" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+package com.twilio;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.instance.Message;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa5008e260857171-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5008e260857171-2">2</div><div class="crayon-num" data-line="crayon-58794daa5008e260857171-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5008e260857171-4">4</div><div class="crayon-num" data-line="crayon-58794daa5008e260857171-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5008e260857171-6">6</div><div class="crayon-num" data-line="crayon-58794daa5008e260857171-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5008e260857171-8">8</div><div class="crayon-num" data-line="crayon-58794daa5008e260857171-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5008e260857171-10">10</div><div class="crayon-num" data-line="crayon-58794daa5008e260857171-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5008e260857171-12">12</div><div class="crayon-num" data-line="crayon-58794daa5008e260857171-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa5008e260857171-14">14</div><div class="crayon-num" data-line="crayon-58794daa5008e260857171-15">15</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa5008e260857171-1"><span class="crayon-t">package</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-i">twilio</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5008e260857171-2"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">javax</span><span class="crayon-sy">.</span><span class="crayon-v">servlet</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-i">HttpServlet</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa5008e260857171-3"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">javax</span><span class="crayon-sy">.</span><span class="crayon-v">servlet</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-i">HttpServletRequest</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5008e260857171-4"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">javax</span><span class="crayon-sy">.</span><span class="crayon-v">servlet</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-i">HttpServletResponse</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa5008e260857171-5"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">java</span><span class="crayon-sy">.</span><span class="crayon-v">io</span><span class="crayon-sy">.</span><span class="crayon-i">IOException</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5008e260857171-6">&nbsp;</div><div class="crayon-line" id="crayon-58794daa5008e260857171-7"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">java</span><span class="crayon-sy">.</span><span class="crayon-v">util</span><span class="crayon-sy">.</span><span class="crayon-i">ArrayList</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5008e260857171-8"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">java</span><span class="crayon-sy">.</span><span class="crayon-v">util</span><span class="crayon-sy">.</span><span class="crayon-i">List</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa5008e260857171-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5008e260857171-10"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-i">TwilioRestClient</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa5008e260857171-11"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-i">TwilioRestException</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5008e260857171-12"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-v">resource</span><span class="crayon-sy">.</span><span class="crayon-v">factory</span><span class="crayon-sy">.</span><span class="crayon-i">MessageFactory</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa5008e260857171-13"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">com</span><span class="crayon-sy">.</span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">sdk</span><span class="crayon-sy">.</span><span class="crayon-v">resource</span><span class="crayon-sy">.</span><span class="crayon-v">instance</span><span class="crayon-sy">.</span><span class="crayon-i">Message</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa5008e260857171-14"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">org</span><span class="crayon-sy">.</span><span class="crayon-v">apache</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-i">NameValuePair</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa5008e260857171-15"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">org</span><span class="crayon-sy">.</span><span class="crayon-v">apache</span><span class="crayon-sy">.</span><span class="crayon-v">http</span><span class="crayon-sy">.</span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-i">BasicNameValuePair</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0085 seconds] -->
+<p>Our 
+			<span id="crayon-58794daa50098325029385" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">CallRecorder</span></span></span> class should be set up like this:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa500a2437455545" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+public class CallRecorder extends HttpServlet {
+    public void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        sendSMS(request.getParameter("From"), request.getParameter("RecordingUrl"));
+    }
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa500a2437455545-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa500a2437455545-2">2</div><div class="crayon-num" data-line="crayon-58794daa500a2437455545-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa500a2437455545-4">4</div><div class="crayon-num" data-line="crayon-58794daa500a2437455545-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa500a2437455545-1"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">CallRecorder</span><span class="crayon-h"> </span><span class="crayon-r">extends</span><span class="crayon-h"> </span><span class="crayon-e">HttpServlet</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa500a2437455545-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-e">service</span><span class="crayon-sy">(</span><span class="crayon-e">HttpServletRequest </span><span class="crayon-i">request</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">HttpServletResponse </span><span class="crayon-i">response</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-m">throws</span><span class="crayon-h"> </span><span class="crayon-e">IOException</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794daa500a2437455545-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">sendSMS</span><span class="crayon-sy">(</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-e">getParameter</span><span class="crayon-sy">(</span><span class="crayon-s">"From"</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-e">getParameter</span><span class="crayon-sy">(</span><span class="crayon-s">"RecordingUrl"</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa500a2437455545-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794daa500a2437455545-5"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0040 seconds] -->
+<p>The service method is simply going to pass a couple of the incoming request’s parameters into a new method named 
+			<span id="crayon-58794daa500ac467435354" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">sendSMS</span></span></span> which we will create in a minute.</p>
+<p>We need to configure our account credentials in order to authenticate with Twilio and send outgoing messages. We will define some constants to do this.</p>
+<p>Add the following lines right below 
+			<span id="crayon-58794daa500b7262147086" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">CallRecorder</span><span class="crayon-h"> </span><span class="crayon-r">extends</span><span class="crayon-h"> </span><span class="crayon-e">HttpServlet</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></span></span> :</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa500c1653070344" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+public static final String ACCOUNT_SID = "YOUR_ACCOUNT_SID";
+public static final String AUTH_TOKEN = "YOUR_AUTH_TOKEN";
+public static final String YOUR_NUMBER = " 15555555555";
+public static final String TWILIO_NUMBER = " 15555555555";</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa500c1653070344-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa500c1653070344-2">2</div><div class="crayon-num" data-line="crayon-58794daa500c1653070344-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa500c1653070344-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa500c1653070344-1"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-m">static</span><span class="crayon-h"> </span><span class="crayon-m">final</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-h"> </span><span class="crayon-v">ACCOUNT_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"YOUR_ACCOUNT_SID"</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa500c1653070344-2"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-m">static</span><span class="crayon-h"> </span><span class="crayon-m">final</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-h"> </span><span class="crayon-v">AUTH_TOKEN</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"YOUR_AUTH_TOKEN"</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa500c1653070344-3"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-m">static</span><span class="crayon-h"> </span><span class="crayon-m">final</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-h"> </span><span class="crayon-v">YOUR_NUMBER</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">" 15555555555"</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa500c1653070344-4"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-m">static</span><span class="crayon-h"> </span><span class="crayon-m">final</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-h"> </span><span class="crayon-v">TWILIO_NUMBER</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">" 15555555555"</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0039 seconds] -->
+<p>Your 
+			<span id="crayon-58794daa500cb714869723" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">ACCOUNT_SID</span></span></span>, 
+			<span id="crayon-58794daa500d5110255961" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">AUTH_TOKEN</span></span></span>, and 
+			<span id="crayon-58794daa500df772988634" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">TWILIO_NUMBER</span></span></span> can all be found in your Twilio account dashboard. Set 
+			<span id="crayon-58794daa500e9450043424" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">YOUR_NUMBER</span></span></span> to your actual phone number.</p>
+<p>The 
+			<span id="crayon-58794daa500f3851243041" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">sendSMS</span></span></span> method should be placed inside your 
+			<span id="crayon-58794daa500fd345412471" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">CallRecorder</span></span></span> class, right below the 
+			<span id="crayon-58794daa50107079595143" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">service</span></span></span> method. Use the following code to define that method:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa50111546911519" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+    public void sendSMS(String from, String recordingLink) {
+        try {
+            TwilioRestClient client = new TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN);
+
+            // Build a filter for the MessageList
+            List&lt;NameValuePair&gt; params = new ArrayList&lt;NameValuePair&gt;();
+            params.add(new BasicNameValuePair("Body", 
+                "You've received a voicemail from " + 
+                from + 
+                ". Use the following link to hear this message: \n" +
+                recordingLink
+                )
+            );
+            params.add(new BasicNameValuePair("To", YOUR_NUMBER));
+            params.add(new BasicNameValuePair("From", TWILIO_NUMBER));
+         
+            MessageFactory messageFactory = client.getAccount().getMessageFactory();
+            Message message = messageFactory.create(params);
+            System.out.println(message.getSid());
+        }
+        catch (TwilioRestException e) {
+            System.out.println(e.getErrorMessage());
+        }
+    }</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa50111546911519-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-2">2</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-4">4</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-6">6</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-8">8</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-10">10</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-12">12</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-14">14</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-16">16</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-18">18</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-20">20</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-22">22</div><div class="crayon-num" data-line="crayon-58794daa50111546911519-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50111546911519-24">24</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa50111546911519-1"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-e">sendSMS</span><span class="crayon-sy">(</span><span class="crayon-t">String</span><span class="crayon-h"> </span><span class="crayon-i">from</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-h"> </span><span class="crayon-i">recordingLink</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">try</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">TwilioRestClient </span><span class="crayon-v">client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">TwilioRestClient</span><span class="crayon-sy">(</span><span class="crayon-i">ACCOUNT_SID</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">AUTH_TOKEN</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-4">&nbsp;</div><div class="crayon-line" id="crayon-58794daa50111546911519-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">// Build a filter for the MessageList</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">List</span><span class="crayon-e ">&lt;NameValuePair&gt;</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-i">ArrayList</span><span class="crayon-e ">&lt;NameValuePair&gt;</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">params</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">BasicNameValuePair</span><span class="crayon-sy">(</span><span class="crayon-s">"Body"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"You've received a voicemail from "</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794daa50111546911519-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">from</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">". Use the following link to hear this message: \n"</span><span class="crayon-h"> </span><span class="crayon-o">+</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">recordingLink</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">params</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">BasicNameValuePair</span><span class="crayon-sy">(</span><span class="crayon-s">"To"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">YOUR_NUMBER</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">params</span><span class="crayon-sy">.</span><span class="crayon-e">add</span><span class="crayon-sy">(</span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">BasicNameValuePair</span><span class="crayon-sy">(</span><span class="crayon-s">"From"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">TWILIO_NUMBER</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></div><div class="crayon-line" id="crayon-58794daa50111546911519-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">MessageFactory </span><span class="crayon-v">messageFactory</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">getAccount</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">getMessageFactory</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">Message </span><span class="crayon-v">message</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">messageFactory</span><span class="crayon-sy">.</span><span class="crayon-e">create</span><span class="crayon-sy">(</span><span class="crayon-i">params</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">System</span><span class="crayon-sy">.</span><span class="crayon-v">out</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-e">getSid</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-20"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">catch</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">TwilioRestException</span><span class="crayon-h"> </span><span class="crayon-i">e</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">System</span><span class="crayon-sy">.</span><span class="crayon-v">out</span><span class="crayon-sy">.</span><span class="crayon-e">println</span><span class="crayon-sy">(</span><span class="crayon-v">e</span><span class="crayon-sy">.</span><span class="crayon-e">getErrorMessage</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794daa50111546911519-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50111546911519-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0118 seconds] -->
+<p>Here we are instantiating a 
+			<span id="crayon-58794daa5011b294800051" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">TwilioRestClient</span></span></span> object with our account credentials and using them to send an outgoing SMS using a 
+			<span id="crayon-58794daa50125303689632" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">MessageFactory</span></span></span> object. The text message will contain a message body informing the user of their new voicemail, and it will be sent to the specified “To” number from the specified “From” number. Feel free to modify the message body to your liking.</p>
+<p>That’s the last of the Java we will need to write. Take a minute to celebrate!</p>
+<p><img class="aligncenter" src="http://i.giphy.com/J4ufHCZTcroys.gif" alt="Celebrate" width="500" height="269" /></p>
+<h1><a name="h.43xm9xnn266j"></a>Plugging In Our Answering Machine</h1>
+<p>We need to compile our new <strong>CallRecorder.java</strong> and <strong>AnsweringMachine.java</strong> files before our server can make use of them. Run the following command from the top of your project directory to compile them:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794daa50130182453668" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+javac -cp webapps/twilio/WEB-INF/lib/twilio-java-sdk-4.5.0-jar-with-dependencies.jar:lib/servlet-api.jar \
+webapps/twilio/WEB-INF/classes/com/twilio/*.java</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794daa50130182453668-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794daa50130182453668-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794daa50130182453668-1"><span class="crayon-i">javac</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-r">cp</span><span class="crayon-h"> </span><span class="crayon-i">webapps</span><span class="crayon-o">/</span><span class="crayon-i">twilio</span><span class="crayon-o">/</span><span class="crayon-i">WEB</span><span class="crayon-o">-</span><span class="crayon-i">INF</span><span class="crayon-o">/</span><span class="crayon-i">lib</span><span class="crayon-o">/</span><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-i">java</span><span class="crayon-o">-</span><span class="crayon-i">sdk</span><span class="crayon-o">-</span><span class="crayon-cn">4.5.0</span><span class="crayon-o">-</span><span class="crayon-i">jar</span><span class="crayon-o">-</span><span class="crayon-i">with</span><span class="crayon-o">-</span><span class="crayon-v">dependencies</span><span class="crayon-e">.jar</span><span class="crayon-o">:</span><span class="crayon-i">lib</span><span class="crayon-o">/</span><span class="crayon-i">servlet</span><span class="crayon-o">-</span><span class="crayon-v">api</span><span class="crayon-e">.jar</span><span class="crayon-h"> </span><span class="crayon-sy">\</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794daa50130182453668-2"><span class="crayon-i">webapps</span><span class="crayon-o">/</span><span class="crayon-i">twilio</span><span class="crayon-o">/</span><span class="crayon-i">WEB</span><span class="crayon-o">-</span><span class="crayon-i">INF</span><span class="crayon-o">/</span><span class="crayon-i">classes</span><span class="crayon-o">/</span><span class="crayon-i">com</span><span class="crayon-o">/</span><span class="crayon-i">twilio</span><span class="crayon-o">/</span><span class="crayon-o">*</span><span class="crayon-e">.java</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0039 seconds] -->
+<p>Here we are specifying the paths of the Java class files for the classes we imported at the top of each .java file. Any time you make changes to your .java files you will need to run this command to recompile them. If you are receiving compilation errors then the classpaths specified in your command are not correct or you are running the command from the wrong directory.</p>
+<p>Next we need to purchase the Twilio phone number that will act as our voicemail. Follow along with this wonderful gif to do that:<br />
+<img class="&quot; aligncenter" style="width: 624.00px; height: 538.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2015/10/IkRCToeUM3hNj18cD6xwJSLSF52-PwCGW8K1VQIYWJhNjBRqfI5vvIKxjw79iC_PQcARmf9EbvH3QkwlYAuCeDoTHR9eghjLp5nqNug0qKLmEV1WK_QhZsNk2ozb-Kpv1gs1600.png" alt="qdNSwfiwrnavJgqtJuJuoVeL4HxHlcr4SANe6qTv3jipUxZpJXeXrDp-0AA7YbdlkQEBHyF27nOaAJJSZDUr3C-65wivmIIFjBR_bgSCOgA5OrDK01vpKRkC6rzqOfEVePubYX8.png" /><br />
+The last step before we can record calls is to make our Tomcat server publicly accessible so that Twilio can reach it. We can use <a href="https://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/', 'ngrok');">ngrok</a> to do this. Ngrok is a command line tool that can create a public tunnel to access your localhost. If you’ve never used ngrok before consider reading <a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html', 'this blog post');">this blog post</a> by Kevin Whinnery to get familiar with it. You can also read my colleague Phil’s recent post, <a href="https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html', '6 awesome reasons to use ngrok when testing webhooks');">6 awesome reasons to use ngrok when testing webhooks</a>, to get a good understanding of Ngrok’s more advanced capabilities.</p>
+<p>Once you have ngrok installed, run 
+			<span id="crayon-58794daa5013c978888589" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">$ ngrok http 8080</span></span> in a terminal and you will see a window like this:</p>
+<p><img class="&quot; aligncenter" style="width: 590.00px; height: 253.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2015/10/DGO1v6MqGsVPr5Cv4sP1TWwJmwppPuvPsqCO_I-PWfQXgb72c-bXdV4-aQtkboMp5VqSd5dDgASCztaOyiKEKDKMgIj5yanQGanUvMbVwbeZAR9hJ0uVP6SxSik8tJU5qGcs1600.png" alt="csL5OY9-u3Q3Dp-nn2sl_u62NliHLEUKRDiknlT9WhpVCcDqnXdwAPa_nIHXCRg-Jg-3F0_ICHUDxQ4R_7m2vX5G7Lgosf_EJ8OuRbFLin4Yx7uurRO9jcBgwzWGz5yz_Xc96FE.png" /></p>
+<p>Configure your Twilio number’s Voice Request URL from step 4 of the above gif to reach out to your ngrok URL from the window above with your Tomcat endpoint appended to it (e.g. <a href="http://229cd6dd.ngrok.io/twilio/handle-call" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://229cd6dd.ngrok.io/twilio/handle-call', 'http://229cd6dd.ngrok.io/twilio/handle-call');">http://229cd6dd.ngrok.io/twilio/handle-call</a>). Then scroll down and be sure to click save to save your Twilio number’s settings.</p>
+<p>Start your server again with 
+			<span id="crayon-58794daa50147275515050" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;">$ sh bin/startup.sh</span></span> and let’s test this bad boy out. Call your Twilio number and you should hear a greeting before leaving yourself a voicemail. After you hang up you should receive a text with the link to hear the recording you just made.</p>
+<h1><a name="h.qwe8tzg7gsr"></a>Wrapping Up</h1>
+<p>Congratulations! You now have a brand new answering machine and you didn’t have to deal with landlines or outdated hardware! Here are just a few things you can do with this application:</p>
+<ul style="padding-left: 36px;">
+<li>set up multiple answering machines to record different types of calls, such as customer support, incoming orders, shipment tracking, etc.</li>
+<li>take messages without giving out your real number</li>
+<li>call yourself and record important messages for later.</li>
+</ul>
+<p><img class="aligncenter" src="http://i.giphy.com/24qpFnJ04vk2I.gif" alt="" width="500" height="218" /></p>
+<p>If you are interested in building a similar app with Java and Twilio Voice, check out my recent <a href="https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html', 'How to Warm Transfer a Call with Java and Twilio');">How to Warm Transfer a Call with Java and Twilio</a> post, which uses much of the same setup as this post.</p>
+<p>If you ran into any issues or have feedback on this tutorial, please don’t hesitate to leave a comment below or reach out to me via Twitter <a href="https://twitter.com/brodan_" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/brodan_', '@brodan');">@brodan</a>_ or email me at chranj@twilio.com.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" data-text="Create a Standalone Voicemail Using Java and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/4c2a0ab72cfccecf425a1d9ba30add78?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4c2a0ab72cfccecf425a1d9ba30add78?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/chranj">Chris Hranj</a></span></span> <span class="author-meta author-email"><a href="mailto:chranj@twilio.com">chranj@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Java</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/java/spark" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/java/spark', '');">
+          <h5>SMS and MMS Notifications with Java</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html" rel="bookmark" title="Permanent Link to How to Warm Transfer a Call with Java and Twilio Voice" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html', '');">
+          <h5>How to Warm Transfer a Call with Java and Twilio Voice<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/09/getting-started-with-gradle-and-the-spark-framework-3.html" rel="bookmark" title="Permanent Link to Getting Started with Gradle and the Spark Framework" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/09/getting-started-with-gradle-and-the-spark-framework-3.html', '');">
+          <h5>Getting Started with Gradle and the Spark Framework<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/11/getting-started-with-spring-mvc-and-twilio.html" rel="bookmark" title="Permanent Link to Getting started with Spring MVC and Twilio" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/11/getting-started-with-spring-mvc-and-twilio.html', '');">
+          <h5>Getting started with Spring MVC and Twilio<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2015/10/16178 http://www.twilio.com/blog/?p=16178';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Create a Standalone Voicemail Using Java and Twilio";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html?cf_action=sync_comments&amp;post_id=16178';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2015\/10\/create-a-standalone-voicemail-using-java-and-twilio.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+</html>

@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/orders by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="hIjrvcDZ2e-ZY3jHdnvRPx-V9bzj04ggU2_zFA6CGu0dEv_AxhwdqlQnXNi6c-RENut7O79_SYAS2vk8q1XQnA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Orders API</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="Orders API">
+    <meta property="og:url" content="orders.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Orders API">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a class='selected' href="orders.html">Orders</a>
+      <ul>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Orders API</h1>
+  <p>Use the Orders API to sell and organize your products through Stripe. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=orders">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3>Start selling through Relay</h3>
+    <p>Learn how to <a href="relay.html">sell in other apps</a> using Relay or how to connect your account to Twitter to <a href="recipes/selling-on-twitter.html">sell products through Tweets</a>.</p>
+  </aside>
+
+<p>If you’re dealing with physical or digital products, the Orders API helps you manage pricing and inventory, automatically <a href="#shipping-and-taxes">calculate shipping costs and taxes</a>, and <a href="#create-pay-orders">create and pay for orders</a>. It’s based on three primary objects:</p>
+
+<ul>
+  <li><a href="api.html#products"><code>Product</code></a>, a blanket representation of an item your business sells (for instance, “2015 Limited Edition T-shirt”).</li>
+  <li><a href="api.html#skus"><code>SKU</code></a> (<a href="https://en.wikipedia.org/wiki/Stock_keeping_unit">Stock Keeping Unit</a>), a specific product variation, taking into account any combination of attributes and cost (for instance, size, color, currency, cost).</li>
+  <li><a href="api.html#orders"><code>Order</code></a>, a combination of customer information and the SKUs they want to purchase.</li>
+</ul>
+
+<p>Stripe lets you manage pricing and inventory, automatically calculate <a href="#shipping-and-taxes">shipping costs and taxes</a>, and <a href="#create-pay-orders">create and pay for orders</a>. To get started with orders, you should <a href="#define-products-skus">define products and SKUs</a> and <a href="#shipping-and-taxes">configure shipping and tax integrations</a>. Once your inventory is set up, you can <a href="#create-pay-orders">create and pay for orders</a>.</p>
+
+<p>Although all of this functionality can be implemented using the <a href="https://dashboard.stripe.com/">Dashboard</a> alone, this guide focuses on developer usage of the Orders API. Developers can also read the <a href="orders/guide.html">Orders Guide</a> for additional information, including <a href="orders/guide.html#best-practices">best practices</a> and <a href="orders/guide.html#using-webhooks">using webhooks</a>.</p></section>
+
+<section>
+<h2 id="when-to-use-orders">When to use orders</h2>
+
+<p>Orders integrate nicely with other parts of the Stripe API that you might already be familiar with. For example, <a href="api.html#pay_order">paying</a> an order creates a <a href="api.html#charge_object"><code>Charge</code></a> object. Similarly, <a href="api.html#return_order">returning</a> an order will create a refund for all or part of that charge. Orders support additional features beyond basic charges that you might find helpful:</p>
+
+<ul>
+  <li>Calculate taxes due on orders via <a href="orders/avalara.html">Avalara</a>, <a href="orders/taxjar.html">TaxJar</a>, or <a href="orders/taxamo.html">Taxamo</a></li>
+  <li>Retrieve shipping rates from USPS, FedEx, and more using <a href="orders/easypost.html">EasyPost</a> or <a href="orders/shippo.html">Shippo</a></li>
+  <li>Keep track of fulfilled orders and seamlessly handle returns</li>
+  <li>Import products from a Google or LinkShare product feed</li>
+</ul>
+
+<p>Using the Orders API would be a good idea if any of the following apply to you:</p>
+
+<ul>
+  <li>You need to calculate taxes or shipping for the products you are selling</li>
+  <li>You sell physical goods than can be shipped and returned by customers</li>
+  <li>You want to sell your products on Twitter, ShopStyle, or other applications via <a href="../relay.html">Relay</a></li>
+</ul>
+
+<p>On the other hand, there are some cases where other Stripe products would be easier to use:</p>
+
+<ul>
+  <li>If you want to charge customers on a recurring basis, <a href="subscriptions/quickstart.html">subscriptions</a> let you do that easily</li>
+  <li>If you are selling a variable-rate service (like a Lyft ride), <a href="charges.html">charges</a> give you more flexibility</li>
+  <li>If you already have an inventory, tax, and shipping system, you may not need the extra features that Stripe orders provide</li>
+</ul></section>
+
+<section>
+<h2 id="define-products-skus">Define products and SKUs</h2>
+
+<p>You can start out by creating your products and SKUs <a href="https://dashboard.stripe.com/products/create">in the Dashboard</a>. Products can be physical (things you ship) or digital (things your customers download). (See the <a href="#best-practices">best practices</a> for examples and additional tips.) You can also easily create products and SKUs programmatically:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/products \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d name=&quot;2015 Limited Edition T-shirt&quot; \
+   -d description=&quot;Super awesome, one-of-a-kind t-shirt&quot; \
+   -d attributes[]=size \
+   -d attributes[]=gender \
+   -d attributes[]=color
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Create the product
+Stripe::Product.create(
+  :name =&gt; &#39;2015 Limited Edition T-shirt&#39;,
+  :description =&gt; &#39;Super awesome, one-of-a-kind t-shirt&#39;,
+  # These are the characteristics of the product that SKUs provide values for
+  :attributes =&gt; [&#39;size&#39;, &#39;gender&#39;, &#39;color&#39;]
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Create the product
+stripe.Product.create(
+  name=&#39;2015 Limited Edition T-shirt&#39;,
+  description=&#39;Super awesome, one-of-a-kind t-shirt&#39;,
+  # These are the characteristics of the product that SKUs provide values for
+  attributes=[&#39;size&#39;, &#39;gender&#39;, &#39;color&#39;]
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Create the product
+\Stripe\Product::create(array(
+  &quot;name&quot; =&gt; &#39;2015 Limited Edition T-shirt&#39;,
+  &quot;description&quot; =&gt; &quot;Super awesome, one-of-a-kind t-shirt&quot;,
+  // These are the characteristics of the product that SKUs provide values for
+  &quot;attributes&quot; =&gt; array(&quot;size&quot;, &quot;gender&quot;, &quot;color&quot;)
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+// Create the product
+Map&lt;String, Object&gt; productParams = new HashMap&lt;String, Object&gt;();
+productParams.put(&quot;name&quot;, &quot;2015 Limited Edition T-shirt&quot;);
+productParams.put(&quot;description&quot;, &quot;Super awesome, one-of-a-kind t-shirt&quot;);
+// These are the characteristics of the product that SKUs provide values for
+List&lt;String&gt; attributesParams = new LinkedList&lt;String&gt;();
+attributesParams.add(&quot;size&quot;);
+attributesParams.add(&quot;gender&quot;);
+productParams.put(&quot;attributes&quot;, attributesParams);
+
+Product.create(productParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Create the product
+stripe.products.create({
+  name: &#39;2015 Limited Edition T-shirt&#39;,
+  description: &#39;Super awesome, one-of-a-kind t-shirt&#39;,
+  // These are the characteristics of the product that SKUs provide values for
+  attributes: [&#39;size&#39;, &#39;gender&#39;, &#39;color&#39;]
+}, function(err, product) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Products can have associated images, descriptions, and <a href="api.html#products">more</a>. The <code>attributes</code> property is how a product defines the features that can be set on individual SKUs: the specific versions of the product a customer actually buys. For example, the above code says that the “2015 Limited Edition T-shirt” product comes in different variations for size, gender, and color.</p>
+
+<p>With a product defined, create specific product variations as SKUs, taking into account all possible combinations of attributes.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/skus \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d product=prod_7sKpoGggONZ5t7 \
+   -d attributes[size]=Medium \
+   -d attributes[gender]=Unisex \
+   -d attributes[color]=Cyan \
+   -d price=1500 \
+   -d currency=usd \
+   -d inventory[type]=finite \
+   -d inventory[quantity]=500
+curl https://api.stripe.com/v1/skus \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d product=prod_7sKpoGggONZ5t7 \
+   -d attributes[size]=Large \
+   -d attributes[gender]=Unisex \
+   -d attributes[color]=Cyan \
+   -d price=1500 \
+   -d currency=usd \
+   -d inventory[type]=finite \
+   -d inventory[quantity]=400
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+Stripe::SKU.create(
+  :product =&gt; &#39;prod_7sKpoGggONZ5t7&#39;,
+  :attributes =&gt; {
+    &#39;size&#39; =&gt; &#39;Medium&#39;,
+    &#39;gender&#39; =&gt; &#39;Unisex&#39;,
+    &#39;color&#39; =&gt; &#39;Cyan&#39;,
+  },
+  :price =&gt; 1500,
+  :currency =&gt; &#39;usd&#39;,
+  :inventory =&gt; {
+    &#39;type&#39; =&gt; &#39;finite&#39;,
+    &#39;quantity&#39; =&gt; 500
+  }
+)
+Stripe::SKU.create(
+  :product =&gt; &#39;prod_7sKpoGggONZ5t7&#39;,
+  :attributes =&gt; {
+    &#39;size&#39; =&gt; &#39;Large&#39;,
+    &#39;gender&#39; =&gt; &#39;Unisex&#39;,
+    &#39;color&#39; =&gt; &#39;Cyan&#39;
+  },
+  :price =&gt; 1500,
+  :currency =&gt; &#39;usd&#39;,
+  :inventory =&gt; {
+    &#39;type&#39; =&gt; &#39;finite&#39;,
+    &#39;quantity&#39; =&gt; 400
+  }
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+stripe.SKU.create(
+  product=&#39;prod_7sKpoGggONZ5t7&#39;,
+  attributes={&#39;size&#39;: &#39;Medium&#39;, &#39;gender&#39;: &#39;Unisex&#39;, &#39;color&#39;: &#39;Cyan&#39;},
+  price=1500,
+  currency=&#39;usd&#39;,
+  inventory={&#39;type&#39;: &#39;finite&#39;, &#39;quantity&#39;: 500}
+)
+stripe.SKU.create(
+  product=&#39;prod_7sKpoGggONZ5t7&#39;,
+  attributes={&#39;size&#39;: &#39;Large&#39;, &#39;gender&#39;: &#39;Unisex&#39;, &#39;color&#39;: &#39;Cyan&#39;},
+  price=1500,
+  currency=&#39;usd&#39;,
+  inventory={&#39;type&#39;: &#39;finite&#39;, &#39;quantity&#39;: 400}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\SKU::create(array(
+  &quot;product&quot; =&gt; &quot;prod_7sKpoGggONZ5t7&quot;,
+  &quot;attributes&quot; =&gt; array(
+    &quot;size&quot; =&gt; &quot;Medium&quot;,
+    &quot;gender&quot; =&gt; &quot;Unisex&quot;,
+    &quot;color&quot; =&gt; &quot;Cyan&quot;
+  ),
+  &quot;price&quot; =&gt; 1500,
+  &quot;currency&quot; =&gt; &quot;usd&quot;,
+  &quot;inventory&quot; =&gt; array(
+    &quot;type&quot; =&gt; &quot;finite&quot;,
+    &quot;quantity&quot; =&gt; 500
+  )
+));
+\Stripe\SKU::create(array(
+  &quot;product&quot; =&gt; &quot;prod_7sKpoGggONZ5t7&quot;,
+  &quot;attributes&quot; =&gt; array(
+    &quot;size&quot; =&gt; &quot;Large&quot;,
+    &quot;gender&quot; =&gt; &quot;Unisex&quot;,
+    &quot;color&quot; =&gt; &quot;Cyan&quot;
+  ),
+  &quot;price&quot; =&gt; 1500,
+  &quot;currency&quot; =&gt; &quot;usd&quot;,
+  &quot;inventory&quot; =&gt; array(
+    &quot;type&quot; =&gt; &quot;finite&quot;,
+    &quot;quantity&quot; =&gt; 400
+  )
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; skuParams = new HashMap&lt;String, Object&gt;();
+skuParams.put(&quot;product&quot;, &quot;prod_7sKpoGggONZ5t7&quot;);
+Map&lt;String, Object&gt; attributesParams = new HashMap&lt;String, Object&gt;();
+attributesParams.put(&quot;size&quot;, &quot;Medium&quot;);
+attributesParams.put(&quot;gender&quot;, &quot;Unisex&quot;);
+attributesParams.put(&quot;color&quot;, &quot;Cyan&quot;);
+skuParams.put(&quot;attributes&quot;, attributesParams);
+skuParams.put(&quot;price&quot;, 1500);
+skuParams.put(&quot;currency&quot;, &quot;usd&quot;);
+Map&lt;String, Object&gt; inventoryParams = new HashMap&lt;String, Object&gt;();
+inventoryParams.put(&quot;type&quot;, &quot;finite&quot;);
+inventoryParams.put(&quot;quantity&quot;, 500);
+skuParams.put(&quot;inventory&quot;, inventoryParams);
+
+SKU.create(skuParams);
+
+skuParams.clear();
+skuParams.put(&quot;product&quot;, &quot;prod_7sKpoGggONZ5t7&quot;);
+attributesParams.clear();
+attributesParams.put(&quot;size&quot;, &quot;Large&quot;);
+attributesParams.put(&quot;gender&quot;, &quot;Unisex&quot;);
+attributesParams.put(&quot;color&quot;, &quot;Cyan&quot;);
+skuParams.put(&quot;attributes&quot;, attributesParams);
+skuParams.put(&quot;price&quot;, 1500);
+skuParams.put(&quot;currency&quot;, &quot;usd&quot;);
+inventoryParams.clear();
+inventoryParams.put(&quot;type&quot;, &quot;finite&quot;);
+inventoryParams.put(&quot;quantity&quot;, 400);
+skuParams.put(&quot;inventory&quot;, inventoryParams);
+
+SKU.create(skuParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.skus.create({
+  product: &#39;prod_7sKpoGggONZ5t7&#39;,
+  attributes: {&#39;size&#39;: &#39;Medium&#39;, &#39;gender&#39;: &#39;Unisex&#39;, &#39;color&#39;: &#39;Cyan&#39;},
+  price: 1500,
+  currency: &#39;usd&#39;,
+  inventory: {&#39;type&#39;: &#39;finite&#39;, &#39;quantity&#39;: 500}
+}, function(err, sku) {
+  // asynchronously called
+});
+stripe.skus.create({
+  product: &#39;prod_7sKpoGggONZ5t7&#39;,
+  attributes: {&#39;size&#39;: &#39;Large&#39;, &#39;gender&#39;: &#39;Unisex&#39;, &#39;color&#39;: &#39;Cyan&#39;},
+  price: 1500,
+  currency: &#39;usd&#39;,
+  inventory: {&#39;type&#39;: &#39;finite&#39;, &#39;quantity&#39;: 400}
+}, function(err, sku) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>The above code creates two different SKUs–variants on a product, differentiated by size and price. You will normally have exponentially more SKUs than products. If the “2015 Limited Edition T-shirt” came in three sizes–small, medium, and large–and in two colors–cyan and magenta, there would be at least 6 SKUs representing it.</p></section>
+
+<section>
+<h2 id="shipping-and-taxes">Configure shipping and tax handling</h2>
+
+<p>Real-world orders involve not only the cost of the items being purchased, but also shipping costs and taxes. Stripe can automatically and dynamically add these costs to your orders.</p>
+
+<p>Configure your shipping and tax preferences in your <a href="https://dashboard.stripe.com/account/relay/settings">Stripe account</a>, by choosing one of three approaches.</p>
+
+<p>Shipping can be set as:</p>
+
+<ul>
+  <li><code>provider</code>: A <a href="orders/shipping-integration.html">third-party provider</a> like <a href="orders/easypost.html">EasyPost</a> or <a href="orders/shippo.html">Shippo</a> which will provide the shipping rates dynamically</li>
+  <li><code>flat_rate</code>: One or more fixed-cost options like <strong>Standard</strong>, <strong>Express</strong>, and <strong>Overnight</strong> shipping. You can even opt to waive the shipping cost above a certain order total.</li>
+  <li><code>free</code>: No additional cost, the default</li>
+</ul>
+
+<p>Tax can be set as:</p>
+
+<ul>
+  <li><code>provider</code>: A <a href="orders/tax-integration.html">third-party provider</a> like <a href="orders/avalara.html">Avalara</a>, <a href="orders/taxjar.html">TaxJar</a>, or <a href="orders/taxamo.html">Taxamo</a> which will provide the tax amount dynamically</li>
+  <li><code>percentage</code>: A flat additional cost, as a percent of the order total, before shipping</li>
+  <li><code>included</code>: No additional cost, the default</li>
+</ul>
+
+<p>Both shipping and taxes can also be set to <code>callback</code>. If you wish to <a href="orders/dynamic-shipping-taxes.html">calculate shipping and taxes yourself</a>, provide an endpoint on your own server that Stripe will reach out to in real-time to retrieve these costs. This can be helpful if you want to use the Orders API but have an existing system for shipping and taxes or if you want to sell through an application like Twitter via <a href="../relay.html">Relay</a>.</p></section>
+
+<section>
+<h2 id="create-pay-orders">Create and pay for orders</h2>
+  <aside class="content note">
+    <h3>Leaving notes for yourself</h3>
+    <p>Each Orders API object--<code>Product</code>, <code>SKU</code>, and <code>Order</code>--has a <code>metadata</code> attribute. Values stored in metadata will never be seen by customers, but can be used to store additional information for your own benefit.</p>
+  </aside>
+
+<p>With your products and SKUs already on Stripe, it is time to start creating orders. When using orders, your checkout flow will most likely look something like the following:</p>
+
+<ol>
+  <li>A customer picks one or more items (SKUs) that they want to purchase</li>
+  <li>You create an order containing those items to retrieve tax and shipping costs from Stripe</li>
+  <li>The customer provides you with payment credentials that you use to pay the order</li>
+</ol>
+
+<p>We will focus on the two last steps here. To create an order, specify the SKUs in the order as well as the customer’s shipping address:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d currency=usd \
+   -d email=&quot;jenny@example.com&quot; \
+   -d items[][type]=sku \
+   -d items[][parent]=sku_6zVDZYQHj7oq88 \
+   -d items[][quantity]=2 \
+   -d shipping[name]=&quot;Jenny Rosen&quot; \
+   -d shipping[address][line1]=&quot;1234 Main Street&quot; \
+   -d shipping[address][city]=Anytown \
+   -d shipping[address][country]=US \
+   -d shipping[address][postal_code]=123456
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = Stripe::Order.create(
+  :currency =&gt; &#39;usd&#39;,
+  :email =&gt; &#39;jenny@example.com&#39;,
+  :items =&gt; [
+    {
+      :type =&gt; &#39;sku&#39;,
+      :parent =&gt; &#39;sku_6zVDZYQHj7oq88&#39;,
+      :quantity =&gt; 2,
+    }
+  ],
+  :shipping =&gt; {
+    :name =&gt; &#39;Jenny Rosen&#39;,
+    :address =&gt; {
+      :line1 =&gt; &#39;1234 Main Street&#39;,
+      :city =&gt; &#39;Anytown&#39;,
+      :country =&gt; &#39;US&#39;,
+      :postal_code =&gt; &#39;123456&#39;
+    }
+  },
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = stripe.Order.create(
+  currency = &#39;usd&#39;,
+  email = &#39;jenny@example.com&#39;,
+  items = [
+    {
+      &quot;type&quot;:&#39;sku&#39;,
+      &quot;parent&quot;:&#39;sku_6zVDZYQHj7oq88&#39;,
+      &quot;quantity&quot;: 2,
+    }
+  ],
+  shipping = {
+    &quot;name&quot;:&#39;Jenny Rosen&#39;,
+    &quot;address&quot;:{
+      &quot;line1&quot;:&#39;1234 Main Street&#39;,
+      &quot;city&quot;:&#39;Anytown&#39;,
+      &quot;country&quot;:&#39;US&#39;,
+      &quot;postal_code&quot;:&#39;123456&#39;
+    }
+  },
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+$order = \Stripe\Order::create(array(
+  &quot;currency&quot; =&gt; &quot;usd&quot;,
+  &quot;email&quot; =&gt; &quot;jenny@example.com&quot;,
+  &quot;items&quot; =&gt; array(
+    array(
+      &quot;type&quot; =&gt; &quot;sku&quot;,
+      &quot;parent&quot; =&gt; &quot;sku_6zVDZYQHj7oq88&quot;,
+      &quot;quantity&quot; =&gt; 2,
+    )
+  ),
+  &quot;shipping&quot; =&gt; array(
+    &quot;name&quot; =&gt; &quot;Jenny Rosen&quot;,
+    &quot;address&quot; =&gt; array(
+      &quot;line1&quot; =&gt; &quot;1234 Main Street&quot;,
+      &quot;city&quot; =&gt; &quot;Anytown&quot;,
+      &quot;country&quot; =&gt; &quot;US&quot;,
+      &quot;postal_code&quot; =&gt; &quot;123456&quot;
+    )
+  ),
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; orderParams = new HashMap&lt;String, Object&gt;();
+orderParams.put(&quot;currency&quot;, &quot;usd&quot;);
+orderParams.put(&quot;email&quot;, &quot;jenny@example.com&quot;);
+List&lt;Object&gt; itemsParams = new LinkedList&lt;Object&gt;();
+Map&lt;String, String&gt; item1 = new HashMap&lt;String, String&gt;();
+item1.put(&quot;type&quot;, &quot;sku&quot;);
+item1.put(&quot;parent&quot;, &quot;sku_6zVDZYQHj7oq88&quot;);
+item1.put(&quot;quantity&quot;, &quot;2&quot;);
+itemsParams.add(item1);
+orderParams.put(&quot;items&quot;, itemsParams);
+Map&lt;String, Object&gt; shippingParams = new HashMap&lt;String, Object&gt;();
+shippingParams.put(&quot;name&quot;, &quot;Jenny Rosen&quot;);
+Map&lt;String, Object&gt; addressParams = new HashMap&lt;String, Object&gt;();
+addressParams.put(&quot;line1&quot;, &quot;1234 Main Street&quot;);
+addressParams.put(&quot;city&quot;, &quot;Anytown&quot;);
+addressParams.put(&quot;country&quot;, &quot;US&quot;);
+addressParams.put(&quot;postal_code&quot;, &quot;123456&quot;);
+shippingParams.put(&quot;address&quot;, addressParams);
+orderParams.put(&quot;shipping&quot;, shippingParams);
+
+Order order = Order.create(orderParams, null);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.orders.create({
+  currency: &#39;usd&#39;,
+  email: &#39;jenny@example.com&#39;,
+  items: [
+    {
+      type: &#39;sku&#39;,
+      parent: &#39;sku_6zVDZYQHj7oq88&#39;,
+      quantity: 2
+    }
+  ],
+  shipping: {
+    name: &#39;Jenny Rosen&#39;,
+    address: {
+      line1: &#39;1234 Main Street&#39;,
+      city: &#39;Anytown&#39;,
+      country: &#39;US&#39;,
+      postal_code: &#39;123456&#39;
+    }
+  }
+}, function(err, order) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>You will receive an order object in the response (some fields omitted for brevity):</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;id&quot;: &quot;or_18Q3IaDAu10Yox5RqlL8JnnS&quot;,
+  &quot;amount&quot;: 2172,
+  &quot;status&quot;: &quot;created&quot;,
+  &quot;items&quot;: [
+    {
+      &quot;type&quot;: &quot;sku&quot;,
+      &quot;amount&quot;: 1500,
+      &quot;description&quot;: &quot;2015 Limited Edition T-shirt&quot;,
+      &quot;parent&quot;: &quot;sku_6zVDZYQHj7oq88&quot;,
+      ...
+    },
+    {
+      &quot;type&quot;: &quot;tax&quot;,
+      &quot;amount&quot;: 112,
+      &quot;description&quot;: &quot;CA STATE TAX (P0000000)&quot;,
+      &quot;parent&quot;: null,
+      ...
+    },
+    {
+      &quot;type&quot;: &quot;shipping&quot;,
+      &quot;amount&quot;: 560,
+      &quot;description&quot;: &quot;USPS Priority Mail&quot;,
+      &quot;parent&quot;: &quot;ad989a994218446fbd48978a6ac905b0&quot;,
+      ...
+    }
+  ],
+  &quot;selected_shipping_method&quot;: &quot;0083dfe889534b75bf8ca73aa703e938&quot;,
+  &quot;shipping_methods&quot;: [
+    {
+      &quot;id&quot;: &quot;ad989a994218446fbd48978a6ac905b0&quot;,
+      &quot;amount&quot;: 560,
+      &quot;description&quot;: &quot;USPS Priority Mail&quot;,
+      ...
+    },
+    {
+      &quot;id&quot;: &quot;db18a419e6f14aba82aa41f2bb9ec08e&quot;,
+      &quot;amount&quot;: 595,
+      &quot;description&quot;: &quot;USPS Parcel Select&quot;,
+      ...
+    }
+  ],
+  ..
+}</code></pre>
+</div>
+
+<p>When creating an order, Stripe performs the following actions:</p>
+
+<ul>
+  <li>Verifies that the SKU was still in stock and retrieves its current price</li>
+  <li>Retrieves the taxes due from your tax provider and adds a $1.12 <code>tax</code> line item</li>
+  <li>Retrieves shipping rates from your shipping provider and adds the available shipping methods. The default rate of $5.60 is already included in the order as a <code>shipping</code> line item.</li>
+  <li>Sums up all the line items and packs them into the order object</li>
+</ul>
+
+<p>You should store the order <code>id</code> in your database and present the customer with the order total of $82.39. When your customer is ready to pay, you can collect their <a href="quickstart.html">payment details</a>. Then, simply pass the token to Stripe to pay the order:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders/or_19bZhe2eZvKYlo2CoS3cokhw/pay \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d source=&quot;{TOKEN}&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Get the credit card details submitted by the form
+token = params[:stripeToken]
+
+order = Stripe::Order.retrieve(&#39;or_19bZhe2eZvKYlo2CoS3cokhw&#39;)
+
+order.pay(:source =&gt; token)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Get the credit card details submitted by the form
+token = request.POST[&#39;stripeToken&#39;]
+
+order = stripe.Order.retrieve(&#39;or_19bZhe2eZvKYlo2CoS3cokhw&#39;)
+
+order.pay(source=token)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Get the credit card details submitted by the form
+$token = $_POST[&#39;stripeToken&#39;];
+
+$order = \Stripe\Order::retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;);
+
+$order-&gt;pay(array(&quot;source&quot; =&gt; $token));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+// Get the credit card details submitted by the form
+String token = request.getParameter(&quot;stripeToken&quot;);
+
+Order order = Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, null);
+
+Map&lt;String, Object&gt; orderParams = new HashMap&lt;String, Object&gt;();
+orderParams.put(&quot;source&quot;, token);
+
+order.pay(orderParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Get the credit card details submitted by the form
+var token = request.body.stripeToken; // Using Express
+
+stripe.orders.pay(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, {
+  source: token
+}, function(err, order) {
+  // called asynchronously
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>Next steps</h2>
+  <p>Congrats! You've gone through how to use the APIs for products, SKUs and orders. Some things you might want to see next:</p>
+<ul class="next-steps">
+    <li><a href="orders/guide.html"><span>Orders API Guide</a></li>
+    <li><a href="relay/apps-guide.html"><span>Building a Relay app with the Orders API</a></li>
+    <li><a href="recipes/selling-on-twitter.html"><span>Selling on Twitter</a></li>
+    <li><a href="recipes/product-discovery-app.html"><span>Building a Product Discovery App</a></li>
+    <li><a href="api.html#products"><span>Products API docs</a></li>
+    <li><a href="api.html#skus"><span>SKU API docs</a></li>
+    <li><a href="api.html#orders"><span>Order API docs</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/orders by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:45 GMT -->
+</html>

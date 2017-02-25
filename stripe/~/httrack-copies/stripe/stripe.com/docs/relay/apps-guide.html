@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/relay/apps-guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="bpV6LehdMQjpvOHrIYg3GC4I1DT_kW7nTlNC01cXhgr3D25Q7pj1TST4xfTtgAJjB3Zas6M9r0cP5kj78sBMew==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Accepting Orders in Your App</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Accepting Orders in Your App">
+    <meta property="og:url" content="apps-guide.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Accepting Orders in Your App">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a class='selected' href="apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Accepting Orders in Your App</h1>
+  <p>The Orders API provides an infrastructure for apps to process orders on behalf of other Stripe users. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=orders">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<p>Relay uses the Orders API to let sellers represent a catalog of physical and digital products in their Stripe accounts. Sellers then authorize any number of <em>apps</em>–shopping and social media platforms–to process orders on their behalf. The end result is an API that supports direct sales from anywhere, be it a tweet, a post on social media, or even from within a dedicated app.</p>
+
+<p>As an app, you’ll initially need to:</p>
+
+<ol>
+  <li><a href="#set-up-your-platform">Set up your platform</a></li>
+  <li><a href="#integrate-oauth">Integrate OAuth to connect sellers</a></li>
+  <li><a href="#find-products-and-skus">Find a seller’s available products and SKUs</a></li>
+</ol>
+
+<p>Having done that, you can then:</p>
+
+<ol>
+  <li><a href="#create-orders">Create orders</a> on behalf of connected sellers.</li>
+  <li><a href="#accept-payment-for-orders">Accept payment for orders</a> on behalf of connected sellers.</li>
+  <li>Optionally <a href="#application-fee">take an application fee</a>.</li>
+</ol>
+
+<p>To learn more about the Orders API for sellers, see the <a href="../orders.html">Orders API overview</a>. To quickly develop and test your own app, walk through the recipe for using the <a href="../recipes/product-discovery-app.html">Relay Demo</a> seller account.</p></section>
+
+<section>
+<h2 id="set-up-your-platform">Set up your platform</h2>
+  <aside class="note">
+    <h3>Connected account types</h3>
+    <p><a href="../connect.html">Connect</a> allows platforms to interact with both <a href="../connect/standalone-accounts.html">standalone</a> and <a href="../connect/managed-accounts.html">managed</a> Stripe accounts. As Relay promotes the use of multiple apps to sell products, sellers will always have their own Standalone Accounts.</p>
+  </aside>
+
+<p>Stripe <a href="../connect.html">Connect</a> makes it easy for platforms to interact with other Stripe accounts, accepting money on their behalf, and accessing their data. Thanks to Relay, a platform can now use Connect to process orders as well.</p>
+
+<p>If you have not done so already, you’ll need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>. Make a note of your <code>client_id</code> and <code>redirect_uri</code>, as both are used to authorize connections to your account.</p>
+
+<p>If you have an existing Connect application, you can begin using it with the Orders API immediately, without even updating your API version!</p></section>
+
+<section>
+<h2 id="integrate-oauth">Integrate OAuth to connect sellers</h2>
+
+<p class="notification">The rest of this guide assumes you have already <a href="https://dashboard.stripe.com/account/applications/settings" class="arrow">registered your platform</a>.</p>
+
+<p>As a Connect platform and app, you create an onboarding flow through which merchants authorize your Connect app to act on their behalf. Once a merchant connects to your app, you’ll be able to access their product catalog and create orders against it. Stripe uses a common OAuth process, explained in detail in the <a href="../connect/standalone-accounts.html">Connecting to Standalone Accounts</a> guide.</p>
+
+<p>Relay applications only need to read product and SKU data and create orders on behalf of their connected merchants. When merchants authorize your Connect application to access their data, we therefore suggest that you request the <code>relay</code> <code>scope</code> for the connection. This scope gives you <code>read_only</code> access to products and SKUs as well as <code>read_write</code> access to orders that your application has created.</p>
+</section>
+
+<section>
+<h2 id="find-products-and-skus">Find products and SKUs</h2>
+
+<p>To process orders, apps must first be aware of the products a merchant has. You may obtain this information in various ways, but the ultimate source for truth is making an API call on the merchant’s behalf.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/products?limit=3 \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -H &quot;Stripe-Account: {CONNECTED_STRIPE_ACCOUNT_ID}&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+Stripe::Product.list(
+  {:limit =&gt; 3},
+  :stripe_account =&gt; &#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+stripe.Product.list(
+  limit=3,
+  stripe_account=&#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\Product::all(
+  array(&quot;limit&quot; =&gt; 3),
+  array(&quot;stripe_account&quot; =&gt; &quot;{CONNECTED_STRIPE_ACCOUNT_ID}&quot;)
+);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; productParams = new HashMap&lt;String, Object&gt;();
+productParams.put(&quot;limit&quot;, 3);
+
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount({CONNECTED_STRIPE_ACCOUNT_ID}).build();
+
+Product.list(productParams, requestOptions);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.products.list(
+  {limit: 3},
+  {stripe_account: &#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;},
+  function(err, products) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Notice that you’ll make this request on behalf of the connected user, by passing their account ID as explained in <a href="../connect/authentication.html">Authentication with Connect</a>. The API call returns the available product IDs, as well as the product’s descriptions, images, and so on: anything the merchant has provided that will be compelling to your users. You’ll find available products in the <code>data</code> property of the API response.</p>
+
+<p>Products are umbrellas for what merchants sell, but orders are composed of SKUs: specific variants of a product. When you fetch the seller’s products, we’ll automatically return related SKUs, too.</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;object&quot;: &quot;list&quot;,
+  &quot;has_more&quot;: false,
+  &quot;url&quot;: &quot;/v1/products&quot;,
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: &quot;prod_6yK3M2RfEUqrkF&quot;,
+      &quot;created&quot;: 1442100452,
+      &quot;updated&quot;: 1442100452,
+      &quot;object&quot;: &quot;product&quot;,
+      &quot;livemode&quot;: false,
+      &quot;name&quot;: &quot;2015 Limited Edition T-shirt&quot;,
+      &quot;caption&quot;: null,
+      &quot;description&quot;: &quot;Super awesome, one-of-a-kind t-shirt&quot;,
+      &quot;active&quot;: true,
+      &quot;attributes&quot;: [
+        &quot;size&quot;,
+        &quot;gender&quot;,
+        &quot;color&quot;
+      ],
+      &quot;shippable&quot;: true,
+      &quot;metadata&quot;: {},
+      &quot;url&quot;: null,
+      &quot;package_dimensions&quot;: null,
+      &quot;images&quot;: [],
+      &quot;skus&quot;: {
+        &quot;object&quot;: &quot;list&quot;,
+        &quot;total_count&quot;: 3,
+        &quot;has_more&quot;: false,
+        &quot;url&quot;: &quot;/v1/skus?product=prod_6yK3M2RfEUqrkF\u0026active=true&quot;,
+        &quot;data&quot;: [
+          {
+            &quot;id&quot;: &quot;sku_6yK573OC7bNAX0&quot;,
+            &quot;created&quot;: 1442100560,
+            &quot;updated&quot;: 1442100560,
+            &quot;object&quot;: &quot;sku&quot;,
+            &quot;livemode&quot;: false,
+            &quot;product&quot;: &quot;prod_6yK3M2RfEUqrkF&quot;,
+            &quot;image&quot;: null,
+            &quot;active&quot;: true,
+            &quot;price&quot;: 1500,
+            &quot;currency&quot;: &quot;usd&quot;,
+            &quot;inventory&quot;: {
+              &quot;type&quot;: &quot;finite&quot;,
+              &quot;quantity&quot;: 500,
+              &quot;value&quot;: null
+            },
+            &quot;attributes&quot;: {
+              &quot;size&quot;: &quot;Medium&quot;,
+              &quot;gender&quot;: &quot;Unisex&quot;,
+              &quot;color&quot;: &quot;Cyan&quot;
+            },
+            &quot;metadata&quot;: {},
+            &quot;package_dimensions&quot;: null
+          },
+          {
+            &quot;id&quot;: &quot;sku_6yK5PxwPbswVFB&quot;,
+            &quot;created&quot;: 1442100602,
+            &quot;updated&quot;: 1442100602,
+            &quot;object&quot;: &quot;sku&quot;,
+            &quot;livemode&quot;: false,
+            &quot;product&quot;: &quot;prod_6yK3M2RfEUqrkF&quot;,
+            &quot;image&quot;: null,
+            &quot;active&quot;: true,
+            &quot;price&quot;: 1500,
+            &quot;currency&quot;: &quot;usd&quot;,
+            &quot;inventory&quot;: {
+              &quot;type&quot;: &quot;finite&quot;,
+              &quot;quantity&quot;: 400,
+              &quot;value&quot;: null
+            },
+            &quot;attributes&quot;: {
+              &quot;size&quot;: &quot;Large&quot;,
+              &quot;gender&quot;: &quot;Unisex&quot;,
+              &quot;color&quot;: &quot;Cyan&quot;
+            },
+            &quot;metadata&quot;: {},
+            &quot;package_dimensions&quot;: null
+          }
+        ]
+      }
+    }
+  ]
+}</code></pre>
+</div>
+
+<p>If you look at all the SKUs for a product, you’ll see every possible attribute value, for example: <code>size</code> can be “Small”, Medium”, or “Large”; <code>color</code> can be “Cyan” or “Magenta”. Using that information, you can render appropriate dropdown menus or create other interfaces for customers to select what they’re purchasing.</p>
+
+<p>You should also pay attention to each SKU’s <code>inventory</code>, which reflects whether that particular item is currently purchasable. (Attempts to pay for an order that contains an out-of-stock item will result in an error.)</p>
+
+<p>You’ll need to store all of the relevant information to make products and SKUs purchasable in orders. The most important bit of information will be the SKU IDs, which go directly into an <code>Order</code>.</p></section>
+
+<section>
+<h2 id="create-orders">Create orders</h2>
+
+<p>Having identified a seller’s available products (more precisely, SKUs), the next step is to make them available for purchase by your users. This can be as simple as providing a link or button users click, or by building up a shopping cart. The ordering process can begin within a website, a mobile app, a social media tool, or by merely displaying a linked image. (For more on the order workflow, see the <a href="../recipes/product-discovery-app.html#order-workflow">Building a Product Discovery App</a> recipe.)</p>
+
+<p>Once a user has expressed intent to purchase one or more products, create an order in Stripe by providing:</p>
+
+<ul>
+  <li>SKUs to be purchased</li>
+  <li>Quantity of each</li>
+  <li>Currency of the order</li>
+  <li>Customer details–email address, shipping information, and so on</li>
+</ul>
+
+<p>Orders are <a href="../api.html#create_order">created</a> on the merchant’s Stripe account, using the merchant’s account ID in the request.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -H &quot;Stripe-Account: {CONNECTED_STRIPE_ACCOUNT_ID}&quot; \
+   -d currency=usd \
+   -d email=&quot;jenny@example.com&quot; \
+   -d items[][type]=sku \
+   -d items[][parent]=sku_6yK573OC7bNAX0 \
+   -d items[][quantity]=2 \
+   -d shipping[name]=&quot;Jenny Rosen&quot; \
+   -d shipping[address][line1]=&quot;1234 Main Street&quot; \
+   -d shipping[address][city]=Anytown \
+   -d shipping[address][country]=US \
+   -d shipping[address][postal_code]=123456
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+Stripe::Order.create(
+  :currency =&gt; &#39;usd&#39;,
+  :email =&gt; &#39;jenny@example.com&#39;,
+  :items =&gt; [
+    {
+      :type =&gt; &#39;sku&#39;,
+      :parent =&gt; &#39;sku_6yK573OC7bNAX0&#39;
+    }
+  ],
+  :shipping =&gt; {
+    :name =&gt; &#39;Jenny Rosen&#39;,
+    :address =&gt; {
+      :line1 =&gt; &#39;1234 Main Street&#39;,
+      :city =&gt; &#39;Anytown&#39;,
+      :country =&gt; &#39;US&#39;,
+      :postal_code =&gt; &#39;123456&#39;
+    }
+  },
+  {:stripe_account =&gt; &#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+stripe.Order.create(
+  currency = &#39;usd&#39;,
+  email = &#39;jenny@example.com&#39;,
+  items = [
+    {
+      &quot;type&quot;:&#39;sku&#39;,
+      &quot;parent&quot;:&#39;sku_6yK573OC7bNAX0&#39;
+    }
+  ],
+  shipping = {
+    &quot;name&quot;:&#39;Jenny Rosen&#39;,
+    &quot;address&quot;:{
+      &quot;line1&quot;:&#39;1234 Main Street&#39;,
+      &quot;city&quot;:&#39;Anytown&#39;,
+      &quot;country&quot;:&#39;US&#39;,
+      &quot;postal_code&quot;:&#39;123456&#39;
+    }
+  },
+  stripe_account=&#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\Order::create(array(
+  &quot;currency&quot; =&gt; &quot;usd&quot;,
+  &quot;email&quot; =&gt; &quot;jenny@example.com&quot;,
+  &quot;items&quot; =&gt; array(
+    array(
+      &quot;type&quot; =&gt; &quot;sku&quot;,
+      &quot;parent&quot; =&gt; &quot;sku_6yK573OC7bNAX0&quot;
+    )
+  ),
+  &quot;shipping&quot; =&gt; array(
+    &quot;name&quot; =&gt; &quot;Jenny Rosen&quot;,
+    &quot;address&quot; =&gt; array(
+      &quot;line1&quot; =&gt; &quot;1234 Main Street&quot;,
+      &quot;city&quot; =&gt; &quot;Anytown&quot;,
+      &quot;country&quot; =&gt; &quot;US&quot;,
+      &quot;postal_code&quot; =&gt; &quot;123456&quot;
+    )
+  ),
+  array(&quot;stripe_account&quot; =&gt; &quot;{CONNECTED_STRIPE_ACCOUNT_ID}&quot;)
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; orderParams = new HashMap&lt;String, Object&gt;();
+orderParams.put(&quot;currency&quot;, &quot;usd&quot;);
+orderParams.put(&quot;email&quot;, &quot;jenny@example.com&quot;);
+List&lt;Object&gt; itemsParams = new LinkedList&lt;Object&gt;();
+Map&lt;String, String&gt; item1 = new HashMap&lt;String, String&gt;();
+item1.put(&quot;type&quot;, &quot;sku&quot;);
+item1.put(&quot;parent&quot;, &quot;sku_6yK573OC7bNAX0&quot;);
+itemsParams.add(item1);
+orderParams.put(&quot;items&quot;, itemsParams);
+Map&lt;String, Object&gt; shippingParams = new HashMap&lt;String, Object&gt;();
+shippingParams.put(&quot;name&quot;, &quot;Jenny Rosen&quot;);
+Map&lt;String, Object&gt; addressParams = new HashMap&lt;String, Object&gt;();
+addressParams.put(&quot;line1&quot;, &quot;1234 Main Street&quot;);
+addressParams.put(&quot;city&quot;, &quot;Anytown&quot;);
+addressParams.put(&quot;country&quot;, &quot;US&quot;);
+addressParams.put(&quot;postal_code&quot;, &quot;123456&quot;);
+shippingParams.put(&quot;address&quot;, addressParams);
+orderParams.put(&quot;shipping&quot;, shippingParams);
+
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount({CONNECTED_STRIPE_ACCOUNT_ID}).build();
+
+Order.create(orderParams, requestOptions);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.orders.create({
+  currency: &#39;usd&#39;,
+  email: &#39;jenny@example.com&#39;,
+  items: [
+    {
+      type: &#39;sku&#39;,
+      parent: &#39;sku_6yK573OC7bNAX0&#39;
+    }
+  ],
+  shipping: {
+    name: &#39;Jenny Rosen&#39;,
+    address: {
+      line1: &#39;1234 Main Street&#39;,
+      city: &#39;Anytown&#39;,
+      country: &#39;US&#39;,
+      postal_code: &#39;123456&#39;
+    }
+  }
+}, {
+  stripe_account: &#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;
+}, function(err, order) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Order creations are synchronous requests. You’ll get an <code>Order</code> object as the response, or an error if a problem occurred.</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;id&quot;: &quot;or_6yLD5jBXsLYNcr&quot;,
+  &quot;created&quot;: 1442104773,
+  &quot;updated&quot;: 1442104773,
+  &quot;object&quot;: &quot;order&quot;,
+  &quot;livemode&quot;: false,
+  &quot;status&quot;: &quot;created&quot;,
+  &quot;metadata&quot;: {},
+  &quot;customer&quot;: null,
+  &quot;shipping&quot;: {
+    &quot;name&quot;: &quot;Jenny Rosen&quot;,
+    &quot;address&quot;: {
+      &quot;line1&quot;: &quot;1234 Main Street&quot;,
+      &quot;line2&quot;: null,
+      &quot;city&quot;: &quot;Anytown&quot;,
+      &quot;state&quot;: null,
+      &quot;postal_code&quot;: &quot;12356&quot;,
+      &quot;country&quot;: &quot;US&quot;
+    },
+    &quot;phone&quot;: null
+  },
+  &quot;email&quot;: null,
+  &quot;items&quot;: [
+    {
+      &quot;parent&quot;: &quot;sku_6yK573OC7bNAX0&quot;,
+      &quot;object&quot;: &quot;order_item&quot;,
+      &quot;type&quot;: &quot;sku&quot;,
+      &quot;description&quot;: &quot;2015 Limited Edition T-shirt&quot;,
+      &quot;amount&quot;: 1500,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;quantity&quot;: 1
+    },
+    {
+      &quot;parent&quot;: null,
+      &quot;object&quot;: &quot;order_item&quot;,
+      &quot;type&quot;: &quot;tax&quot;,
+      &quot;description&quot;: &quot;Taxes (included)&quot;,
+      &quot;amount&quot;: 0,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;quantity&quot;: null
+    },
+    {
+      &quot;parent&quot;: &quot;ship_free-shipping&quot;,
+      &quot;object&quot;: &quot;order_item&quot;,
+      &quot;type&quot;: &quot;shipping&quot;,
+      &quot;description&quot;: &quot;Free shipping&quot;,
+      &quot;amount&quot;: 0,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;quantity&quot;: null
+    }
+  ],
+  &quot;shipping_methods&quot;: [
+    {
+      &quot;id&quot;: &quot;ship_free-shipping&quot;,
+      &quot;description&quot;: &quot;Free shipping&quot;,
+      &quot;amount&quot;: 0,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;delivery_estimate&quot;: {
+        &quot;type&quot;: &quot;exact&quot;,
+        &quot;date&quot;: &quot;2017-01-20&quot;
+      }
+    }
+  ],
+  &quot;selected_shipping_method&quot;: &quot;ship_free-shipping&quot;,
+  &quot;amount&quot;: 1500,
+  &quot;currency&quot;: &quot;usd&quot;,
+  &quot;charge&quot;: null
+}</code></pre>
+</div>
+
+<p>As you can see in the response, Stripe automatically plugs in the appropriate shipping and tax costs, per the seller’s settings. You can use these values in the returned <code>Order</code> object to present a final total to your user for payment.</p>
+
+<p>Behind the scenes, Stripe will notify the seller of the order’s creation by email or webhook notification, depending upon the seller’s settings. (You will also receive webhook notifications at your Connect app’s endpoint.)</p></section>
+
+<section>
+<h2 id="accept-payment-for-orders">Accept payment for orders</h2>
+
+<p>The final step for the app is to collect payment for the order. Orders are paid for similar to any other charge in Stripe, using either a credit card or an existing <code>Customer</code> object from a Stripe account (with a previously stored source). A simple and common option is to have the customer pay using a credit card, tokenized via <a href="../custom-form.html">Stripe.js</a> or <a href="../checkout/tutorial.html">Checkout</a>.</p>
+
+<p>You’ll most likely want to save card details in a <code>Customer</code> object on your own Stripe account, so users of your app have their payment credentials saved for re-use across whichever merchants they want to purchase from in the future.</p>
+
+<p>Provide the payment source in the <a href="../api.html#pay_order">pay order</a> call, and the customer will be charged.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders/or_19bZhe2eZvKYlo2CoS3cokhw/pay \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d source=&quot;{TOKEN}&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Get the credit card details submitted by the form
+token = params[:stripeToken]
+
+order = Stripe::Order.retrieve(&#39;or_19bZhe2eZvKYlo2CoS3cokhw&#39;)
+
+order.pay(:source =&gt; token)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Get the credit card details submitted by the form
+token = request.POST[&#39;stripeToken&#39;]
+
+order = stripe.Order.retrieve(&#39;or_19bZhe2eZvKYlo2CoS3cokhw&#39;)
+
+order.pay(source=token)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Get the credit card details submitted by the form
+$token = $_POST[&#39;stripeToken&#39;];
+
+$order = \Stripe\Order::retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;);
+
+$order-&gt;pay(array(&quot;source&quot; =&gt; $token));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+// Get the credit card details submitted by the form
+String token = request.getParameter(&quot;stripeToken&quot;);
+
+Order order = Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, null);
+
+Map&lt;String, Object&gt; orderParams = new HashMap&lt;String, Object&gt;();
+orderParams.put(&quot;source&quot;, token);
+
+order.pay(orderParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Get the credit card details submitted by the form
+var token = request.body.stripeToken; // Using Express
+
+stripe.orders.pay(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, {
+  source: token
+}, function(err, order) {
+  // called asynchronously
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Note that all of the order creation and payment activity occurs on the seller’s account, on whose behalf you’re operating. The customer’s funds will flow directly to the seller’s Stripe account, and they will be all set to fulfill the order.</p>
+
+<p>Upon payment, the <code>Order</code> object’s <code>status</code> will be changed to <code>paid</code>, and <code>order.payment_succeed</code> events will be sent to all applicable webhook endpoints.</p></section>
+
+<section>
+<h2 id="application-fee">Take an application fee</h2>
+
+<p>Apps also have the option to apply an <a href="../connect/payments-fees.html#collecting-fees">application fee</a> when accepting payment for an order. No Stripe fees are taken from the application fee; the only Stripe fees are on the charge itself, and those come from the amount going to the seller. <strong>You must make it clear to your connected sellers that you charge an application fee.</strong></p>
+
+<p>For example, on an order of $100 (USD), if you take an application fee of $1.00 (USD), you will receive $1.00 (USD) in your Stripe account. The seller will receive $95.80 (USD) in their Stripe account: $100, less the $3.20 Stripe fee (2.9% + 30 cents), less your application fee.</p>
+
+<p>To charge an application fee, pass in the optional <code>application_fee</code> parameter in the pay order call. The <code>application_fee</code> parameter must be a positive integer (e.g., an amount in cents), representing a flat amount, not a percentage.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders/or_6yLD5jBXsLYNcr/pay \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -H &quot;Stripe-Account: {CONNECTED_STRIPE_ACCOUNT_ID}&quot; \
+   -d source=tok_16glHpJrQulZCT9iNFY21k34 \
+   -d application_fee=100
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = Stripe::Order.retrieve(&#39;or_6yLD5jBXsLYNcr&#39;,
+  :stripe_account =&gt; &#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;)
+
+order.pay(
+  :application_fee =&gt; 100,
+  :source =&gt; &#39;tok_16glHpJrQulZCT9iNFY21k34&#39;
+  # Obtained with Stripe.js ^^^
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = stripe.Order.retrieve(&#39;or_6yLD5jBXsLYNcr&#39;,
+  stripe_account=&#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;)
+
+order.pay(
+  application_fee=100,
+  source=&#39;tok_16glHpJrQulZCT9iNFY21k34&#39;
+  # Obtained with Stripe.js ^^^
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+$order = \Stripe\Order::retrieve(&quot;or_6yLD5jBXsLYNcr&quot;,
+  array(&quot;stripe_account&quot; =&gt; &quot;{CONNECTED_STRIPE_ACCOUNT_ID}&quot;)
+);
+
+$order-&gt;pay(array(
+  &quot;application_fee&quot; =&gt; 100,
+  &quot;source&quot; =&gt; &quot;tok_16glHpJrQulZCT9iNFY21k34&quot;
+  # Obtained with Stripe.js ^^^
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount({CONNECTED_STRIPE_ACCOUNT_ID}).build();
+
+Order order = Order.retrieve(&quot;or_6yLD5jBXsLYNcr&quot;, requestOptions);
+
+Map&lt;String, Object&gt; orderParams = new HashMap&lt;String, Object&gt;();
+orderParams.put(&quot;application_fee&quot;, 100);
+orderParams.put(&quot;source&quot;, &quot;tok_16glHpJrQulZCT9iNFY21k34&quot;);
+// Obtained with Stripe.js ^^^
+
+order.pay(orderParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.orders.retrieve(&quot;or_6yLD5jBXsLYNcr&quot;, {
+  stripe_account: &#39;{CONNECTED_STRIPE_ACCOUNT_ID}&#39;
+}, function(err, order) {
+    if !err {
+      order.pay({
+        application_fee: 100,
+        source: &quot;tok_16glHpJrQulZCT9iNFY21k34&quot;
+        // Obtained with Stripe.js ^^^
+      })
+    }
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+<h2 id="graceful-error-handling">Graceful error handling</h2>
+
+<p>Creating and paying for orders can fail in a number of ways. To deliver the best possible user experience, you should should display clear, actionable errors whenever something goes wrong. To help you learn about possible errors and thoroughly test your error handling flows, check out our <a href="apps-error-guide.html">advanced error handling guide</a>.</p></section>
+
+<section>
+  <h2>Next steps</h2>
+  <p>Congrats! You've gone through how to use the Orders API's products, SKUs and orders features. Some things you might want to see next:</p>
+<ul class="next-steps">
+    <li><a href="../connect.html"><span>Connect overview</a></li>
+    <li><a href="../orders.html"><span>Orders API Guide for Sellers</a></li>
+    <li><a href="../recipes/product-discovery-app.html"><span>Building a Product Discovery App</a></li>
+    <li><a href="../api.html#products"><span>Products API docs</a></li>
+    <li><a href="../api.html#skus"><span>SKU API docs</a></li>
+    <li><a href="../api.html#orders"><span>Order API docs</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/relay/apps-guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:53 GMT -->
+</html>

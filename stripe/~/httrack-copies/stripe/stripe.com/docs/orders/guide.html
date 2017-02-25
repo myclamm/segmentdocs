@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/orders/guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:45 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="S-zPGgt49JDrnEC8MF2f-k0hIUp2g7-rrPwD3BWFe-PSdttnDb0w1SbYZKP8VaqBZF-vzSovfgvtSQn0sFKxkg==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Orders Guide</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Orders Guide">
+    <meta property="og:url" content="guide.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Orders Guide">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul>
+    <li>
+      <a class='selected' href="guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Orders Guide</h1>
+  <p>This guide is an in-depth walkthrough of using orders and products in Stripe. You can also get a <a href="../orders.html">quick intro</a> or check out the <a href="../api.html#orders">Orders API reference</a>. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=orders">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<h2 id="managing-products-orders">Managing products and orders</h2>
+<p>If you sell products–whether physical or digital–you use Stripe’s Orders API to keep track of inventory, calculate tax and shipping, apply discounts, store tracking information, and handle returns.</p>
+
+<p>Stripe lets you define <em>products</em> with images and attributes like color and size and <em>SKUs</em> representing specific items to purchase (like a red shirt in size M) along with price and inventory information. You use SKUs to construct <em>orders</em> on behalf of your customers.</p>
+
+<h3 id="understanding-order-statuses">Understanding the order lifecycle</h3>
+
+<p>When examining the response of any API call or webhook notification, use the <code>Order</code> object’s <code>status</code> attribute to verify the current status of the order and respond accordingly.</p>
+
+<ul>
+  <li>When an order is first requested, the resulting order object has an initial <code>status</code> of <code>created</code>.</li>
+  <li>When an order is paid, <code>status</code> changes to <code>paid</code>. You should now fulfill the order.</li>
+  <li>After fulfilling the order, update the <code>Order</code> object to change <code>status</code> to <code>fulfilled</code>. Only orders in the <code>paid</code> state can be marked as <code>fulfilled</code>.</li>
+  <li>If the customer cancels the order (through your site) before it’s been fulfilled, update <code>status</code> to <code>canceled</code> which will refund the payment.</li>
+  <li>If the order has been fulfilled and the customer returns the purchased items, update <code>status</code> to <code>returned</code> which will refund the payment.</li>
+</ul>
+
+<p>Put another way:</p>
+
+<ul>
+  <li>A <code>created</code> order can become <code>paid</code> or <code>canceled</code>.</li>
+  <li>A <code>paid</code> order can become <code>fulfilled</code> or <code>canceled</code>. If the order becomes <code>canceled</code>, Stripe will automatically refund the payment.</li>
+  <li>A <code>fulfilled</code> order is normally the final state, but can be <code>returned</code> in which case the payment is refunded.</li>
+</ul>
+
+<p>You can update the order status using the API. The API optionally lets you specify additional information when you update the order. For example, you can provide a carrier and tracking number when you fulfill the order:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders/or_19bZhe2eZvKYlo2CoS3cokhw \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d status=fulfilled \
+   -d shipping[carrier]=USPS \
+   -d shipping[tracking_number]=TRACK123
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = Stripe::Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;)
+
+order.status = &#39;fulfilled&#39;
+order.shipping.tracking_number = &#39;USPS&#39;
+order.shipping.carrier = &#39;TRACK123&#39;
+
+order.save
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = stripe.Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;)
+
+order.status = &#39;fulfilled&#39;
+order.shipping.carrier = &#39;USPS&#39;
+order.shipping.tracking_number = &#39;TRACK123&#39;
+
+order.save()
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+
+$order = StripeOrder::retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;);
+
+$order-&gt;status = &quot;fulfilled&quot;;
+$order-&gt;shipping-&gt;tracking_number = &quot;TRACK123&quot;;
+$order-&gt;shipping-&gt;carrier = &quot;USPS&quot;;
+
+$order-&gt;save();
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Order order = Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, requestOptions);
+
+Map&lt;String, Object&gt; updateParams = new HashMap&lt;String, Object&gt;();
+updateParams.put(&quot;status&quot;, &quot;fulfilled&quot;);
+
+Map&lt;String, Object&gt; shippingParams = new HashMap&lt;String, Object&gt;();
+updateParams.put(&quot;carrier&quot;, &quot;USPS&quot;);
+updateParams.put(&quot;tracking_number&quot;, &quot;TRACK123&quot;);
+
+updateParams.put(&quot;shipping&quot;, shippingParams);
+
+order.update(updateParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.orders.update(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, {
+  status: &quot;fulfilled&quot;,
+  shipping: {
+    carrier: &#39;USPS&#39;,
+    tracking_number: &#39;TRACK123&#39;
+  }
+}, function(err, order) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<h3 id="handling-returns">Handling returns</h3>
+
+<p>Stripe helps you seamlessly handle returns from your customers when they decide to return all or part of an order. We take care of calculating how much tax to return and (partially) refunding the customer’s payment accordingly. For example, suppose your customer has purchased two instances of the same SKU but decided to return one. You can express this cleanly through the Orders API:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders/or_19bZhe2eZvKYlo2CoS3cokhw/returns \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d items[][type]=sku \
+   -d items[][parent]=sku_6zVDZYQHj7oq88 \
+   -d items[][quantity]=1
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = Stripe::Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;)
+order.return_order(
+  :items =&gt; [
+    {
+      :type =&gt; &#39;sku&#39;,
+      :parent =&gt; &#39;sku_6zVDZYQHj7oq88&#39;,
+      :quantity =&gt; 1
+    }
+  ],
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = stripe.Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;)
+order.return_order(
+  items=[
+    {
+      &quot;type&quot;: &#39;sku&#39;,
+      &quot;parent&quot;: &#39;sku_6zVDZYQHj7oq88&#39;,
+      &quot;quantity&quot;: 1
+    }
+  ]
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+
+$order = StripeOrder::retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;);
+$order-&gt;returnOrder(array(
+  &quot;items&quot; =&gt; array(
+    array(
+      &quot;type&quot; =&gt; &quot;sku&quot;,
+      &quot;parent&quot; =&gt; &quot;sku_6zVDZYQHj7oq88&quot;
+      &quot;quantity&quot; =&gt; 1,
+    )
+  ),
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; orderParams = new HashMap&lt;String, Object&gt;();
+orderParams.put(&quot;items&quot;, [{&quot;type&quot;=&gt;&quot;sku&quot;, &quot;parent&quot;=&gt;&quot;sku_6zVDZYQHj7oq88&quot;, &quot;quantity&quot;=&gt;1}]);
+
+order.returnOrder(orderParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.orders.returnOrder(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, {
+  items: [
+    {
+      type: &#39;sku&#39;,
+      parent: &#39;sku_6zVDZYQHj7oq88&#39;,
+      quantity: 1
+    }
+  ]
+}, function(err, order) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>The Orders API responds with the items you returned and automatically calculates the appropriate amount of taxes to refund using your tax provider. If a refund was created, it will be linked under <code>refund</code>:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;id&quot;: &quot;orret_18Q3IaDAu10Yox5RqlL8JnnS&quot;,
+  &quot;object&quot;: &quot;order_return&quot;,
+  &quot;amount&quot;: 7524,
+  &quot;refund&quot;: &quot;re_19bda92eZvKYlo2CQRYBJtGZ&quot;,
+  &quot;items&quot;: [
+    {
+      &quot;type&quot;: &quot;sku&quot;,
+      &quot;amount&quot;: 6999,
+      &quot;description&quot;: &quot;Slim Jeans&quot;,
+      &quot;parent&quot;: &quot;sku_6zVDZYQHj7oq88&quot;,
+      ...
+    },
+    {
+      &quot;type&quot;: &quot;tax&quot;,
+      &quot;amount&quot;: 525,
+      &quot;description&quot;: &quot;CA STATE TAX (P0000000)&quot;,
+      &quot;parent&quot;: null,
+      ...
+    },
+  ],
+  ..
+}</code></pre>
+</div>
+
+<p>If the customer later returns the remainder on the order, you can return all the remaining line items and refund the remainder of the charge:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/orders/or_19bZhe2eZvKYlo2CoS3cokhw/returns \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -X POST
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = Stripe::Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;)
+order.return_order()
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+order = stripe.Order.retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;)
+order.return_order()
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+
+$order = StripeOrder::retrieve(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;);
+$order-&gt;returnOrder();
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; orderParams = new HashMap&lt;String, Object&gt;();
+order.returnOrder(orderParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.orders.returnOrder(&quot;or_19bZhe2eZvKYlo2CoS3cokhw&quot;, function(err, order) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>All individual returns will be aggregated under <code>returns</code> <a href="../api.html#order_object">on the order object</a>. Note that a partially returned order will remain in its old state until it has been fully returned. For example, a <code>fulfilled</code> order with some return items remains <code>fulfilled</code> until all items have been returned. Once all items are returned, the order automatically transitions to <code>returned</code>.</p>
+
+<p>Order returns are quite flexible. You can return one or more SKUs or an amount of a particular SKU to offer a partial refund. While you could generate these refunds by partially refunding the underlying charge object, we highly recommend that you only interact with the order object. As you have seen above, interacting with the order helps you return the appropriate amount of taxes to the customer. It also lets you maintain the right order status for your internal bookkeeping. Stripe cannot help you calculate with either of these if you work directly with the charge object, so we recommend against refunding it directly.</p>
+
+<h3 id="using-webhooks">Using webhooks</h3>
+
+<p>Receive real-time updates on the state of your products, SKUs, and orders using <a href="../webhooks.html">webhooks</a>. The applicable Orders API events are:</p>
+
+<ul>
+  <li><code>product.created</code></li>
+  <li><code>product.updated</code></li>
+  <li><code>sku.created</code></li>
+  <li><code>sku.updated</code>: e.g., inventory is decreased after a successful order</li>
+  <li><code>order.created</code></li>
+  <li><code>order.updated</code>: the details of an order (e.g., shipping information) are updated</li>
+  <li><code>order.payment_succeeded</code>: payment is made on an order</li>
+  <li><code>order.payment_failed</code>: the payment attempt did not work</li>
+</ul>
+
+<p>Your webhook endpoint can take specific actions when these events occur. You can expect to receive an <code>order.created</code> event whenever someone has begun the checkout flow for one of your products. An <code>order.payment_succeeded</code> event represents a purchase.  In other words, once you have received an <code>order.payment_succeeded</code> webhook, it’s time to fulfill whatever product has been purchased.</p>
+
+<h3 id="importing-product-feeds">Automatically importing products</h3>
+
+<p>If you already maintain a product catalog, perhaps through an OMS or an existing integration, Stripe can import your products to help you get started with the Orders API. <strong>Google</strong> and <strong>LinkShare</strong> product feeds are fully compatible with Stripe’s product objects and either type of feed can be imported daily or weekly into Stripe to maintain up to date inventory information.</p>
+
+<p>To get started, visit the <a href="https://dashboard.stripe.com/products">Products page</a> in the Dashboard. In the top right corner, click <strong>Add feed</strong> and input the location of your feed. We support downloading feeds over HTTP, HTTPS, FTP, and SFTP, and the URL you specify should include the scheme (like <strong>https://example.com/my_feed.tsv</strong>). After specifying your feed location and credentials (if any), click <strong>Test feed</strong> to make sure the information is correct. Stripe will attempt to download and parse the feed to make sure your feed location, credentials, and format are valid. If they are, choose how often you would like to import the feed and click <strong>Save feed</strong> to start importing.</p>
+
+<p>You can check on previous imports by clicking <strong>Manage feed</strong> on the products page. Here you can see how many products Stripe has imported and inspect any errors that occurred while parsing. If the contents of your feed changed and you want to import the new feed immediately, you can click <strong>Import now</strong> to import right away.</p></section>
+
+<section>
+<h2 id="best-practices">Best practices</h2>
+
+<p>This section contains some recommendations to help you define and manage products effectively.</p>
+
+<p>To make the most of products, SKUs, and orders, it’ll help to understand where the various objects and attributes come into play.</p>
+
+<h3 id="define-products-skus">Defining products and SKUs</h3>
+
+<p>The first decision to make in organizing a catalog is to identify your products and SKUs. This can be tricky to grasp, but is important to get right.</p>
+
+<p>Working backwards, a SKU is an individual product: the specific item the customer is actually buying. Anything you’d put into a shopping cart–real or online–is represented by a SKU.</p>
+
+<p>Each product is an umbrella term for a family of SKUs. These should still be identifying, not too generic. “Book”, “coat”, “software”, and “coffee” are all too broad as products. Instead, you’d have:</p>
+
+<ul>
+  <li>A specific book title as a product, with formats–hardcover, softcover–and translations differentiated as SKUs.</li>
+  <li>An identifiable label and style of coat as a product, with sizes and colors defined as SKUs.</li>
+  <li>A named application as a product, with operating system versions and releases as SKUs.</li>
+  <li>A line of coffee–such as Jamaican Blue Mountain– as a product, with sizes, roasts, and ground establishing SKUs.</li>
+</ul>
+
+<p>As a rule of thumb, customers would be unlikely to purchase two different SKUs from the same product family at the same time (unless they really wanted, for example, the same coat in two different colors).</p>
+
+<h3 id="product-details">Detailing products details for customers</h3>
+
+<p>Your goal is to provide as much useful, appealing information as you can about your products and SKUs. We recommend you do the following to take full advantage of the Orders API, especially if you plan on <a href="#connect-apps">selling through Relay apps</a>:</p>
+
+<ul>
+  <li>Use clear, descriptive names</li>
+  <li>Provide at least one product image</li>
+  <li>Use a dedicated web page, linked through the <code>url</code> field, to provide more detailed and alternative information (e.g., a video demonstrating the product)</li>
+</ul></section>
+
+<section>
+  <h2>Next steps</h2>
+  <p>Congrats! You've gone through how to use the orders API's products, SKUs and orders features. Some things you might want to see next:</p>
+<ul class="next-steps">
+    <li><a href="../relay.html"><span>Selling in Other Apps with Relay</a></li>
+    <li><a href="../relay/apps-guide.html"><span>Accepting Orders in Your App with Relay</a></li>
+    <li><a href="../recipes/product-discovery-app.html"><span>Building a Product Discovery App</a></li>
+    <li><a href="../api.html#products"><span>Products API docs</a></li>
+    <li><a href="../api.html#skus"><span>SKU API docs</a></li>
+    <li><a href="../api.html#orders"><span>Order API docs</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/orders/guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:45 GMT -->
+</html>

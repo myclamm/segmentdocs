@@ -1,0 +1,1637 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/guides/sms/how-to-send-sms-mms-messages-in-cpp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:04 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    <meta name="description" content="Use standard libraries, libcurl and the Twilio REST API to send SMS and MMS messages directly from C++.">
+    
+    
+    
+
+    <title>
+      Send SMS and MMS Messages In C++ - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/guides/sms/how-to-send-sms-mms-messages-in-cpp" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    <meta property="og:title" content="Send SMS and MMS Messages In C++">
+    
+    
+    <meta property="og:description" content="Use standard libraries, libcurl and the Twilio REST API to send SMS and MMS messages directly from C++.">
+    
+    
+    <meta property="og:url" content="https://www.twilio.com/docs/guides/sms/how-to-send-sms-mms-messages-in-cpp?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    <meta name="twitter:title" content="Send SMS and MMS Messages In C++">
+    
+    
+    <meta name="twitter:description" content="Use standard libraries, libcurl and the Twilio REST API to send SMS and MMS messages directly from C++.">
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["marketplace", "enable-video-rooms"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      guides
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/guides" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">Guides</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+      
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+      <div class="uk-width-3-4 uk-hidden-small">
+      
+      
+        <div class="breadcrumbs">
+          
+            
+          
+            
+          
+            
+              <a href="https://www.twilio.com/docs/guides">Guides</a> &gt;
+            
+          
+            
+              <a href="https://www.twilio.com/docs/guides/sms">Programmable SMS Guides</a> &gt;
+            
+          
+          <span>Send SMS and MMS Messages In C++</span>
+        </div>
+      
+      </div>
+
+      
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+  <div class="search">
+    <form action="https://www.twilio.com/docs/search" method="GET">
+      <div class="wrapper">
+        <input id="search-box" name="q" type="text" value=""/>
+      </div>
+      <button type="submit">
+        <i class="fa fa-fw fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+    
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+  <div class="coderail-container">
+
+    <div class="sidenav-column">
+      <div class="theme-switcher uk-hidden-small">
+  <div class="theme-wrapper">
+    <a data-theme="light" class="selected">
+      <i class="fa fa-fw fa-sun-o"></i>
+    </a>
+    <a data-theme="dark" >
+      <i class="fa fa-fw fa-moon-o"></i>
+    </a>
+  </div>
+</div>
+      
+        <div class="sidenav" data-uk-sticky="{boundary: true}">
+          
+
+<ul id="doc_menu" class="sidenav__section" data-swiftype-index="false">
+
+  <!-- Page entries -->
+  
+    <li id="dynamic-menu">
+      <ul>
+        
+          
+            
+<li class="menu-title expanded" role="menu-title" id="doc-navigation-parent">
+  Send SMS and MMS Messages In C++
+</li>
+<ul class="menu-accordion expanded" role="menu-accordion" id="doc-navigation"></ul>
+
+          
+          
+<li class="menu-title expanded" role="menu-title">
+
+    <span class="heading">Related Guides</span>
+</li>
+
+
+<ul class="menu-accordion expanded" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/guides/sms/how-to-send-sms-mms-messages-in-c">
+          Send SMS and MMS Messages In C
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/guides/sms/how-to-send-sms-messages-in-csharp">
+          Send SMS and MMS Messages in C#
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/guides/how-use-bash-command-line-send-sms-purchased-twilio-number">
+          How to Use bash or zsh to Send an SMS from a New Twilio Number
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/guides/sms/how-to-send-bulk-sms-messages">
+          Send Bulk SMS Messages
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/guides/sms">
+          Programmable SMS Guides
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+        
+      </ul>
+    </li>
+  
+</ul>
+
+        </div>
+      
+    </div>
+
+    <div class="primary-column 
+        ">
+      <div class="docs-prose">
+        
+  
+    
+    <h1 class="page-title ">
+      Send SMS and MMS Messages In C++
+    </h1>
+    
+      
+<div class="authors">
+  <div class="authors-body">
+    <div class="author">
+      <img src="https://www.gravatar.com/avatar/8eaa238864b16952faee3a57bbb03e21?d=mm&amp;s=50" title="Paul Kamp" alt="Paul Kamp" />
+      Paul Kamp
+    </div>
+  </div>
+  <div class="authors-footer"></div>
+</div>
+
+
+    
+  
+  
+    <div class="block-rich_text ">
+      
+        
+
+<div class="rich-text"><p>Today we'll use C++, some standard libraries, libcurl, and some POSIX APIs to send SMS and MMS messages using the <a href="https://www.twilio.com/docs/api/rest/message">Twilio REST API</a>.  You'll need a (mostly) <a href="https://en.wikipedia.org/wiki/POSIX#POSIX-oriented_operating_systems">POSIX-compliant build environment</a> as well as <a href="https://curl.haxx.se/libcurl/">libcurl</a> to follow along with this guide.</p>
+<p>Let's get started!</p>
+<h2 id="sign-up-for-or-sign-in-to-a-twilio-account"><a class="toclink" href="#sign-up-for-or-sign-in-to-a-twilio-account">Sign Up for (or Sign In to) a Twilio Account</a></h2>
+<p>You'll need to login to your existing Twilio account, or create a new account.</p>
+<p>Don't have an account yet?  Sign up for a <a href="https://www.twilio.com/try-twilio">free Twilio trial</a>, post-haste.</p>
+<h2 id="purchase-or-find-a-sms-capable-number"><a class="toclink" href="#purchase-or-find-a-sms-capable-number">Purchase or Find a SMS-Capable Number</a></h2>
+<p>You'll need a SMS (or optionally, MMS) capable number to complete this demo.  Either use a phone number that you already have, or purchase a new one with SMSes enabled.  </p>
+<p>From the <a href="https://twilio.com/console">Twilio Console</a>, here's where you can determine the capabilities of your purchased number:</p>
+<p> </p>
+<p><img alt="Checking a Twilio Phone Number for SMS Capability" class="richtext-image full-width" height="331" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/phone_number_list.width-800.jpg" width="800"/></p>
+<p>If you need to purchase a number, after navigating to the 'Buy a Number' link click the SMS checkbox (and the MMS checkbox, if you wish to send media messages).</p>
+<p><img alt="Buy a SMS-Capable Twilio Phone Number" class="richtext-image full-width" height="332" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/buy_a_number.width-800.jpg" width="800"/></p>
+<h2 id="prerequisites-for-this-c-mms-and-sms-guide"><a class="toclink" href="#prerequisites-for-this-c-mms-and-sms-guide">Prerequisites for This C++ MMS and SMS Guide</a></h2>
+<p>We're targeting POSIX Compliant environments with this guide, and tested our code with clang-800.0.42.1 on Mac OSX 10.11, gcc version 4.9.2 on Raspbian 8.0 (kernel 4.4.38-v7+) and gcc 5.4.0 in Cygwin 2.877 on Windows 7 64-Bit.  </p>
+<p>To build, you will need to ensure you have:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/C_POSIX_library">stdio.h, stdlib.h, unistd.h</a> - C POSIX libraries</li>
+<li><a href="https://curl.haxx.se/libcurl/">libcurl</a> - Client-side transfer library</li>
+<li><a href="http://stdcxx.apache.org/doc/stdlibref/">iostream, sstream, string</a> - C++ Standard Libraries </li>
+</ul>
+<p>libcurl was already on the Mac.  On the Raspberry Pi, you can install a suitable version with:</p>
+<div class="codehilite"><pre><span class="code-line">sudo apt-get install libcurl4-openssl-dev
+</span></pre></div>
+<p>In Windows 7 and Cygwin, you can install libcurl with Cygwin Setup:</p>
+<p><img alt="Installing libcurl-devel and curl in Cygwin" class="richtext-image full-width" height="330" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/cygwin_libcurl_install.width-800.jpg" width="800"/></p>
+<h2 id="building-cpp_demo"><a class="toclink" href="#building-cpp_demo">Building cpp_demo</a></h2>
+<p>All three environments worked with <a href="https://github.com/TwilioDevEd/twilio_cpp_demo/blob/master/Makefile">this example Makefile</a>.  You may need to make minor edits - usually to the library search paths - to build in your environment.</p>
+<p>On almost all *NIX-type systems (including Windows/Cygwin), building should be very similar to the following lines (you might even be able to copy, paste and execute):</p>
+<div class="codehilite"><pre><span class="code-line">git clone https://github.com/TwilioDevEd/twilio_cpp_demo.git
+</span><span class="code-line">cd twilio_cpp_demo
+</span><span class="code-line">make
+</span></pre></div>
+<h2 id="send-an-sms-or-mms-message-with-c"><a class="toclink" href="#send-an-sms-or-mms-message-with-c">Send an SMS or MMS Message with C++</a></h2>
+<p>We've just built cpp_demo, which attempts to send an SMS or MMS based on your inputs from the command line.  <code>src/twilio.cc</code> and <code>include/twilio.hh</code> demonstrate a class, <em>Twilio</em>, which should be easy to integrate into your own codebase.  (Note that before putting it into production, you need to add input validation and safety.  The first order of concern: the code in its current form can be passed additional HTTP parameters through the command line inputs.)</p>
+<p>For C++ developers, our <a href="https://www.twilio.com/docs/guides/sms/how-to-send-sms-mms-messages-in-c">C SMS and MMS guide</a> might give some key insights into the following code - but let's take a closer look to see what's happening under the hood.</p>
+<ul>
+<li>First, we instantiate a <code>Twilio</code> object with our account credentials (find them on the <a href="https://twilio.com/console">Twilio Console</a>).</li>
+<li>Second, we call the method <code>send_message</code> with the to/from numbers, the message, and optionally a URL to a picture and a boolean of whether we want verbose output.</li>
+</ul></div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-using-the-twilio-rest-api-from-c" 
+  data-title="Using the Twilio REST API from C++" data-pref="server">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-using-the-twilio-rest-api-from-c">Using the Twilio REST API from C++</a>
+        <ul style="visibility:hidden" >
+          
+            <li class="sample-tab active" 
+              data-ext="cc">cc</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+          
+      
+        <pre data-ext="cc" data-version="default" class="codehilite"><code><span class="code-line fr fr-on"><span class="cm">/*</span>
+</span><span class="code-line fr fr-on"><span class="cm">* This example demonstrates sending a SMS or MMS in C++ using the Twilio REST</span>
+</span><span class="code-line fr fr-on"><span class="cm">* APIs.  After building, you should be able to run it with:</span>
+</span><span class="code-line fr fr-on"><span class="cm">* </span>
+</span><span class="code-line fr fr-on"><span class="cm">* </span>
+</span><span class="code-line fr fr-on"><span class="cm">*/</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&quot;twilio.hh&quot;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="kt">int</span> <span class="n">cmd</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">account_sid</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">auth_token</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">message</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">from_number</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">to_number</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">picture_url</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="kt">bool</span> <span class="n">verbose</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="n">opterr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="k">while</span> <span class="p">((</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">getopt</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="s">&quot;a:s:m:f:t:p:vh?&quot;</span><span class="p">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;?&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;h&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Twilio C++ Example Help:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-a: Account</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -a </span><span class="se">\&quot;</span><span class="s">ACXXXXX</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-s: Auth Token</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -s </span><span class="se">\&quot;</span><span class="s">your_token</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-f: From Number</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -f </span><span class="se">\&quot;</span><span class="s">+18005551212</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-t: To Number</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -t </span><span class="se">\&quot;</span><span class="s">+18005551212</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-m: Message to send</span><span class="se">\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -m </span><span class="se">\&quot;</span><span class="s">Hello, Twilio!</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-p: (Opt.) URL to Image</span><span class="se">\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -p </span><span class="se">\&quot;</span><span class="s">Hello, Twilio!</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-v: Verbose Mode</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-h: This help dialog</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;a&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">account_sid</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;s&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">auth_token</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;m&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">message</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;f&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">from_number</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;t&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">to_number</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;p&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">picture_url</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;v&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">verbose</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">default</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">abort</span><span class="p">();</span>
+</span><span class="code-line fr fr-on">                <span class="p">}</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="k">if</span> <span class="p">(</span> <span class="n">account_sid</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">auth_token</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">from_number</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span>
+</span><span class="code-line fr fr-on">                <span class="o">||</span> <span class="n">to_number</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">message</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;You didn&#39;t include all necessary inputs!</span><span class="se">\n</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                        <span class="s">&quot;Call using -h for help.</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line hll fr-on">        <span class="c1">// Instantiate a twilio object and call send_message</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">response</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">twilio</span><span class="o">::</span><span class="n">Twilio</span> <span class="o">*</span><span class="n">twilio</span> <span class="o">=</span> <span class="k">new</span> <span class="n">twilio</span><span class="o">::</span><span class="n">Twilio</span><span class="p">(</span><span class="n">account_sid</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="kt">bool</span> <span class="n">message_success</span> <span class="o">=</span> <span class="n">twilio</span><span class="o">-&gt;</span><span class="n">send_message</span><span class="p">(</span>
+</span><span class="code-line hll fr-on">                <span class="n">to_number</span><span class="p">,</span> 
+</span><span class="code-line hll fr-on">                <span class="n">from_number</span><span class="p">,</span> 
+</span><span class="code-line hll fr-on">                <span class="n">message</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">                <span class="n">picture_url</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">                <span class="n">verbose</span>
+</span><span class="code-line hll fr-on">        <span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="k">delete</span> <span class="n">twilio</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="c1">// Report success or failure</span>
+</span><span class="code-line fr fr-on">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">message_success</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Message send failed.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">response</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Response:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> 
+</span><span class="code-line fr fr-on">                                        <span class="o">&lt;&lt;</span> <span class="n">response</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="p">}</span>
+</span><span class="code-line fr fr-on">                <span class="p">}</span>
+</span><span class="code-line fr fr-on">                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="n">and</span> <span class="n">message_success</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;SMS sent successfully!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Response:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">response</span>
+</span><span class="code-line fr fr-on">                        <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Using the Twilio REST API from C++
+    </h5>
+    
+      <p>Instantiating a Twilio class and sending a SMS or MMS message with C++ and libcurl.</p>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-rich_text ">
+      
+        
+
+<div class="rich-text"><ul>
+<li>Third, once inside the code we first do some exception checking (making sure the message is the proper size), followed by setting up libcurl with our eventual HTTP POST</li>
+<li>Fourth, curl makes the HTTP POST and we clean up with <code>curl_easy_cleanup</code>.</li>
+<li>Finally, we check the response for success or failure, and return the result to the calling function.</li>
+</ul></div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-the-c-twilio-class" 
+  data-title="The C++ Twilio Class" data-pref="server">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-the-c-twilio-class">The C++ Twilio Class</a>
+        <ul style="visibility:hidden" >
+          
+            <li class="sample-tab active" 
+              data-ext="cc">cc</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+          
+      
+        <pre data-ext="cc" data-version="default" class="codehilite"><code><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;curl/curl.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&quot;twilio.hh&quot;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="k">namespace</span> <span class="n">twilio</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="n">Twilio</span><span class="o">::</span><span class="n">Twilio</span><span class="p">(</span>
+</span><span class="code-line fr fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">accound_sid_in</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">auth_token_in</span>
+</span><span class="code-line fr fr-on"><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">    <span class="n">account_sid</span> <span class="o">=</span> <span class="n">accound_sid_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">    <span class="n">auth_token</span> <span class="o">=</span> <span class="n">auth_token_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="kt">void</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">set_account_sid</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">accound_sid_in</span><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="n">account_sid</span> <span class="o">=</span> <span class="n">accound_sid_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="kt">void</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">set_auth_token</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">auth_token_in</span><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="n">auth_token</span> <span class="o">=</span> <span class="n">auth_token_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="c1">// Portably ignore curl response</span>
+</span><span class="code-line fr fr-on"><span class="kt">size_t</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">_null_write</span><span class="p">(</span>
+</span><span class="code-line fr fr-on">        <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="k">return</span> <span class="n">size</span><span class="o">*</span><span class="n">nmemb</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="c1">// Write curl response to a stringstream</span>
+</span><span class="code-line fr fr-on"><span class="kt">size_t</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">_stream_write</span><span class="p">(</span>
+</span><span class="code-line fr fr-on">        <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span>
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span>
+</span><span class="code-line fr fr-on">        <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">)</span> 
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">response_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="n">nmemb</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">*</span><span class="n">ss</span> <span class="o">=</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span><span class="o">*</span><span class="p">)</span><span class="n">userdata</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">ss</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">response_size</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">        <span class="k">return</span> <span class="n">response_size</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="c1">// Method send_message:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Returns &#39;true&#39; if the result of the eventual HTTP post to Twilio is status</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   code 200 or 201.  Either other status codes or errors in curl will cause</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   a false result.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Inputs:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - to_number: Where to send the MMS or SMS</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - from_number: Number in your Twilio account to use as a sender.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - message_body: (Max: 1600 characters) The body of the MMS or SMS </span>
+</span><span class="code-line fr fr-on"><span class="c1">//                message which will be sent to the to_number.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Outputs:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - response: Either the curl error message or the Twilio response</span>
+</span><span class="code-line fr fr-on"><span class="c1">//                if verbose.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Optional:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - picture_url: If picture URL is included, a MMS will be sent</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - verbose: Whether to print all the responses</span>
+</span><span class="code-line hll fr-on"><span class="kt">bool</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">send_message</span><span class="p">(</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">to_number</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">from_number</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">message_body</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">response</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">picture_url</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="kt">bool</span> <span class="n">verbose</span><span class="p">)</span>
+</span><span class="code-line hll fr-on"><span class="p">{</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">response_stream</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="c1">// See: https://www.twilio.com/docs/api/rest/sending-messages for</span>
+</span><span class="code-line hll fr-on">        <span class="c1">// information on Twilio body size limits.</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="n">message_body</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1600</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response_stream</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Message body must have 1600 or fewer&quot;</span>
+</span><span class="code-line hll fr-on">                        <span class="o">&lt;&lt;</span> <span class="s">&quot; characters. Cannot send message with &quot;</span>
+</span><span class="code-line hll fr-on">                        <span class="o">&lt;&lt;</span> <span class="n">message_body</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; characters.&quot;</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">response_stream</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">CURL</span> <span class="o">*</span><span class="n">curl</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_global_init</span><span class="p">(</span><span class="n">CURL_GLOBAL_ALL</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl</span> <span class="o">=</span> <span class="n">curl_easy_init</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">        
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">url</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">url_string</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">url</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;https://api.twilio.com/2010-04-01/Accounts/&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">account_sid</span>
+</span><span class="code-line hll fr-on">                <span class="o">&lt;&lt;</span> <span class="s">&quot;/Messages&quot;</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">url_string</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">parameters</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">parameter_string</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">parameters</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;To=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">to_number</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&amp;From=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">from_number</span> 
+</span><span class="code-line hll fr-on">                <span class="o">&lt;&lt;</span> <span class="s">&quot;&amp;Body=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">message_body</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">picture_url</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">parameters</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&amp;MediaUrl=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">picture_url</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on">        <span class="n">parameter_string</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_POST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_URL</span><span class="p">,</span> <span class="n">url_string</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="n">parameter_string</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_USERNAME</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_PASSWORD</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">verbose</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_WRITEFUNCTION</span><span class="p">,</span> <span class="n">_null_write</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_WRITEFUNCTION</span><span class="p">,</span> <span class="n">_stream_write</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">                <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_WRITEDATA</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">response_stream</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">CURLcode</span> <span class="n">res</span> <span class="o">=</span> <span class="n">curl_easy_perform</span><span class="p">(</span><span class="n">curl</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_cleanup</span><span class="p">(</span><span class="n">curl</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="kt">long</span> <span class="n">http_code</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_getinfo</span> <span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLINFO_RESPONSE_CODE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">http_code</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="c1">// Check for curl errors and Twilio failure status codes.</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">CURLE_OK</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">curl_easy_strerror</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">http_code</span> <span class="o">!=</span> <span class="mi">200</span> <span class="o">&amp;&amp;</span> <span class="n">http_code</span> <span class="o">!=</span> <span class="mi">201</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">response_stream</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">response_stream</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="p">}</span> <span class="c1">// end namespace twilio</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      The C++ Twilio Class
+    </h5>
+    
+      <p>The send_message method from the Twilio class from the CPP Messaging demo in C++.</p>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-rich_text ">
+      
+        
+
+<div class="rich-text"><h3 id="running-cpp_demo"><a class="toclink" href="#running-cpp_demo">Running cpp_demo</a></h3>
+<p>Running cpp_demo from the command line is easy once you have it built.  Merely set your account credentials and call the code as follows:</p>
+<div class="codehilite"><pre><span class="code-line">account_sid=ACXXXXXXXXXXXXXXXXXXXXXX
+</span><span class="code-line">auth_token=your_auth_token
+</span><span class="code-line">bin/cpp_demo -a $account_sid -s $auth_token -t "+18005551212" -f "+18005551213" -m "Hello, World!"
+</span><span class="code-line"># Optionally, use '-p http://some/path/to/img.jpg' to send an MMS.
+</span></pre></div>
+<h2 id="getting-c-rious-with-twilio-and-c"><a class="toclink" href="#getting-c-rious-with-twilio-and-c">Getting C-Rious With Twilio and C++</a></h2>
+<p>After this demo, you now have the means to add communications to your new or existing C++ applications.  Add monitoring or help to your C++ application, or bring your own use case.</p>
+<p>Whether you're a master of the language or closer to a practitioner of "C with classes" please do let us know <a href="https://twitter.com/intent/tweet?text=Hey%20@Twilio%2C%20look%20what%20I%20built%3A">on Twitter</a> when you've got something built!</p></div>
+
+      
+    </div>
+  
+
+    
+      
+<div class="contributors">
+  <div class="contributors-body">
+  
+    <div class="contributor">
+      
+        <label>Contributors:</label>
+      
+      <img src="https://www.gravatar.com/avatar/8eaa238864b16952faee3a57bbb03e21?d=mm&amp;s=50" title="Paul Kamp" alt="Paul Kamp" />
+    </div>
+  
+  </div>
+  <div class="contributors-footer"></div>
+</div>
+
+
+    
+
+        
+          
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+// Unique identifiers
+PAGE_URL = "https://www.twilio.com/docs/guides/sms/how-to-send-sms-mms-messages-in-cpp";
+
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'http://twiliodocumentation.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+        
+      </div>
+    </div>
+
+    <div class="code-column">
+      
+  <div id="coderail" class="code-rail" data-uk-sticky="{boundary: true}">
+
+  <div class="rail-placeholder"></div>
+
+  <div class="rail-header uk-hidden">
+
+    <div class="rail-header-wrapper">
+
+      <div class="rail-navigation">
+        <div class="inner">
+          <a href="#previous" class="inactive" data-previous>
+            <i class="fa fa-fw fa-arrow-left left"></i>
+          </a>
+        </div>
+        <div class="inner">
+          <span>
+            <span class="current-index">1</span>
+            <span>/</span>
+            <span class="snippet-total">1</span>
+          </span>
+        </div>
+        <div class="inner">
+          <a href="#next" data-next>
+            <i class="fa fa-fw fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="rail-title">
+        <div class="title-content inner">
+          <span>Loading Code Samples...</span>
+          <i class="fa fa-fw fa-chevron-down"></i>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rail-toolbar uk-hidden">
+
+    <div class="rail-current-language">
+      <div class="inner">
+        <span>Language</span>
+        <i class="fa fa-fw fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <a href="#code" class="uk-hidden tab" data-code>Code</a>
+      <a href="#output" class="uk-hidden inactive" data-output>Output</a>
+
+      <span class="separator"></span>
+
+      <a id="download" class="uk-hidden">
+        <i class="fa fa-fw fa-download"></i>
+        <span>Download Project</span>
+      </a>
+
+      <a id="github" class="uk-hidden" target="_blank">
+        <i class="fa fa-fw fa-github-square"></i>
+        <span>View on GitHub</span>
+      </a>
+
+      <a id="defrosty" class="fr-on" href="#defrosty">
+        <i class="fa fa-fw fa-eye"></i>
+        <span class="wider-tooltip">Toggle Highlighted Lines</span>
+      </a>
+
+      <a id="clippy" href="#copy">
+        <i class="fa fa-fw fa-copy"></i>
+        <span>Copy to Clipboard</span>
+      </a>
+
+      <a id="linkcode" href="#linkcode">
+        <i class="fa fa-fw fa-link"></i>
+        <span>Link to this Code</span>
+      </a>
+
+      <a href="#expand" data-expand>
+        <i class="fa fa-fw fa-arrows-alt"></i>
+        <span>Full Screen</span>
+      </a>
+      <a href="#collapse" class="uk-hidden" data-collapse>
+        <i class="fa fa-fw fa-compress"></i>
+        <span>Normal Size</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="rail-samples">
+    <ul>
+      
+        <li>
+          <a href="#code-using-the-twilio-rest-api-from-c">
+            Using the Twilio REST API from C++
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-the-c-twilio-class">
+            The C++ Twilio Class
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="rail-languages"></div>
+
+  <div class="rail-content">
+    <div class="rail-content-inner">
+      
+        
+        <div data-sample-title="Using the Twilio REST API from C++"
+            data-sample="code-using-the-twilio-rest-api-from-c" 
+            data-pref="server"
+            data-download-url="https://github.com/TwilioDevEd/twilio_cpp_demo/archive/master.zip"
+            data-github-url="https://github.com/TwilioDevEd/twilio_cpp_demo/blob/master/src/cpp_demo.cc"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="cc">cc</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="cc" 
+                data-version="default"
+                data-filename=""
+                class="codehilite"><code><span class="code-line fr fr-on"><span class="cm">/*</span>
+</span><span class="code-line fr fr-on"><span class="cm">* This example demonstrates sending a SMS or MMS in C++ using the Twilio REST</span>
+</span><span class="code-line fr fr-on"><span class="cm">* APIs.  After building, you should be able to run it with:</span>
+</span><span class="code-line fr fr-on"><span class="cm">* </span>
+</span><span class="code-line fr fr-on"><span class="cm">* </span>
+</span><span class="code-line fr fr-on"><span class="cm">*/</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&quot;twilio.hh&quot;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="kt">int</span> <span class="n">cmd</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">account_sid</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">auth_token</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">message</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">from_number</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">to_number</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">picture_url</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="kt">bool</span> <span class="n">verbose</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="n">opterr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="k">while</span> <span class="p">((</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">getopt</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="s">&quot;a:s:m:f:t:p:vh?&quot;</span><span class="p">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;?&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;h&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Twilio C++ Example Help:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-a: Account</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -a </span><span class="se">\&quot;</span><span class="s">ACXXXXX</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-s: Auth Token</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -s </span><span class="se">\&quot;</span><span class="s">your_token</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-f: From Number</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -f </span><span class="se">\&quot;</span><span class="s">+18005551212</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-t: To Number</span><span class="se">\t\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -t </span><span class="se">\&quot;</span><span class="s">+18005551212</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-m: Message to send</span><span class="se">\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -m </span><span class="se">\&quot;</span><span class="s">Hello, Twilio!</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-p: (Opt.) URL to Image</span><span class="se">\t</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                                       <span class="s">&quot;(ex: -p </span><span class="se">\&quot;</span><span class="s">Hello, Twilio!</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-v: Verbose Mode</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="n">printf</span><span class="p">(</span><span class="s">&quot;-h: This help dialog</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">                                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;a&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">account_sid</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;s&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">auth_token</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;m&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">message</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;f&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">from_number</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;t&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">to_number</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;p&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">picture_url</span> <span class="o">=</span> <span class="n">optarg</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">case</span> <span class="sc">&#39;v&#39;</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">verbose</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                                <span class="k">break</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">default</span><span class="o">:</span>
+</span><span class="code-line fr fr-on">                                <span class="n">abort</span><span class="p">();</span>
+</span><span class="code-line fr fr-on">                <span class="p">}</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="k">if</span> <span class="p">(</span> <span class="n">account_sid</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">auth_token</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">from_number</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span>
+</span><span class="code-line fr fr-on">                <span class="o">||</span> <span class="n">to_number</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">message</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="s">&quot;You didn&#39;t include all necessary inputs!</span><span class="se">\n</span><span class="s">&quot;</span>
+</span><span class="code-line fr fr-on">                        <span class="s">&quot;Call using -h for help.</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line hll fr-on">        <span class="c1">// Instantiate a twilio object and call send_message</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">response</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">twilio</span><span class="o">::</span><span class="n">Twilio</span> <span class="o">*</span><span class="n">twilio</span> <span class="o">=</span> <span class="k">new</span> <span class="n">twilio</span><span class="o">::</span><span class="n">Twilio</span><span class="p">(</span><span class="n">account_sid</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="kt">bool</span> <span class="n">message_success</span> <span class="o">=</span> <span class="n">twilio</span><span class="o">-&gt;</span><span class="n">send_message</span><span class="p">(</span>
+</span><span class="code-line hll fr-on">                <span class="n">to_number</span><span class="p">,</span> 
+</span><span class="code-line hll fr-on">                <span class="n">from_number</span><span class="p">,</span> 
+</span><span class="code-line hll fr-on">                <span class="n">message</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">                <span class="n">picture_url</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">                <span class="n">verbose</span>
+</span><span class="code-line hll fr-on">        <span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="k">delete</span> <span class="n">twilio</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="c1">// Report success or failure</span>
+</span><span class="code-line fr fr-on">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">message_success</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Message send failed.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">response</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Response:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> 
+</span><span class="code-line fr fr-on">                                        <span class="o">&lt;&lt;</span> <span class="n">response</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                        <span class="p">}</span>
+</span><span class="code-line fr fr-on">                <span class="p">}</span>
+</span><span class="code-line fr fr-on">                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">verbose</span> <span class="n">and</span> <span class="n">message_success</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;SMS sent successfully!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Response:&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">response</span>
+</span><span class="code-line fr fr-on">                        <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="The C++ Twilio Class"
+            data-sample="code-the-c-twilio-class" 
+            data-pref="server"
+            data-download-url="https://github.com/TwilioDevEd/twilio_cpp_demo/archive/master.zip"
+            data-github-url="https://github.com/TwilioDevEd/twilio_cpp_demo/blob/master/src/twilio.cc"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="cc">cc</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="cc" 
+                data-version="default"
+                data-filename=""
+                class="codehilite"><code><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&lt;curl/curl.h&gt;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="cp">#include</span> <span class="cpf">&quot;twilio.hh&quot;</span><span class="cp"></span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="k">namespace</span> <span class="n">twilio</span> <span class="p">{</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="n">Twilio</span><span class="o">::</span><span class="n">Twilio</span><span class="p">(</span>
+</span><span class="code-line fr fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">accound_sid_in</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">auth_token_in</span>
+</span><span class="code-line fr fr-on"><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">    <span class="n">account_sid</span> <span class="o">=</span> <span class="n">accound_sid_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">    <span class="n">auth_token</span> <span class="o">=</span> <span class="n">auth_token_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="kt">void</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">set_account_sid</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">accound_sid_in</span><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="n">account_sid</span> <span class="o">=</span> <span class="n">accound_sid_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="kt">void</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">set_auth_token</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">auth_token_in</span><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="n">auth_token</span> <span class="o">=</span> <span class="n">auth_token_in</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="c1">// Portably ignore curl response</span>
+</span><span class="code-line fr fr-on"><span class="kt">size_t</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">_null_write</span><span class="p">(</span>
+</span><span class="code-line fr fr-on">        <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> 
+</span><span class="code-line fr fr-on">        <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">)</span>
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="k">return</span> <span class="n">size</span><span class="o">*</span><span class="n">nmemb</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="c1">// Write curl response to a stringstream</span>
+</span><span class="code-line fr fr-on"><span class="kt">size_t</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">_stream_write</span><span class="p">(</span>
+</span><span class="code-line fr fr-on">        <span class="kt">char</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span>
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span>
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span>
+</span><span class="code-line fr fr-on">        <span class="kt">void</span> <span class="o">*</span><span class="n">userdata</span><span class="p">)</span> 
+</span><span class="code-line fr fr-on"><span class="p">{</span>
+</span><span class="code-line fr fr-on">        <span class="kt">size_t</span> <span class="n">response_size</span> <span class="o">=</span> <span class="n">size</span> <span class="o">*</span> <span class="n">nmemb</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="o">*</span><span class="n">ss</span> <span class="o">=</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span><span class="o">*</span><span class="p">)</span><span class="n">userdata</span><span class="p">;</span>
+</span><span class="code-line fr fr-on">        <span class="n">ss</span><span class="o">-&gt;</span><span class="n">write</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">response_size</span><span class="p">);</span>
+</span><span class="code-line fr fr-on">        <span class="k">return</span> <span class="n">response_size</span><span class="p">;</span>
+</span><span class="code-line fr fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="c1">// Method send_message:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Returns &#39;true&#39; if the result of the eventual HTTP post to Twilio is status</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   code 200 or 201.  Either other status codes or errors in curl will cause</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   a false result.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Inputs:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - to_number: Where to send the MMS or SMS</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - from_number: Number in your Twilio account to use as a sender.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - message_body: (Max: 1600 characters) The body of the MMS or SMS </span>
+</span><span class="code-line fr fr-on"><span class="c1">//                message which will be sent to the to_number.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Outputs:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - response: Either the curl error message or the Twilio response</span>
+</span><span class="code-line fr fr-on"><span class="c1">//                if verbose.</span>
+</span><span class="code-line fr fr-on"><span class="c1">//   Optional:</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - picture_url: If picture URL is included, a MMS will be sent</span>
+</span><span class="code-line fr fr-on"><span class="c1">//        - verbose: Whether to print all the responses</span>
+</span><span class="code-line hll fr-on"><span class="kt">bool</span> <span class="n">Twilio</span><span class="o">::</span><span class="n">send_message</span><span class="p">(</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">to_number</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">from_number</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">message_body</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">response</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">picture_url</span><span class="p">,</span>
+</span><span class="code-line hll fr-on">        <span class="kt">bool</span> <span class="n">verbose</span><span class="p">)</span>
+</span><span class="code-line hll fr-on"><span class="p">{</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">response_stream</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="c1">// See: https://www.twilio.com/docs/api/rest/sending-messages for</span>
+</span><span class="code-line hll fr-on">        <span class="c1">// information on Twilio body size limits.</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="n">message_body</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1600</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response_stream</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Message body must have 1600 or fewer&quot;</span>
+</span><span class="code-line hll fr-on">                        <span class="o">&lt;&lt;</span> <span class="s">&quot; characters. Cannot send message with &quot;</span>
+</span><span class="code-line hll fr-on">                        <span class="o">&lt;&lt;</span> <span class="n">message_body</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; characters.&quot;</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">response_stream</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">CURL</span> <span class="o">*</span><span class="n">curl</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_global_init</span><span class="p">(</span><span class="n">CURL_GLOBAL_ALL</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl</span> <span class="o">=</span> <span class="n">curl_easy_init</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">        
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">url</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">url_string</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">url</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;https://api.twilio.com/2010-04-01/Accounts/&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">account_sid</span>
+</span><span class="code-line hll fr-on">                <span class="o">&lt;&lt;</span> <span class="s">&quot;/Messages&quot;</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">url_string</span> <span class="o">=</span> <span class="n">url</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">stringstream</span> <span class="n">parameters</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">parameter_string</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">parameters</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;To=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">to_number</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&amp;From=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">from_number</span> 
+</span><span class="code-line hll fr-on">                <span class="o">&lt;&lt;</span> <span class="s">&quot;&amp;Body=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">message_body</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">picture_url</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">parameters</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;&amp;MediaUrl=&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">picture_url</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on">        <span class="n">parameter_string</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_POST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_URL</span><span class="p">,</span> <span class="n">url_string</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="n">parameter_string</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_USERNAME</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_PASSWORD</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">verbose</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_WRITEFUNCTION</span><span class="p">,</span> <span class="n">_null_write</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_WRITEFUNCTION</span><span class="p">,</span> <span class="n">_stream_write</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">                <span class="n">curl_easy_setopt</span><span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_WRITEDATA</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">response_stream</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="n">CURLcode</span> <span class="n">res</span> <span class="o">=</span> <span class="n">curl_easy_perform</span><span class="p">(</span><span class="n">curl</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_cleanup</span><span class="p">(</span><span class="n">curl</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">        <span class="kt">long</span> <span class="n">http_code</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="n">curl_easy_getinfo</span> <span class="p">(</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLINFO_RESPONSE_CODE</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">http_code</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">
+</span><span class="code-line hll fr-on">        <span class="c1">// Check for curl errors and Twilio failure status codes.</span>
+</span><span class="code-line hll fr-on">        <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="n">CURLE_OK</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">curl_easy_strerror</span><span class="p">(</span><span class="n">res</span><span class="p">);</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">http_code</span> <span class="o">!=</span> <span class="mi">200</span> <span class="o">&amp;&amp;</span> <span class="n">http_code</span> <span class="o">!=</span> <span class="mi">201</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">response_stream</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class="code-line hll fr-on">                <span class="n">response</span> <span class="o">=</span> <span class="n">response_stream</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+</span><span class="code-line hll fr-on">                <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span><span class="code-line hll fr-on">        <span class="p">}</span>
+</span><span class="code-line hll fr-on"><span class="p">}</span>
+</span><span class="code-line fr fr-on">
+</span><span class="code-line fr fr-on"><span class="p">}</span> <span class="c1">// end namespace twilio</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
+  </div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/guides/sms/how-to-send-sms-mms-messages-in-cpp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:04 GMT -->
+</html>

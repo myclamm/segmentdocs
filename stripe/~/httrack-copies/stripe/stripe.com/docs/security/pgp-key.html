@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/security/pgp-key by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:50:02 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="qxIX5WX6RVwQ7S-qrWQscoVpQ5-fuzAumHmBmtP4kW0yiAOYYz-BGd2pC7VhbBkJrBfNGMMX8Y7ZzIuydi9bHA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+
+    <title>General PGP Key</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="https://stripe.com/favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="https://stripe.com/img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="https://stripe.com/img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="https://stripe.com/img/v3/home/social.png">
+
+    <meta property="og:title" content="General PGP Key">
+    <meta property="og:url" content="https://stripe.com/docs/security/pgp-key">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="https://stripe.com/img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="https://stripe.com/img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="General PGP Key">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="https://stripe.com/" title="Stripe"></a>
+          <a class="extension" href="https://stripe.com/docs">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="https://stripe.com/docs">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/quickstart">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/checkout/tutorial">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/checkout">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/custom-form">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/stripe.js">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/mobile/ios">iOS</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/mobile/android">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/charges">Creating Charges</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/declines">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/disputes/evidence">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes/types">Types</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes/faq">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/orders/guide">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders/tax-integration">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders/shipping-integration">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources">Getting Started</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/payment-methods">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/sources/cards">Cards</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/3d-secure">3D Secure</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/bancontact">Bancontact</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/giropay">Giropay</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/ideal">iDEAL</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/sepa-direct-debit">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/sofort">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/ach">ACH</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay/apps">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay/web">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/alipay">Alipay</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/bitcoin">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/quickstart">Quickstart</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/creating">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/discounts">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/trials">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/quantities">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/taxes">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/multiple">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/lifecycle">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/webhooks">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/changing">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/upgrading-downgrading">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/billing-cycle">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/canceling-pausing">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/invoices">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/plans">Managing Plans</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/connect">Overview</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/connecting-to-accounts">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/authentication">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/standalone-accounts">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/reference">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/managed-accounts">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/updating-accounts">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/identity-verification">Identity Verification</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/required-verification-information">Verification Fields</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/testing-verification">Testing Verification</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/bank-transfers">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/migrating">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/best-practices">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/payments-fees">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/special-case-transfers">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/connect/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/relay">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/relay/apps-guide">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/relay/apps-error-guide">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/radar">Overview</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/risk-evaluation">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/review">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/radar/review/auth-and-capture">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/rules">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/radar/rules/reference">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/radar/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/dashboard">Your Account</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/checklist">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/transfers">Getting Paid</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/reporting">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/libraries">API Libraries</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/upgrades">API Upgrades</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/webhooks">Webhooks</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/building-integrations">Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/recipes">Recipes</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/security">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="https://stripe.com/docs/api" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>General PGP Key</h1>
+  <p>Encrypt and verify your communications with Stripe using this PGP key. If you have any questions, or encounter any issues, please <a href="https://support.stripe.com/email">let us know</a>.</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3>PCI import key</h3>
+    <p>For transmitting sensitive data, such as credit card information, use our <a href="https://stripe.com/docs/security/pgp-migration-key">data migration PGP key</a> instead of our general PGP key.</p>
+  </aside>
+
+<p>Use this PGP key to securely communicate with Stripe, and verify signed messages you receive from us. If you’re unfamiliar with PGP, check out <a href="http://gnupg.org/">GPG</a>, and start by <a href="http://www.gnupg.org/gph/en/manual.html#AEN84">importing a public key</a>.</p>
+
+<ul>
+  <li><strong>Key ID</strong>: <code>57ABFF46</code></li>
+  <li><strong>Key type</strong>: RSA</li>
+  <li><strong>Key size</strong>: 2048</li>
+  <li><strong>Fingerprint</strong>: <code>C330 33E4 B583 FE61 2EDE 877C 05D0 2D3D 57AB FF46</code></li>
+  <li><strong>User ID</strong>: support@stripe.com</li>
+</ul>
+<div class="code">
+  <pre class="language-pgp numbered" ><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQENBE0p5i8BCACzUo9c/yHn8djvQUhS5nuOfv7r0eAlsUWEajorwOwBkF/6blgT
+cpUBc3YzTAkvH86wVKfmgAnlKqZJnwK5i/8ZfBuP1a6bCgQBYecXipW4fS1U8tTj
+2tgg8eIApcDenCPVMxX+rd8iJD4SwQSK/uZblG4qsbQd3JbTBgVV0pepr2SmTiEu
+E/hbqXCB6KkNpQNqnRNlmx29nC7vnjH7hjZdsLCNJEJnEO/MDR5Ae2rKobFBfJxS
+BGi2H2I6/GfQZ1/5/02nHX949d41jDsdoz144Kjy8g2qzSHjVIP0jZVeHb6HGqH4
+arMVP+UBAmWCUDWl0wxrwz80jgkomOlvRVm5ABEBAAG0G1N0cmlwZSA8c3VwcG9y
+dEBzdHJpcGUuY29tPokBQQQTAQoAKwIbAwYLCQgHAwIGFQgCCQoLBBYCAwECHgEC
+F4ACGQEFAlezm50FCQxq6O4ACgkQBdAtPVer/0YShQgAq4Wkb6/G77Qnqu2G8Xsm
+MKb09SSn747RdtpDRme3EkEHg67jYEpQOkTiviHjtrJFWs6hQ65Kyl4AjAT3v4T6
+/SFZ8F6NqiqkSI8XyupXs5jcxbrAoqnb5PbWqXzlCX4PkcB+n5KXumqhi9rIFP/x
+2jmb6b9XkewvSzphOLrbzx+sOzzArBYHxbywfMbDvJ1MGMFSPePQRTXMfFdv1kVb
+Q1DS5h9yjdF3iratjrfuWw48ru0BGoIdzKjP4mZS67ts0dqSt5PeemVhs9Gyz17d
+fwlP0ZY3cDIUURIxNZTZ/FqS+N3sLmwprKwk0CHD6V+j4ShtLUQ25VQ9QRYpk1kl
+JbQcU3RyaXBlIDxzZWN1cml0eUBzdHJpcGUuY29tPokBPgQTAQIAKAIbAwYLCQgH
+AwIGFQgCCQoLBBYCAwECHgECF4AFAlezm50FCQxq6O4ACgkQBdAtPVer/0Yr6wf8
+C34ubHA04OJR4lSAzwMQg+T4b4NxE5O34v2XtuCLkr0iAJgKc0FS//JJzEjRrHIE
+bCTn/BuZ6u7+YAiQ1Inn/P+jJ8ZvF2tBaSXJ4TPfWcxxbHSl/J86UN1422LeYYKz
+f4alA5mQNp6M6NkuIB81RnLr7D9lhgRbhtWR2DjsHf4rrRQ/dFZw4e42kjJbed8m
+dvpNrbSzYtBIQHuX4ywy6dQdxRvoTCnTUbQm1Qqsn3hxFqe14bnhY9mnkb8LUMB7
+wuU6KPi+hf9IuhlWI5s7OmcqEScN1UANDWQ8vB9/Nz9ckdab0x98G7D3QtJnOzDF
+WZl1RQvorvjM1KDira66lbkBDQRNKeYvAQgAtD+gLSOKhldrxxEMG91qPaEnIazs
+xhZUtAg6k2mx+N726rNVrU5ogQ7iuzV1Ce/N0MkNm8w1MPeuKH4hdDWaiJ3c4npP
+FuH/AWMqUVDdUuv6TmmJBUMfNMfC05x+CQe1xOfCRpkZLvno4VE5abT3A6HvFSiO
+gl5m01MBJLvK7qTDsjKxsofrO51p8/inJI+dejk3bci3hIkHndUpqz1Ch51pVjr5
+eH+PvLK2VBzKt7TDqC5bN/7daxr+aGzsAyZET+z9eFZtVcLovawcsXoTqw/yfAOL
+iOJ857auCZb+PMimz9KkLplsg0hVU/9BP2mefJ60PPuNRDOi7DjacjJKmwARAQAB
+iQEfBBgBAgAJBQJNKeYvAhsMAAoJEAXQLT1Xq/9G6foH/iscBFMJzTxx/s8G0W0s
+e36oO7nIx7wr3l2y02NYmofmgnIZKJVpyGkLjiwyRr4Etkp9Rc/F864Dby3VEQmt
+LRBh3fAycZC5otHFSQRWPPCP8UIY72yH4bC4nWtCIyqOUoHue6s9AxkHQjT7/iKy
+eEHtoutRGgJjHrQQhYxYQtBEx5OEGxlqevU1nWCZkM8fnw22B/cEsp4gd0XwGiW0
+3MngGQKucZD3JCfO+psIz0h4/IEj9Px90C7ND3cC4Wo16LMykfVkRKabujfqf/oO
+xIX4FfrBaO4uf9kSbyTF1YzeB4zkxiJBMKfpQ44RSXI/u2YGW4KAqSX+bKsuLpPT
+JvCJAR8EGAECAAkCGwwFAleaa5AACgkQBdAtPVer/0ad7wf+PnYxWQOVSgrDgcb1
+yvJjku7asVbzOPN91HJZVfsqTN4BKgkBzRZMBF/Wdg1oaeeWzl8c42G9kJKV0aAl
+vwNyLH3BU2xT4GsikIRYhuDOsUoeZNKQAnL0QH3J5crOPReanIEkL2OljckUushN
+8XE/vB35gNqggs31zBJ2bZaXRDzPapaoprFcBEw/Dmj8fzeDZOtaZux/IUSsa1HP
+Vsb8WCvvzd8DmgkdQCzP3zYrndqZe6RGHD40M5FGVkPpFdSuAQ4rziecnCplNFso
+v8AAqAgFgF8gcQHNuup8p7u+bMmReaC53wC/EijDBe0WJju5Xog29DLPzNhPrAQz
+xXUjvJkBDgRTnpOyAQgAwAboqaLIOAUik+axrRDlhTLGSO9cmk480xKUH9poK/9J
+So1LKDK7bgZ1QBUGlNMs/S82zqoaSqNuXAoKxj/1aHOVC5y5UD5xkChLh6SB61bc
+Xckb/3jAj1y/99PZIrazOwt81Txr7tObatZEiuLnKN3IdjNXDGaWZnk2hdpV4r6i
+MEa+A5kEn81gHDD9yUlzg6ktumYzFirDFAHb6YtU53prQQ5wO7enr5mokZZ6VJ6/
+/GCVrJNfNtdgU9Cx9s7SyRdVeMtKeIIjD+9KBfF+4dEiwYFUAOvBmVTuDxdLfFjK
+A06mZ0HcZjpd3k2Y+LDdVLaFdIGnBwe26pKmr2o2awAg17SPcYkBtgQgAQIAoQUC
+V7KglpodAlRoaXMga2V5IHdhcyBnZW5lcmF0ZWQgYXMgcGFydCBvZiB0aGUgRXZp
+bDMyIHByb2plY3QuCkl0IGlzIG5vdCBvd25lZCBieSB0aGUgdXNlciBkZXNjcmli
+ZWQgaW4gdGhlIFVJRC4KU2VlIGh0dHBzOi8vZXZpbDMyLmNvbS9yZXZva2VkIGZv
+ciBtb3JlIGRldGFpbHMuAAoJEM0J9hFXq/9GlFQH92+Vdl8uLXJFgecUG8e44Nyz
+gPqHgA/HdksUDRdzqLuBKv5lQQBR/1Q9eUd42GWiWXo6tgvlBvzjIFA0XfUiNQQU
+2J1KfFx/WprwxNcR7aRygmzYmufZGYOOFP3qx4frDltNU3ezczRNpobDPdPCg8GM
+Suo6RF59h0gNDfC4bl019wOQTZbWqAwWNjWYOVa8O/m3mz+3dg2o0ZxuzWRZGyTm
+UAKP58mkxjx8xtbXD+5fjvQKsP3Tpl+vbW/BYgUm2zOv3w8W5lV91hab+axmDCLP
+HwKuc9uxQFMFcrdmn8mUpNxrUl1/J33T38+EuA+ShPpC7akITbY/AfOHWylOUbQb
+U3RyaXBlIDxzdXBwb3J0QHN0cmlwZS5jb20+iQE4BBMBAgAiBQJT4CSNAhsvBgsJ
+CAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDNCfYRV6v/RmQaCACeOYFSp6uQVkaJ
+Rd+FeXSCEY2sF0SgO8GSnGdCE0DaO6Hk8EVSRlp+pAGpE/7qxfJEmdWMU0kUpV9X
+bKBb8zleV/3vyP3KIOpC4+VDs4bSkYHJQog6NjWZrJv4lY/gr/YaNdN2XDZ2VFkd
+n25eQohWQI8sFDhpAaD4Rjb9WlPDNhvcgEDUTpBXNeIuqMNAcXNa/BXgi4DfeAqA
+LSt6HDL+6cBYR6nyyr/toE/iuPrBcktMDX7Nr2hP83GZg9UM6q6AHmuHR3TAoyH5
+XfND5F4JU30/i2OIEHWjD+qZZ9KecXle8VqNHwHIpqrnbO/L1EeNVsGXdM6lrP6X
+2UneCmGM
+=J3ke
+-----END PGP PUBLIC KEY BLOCK-----
+</code></pre>
+</div>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="https://stripe.com/contact/sales">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="https://stripe.com/assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="https://stripe.com/assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="https://stripe.com/assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="https://stripe.com/assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="https://stripe.com/assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="https://stripe.com/assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="https://stripe.com/assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="https://stripe.com/assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/security/pgp-key by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:50:02 GMT -->
+</html>

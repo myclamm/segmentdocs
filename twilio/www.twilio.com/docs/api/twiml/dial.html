@@ -1,0 +1,1617 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/api/twiml/dial by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    
+    
+
+    <title>
+      TwiML™ Voice: &lt;Dial&gt; - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/api/twiml/dial" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    <meta property="og:title" content="TwiML™ Voice: &lt;Dial&gt;">
+    
+    
+    
+    <meta property="og:url" content="https://www.twilio.com/docs/api/twiml/dial?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    <meta name="twitter:title" content="TwiML™ Voice: &lt;Dial&gt;">
+    
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["enable-video-rooms", "marketplace"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      apireference
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/api" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">API Reference</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+      
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+      <div class="uk-width-3-4 uk-hidden-small">
+      
+      
+        <div class="breadcrumbs">
+          
+            
+          
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api">API Reference</a> &gt;
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api/twiml">TwiML: The Twilio Markup Language</a> &gt;
+            
+          
+          <span>TwiML™ Voice: &lt;Dial&gt;</span>
+        </div>
+      
+      </div>
+
+      
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+  <div class="search">
+    <form action="https://www.twilio.com/docs/search" method="GET">
+      <div class="wrapper">
+        <input id="search-box" name="q" type="text" value=""/>
+      </div>
+      <button type="submit">
+        <i class="fa fa-fw fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+    
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+  <div class="coderail-container">
+
+    <div class="sidenav-column">
+      <div class="theme-switcher uk-hidden-small">
+  <div class="theme-wrapper">
+    <a data-theme="light" class="selected">
+      <i class="fa fa-fw fa-sun-o"></i>
+    </a>
+    <a data-theme="dark" >
+      <i class="fa fa-fw fa-moon-o"></i>
+    </a>
+  </div>
+</div>
+      
+        <div class="sidenav" data-uk-sticky="{boundary: true}">
+          
+
+<ul id="doc_menu" class="sidenav__section" data-swiftype-index="false">
+
+  <!-- Page entries -->
+  
+    <li id="dynamic-menu">
+      <ul>
+        
+          
+          
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml">
+          TwiML Reference
+      </a>
+  </li>
+
+
+
+        
+          
+            
+<li class="menu-title expanded" role="menu-title" id="doc-navigation-parent">
+  TwiML™ Voice: &lt;Dial&gt;
+</li>
+<ul class="menu-accordion expanded" role="menu-accordion" id="doc-navigation"></ul>
+
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">Using TwiML</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml">
+          Overview
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title expanded" role="menu-title">
+
+    <span class="heading">Voice TwiML</span>
+</li>
+
+
+<ul class="menu-accordion expanded" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/twilio_request">
+          Twilio&#39;s Request
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/your_response">
+          Your Response
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/guides/queues">
+          Queueing Calls
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li class="active"
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/dial">
+          &lt;Dial&gt;
+      </a>
+  </li>
+
+
+
+    
+        <ul class="menu-accordion expanded">
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/client">
+          &lt;Client&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/conference">
+          &lt;Conference&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/number">
+          &lt;Number&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/queue">
+          &lt;Queue&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sip">
+          &lt;Sip&gt;
+      </a>
+  </li>
+
+
+
+    
+</ul>
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/enqueue">
+          &lt;Enqueue&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/gather">
+          &lt;Gather&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/hangup">
+          &lt;Hangup&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/leave">
+          &lt;Leave&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/pause">
+          &lt;Pause&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/play">
+          &lt;Play&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/record">
+          &lt;Record&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/redirect">
+          &lt;Redirect&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/reject">
+          &lt;Reject&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/say">
+          &lt;Say&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms">
+          &lt;Sms&gt;
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">Messaging TwiML</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request">
+          Twilio&#39;s Request
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/your_response">
+          Your Response
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/message">
+          &lt;Message&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/redirect">
+          &lt;Redirect&gt;
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+        
+      </ul>
+    </li>
+  
+</ul>
+
+        </div>
+      
+    </div>
+
+    <div class="primary-column 
+        ">
+      <div class="docs-prose">
+        
+  
+    
+    <h1 class="page-title ">
+      TwiML™ Voice: &lt;Dial&gt;
+    </h1>
+    
+  
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>The <code>&lt;Dial&gt;</code> verb connects the current caller to another phone. If the called party
+picks up, the two parties are connected and can communicate until one hangs up. If the
+called party does not pick up, if a busy signal is received, or if the number doesn't
+exist, the dial verb will finish.</p>
+<p>When the dialed call ends, Twilio makes a GET or POST request to the 'action' URL if provided.
+Call flow will continue using the TwiML received in response to that request.</p>
+<h3 id="attributes"><a class="toclink" href="#attributes">Verb Attributes</a></h3>
+<p>The <code>&lt;Dial&gt;</code> verb supports the following attributes that modify its behavior:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Allowed Values</th>
+<th align="left">Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="#attributes-action">action</a></td>
+<td align="left">relative or absolute URL</td>
+<td align="left">no default action for Dial</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-method">method</a></td>
+<td align="left">GET, POST</td>
+<td align="left">POST</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-timeout">timeout</a></td>
+<td align="left">positive integer</td>
+<td align="left">30 seconds</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-hangup-on-star">hangupOnStar</a></td>
+<td align="left">true, false</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-time-limit">timeLimit</a></td>
+<td align="left">positive integer (seconds)</td>
+<td align="left">14400 seconds (4 hours)</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-caller-id">callerId</a></td>
+<td align="left">a valid phone number, or client identifier if you are dialing a <a href="#nouns-client"><code>&lt;Client&gt;</code></a>.</td>
+<td align="left">Caller's callerId</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-record">record</a></td>
+<td align="left"><code>do-not-record</code>, <code>record-from-answer</code>, <code>record-from-ringing</code>, <code>record-from-answer-dual</code>, <code>record-from-ringing-dual</code>. <br/><br/> For backward compatibility, <code>true</code> is an alias for <code>record-from-answer</code> and <code>false</code> is an alias for <code>do-not-record</code>. <br/><br/></td>
+<td align="left">do-not-record</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-trim">trim</a></td>
+<td align="left">trim-silence, do-not-trim</td>
+<td align="left">trim-silence</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-recording-status-callback">recordingStatusCallback</a></td>
+<td align="left">relative or absolute URL</td>
+<td align="left">none</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-recording-status-callback-method">recordingStatusCallbackMethod</a></td>
+<td align="left">GET, POST</td>
+<td align="left">POST</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>Use one or more of these attributes in a <code>&lt;Dial&gt;</code> verb like so:</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Dial</span> <span class="na">timeout=</span><span class="s">&quot;10&quot;</span> <span class="na">record=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>415-123-4567<span class="nt">&lt;/Dial&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<h4 id="attributes-action"><a class="toclink" href="#attributes-action">action</a></h4>
+<p>The 'action' attribute takes a URL as an argument. When the dialed call ends, Twilio will make a GET or POST request to this URL including the parameters below.</p>
+<p>If you provide an 'action' URL, Twilio will continue the current call after the dialed party has hung up, <strong>using the TwiML received in your response to the 'action' URL request</strong>. Any TwiML verbs occurring after a <code>&lt;Dial&gt;</code> which specifies an 'action' attribute are unreachable.</p>
+<p>If no 'action' is provided, <code>&lt;Dial&gt;</code> will finish and Twilio will move on to the next TwiML verb in the document. If there is no next verb, Twilio will end the phone call. Note that this is different from the behavior of <code>&lt;Record&gt;</code> and <code>&lt;Gather&gt;</code>. <code>&lt;Dial&gt;</code> does not make a request to the current document's URL by default if no 'action' URL is provided. Instead the call flow falls through to the next TwiML verb.</p>
+<h5 id="attributes-action-parameters"><a class="toclink" href="#attributes-action-parameters">Request Parameters</a></h5>
+<p>Twilio will pass the following parameters in addition to the <a href="https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters">standard TwiML Voice request parameters</a> with its request to the 'action' URL:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">DialCallStatus</td>
+<td align="left">The outcome of the <code>&lt;Dial&gt;</code> attempt. See the <code>DialCallStatus</code> section below for details.</td>
+</tr>
+<tr>
+<td align="left">DialCallSid</td>
+<td align="left">The call sid of the new call leg. This parameter is not sent after dialing a conference.</td>
+</tr>
+<tr>
+<td align="left">DialCallDuration</td>
+<td align="left">The duration in seconds of the dialed call. This parameter is not sent after dialing a conference.</td>
+</tr>
+<tr>
+<td align="left">RecordingUrl</td>
+<td align="left">The URL of the recorded audio. This parameter is included only if record is set on <code>&lt;Dial&gt;</code> and does not include recordings initiated in other ways.  The recording file may not yet be accessible when the action callback is sent.  Use <a href="#attributes-recording-status-callback">recordingStatusCallback</a> for reliable notification on when the recording is available for access.</td>
+</tr>
+</tbody>
+</table>
+<p>When the <code>&lt;Queue&gt;</code> noun is dialed, the following additional parameters are provided:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">QueueSid</td>
+<td align="left">The SID of the queue.</td>
+</tr>
+<tr>
+<td align="left">DequeueResult</td>
+<td align="left">One of <code>invalid</code>, <code>bridged</code>, <code>queue-not-found</code>, <code>queue-empty</code> or <code>failed</code>.</td>
+</tr>
+<tr>
+<td align="left">DequeuedCallSid</td>
+<td align="left">The CallSid of the dequeued call.</td>
+</tr>
+<tr>
+<td align="left">DequeuedCallQueueTime</td>
+<td align="left">The time the dequeued call spent waiting in the queue.</td>
+</tr>
+<tr>
+<td align="left">DequeuedCallDuration</td>
+<td align="left">The time the call was bridged with the dequeued call.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="attributes-action-dial-call-status-values"><a class="toclink" href="#attributes-action-dial-call-status-values">DialCallStatus Values</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">completed</td>
+<td align="left">The called party answered the call and was connected to the caller.</td>
+</tr>
+<tr>
+<td align="left">answered</td>
+<td align="left">The called party answered the call and was connected to the caller, returned when dialing a conference.</td>
+</tr>
+<tr>
+<td align="left">busy</td>
+<td align="left">Twilio received a busy signal when trying to connect to the called party.</td>
+</tr>
+<tr>
+<td align="left">no-answer</td>
+<td align="left">The called party did not pick up before the timeout period passed.</td>
+</tr>
+<tr>
+<td align="left">failed</td>
+<td align="left">Twilio was unable to route to the given phone number. This is frequently caused by dialing a properly formatted but non-existent phone number.</td>
+</tr>
+<tr>
+<td align="left">canceled</td>
+<td align="left">The call was canceled via the REST API before it was answered.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="attributes-method"><a class="toclink" href="#attributes-method">method</a></h4>
+<p>The 'method' attribute takes the value 'GET' or 'POST'.  This tells Twilio
+whether to request the 'action' URL via HTTP GET or POST.  This attribute
+is modeled after the HTML form 'method' attribute. 'POST' is the default value.</p>
+<h4 id="attributes-timeout"><a class="toclink" href="#attributes-timeout">timeout</a></h4>
+<p>The 'timeout' attribute sets the limit in seconds that <code>&lt;Dial&gt;</code> waits for the called party to
+answer the call.  Basically, how long should Twilio let the call ring before giving up
+and reporting 'no-answer' as the 'DialCallStatus'. The default value is 30 seconds. The
+maximum value is 600 seconds and the minimum value is 5 seconds.</p>
+<h4 id="attributes-hangup-on-star"><a class="toclink" href="#attributes-hangup-on-star">hangupOnStar</a></h4>
+<p>The 'hangupOnStar' attribute lets the calling party hang up on the called party by
+pressing the '<code>*</code>' key on his phone.  When two parties are connected using
+<code>&lt;Dial&gt;</code>, Twilio blocks execution of further verbs until the caller or called party
+hangs up.  This feature allows the calling party to hang up on the called party without
+having to hang up her phone and ending her TwiML processing session.  When the caller presses '<code>*</code>'
+Twilio will hang up on the called party.  If an 'action' URL was provided, Twilio submits 'completed'
+as the 'DialCallStatus' to the URL and processes the response.  If no 'action' was provided
+Twilio will continue on to the next verb in the current TwiML document.</p>
+<h4 id="attributes-time-limit"><a class="toclink" href="#attributes-time-limit">timeLimit</a></h4>
+<p>The 'timeLimit' attribute sets the maximum duration of the <code>&lt;Dial&gt;</code> in seconds.  For example,
+by setting a time limit of 120 seconds <code>&lt;Dial&gt;</code> will hang up on the called party
+automatically two minutes into the phone call. The default time limit on calls is four hours; this is also the maximum length of a call.</p>
+<h4 id="attributes-caller-id"><a class="toclink" href="#attributes-caller-id">callerId</a></h4>
+<p>The 'callerId' attribute lets you specify the caller ID that will appear
+to the called party when Twilio calls. By default, when you put a <code>&lt;Dial&gt;</code> in your TwiML response to Twilio's inbound call request, the caller ID that the dialed party sees is
+the inbound caller's caller ID.</p>
+<p>For example, an inbound caller to your Twilio number has the caller ID 1-415-123-4567.
+You tell Twilio to execute a <code>&lt;Dial&gt;</code> verb to 1-858-987-6543 to handle the inbound call.
+The called party (1-858-987-6543) will see 1-415-123-4567 as the caller ID on the incoming call.</p>
+<p>If you are dialing to a <code>&lt;Client&gt;</code>, you can set a client identifier as the <code>callerId</code> attribute. For instance, if you've set up a client for incoming calls and
+you are dialing to it, you could set the <code>callerId</code> attribute to <code>client:tommy</code>.</p>
+<div class="alert alert-error">
+If you are dialing to a phone number from a <a href="https://www.twilio.com/api/client">Twilio Client</a> connection or a <a href="https://www.twilio.com/api/twilio-sip">SIP</a> call, you <strong>must</strong> specify a valid phone number as the <code class="notranslate">callerId</code> or the call will fail.
+</div>
+
+<p>You are allowed to change the phone number that the called party sees to one
+of the following:</p>
+<ul>
+<li>either the 'To' or 'From' number provided in <a href="https://www.twilio.com/docs/api/twiml/twilio_request">Twilio's TwiML request</a> to your app</li>
+<li>any incoming phone number you have purchased from Twilio</li>
+<li>any phone number you have verified with Twilio</li>
+</ul>
+<h4 id="attributes-record"><a class="toclink" href="#attributes-record">record</a></h4>
+<p>The 'record' attribute lets you record both legs of a call within the associated <code>&lt;Dial&gt;</code> verb. Recordings are available in two options: mono-channel or dual-channel.</p>
+<p>In mono-channel, both legs of the call are mixed down into a single channel within a single recording file. With dual-channel, both legs use separate channels within a single recording file.</p>
+<p>For the mono-channel options, you can choose <code>record-from-answer</code> or <code>record-from-ringing</code>. Using <code>record-from-answer</code> will begin the recording as soon as the call is answered. Using <code>record-from-ringing</code> will begin the recording when the ringing begins before the recipient answers the call.</p>
+<p>For the dual-channel options, you can choose <code>record-from-answer-dual</code> or <code>record-from-ringing-dual</code>. The parent call will always be in the first channel and the child call will always be in the second channel. </p>
+<p>If a dual-channel recording option is used for a <code>&lt;Dial&gt;</code> with a nested <code>&lt;Conference&gt;</code>, the parent leg (inbound caller) will be represented in the first channel. The second channel will include the audio coming downstream from the conference. The resulting recording file will have two channels.</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <h4 id="attributes-trim"><a class="toclink" href="#attributes-trim">trim</a></h4>
+<p>The 'trim' attribute lets you specify whether to trim leading and trailing
+silence from your audio files. 'trim' defaults to <code>trim-silence</code>, which removes
+any silence at the beginning or end of your recording. This may cause the
+duration of the recording to be slightly less than the duration of the call.</p>
+<h4 id="attributes-recording-status-callback"><a class="toclink" href="#attributes-recording-status-callback">recordingStatusCallback</a></h4>
+<p>The 'recordingStatusCallback' attribute takes a relative or absolute URL as an argument. </p>
+<p>If recording has been requested for the <code>&lt;Dial&gt;</code> and a 'recordingStatusCallback' URL is given, Twilio will make a GET or POST request to the specified URL when the recording is available to access. That request will include the following arguments:</p>
+<h5 id="attributes-recording-status-callback-parameters"><a class="toclink" href="#attributes-recording-status-callback-parameters">Request Parameters</a></h5>
+<p>Twilio will pass the following parameters with its request to the 'recordingStatusCallback' URL:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">AccountSid</td>
+<td align="left">The unique identifier of the Account responsible for this recording.</td>
+</tr>
+<tr>
+<td align="left">CallSid</td>
+<td align="left">A unique identifier for the call associated with the recording.   This will always refer to the parent leg of a two leg call.</td>
+</tr>
+<tr>
+<td align="left">RecordingSid</td>
+<td align="left">The unique identifier for the recording.</td>
+</tr>
+<tr>
+<td align="left">RecordingUrl</td>
+<td align="left">The URL of the recorded audio.</td>
+</tr>
+<tr>
+<td align="left">RecordingStatus</td>
+<td align="left">The status of the recording. Possible values are: <code>completed</code>.</td>
+</tr>
+<tr>
+<td align="left">RecordingDuration</td>
+<td align="left">The length of the recording, in seconds.</td>
+</tr>
+<tr>
+<td align="left">RecordingChannels</td>
+<td align="left">The number of channels in the final recording file as an integer.  Possible values are <code>1</code>, <code>2</code>.</td>
+</tr>
+<tr>
+<td align="left">RecordingSource</td>
+<td align="left">The type of call that created this recording. For recordings initiated when record is set on <code>&lt;Dial&gt;</code>, <code>DialVerb</code> is returned.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="attributes-recording-status-callback-method"><a class="toclink" href="#attributes-recording-status-callback-method">recordingStatusCallbackMethod</a></h4>
+<p>This attribute indicates which HTTP method to use when requesting 'recordingStatusCallback'. It defaults to 'POST'.</p>
+</div>
+
+      
+    </div>
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <h3 id="nouns"><a class="toclink" href="#nouns">Nouns</a></h3>
+<p>The "noun" of a TwiML verb is the stuff nested within the verb that's not a verb itself; it's the stuff the verb acts upon. These are the nouns for <code>&lt;Dial&gt;</code>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Noun</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">plain text</td>
+<td align="left">A string representing a valid phone number to call.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/number"><code>&lt;Number&gt;</code></a></td>
+<td align="left">A nested XML element that describes a phone number with more complex attributes.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/client"><code>&lt;Client&gt;</code></a></td>
+<td align="left">A nested XML element that describes a <a href="https://www.twilio.com/api/client">Twilio Client</a> connection.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/sip"><code>&lt;Sip&gt;</code></a></td>
+<td align="left">A nested XML element that describes a <a href="https://www.twilio.com/docs/sip">SIP</a> connection.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/conference"><code>&lt;Conference&gt;</code></a></td>
+<td align="left">A nested XML element that describes a conference allowing two or more parties to talk.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/queue"><code>&lt;Queue&gt;</code></a></td>
+<td align="left">A nested XML element identifying a queue that this call should be connected to.</td>
+</tr>
+</tbody>
+</table>
+<p>Nest one of these nouns inside a <code>&lt;Dial&gt;</code> verb like so:</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Dial&gt;</span>
+</span><span class="code-line">        <span class="nt">&lt;Number&gt;</span>415-123-4567<span class="nt">&lt;/Number&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;/Dial&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<h4 id="nouns-number"><a class="toclink" href="#nouns-number">&lt;Number&gt; Noun</a></h4>
+<p>The &lt;Number&gt; noun allows you to <code>&lt;Dial&gt;</code> another number while specifying
+additional behavior pertaining to that number. Simultaneous dialing is also
+possible using multiple <code>&lt;Number&gt;</code> nouns.</p>
+<p>See the documentation on the <a href="https://www.twilio.com/docs/api/twiml/number"><code>&lt;Number&gt;</code></a> noun for a detailed
+walkthrough of how to use it.</p>
+<h4 id="nouns-client"><a class="toclink" href="#nouns-client">&lt;Client&gt; Noun</a></h4>
+<p>The &lt;Client&gt; noun allows you to <code>&lt;Dial&gt;</code> a <a href="https://www.twilio.com/api/client">Twilio Client</a> connection.</p>
+<p>Simultaneous dialing is also possible using multiple <code>&lt;Client&gt;</code> nouns.</p>
+<p>See the documentation on the <a href="https://www.twilio.com/docs/api/twiml/client"><code>&lt;Client&gt;</code></a> noun for a detailed walkthrough of how to use it.</p>
+<h4 id="nouns-sip"><a class="toclink" href="#nouns-sip">&lt;Sip&gt; Noun</a></h4>
+<p>The &lt;Sip&gt; noun allows you to <code>&lt;Dial&gt;</code> a <a href="https://www.twilio.com/sip">SIP</a> endpoint.</p>
+<p>See the documentation on the <a href="https://www.twilio.com/docs/api/twiml/sip"><code>&lt;Sip&gt;</code></a> noun for a detailed walkthrough of how to use it.</p>
+<h4 id="nouns-conference"><a class="toclink" href="#nouns-conference">&lt;Conference&gt; Noun</a></h4>
+<p>The &lt;Conference&gt; noun allows you to <code>&lt;Dial&gt;</code> into a conference room, rather than <code>&lt;Dial&gt;</code> another number.
+See the documentation on the <a href="https://www.twilio.com/docs/api/twiml/conference"><code>&lt;Conference</code>&gt;</a> noun for a detailed walkthrough of how to use Twilio's conferencing functionality.</p>
+<h4 id="nouns-queue"><a class="toclink" href="#nouns-queue">&lt;Queue&gt; Noun</a></h4>
+<p>The &lt;Queue&gt; noun allows you to connect the current call to the call waiting at
+the front of a particular queue.
+See the documentation on the <a href="https://www.twilio.com/docs/api/twiml/queue"><code>&lt;Queue</code>&gt;</a> noun for a detailed walkthrough of how to use Twilio's queueing functionality.</p>
+<h3 id="see-also"><a class="toclink" href="#see-also">See Also</a></h3>
+<p><a href="https://www.twilio.com/docs/api/rest/call">The Calls resource in Twilio's REST API</a></p>
+<h3 id="twimlets"><a class="toclink" href="#twimlets">Using &lt;Dial&gt; With Twimlets</a></h3>
+<p><a href="https://www.twilio.com/labs/twimlets">Twimlets</a> are URLs hosted by Twilio that provide small bits
+of commonly-used functionality. </p>
+<ul>
+<li>The <a href="https://www.twilio.com/labs/twimlets/forward">Forward</a> twimlet will forward all calls to a
+  Twilio number on to another number of your choosing.</li>
+<li>The <a href="https://www.twilio.com/labs/twimlets/simulring">Simulring</a> twimlet will ring multiple numbers
+  at the same time, and connect the caller to the first person that picks up.</li>
+<li>To dial numbers in turn until one picks up, use the <a href="https://www.twilio.com/labs/twimlets/findme">Find Me</a> 
+  twimlet.</li>
+</ul>
+<h3 id="examples"><a class="toclink" href="#examples">Examples</a></h3>
+<h4 id="examples-1"><a class="toclink" href="#examples-1">Example 1: Simple dial</a></h4>
+<p>This is the simplest case for Dial.  Twilio will dial 415-123-4567.
+If someone answers, Twilio will connect the caller to the called party.
+If the caller hangs up, the Twilio session ends.  If the line is busy,
+if there is no answer, or if the called party hangs up,
+<code>&lt;Dial&gt;</code> exits and the <code>&lt;Say&gt;</code> verb is
+executed for the caller before the call flow ends.</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="c">&lt;!-- page located at http://example.com/simple_dial.xml --&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Dial&gt;</span>415-123-4567<span class="nt">&lt;/Dial&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Say&gt;</span>Goodbye<span class="nt">&lt;/Say&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<h4 id="examples-2"><a class="toclink" href="#examples-2">Example 2: DialCallStatus reporting</a></h4>
+<p>In this example provide an action URL and method.
+Now when <code>&lt;Dial&gt;</code> ends, Twilio will submit a request to the action URL with the parameter
+'DialCallStatus'.  If nobody picks up, 'DialCallStatus' will be 'no-answer'. If the line is busy,
+'DialCallStatus' will be 'busy'.  If the called party picks up, 'DialCallStatus' will be 'completed'. If a conference is successfully dialed, 'DialCallStatus' will be 'answered'.
+If an invalid phone number was provided, 'DialCallStatus' will be 'failed'.</p>
+<p>Your web application can look at the 'DialCallStatus' parameter and decide what to
+do next.</p>
+<p>If an 'action' URL is provided for <code>&lt;Dial&gt;</code>, Twilio will always make a request to it regardless of the outcome of <code>&lt;Dial&gt;</code>.
+All verbs remaining in the document are unreachable and ignored.</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="c">&lt;!-- page located at http://example.com/dial_callstatus.xml --&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Dial</span> <span class="na">action=</span><span class="s">&quot;/handleDialCallStatus.php&quot;</span> <span class="na">method=</span><span class="s">&quot;GET&quot;</span><span class="nt">&gt;</span>
+</span><span class="code-line">        415-123-4567
+</span><span class="code-line">    <span class="nt">&lt;/Dial&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Say&gt;</span>I am unreachable<span class="nt">&lt;/Say&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<h4 id="examples-3"><a class="toclink" href="#examples-3">Example 3: Dial to a phone number from Twilio Client</a></h4>
+<p>In this example, we'll use <code>&lt;Dial&gt;</code> to call a phone number from a Twilio Client device.</p>
+<div class="alert alert-error">
+  If you are dialing a phone number from a <a href="https://www.twilio.com/api/client">Twilio Client</a> connection, you <strong>must</strong> specify a valid phone number as the <code class="notranslate">callerId</code> or the call will fail.
+</div>
+
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Dial</span> <span class="na">callerId=</span><span class="s">&quot;+15551112222&quot;</span><span class="nt">&gt;</span>
+</span><span class="code-line">        <span class="nt">&lt;Number&gt;</span>+15558675309<span class="nt">&lt;/Number&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;/Dial&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<h4 id="example-4-set-dual-channel-recording-on-dial"><a class="toclink" href="#example-4-set-dual-channel-recording-on-dial">Example 4: Set Dual-Channel Recording on <code id="examples-4">&lt;Dial&gt;</code></a></h4>
+<p>In this example, we'll specify that we want each participant on the <code>&lt;Dial&gt;</code> call to be represented in their own channel of the final recording.</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">   <span class="nt">&lt;Dial</span> <span class="na">record=</span><span class="s">&quot;record-from-ringing-dual&quot;</span> <span class="na">recordingStatusCallback=</span><span class="s">&quot;www.myexample.com&quot;</span><span class="nt">&gt;</span>
+</span><span class="code-line">       <span class="nt">&lt;Number&gt;</span>+15558675309<span class="nt">&lt;/Number&gt;</span>
+</span><span class="code-line">   <span class="nt">&lt;/Dial&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<h4 id="examples-5"><a class="toclink" href="#examples-5">Example 5: Set Dual-Channel Recording on <code>&lt;Dial&gt;</code> with nested <code>&lt;Conference&gt;</code></a></h4>
+<p>In this example, we'll specify that we want a dual-channel recording for a <code>&lt;Dial&gt;</code> with a nested <code>&lt;Conference&gt;</code>.</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">   <span class="nt">&lt;Dial</span> <span class="na">record=</span><span class="s">&quot;record-from-ringing-dual&quot;</span> <span class="na">recordingStatusCallback=</span><span class="s">&quot;www.myexample.com&quot;</span><span class="nt">&gt;</span>
+</span><span class="code-line">       <span class="nt">&lt;Conference&gt;</span>myteamroom<span class="nt">&lt;/Conference&gt;</span>
+</span><span class="code-line">   <span class="nt">&lt;/Dial&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+</div>
+
+      
+    </div>
+  
+
+    
+
+        
+          
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+// Unique identifiers
+PAGE_URL = "https://www.twilio.com/docs/api/twiml/dial";
+
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'http://twiliodocumentation.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+        
+      </div>
+    </div>
+
+    <div class="code-column">
+      
+  <div id="coderail" class="code-rail" data-uk-sticky="{boundary: true}">
+
+  <div class="rail-placeholder"></div>
+
+  <div class="rail-header uk-hidden">
+
+    <div class="rail-header-wrapper">
+
+      <div class="rail-navigation">
+        <div class="inner">
+          <a href="#previous" class="inactive" data-previous>
+            <i class="fa fa-fw fa-arrow-left left"></i>
+          </a>
+        </div>
+        <div class="inner">
+          <span>
+            <span class="current-index">1</span>
+            <span>/</span>
+            <span class="snippet-total">1</span>
+          </span>
+        </div>
+        <div class="inner">
+          <a href="#next" data-next>
+            <i class="fa fa-fw fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="rail-title">
+        <div class="title-content inner">
+          <span>Loading Code Samples...</span>
+          <i class="fa fa-fw fa-chevron-down"></i>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rail-toolbar uk-hidden">
+
+    <div class="rail-current-language">
+      <div class="inner">
+        <span>Language</span>
+        <i class="fa fa-fw fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <a href="#code" class="uk-hidden tab" data-code>Code</a>
+      <a href="#output" class="uk-hidden inactive" data-output>Output</a>
+
+      <span class="separator"></span>
+
+      <a id="download" class="uk-hidden">
+        <i class="fa fa-fw fa-download"></i>
+        <span>Download Project</span>
+      </a>
+
+      <a id="github" class="uk-hidden" target="_blank">
+        <i class="fa fa-fw fa-github-square"></i>
+        <span>View on GitHub</span>
+      </a>
+
+      <a id="defrosty" class="fr-on" href="#defrosty">
+        <i class="fa fa-fw fa-eye"></i>
+        <span class="wider-tooltip">Toggle Highlighted Lines</span>
+      </a>
+
+      <a id="clippy" href="#copy">
+        <i class="fa fa-fw fa-copy"></i>
+        <span>Copy to Clipboard</span>
+      </a>
+
+      <a id="linkcode" href="#linkcode">
+        <i class="fa fa-fw fa-link"></i>
+        <span>Link to this Code</span>
+      </a>
+
+      <a href="#expand" data-expand>
+        <i class="fa fa-fw fa-arrows-alt"></i>
+        <span>Full Screen</span>
+      </a>
+      <a href="#collapse" class="uk-hidden" data-collapse>
+        <i class="fa fa-fw fa-compress"></i>
+        <span>Normal Size</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="rail-samples">
+    <ul>
+      
+    </ul>
+  </div>
+
+  <div class="rail-languages"></div>
+
+  <div class="rail-content">
+    <div class="rail-content-inner">
+      
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
+  </div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/api/twiml/dial by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:53 GMT -->
+</html>

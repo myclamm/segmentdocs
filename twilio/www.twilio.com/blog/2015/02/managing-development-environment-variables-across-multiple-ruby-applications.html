@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Managing Development Environment Variables Across Multiple Ruby Applications &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Managing Development Environment Variables Across Multiple Ruby Applications Comments Feed" href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Phil Nash');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'dotenv,environment variables,envyable,figaro,Ruby,Ruby on Rails');
+	__gaTracker('set', 'dimension8', '2015-02-09T13:11:18+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=14560' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fmanaging-development-environment-variables-across-multiple-ruby-applications.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fmanaging-development-environment-variables-across-multiple-ruby-applications.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-14560 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-14560" class="row post-14560 post type-post status-publish format-standard hentry category-all-things-code tag-dotenv tag-environment-variables tag-envyable tag-figaro tag-ruby tag-ruby-on-rails">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Managing Development Environment Variables Across Multiple Ruby Applications</h2>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/phil">Phil Nash</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" rel="bookmark"><time class="entry-date published updated" datetime="2015-02-09T13:11:18+00:00">February 9, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" data-text="Managing Development Environment Variables Across Multiple Ruby Applications ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>There is one thing I’ve noticed on the Twilio blog since I started here. <a href="https://www.twilio.com/blog/2014/09/securing-your-ruby-webhooks-with-rack-middleware.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2014/09/securing-your-ruby-webhooks-with-rack-middleware.html', 'We');">We</a> <a href="https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html', 'are');">are</a> <a href="https://www.twilio.com/blog/2014/09/gmail-api-oauth-rails.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2014/09/gmail-api-oauth-rails.html', 'always');">always</a> <a href="https://www.twilio.com/blog/2013/08/part-2-twilio-sms-phone-verification-system.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2013/08/part-2-twilio-sms-phone-verification-system.html', 'telling');">telling</a> you to store your account SID and auth token in environment variables. What we don’t tend to do is spend too much time talking about how best to manage those environment variables.</p>
+<p>In my previous role, I worked at a digital agency contributing to many different applications over time. Each of these applications relied on various different APIs and stored varying amounts of different credentials. Best practices such as the <a href="http://12factor.net/config" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://12factor.net/config', 'Twelve Factor App');">Twelve Factor App</a> and the constraints of certain hosting platforms like Heroku lead to us using environment variables to store these secrets. It took us a long time to standardise how we did that though, from hacking the Rails boot process to eventually extracting out a gem that handled it for us.</p>
+<p>It is very easy to set an environment variable in simple cases, however with many apps, many credentials and a fast paced environment, setting and resetting env variables becomes unwieldy very quickly. But that’s where Ruby and the community comes to the rescue. There are a number of ways to store and manage your environment variables. Let’s take a look at how they can improve your development environments.</p>
+<h3>The easiest way to use environment variables</h3>
+<p>Let’s start with the easy way to use environment variables. Say you’re building an application and using Twilio, you’re going to need your account SID and auth token. So let’s load them into the environment. On a Mac or Linux command line, you would type:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3f11380562599" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ export TWILIO_ACCOUNT_SID=AC1234...
+$ export TWILIO_AUTH_TOKEN=abc12...</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3f11380562599-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e3f11380562599-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3f11380562599-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">export </span><span class="crayon-v">TWILIO_ACCOUNT_SID</span><span class="crayon-o">=</span><span class="crayon-v">AC1234</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e3f11380562599-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">export </span><span class="crayon-v">TWILIO_AUTH_TOKEN</span><span class="crayon-o">=</span><span class="crayon-v">abc12</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span><span class="crayon-sy">.</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0016 seconds] -->
+<p></p>
+<p>I don’t personally develop on Windows but there’s a very comprehensive <a href="http://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them', 'answer on superuser.com about environment variables for various operating systems');">answer on superuser.com about environment variables for various operating systems</a> that might help you if you do.</p>
+<p>When you run your application you can refer to 
+			<span id="crayon-58794dc9e3f23501133681" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">ENV</span><span class="crayon-sy">[</span><span class="crayon-s">'TWILIO_ACCOUNT_SID'</span><span class="crayon-sy">]</span></span></span> and 
+			<span id="crayon-58794dc9e3f2e624737940" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">ENV</span><span class="crayon-sy">[</span><span class="crayon-s">'TWILIO_AUTH_TOKEN'</span><span class="crayon-sy">]</span></span></span>. Let’s try that with a simple one-liner to print out the variables. Adding the 
+			<span id="crayon-58794dc9e3f39907258805" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">-</span><span class="crayon-i">e</span></span></span> flag to the 
+			<span id="crayon-58794dc9e3f42904708472" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">ruby</span></span></span> command allows us to execute a string of code right on the command line, which is useful for this example.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3f4c843907960" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ ruby -e 'puts "#{ENV["TWILIO_ACCOUNT_SID"]} #{ENV["TWILIO_AUTH_TOKEN"]}"'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3f4c843907960-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3f4c843907960-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">ruby</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">e</span><span class="crayon-h"> </span><span class="crayon-s">'puts "#{ENV["TWILIO_ACCOUNT_SID"]} #{ENV["TWILIO_AUTH_TOKEN"]}"'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p></p>
+<p><img src="https://www.twilio.com/blog/wp-content/uploads/2015/02/export.png" alt="When you run the script the variables print out to the terminal as expected." class="aligncenter size-full wp-image-14564" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/export.png 919w, https://www.twilio.com/blog/wp-content/uploads/2015/02/export-300x87.png 300w" sizes="(max-width: 919px) 100vw, 919px" /></p>
+<p>Good stuff, we have environment variables!</p>
+<h3>The hardest way to use environment variables</h3>
+<p>If we carry on developing from our terminal window we were just using, then everything will be fine. However, open a new terminal window and run the same Ruby command again and see what happens:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3f57336186427" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ruby -e 'puts "#{ENV["TWILIO_ACCOUNT_SID"]} #{ENV["TWILIO_AUTH_TOKEN"]}"'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3f57336186427-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3f57336186427-1"><span class="crayon-i">ruby</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">e</span><span class="crayon-h"> </span><span class="crayon-s">'puts "#{ENV["TWILIO_ACCOUNT_SID"]} #{ENV["TWILIO_AUTH_TOKEN"]}"'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p></p>
+<p><img src="https://www.twilio.com/blog/wp-content/uploads/2015/02/noexport.png" alt="When the same line of code is run in a new terminal window, there is no output as the environment variables are no longer set." class="aligncenter size-full wp-image-14565" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/noexport.png 919w, https://www.twilio.com/blog/wp-content/uploads/2015/02/noexport-300x87.png 300w" sizes="(max-width: 919px) 100vw, 919px" /></p>
+<p>The environment variables are gone. In order to use them again, we are going to have to export them again for every terminal session in which we want run our application. There has to be a better way!</p>
+<h3>The most awkward way to use environment variables</h3>
+<p>It is, of course, possible to set your environment variables a bit more permanently. On Mac and Linux you can add those same export lines to your 
+			<span id="crayon-58794dc9e3f62563539328" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">~</span><span class="crayon-o">/</span><span class="crayon-sy">.</span><span class="crayon-i">profile</span></span></span> file and they will be loaded as you create a new terminal session. I defer again to the <a href="http://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them', 'experts on superuser.com about Windows environment variable management');">experts on superuser.com about Windows environment variable management</a>.</p>
+<p>The problem I have here is while I have many projects that may use the same services, like Twilio, Twitter, Facebook, Mailchimp, etc, they don’t all share the same credentials. You could prefix your environment variables with the app name as a sort of namespace, but that gets very messy over time.</p>
+<h3>Saving the environment</h3>
+<p>There are a three things we need in order to make environment variables manageable:</p>
+<ul>
+<li>We need to load credentials, secrets and other configuration items into the environment on a per project basis</li>
+<li>We need to be able to do this from the simplest scripts up to full Rails applications</li>
+<li>We need to keep secrets out of source control so that they don’t get spread around unintentionally</li>
+</ul>
+<h3>Ruby environment loaders</h3>
+<p>As I said at the beginning, the Ruby community has indeed provided for us. A look through <a href="https://www.ruby-toolbox.com/categories/Configuration_Management" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.ruby-toolbox.com/categories/Configuration_Management', 'The Ruby Toolbox’s list of configuration management gems');">The Ruby Toolbox’s list of configuration management gems</a> shows us a lot, although not all of them are of use to us in this situation. The two that stand out for loading config into the environment are <a href="https://github.com/bkeepers/dotenv" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/bkeepers/dotenv', 'dotenv');">dotenv</a>, <a href="https://github.com/laserlemon/figaro" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/laserlemon/figaro', 'Figaro');">Figaro</a>. I’d like to submit <a href="https://github.com/philnash/envyable" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/philnash/envyable', 'envyable');">envyable</a> as an entrant to this list, as it grew out of my previous agency in order to cover this use case too.</p>
+<p>Here’s a quick rundown of how each of these libraries works and how they can take the pain out of loading configuration into your environment.</p>
+<h3>Envyable</h3>
+<p>For envyable, all you need to do is add the gem to your Gemfile:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3f6e527154330" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+gem 'envyable'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3f6e527154330-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3f6e527154330-1"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'envyable'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p></p>
+<p>Run 
+			<span id="crayon-58794dc9e3f78791053734" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">bundle </span><span class="crayon-i">install</span></span></span>, then add a 
+			<span id="crayon-58794dc9e3f82329506557" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">yml</span></span></span> file to your 
+			<span id="crayon-58794dc9e3f8b299441101" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">config</span></span></span> directory. If you’re not working within Rails you might need to create this directory too.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3f95390019053" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ mkdir config # if you don’t already have a config directory
+$ touch config/env.yml</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3f95390019053-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e3f95390019053-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3f95390019053-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">mkdir</span><span class="crayon-h"> </span><span class="crayon-i">config</span><span class="crayon-h"> </span><span class="crayon-p"># if you don’t already have a config directory</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e3f95390019053-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">touch</span><span class="crayon-h"> </span><span class="crayon-i">config</span><span class="crayon-o">/</span><span class="crayon-r">env</span><span class="crayon-e">.yml</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0013 seconds] -->
+<p></p>
+<p>Add that file to your 
+			<span id="crayon-58794dc9e3f9f215831149" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-i">gitignore</span></span></span> file (or the ignore file for your version control system of choice)</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3fa9937480866" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ echo "config/env.yml" &gt;&gt; .gitignore</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3fa9937480866-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3fa9937480866-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">echo</span><span class="crayon-h"> </span><span class="crayon-s">"config/env.yml"</span><span class="crayon-h"> </span><span class="crayon-o">&gt;&gt;</span><span class="crayon-h"> </span><span class="crayon-e">.gitignore</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p></p>
+<p>And then start adding your secrets to 
+			<span id="crayon-58794dc9e3fb3924728910" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">yml</span></span></span>.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3fbd109298639" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">YAML</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+# config/env.yml
+development:
+  TWILIO_ACCOUNT_SID: AC1234…
+  TWILIO_AUTH_TOKEN: abc12…
+
+test:
+  TWILIO_ACCOUNT_SID: AC5678…
+  TWILIO_AUTH_TOKEN: abc34…</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3fbd109298639-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e3fbd109298639-2">2</div><div class="crayon-num" data-line="crayon-58794dc9e3fbd109298639-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e3fbd109298639-4">4</div><div class="crayon-num" data-line="crayon-58794dc9e3fbd109298639-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e3fbd109298639-6">6</div><div class="crayon-num" data-line="crayon-58794dc9e3fbd109298639-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e3fbd109298639-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3fbd109298639-1"><span class="crayon-c"># config/env.yml</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e3fbd109298639-2"><span class="crayon-s ">development</span><span class="">:</span></div><div class="crayon-line" id="crayon-58794dc9e3fbd109298639-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s ">TWILIO_ACCOUNT_SID</span><span class="">: AC1234…</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e3fbd109298639-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s ">TWILIO_AUTH_TOKEN</span><span class="">: abc12…</span></div><div class="crayon-line" id="crayon-58794dc9e3fbd109298639-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e3fbd109298639-6"><span class="crayon-s ">test</span><span class="">:</span></div><div class="crayon-line" id="crayon-58794dc9e3fbd109298639-7"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s ">TWILIO_ACCOUNT_SID</span><span class="">: AC5678…</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e3fbd109298639-8"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s ">TWILIO_AUTH_TOKEN</span><span class="">: abc34…</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<p>If you are using Rails, then the config will be loaded for you when you restart your application. If you are using this within another framework or application, you just need to require the gem and call:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3fc7847048949" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+require 'envyable'
+Envyable.load('./config/env.yml', 'development')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3fc7847048949-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e3fc7847048949-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3fc7847048949-1"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'envyable'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e3fc7847048949-2"><span class="crayon-v">Envyable</span><span class="crayon-sy">.</span><span class="crayon-e">load</span><span class="crayon-sy">(</span><span class="crayon-s">'./config/env.yml'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'development'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<p>before you need your config. Now, within your application you will have access to 
+			<span id="crayon-58794dc9e3fd1551875698" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">ENV</span><span class="crayon-sy">[</span><span class="crayon-s">'TWILIO_ACCOUNT_SID'</span><span class="crayon-sy">]</span></span></span> and 
+			<span id="crayon-58794dc9e3fdb855817329" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">ENV</span><span class="crayon-sy">[</span><span class="crayon-s">'TWILIO_AUTH_TOKEN'</span><span class="crayon-sy">]</span></span></span>.</p>
+<h3>Figaro</h3>
+<p>Figaro is similar to envyable but with a few more features. Its downside is that it only works on Rails. You add the gem to your Gemfile, as usual:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3fe5639416967" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+gem 'figaro'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3fe5639416967-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3fe5639416967-1"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'figaro'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p></p>
+<p>After you run 
+			<span id="crayon-58794dc9e3fef799970088" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">bundle </span><span class="crayon-i">install</span></span></span>, run the Figaro install script:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e3ff9347666555" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ bundle exec figaro install</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e3ff9347666555-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e3ff9347666555-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">bundle </span><span class="crayon-e">exec </span><span class="crayon-e">figaro </span><span class="crayon-i">install</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p></p>
+<p>This will create the 
+			<span id="crayon-58794dc9e4003929890139" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">config</span><span class="crayon-o">/</span><span class="crayon-v">application</span><span class="crayon-sy">.</span><span class="crayon-i">yml</span></span></span> file for your config and add it to your 
+			<span id="crayon-58794dc9e4049683587835" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-i">gitignore</span></span></span> file all in one go. Now you can start adding secrets to the file:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e4057356144004" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">YAML</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+# config/application.yml
+TWILIO_ACCOUNT_SID: AC1234…
+TWILIO_AUTH_TOKEN: abc12…
+
+test:
+  TWILIO_ACCOUNT_SID: AC4567…</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e4057356144004-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e4057356144004-2">2</div><div class="crayon-num" data-line="crayon-58794dc9e4057356144004-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e4057356144004-4">4</div><div class="crayon-num" data-line="crayon-58794dc9e4057356144004-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e4057356144004-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e4057356144004-1"><span class="crayon-c"># config/application.yml</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e4057356144004-2"><span class="crayon-s ">TWILIO_ACCOUNT_SID</span><span class="">: AC1234…</span></div><div class="crayon-line" id="crayon-58794dc9e4057356144004-3"><span class="crayon-s ">TWILIO_AUTH_TOKEN</span><span class="">: abc12…</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e4057356144004-4">&nbsp;</div><div class="crayon-line" id="crayon-58794dc9e4057356144004-5"><span class="crayon-s ">test</span><span class="">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e4057356144004-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s ">TWILIO_ACCOUNT_SID</span><span class="">: AC4567…</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p></p>
+<p>As you can see in this case, Figaro lets you add default environment variables and you can then override them on a per environment level. Figaro has some other features which can be very useful too, such as <a href="https://github.com/laserlemon/figaro#required-keys" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/laserlemon/figaro#required-keys', 'required keys');">required keys</a> and <a href="https://github.com/laserlemon/figaro#deployment" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/laserlemon/figaro#deployment', 'a script to set config on Heroku automatically');">a script to set config on Heroku automatically</a>.</p>
+<h3>Dotenv</h3>
+<p>Unlike the previous gems, dotenv does not rely on yaml for a config file placed within the config directory, instead opting for a 
+			<span id="crayon-58794dc9e4062764408246" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-i">env</span></span></span> file in a project’s root. To get started, add the gem to your Gemfile:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e406c228635934" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+gem 'dotenv'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e406c228635934-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e406c228635934-1"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'dotenv'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p></p>
+<p>Or for Rails applications:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e4076218663030" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+gem 'dotenv-rails'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e4076218663030-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e4076218663030-1"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'dotenv-rails'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p></p>
+<p>Run 
+			<span id="crayon-58794dc9e4080400664777" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">bundle </span><span class="crayon-i">install</span></span></span> and create yourself a 
+			<span id="crayon-58794dc9e408a657789031" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-i">env</span></span></span> file.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e4093056164364" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ touch .env</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e4093056164364-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e4093056164364-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">touch</span><span class="crayon-h"> </span><span class="crayon-e">.env</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p></p>
+<p>You can now add your config to the file in a format that is intentionally reminiscent of exporting environment variables on the command line:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e40a6675661539" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+TWILIO_ACCOUNT_SID=AC1234…
+TWILIO_AUTH_TOKEN=abc12…</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e40a6675661539-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e40a6675661539-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e40a6675661539-1"><span class="crayon-v">TWILIO_ACCOUNT_SID</span><span class="crayon-o">=</span><span class="crayon-i">AC1234</span>…</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e40a6675661539-2"><span class="crayon-v">TWILIO_AUTH_TOKEN</span><span class="crayon-o">=</span><span class="crayon-i">abc12</span>…</div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<p>You can even add the export statement at the front in case you want to 
+			<span id="crayon-58794dc9e40b0263759827" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">source</span></span></span> the file in bash:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e40ba669431329" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+export TWILIO_ACCOUNT_SID=AC1234…
+export TWILIO_AUTH_TOKEN=abc12…</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e40ba669431329-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e40ba669431329-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e40ba669431329-1"><span class="crayon-e">export </span><span class="crayon-v">TWILIO_ACCOUNT_SID</span><span class="crayon-o">=</span><span class="crayon-i">AC1234</span>…</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e40ba669431329-2"><span class="crayon-e">export </span><span class="crayon-v">TWILIO_AUTH_TOKEN</span><span class="crayon-o">=</span><span class="crayon-i">abc12</span>…</div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p></p>
+<p>I recommend adding the 
+			<span id="crayon-58794dc9e40c4122025333" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-i">env</span></span></span> file to your 
+			<span id="crayon-58794dc9e40cd282742264" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-i">gitignore</span></span></span> file as well, though Brandon Keepers, the creator of dotenv, suggests you <a href="https://github.com/bkeepers/dotenv#should-i-commit-my-env-file" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/bkeepers/dotenv#should-i-commit-my-env-file', 'commit the file to the project');">commit the file to the project</a> with just your development credentials saved. This is a bit of a philosophical difference between dotenv and envyable/figaro. My development credentials tend to be based on my accounts so I don’t want to share them around and would prefer to keep any secrets out of source control.</p>
+<p>If you’re using Rails, the environment variables will be automatically loaded, but in other applications you can simply:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc9e40d7169685240" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+require 'dotenv'
+Dotenv.load</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc9e40d7169685240-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc9e40d7169685240-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc9e40d7169685240-1"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'dotenv'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc9e40d7169685240-2"><span class="crayon-v">Dotenv</span><span class="crayon-sy">.</span><span class="crayon-i">load</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p></p>
+<p>You can also provide environment specific config by creating 
+			<span id="crayon-58794dc9e40e1248885214" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">production</span></span></span> or 
+			<span id="crayon-58794dc9e40eb816470481" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">development</span></span></span> files, which will override any config set in the 
+			<span id="crayon-58794dc9e40fb468547341" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-i">env</span></span></span> file in the respective environment.</p>
+<h3>What about secrets.yml?</h3>
+<p>Ah yes. Since version 4.1 Rails has had its own way of loading secrets. Newly created Rails 4.1 projects come with a 
+			<span id="crayon-58794dc9e4105505751997" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">config</span><span class="crayon-o">/</span><span class="crayon-v">secrets</span><span class="crayon-sy">.</span><span class="crayon-i">yml</span></span></span> file. Any key within that file can be accessed by calling 
+			<span id="crayon-58794dc9e410f441827180" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">Rails</span><span class="crayon-sy">.</span><span class="crayon-v">application</span><span class="crayon-sy">.</span><span class="crayon-v">secrets</span><span class="crayon-sy">.</span><span class="crayon-i">key_name</span></span></span>. In fact, in Rails 4.2 there is also 
+			<span id="crayon-58794dc9e4119024126503" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">Rails</span><span class="crayon-sy">.</span><span class="crayon-v">application</span><span class="crayon-sy">.</span><span class="crayon-i">config_for</span></span></span> which can be used to load arbitrary yaml files from the config directory. Whilst his post is just about 
+			<span id="crayon-58794dc9e4123598807227" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">secrets</span><span class="crayon-sy">.</span><span class="crayon-i">yml</span></span></span>, I think Steve Richert (the author of Figaro) <a href="http://www.collectiveidea.com/blog/archives/2013/12/18/the-marriage-of-figaro-and-rails/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.collectiveidea.com/blog/archives/2013/12/18/the-marriage-of-figaro-and-rails/', 'describes best why Rails still hasn’t got it right');">describes best why Rails still hasn’t got it right</a>.</p>
+<h3>So which is the best?</h3>
+<p>There is, of course, no simple answer to this question. Frankly each of the gems I’ve talked about above, and there are probably more available that I haven’t found, do a great job of keeping your secrets safe and loading them into the environment on a per project basis. Each of them solve the problems I described when working across many applications and allow you to stick to the Twelve Factor methodology.</p>
+<p>I personally like to use envyable (I suppose that’s no surprise since it was born out of our methodologies at my last place of work). I like the comfort of a yaml file in a config directory as opposed to a hidden .env file. I also like that it works across all Ruby applications and that, at heart, it really is <a href="https://github.com/philnash/envyable/blob/master/lib/envyable/loader.rb" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/philnash/envyable/blob/master/lib/envyable/loader.rb', 'very simple');">very simple</a>. Your favourite might turn out to be Figaro, with its extra features, or dotenv, which is far and away the <a href="https://www.ruby-toolbox.com/categories/Configuration_Management" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.ruby-toolbox.com/categories/Configuration_Management', 'most popular of the three according to the Ruby Toolbox');">most popular of the three according to the Ruby Toolbox</a>.</p>
+<p>If you have a different way of loading environment variables that I haven’t covered here, I’d love to hear about it and why you chose it. Drop me a comment here or grab me on <a href="https://twitter.com/philnash" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/philnash', 'Twitter');">Twitter</a> or <a href="mailto:philnash@twilio.com">email</a>. And if you think envyable is too simple, I’m always open to <a href="https://github.com/philnash/envyable" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/philnash/envyable', 'pull requests');">pull requests</a>.</p>
+<p>Whichever method you choose, you will no longer have to mess about exporting variables on the command line over and over or cluttering your dotfiles. You can just get on with creating your next great application!</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" data-text="Managing Development Environment Variables Across Multiple Ruby Applications ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/79fac5826d02217e841fd2354db2ae37?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/79fac5826d02217e841fd2354db2ae37?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/phil">Phil Nash</a></span></span> <span class="author-meta author-email"><a href="mailto:pnash@twilio.com">pnash@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/philnash">@philnash<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Ruby</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails', '');">
+          <h5>SMS and MMS Notifications with Ruby</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" rel="bookmark" title="Permanent Link to Note Taking On the Go With Evernote and Twilio &#8211; Part One" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html', '');">
+          <h5>Note Taking On the Go With Evernote and Twilio &#8211; Part One<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/creating-a-priority-queue-for-your-call-centre-with-taskrouter.html" rel="bookmark" title="Permanent Link to Creating a Priority Queue for your Call Centre with TaskRouter" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/creating-a-priority-queue-for-your-call-centre-with-taskrouter.html', '');">
+          <h5>Creating a Priority Queue for your Call Centre with TaskRouter<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-3372">
+        <div id="dsq-comment-header-3372" class="dsq-comment-header">
+            <cite id="dsq-cite-3372">
+                <span id="dsq-author-user-3372">markalanevans</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3372" class="dsq-comment-body">
+            <div id="dsq-comment-message-3372" class="dsq-comment-message"><p>So if the env variables are ignored, then how &amp; where do you manage storing the production variables? How do you load them in?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-3373">
+        <div id="dsq-comment-header-3373" class="dsq-comment-header">
+            <cite id="dsq-cite-3373">
+                <span id="dsq-author-user-3373">Phil Nash</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3373" class="dsq-comment-body">
+            <div id="dsq-comment-message-3373" class="dsq-comment-message"><p>Hey Mark, I felt that the production side of things was out of scope for this particular post as it would have easily doubled the length. It all depends on how you deploy your applications really. I like hosting apps on Heroku, so for that you just need to use their command line tool to add your environment variables. If you use Chef to manage your servers, you would want to add them to an encrypted data bag (<a href="https://docs.chef.io/chef/essentials_data_bags.html" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://docs.chef.io/chef/essentials_data_bags.html', 'https://docs.chef.io/chef/essentials_data_bags.html');" rel="nofollow">https://docs.chef.io/chef/essentials_data_bags.html</a>) and export on each server as you create/update them. </p>
+<p>How do you manage your servers/deploys?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-3" id="dsq-comment-3382">
+        <div id="dsq-comment-header-3382" class="dsq-comment-header">
+            <cite id="dsq-cite-3382">
+http://www.infosimples.com/                <span id="dsq-author-user-3382">Rafael Barbolo</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3382" class="dsq-comment-body">
+            <div id="dsq-comment-message-3382" class="dsq-comment-message"><p>If you prepare your app OS images (e.g. AMIs at AWS), you can create an env file and keep it within the image. Whenever you change the env file (which should not be frequent) you recreate/update the base image.</p>
+<p>The person who deploys the application should know the production env variables, the person that only develops the application should not.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-3383">
+        <div id="dsq-comment-header-3383" class="dsq-comment-header">
+            <cite id="dsq-cite-3383">
+http://cristianobetta.com/                <span id="dsq-author-user-3383">Cristiano Betta</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3383" class="dsq-comment-body">
+            <div id="dsq-comment-message-3383" class="dsq-comment-message"><p>I&#8217;d like to highlight the &#8220;foreman&#8221; gem that also autoloads .env files in development.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-3384">
+        <div id="dsq-comment-header-3384" class="dsq-comment-header">
+            <cite id="dsq-cite-3384">
+                <span id="dsq-author-user-3384">Habib</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3384" class="dsq-comment-body">
+            <div id="dsq-comment-message-3384" class="dsq-comment-message"><p>And has a cool function to export your Procfile in production as well.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt depth-2" id="dsq-comment-3392">
+        <div id="dsq-comment-header-3392" class="dsq-comment-header">
+            <cite id="dsq-cite-3392">
+https://twitter.com/philnash                <span id="dsq-author-user-3392">Phil Nash</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3392" class="dsq-comment-body">
+            <div id="dsq-comment-message-3392" class="dsq-comment-message"><p>Good point, although foreman does a lot more than env management it is a useful tool. It does use dotenv to do the environment loading too.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-3387">
+        <div id="dsq-comment-header-3387" class="dsq-comment-header">
+            <cite id="dsq-cite-3387">
+                <span id="dsq-author-user-3387">MadBomber</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3387" class="dsq-comment-body">
+            <div id="dsq-comment-message-3387" class="dsq-comment-message"><p>I use direnv which stores its stuff in a .envrc file.  As I switch from one project directory to another in the same bash session the system autoloads/unloads the values for that directory/project.  Within my config/*.yml.erb files I set the secret values using </p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-3388">
+        <div id="dsq-comment-header-3388" class="dsq-comment-header">
+            <cite id="dsq-cite-3388">
+                <span id="dsq-author-user-3388">zogash</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3388" class="dsq-comment-body">
+            <div id="dsq-comment-message-3388" class="dsq-comment-message"><p>I prefer direnv (<a href="https://github.com/zimbatm/direnv" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://github.com/zimbatm/direnv', 'https://github.com/zimbatm/direnv');" rel="nofollow">https://github.com/zimbatm/direnv</a>) as well.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even depth-2" id="dsq-comment-3393">
+        <div id="dsq-comment-header-3393" class="dsq-comment-header">
+            <cite id="dsq-cite-3393">
+https://twitter.com/philnash                <span id="dsq-author-user-3393">Phil Nash</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3393" class="dsq-comment-body">
+            <div id="dsq-comment-message-3393" class="dsq-comment-message"><p>I learned about direnv from comments and tweets on this post, thanks! It does look like a useful cross language tool, definitely one to consider.</p>
+<p>For me, I like to encapsulate the entire thing within the application so that as long as you have Ruby and Bundler installed you can clone a project, enter your environment variables and start it up. direnv does add another, external, dependency to that, but if that works for you, that&#8217;s awesome.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-3540">
+        <div id="dsq-comment-header-3540" class="dsq-comment-header">
+            <cite id="dsq-cite-3540">
+                <span id="dsq-author-user-3540">Yury Otcheski</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3540" class="dsq-comment-body">
+            <div id="dsq-comment-message-3540" class="dsq-comment-message"><p>Consider using chamber gem (<a href="https://github.com/thekompanee/chamber" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://github.com/thekompanee/chamber', 'https://github.com/thekompanee/chamber');" rel="nofollow">https://github.com/thekompanee/chamber</a> ). It&#8217;s very flexible and feature-complete (even encryption).</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-3542">
+        <div id="dsq-comment-header-3542" class="dsq-comment-header">
+            <cite id="dsq-cite-3542">
+http://twitter.com/philnash                <span id="dsq-author-user-3542">philnash</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3542" class="dsq-comment-body">
+            <div id="dsq-comment-message-3542" class="dsq-comment-message"><p>I like chamber&#8217;s encryption angle, that is certainly useful if you find you must check the settings file it. It certainly is another viable approach and I like that it works just as well in Rails and without!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-3613">
+        <div id="dsq-comment-header-3613" class="dsq-comment-header">
+            <cite id="dsq-cite-3613">
+                <span id="dsq-author-user-3613">sijokg</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3613" class="dsq-comment-body">
+            <div id="dsq-comment-message-3613" class="dsq-comment-message"><p>Hi Thanks for this article.<br />
+   My question if we use any of this gems OR secrets.yml and add the corresponding env file to .gitignore, how the other team member in the project will know about the basic env variables to run the application correctly?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-3614">
+        <div id="dsq-comment-header-3614" class="dsq-comment-header">
+            <cite id="dsq-cite-3614">
+http://twitter.com/philnash                <span id="dsq-author-user-3614">philnash</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3614" class="dsq-comment-body">
+            <div id="dsq-comment-message-3614" class="dsq-comment-message"><p>Hey, great question. I like to leave a <code>config/env.yml.example</code> (or <code>.env.example</code>) file in the project that has all they keys but none of the values. Then a developer starting on the project can copy the file to the right location and fill in the keys with their own values. Figaro actually has a way to set required keys (<a href="https://github.com/laserlemon/figaro#required-keys" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://github.com/laserlemon/figaro#required-keys', 'https://github.com/laserlemon/figaro#required-keys');" rel="nofollow">https://github.com/laserlemon/figaro#required-keys</a>) as well, whch might be useful.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-4096">
+        <div id="dsq-comment-header-4096" class="dsq-comment-header">
+            <cite id="dsq-cite-4096">
+http://andxyz.com                <span id="dsq-author-user-4096">andxyz</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4096" class="dsq-comment-body">
+            <div id="dsq-comment-message-4096" class="dsq-comment-message"><p>You can use figaro outside of rails. Here is my example based on your <code>application.yml</code></p>
+<p><a href="https://gist.github.com/andxyz/37b08c26db922d85a808" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://gist.github.com/andxyz/37b08c26db922d85a808', 'https://gist.github.com/andxyz/37b08c26db922d85a808');" rel="nofollow">https://gist.github.com/andxyz/37b08c26db922d85a808</a></p>
+<p><code></code><code>ruby</p>
+<p>require 'figaro'</p>
+<p>ENV['FIGARO_ENVIRONMENT'] = "#{ENV['RACK_ENV']}" || 'development'</p>
+<p>Figaro.application = Figaro::Application.new(environment: ENV['FIGARO_ENVIRONMENT'], path: 'config/application.yml')</p>
+<p>Figaro.load</p>
+<p>Figaro.require_keys('TWILIO_ACCOUNT_SID')</p>
+<p>puts Figaro.env.TWILIO_ACCOUNT_SID!<br />
+</code><code></code></p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-4097">
+        <div id="dsq-comment-header-4097" class="dsq-comment-header">
+            <cite id="dsq-cite-4097">
+http://twitter.com/philnash                <span id="dsq-author-user-4097">philnash</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4097" class="dsq-comment-body">
+            <div id="dsq-comment-message-4097" class="dsq-comment-message"><p>I didn&#8217;t know you could do that, thanks! Although it does take a bit more work than Envyable or Dotenv in this case.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2015/02/14560 http://twilioinc.wpengine.com/?p=14560';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Managing Development Environment Variables Across Multiple Ruby Applications";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html?cf_action=sync_comments&amp;post_id=14560';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2015\/02\/managing-development-environment-variables-across-multiple-ruby-applications.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+</html>

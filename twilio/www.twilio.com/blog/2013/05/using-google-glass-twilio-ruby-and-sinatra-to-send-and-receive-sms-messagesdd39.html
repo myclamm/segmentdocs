@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html?utm_source=blog&utm_medium=link&utm_campaign=sms-4-lines-april-2014 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Using Google Glass, Twilio, Ruby, and Sinatra to Send and Receive SMS Messages &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Use Google Glass to send and receive Twilio SMS using Twilio, Ruby, and Sinatra. Jon Gottfried shows you how in this post."/>
+<link rel="canonical" href="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Using Google Glass, Twilio, Ruby, and Sinatra to Send and Receive SMS Messages Comments Feed" href="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Jonathan Gottfried');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code,inside-twilio');
+	__gaTracker('set', 'dimension7', 'Glass Hacks,Google Glass,Ruby,Sinatra,SMS,XML');
+	__gaTracker('set', 'dimension8', '2013-05-09T07:00:12+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=12000' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2013%2F05%2Fusing-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2013%2F05%2Fusing-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-12000 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-12000" class="row post-12000 post type-post status-publish format-standard hentry category-all-things-code category-inside-twilio tag-glass-hacks tag-google-glass tag-ruby tag-sinatra tag-sms tag-xml">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Using Google Glass, Twilio, Ruby, and Sinatra to Send and Receive SMS Messages</h2>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/jonmarkgo">Jonathan Gottfried</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html" rel="bookmark"><time class="entry-date published" datetime="2013-05-09T07:00:12+00:00">May 9, 2013</time><time class="updated" datetime="2015-09-24T14:17:54+00:00">September 24, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html" data-text="Using Google Glass, Twilio, Ruby, and Sinatra to Send and Receive SMS Messages ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p><em>Join the discussion on <a href="https://news.ycombinator.com/item?id=5680618" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://news.ycombinator.com/item?id=5680618', 'Hacker News');">Hacker News</a>!</em></p>
+<p><a href="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html/jonglass" rel="attachment wp-att-12018"><img class="alignright size-full wp-image-12018" alt="jonglass" src="https://www.twilio.com/blog/wp-content/uploads/2013/05/jonglass.jpeg" width="294" height="294" srcset="https://www.twilio.com/blog/wp-content/uploads/2013/05/jonglass.jpeg 294w, https://www.twilio.com/blog/wp-content/uploads/2013/05/jonglass-150x150.jpeg 150w" sizes="(max-width: 294px) 100vw, 294px" /></a>Myself and other developers have been giddy with glee at the recent release of <a href="http://google.com/glass" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://google.com/glass', 'Google Glass');">Google Glass</a>, one of the first largely available wearable computing platforms. After the <a href="https://plus.google.com/+GoogleDevelopers/posts/P1uAqLtkY2u" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://plus.google.com/+GoogleDevelopers/posts/P1uAqLtkY2u', 'Glass Foundry');">Glass Foundry</a> hackathons in January, I couldn’t wait to start building awesome applications such as <a href="http://techcrunch.com/2013/04/27/skip-google-sharing-and-tweet-photos-directly-from-google-glass-with-glasstweet/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://techcrunch.com/2013/04/27/skip-google-sharing-and-tweet-photos-directly-from-google-glass-with-glasstweet/', 'GlassTweet');">GlassTweet</a> with the <a href="https://developers.google.com/glass" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developers.google.com/glass', 'Mirror API');">Mirror API</a> and helping others do the same.</p>
+<p>Today, I’d like to debut the first tutorial on building Twilio applications for Google Glass, where you will learn how to receive<a href="https://www.twilio.com/blog/2013/05/www.twilio.com/sms"> SMS</a> messages via a Twilio phone number on your Google glass and how to respond to them using the Glass voice commands.</p>
+<p>Glass can send and receive SMS by default via the <a href="https://play.google.com/store/apps/details?id=com.google.glass.companion" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://play.google.com/store/apps/details?id=com.google.glass.companion', 'MyGlass Android app');">MyGlass Android app</a>. However, I often use Twilio phone numbers for people I would not be comfortable giving my real phone number to. I wanted to be able to receive SMS just through my Glass device, not my phone, and only receive SMS from certain people.</p>
+<p>If you&#8217;d like to see the end result, check out the video below before getting started:</p>
+<p><iframe src="https://www.youtube.com/embed/Sdr6p3o9iL4" height="360" width="640" allowfullscreen="" frameborder="0"></iframe></p>
+<h3>Let&#8217;s Get Started</h3>
+<p>The first step is to follow the <a href="https://developers.google.com/glass/quickstart/python" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developers.google.com/glass/quickstart/python', 'Mirror API quickstart guide');">Mirror API quickstart guide</a> &#8211; while this guide is for Python, the steps for creating a new Mirror Application in Google’s API console are the same as for Ruby. Once you have your Client ID and Secret, we can move on.</p>
+<p>A few more basics before we get started: If you haven’t used Sinatra before, I recommend giving a quick look at their <a href="http://www.sinatrarb.com/intro.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.sinatrarb.com/intro.html', 'README');">README</a>. For those of you coming from a Python background, it is a similar framework to <a href="https://www.twilio.com/blog/2013/05/”https://github.com/twilio/flask-restful”">Flask</a>. If you are new to Twilio, make sure you have signed up for an account and have upgraded it so that you can send outgoing SMS to unverified numbers. I would also recommend reading some of our <a href="http://www.twilio.com/docs/quickstart/ruby" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twilio.com/docs/quickstart/ruby', 'Quickstart tutorials');">Quickstart tutorials</a>.</p>
+<p>Now let’s dive into some code! First off, lets set up our Gemfile and config.ru:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e627938718399" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+source 'https://rubygems.org'
+ 
+gem 'google-api-client'
+gem 'twilio-ruby'
+gem 'sinatra'
+gem 'data_mapper'
+gem 'rack-ssl-enforcer'
+group :production do
+gem "pg"
+gem "dm-postgres-adapter"
+end
+ 
+group :development, :test do
+gem "sqlite3"
+gem "dm-sqlite-adapter"
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e627938718399-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-2">2</div><div class="crayon-num" data-line="crayon-58794da18e627938718399-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-4">4</div><div class="crayon-num" data-line="crayon-58794da18e627938718399-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-6">6</div><div class="crayon-num" data-line="crayon-58794da18e627938718399-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-8">8</div><div class="crayon-num" data-line="crayon-58794da18e627938718399-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-10">10</div><div class="crayon-num" data-line="crayon-58794da18e627938718399-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-12">12</div><div class="crayon-num" data-line="crayon-58794da18e627938718399-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-14">14</div><div class="crayon-num" data-line="crayon-58794da18e627938718399-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e627938718399-16">16</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e627938718399-1"><span class="crayon-i">source</span><span class="crayon-h"> </span><span class="crayon-s">'https://rubygems.org'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-2"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794da18e627938718399-3"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'google-api-client'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-4"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'twilio-ruby'</span></div><div class="crayon-line" id="crayon-58794da18e627938718399-5"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'sinatra'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-6"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'data_mapper'</span></div><div class="crayon-line" id="crayon-58794da18e627938718399-7"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'rack-ssl-enforcer'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-8"><span class="crayon-i">group</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">production</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line" id="crayon-58794da18e627938718399-9"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">"pg"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-10"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">"dm-postgres-adapter"</span></div><div class="crayon-line" id="crayon-58794da18e627938718399-11"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-12"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794da18e627938718399-13"><span class="crayon-i">group</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">development</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">test</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-14"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">"sqlite3"</span></div><div class="crayon-line" id="crayon-58794da18e627938718399-15"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">"dm-sqlite-adapter"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e627938718399-16"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0038 seconds] -->
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e63b891882010" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+require './app'
+run Sinatra::Application</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e63b891882010-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e63b891882010-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e63b891882010-1"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'./app'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e63b891882010-2"><span class="crayon-i">run</span><span class="crayon-h"> </span><span class="crayon-i">Sinatra</span><span class="crayon-o">::</span><span class="crayon-i">Application</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>&nbsp;<br />
+Next we have to set up our data store. We will need to store OAuth credentials and the user’s Twilio phone number. For this, I decided to use the awesome <a href="http://datamapper.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://datamapper.org/', 'data_mapper');">data_mapper</a> gem. Let’s create a new file and set up our database schema:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e64c429956296" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+require "sinatra"
+require "google/api_client"
+require "data_mapper"
+require "twilio-ruby"
+require 'rack-ssl-enforcer'
+ 
+DataMapper::setup(:default, ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/dev.db")
+ 
+class TokenPair
+include DataMapper::Resource
+ 
+property :id, Serial
+property :refresh_token, String, :length =&gt; 255
+property :access_token, String, :length =&gt; 255
+property :expires_in, Integer
+property :issued_at, Integer
+property :phone_number, String, :length =&gt; 20
+ 
+def update_token!(object)
+self.refresh_token = object.refresh_token
+self.access_token = object.access_token
+self.expires_in = object.expires_in
+self.issued_at = object.issued_at
+end
+ 
+def to_hash
+return {
+:refresh_token =&gt; refresh_token,
+:access_token =&gt; access_token,
+:expires_in =&gt; expires_in,
+:issued_at =&gt; Time.at(issued_at)
+}
+end
+end
+DataMapper.finalize
+DataMapper.auto_upgrade!
+use Rack::SslEnforcer</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e64c429956296-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-2">2</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-4">4</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-6">6</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-8">8</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-10">10</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-12">12</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-14">14</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-16">16</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-18">18</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-20">20</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-22">22</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-24">24</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-26">26</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-28">28</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-30">30</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-32">32</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-33">33</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-34">34</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-35">35</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e64c429956296-36">36</div><div class="crayon-num" data-line="crayon-58794da18e64c429956296-37">37</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e64c429956296-1"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">"sinatra"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-2"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">"google/api_client"</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-3"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">"data_mapper"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-4"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">"twilio-ruby"</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-5"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'rack-ssl-enforcer'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-6"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-7"><span class="crayon-i">DataMapper</span><span class="crayon-o">::</span><span class="crayon-e">setup</span><span class="crayon-sy">(</span><span class="crayon-o">:</span><span class="crayon-r">def</span>ault<span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">ENV</span><span class="crayon-sy">[</span><span class="crayon-s">"DATABASE_URL"</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-h"> </span><span class="crayon-s">"sqlite3://#{Dir.pwd}/dev.db"</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-8"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-9"><span class="crayon-r">class</span><span class="crayon-h"> </span><span class="crayon-i">TokenPair</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-10"><span class="crayon-i">include</span><span class="crayon-h"> </span><span class="crayon-i">DataMapper</span><span class="crayon-o">::</span><span class="crayon-i">Resource</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-11"><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-12"><span class="crayon-i">property</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">id</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">Serial</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-13"><span class="crayon-i">property</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">refresh_token</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">length</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-cn">255</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-14"><span class="crayon-i">property</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">access_token</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">length</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-cn">255</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-15"><span class="crayon-i">property</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">expires_in</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">Integer</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-16"><span class="crayon-i">property</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">issued_at</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">Integer</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-17"><span class="crayon-i">property</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">phone_number</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">length</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-cn">20</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-18"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-19"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">update_token</span><span class="crayon-o">!</span><span class="crayon-sy">(</span><span class="crayon-t">object</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-20"><span class="crayon-r">self</span><span class="crayon-sy">.</span><span class="crayon-v">refresh_token</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">object</span><span class="crayon-sy">.</span><span class="crayon-i">refresh_token</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-21"><span class="crayon-r">self</span><span class="crayon-sy">.</span><span class="crayon-v">access_token</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">object</span><span class="crayon-sy">.</span><span class="crayon-i">access_token</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-22"><span class="crayon-r">self</span><span class="crayon-sy">.</span><span class="crayon-v">expires_in</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">object</span><span class="crayon-sy">.</span><span class="crayon-i">expires_in</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-23"><span class="crayon-r">self</span><span class="crayon-sy">.</span><span class="crayon-v">issued_at</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">object</span><span class="crayon-sy">.</span><span class="crayon-i">issued_at</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-24"><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-25"><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-26"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">to_hash</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-27"><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-k ">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-28"><span class="crayon-o">:</span><span class="crayon-v">refresh_token</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">refresh_token</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-29"><span class="crayon-o">:</span><span class="crayon-v">access_token</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">access_token</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-30"><span class="crayon-o">:</span><span class="crayon-v">expires_in</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">expires_in</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-31"><span class="crayon-o">:</span><span class="crayon-v">issued_at</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-t">Time</span><span class="crayon-sy">.</span><span class="crayon-e">at</span><span class="crayon-sy">(</span><span class="crayon-i">issued_at</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-32"><span class="crayon-k ">}</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-33"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-34"><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-35"><span class="crayon-v">DataMapper</span><span class="crayon-sy">.</span><span class="crayon-i">finalize</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e64c429956296-36"><span class="crayon-v">DataMapper</span><span class="crayon-sy">.</span><span class="crayon-i">auto_upgrade</span><span class="crayon-o">!</span></div><div class="crayon-line" id="crayon-58794da18e64c429956296-37"><span class="crayon-i">use</span><span class="crayon-h"> </span><span class="crayon-i">Rack</span><span class="crayon-o">::</span><span class="crayon-i">SslEnforcer</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0134 seconds] -->
+<p></p>
+<p>All we are doing here is forcing the application into SSL mode, defining our schema, requiring the necessary gems for our application, and telling DataMapper to run an automatic migration whenever we deploy our application. This is a great feature and makes it really easy to add new fields to our table in the future. Now that our data store is all set up, we can start writing our before block, which is evaluated before any route is processed.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e65e204615341" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+before do
+@base_url = "https://myserver.com"
+@twilio = Twilio::REST::Client.new "ACxxxxxxxxxxxxxxxxxxxxxxxx", "yyyyyyyyyyyyyyyyyyyyyyyyy"
+@client = Google::APIClient.new
+@client.authorization.client_id = "1234.apps.googleusercontent.com"
+@client.authorization.client_secret = "ITSASECRET"
+@client.authorization.scope = [
+"https://www.googleapis.com/auth/glass.timeline",
+"https://www.googleapis.com/auth/userinfo.profile"
+]
+@client.authorization.redirect_uri = to("/oauth2callback")
+@client.authorization.code = params[:code] if params[:code]
+@glass = @client.discovered_api( "mirror", "v1" )
+@oauth2 = @client.discovered_api( "oauth2", "v2" )
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e65e204615341-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e65e204615341-2">2</div><div class="crayon-num" data-line="crayon-58794da18e65e204615341-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e65e204615341-4">4</div><div class="crayon-num" data-line="crayon-58794da18e65e204615341-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e65e204615341-6">6</div><div class="crayon-num" data-line="crayon-58794da18e65e204615341-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e65e204615341-8">8</div><div class="crayon-num" data-line="crayon-58794da18e65e204615341-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e65e204615341-10">10</div><div class="crayon-num" data-line="crayon-58794da18e65e204615341-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e65e204615341-12">12</div><div class="crayon-num" data-line="crayon-58794da18e65e204615341-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e65e204615341-14">14</div><div class="crayon-num" data-line="crayon-58794da18e65e204615341-15">15</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e65e204615341-1"><span class="crayon-i">before</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e65e204615341-2"><span class="crayon-v">@base_url</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"https://myserver.com"</span></div><div class="crayon-line" id="crayon-58794da18e65e204615341-3"><span class="crayon-v">@twilio</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">Twilio</span><span class="crayon-o">::</span><span class="crayon-i">REST</span><span class="crayon-o">::</span><span class="crayon-v">Client</span><span class="crayon-sy">.</span><span class="crayon-i">new</span><span class="crayon-h"> </span><span class="crayon-s">"ACxxxxxxxxxxxxxxxxxxxxxxxx"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"yyyyyyyyyyyyyyyyyyyyyyyyy"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e65e204615341-4"><span class="crayon-v">@client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">Google</span><span class="crayon-o">::</span><span class="crayon-v">APIClient</span><span class="crayon-sy">.</span><span class="crayon-i">new</span></div><div class="crayon-line" id="crayon-58794da18e65e204615341-5"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-v">client_id</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"1234.apps.googleusercontent.com"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e65e204615341-6"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-v">client_secret</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"ITSASECRET"</span></div><div class="crayon-line" id="crayon-58794da18e65e204615341-7"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-v">scope</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e65e204615341-8"><span class="crayon-s">"https://www.googleapis.com/auth/glass.timeline"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e65e204615341-9"><span class="crayon-s">"https://www.googleapis.com/auth/userinfo.profile"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e65e204615341-10"><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794da18e65e204615341-11"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-v">redirect_uri</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">to</span><span class="crayon-sy">(</span><span class="crayon-s">"/oauth2callback"</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e65e204615341-12"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-v">code</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">code</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">code</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794da18e65e204615341-13"><span class="crayon-v">@glass</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-e">discovered_api</span><span class="crayon-sy">(</span><span class="crayon-h"> </span><span class="crayon-s">"mirror"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"v1"</span><span class="crayon-h"> </span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e65e204615341-14"><span class="crayon-v">@oauth2</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-e">discovered_api</span><span class="crayon-sy">(</span><span class="crayon-h"> </span><span class="crayon-s">"oauth2"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"v2"</span><span class="crayon-h"> </span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e65e204615341-15"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0079 seconds] -->
+<p>&nbsp;<br />
+Our before block thus far is doing some basic configuration of the different Google and <a href="https://www.twilio.com/blog/2013/05/“http://www.twilio.com/docs/libraries">Twilio API libraries</a>. We put in our Client ID and Secret from Google’s API console, and we put in our Account Sid and Auth Token from our Twilio Dashboard. We also need to put in the base_url of our application. In my case, I pushed my app to Heroku but you can host it on any server that can run Ruby. I would recommend using a host that supports SSL.</p>
+<p>Note that we are authorizing our application with the glass.timeline and userinfo.profile scopes &#8211; this gives us access to a user’s basic Google account data as well as their Glass device. We won’t need more than that for this application but if you wanted to expand it in the future you could certainly add more Google services here such as GMail or G+. We also initialize our @glass and @oauth2 objects based on the Google gem’s discovery documents.</p>
+<p>Now that all of this basic setup is complete, we can finish up our before block by adding the following code:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e66b948657421" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ if request.path_info == '/subcallback' #if we get a push from google, do a different lookup based on the userToken
+@data = JSON.parse(request.body.read)
+token_pair = TokenPair.get(@data['userToken'])
+@phone_number = token_pair.phone_number
+@client.authorization.update_token!(token_pair.to_hash)
+else
+if session[:token_id] #if the user is logged in
+token_pair = TokenPair.get(session[:token_id])
+@client.authorization.update_token!(token_pair.to_hash)
+@phone_number = token_pair.phone_number
+else #if we are receiving an SMS
+token_pair = TokenPair.first(:phone_number =&gt; params[:To])
+if !token_pair.nil?
+@client.authorization.update_token!(token_pair.to_hash)
+end
+end
+end
+if @client.authorization.refresh_token &amp;&amp; @client.authorization.expired?
+@client.authorization.fetch_access_token!
+end
+ 
+#redirect the user to OAuth if we're logged out
+unless @client.authorization.access_token || request.path_info =~ /^\/oauth2/
+redirect to("/oauth2authorize")
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e66b948657421-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-2">2</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-4">4</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-6">6</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-8">8</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-10">10</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-12">12</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-14">14</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-16">16</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-18">18</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-20">20</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-22">22</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e66b948657421-24">24</div><div class="crayon-num" data-line="crayon-58794da18e66b948657421-25">25</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e66b948657421-1"><span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">path_info</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'/subcallback'</span><span class="crayon-h"> </span><span class="crayon-c">#if we get a push from google, do a different lookup based on the userToken</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-2"><span class="crayon-v">@data</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">JSON</span><span class="crayon-sy">.</span><span class="crayon-e">parse</span><span class="crayon-sy">(</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-sy">.</span><span class="crayon-i">read</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-3"><span class="crayon-v">token_pair</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">TokenPair</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-v">@data</span><span class="crayon-sy">[</span><span class="crayon-s">'userToken'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-4"><span class="crayon-v">@phone_number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">phone_number</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-5"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">update_token</span><span class="crayon-o">!</span><span class="crayon-sy">(</span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">to_hash</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-6"><span class="crayon-st">else</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-7"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">session</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">token_id</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-c">#if the user is logged in</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-8"><span class="crayon-v">token_pair</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">TokenPair</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-v">session</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">token_id</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-9"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">update_token</span><span class="crayon-o">!</span><span class="crayon-sy">(</span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">to_hash</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-10"><span class="crayon-v">@phone_number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">phone_number</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-11"><span class="crayon-st">else</span><span class="crayon-h"> </span><span class="crayon-c">#if we are receiving an SMS</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-12"><span class="crayon-v">token_pair</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">TokenPair</span><span class="crayon-sy">.</span><span class="crayon-e">first</span><span class="crayon-sy">(</span><span class="crayon-o">:</span><span class="crayon-v">phone_number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">To</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-13"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-o">!</span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-r">nil</span><span class="crayon-sy">?</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-14"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">update_token</span><span class="crayon-o">!</span><span class="crayon-sy">(</span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">to_hash</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-15"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-16"><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-17"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-18"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">refresh_token</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">expired</span><span class="crayon-sy">?</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-19"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">fetch_access_token</span><span class="crayon-o">!</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-20"><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-21"><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-22"><span class="crayon-c">#redirect the user to OAuth if we're logged out</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-23"><span class="crayon-st">unless</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">access_token</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">path_info</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">~</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-o">^</span><span class="crayon-sy">\</span><span class="crayon-o">/</span><span class="crayon-i">oauth2</span><span class="crayon-o">/</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e66b948657421-24"><span class="crayon-i">redirect</span><span class="crayon-h"> </span><span class="crayon-e">to</span><span class="crayon-sy">(</span><span class="crayon-s">"/oauth2authorize"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e66b948657421-25"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0129 seconds] -->
+<p>&nbsp;<br />
+Here we are dealing with three different incoming hits to our application. The first is /subcallback, which is the route that Google will send user-initiated responses to &#8211; in this case we look up the user’s auth token based on data passed along from the Mirror API callback. The next is if session[:token_id] &#8211; this situation occurs when a user is already logged in to our service, so we look at their session cookie. And the last is if we are receiving an SMS &#8211; in this case we get the user’s auth token by looking up their phone number from Twilio’s POST parameters. We end this block by refreshing the token if needed and redirecting the user to the Google OAuth login screen if they have not yet authorized their account. Now we can go ahead and create the routes for OAuth authentication.<br />
+&nbsp;</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e677725323227" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+get "/oauth2authorize" do
+redirect @client.authorization.authorization_uri.to_s, 303
+end
+ 
+get "/oauth2callback" do
+@client.authorization.fetch_access_token!
+token_pair = if session[:token_id]
+TokenPair.get(session[:token_id])
+else
+TokenPair.new
+end
+token_pair.update_token!(@client.authorization)
+numbers = @twilio.account.available_phone_numbers.get('US').local.list
+ 
+@twilio.account.incoming_phone_numbers.create(:phone_number =&gt; numbers[0].phone_number, :sms_url =&gt; "#{@base_url}/receivesms")
+token_pair.phone_number = numbers[0].phone_number
+token_pair.save
+session[:token_id] = token_pair.id
+subscription = @glass.subscriptions.insert.request_schema.new({
+"collection" =&gt; "timeline",
+"userToken" =&gt; token_pair.id,
+"verifyToken" =&gt; "monkey",
+"callbackUrl" =&gt; "#{@base_url}/subcallback",
+"operation" =&gt; ["INSERT"]})
+result = @client.execute(
+:api_method =&gt; @glass.subscriptions.insert,
+:body_object =&gt; subscription)
+redirect to("/")
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e677725323227-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-2">2</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-4">4</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-6">6</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-8">8</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-10">10</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-12">12</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-14">14</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-16">16</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-18">18</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-20">20</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-22">22</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-24">24</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-26">26</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e677725323227-28">28</div><div class="crayon-num" data-line="crayon-58794da18e677725323227-29">29</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e677725323227-1"><span class="crayon-i">get</span><span class="crayon-h"> </span><span class="crayon-s">"/oauth2authorize"</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-2"><span class="crayon-i">redirect</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-v">authorization_uri</span><span class="crayon-sy">.</span><span class="crayon-i">to_s</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">303</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-3"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-4"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794da18e677725323227-5"><span class="crayon-i">get</span><span class="crayon-h"> </span><span class="crayon-s">"/oauth2callback"</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-6"><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-v">authorization</span><span class="crayon-sy">.</span><span class="crayon-i">fetch_access_token</span><span class="crayon-o">!</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-7"><span class="crayon-v">token_pair</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">session</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">token_id</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-8"><span class="crayon-v">TokenPair</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-v">session</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">token_id</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-9"><span class="crayon-st">else</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-10"><span class="crayon-v">TokenPair</span><span class="crayon-sy">.</span><span class="crayon-i">new</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-11"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-12"><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">update_token</span><span class="crayon-o">!</span><span class="crayon-sy">(</span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-i">authorization</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-13"><span class="crayon-v">numbers</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@twilio</span><span class="crayon-sy">.</span><span class="crayon-v">account</span><span class="crayon-sy">.</span><span class="crayon-v">available_phone_numbers</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'US'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-v">local</span><span class="crayon-sy">.</span><span class="crayon-i">list</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-14"><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794da18e677725323227-15"><span class="crayon-v">@twilio</span><span class="crayon-sy">.</span><span class="crayon-v">account</span><span class="crayon-sy">.</span><span class="crayon-v">incoming_phone_numbers</span><span class="crayon-sy">.</span><span class="crayon-e">create</span><span class="crayon-sy">(</span><span class="crayon-o">:</span><span class="crayon-v">phone_number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">numbers</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-i">phone_number</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">sms_url</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"#{@base_url}/receivesms"</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-16"><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-v">phone_number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">numbers</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-i">phone_number</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-17"><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">save</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-18"><span class="crayon-v">session</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">token_id</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">id</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-19"><span class="crayon-v">subscription</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@glass</span><span class="crayon-sy">.</span><span class="crayon-v">subscriptions</span><span class="crayon-sy">.</span><span class="crayon-v">insert</span><span class="crayon-sy">.</span><span class="crayon-v">request_schema</span><span class="crayon-sy">.</span><span class="crayon-e">new</span><span class="crayon-sy">(</span><span class="crayon-k ">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-20"><span class="crayon-s">"collection"</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"timeline"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-21"><span class="crayon-s">"userToken"</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">token_pair</span><span class="crayon-sy">.</span><span class="crayon-i">id</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-22"><span class="crayon-s">"verifyToken"</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"monkey"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-23"><span class="crayon-s">"callbackUrl"</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"#{@base_url}/subcallback"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-24"><span class="crayon-s">"operation"</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-s">"INSERT"</span><span class="crayon-sy">]</span><span class="crayon-k ">}</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-25"><span class="crayon-v">result</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-e">execute</span><span class="crayon-sy">(</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-26"><span class="crayon-o">:</span><span class="crayon-v">api_method</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">@glass</span><span class="crayon-sy">.</span><span class="crayon-v">subscriptions</span><span class="crayon-sy">.</span><span class="crayon-i">insert</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-27"><span class="crayon-o">:</span><span class="crayon-v">body_object</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">subscription</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e677725323227-28"><span class="crayon-i">redirect</span><span class="crayon-h"> </span><span class="crayon-e">to</span><span class="crayon-sy">(</span><span class="crayon-s">"/"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794da18e677725323227-29"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0140 seconds] -->
+<p>Our first route, /oauth2authorize, redirects the user to Google for authorization. Our second route, /oauth2callback, is where the user is redirected to after completing the authorization flow. First we create a new TokenPair database entry for the user to store their OAuth credentials and we also store it in the session cookie for when they return to the website.</p>
+<p>Next we make a request to the <a href="https://www.twilio.com/blog/2013/05/“www.twilio.com/api">Twilio API</a> to search for available US phone numbers. We then purchase the first available number and assign it to the user to be saved with their TokenPair.</p>
+<p>And lastly, we make a request to the Mirror API to subscribe to timeline card INSERT notifications. We will get an INSERT notification when the user clicks on the Reply button on their Glass in order to reply to an SMS. Once all of this is completed, we redirect them to the root route.<br />
+&nbsp;</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e682969074401" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+get "/" do
+api_result = @client.execute(
+:api_method =&gt; @oauth2.userinfo.get)
+"You have authenticated as G+ user #{api_result.data.name}, your new Twilio-powered Glass phone number is #{@phone_number}&lt;br&gt;&lt;a href='http://www.twilio.com/' style='text: decoration: none; display: inline-block; width: 166px; height: 0; overflow: hidden; padding-top: 31px; background: url(http://www.twilio.com/packages/company/img/logos_icon_poweredbysmall.png) no-repeat;'&gt;powered by twilio&lt;/a&gt;&lt;br&gt;&lt;br&gt;Built by &lt;a href='http://twitter.com/jomarkgo'&gt;@jonmarkgo&lt;/a&gt;"
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e682969074401-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e682969074401-2">2</div><div class="crayon-num" data-line="crayon-58794da18e682969074401-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e682969074401-4">4</div><div class="crayon-num" data-line="crayon-58794da18e682969074401-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e682969074401-1"><span class="crayon-i">get</span><span class="crayon-h"> </span><span class="crayon-s">"/"</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e682969074401-2"><span class="crayon-v">api_result</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-e">execute</span><span class="crayon-sy">(</span></div><div class="crayon-line" id="crayon-58794da18e682969074401-3"><span class="crayon-o">:</span><span class="crayon-v">api_method</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">@oauth2</span><span class="crayon-sy">.</span><span class="crayon-v">userinfo</span><span class="crayon-sy">.</span><span class="crayon-i">get</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e682969074401-4"><span class="crayon-s">"You have authenticated as G+ user #{api_result.data.name}, your new Twilio-powered Glass phone number is #{@phone_number}&lt;br&gt;&lt;a href='http://www.twilio.com/' style='text: decoration: none; display: inline-block; width: 166px; height: 0; overflow: hidden; padding-top: 31px; background: url(http://www.twilio.com/packages/company/img/logos_icon_poweredbysmall.png) no-repeat;'&gt;powered by twilio&lt;/a&gt;&lt;br&gt;&lt;br&gt;Built by &lt;a href='http://twitter.com/jomarkgo'&gt;@jonmarkgo&lt;/a&gt;"</span></div><div class="crayon-line" id="crayon-58794da18e682969074401-5"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0022 seconds] -->
+<p>&nbsp;<br />
+Here we verify that they have authenticated their account by querying the Google Userinfo API to retrieve the user’s name and provide them with a simple greeting and we inform them of their new Twilio phone number that we purchased earlier. Now that all of our authentication code is written, we can write the routes that handle incoming and outgoing SMS messages. The first of these two routes is /receivesms &#8211; Twilio will make a request to this route every time it receives an incoming SMS message to your phone number.<br />
+&nbsp;</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da18e68d016969405" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+post "/receivesms" do
+timeline_item = @glass.timeline.insert.request_schema.new({
+:sourceItemId =&gt; params[:SmsSid],
+:menuItems =&gt; [{:action =&gt; "REPLY"}, {:action =&gt; "READ_ALOUD"}],
+:html =&gt; "&lt;article&gt;\n &lt;section&gt;\n &lt;div class=\"text-auto-size\" style=\"\"&gt;\n &lt;p class=\"yellow\"&gt;SMS from #{params[:From]}&lt;/p&gt;\n &lt;p&gt;#{params[:Body]}&lt;/p&gt;\n &lt;/div&gt;\n &lt;/section&gt;\n &lt;footer&gt;\n &lt;div&gt;&lt;img src=\"http://i.imgur.com/VM8Jji2.png\"&gt;&lt;/div&gt;\n &lt;/footer&gt;\n&lt;/article&gt;",
+:speakableText =&gt; params[:Body],
+:title =&gt; "SMS from #{params[:From]}",
+:notification =&gt; {:level =&gt; "AUDIO_ONLY"}
+})
+result = @client.execute(
+:api_method =&gt; @glass.timeline.insert,
+:body_object =&gt; timeline_item
+)
+twiml = Twilio::TwiML::Response.new
+twiml.text
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da18e68d016969405-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-2">2</div><div class="crayon-num" data-line="crayon-58794da18e68d016969405-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-4">4</div><div class="crayon-num" data-line="crayon-58794da18e68d016969405-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-6">6</div><div class="crayon-num" data-line="crayon-58794da18e68d016969405-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-8">8</div><div class="crayon-num" data-line="crayon-58794da18e68d016969405-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-10">10</div><div class="crayon-num" data-line="crayon-58794da18e68d016969405-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-12">12</div><div class="crayon-num" data-line="crayon-58794da18e68d016969405-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-14">14</div><div class="crayon-num" data-line="crayon-58794da18e68d016969405-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da18e68d016969405-16">16</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da18e68d016969405-1"><span class="crayon-i">post</span><span class="crayon-h"> </span><span class="crayon-s">"/receivesms"</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-2"><span class="crayon-v">timeline_item</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@glass</span><span class="crayon-sy">.</span><span class="crayon-v">timeline</span><span class="crayon-sy">.</span><span class="crayon-v">insert</span><span class="crayon-sy">.</span><span class="crayon-v">request_schema</span><span class="crayon-sy">.</span><span class="crayon-e">new</span><span class="crayon-sy">(</span><span class="crayon-k ">{</span></div><div class="crayon-line" id="crayon-58794da18e68d016969405-3"><span class="crayon-o">:</span><span class="crayon-v">sourceItemId</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">SmsSid</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-4"><span class="crayon-o">:</span><span class="crayon-v">menuItems</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-k ">{</span><span class="crayon-o">:</span><span class="crayon-v">action</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"REPLY"</span><span class="crayon-k ">}</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-o">:</span><span class="crayon-v">action</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"READ_ALOUD"</span><span class="crayon-k ">}</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e68d016969405-5"><span class="crayon-o">:</span><span class="crayon-v">html</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"&lt;article&gt;\n &lt;section&gt;\n &lt;div class=\"text-auto-size\" style=\"\"&gt;\n &lt;p class=\"yellow\"&gt;SMS from #{params[:From]}&lt;/p&gt;\n &lt;p&gt;#{params[:Body]}&lt;/p&gt;\n &lt;/div&gt;\n &lt;/section&gt;\n &lt;footer&gt;\n &lt;div&gt;&lt;img src=\"http://i.imgur.com/VM8Jji2.png\"&gt;&lt;/div&gt;\n &lt;/footer&gt;\n&lt;/article&gt;"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-6"><span class="crayon-o">:</span><span class="crayon-v">speakableText</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">Body</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da18e68d016969405-7"><span class="crayon-o">:</span><span class="crayon-v">title</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"SMS from #{params[:From]}"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-8"><span class="crayon-o">:</span><span class="crayon-v">notification</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-o">:</span><span class="crayon-v">level</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">"AUDIO_ONLY"</span><span class="crayon-k ">}</span></div><div class="crayon-line" id="crayon-58794da18e68d016969405-9"><span class="crayon-k ">}</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-10"><span class="crayon-v">result</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">@client</span><span class="crayon-sy">.</span><span class="crayon-e">execute</span><span class="crayon-sy">(</span></div><div class="crayon-line" id="crayon-58794da18e68d016969405-11"><span class="crayon-o">:</span><span class="crayon-v">api_method</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">@glass</span><span class="crayon-sy">.</span><span class="crayon-v">timeline</span><span class="crayon-sy">.</span><span class="crayon-i">insert</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-12"><span class="crayon-o">:</span><span class="crayon-v">body_object</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">timeline_item</span></div><div class="crayon-line" id="crayon-58794da18e68d016969405-13"><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-14"><span class="crayon-v">twiml</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">Twilio</span><span class="crayon-o">::</span><span class="crayon-i">TwiML</span><span class="crayon-o">::</span><span class="crayon-v">Response</span><span class="crayon-sy">.</span><span class="crayon-i">new</span></div><div class="crayon-line" id="crayon-58794da18e68d016969405-15"><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-i">text</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da18e68d016969405-16"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0098 seconds] -->
+<p>&nbsp;<br />
+When we receive the incoming SMS, we create a new timeline card on the user&#8217;s Glass. This card is given the REPLY menu action, which allows them to speak a reply to the message. We also give it a READ_ALOUD menu action to have the Glass read the SMS message aloud to the user.</p>
+<p><img class="alignleft size-full wp-image-12001" alt="Twilio Glass SMS" src="https://www.twilio.com/blog/wp-content/uploads/2013/05/Screen-Shot-2013-05-03-at-12.48.03-AM.png" width="639" height="358" srcset="https://www.twilio.com/blog/wp-content/uploads/2013/05/Screen-Shot-2013-05-03-at-12.48.03-AM.png 639w, https://www.twilio.com/blog/wp-content/uploads/2013/05/Screen-Shot-2013-05-03-at-12.48.03-AM-300x168.png 300w" sizes="(max-width: 639px) 100vw, 639px" /></p>
+<p>We then set an HTML block to be displayed as well as the text we want spoken to the user. Most importantly, we set the sourceItemId to our SmsSid &#8211; this allows us to pass along Twilio&#8217;s SMS message identifier so that we know who to reply to later. We finish by returning a blank response to Twilio, though you could add your own SMS auto-reply here if needed.</p>
+<p>&nbsp;</p>
+<p>When the user &#8220;Replies&#8221; to the message on their Glass, Google will make a request to /subcallback. The first thing we need to do is pull up the timeline item that was created for the user&#8217;s new Reply. This timeline item contains the transcribed speech-to-text from Glass. We then look up the timeline card that the user was replying to, which represents our incoming message that we created in the previous method (/receivesms). This card contains the SmsSid so that we can look up the message and find out who the sender was. We then make a request to Twilio to send an SMS from our user&#8217;s Twilio phone number to the sender of the original message, with the text that they spoke to Glass.</p>
+<p>Now our application is completed. You should be able to run a bundle install and push this straight to Heroku or to the host of your choice, navigate to the base URL, and then start sending and receiving Twilio SMS messages on your Glass device. You can see the full application on <a href="https://github.com/jonmarkgo/TwilioGlassSMS" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/jonmarkgo/TwilioGlassSMS', 'Github here');">Github here</a>.</p>
+<p>To get started on a more complex application, I recommend my scaffold project <a href="https://github.com/jonmarkgo/GlassRails" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/jonmarkgo/GlassRails', 'GlassRails');">GlassRails</a>, which is a very basic setup to get you going with OAuth and the Mirror API with Ruby on Rails.</p>
+<p>If you have any questions, feedback, or conspiracy theories about Skynet please feel free to Tweet <a href="http://twitter.com/jonmarkgo" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/jonmarkgo', '@jonmarkgo');">@jonmarkgo</a> or e-mail me at <a href="mailto:jonmarkgo@twilio.com">jonmarkgo@twilio.com</a></p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html" data-text="Using Google Glass, Twilio, Ruby, and Sinatra to Send and Receive SMS Messages ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/fec68aa3b0963b379ee5e5552def067e?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/fec68aa3b0963b379ee5e5552def067e?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/jonmarkgo">Jonathan Gottfried</a></span></span> <span class="author-meta author-email"><a href="mailto:jonmarkgo@twilio.com">jonmarkgo@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Ruby</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails', '');">
+          <h5>SMS and MMS Notifications with Ruby</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" rel="bookmark" title="Permanent Link to Managing Development Environment Variables Across Multiple Ruby Applications" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html', '');">
+          <h5>Managing Development Environment Variables Across Multiple Ruby Applications<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" rel="bookmark" title="Permanent Link to Note Taking On the Go With Evernote and Twilio &#8211; Part One" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html', '');">
+          <h5>Note Taking On the Go With Evernote and Twilio &#8211; Part One<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-1993">
+        <div id="dsq-comment-header-1993" class="dsq-comment-header">
+            <cite id="dsq-cite-1993">
+http://twitter.com/andyidsinga                <span id="dsq-author-user-1993">andyidsinga</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1993" class="dsq-comment-body">
+            <div id="dsq-comment-message-1993" class="dsq-comment-message"><p>This is a good article .. can you suggest (or point me to docs) that show me how to map my existing, primary cell number to twillio, so that I can fwd SMSs to other numbers I also own?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-1995">
+        <div id="dsq-comment-header-1995" class="dsq-comment-header">
+            <cite id="dsq-cite-1995">
+http://twitter.com/jonmarkgo                <span id="dsq-author-user-1995">Jonathan Gottfried</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1995" class="dsq-comment-body">
+            <div id="dsq-comment-message-1995" class="dsq-comment-message"><p>The only way really is to port your number to Twilio or somehow set up forwarding from your carrier to a Twilio # &#8211; though this feature may vary from carrier to carrier&#8230;</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-1994">
+        <div id="dsq-comment-header-1994" class="dsq-comment-header">
+            <cite id="dsq-cite-1994">
+                <span id="dsq-author-user-1994">C4ravan</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1994" class="dsq-comment-body">
+            <div id="dsq-comment-message-1994" class="dsq-comment-message"><p>this is awesome.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-2189">
+        <div id="dsq-comment-header-2189" class="dsq-comment-header">
+            <cite id="dsq-cite-2189">
+                <span id="dsq-author-user-2189">Sangeeth Kannan</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2189" class="dsq-comment-body">
+            <div id="dsq-comment-message-2189" class="dsq-comment-message"><p>Do you have java source???? for this. I&#8217;m not good with ruby</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2206">
+        <div id="dsq-comment-header-2206" class="dsq-comment-header">
+            <cite id="dsq-cite-2206">
+                <span id="dsq-author-user-2206">jonmarkgo</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2206" class="dsq-comment-body">
+            <div id="dsq-comment-message-2206" class="dsq-comment-message"><p>Hey Sangeeth,</p>
+<p>I haven&#8217;t done any work with Java and Glass, but Google has a good Quickstart here <a href="https://developers.google.com/glass/quickstart/java" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://developers.google.com/glass/quickstart/java', 'https://developers.google.com/glass/quickstart/java');" rel="nofollow">https://developers.google.com/glass/quickstart/java</a> and Twilio has our own for SMS with Java here: <a href="http://www.twilio.com/docs/quickstart/java/sms/sending-via-rest" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://www.twilio.com/docs/quickstart/java/sms/sending-via-rest', 'http://www.twilio.com/docs/quickstart/java/sms/sending-via-rest');" rel="nofollow">http://www.twilio.com/docs/quickstart/java/sms/sending-via-rest</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2013/05/12000 http://www.twilioblog.com/?p=12000';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Using Google Glass, Twilio, Ruby, and Sinatra to Send and Receive SMS Messages";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html?cf_action=sync_comments&amp;post_id=12000';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2013\/05\/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2013/05/using-google-glass-twilio-ruby-and-sinatra-to-send-and-receive-sms-messages.html?utm_source=blog&utm_medium=link&utm_campaign=sms-4-lines-april-2014 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+</html>

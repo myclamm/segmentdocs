@@ -1,0 +1,719 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/tutorials/walkthrough/automated-survey/java/spark by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+<meta name="description" content="Using Twilio you can build automated surveys that call your customer at the point of service to get immediate feedback. Companies like Survey Monkey are using automated surveys to create better customer experiences. &quot;No one else can offer a poll at 6:00pm and get results by 6:30pm,&quot; says Chuck Groom, head of engineering at Survey Monkey&#39;s Seattle office. &quot;And what takes the best vendors 3 to 5 days we can accomplish in just two hours.&quot;
+Follow along with this simple tutorial to see the code necessary to implement automated surveys that integrate directly with your CRM and customer database.">
+
+    
+
+    <title>
+      Automated Survey - Java / Spark Tutorial - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/tutorials/walkthrough/automated-survey/java/spark" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    
+    
+    <meta property="og:url" content="https://www.twilio.com?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+<link rel="stylesheet" href="https://www.twilio.com/docs/static/legacy/walkthrough.css" />
+
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["enable-video-rooms", "marketplace"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      tutorials
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/tutorials" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">Tutorials</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+
+      <div class="uk-width-3-4 uk-hidden-small">
+        <div class="breadcrumbs">
+          <a href="https://www.twilio.com/docs/tutorials">Tutorials</a> &gt;
+          <span>
+            Automated Survey (Java |
+            Spark)
+          </span>
+          <span class="get-the-code">
+            <a target="_blank" title="Download Source Code" data-metric="download_source" 
+               href="https://github.com/TwilioDevEd/automated-survey-spark/archive/master.zip">
+              <i class="fa fa-download"></i>
+            </a>
+            <a target="_blank" title="Visit at GitHub" data-metric="view_source" 
+               href="https://github.com/TwilioDevEd/automated-survey-spark/tree/master">
+              <i class="fa fa-github"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+        <div class="search">
+          <form action="https://www.twilio.com/docs/search" method="GET">
+            <div class="wrapper">
+              <input id="search-box" name="q" type="text" value="">
+            </div>
+            <button type="submit">
+              <i class="fa fa-fw fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+<div class="viewsaurus-container">
+	<div id="viewsaurus" data-title="Automated Surveys in Java (Spark)">
+  <div class="saurus-panes">
+    <div class="saurus-prose">
+      <div class="saurus-prose-header">
+        <div class="title-outer"><span class="step-title">Automated Surveys in Java (Spark)</span></div>
+      </div>
+      <div class="saurus-nav-buttons">
+        <div class="saurus-nav-button nav-overview">
+          <div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div>
+          <div class="nav-divider"></div>
+        </div>
+        <div class="saurus-nav-button nav-previous">
+          <div class="saurus-nav-button-inner"><a href="#"> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div>
+          <div class="nav-divider"></div>
+        </div>
+        <div class="saurus-nav-button nav-next clickable">
+          <div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div>
+        </div>
+        <div class="saurus-next-title"><span class="next-title-inner"></span></div>
+      </div>
+      <div class="saurus-progress-bar"></div>
+      <div class="saurus-start">
+        <p>Learn to create an automated telephone survey in Java with Twilio.</p><a href="#0">Start Tutorial</a>
+      </div>
+      <div class="saurus-content">
+<div data-title="Automated Surveys in Java (Spark)" class="chapter">
+  <div data-file="com/twilio/survey/Server.java" class="step"><h2 id="about-this-application">About This Application</h2>
+<p>This <a href="http://sparkjava.com/">Spark</a> app uses the <a href="https://www.twilio.com/docs/api/twiml">Twilio API</a>
+to create an automated survey conducted over SMS or phone call. Callers will
+interact with this application over the phone, while you can view the results on a dynamic dashboard.</p>
+<p>Check out the source code for this application on <a href="http://github.com/TwilioDevEd/automated-survey-spark">GitHub</a>.</p>
+<p>In this tutorial, we&#39;ll highlight the code that interacts with Twilio and in
+ turn makes the application tick. <a href="http://github.com/TwilioDevEd/automated-survey-spark">Check out the project README on GitHub</a>
+ to see how to run the code yourself.</p>
+<p>Let&#39;s get started! Click the right arrow above to advance to the next code snippet.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="https://www.twilio.com/docs/java/install">Twilio Java Helper Library</a></li>
+<li><a href="https://www.twilio.com/docs/quickstart/java">Twilio Java Quickstart Tutorials</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml">TwiML: The Twilio Markup Language</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml">Spark: Java Web framework</a></li>
+<li><a href="https://mongodb.github.io/mongo-java-driver/2.13/getting-started/quick-tour/">MongoDB&#39;s Java Driver</a></li>
+<li><a href="http://mongodb.github.io/morphia/">MongoDB&#39;s Morphia Document-Object Mapper</a></li>
+<li><a href="https://github.com/google/gson">Google&#39;s Gson JSON-to-Java-Object library</a></li>
+</ul>
+
+  </div>
+  <div data-title="Create a survey" data-file="questions.json" class="step"><h2 id="create-a-survey">Create a survey</h2>
+<p>Before we get responses, let&#39;s specify the questions we would like to ask.</p>
+<p>Each question is created as a <a href="http://json.org/">JSON object</a> with two attributes: 
+<code>text</code>, which holds the question we&#39;d like to ask, and <code>type</code>, which describes 
+the kind of input we expect a caller to provide when asked that question.</p>
+<p>Our app reads this JSON into a Java object using Google&#39;s 
+<a href="https://sites.google.com/site/gson/gson-user-guide#TOC-Overview">Gson</a> library.</p>
+
+  </div>
+  <div data-file="src/main/java/com/twilio/survey/controllers/SurveyController.java" data-highlight="23-41" class="step"><h2 id="accept-a-call">Accept a call</h2>
+<p>Every time your Twilio number receives a call or a SMS, Twilio will send an HTTP request
+to the application, asking what to do next. The application responds with
+<a href="https://www.twilio.com/docs/api/twiml">TwiML</a> that describes the action
+(<code>&lt;Say&gt;</code> a phrase, <code>&lt;Gather&gt;</code> input, <code>&lt;Message&gt;</code> a SMS, among others).</p>
+<p>First, your Twilio number must be configured to make requests to the
+<code>/interview</code> route of this application. Go to your
+<a href="http://www.twilio.com/console/phone-numbers/">Manage Numbers</a> page, and
+set up a new TwiML application using one of your Twilio numbers.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="https://www.twilio.com/help/faq/twilio-client/how-do-i-create-a-twiml-app">How do I create a TwiML App?</a></li>
+</ul>
+
+  </div>
+  <div data-file="src/main/java/com/twilio/survey/controllers/TwiMLMessageFactory.java" data-highlight="51-95" class="step"><h2 id="ask-a-question">Ask a question</h2>
+<p>Once the application receives an HTTP request from Twilio, it used a different
+factory depending on if it&#39;s a SMS or a Call generated request to build its 
+appropriated TwiML response..</p>
+<p>For SMS the application will use &#39;&lt;Message&gt;&#39; verb answer all requests. </p>
+<p>In case of Phone call generated requests, the TwiML will contain a a <code>&lt;Say&gt;</code> 
+verb for the question&#39;s text, and a <code>&lt;Gather&gt;</code> or <code>&lt;Record&gt;</code> verb to 
+collect input based on the question&#39;s type, as specified in <a href="#1">questions.json</a>.</p>
+<p>TwiML verbs have properties that allow you to change the way the verb works. 
+For example, the <code>&lt;Record&gt;</code> verb always collects audio input, but, using 
+the <code>transcribeCallback</code> property, you can specify a route to which Twilio 
+will send a transcript of the audio input. For more on TwiML verbs and their 
+properties, check out the <a href="https://www.twilio.com/docs/api/twiml">TwiML API documentation</a>.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="https://www.twilio.com/docs/api/twiml/say">TwiML Voice: &lt;Say&gt;</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml/sms/message">TwiML Voice: &lt;Message&gt;</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml/record">TwiML Voice: &lt;Record&gt;</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml/gather">TwiML Voice: &lt;Gather&gt;</a></li>
+</ul>
+
+  </div>
+  <div data-file="src/main/java/com/twilio/survey/controllers/SurveyController.java" data-highlight="56-69" class="step"><h2 id="use-a-transcript-of-a-recorded-response">Use a transcript of a recorded response</h2>
+<p>When Twilio finishes transcribing a free-form voice response, the application 
+finds the corresponding survey, and updates the response for that question to 
+include the transcription. This makes it easier to skim the responses without 
+listening to the full call.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="https://www.twilio.com/docs/api/twiml/record">TwiML Voice: &lt;Record&gt;</a></li>
+</ul>
+
+  </div>
+  <div data-file="src/main/java/com/twilio/survey/models/SurveyService.java" data-highlight="51-57" class="step"><h2 id="store-a-caller-s-response">Store a caller&#39;s response</h2>
+<p>After each TwiML verb is executed and input is collected, Twilio sends the 
+application that input, along with a request for more TwiML. The<br><code>/interview</code> route in our controller handles that input, and passes it to 
+the model to update the survey. Using MongoDB&#39;s <a href="http://mongodb.github.io/morphia/">Morphia</a> 
+document-object mapper, the question index, responses, and completeness status 
+of the survey are updated.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li>Learn about the data provided in <a href="https://www.twilio.com/docs/api/twiml/twilio_request">Twilio&#39;s Request</a></li>
+<li>MongoDB&#39;s <a href="http://mongodb.github.io/morphia/1.0/getting-started/quick-tour">Morphia Quick Tour</a></li>
+<li>Morphia API: <a href="http://mongodb.github.io/morphia/1.0/javadoc/index.html?org/mongodb/morphia/query/UpdateOperations.html">UpdateOperations</a></li>
+<li>Morphia Wiki: <a href="https://github.com/mongodb/morphia/wiki/Datastore">Datastore Interface</a></li>
+</ul>
+
+  </div>
+  <div data-file="src/main/java/com/twilio/survey/controllers/SurveyController.java" data-highlight="44-54" class="step"><h2 id="display-survey-results">Display survey results</h2>
+<p>To view the results, the completed surveys are serialized to 
+<a href="http://json.org/">JSON</a>, which is used to populate the dashboard. The dashboard 
+is served on the root (<code>/</code>) URL of the application. We use <a href="http://jquery.com/">jQuery</a> 
+to call this route via Ajax, and display the results in charts on the home page.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="https://sites.google.com/site/gson/gson-user-guide#TOC-Overview">Google Gson: Overview</a></li>
+<li><a href="http://api.jquery.com/jQuery.ajax/">AJAX requests in jQuery</a></li>
+</ul>
+
+  </div>
+  <div class="step"><h2 id="where-to-next-">Where to next?</h2>
+<p>Pat yourself on the back! You&#39;ve finished this tutorial, but there&#39;s much more
+good stuff where this came from. If you&#39;re hungry for more ways to work with
+Twilio APIs in Java, check out one of the other tutorials, like:</p>
+<h3 id="-appointment-reminders-https-www-twilio-com-docs-howto-walkthrough-appointment-reminders-java-spark-"><a href="https://www.twilio.com/docs/howto/walkthrough/appointment-reminders/java/spark">Appointment Reminders</a></h3>
+<p>Automate the process of reaching out to your customers in advance of an upcoming
+appointment.</p>
+<h3 id="did-this-help-">Did this help?</h3>
+<p>Thanks for checking this tutorial out! If you have any feedback
+to share with us, we&#39;d love to hear it.
+<a href="mailto:deved-oss@twilio.com">Contact the Twilio Developer Education Team</a> to let us know what you think.</p>
+
+  </div>
+</div>
+<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="com/twilio/survey/Server.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLnN1cnZleTsKCmltcG9ydCBzdGF0aWMgc3BhcmsuU3BhcmsuKjsKCmltcG9ydCBjb20udHdpbGlvLnN1cnZleS5jb250cm9sbGVycy5TdXJ2ZXlDb250cm9sbGVyOwppbXBvcnQgY29tLnR3aWxpby5zdXJ2ZXkudXRpbC5Db25maWc7CgpwdWJsaWMgY2xhc3MgU2VydmVyIHsKICAvLyBDcmVhdGUgZmllbGQgdG8gaG9sZCBlbnZpcm9ubWVudCBjb25maWd1cmF0aW9uLgogIHB1YmxpYyBzdGF0aWMgQ29uZmlnIGNvbmZpZzsKCiAgLy8gQm9vdHN0cmFwIG91ciBhcHBsaWNhdGlvbgogIHB1YmxpYyBzdGF0aWMgdm9pZCBtYWluKFN0cmluZ1tdIGFyZ3MpIHsKICAgIC8vIFB1bGwgaW4gZW52aXJvbm1lbnQgdmFyaWFibGVzIGZvciBNb25nb0RCIGFuZCBwb3J0IGNvbmZpZ3VyYXRpb24uCiAgICBjb25maWcgPSBuZXcgQ29uZmlnKCk7CgogICAgLy8gY29uZmlndXJlIFNwYXJrIHRvIHVzZSB0aGUgZGVzaXJlZCBwb3J0LgogICAgcG9ydChTZXJ2ZXIuY29uZmlnLmdldFBvcnQoKSk7CgogICAgLy8gTWFwIHJvdXRlcyB0byBjb250cm9sbGVycy4KICAgIHN0YXRpY0ZpbGVMb2NhdGlvbigiL3B1YmxpYyIpOwogICAgcG9zdCgiL2ludGVydmlldyIsIFN1cnZleUNvbnRyb2xsZXIuaW50ZXJ2aWV3KTsKICAgIHBvc3QoIi9pbnRlcnZpZXcvOnBob25lL3RyYW5zY3JpYmUvOnF1ZXN0aW9uIiwgU3VydmV5Q29udHJvbGxlci50cmFuc2NyaWJlKTsKICAgIGdldCgiL3Jlc3VsdHMiLCBTdXJ2ZXlDb250cm9sbGVyLnJlc3VsdHMpOwogICAgCiAgfQp9Cg==</textarea>
+<textarea class="saurus-file" data-file="questions.json" data-mode="json">WwogICAgewogICAgICAgICJ0ZXh0IjogIlBsZWFzZSB0ZWxsIHVzIHlvdXIgYWdlLiIsCiAgICAgICAgInR5cGUiOiAibnVtYmVyIgogICAgfSwKICAgIHsKICAgICAgICAidGV4dCI6ICJIYXZlIHlvdSBldmVyIGp1bXAta2lja2VkIGEgbGVtdXI/IiwKICAgICAgICAidHlwZSI6ICJib29sZWFuIgogICAgfSwKICAgIHsKICAgICAgICAidGV4dCI6ICJXaG8gaXMgeW91ciBmYXZvcml0ZSBUZWVuYWdlIE11dGFudCBOaW5qYSBUdXJ0bGUgYW5kIHdoeT8iLAogICAgICAgICJ0eXBlIjogInRleHQiCiAgICB9Cl0=</textarea>
+<textarea class="saurus-file" data-file="src/main/java/com/twilio/survey/controllers/SurveyController.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLnN1cnZleS5jb250cm9sbGVyczsKCmltcG9ydCBqYXZhLmlvLlVuc3VwcG9ydGVkRW5jb2RpbmdFeGNlcHRpb247CmltcG9ydCBqYXZhLm5ldC5VUkxEZWNvZGVyOwppbXBvcnQgamF2YS51dGlsLkhhc2hNYXA7CmltcG9ydCBqYXZhLnV0aWwuTWFwOwoKaW1wb3J0IGNvbS5nb29nbGUuZ3Nvbi5Hc29uOwppbXBvcnQgY29tLmdvb2dsZS5nc29uLkpzb25PYmplY3Q7CmltcG9ydCBjb20udHdpbGlvLnN1cnZleS5TZXJ2ZXI7CmltcG9ydCBjb20udHdpbGlvLnN1cnZleS5tb2RlbHMuUmVzcG9uc2U7CmltcG9ydCBjb20udHdpbGlvLnN1cnZleS5tb2RlbHMuU3VydmV5OwppbXBvcnQgY29tLnR3aWxpby5zdXJ2ZXkubW9kZWxzLlN1cnZleVNlcnZpY2U7CmltcG9ydCBjb20udHdpbGlvLnN1cnZleS51dGlsLkluY29taW5nQ2FsbDsKCmltcG9ydCBzcGFyay5Sb3V0ZTsKCnB1YmxpYyBjbGFzcyBTdXJ2ZXlDb250cm9sbGVyIHsKICBwcml2YXRlIHN0YXRpYyBTdXJ2ZXlTZXJ2aWNlIHN1cnZleXMgPSBuZXcgU3VydmV5U2VydmljZShTZXJ2ZXIuY29uZmlnLmdldE1vbmdvVVJJKCkpOwoKICAvLyBNYWluIGludGVydmlldyBsb29wLgogIHB1YmxpYyBzdGF0aWMgUm91dGUgaW50ZXJ2aWV3ID0gKHJlcXVlc3QsIHJlc3BvbnNlKSAtPiB7CiAgICBNYXA8U3RyaW5nLCBTdHJpbmc+IHBhcmFtZXRlcnMgPSBwYXJzZUJvZHkocmVxdWVzdC5ib2R5KCkpOwogICAgSW5jb21pbmdDYWxsIGNhbGwgPSBJbmNvbWluZ0NhbGwuY3JlYXRlSW5zdGFuY2UocGFyYW1ldGVycyk7CiAgICBBYnN0cmFjdE1lc3NhZ2VGYWN0b3J5IG1lc3NhZ2VGYWN0b3J5ID0gQWJzdHJhY3RNZXNzYWdlRmFjdG9yeS5jcmVhdGVJbnN0YW5jZShwYXJhbWV0ZXJzKTsKCiAgICBTdXJ2ZXkgZXhpc3RpbmdTdXJ2ZXkgPSBzdXJ2ZXlzLmdldFN1cnZleShjYWxsLmdldEZyb20oKSk7CiAgICBpZiAoZXhpc3RpbmdTdXJ2ZXkgPT0gbnVsbCkgewogICAgICBTdXJ2ZXkgc3VydmV5ID0gc3VydmV5cy5jcmVhdGVTdXJ2ZXkoY2FsbC5nZXRGcm9tKCkpOwogICAgICByZXR1cm4gbWVzc2FnZUZhY3RvcnkuZmlyc3RUd2lNTFF1ZXN0aW9uKHN1cnZleSk7CiAgICB9IGVsc2UgaWYgKCFleGlzdGluZ1N1cnZleS5pc0RvbmUoKSkgewogICAgICBleGlzdGluZ1N1cnZleS5hcHBlbmRSZXNwb25zZShuZXcgUmVzcG9uc2UoY2FsbC5nZXRJbnB1dCgpKSk7CiAgICAgIHN1cnZleXMudXBkYXRlU3VydmV5KGV4aXN0aW5nU3VydmV5KTsKICAgICAgaWYgKCFleGlzdGluZ1N1cnZleS5pc0RvbmUoKSkgewogICAgICAgIHJldHVybiBtZXNzYWdlRmFjdG9yeS5uZXh0VHdpTUxRdWVzdGlvbihleGlzdGluZ1N1cnZleSk7CiAgICAgIH0KICAgIH0KICAgIHJldHVybiBtZXNzYWdlRmFjdG9yeS5nb29kQnllVHdpTUxNZXNzYWdlKCk7CiAgfTsKCgogIC8vIFJlc3VsdHMgYWNjZXNzb3Igcm91dGUKICBwdWJsaWMgc3RhdGljIFJvdXRlIHJlc3VsdHMgPSAocmVxdWVzdCwgcmVzcG9uc2UpIC0+IHsKICAgIEdzb24gZ3NvbiA9IG5ldyBHc29uKCk7CiAgICBKc29uT2JqZWN0IGpzb24gPSBuZXcgSnNvbk9iamVjdCgpOwogICAgLy8gQWRkIHF1ZXN0aW9ucyB0byB0aGUgSlNPTiByZXNwb25zZSBvYmplY3QKICAgIGpzb24uYWRkKCJzdXJ2ZXkiLCBnc29uLnRvSnNvblRyZWUoU2VydmVyLmNvbmZpZy5nZXRRdWVzdGlvbnMoKSkpOwogICAgLy8gQWRkIHVzZXIgcmVzcG9uc2VzIHRvIHRoZSBKU09OIHJlc3BvbnNlIG9iamVjdAogICAganNvbi5hZGQoInJlc3VsdHMiLCBnc29uLnRvSnNvblRyZWUoc3VydmV5cy5maW5kQWxsRmluaXNoZWRTdXJ2ZXlzKCkpKTsKICAgIHJlc3BvbnNlLnR5cGUoImFwcGxpY2F0aW9uL2pzb24iKTsKICAgIHJldHVybiBqc29uOwogIH07CgogIC8vIFRyYW5zY3JpcHRpb24gcm91dGUgKGNhbGxlZCBieSBUd2lsaW8ncyBjYWxsYmFjaywgb25jZSB0cmFuc2NyaXB0aW9uIGlzIGNvbXBsZXRlKQogIHB1YmxpYyBzdGF0aWMgUm91dGUgdHJhbnNjcmliZSA9IChyZXF1ZXN0LCByZXNwb25zZSkgLT4gewogICAgSW5jb21pbmdDYWxsIGNhbGwgPSBJbmNvbWluZ0NhbGwuY3JlYXRlSW5zdGFuY2UocGFyc2VCb2R5KHJlcXVlc3QuYm9keSgpKSk7CiAgICAvLyBHZXQgdGhlIHBob25lIGFuZCBxdWVzdGlvbiBudW1iZXJzIGZyb20gdGhlIFVSTCBwYXJhbWV0ZXJzIHByb3ZpZGVkIGJ5IHRoZSAiUmVjb3JkIiB2ZXJiCiAgICBTdHJpbmcgc3VydmV5SWQgPSByZXF1ZXN0LnBhcmFtcygiOnBob25lIik7CiAgICBpbnQgcXVlc3Rpb25JZCA9IEludGVnZXIucGFyc2VJbnQocmVxdWVzdC5wYXJhbXMoIjpxdWVzdGlvbiIpKTsKICAgIC8vIEZpbmQgdGhlIHN1cnZleSBpbiB0aGUgREIuLi4KICAgIFN1cnZleSBzdXJ2ZXkgPSBzdXJ2ZXlzLmdldFN1cnZleShzdXJ2ZXlJZCk7CiAgICAvLyAuLi5hbmQgdXBkYXRlIGl0IHdpdGggb3VyIHRyYW5zY3JpcHRpb24gdGV4dC4KICAgIHN1cnZleS5nZXRSZXNwb25zZXMoKVtxdWVzdGlvbklkXS5zZXRBbnN3ZXIoY2FsbC5nZXRUcmFuc2NyaXB0aW9uVGV4dCgpKTsKICAgIHN1cnZleXMudXBkYXRlU3VydmV5KHN1cnZleSk7CiAgICByZXNwb25zZS5zdGF0dXMoMjAwKTsKICAgIHJldHVybiAiT0siOwogIH07CgogIC8vIEhlbHBlciBtZXRob2RzCgogIC8vIFNwYXJrIGhhcyBubyBidWlsdC1pbiBib2R5IHBhcnNlciwgc28gbGV0J3Mgcm9sbCBvdXIgb3duLgogIHB1YmxpYyBzdGF0aWMgTWFwPFN0cmluZywgU3RyaW5nPiBwYXJzZUJvZHkoU3RyaW5nIGJvZHkpIHRocm93cyBVbnN1cHBvcnRlZEVuY29kaW5nRXhjZXB0aW9uIHsKICAgIFN0cmluZ1tdIHVucGFyc2VkUGFyYW1zID0gYm9keS5zcGxpdCgiJiIpOwogICAgTWFwPFN0cmluZywgU3RyaW5nPiBwYXJzZWRQYXJhbXMgPSBuZXcgSGFzaE1hcDxTdHJpbmcsIFN0cmluZz4oKTsKICAgIGZvciAoaW50IGkgPSAwOyBpIDwgdW5wYXJzZWRQYXJhbXMubGVuZ3RoOyBpKyspIHsKICAgICAgU3RyaW5nW10gcGFyYW0gPSB1bnBhcnNlZFBhcmFtc1tpXS5zcGxpdCgiPSIpOwogICAgICBpZiAocGFyYW0ubGVuZ3RoID09IDIpIHsKICAgICAgICBwYXJzZWRQYXJhbXMucHV0KHVybERlY29kZShwYXJhbVswXSksIHVybERlY29kZShwYXJhbVsxXSkpOwogICAgICB9IGVsc2UgaWYgKHBhcmFtLmxlbmd0aCA9PSAxKSB7CiAgICAgICAgcGFyc2VkUGFyYW1zLnB1dCh1cmxEZWNvZGUocGFyYW1bMF0pLCAiIik7CiAgICAgIH0KICAgIH0KICAgIHJldHVybiBwYXJzZWRQYXJhbXM7CiAgfQoKICBwdWJsaWMgc3RhdGljIFN0cmluZyB1cmxEZWNvZGUoU3RyaW5nIHMpIHRocm93cyBVbnN1cHBvcnRlZEVuY29kaW5nRXhjZXB0aW9uIHsKICAgIHJldHVybiBVUkxEZWNvZGVyLmRlY29kZShzLCAidXRmLTgiKTsKICB9Cn0K</textarea>
+<textarea class="saurus-file" data-file="src/main/java/com/twilio/survey/controllers/TwiMLMessageFactory.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLnN1cnZleS5jb250cm9sbGVyczsKCmltcG9ydCBqYXZhLmlvLlVuc3VwcG9ydGVkRW5jb2RpbmdFeGNlcHRpb247CmltcG9ydCBqYXZhLm5ldC5VUkxFbmNvZGVyOwoKaW1wb3J0IGNvbS50d2lsaW8uc3VydmV5LlNlcnZlcjsKaW1wb3J0IGNvbS50d2lsaW8uc3VydmV5Lm1vZGVscy5TdXJ2ZXk7CmltcG9ydCBjb20udHdpbGlvLnN1cnZleS51dGlsLlF1ZXN0aW9uOwppbXBvcnQgY29tLnR3aWxpby50d2ltbC4qOwoKcHVibGljIGNsYXNzIFR3aU1MTWVzc2FnZUZhY3RvcnkgZXh0ZW5kcyBBYnN0cmFjdE1lc3NhZ2VGYWN0b3J5IHsKCiAgU3RyaW5nIGZpcnN0VHdpTUxRdWVzdGlvbihTdXJ2ZXkgc3VydmV5KSB0aHJvd3MgVHdpTUxFeGNlcHRpb24sIFVuc3VwcG9ydGVkRW5jb2RpbmdFeGNlcHRpb24gewogICAgVm9pY2VSZXNwb25zZS5CdWlsZGVyIHZvaWNlUmVzcG9uc2VCdWlsZGVyID0gbmV3IFZvaWNlUmVzcG9uc2UuQnVpbGRlcigpCiAgICAgICAgLnNheShuZXcgU2F5LkJ1aWxkZXIoIlRoYW5rcyBmb3IgdGFraW5nIG91ciBzdXJ2ZXkuIikuYnVpbGQoKSk7CgogICAgcmV0dXJuIG5leHRUd2lNTFF1ZXN0aW9uKHN1cnZleSwgdm9pY2VSZXNwb25zZUJ1aWxkZXIpLnRvWG1sKCk7CiAgfQoKICBTdHJpbmcgbmV4dFR3aU1MUXVlc3Rpb24oU3VydmV5IHN1cnZleSkgdGhyb3dzIFR3aU1MRXhjZXB0aW9uLCBVbnN1cHBvcnRlZEVuY29kaW5nRXhjZXB0aW9uIHsKICAgIHJldHVybiBuZXh0VHdpTUxRdWVzdGlvbihzdXJ2ZXksIG51bGwpLnRvWG1sKCk7CiAgfQoKICBwcml2YXRlIFZvaWNlUmVzcG9uc2UgbmV4dFR3aU1MUXVlc3Rpb24oU3VydmV5IHN1cnZleSwgVm9pY2VSZXNwb25zZS5CdWlsZGVyIHR3aW1sKQogICAgICB0aHJvd3MgVHdpTUxFeGNlcHRpb24sIFVuc3VwcG9ydGVkRW5jb2RpbmdFeGNlcHRpb24gewogICAgUXVlc3Rpb24gcXVlc3Rpb24gPSBTZXJ2ZXIuY29uZmlnLmdldFF1ZXN0aW9ucygpW3N1cnZleS5nZXRJbmRleCgpXTsKCiAgICByZXR1cm4gYnVpbGRRdWVzdGlvblR3aU1MKHN1cnZleSwgcXVlc3Rpb24sIHR3aW1sKTsKICB9CgogIHByaXZhdGUgVm9pY2VSZXNwb25zZSBidWlsZFF1ZXN0aW9uVHdpTUwoU3VydmV5IHN1cnZleSwgUXVlc3Rpb24gcXVlc3Rpb24sCiAgICAgIFZvaWNlUmVzcG9uc2UuQnVpbGRlciB0d2ltbCkgdGhyb3dzIFR3aU1MRXhjZXB0aW9uLCBVbnN1cHBvcnRlZEVuY29kaW5nRXhjZXB0aW9uIHsKICAgIFZvaWNlUmVzcG9uc2UuQnVpbGRlciByZXNwb25zZSA9IHR3aW1sICE9IG51bGwgPyB0d2ltbCA6IG5ldyBWb2ljZVJlc3BvbnNlLkJ1aWxkZXIoKTsKICAgIFNheSBzYXkgPSBuZXcgU2F5LkJ1aWxkZXIocXVlc3Rpb24uZ2V0VGV4dCgpKS5idWlsZCgpOwogICAgcmVzcG9uc2Uuc2F5KHNheSk7CiAgICAvLyBEZXBlbmRpbmcgb24gdGhlIHF1ZXN0aW9uIHR5cGUsIGNyZWF0ZSBkaWZmZXJlbnQgVHdpTUwgdmVyYnMuCiAgICBzd2l0Y2ggKHF1ZXN0aW9uLmdldFR5cGUoKSkgewogICAgICBjYXNlICJ0ZXh0IjoKICAgICAgICBhcHBlbmRUZXh0UXVlc3Rpb24oc3VydmV5LCByZXNwb25zZSk7CiAgICAgICAgYnJlYWs7CiAgICAgIGNhc2UgImJvb2xlYW4iOgogICAgICAgIGFwcGVuZEJvb2xlYW5RdWVzdGlvbihyZXNwb25zZSk7CiAgICAgICAgYnJlYWs7CiAgICAgIGNhc2UgIm51bWJlciI6CiAgICAgICAgYXBwZW5kTnVtYmVyUXVlc3Rpb24ocmVzcG9uc2UpOwogICAgICAgIGJyZWFrOwogICAgfQogICAgcmV0dXJuIHJlc3BvbnNlLmJ1aWxkKCk7CiAgfQoKICBwcml2YXRlIFZvaWNlUmVzcG9uc2UuQnVpbGRlciBhcHBlbmROdW1iZXJRdWVzdGlvbihWb2ljZVJlc3BvbnNlLkJ1aWxkZXIgdHdpbWwpCiAgICAgIHRocm93cyBUd2lNTEV4Y2VwdGlvbiB7CiAgICBTYXkgbnVtSW5zdHJ1Y3Rpb25zID0KICAgICAgICBuZXcgU2F5LkJ1aWxkZXIoIkVudGVyIHRoZSBudW1iZXIgb24geW91ciBrZXlwYWQsIGZvbGxvd2VkIGJ5IHRoZSAjLiIpLmJ1aWxkKCk7CiAgICB0d2ltbC5zYXkobnVtSW5zdHJ1Y3Rpb25zKTsKICAgIC8vIExpc3RlbiB1bnRpbCBhIHVzZXIgcHJlc3NlcyAiIyIKICAgIEdhdGhlciBudW1iZXJHYXRoZXIgPSBuZXcgR2F0aGVyLkJ1aWxkZXIoKS5maW5pc2hPbktleSgiIyIpLmJ1aWxkKCk7CgogICAgdHdpbWwuZ2F0aGVyKG51bWJlckdhdGhlcik7CgogICAgcmV0dXJuIHR3aW1sOwogIH0KCiAgcHJpdmF0ZSBWb2ljZVJlc3BvbnNlLkJ1aWxkZXIgYXBwZW5kQm9vbGVhblF1ZXN0aW9uKFZvaWNlUmVzcG9uc2UuQnVpbGRlciB0d2ltbCkKICAgICAgdGhyb3dzIFR3aU1MRXhjZXB0aW9uIHsKICAgIFNheSBib29sSW5zdHJ1Y3Rpb25zID0KICAgICAgICBuZXcgU2F5LkJ1aWxkZXIoIlByZXNzIDAgdG8gcmVzcG9uZCAnTm8sJyBhbmQgcHJlc3MgYW55IG90aGVyIG51bWJlciB0byByZXNwb25kICdZZXMuJyIpCiAgICAgICAgICAgIC5idWlsZCgpOwogICAgdHdpbWwuc2F5KGJvb2xJbnN0cnVjdGlvbnMpOwoKICAgIC8vIExpc3RlbiBvbmx5IGZvciBvbmUgZGlnaXQuCiAgICBHYXRoZXIgYm9vbGVhbkdhdGhlciA9IG5ldyBHYXRoZXIuQnVpbGRlcigpLm51bURpZ2l0cygxKS5idWlsZCgpOwogICAgdHdpbWwuZ2F0aGVyKGJvb2xlYW5HYXRoZXIpOwoKICAgIHJldHVybiB0d2ltbDsKICB9CgogIHByaXZhdGUgVm9pY2VSZXNwb25zZS5CdWlsZGVyIGFwcGVuZFRleHRRdWVzdGlvbihTdXJ2ZXkgc3VydmV5LCBWb2ljZVJlc3BvbnNlLkJ1aWxkZXIgdHdpbWwpCiAgICAgIHRocm93cyBUd2lNTEV4Y2VwdGlvbiwgVW5zdXBwb3J0ZWRFbmNvZGluZ0V4Y2VwdGlvbiB7CgogICAgU2F5IHRleHRJbnN0cnVjdGlvbnMgPSBuZXcgU2F5LkJ1aWxkZXIoCiAgICAgICAgIllvdXIgcmVzcG9uc2Ugd2lsbCBiZSByZWNvcmRlZCBhZnRlciB0aGUgdG9uZS4gT25jZSB5b3UgaGF2ZSBmaW5pc2hlZCByZWNvcmRpbmcsIHByZXNzIHRoZSAjLiIpCiAgICAgICAgICAgIC5idWlsZCgpOwogICAgdHdpbWwuc2F5KHRleHRJbnN0cnVjdGlvbnMpOwogICAgUmVjb3JkIHRleHQgPSBuZXcgUmVjb3JkLkJ1aWxkZXIoKQogICAgICAgIC5maW5pc2hPbktleSgiIyIpCiAgICAgICAgLnRyYW5zY3JpYmUodHJ1ZSkKICAgICAgICAudHJhbnNjcmliZUNhbGxiYWNrKAogICAgICAgICAgICBTdHJpbmcuZm9ybWF0KCIvaW50ZXJ2aWV3LyVzL3RyYW5zY3JpYmUvJXMiLCB1cmxFbmNvZGUoc3VydmV5LmdldFBob25lKCkpLCBzdXJ2ZXkuZ2V0SW5kZXgoKSkKICAgICAgICApLmJ1aWxkKCk7CgogICAgdHdpbWwucmVjb3JkKHRleHQpOwoKICAgIHJldHVybiB0d2ltbDsKICB9CgogIC8vIFdyYXAgdGhlIFVSTEVuY29kZXIgYW5kIFVSTERlY29kZXIgZm9yIGNsZWFubGluZXNzLgogIHByaXZhdGUgU3RyaW5nIHVybEVuY29kZShTdHJpbmcgcykgdGhyb3dzIFVuc3VwcG9ydGVkRW5jb2RpbmdFeGNlcHRpb24gewogICAgcmV0dXJuIFVSTEVuY29kZXIuZW5jb2RlKHMsICJ1dGYtOCIpOwogIH0KCiAgU3RyaW5nIGdvb2RCeWVUd2lNTE1lc3NhZ2UoKSB0aHJvd3MgVHdpTUxFeGNlcHRpb24gewogICAgVm9pY2VSZXNwb25zZSB2b2ljZVJlc3BvbnNlID0gbmV3IFZvaWNlUmVzcG9uc2UuQnVpbGRlcigpCiAgICAgICAgLnNheShuZXcgU2F5LkJ1aWxkZXIoIllvdXIgcmVzcG9uc2VzIGhhdmUgYmVlbiByZWNvcmRlZC4gVGhhbmsgeW91IGZvciB5b3VyIHRpbWUhIikuYnVpbGQoKSkKICAgICAgICAuYnVpbGQoKTsKCiAgICByZXR1cm4gdm9pY2VSZXNwb25zZS50b1htbCgpOwogIH0KfQo=</textarea>
+<textarea class="saurus-file" data-file="src/main/java/com/twilio/survey/models/SurveyService.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLnN1cnZleS5tb2RlbHM7CgppbXBvcnQgamF2YS51dGlsLkxpc3Q7CgppbXBvcnQgb3JnLm1vbmdvZGIubW9ycGhpYS5EYXRhc3RvcmU7CmltcG9ydCBvcmcubW9uZ29kYi5tb3JwaGlhLk1vcnBoaWE7CmltcG9ydCBvcmcubW9uZ29kYi5tb3JwaGlhLnF1ZXJ5LlVwZGF0ZU9wZXJhdGlvbnM7CgppbXBvcnQgY29tLm1vbmdvZGIuTW9uZ29DbGllbnQ7CmltcG9ydCBjb20ubW9uZ29kYi5Nb25nb0NsaWVudFVSSTsKaW1wb3J0IGNvbS50d2lsaW8uc3VydmV5LlNlcnZlcjsKCnB1YmxpYyBjbGFzcyBTdXJ2ZXlTZXJ2aWNlIHsKICAvLyBNb25nb0NsaWVudCBhbmQgTW9ycGhpYSBpbnN0YW5jZXMgbXVzdCBiZSBhY2Nlc3NpYmxlIHRvIHRoZSBlbnRpcmUgb2JqZWN0LCBzbyBhIERhdGFzdG9yZSBjYW4KICAvLyBiZSBidWlsdC4KICBNb25nb0NsaWVudCBtb25nb0NsaWVudDsKICBNb3JwaGlhIG1vcnBoaWE7CgogIC8vIEFuIGluc3RhbmNlIG9mIERhdGFzdG9yZSBtdXN0IGJlIGFjY2Vzc2libGUgdG8gdGhlIGVudGlyZSBvYmplY3QsIHNvIGFsbCBpbnN0YW5jZSBtZXRob2RzIGNhbgogIC8vIHBlcnNpc3QgdG8gYW5kIHJlYWQgZnJvbSB0aGUgZGF0YXN0b3JlLgogIERhdGFzdG9yZSBkYXRhc3RvcmU7CgogIC8vIENvbnN0cnVjdG9yCiAgcHVibGljIFN1cnZleVNlcnZpY2UoTW9uZ29DbGllbnRVUkkgbW9uZ29VUkkpIHsKICAgIHRyeSB7CiAgICAgIC8vIENyZWF0ZSBNb25nb0RCIGRyaXZlcnMKICAgICAgbW9uZ29DbGllbnQgPSBuZXcgTW9uZ29DbGllbnQobW9uZ29VUkkpOwogICAgICBtb3JwaGlhID0gbmV3IE1vcnBoaWEoKTsKCiAgICAgIC8vIEFzayB0aGUgTW9ycGhpYSBkcml2ZXIgdG8gc2NhbiB0aGUgTW9kZWxzIHBhY2thZ2UgZm9yIG1vZGVscy4KICAgICAgbW9ycGhpYS5tYXBQYWNrYWdlKCJjb20udHdpbGlvLnN1cnZleS5tb2RlbHMiKTsKCiAgICB9IGNhdGNoIChFeGNlcHRpb24gZSkgewogICAgICAvLyBDYXRjaCBhbnkgTW9uZ29EQiBjb25maWd1cmF0aW9uIGVycm9ycywgYW5kIHBhc3MgdGhlbSBiYWNrIHRvIFNUREVSUi4KICAgICAgU3lzdGVtLmVyci5wcmludGxuKGUuZ2V0TWVzc2FnZSgpKTsKICAgIH0gZmluYWxseSB7CiAgICAgIC8vIENyZWF0ZSBhIGRhdGFzdG9yZSB3aXRoIHRoZSBkYXRhYmFzZSBuYW1lIHByb3ZpZGVkLgogICAgICBkYXRhc3RvcmUgPSBtb3JwaGlhLmNyZWF0ZURhdGFzdG9yZShtb25nb0NsaWVudCwgU2VydmVyLmNvbmZpZy5nZXRNb25nb0RCTmFtZSgpKTsKICAgIH0KICB9CgogIHB1YmxpYyBTdXJ2ZXlTZXJ2aWNlKCkgewogICAgdGhpcyhTZXJ2ZXIuY29uZmlnLmdldE1vbmdvVVJJKCkpOwogIH0KCiAgLy8gRmluZCwgVXBkYXRlLCBhbmQgQ3JlYXRlIC0tIGRhdGFiYXNlIG9wZXJhdGlvbnMuCiAgcHVibGljIFN1cnZleSBnZXRTdXJ2ZXkoU3RyaW5nIHBob25lKSB7CiAgICByZXR1cm4gZGF0YXN0b3JlLmZpbmQoU3VydmV5LmNsYXNzKS5maWVsZCgicGhvbmUiKS5lcXVhbChwaG9uZSkuZ2V0KCk7CiAgfQoKICBwdWJsaWMgdm9pZCB1cGRhdGVTdXJ2ZXkoU3VydmV5IHN1cnZleSkgewogICAgVXBkYXRlT3BlcmF0aW9uczxTdXJ2ZXk+IHVwZGF0ZXMgPSBkYXRhc3RvcmUuY3JlYXRlVXBkYXRlT3BlcmF0aW9ucyhTdXJ2ZXkuY2xhc3MpOwogICAgdXBkYXRlcy5zZXQoImluZGV4Iiwgc3VydmV5LmdldEluZGV4KCkpOwogICAgdXBkYXRlcy5zZXQoInJlc3BvbnNlcyIsIHN1cnZleS5nZXRSZXNwb25zZXMoKSk7CiAgICB1cGRhdGVzLnNldCgiZG9uZSIsIHN1cnZleS5pc0RvbmUoKSk7CiAgICBkYXRhc3RvcmUudXBkYXRlKHN1cnZleSwgdXBkYXRlcyk7CiAgfQoKICBwdWJsaWMgU3VydmV5IGNyZWF0ZVN1cnZleShTdHJpbmcgcGhvbmUpIHsKICAgIFN1cnZleSBleGlzdGluZ1N1cnZleSA9IGdldFN1cnZleShwaG9uZSk7CiAgICBpZiAoZXhpc3RpbmdTdXJ2ZXkgPT0gbnVsbCkgewogICAgICBTdXJ2ZXkgc3VydmV5ID0gbmV3IFN1cnZleShwaG9uZSk7CiAgICAgIGRhdGFzdG9yZS5zYXZlKHN1cnZleSk7CiAgICAgIHJldHVybiBzdXJ2ZXk7CiAgICB9IGVsc2UgewogICAgICByZXR1cm4gZXhpc3RpbmdTdXJ2ZXk7CiAgICB9CiAgfQoKICBwdWJsaWMgTGlzdDxTdXJ2ZXk+IGZpbmRBbGxGaW5pc2hlZFN1cnZleXMoKSB7CiAgICByZXR1cm4gZGF0YXN0b3JlLmZpbmQoU3VydmV5LmNsYXNzKS5maWVsZCgiZG9uZSIpLmVxdWFsKHRydWUpLmFzTGlzdCgpOwogIH0KfQo=</textarea>
+</div>
+</div>
+      <div class="saurus-overview">
+        <ul></ul>
+      </div>
+    </div>
+    <div class="saurus-code">
+      <div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div>
+      <div class="saurus-editor"></div>
+    </div>
+    <div class="saurus-explorer">
+      <div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/automated-survey-spark" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a>
+    </div>
+  </div>
+</div>
+</div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js-lib/ace/ace.js"></script>
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js-lib/ace/theme-monokai.js"></script>
+
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js/walkthrough.min.js"></script>
+
+
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/tutorials/walkthrough/automated-survey/java/spark by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:54 GMT -->
+</html>

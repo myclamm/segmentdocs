@@ -1,0 +1,902 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/api-routes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Routes &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="up" title="API Reference" href="api_reference.html" />
+    <link rel="next" title="Webhooks" href="api-webhooks.html" />
+    <link rel="prev" title="Suppressions" href="api-suppressions.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+ 
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="http://www.mailgun.com/" class="logo">Mailgun - Email Automation by Rackspace</a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="http://www.mailgun.com/pricing" class="pricing-link"><b>Pricing</b></a>
+          <a href="http://www.mailgun.com/customers" class="customers-link"><b>Customers</b></a>
+          <div class="dropdown">
+                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b>Features <svg class="icon icon-dropdown" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b>Resources <svg class="icon icon-dropdown active" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+                <a href="http://www.mailgun.com/managed" class="managed-link"><b>Managed</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b>Contact</b></a>
+          <a href="https://www.mailgun.com/sessions/new" class="login-link"><b>Log in</b></a>
+          <a href="https://www.mailgun.com/signup" class="signup-link"><b>Sign Up</b></a>
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus />
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api-webhooks.html" title="Webhooks" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="api-suppressions.html" title="Suppressions" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-events.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-stats.html">Stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-tags.html">Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-suppressions.html">Suppressions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Routes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filters">Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#actions">Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-webhooks.html">Webhooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-mailinglists.html">Mailing Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-email-validation.html">Email Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Email Best Practices</a></li>
+</ul>
+
+      <div class="admonition note">You can find your API Key in your <a href="https://mailgun.com/cp" target="_blank">Control Panel</a></div>
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="routes">
+<span id="api-routes"></span><h1>Routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h1>
+<p>Mailgun Routes are a powerful way to handle the incoming traffic.
+See <a class="reference internal" href="user_manual.html#um-routes"><span class="std std-ref">Routes</span></a> section in the User Manual to learn more
+about how they work. This API allows you to work with routes programmatically.</p>
+<p>Routes are comprised of the following arguments:</p>
+<ul class="simple">
+<li>A filter (when to do something).</li>
+<li>A priority (in what order).</li>
+<li>An action (what to do).</li>
+</ul>
+<div class="section" id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+<p>Route filters are expressions that determine when an action is triggered. You can create a filter based on the recipient of the incoming email, the headers in the incoming email or use a catch-all filter. Filters support regular expressions in the pattern to give you a lot of flexibility when creating them.</p>
+<p><strong>match_recipient(pattern)</strong></p>
+<p>Matches smtp recipient of the incoming message against the regular expression pattern.
+For example this will match all messages coming to any recipient at &#64;bar.com:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">match_recipient</span><span class="p">(</span><span class="s2">&quot;.*@bar.com&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>match_header(header, pattern)</strong></p>
+<p>Similar to <code class="docutils literal"><span class="pre">match_recipient</span></code> but instead of looking at a message recipient, it applies
+the pattern to an arbitrary MIME header of the message. For this will match any message
+with a word &#8220;support&#8221; in its subject:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">match_header</span><span class="p">(</span><span class="s2">&quot;subject&quot;</span><span class="p">,</span> <span class="s2">&quot;.*support&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>catch_all()</strong></p>
+<p>Matches if no preceeding routes matched. Usually you need to use it in a route
+with a lowest priority, to make sure it evaluates last.</p>
+</div>
+<div class="section" id="actions">
+<h2>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h2>
+<p>If a route expression evaluates to true, Mailgun executes the corresponding action.
+Currently you can use the following three actions in your routes: <code class="docutils literal"><span class="pre">forward()</span></code>, <code class="docutils literal"><span class="pre">store()</span></code> and <code class="docutils literal"><span class="pre">stop()</span></code>.</p>
+<p><strong>forward(destination)</strong></p>
+<p>Forwards the message to a specified destination, which can be another email address or a URL.
+A few examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">forward</span><span class="p">(</span><span class="s2">&quot;mailbox@myapp.com&quot;</span><span class="p">)</span>
+<span class="n">forward</span><span class="p">(</span><span class="s2">&quot;http://myapp.com/messages&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>store(notification endpoint)</strong></p>
+<p>Stores the message temporarily (for up to 3 days) on Mailgun&#8217;s servers so that you can retrieve them later.  This is helpful for large messages that may cause time outs or if you just want to retrieve them later.</p>
+<p>You can specify a URL and we will notify you when the email arrives along with a URL where you can use to retrieve the message:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">store</span><span class="p">(</span><span class="n">notify</span><span class="o">=</span><span class="s2">&quot;http://mydomain.com/callback&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can see a full list of parameters we will post to your URL in the <a class="reference internal" href="user_manual.html#um-routes"><span class="std std-ref">Routes</span></a> section of the User Manual. You can also get the locations of messages through the <a class="reference internal" href="api-events.html#api-events"><span class="std std-ref">Events API</span></a> and then retrieve the message through the <a class="reference internal" href="api-sending.html#api-sending-messages"><span class="std std-ref">Messages API</span></a>.</p>
+<p><strong>stop()</strong></p>
+<p>Simply stops the priority waterfall so the subsequent routes will not be evaluated. Without a stop() action executed, all lower priority Routes will also be evaluated.</p>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /routes
+</pre></div>
+</div>
+<p>Fetches the list of routes. Note that routes are defined globally, per
+account, not per domain as most of other API calls.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>limit</td>
+<td>Maximum number of records to return. (100 by default)</td>
+</tr>
+<tr class="row-odd"><td>skip</td>
+<td>Number of records to skip. (0 by default)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /routes/&lt;id&gt;
+</pre></div>
+</div>
+<p>Returns a single route object based on its ID. See examples below.</p>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /routes
+</pre></div>
+</div>
+<p>Creates a new route.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>priority</td>
+<td>Integer: smaller number indicates higher priority. Higher
+priority routes are handled first. Defaults to 0.</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>An arbitrary string.</td>
+</tr>
+<tr class="row-even"><td>expression</td>
+<td>A filter expression like
+<code class="docutils literal"><span class="pre">match_recipient('.*&#64;gmail.com')</span></code></td>
+</tr>
+<tr class="row-odd"><td>action:</td>
+<td>Route action. This action is executed when the expression
+evaluates to True. Example: <code class="docutils literal"><span class="pre">forward(&quot;alice&#64;example.com&quot;)</span></code>
+You can pass multiple <code class="docutils literal"><span class="pre">action</span></code> parameters.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-url"><div class="highlight"><pre><span></span>PUT /routes/&lt;id&gt;
+</pre></div>
+</div>
+<p>Updates a given route by ID. All parameters are optional: this API call
+only updates the specified fields leaving others unchanged.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>priority</td>
+<td>Integer: smaller number indicates higher priority. Higher
+priority routes are handled first.</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>An arbitrary string.</td>
+</tr>
+<tr class="row-even"><td>expression</td>
+<td>A filter expression like
+<code class="docutils literal"><span class="pre">match_recipient('.*&#64;gmail.com')</span></code></td>
+</tr>
+<tr class="row-odd"><td>action:</td>
+<td>Route action. This action is executed when the expression
+evaluates to True. Example: <code class="docutils literal"><span class="pre">forward(&quot;alice&#64;example.com&quot;)</span></code>
+You can pass multiple <code class="docutils literal"><span class="pre">action</span></code> parameters.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-url"><div class="highlight"><pre><span></span>DELETE /routes/&lt;id&gt;
+</pre></div>
+</div>
+<p>Deletes a route based on the id.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Create a route of the highest priority with multiple actions:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/routes <span class="se">\</span>
+    -F <span class="nv">priority</span><span class="o">=</span><span class="m">0</span> <span class="se">\</span>
+    -F <span class="nv">description</span><span class="o">=</span><span class="s1">&#39;Sample route&#39;</span> <span class="se">\</span>
+    -F <span class="nv">expression</span><span class="o">=</span><span class="s1">&#39;match_recipient(&quot;.*@YOUR_DOMAIN_NAME&quot;)&#39;</span> <span class="se">\</span>
+    -F <span class="nv">action</span><span class="o">=</span><span class="s1">&#39;forward(&quot;http://myhost.com/messages/&quot;)&#39;</span> <span class="se">\</span>
+    -F <span class="nv">action</span><span class="o">=</span><span class="s1">&#39;stop()&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">CreateRoute</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;priority&quot;</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;description&quot;</span><span class="o">,</span> <span class="s">&quot;Sample route&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;expression&quot;</span><span class="o">,</span> <span class="s">&quot;match_recipient(&#39;.*@YOUR_DOMAIN_NAME&#39;)&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;action&quot;</span><span class="o">,</span> <span class="s">&quot;forward(&#39;http://myhost.com/messages/&#39;)&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;action&quot;</span><span class="o">,</span> <span class="s">&quot;stop()&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/routes&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s2">&quot;routes&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;priority&#39;</span>    <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s1">&#39;expression&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;match_recipient(&quot;.*@YOUR_DOMAIN_NAME&quot;)&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;action&#39;</span>      <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;forward(&quot;http://host.com/messages&quot;)&#39;</span><span class="p">,</span> <span class="s1">&#39;stop()&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Sample route&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_route</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/routes&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Sample route&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="s2">&quot;match_recipient(&#39;.*@YOUR_DOMAIN_NAME&#39;)&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;forward(&#39;http://myhost.com/messages/&#39;)&quot;</span><span class="p">,</span> <span class="s2">&quot;stop()&quot;</span><span class="p">]})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_route</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="no">Multimap</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:priority</span><span class="o">]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:description</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Sample route&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:expression</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;match_recipient(&#39;.*@YOUR_DOMAIN_NAME&#39;)&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;forward(&#39;http://myhost.com/messages/&#39;)&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:action</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;stop()&quot;</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/routes&quot;</span><span class="p">,</span> <span class="n">data</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">CreateRouteChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">CreateRoute</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">CreateRoute</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;routes&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;priority&quot;</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;description&quot;</span><span class="p">,</span> <span class="s">&quot;Sample route&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;expression&quot;</span><span class="p">,</span> <span class="s">&quot;match_recipient(&#39;.*@YOUR_DOMAIN_NAME&#39;)&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span>
+                              <span class="s">&quot;forward(&#39;http://myhost.com/messages/&#39;)&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;action&quot;</span><span class="p">,</span> <span class="s">&quot;stop()&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">CreateRoute</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Route</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">CreateRoute</span><span class="p">(</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Route</span><span class="p">{</span>
+    <span class="nx">Priority</span><span class="p">:</span>    <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">Description</span><span class="p">:</span> <span class="s">&quot;Sample Route&quot;</span><span class="p">,</span>
+    <span class="nx">Expression</span><span class="p">:</span>  <span class="s">&quot;match_recipient(\&quot;.*@YOUR_DOMAIN_NAME\&quot;)&quot;</span><span class="p">,</span>
+    <span class="nx">Actions</span><span class="p">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span>
+      <span class="s">&quot;forward(\&quot;http://example.com/messages/\&quot;)&quot;</span><span class="p">,</span>
+      <span class="s">&quot;stop()&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Sample response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Route has been created&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;route&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample route&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Wed, 15 Feb 2012 13:03:31 GMT&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;actions&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s2">&quot;forward(\&quot;http://myhost.com/messages/\&quot;)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;stop()&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;expression&quot;</span><span class="o">:</span> <span class="s2">&quot;match_recipient(\&quot;.*@samples.mailgun.org\&quot;)&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;4f3bad2335335426750048c6&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Listing routes:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
+    https://api.mailgun.net/v3/routes <span class="se">\</span>
+    -d <span class="nv">skip</span><span class="o">=</span><span class="m">1</span> <span class="se">\</span>
+    -d <span class="nv">limit</span><span class="o">=</span>1
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">ParseAddresses</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/routes&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;skip&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;limit&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;routes&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;skip&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_routes</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/routes&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;skip&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_routes</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/routes&quot;</span><span class="p">,</span> <span class="ss">:params</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="ss">:skip</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="ss">:limit</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GetRoutesChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">GetRoutes</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">GetRoutes</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;routes&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;skip&quot;</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;limit&quot;</span><span class="p">,</span> <span class="m">1</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetRoutes</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">[]</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Route</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">GetRoutes</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Sample response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;total_count&quot;</span><span class="o">:</span> <span class="mi">266</span><span class="p">,</span>
+  <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample route&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Wed, 15 Feb 2012 12:58:12 GMT&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;actions&quot;</span><span class="o">:</span> <span class="p">[</span>
+              <span class="s2">&quot;forward(\&quot;http://myhost.com/messages/\&quot;)&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;stop()&quot;</span>
+          <span class="p">],</span>
+          <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="s2">&quot;expression&quot;</span><span class="o">:</span> <span class="s2">&quot;match_recipient(\&quot;.*@samples.mailgun.org\&quot;)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;4f3babe4ba8a481c6400476a&quot;</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Access the route by id:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/routes/4f3bad2335335426750048c6
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetRoute</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/routes/{route_id}&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;route_id&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_ROUTE_ID&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$routeId</span> <span class="o">=</span> <span class="s1">&#39;4e97c1b2ba8a48567f007fb6&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;routes/</span><span class="si">$routeId</span><span class="s2">&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_route</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/routes/4e97c1b2ba8a48567f007fb6&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_route</span>
+  <span class="no">RestClient</span><span class="o">.</span>
+    <span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+        <span class="s2">&quot;@api.mailgun.net/v3/routes/&quot;</span><span class="p">\</span>
+        <span class="s2">&quot;4e97c1b2ba8a48567f007fb6&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">result</span><span class="o">|</span> <span class="n">response</span> <span class="p">}</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GetRouteChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">GetRoute</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">GetRoute</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;routes/{id}&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddUrlSegment</span> <span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="s">&quot;4e97c1b2ba8a48567f007fb6&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetRouteByID</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">Route</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">GetRouteByID</span><span class="p">(</span><span class="s">&quot;4e97c1b2ba8a48567f007fb6&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Sample response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;route&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample route&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Wed, 15 Feb 2012 13:03:31 GMT&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;actions&quot;</span><span class="o">:</span> <span class="p">[</span>
+          <span class="s2">&quot;forward(\&quot;http://myhost.com/messages/\&quot;)&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;stop()&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;expression&quot;</span><span class="o">:</span> <span class="s2">&quot;match_recipient(\&quot;.*@samples.mailgun.org\&quot;)&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;4f3bad2335335426750048c6&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Sample payload for a <code class="docutils literal"><span class="pre">store()</span></code> webhook:</p>
+<p>Sample payload for a <code class="docutils literal"><span class="pre">forward()</span></code> webhook:</p>
+</div>
+</div>
+
+
+            </div>
+          </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/api-routes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:54 GMT -->
+</html>

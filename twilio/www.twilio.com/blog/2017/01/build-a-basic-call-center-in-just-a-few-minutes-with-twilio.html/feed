@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Build a Basic Call Center in Just a Few Minutes with Twilio</title>
+	<atom:link href="https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html/feed" rel="self" type="application/rss+xml" />
+	<link>https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html</link>
+	<description></description>
+	<lastBuildDate>Thu, 12 Jan 2017 13:19:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.2</generator>
+	<item>
+		<title>By: Rabii Brahimi</title>
+		<link>https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html#comment-4540</link>
+		<dc:creator><![CDATA[Rabii Brahimi]]></dc:creator>
+		<pubDate>Fri, 06 Jan 2017 18:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19366#comment-4540</guid>
+		<description><![CDATA[how about if we would like to build a call center for prospecting so agents will be making calls when they pick an account and want to contact them ! can you do some turorial on this 
+thanks :)]]></description>
+		<content:encoded><![CDATA[<p>how about if we would like to build a call center for prospecting so agents will be making calls when they pick an account and want to contact them ! can you do some turorial on this<br />
+thanks :)</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

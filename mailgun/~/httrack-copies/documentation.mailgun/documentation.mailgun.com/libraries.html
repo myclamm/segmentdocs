@@ -1,0 +1,474 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/libraries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Libraries &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="next" title="API Reference" href="api_reference.html" />
+    <link rel="prev" title="User Manual" href="user_manual.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+ 
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="http://www.mailgun.com/" class="logo">Mailgun - Email Automation by Rackspace</a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="http://www.mailgun.com/pricing" class="pricing-link"><b>Pricing</b></a>
+          <a href="http://www.mailgun.com/customers" class="customers-link"><b>Customers</b></a>
+          <div class="dropdown">
+                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b>Features <svg class="icon icon-dropdown" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b>Resources <svg class="icon icon-dropdown active" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+                <a href="http://www.mailgun.com/managed" class="managed-link"><b>Managed</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b>Contact</b></a>
+          <a href="https://www.mailgun.com/sessions/new" class="login-link"><b>Log in</b></a>
+          <a href="https://www.mailgun.com/signup" class="signup-link"><b>Sign Up</b></a>
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus />
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api_reference.html" title="API Reference" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="user_manual.html" title="User Manual" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ruby">Ruby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#java">Java</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c">C#</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#php">PHP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#node-js">Node.js</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#luvit">Luvit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">cURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Email Best Practices</a></li>
+</ul>
+
+      <div class="admonition note">You can find your API Key in your <a href="https://mailgun.com/cp" target="_blank">Control Panel</a></div>
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="libraries">
+<span id="id1"></span><h1>Libraries<a class="headerlink" href="#libraries" title="Permalink to this headline">¶</a></h1>
+<p>The Mailgun API is built on HTTP. Our API is <a class="reference external" href="http://en.wikipedia.org/wiki/Representational_State_Transfer">RESTful</a> and it:</p>
+<ul class="simple">
+<li>Uses predictable, resource-oriented URLs.</li>
+<li>Uses built-in HTTP capabilities for passing parameters and authentication.</li>
+<li>Responds with standard HTTP response codes to indicate errors.</li>
+<li>Returns <a class="reference external" href="http://en.wikipedia.org/wiki/JSON">JSON</a>.</li>
+</ul>
+<p>Mailgun has published libraries for various languages. You may use our
+libraries, or your favorite/suggested HTTP/REST library available for your programming
+language, to make HTTP calls to Mailgun.</p>
+<p>Most code samples in our docs can be viewed in several programming languages
+by using the language bar at the top. Below are the language-specific notes
+we feel are useful.</p>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p><strong>Standard HTTP Library:</strong></p>
+<p>Python users love <a class="reference external" href="http://docs.python-requests.org/en/latest/index.html">Requests</a> HTTP library. It is simple, elegant and yet very
+powerful. To install it you would simply run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">requests</span>
+</pre></div>
+</div>
+<p>You may also need a MultiDict class to represent HTTP requests with multiple
+values per key. We recommend WebOb&#8217;s <a class="reference external" href="http://docs.webob.org/en/latest/index.html">MultiDict</a> but <a class="reference external" href="http://werkzeug.pocoo.org/docs/datastructures">Werkzeug/Flask</a> also offer MultiDict class.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Our code samples use Requests version 0.7.5. Older versions of Requests don&#8217;t take multi dictionaries. For post data and query params you could use lists to pass multi-valued keys. Unfortunately it won&#8217;t work for files.</p>
+</div>
+</div>
+<div class="section" id="ruby">
+<h2>Ruby<a class="headerlink" href="#ruby" title="Permalink to this headline">¶</a></h2>
+<p><strong>Standard HTTP Library:</strong></p>
+<p>Ruby folks recommend <a class="reference external" href="https://github.com/rest-client/rest-client">rest-client</a> and not without a reason: it is one of the most
+beautiful REST HTTP libraries we have seen. The library is available as gem,
+so to install it simply run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gem</span> <span class="n">install</span> <span class="n">rest</span><span class="o">-</span><span class="n">client</span>
+</pre></div>
+</div>
+<p><strong>Official Mailgun Ruby Gem:</strong></p>
+<p>This is the Mailgun Ruby Library. This library contains methods for easily interacting with the Mailgun API.
+<a class="reference external" href="https://github.com/mailgun/mailgun-ruby">Fork it on GitHub</a> or <a class="reference external" href="http://blog.mailgun.com/the-official-mailgun-ruby-sdk-is-here/">read more about the gem here</a>.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gem</span> <span class="n">install</span> <span class="n">mailgun</span><span class="o">-</span><span class="n">ruby</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="java">
+<h2>Java<a class="headerlink" href="#java" title="Permalink to this headline">¶</a></h2>
+<p><strong>Standard HTTP Library:</strong></p>
+<p>Check out <a class="reference external" href="http://jersey.java.net/">jersey</a> REST client if Java is your weapon of choice.
+It took us 3 jars to get all we needed:</p>
+<ul class="simple">
+<li>jersey-client.jar (version ~ 1.17 - 1.18.1)</li>
+<li>jersey-core.jar (version ~ 1.17 - 1.18.1)</li>
+<li>jersey-multipart.jar (version ~ 1.17 - 1.18.1)</li>
+</ul>
+</div>
+<div class="section" id="c">
+<h2>C#<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<p><strong>Standard HTTP Library:</strong></p>
+<p>For C# developers there is <a class="reference external" href="http://restsharp.org/">RestSharp</a>. And that&#8217;s it, nothing else is required.
+Standard .NET makes it easy to make HTTP requests.</p>
+<p>However, if you are using <a class="reference external" href="http://www.mono-project.com/">mono</a> you will most likely need to allow it to do
+HTTP requests to external sites first. The easiest way to do that is probably
+by installing Mozilla certificates, like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mozroots</span> <span class="o">--</span><span class="kn">import</span> <span class="o">--</span><span class="n">sync</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="php">
+<h2>PHP<a class="headerlink" href="#php" title="Permalink to this headline">¶</a></h2>
+<p><strong>Mailgun Library:</strong></p>
+<p>Our PHP library is robust and provides an excellent interface to easily interact
+with our API.</p>
+<p>Github Repository: <a class="reference external" href="https://github.com/mailgun/mailgun-php">mailgun-php</a></p>
+<p>Minimum PHP Version: 5.5.0</p>
+<p>To install the library, you will need to be using Composer in your project.
+If you aren&#8217;t using Composer yet, it&#8217;s really simple! Here&#8217;s how to
+install composer and the Mailgun library.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Install Composer</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">sS</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">getcomposer</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">installer</span> <span class="o">|</span> <span class="n">php</span>
+
+<span class="c1"># Add Mailgun and Guzzle6 as a dependency (see Github README below for more info)</span>
+<span class="n">php</span> <span class="n">composer</span><span class="o">.</span><span class="n">phar</span> <span class="n">require</span> <span class="n">mailgun</span><span class="o">/</span><span class="n">mailgun</span><span class="o">-</span><span class="n">php</span> <span class="n">php</span><span class="o">-</span><span class="n">http</span><span class="o">/</span><span class="n">guzzle6</span><span class="o">-</span><span class="n">adapter</span> <span class="n">php</span><span class="o">-</span><span class="n">http</span><span class="o">/</span><span class="n">message</span>
+</pre></div>
+</div>
+<p>Next, just include Composer&#8217;s autoloader in your application to automatically
+load the Mailgun library in your project.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>require &#39;vendor/autoload.php&#39;;
+use Mailgun\Mailgun;
+$mailgun = new Mailgun(&#39;api_key&#39;, new \Http\Adapter\Guzzle6\Client());
+</pre></div>
+</div>
+<p>For additional information, see the Github Repository <a class="reference external" href="https://github.com/mailgun/mailgun-php">README</a> file.</p>
+<p><strong>Standard HTTP Library:</strong></p>
+<p>PHP users can use <a class="reference external" href="http://php.net/manual/ru/book.curl.php">cURL</a> library.</p>
+<p>Below are all the steps needed to install this library from a fresh Ubuntu
+installation.</p>
+<p>Run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install</span> <span class="n">libmagic</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install</span> <span class="n">php5</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Then to enable curl support:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install</span> <span class="n">libcurl3</span>
+</pre></div>
+</div>
+<p>Then if you plan to run scripts from CLI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install</span> <span class="n">php5</span><span class="o">-</span><span class="n">cli</span>
+</pre></div>
+</div>
+<p>To install cURL for php which we used for the ability to send put data:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install</span> <span class="n">php5</span><span class="o">-</span><span class="n">curl</span>
+</pre></div>
+</div>
+<p>That should be all. Quite a list, isn&#8217;t it? But firstly, we had only a fresh
+Ubuntu installation when we started and secondly, once the library is
+installed, making HTTP requests becomes no more difficult than
+in any other language.</p>
+</div>
+<div class="section" id="node-js">
+<h2>Node.js<a class="headerlink" href="#node-js" title="Permalink to this headline">¶</a></h2>
+<p>Check out the available <a class="reference external" href="https://www.npmjs.org/search?q=mailgun">node modules</a> from the community.</p>
+<p>We also have a step by step tutorial post on <a class="reference external" href="http://blog.mailgun.com/how-to-send-transactional-emails-in-a-nodejs-app-using-the-mailgun-api/">sending email with Node.js</a>.</p>
+</div>
+<div class="section" id="luvit">
+<h2>Luvit<a class="headerlink" href="#luvit" title="Permalink to this headline">¶</a></h2>
+<p>Lua and luvit users have two easy options.
+Either the &#8216;luvit-curl &lt;<a class="reference external" href="https://github.com/dvv/luvit-curl">https://github.com/dvv/luvit-curl</a>&gt;&#8217;_ library or the &#8216;luvit-request &lt;<a class="reference external" href="https://github.com/virgo-agent-toolkit/luvit-request">https://github.com/virgo-agent-toolkit/luvit-request</a>&gt;&#8217;_ library.</p>
+<p>Due to luvits asynchronous i/o nature, code samples from node.js can be easily retrofitted to work in luvit with luvit libraries.</p>
+</div>
+<div class="section" id="id2">
+<h2>cURL<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://linux.die.net/man/1/curl">curl</a> is a popular command line tool to send HTTP requests.
+It is very simple and yet quite powerful. With it you could send data using any
+HTTP method. You could send post data and query params and files in a very
+consistent and elegant way. An exellent choice to study the API.</p>
+</div>
+</div>
+
+
+            </div>
+          </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/libraries.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:51 GMT -->
+</html>

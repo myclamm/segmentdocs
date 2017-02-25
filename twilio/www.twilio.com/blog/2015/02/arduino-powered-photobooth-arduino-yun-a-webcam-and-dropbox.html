@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Build a Photobooth with an Arduino Yun, a Webcam and Dropbox &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Take a picture with a webcam and upload it to Dropbox all at the press of a button with an Arduino Yun."/>
+<link rel="canonical" href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Build a Photobooth with an Arduino Yun, a Webcam and Dropbox Comments Feed" href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Greg Baugues');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Arduino,Arduino Yun,MMS,Python,Twilio Arduino Tutorial,Twilio MMS');
+	__gaTracker('set', 'dimension8', '2015-02-12T09:59:20+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=14641' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Farduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Farduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-14641 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-14641" class="row post-14641 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-arduino tag-arduino-yun tag-mms tag-python tag-twilio-arduino-tutorial tag-twilio-mms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Build a Photobooth with an Arduino Yun, a Webcam and Dropbox</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="426" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-yun.jpg" class="img-responsive wp-post-image" alt="arduino-yun" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-yun.jpg 640w, https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-yun-300x199.jpg 300w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/greg-baugues">Greg Baugues</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" rel="bookmark"><time class="entry-date published" datetime="2015-02-12T09:59:20+00:00">February 12, 2015</time><time class="updated" datetime="2016-07-21T15:02:28+00:00">July 21, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" data-text="Build a Photobooth with an Arduino Yun, a Webcam and Dropbox ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>The Arduino Yun is an Arduino with built-in WiFi and Linux. With the Yun, not only can you do all the hardware hacking that you’d expect from an Arduino, but you can also connect it to the Internet and run programs in your favorite scripting language.</p>
+<p>In this tutorial, we’ll build a proof-of-concept for an Arduino powered photo booth to serve as the foundation for <a href="http://twilioinc.wpengine.com/2015/03/how-my-dog-sends-selfies.html" title="Teach Your Dog to Send Selfies with the Arduino Yun">teaching my dog to send me selfies</a> using <a href="https://www.twilio.com/docs/api/rest/sending-messages" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest/sending-messages', 'Twilio MMS');">Twilio MMS</a>. The goal is to:</p>
+<ul>
+<li>take a picture with a webcam plugged into the Arduino Yun</li>
+<li>upload the image to dropbox using Python</li>
+<li>trigger these actions via the press of a button</li>
+</ul>
+<p>The end result is going to look something like this:</p>
+<p><iframe width="640" height="360" src="https://www.youtube.com/embed/Z8cdf-5i02Y?rel=0&amp;showinfo=0" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
+<h2>Getting Started</h2>
+<p>This tutorial builds on our <a href="http://twilio.com/blog/2015/02/arduino-wifi-getting-started-arduino-yun.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twilio.com/blog/2015/02/arduino-wifi-getting-started-arduino-yun.html', 'Getting Started with the Arduino Yun tutorial');" title="Getting started with the Arduino Yun – the Arduino with WiFi" target="_blank">Getting Started with the Arduino Yun tutorial</a>, which covers:</p>
+<ul>
+<li>How to format your SD card for use in the Yun</li>
+<li>How to upgrade to the latest version of OpenWRT-Yun</li>
+<li>How to install the Arduino IDE</li>
+<li>How to run your first sketch on the Yun</li>
+</ul>
+<p>Assuming you’ve completed those steps, this photo booth tutorial will take you about 30 minutes. The ingredients you’ll need are:</p>
+<ul>
+<li>Arduino Yun (~$75 at <a href="https://www.sparkfun.com/products/12053" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.sparkfun.com/products/12053', 'Spark Fun');" target="_blank">Spark Fun</a> or <a href="http://www.adafruit.com/product/1498" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.adafruit.com/product/1498', 'Ada Fruit');" target="_blank">Ada Fruit</a>)</li>
+<li><a href="http://www.amazon.com/Micro-USB-to-Cable/dp/B004GETLY2" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.amazon.com/Micro-USB-to-Cable/dp/B004GETLY2', 'microUSB cable');" target="_blank">microUSB cable</a> (~$5)</li>
+<li><a href="http://www.amazon.com/Kingston-microSDHC-Memory-SDC4-8GBET/dp/B00200K1TS/ref=sr_1_6?s=electronics&amp;ie=UTF8&amp;qid=1423676229&amp;sr=1-6&amp;keywords=microSD+card" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.amazon.com/Kingston-microSDHC-Memory-SDC4-8GBET/dp/B00200K1TS/ref=sr_1_6?s=electronics&amp;ie=UTF8&amp;qid=1423676229&amp;sr=1-6&amp;keywords=microSD+card', 'microSD card');" target="_blank">microSD card</a> (~$5)</li>
+<li>webcam that runs the UVC protocol (see below)</li>
+<li><a href="http://www.adafruit.com/products/64" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.adafruit.com/products/64', 'breadboard');" target="_blank">breadboard</a> (~$5)</li>
+<li><a href="http://www.adafruit.com/products/758" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.adafruit.com/products/758', '3 jumper wires');" target="_blank">3 jumper wires</a></li>
+<li>10K Ohm resistor</li>
+<li>A <a href="http://www.adafruit.com/product/367" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.adafruit.com/product/367', 'momentary tactile push button');" target="_blank">momentary tactile push button</a></li>
+<li>A <a href="http://dropbox.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://dropbox.com/', 'free dropbox account');" target="_blank">free dropbox account</a></li>
+</ul>
+<h2>Webcam and the Arduino Yun</h2>
+<p>It’s surprisingly easy to use a webcam with an Arduino Yun. Any webcam that uses the <a href="http://en.wikipedia.org/wiki/USB_video_device_class" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://en.wikipedia.org/wiki/USB_video_device_class', 'UVC protocol');" target="_blank">UVC protocol</a> (most of them do) will work. If you don’t have a webcam lying around, check out the <a href="http://www.amazon.com/Logitech-Webcam-Widescreen-Calling-Recording/dp/B004FHO5Y6" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.amazon.com/Logitech-Webcam-Widescreen-Calling-Recording/dp/B004FHO5Y6', 'Logitech C270');" target="_blank">Logitech C270</a> ($23 on Amazon).</p>
+<p>To start:</p>
+<ul>
+<li>plug the webcam into your Arduino Yun’s USB slot</li>
+<li>insert your microSD card into the Yun</li>
+<li>SSH into your Arduino Yun</li>
+</ul>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756d9dd780819119" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ssh root@arduino.local</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756d9dd780819119-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756d9dd780819119-1"><span class="crayon-e">ssh </span><span class="crayon-i">root</span><span class="crayon-sy">@</span><span class="crayon-v">arduino</span><span class="crayon-e">.local</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>If you can’t SSH into your Yun or haven’t formatted the microSD card to work in your Yun, check out our <a href="http://twilioinc.wpengine.com/2015/02/arduino-wifi-getting-started-arduino-yun.html" title="Getting started with the Arduino Yun – the Arduino with WiFi" target="_blank">getting started with the Yun guide</a>.</p>
+<p>Once connected to your Yun, you&#8217;ll need to</p>
+<ul>
+<li>upgrade the OpenWRT package manager</li>
+<li>install drivers for the webcam</li>
+<li>install <a href="http://www.firestorm.cx/fswebcam/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.firestorm.cx/fswebcam/', 'fswebcam');" target="_blank">fswebcam</a>, “a neat and simple webcam app.”</li>
+</ul>
+<p>From the command line:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756d9f0712706481" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+opkg update
+opkg install kmod-video-uvc
+opkg install fswebcam</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756d9f0712706481-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756d9f0712706481-2">2</div><div class="crayon-num" data-line="crayon-58794d756d9f0712706481-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756d9f0712706481-1"><span class="crayon-e">opkg </span><span class="crayon-e">update</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756d9f0712706481-2"><span class="crayon-e">opkg </span><span class="crayon-e">install </span><span class="crayon-i">kmod</span><span class="crayon-o">-</span><span class="crayon-i">video</span><span class="crayon-o">-</span><span class="crayon-e">uvc</span></div><div class="crayon-line" id="crayon-58794d756d9f0712706481-3"><span class="crayon-e">opkg </span><span class="crayon-e">install </span><span class="crayon-i">fswebcam</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>Then cd into the root of your SD card:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756d9fb464528080" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+cd /mnt/sda1</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756d9fb464528080-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756d9fb464528080-1"><span class="crayon-r">cd</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-i">mnt</span><span class="crayon-o">/</span><span class="crayon-i">sda1</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>We&#8217;ll run the fswebcam utility with two parameters:</p>
+<ul>
+<li>where to save the file</li>
+<li>the resolution at which to shoot</li>
+</ul>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756da05289561289" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+fswebcam pic.jpg -r 1280x720</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756da05289561289-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756da05289561289-1"><span class="crayon-e">fswebcam </span><span class="crayon-v">pic</span><span class="crayon-e">.jpg</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">r</span><span class="crayon-h"> </span><span class="crayon-cn">1280x720</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>You’ll see a bunch of text, some of which looks like an error message. Disregard it. So long as you see 
+			<span id="crayon-58794d756da0f569953674" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">Writing </span><span class="crayon-e">JPEG </span><span class="crayon-e">image </span><span class="crayon-st">to</span><span class="crayon-h"> </span>‘<span class="crayon-v">pic</span><span class="crayon-sy">.</span><span class="crayon-i">jpg</span>’</span></span> , you’re fine.</p>
+<p><img class="alignnone size-full wp-image-14643" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/take-a-picture.gif" alt="take-a-picture" width="600" height="375" /></p>
+<p>If you want to verify that that file really is a picture, you can pop the SD card out of your Yun, plug it into your computer and view it there.</p>
+<h2>Dropbox and Arduinos</h2>
+<p>You might be saying, “But Greg, what good is a picture on the Yun if I have to pop out the SD card just to look at it?” I hear ya. Let’s get those pictures off the Yun and into the cloud.</p>
+<p>To interact with the Dropbox API, we need to create a new Dropbox app. Sign up for a Dropbox account if you haven&#8217;t already, then visit the <a href="https://www.dropbox.com/developers/apps/create" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.dropbox.com/developers/apps/create', 'create apps page on the developer console.');" target="_blank">create apps page on the developer console.</a> Then:</p>
+<ul>
+<li>Select Dropbox API app</li>
+<li>Select “Files and datastores only”</li>
+<li>Select “Yes &#8211; My app only needs access to files it creates.”</li>
+<li>Give your app a name (it has to be unique to the Dropbox world)</li>
+<li>Click Create</li>
+</ul>
+<p><img class="alignnone size-full wp-image-14645" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/dropbox1-e1423680676381.png" alt="dropbox" width="600" height="529" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/dropbox1-e1423680676381.png 600w, https://www.twilio.com/blog/wp-content/uploads/2015/02/dropbox1-e1423680676381-300x264.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p>Once you create your app, you’ll need to generate an access token</p>
+<p><img class="alignnone size-full wp-image-14646" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/dropbox-access-key-e1423680771188.png" alt="dropbox-access-key" width="600" height="410" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/dropbox-access-key-e1423680771188.png 600w, https://www.twilio.com/blog/wp-content/uploads/2015/02/dropbox-access-key-e1423680771188-300x205.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p>Keep that tab open. We’re going to need that access token in a few minutes.</p>
+<h2>Install pip on the Arduino Yun</h2>
+<p>Let&#8217;s write some code to interact with the Dropbox API. This is when the power of the Yun shines. Instead of working with APIs in the Arduino programming language, you can write programs in a scripting language with which you&#8217;re more familiar. Here we’ll do it in Python since that’s what comes preinstalled on the Yun, but you could install Ruby or Node if that’s your jam.</p>
+<p>Dropbox has an easy to use Python SDK. Before we install that though, we’ll need to install <a href="https://pypi.python.org/pypi/pip/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://pypi.python.org/pypi/pip/', 'pip');" target="_blank">pip</a>, a Python package manager.</p>
+<p>From the command line:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756da1a704988366" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+opkg install distribute 
+opkg install python-openssl 
+easy_install pip</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756da1a704988366-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756da1a704988366-2">2</div><div class="crayon-num" data-line="crayon-58794d756da1a704988366-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756da1a704988366-1"><span class="crayon-e">opkg </span><span class="crayon-e">install </span><span class="crayon-e">distribute </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756da1a704988366-2"><span class="crayon-e">opkg </span><span class="crayon-e">install </span><span class="crayon-i">python</span><span class="crayon-o">-</span><span class="crayon-e">openssl </span></div><div class="crayon-line" id="crayon-58794d756da1a704988366-3"><span class="crayon-e">easy_install </span><span class="crayon-i">pip</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>And that’s it.</p>
+<p>By default, 
+			<span id="crayon-58794d756da24080261952" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">pip</span></span></span>  would install Python packages to the Yun’s onboard memory. However, the <a href="http://arduino.cc/en/Guide/HomePage" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://arduino.cc/en/Guide/HomePage', 'Arduino Yun docs');" target="_blank">Arduino Yun docs</a> carry an ominous warning that says, “You&#8217;re discouraged from using the Yún&#8217;s built-in non-volatile memory, because it has a limited number of writes.” Let’s install the Dropbox SDK to the SD card instead.</p>
+<p>That requires three steps:</p>
+<ul>
+<li>Create a new directory on the SD card for our Python packages</li>
+<li>Tell Python to look for packages there</li>
+<li>Force 
+			<span id="crayon-58794d756da2f585167586" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">pip</span></span></span> to install the Dropbox SDK there</li>
+</ul>
+<p>Plug your SD card back into your Yun if you haven’t already. Then create a directory:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756da39643001612" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+mkdir /mnt/sda1/python-packages</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756da39643001612-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756da39643001612-1"><span class="crayon-r">mkdir</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-i">mnt</span><span class="crayon-o">/</span><span class="crayon-i">sda1</span><span class="crayon-o">/</span><span class="crayon-i">python</span><span class="crayon-o">-</span><span class="crayon-i">packages</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>Now let’s edit our 
+			<span id="crayon-58794d756da43505939847" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">etc</span><span class="crayon-o">/</span><span class="crayon-i">profile</span></span></span>  and set a 
+			<span id="crayon-58794d756da4d145708133" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">PYTHONPATH</span></span></span> environment variable so that Python knows to look here.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756da56541769181" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+vim /etc/profile</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756da56541769181-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756da56541769181-1"><span class="crayon-i">vim</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-i">etc</span><span class="crayon-o">/</span><span class="crayon-i">profile</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>You’ll see several lines that start with export. Move the cursor down below those lines, then press 
+			<span id="crayon-58794d756da60840212813" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">i</span></span></span> to enter insert mode. Then paste this:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756da6a201495879" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+export PYTHONPATH=/mnt/sda1/python-packages</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756da6a201495879-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756da6a201495879-1"><span class="crayon-e">export </span><span class="crayon-v">PYTHONPATH</span><span class="crayon-o">=</span><span class="crayon-o">/</span><span class="crayon-i">mnt</span><span class="crayon-o">/</span><span class="crayon-i">sda1</span><span class="crayon-o">/</span><span class="crayon-i">python</span><span class="crayon-o">-</span><span class="crayon-i">packages</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p>Press 
+			<span id="crayon-58794d756da73746259761" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">esc</span></span></span> to go back to command mode. Type 
+			<span id="crayon-58794d756da7d962389998" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">:</span><span class="crayon-i">wq</span></span></span>  to save the file and quit vim. Then, from the command line, reload your environment by typing:</p>
+<p>
+			<span id="crayon-58794d756da87335023906" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">source</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-i">etc</span><span class="crayon-o">/</span><span class="crayon-i">profile</span></span></span></p>
+<p>Finally, install the Dropbox SDK with a flag to install to our newly created directory:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756da91877463241" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+pip install --target /mnt/sda1/python-packages dropbox</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756da91877463241-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756da91877463241-1"><span class="crayon-e">pip </span><span class="crayon-i">install</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">target</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-i">mnt</span><span class="crayon-o">/</span><span class="crayon-i">sda1</span><span class="crayon-o">/</span><span class="crayon-i">python</span><span class="crayon-o">-</span><span class="crayon-e">packages </span><span class="crayon-i">dropbox</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p><img class="alignnone size-full wp-image-14647" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/python-path.gif" alt="python-path" width="600" height="375" /></p>
+<h2>Upload a file to Dropbox from the Arduino Yun in Python</h2>
+<p>Your Arduino Yun expects code to live in a directory on the SD card called 
+			<span id="crayon-58794d756da9a281426298" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">arduino</span></span></span>. Let’s create that directory and navigate there:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756daa4718855909" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+mkdir /mnt/sda1/arduino
+cd /mnt/sda1/arduino</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756daa4718855909-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756daa4718855909-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756daa4718855909-1"><span class="crayon-r">mkdir</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-i">mnt</span><span class="crayon-o">/</span><span class="crayon-i">sda1</span><span class="crayon-o">/</span><span class="crayon-e">arduino</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756daa4718855909-2"><span class="crayon-r">cd</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-i">mnt</span><span class="crayon-o">/</span><span class="crayon-i">sda1</span><span class="crayon-o">/</span><span class="crayon-i">arduino</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0013 seconds] -->
+<p>Now let’s create a new file and edit it in vim:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756daae255017997" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+vim upload-to-dropbox.py</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756daae255017997-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756daae255017997-1"><span class="crayon-e">vim </span><span class="crayon-i">upload</span><span class="crayon-o">-</span><span class="crayon-st">to</span><span class="crayon-o">-</span><span class="crayon-v">dropbox</span><span class="crayon-e">.py</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>Then press 
+			<span id="crayon-58794d756dab8254887103" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">i</span></span></span>  to enter insert mode.</p>
+<p>The code we’re about to copy and paste will:</p>
+<ul>
+<li>import the dropbox and datetime libraries</li>
+<li>use datetime to create a unique filename for each picture</li>
+<li>initialize a Dropbox client with our access token</li>
+<li>open the picture taken by our webcam</li>
+<li>save the file to Dropbox with our unique filename</li>
+<li>print the response from the dropbox API</li>
+</ul>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756dac2403112904" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+import dropbox
+import datetime
+
+suffix = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+filename = "photobooth-" + suffix + ".jpg"
+
+client = dropbox.client.DropboxClient('YOURACCESSTOKENGOESHERE')
+f = open('/mnt/sda1/pic.jpg', 'rb')
+response = client.put_file(filename, f)
+print "uploaded:", response</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756dac2403112904-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dac2403112904-2">2</div><div class="crayon-num" data-line="crayon-58794d756dac2403112904-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dac2403112904-4">4</div><div class="crayon-num" data-line="crayon-58794d756dac2403112904-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dac2403112904-6">6</div><div class="crayon-num" data-line="crayon-58794d756dac2403112904-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dac2403112904-8">8</div><div class="crayon-num" data-line="crayon-58794d756dac2403112904-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dac2403112904-10">10</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756dac2403112904-1"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">dropbox</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dac2403112904-2"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-k ">datetime</span></div><div class="crayon-line" id="crayon-58794d756dac2403112904-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dac2403112904-4"><span class="crayon-v">suffix</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">datetime</span><span class="crayon-sy">.</span><span class="crayon-k ">datetime</span><span class="crayon-sy">.</span><span class="crayon-e">now</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">strftime</span><span class="crayon-sy">(</span><span class="crayon-s">"%Y-%m-%d-%H-%M-%S"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d756dac2403112904-5"><span class="crayon-v">filename</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"photobooth-"</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-i">suffix</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-s">".jpg"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dac2403112904-6">&nbsp;</div><div class="crayon-line" id="crayon-58794d756dac2403112904-7"><span class="crayon-v">client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">dropbox</span><span class="crayon-sy">.</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">DropboxClient</span><span class="crayon-sy">(</span><span class="crayon-s">'YOURACCESSTOKENGOESHERE'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dac2403112904-8"><span class="crayon-v">f</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">open</span><span class="crayon-sy">(</span><span class="crayon-s">'/mnt/sda1/pic.jpg'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'rb'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d756dac2403112904-9"><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">put_file</span><span class="crayon-sy">(</span><span class="crayon-i">filename</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">f</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dac2403112904-10"><span class="crayon-k ">print</span><span class="crayon-h"> </span><span class="crayon-s">"uploaded:"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">response</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0052 seconds] -->
+<p>Make sure you replace
+			<span id="crayon-58794d756dacc885374590" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">YOURACCESSTOKENGOESHERE</span></span></span>  with the access token you generated on the Dropbox dashboard. Then hit 
+			<span id="crayon-58794d756dad6801625430" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">esc</span></span></span>  and type 
+			<span id="crayon-58794d756dadf844523478" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">:</span><span class="crayon-i">wq</span></span></span>  to save the file and quit.</p>
+<p>(If you’d like more detail on what’s happening in those last four lines, check out Dropbox’s excellent documentation on <a href="https://www.dropbox.com/developers/core/start/python" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.dropbox.com/developers/core/start/python', 'using Dropbox Core API in Python');">using Dropbox Core API in Python</a>.)</p>
+<p>Let’s see if it works. Open your <a href="https://www.dropbox.com/home/Apps" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.dropbox.com/home/Apps', 'apps folder in Dropbox');" target="_blank">apps folder in Dropbox</a> and click into the folder for your newly created app. It should be empty. Now run your Python script from the terminal:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756dae9122412212" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+python upload-to-dropbox.py</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756dae9122412212-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756dae9122412212-1"><span class="crayon-e">python </span><span class="crayon-i">upload</span><span class="crayon-o">-</span><span class="crayon-st">to</span><span class="crayon-o">-</span><span class="crayon-v">dropbox</span><span class="crayon-e">.py</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>Now check that Dropbox folder again.</p>
+<p><img class="alignnone size-full wp-image-14648" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/upload-to-dropbox.gif" alt="upload-to-dropbox" width="600" height="375" /></p>
+<h2>Upload a file with an Arduino Sketch</h2>
+<p>If all you wanted to do was take a picture with a webcam and upload it to Dropbox, you wouldn’t need an Arduino. The reason we’re doing this on the Yun is so that we can do some hardware hacking along with our software writing.</p>
+<p>To interact with the pins on the board, we are going to have to write some code in the Arduino programming language (oddly, it has no official name other than that). So let’s first write a sketch that will trigger the shell command to take a picture and the Python script to upload a picture, then we&#8217;ll deal with the button.</p>
+<p>Open the Arduino IDE and create a new sketch. At the top of the sketch, include the bridge and process libraries:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756daf4917354264" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+#include &lt;Bridge.h&gt;
+#include &lt;Process.h&gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756daf4917354264-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756daf4917354264-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756daf4917354264-1"><span class="crayon-p">#include &lt;Bridge.h&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756daf4917354264-2"><span class="crayon-p">#include &lt;Process.h&gt;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>The Arduino Yun has two processors: the &#8220;Arduino chip&#8221; which controls the pins and interfaces with the hardware and runs, and the &#8220;Linux and WiFi Chip.&#8221; These two chips communicate with one another via the 
+			<span id="crayon-58794d756dafe182200036" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">Bridge</span></span></span> library. The 
+			<span id="crayon-58794d756db08274233426" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">Process</span></span></span>  library is how we execute Linux commands from Arduino code.</p>
+<p>Your sketch comes pre-populated with 
+			<span id="crayon-58794d756db11086473158" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span>  and 
+			<span id="crayon-58794d756db1b222652736" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span>  functions. We&#8217;ll come back to those in a minute.</p>
+<p>First, let&#8217;s write the function to take a picture:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756db25831307186" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+void takePicture() {
+  Process p; // Create a new process
+  p.begin("fswebcam"); // Run the fswebcam utility, but first...
+  p.addParameter("/mnt/sda1/pic.jpg"); // add a path parameter
+  p.addParameter("-r 1280x720"); // and a resolution parameter
+  p.run(); // now run it and and wait for its termination
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756db25831307186-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db25831307186-2">2</div><div class="crayon-num" data-line="crayon-58794d756db25831307186-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db25831307186-4">4</div><div class="crayon-num" data-line="crayon-58794d756db25831307186-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db25831307186-6">6</div><div class="crayon-num" data-line="crayon-58794d756db25831307186-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756db25831307186-1"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-i">takePicture</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db25831307186-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">Process</span><span class="crayon-h"> </span><span class="crayon-i">p</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-c">// Create a new process</span></div><div class="crayon-line" id="crayon-58794d756db25831307186-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">p</span><span class="crayon-sy">.</span><span class="crayon-i">begin</span><span class="crayon-sy">(</span><span class="crayon-s">"fswebcam"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-c">// Run the fswebcam utility, but first...</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db25831307186-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">p</span><span class="crayon-sy">.</span><span class="crayon-i">addParameter</span><span class="crayon-sy">(</span><span class="crayon-s">"/mnt/sda1/pic.jpg"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-c">// add a path parameter</span></div><div class="crayon-line" id="crayon-58794d756db25831307186-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">p</span><span class="crayon-sy">.</span><span class="crayon-i">addParameter</span><span class="crayon-sy">(</span><span class="crayon-s">"-r 1280x720"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-c">// and a resolution parameter</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db25831307186-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">p</span><span class="crayon-sy">.</span><span class="crayon-i">run</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-c">// now run it and and wait for its termination</span></div><div class="crayon-line" id="crayon-58794d756db25831307186-7"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0042 seconds] -->
+<p>Then a function to upload the file from the Arduino to Dropbox:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756db2f490778174" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+void uploadPicture() {
+  Process p; 
+  p.begin("python"); 
+  p.addParameter("/mnt/sda1/arduino/upload-to-dropbox.py"); 
+  p.run(); 
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756db2f490778174-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db2f490778174-2">2</div><div class="crayon-num" data-line="crayon-58794d756db2f490778174-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db2f490778174-4">4</div><div class="crayon-num" data-line="crayon-58794d756db2f490778174-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db2f490778174-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756db2f490778174-1"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-i">uploadPicture</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db2f490778174-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">Process</span><span class="crayon-h"> </span><span class="crayon-i">p</span><span class="crayon-sy">;</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794d756db2f490778174-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">p</span><span class="crayon-sy">.</span><span class="crayon-i">begin</span><span class="crayon-sy">(</span><span class="crayon-s">"python"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db2f490778174-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">p</span><span class="crayon-sy">.</span><span class="crayon-i">addParameter</span><span class="crayon-sy">(</span><span class="crayon-s">"/mnt/sda1/arduino/upload-to-dropbox.py"</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-58794d756db2f490778174-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">p</span><span class="crayon-sy">.</span><span class="crayon-i">run</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db2f490778174-6"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0034 seconds] -->
+<p>Pretty simple, huh?</p>
+<p>Now back to our 
+			<span id="crayon-58794d756db39179537714" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span>  and 
+			<span id="crayon-58794d756db42725743149" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span> . The
+			<span id="crayon-58794d756db4c368644836" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span> runs one time after you upload the sketch to your Arduino.</p>
+<p>Our 
+			<span id="crayon-58794d756db56235536627" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span>  will simply initialize the bridge:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756db60052712377" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+void setup() {
+  Bridge.begin();
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756db60052712377-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db60052712377-2">2</div><div class="crayon-num" data-line="crayon-58794d756db60052712377-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756db60052712377-1"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-st">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db60052712377-2"> <span class="crayon-h"> </span><span class="crayon-v">Bridge</span><span class="crayon-sy">.</span><span class="crayon-i">begin</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794d756db60052712377-3"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0014 seconds] -->
+<p>Once 
+			<span id="crayon-58794d756db69444366878" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span>  is finished,  
+			<span id="crayon-58794d756db73419342252" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span> runs continuously. Ours will take a picture, upload a picture, then do it again. The  
+			<span id="crayon-58794d756db7d886180337" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span> can run thousands of times per second, but our synchronous Linux processes will slow it down considerably (if you ever need to slow it down more, you can introduce a 
+			<span id="crayon-58794d756db87021547494" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">delay</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span>).</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756db91466988598" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+void loop() {
+  takePicture();
+  uploadPicture();
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756db91466988598-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db91466988598-2">2</div><div class="crayon-num" data-line="crayon-58794d756db91466988598-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756db91466988598-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756db91466988598-1"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-st">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db91466988598-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">takePicture</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794d756db91466988598-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">uploadPicture</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756db91466988598-4"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0016 seconds] -->
+<p>That&#8217;s it. Click the upload button in the top left of the Arduino IDE to push your sketch to the Arduino. Then open your Dropbox folder, smile for the camera, and you should see something like this:</p>
+<p><img class="alignnone size-full wp-image-14649" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/lots-of-pics.gif" alt="lots-of-pics" width="600" height="375" /></p>
+<h2>Photos at the push of a button</h2>
+<p>Now that our functions work, lets trigger them with a button instead of running an infinite loop. For our circuit we’re going to need:</p>
+<ul>
+<li>Breadboard</li>
+<li>Three jumper cables</li>
+<li>10K Ohm resistor</li>
+<li>Momentary tactile pushbutton switch</li>
+</ul>
+<p>The general idea is that we have a circuit running from the 5V pin, through a button, and back into GND. When the circuit is completed &#8212; i.e. the button is pressed &#8212; we send a signal to PIN 7.</p>
+<p>This circuit is based on an example from Massimo Banzi’s excellent introductory book called <a href="http://www.amazon.com/Getting-Started-Arduino-Make-Projects/dp/B008SMKPW0" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.amazon.com/Getting-Started-Arduino-Make-Projects/dp/B008SMKPW0', 'Getting Started with Arduino');">Getting Started with Arduino</a>. Here’s what it looks like:</p>
+<p><img class="alignnone size-full wp-image-14651" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-circuit-front.jpg" alt="arduino-circuit-front" width="600" height="450" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-circuit-front.jpg 600w, https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-circuit-front-300x225.jpg 300w" sizes="(max-width: 600px) 100vw, 600px" /> <img class="alignnone size-full wp-image-14652" src="http://twilioinc.wpengine.com/wp-content/uploads/2015/02/arduino-circuit-top.jpg" alt="arduino-circuit-top" width="600" height="450" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-circuit-top.jpg 600w, https://www.twilio.com/blog/wp-content/uploads/2015/02/arduino-circuit-top-300x225.jpg 300w" sizes="(max-width: 600px) 100vw, 600px" /><img src="http://twilioinc.wpengine.com/wp-content/uploads/2015/02/arduino-circuit-close-up.jpg" alt="arduino-circuit-close-up" width="600" height="450" /></p>
+<p>Once you’ve built your circuit, we’ll update the sketch with an additional flourish &#8212; instead of having the button press take a picture immediately, we’ll have it flash the onboard LED three times to tell us to get ready, then take a picture.</p>
+<p>The first two lines of your sketch currently are
+			<span id="crayon-58794d756db9c238153023" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">includes</span></span></span> . Below those, add two constants to identify the LED and the pin telling us if the button has been pressed:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756dba6474428741" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">ASP</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const int LED = 13;
+const int BUTTON = 7;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756dba6474428741-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dba6474428741-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756dba6474428741-1"><span class="crayon-r">const</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">LED</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">13</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dba6474428741-2"><span class="crayon-r">const</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-h"> </span><span class="crayon-v">BUTTON</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">7</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0017 seconds] -->
+<p>In the 
+			<span id="crayon-58794d756dbb0577789607" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">setup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span> , add these two lines to prepare those pins for output and input, respectively:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756dbba675573876" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+pinMode(LED, OUTPUT);
+pinMode(BUTTON, INPUT);</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756dbba675573876-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbba675573876-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756dbba675573876-1"><span class="crayon-st">pinMode</span><span class="crayon-sy">(</span><span class="crayon-cn">LED</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k">OUTPUT</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbba675573876-2"><span class="crayon-st">pinMode</span><span class="crayon-sy">(</span><span class="crayon-cn">BUTTON</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k">INPUT</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p>Then create a new function at the end of your sketch to blink the LED &#8212; turn it on for half a second, then off for a tenth of a second &#8212; and do this three times:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756dbc4083724679" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+void blink() {
+  for(int i = 0; i &lt; 3; i++) {
+    digitalWrite(LED, HIGH);
+    delay(500);
+    digitalWrite(LED, LOW);
+    delay(100);
+  }
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756dbc4083724679-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbc4083724679-2">2</div><div class="crayon-num" data-line="crayon-58794d756dbc4083724679-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbc4083724679-4">4</div><div class="crayon-num" data-line="crayon-58794d756dbc4083724679-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbc4083724679-6">6</div><div class="crayon-num" data-line="crayon-58794d756dbc4083724679-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbc4083724679-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756dbc4083724679-1"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-i">blink</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbc4083724679-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-sy">(</span><span class="crayon-r">int</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-h"> </span><span class="crayon-cn">3</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-o">++</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794d756dbc4083724679-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">digitalWrite</span><span class="crayon-sy">(</span><span class="crayon-cn">LED</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k">HIGH</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbc4083724679-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">delay</span><span class="crayon-sy">(</span><span class="crayon-cn">500</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794d756dbc4083724679-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">digitalWrite</span><span class="crayon-sy">(</span><span class="crayon-cn">LED</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k">LOW</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbc4083724679-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">delay</span><span class="crayon-sy">(</span><span class="crayon-cn">100</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794d756dbc4083724679-7"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbc4083724679-8"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0049 seconds] -->
+<p>Finally, replace your 
+			<span id="crayon-58794d756dbcd020169620" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span>  with code that will read from the pin we’ve identified as
+			<span id="crayon-58794d756dbd7431463995" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">BUTTON</span></span></span> . If it&#8217;s
+			<span id="crayon-58794d756dbe1372589170" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">HIGH</span></span></span> (i.e., current is running through it) then:</p>
+<ul>
+<li>blink the LED</li>
+<li>take a picture</li>
+<li>upload that picture to Dropbox.</li>
+</ul>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d756dbeb555995798" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Arduino</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+void loop() {
+  if (digitalRead(BUTTON) == HIGH) {
+    blink();
+    takePicture();
+    uploadPicture(); 
+  }
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d756dbeb555995798-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbeb555995798-2">2</div><div class="crayon-num" data-line="crayon-58794d756dbeb555995798-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbeb555995798-4">4</div><div class="crayon-num" data-line="crayon-58794d756dbeb555995798-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d756dbeb555995798-6">6</div><div class="crayon-num" data-line="crayon-58794d756dbeb555995798-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d756dbeb555995798-1"><span class="crayon-t">void</span><span class="crayon-h"> </span><span class="crayon-st">loop</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbeb555995798-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-st">digitalRead</span><span class="crayon-sy">(</span><span class="crayon-cn">BUTTON</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-k">HIGH</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794d756dbeb555995798-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">blink</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbeb555995798-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">takePicture</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794d756dbeb555995798-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">uploadPicture</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d756dbeb555995798-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794d756dbeb555995798-7"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0033 seconds] -->
+<p>Upload this new sketch to your Arduino, press your button and watch that Dropbox fill up.</p>
+<h2>Next Steps</h2>
+<p>Full disclosure &#8212; I started working on this series of Arduino Yun tutorials because I wanted to <a href="http://twilioinc.wpengine.com/2015/03/how-my-dog-sends-selfies.html" title="Teach Your Dog to Send Selfies with the Arduino Yun">teach my dog to send selfies</a>. So far we’ve managed to set up an Arduino Yun, take pictures at the push of a button, and ship those pictures to the cloud. In our next tutorial, we’ll learn <a href="http://twilioinc.wpengine.com/2015/02/send-sms-and-mms-from-your-arduino-yun.html" title="Send SMS And MMS From Your Arduino Yun">how to send SMS and MMS from the Arduino Yun</a>.</p>
+<p>What about you? Maybe you could:</p>
+<ul>
+<li>Stream video from the webcam</li>
+<li>Trigger the camera with a motion sensor instead of a button</li>
+<li>Store data from other input devices, such as environmental sensors or a keypad</li>
+<li>Build a real-deal photo booth</li>
+</ul>
+<p>When Arduinos first came out, the possibilities seemed pretty wide open. Now that you can run scripts from your favorite programming language and connect to the Internet, the possibilities seem limitless. I’d love to hear what you’ve built with your Yun and I&#8217;d be happy to help if you run into any problems. You can leave a comment below or drop me an email at <a href="mailto:gb@twilio.com">gb@twilio.com</a>. And if you’ve enjoyed this post, you may want to <a href="http://twitter.com/greggyb" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/greggyb', 'follow me on Twitter');">follow me on Twitter</a>.</p>
+<p>Happy hacking.</p>
+<h2>Resources</h2>
+<p>These resources were incredibly helpful as I wrote this tutorial:</p>
+<ul>
+<li>Marc-Oliver Schwartz&#8217; <a href="https://learn.adafruit.com/wireless-security-camera-arduino-yun/introduction" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://learn.adafruit.com/wireless-security-camera-arduino-yun/introduction', 'Wireless Security Camera with the Arduino Yun');">Wireless Security Camera with the Arduino Yun</a></li>
+<li>The <a href="http://www.firestorm.cx/fswebcam/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.firestorm.cx/fswebcam/', 'fwebcam docs');">fwebcam docs</a></li>
+<li>Wikipedia page for <a href="http://en.wikipedia.org/wiki/USB_video_device_class" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://en.wikipedia.org/wiki/USB_video_device_class', 'USB Video Class (UVC) protocol');">USB Video Class (UVC) protocol</a></li>
+<li>Dropbox <a href="https://www.dropbox.com/developers/core" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.dropbox.com/developers/core', 'Core API docs');">Core API docs</a></li>
+<li><a href="http://www.fullstackpython.com/application-dependencies.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.fullstackpython.com/application-dependencies.html', 'Full Stack Python&#8217;s Application Dependencies');">Full Stack Python&#8217;s Application Dependencies</a></li>
+<li><a href="http://codybonney.com/installing-pip-on-the-arduino-yun/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://codybonney.com/installing-pip-on-the-arduino-yun/', 'Cody Boney');">Cody Boney</a> and <a href="http://samjbrenner.com/notes/using-pip-to-install-python-packages-on-the-arduino-yun/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://samjbrenner.com/notes/using-pip-to-install-python-packages-on-the-arduino-yun/', 'Sam Brenner&#8217;s');">Sam Brenner&#8217;s</a> posts on installing pip on the Yun.</li>
+<li>Massimo Banzi&#8217;s <a href="http://www.amazon.com/Getting-Started-Arduino-Make-Projects/dp/B008SMKPW0" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.amazon.com/Getting-Started-Arduino-Make-Projects/dp/B008SMKPW0', 'Getting Started with Arduino');">Getting Started with Arduino</a></li>
+</ul>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" data-text="Build a Photobooth with an Arduino Yun, a Webcam and Dropbox ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/2bca71b0a2535daec46b4f9507ff2a49?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2bca71b0a2535daec46b4f9507ff2a49?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/greg-baugues">Greg Baugues</a></span></span> <span class="author-meta author-email"><a href="mailto:gb@twilio.com">gb@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/greggyb">@greggyb<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Arduino</h3>        <a href="https://www.twilio.com/blog/2015/02/arduino-wifi-getting-started-arduino-yun.html" rel="bookmark" title="Permanent Link to Getting started with the Arduino Yun &#8211; the Arduino with WiFi" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/arduino-wifi-getting-started-arduino-yun.html', '');">
+          <h5>Getting started with the Arduino Yun &#8211; the Arduino with WiFi<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/taskrouter-and-the-internet-of-things.html" rel="bookmark" title="Permanent Link to TaskRouter and the Internet of Things" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/taskrouter-and-the-internet-of-things.html', '');">
+          <h5>TaskRouter and the Internet of Things<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/send-sms-and-mms-from-your-arduino-yun.html" rel="bookmark" title="Permanent Link to How to Send SMS And MMS From Your Arduino Yun" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/send-sms-and-mms-from-your-arduino-yun.html', '');">
+          <h5>How to Send SMS And MMS From Your Arduino Yun<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-3391">
+        <div id="dsq-comment-header-3391" class="dsq-comment-header">
+            <cite id="dsq-cite-3391">
+                <span id="dsq-author-user-3391">Markus</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3391" class="dsq-comment-body">
+            <div id="dsq-comment-message-3391" class="dsq-comment-message"><p>Thank you so much, helped me a lot!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-3394">
+        <div id="dsq-comment-header-3394" class="dsq-comment-header">
+            <cite id="dsq-cite-3394">
+                <span id="dsq-author-user-3394">Itisnotgolden</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3394" class="dsq-comment-body">
+            <div id="dsq-comment-message-3394" class="dsq-comment-message"><p>This is super intriguing to me. Do you think it would be possible to snap a series of 3-5 photos in succession? I want to use this in a haunted house that we do for the cub scouts. But I want it to snap a few photos in a row so we get the &#8220;best&#8221; one and the clientele may make a donation to get the photo.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-3601">
+        <div id="dsq-comment-header-3601" class="dsq-comment-header">
+            <cite id="dsq-cite-3601">
+                <span id="dsq-author-user-3601">Rachel</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3601" class="dsq-comment-body">
+            <div id="dsq-comment-message-3601" class="dsq-comment-message"><p>Could I take a camera out of a phone and use that instead of a webcam?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-3993">
+        <div id="dsq-comment-header-3993" class="dsq-comment-header">
+            <cite id="dsq-cite-3993">
+                <span id="dsq-author-user-3993">Alex Mattson</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3993" class="dsq-comment-body">
+            <div id="dsq-comment-message-3993" class="dsq-comment-message"><p>great post, but would using this (<a href="https://www.arduino.cc/en/Tutorial/ExpandingYunDiskSpace" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://www.arduino.cc/en/Tutorial/ExpandingYunDiskSpace', 'https://www.arduino.cc/en/Tutorial/ExpandingYunDiskSpace');" rel="nofollow">https://www.arduino.cc/en/Tutorial/ExpandingYunDiskSpace</a>) be easier for leveraging space on an SD card?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-4440">
+        <div id="dsq-comment-header-4440" class="dsq-comment-header">
+            <cite id="dsq-cite-4440">
+                <span id="dsq-author-user-4440">bobbyperu</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4440" class="dsq-comment-body">
+            <div id="dsq-comment-message-4440" class="dsq-comment-message"><p>Thank you very much for sharing this. I appreciated it a lot.. coudnt make sense of the dropbox API tutorial but this helped to get me starting :)</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-4443">
+        <div id="dsq-comment-header-4443" class="dsq-comment-header">
+            <cite id="dsq-cite-4443">
+                <span id="dsq-author-user-4443">bobbyperu</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4443" class="dsq-comment-body">
+            <div id="dsq-comment-message-4443" class="dsq-comment-message"><p>I do have one question, hope you can help: can you tell me how to make<br />
+it possible in your code to send multiple .jpg files ? I cannot get it<br />
+done ..</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-4500">
+        <div id="dsq-comment-header-4500" class="dsq-comment-header">
+            <cite id="dsq-cite-4500">
+                <span id="dsq-author-user-4500">Wazqar</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4500" class="dsq-comment-body">
+            <div id="dsq-comment-message-4500" class="dsq-comment-message"><p>Hello, Thanks for your post. it helped me a lot. But i have a question when write this line of code &#8220;opkg install kmod-video-uvc&#8221; in the terminal of my macbook it says &#8220;* opkg_install_cmd: Cannot install package kmod-video-uvc.&#8221; so could you help me with fixing that problem. Thanks a lot.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2015/02/14641 http://twilioinc.wpengine.com/?p=14641';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Build a Photobooth with an Arduino Yun, a Webcam and Dropbox";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html?cf_action=sync_comments&amp;post_id=14641';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2015\/02\/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+</html>

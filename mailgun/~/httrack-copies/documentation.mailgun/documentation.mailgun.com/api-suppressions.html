@@ -1,0 +1,1759 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/api-suppressions.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Suppressions &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="up" title="API Reference" href="api_reference.html" />
+    <link rel="next" title="Routes" href="api-routes.html" />
+    <link rel="prev" title="Tags" href="api-tags.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+ 
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="http://www.mailgun.com/" class="logo">Mailgun - Email Automation by Rackspace</a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="http://www.mailgun.com/pricing" class="pricing-link"><b>Pricing</b></a>
+          <a href="http://www.mailgun.com/customers" class="customers-link"><b>Customers</b></a>
+          <div class="dropdown">
+                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b>Features <svg class="icon icon-dropdown" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b>Resources <svg class="icon icon-dropdown active" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+                <a href="http://www.mailgun.com/managed" class="managed-link"><b>Managed</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b>Contact</b></a>
+          <a href="https://www.mailgun.com/sessions/new" class="login-link"><b>Log in</b></a>
+          <a href="https://www.mailgun.com/signup" class="signup-link"><b>Sign Up</b></a>
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus />
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api-routes.html" title="Routes" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="api-tags.html" title="Tags" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-events.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-stats.html">Stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-tags.html">Tags</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Suppressions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bounces">Bounces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unsubscribes">Unsubscribes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complaints">Complaints</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-routes.html">Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-webhooks.html">Webhooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-mailinglists.html">Mailing Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-email-validation.html">Email Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Email Best Practices</a></li>
+</ul>
+
+      <div class="admonition note">You can find your API Key in your <a href="https://mailgun.com/cp" target="_blank">Control Panel</a></div>
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="suppressions">
+<span id="api-suppressions"></span><h1>Suppressions<a class="headerlink" href="#suppressions" title="Permalink to this headline">¶</a></h1>
+<p>Mailgun keeps three lists of addresses it blocks the delivery to: bounces,
+unsubscribes and complaints. These lists are populated automatically as Mailgun
+detects undeliverable addresses you try to send to and as recipients unsubscribe
+from your mailings or mark your emails as a spam (for ESPs that provide FBL).
+You can also add/remove addresses from any of these lists using the API.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is the documentation for the new Suppressions API. The documentation for the previous
+version (/v2) will temporarily be available here: <a class="reference internal" href="api-bounces.html#api-bounces-old"><span class="std std-ref">bounces</span></a>,
+<a class="reference internal" href="api-unsubscribes.html#api-unsubscribes-old"><span class="std std-ref">unsubscribes</span></a>, <a class="reference internal" href="api-complaints.html#api-complaints-old"><span class="std std-ref">complaints</span></a>.</p>
+</div>
+<div class="section" id="bounces">
+<span id="api-bounces"></span><h2>Bounces<a class="headerlink" href="#bounces" title="Permalink to this headline">¶</a></h2>
+<p>Bounce list stores events of delivery failures due to permanent recipient
+mailbox errors such as non-existent mailbox. Soft bounces (for example, mailbox
+is full) and other failures (for example, ESP rejects an email because it
+thinks it is spam) are not added to the list.</p>
+<p>Subsequent delivery attempts to an address found in a bounce list are prevented
+to protect your sending reputation.</p>
+<p>Mailgun can notify your application every time a message bounces via
+a <a class="reference internal" href="user_manual.html#um-tracking-bounces"><span class="std std-ref">bounce webhook</span></a>.</p>
+<div class="section" id="view-all-bounces">
+<h3>View all bounces<a class="headerlink" href="#view-all-bounces" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /&lt;domain&gt;/bounces
+</pre></div>
+</div>
+<p>Paginate over a list of bounces for a domain.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Via this API method bounces are returned in the alphabetical order. If
+you wish to poll for the recently occurred bounces, please consider
+using the <a class="reference internal" href="api-events.html#api-events"><span class="std std-ref">Events API</span></a>.</p>
+</div>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>limit</td>
+<td>Maximum number of records to return (optional, default: 100,
+max: 10000)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
+  https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetBounces</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/bounces&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/bounces&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bounces</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bounces</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces&quot;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GetBouncesChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">GetBounces</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">GetBounces</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/bounces&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetBounces</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">[]</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Bounce</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="nx">total</span><span class="p">,</span> <span class="nx">bounces</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">GetBounces</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">total</span><span class="p">,</span> <span class="nx">bounces</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;items&quot;</span><span class="o">:</span>
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="s2">&quot;550&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;No such mailbox&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Fri, 21 Oct 2011 11:02:55 GMT&quot;</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">],</span>
+  <span class="s2">&quot;paging&quot;</span><span class="o">:</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;first&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">first</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;next&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">next</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;previous&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">previous</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;last&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">last</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-a-single-bounce">
+<h3>View a single bounce<a class="headerlink" href="#view-a-single-bounce" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /&lt;domain&gt;/bounces/&lt;address&gt;
+</pre></div>
+</div>
+<p>Fetch a single bounce event by a given email address. Useful to check if
+a given email address has bounced before.</p>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces/foo@bar.com
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetBounce</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/bounces/{address}&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;address&quot;</span><span class="o">,</span> <span class="s">&quot;foo@bar.com&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+<span class="nv">$bounce</span> <span class="o">=</span> <span class="s1">&#39;bob@example.com&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/bounces/</span><span class="si">$bounce</span><span class="s2">&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bounce</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces/foo@bar.com&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bounce</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+                 <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces&quot;</span><span class="p">\</span>
+                 <span class="s2">&quot;/foo@bar.com&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">result</span><span class="o">|</span> <span class="n">response</span> <span class="p">}</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GetBounceChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">GetBounce</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">GetBounce</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/bounces/foo@bar.com&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetBounce</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Bounce</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">GetSingleBounce</span><span class="p">(</span><span class="s">&quot;foo@bar.com&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected responses:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;foo@bar.com&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="s2">&quot;550&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;No such mailbox&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Fri, 21 Oct 2011 11:02:55 GMT&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">404</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Address not found in bounces table&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-a-single-bounce">
+<h3>Add a single bounce<a class="headerlink" href="#add-a-single-bounce" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/bounces
+</pre></div>
+</div>
+<p>Add a bounce record to the bounce list. Updates the existing record
+if the address is already there.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>address</td>
+<td>Valid email address</td>
+</tr>
+<tr class="row-odd"><td>code</td>
+<td>Error code (optional, default: 550)</td>
+</tr>
+<tr class="row-even"><td>error</td>
+<td>Error description (optional, default: empty string)</td>
+</tr>
+<tr class="row-odd"><td>created_at</td>
+<td>Timestamp of a bounce event in <a class="reference internal" href="api-intro.html#date-format"><span class="std std-ref">RFC2822 format</span></a> (optional, default: current time)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces <span class="se">\</span>
+    -F <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;bob@example.com&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">AddBounce</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;address&quot;</span><span class="o">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/bounces&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/bounces&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bob@example.com&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_bounce</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;address&#39;</span><span class="p">:</span><span class="s1">&#39;bob@example.com&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_bounce</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+                  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/bounces&quot;</span><span class="p">,</span>
+                  <span class="ss">:address</span> <span class="o">=&gt;</span> <span class="s1">&#39;bob@example.com&#39;</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">AddBounceChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">AddBounce</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">AddBounce</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/bounces&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;address&quot;</span><span class="p">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">AddBounce</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">AddBounce</span><span class="p">(</span><span class="s">&quot;bob@example.com&quot;</span><span class="p">,</span> <span class="s">&quot;550&quot;</span><span class="p">,</span> <span class="s">&quot;Undeliverable message error&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Address has been added to the bounces table&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;bob@example.com&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-multiple-bounces">
+<h3>Add multiple bounces<a class="headerlink" href="#add-multiple-bounces" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/bounces, Content-Type: application/json
+</pre></div>
+</div>
+<p>Add multiple bounce records to the bounce list in a single API call.</p>
+<p>Request body is expected to be a valid JSON encoded string containing up
+to 1000 bounce records in the following format.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="s2">&quot;550&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;Bounced&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Thu, 13 Oct 2011 18:02:00 UTC&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;bob@example.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="s2">&quot;550&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;error&quot;</span><span class="o">:</span> <span class="s2">&quot;Bounced&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;carol@example.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="s2">&quot;550&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;dan@example.com&quot;</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Fields within each individual bounce record are the same as for the &#8220;add
+a single bounce&#8221; API method, with the same defaults and optionality rules.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The current versions of our language libraries do not support
+adding multiple bounces yet.</p>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;4 addresses have been added to the bounces table&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-single-bounce">
+<h3>Delete a single bounce<a class="headerlink" href="#delete-a-single-bounce" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>DELETE /&lt;domain&gt;/bounces/&lt;address&gt;
+</pre></div>
+</div>
+<p>Clears a given bounce event. The delivery to the deleted email address resumes
+until it bounces again.</p>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Bounced address has been removed&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-an-entire-bounce-list">
+<h3>Delete an entire bounce list<a class="headerlink" href="#delete-an-entire-bounce-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>DELETE /&lt;domain&gt;/bounces
+</pre></div>
+</div>
+<p>Clears all bounced email addresses for a domain. Delivery to the deleted email addresses will no
+longer be suppressed.</p>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Bounced addresses for this domain have been removed&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="unsubscribes">
+<span id="api-unsubscribes"></span><h2>Unsubscribes<a class="headerlink" href="#unsubscribes" title="Permalink to this headline">¶</a></h2>
+<p>Unsubscribe list stores email addresses of recipients who unsubscribed from
+your mailings by clicking a Mailgun generated unsubscribe link.</p>
+<p>Mailgun allows you to quickly add &#8220;Unsubscribe me&#8221; feature to your outgoing
+emails without any programming on your end. You can enable this in your
+Control Panel under your domain settings.</p>
+<p>Mailgun can notify your application every time a user unsubscribes via
+an <a class="reference internal" href="user_manual.html#um-tracking-unsubscribes"><span class="std std-ref">unsubscribe webhook</span></a>.</p>
+<div class="section" id="view-all-unsubscribes">
+<h3>View all unsubscribes<a class="headerlink" href="#view-all-unsubscribes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /&lt;domain&gt;/unsubscribes
+</pre></div>
+</div>
+<p>Paginate over a list of unsubscribes for a domain.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Via this API method unsubscribes are returned in the alphabetical
+order. If you wish to poll for the recently occurred unsubscribes,
+please consider using the <a class="reference internal" href="api-events.html#api-events"><span class="std std-ref">Events API</span></a>.</p>
+</div>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>limit</td>
+<td>Number of records to return (optional, default: 100,
+max: 10000)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/unsubscribes
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetUnsubscribes</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/unsubscribes&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/unsubscribes&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;skip&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_unsubscribes</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/unsubscribes&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_unsubscribes</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/unsubscribes&quot;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GetUnsubscribesChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">GetUnsubscribes</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">GetUnsubscribes</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/unsubscribes&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetUnsubscribes</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">[]</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Unsubscribe</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">GetUnsubscribes</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;items&quot;</span><span class="o">:</span>
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tag&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Fri, 21 Oct 2011 11:02:55 GMT&quot;</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">],</span>
+  <span class="s2">&quot;paging&quot;</span><span class="o">:</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;first&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">first</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;next&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">next</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;previous&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">previous</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;last&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">last</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-a-single-unsubscribe">
+<h3>View a single unsubscribe<a class="headerlink" href="#view-a-single-unsubscribe" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /&lt;domain&gt;/unsubscribes/&lt;address&gt;
+</pre></div>
+</div>
+<p>Fetch a single unsubscribe record. Can be used to check if a given address
+is present in the list of unsubscribed users.</p>
+<p>Expected responses:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;tag&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Fri, 21 Oct 2011 11:02:55 GMT&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">404</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Address not found in unsubscribers table&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-a-single-unsubscribe">
+<h3>Add a single unsubscribe<a class="headerlink" href="#add-a-single-unsubscribe" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/unsubscribes
+</pre></div>
+</div>
+<p>Add an address to the unsubscribe table.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>address</td>
+<td>Valid email address</td>
+</tr>
+<tr class="row-odd"><td>tag</td>
+<td>Tag to unsubscribe from, use <code class="docutils literal"><span class="pre">*</span></code> to unsubscribe
+an address from all domain&#8217;s correspondence (optional,
+default: <code class="docutils literal"><span class="pre">*</span></code>)</td>
+</tr>
+<tr class="row-even"><td>created_at</td>
+<td>Timestamp of an unsubscribe event in <a class="reference internal" href="api-intro.html#date-format"><span class="std std-ref">RFC2822 format</span></a> (optional, default: current time)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/unsubscribes <span class="se">\</span>
+    -F <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;bob@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">tag</span><span class="o">=</span><span class="s1">&#39;*&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">AddUnsubscribeAll</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;address&quot;</span><span class="o">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;tag&quot;</span><span class="o">,</span> <span class="s">&quot;*&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/unsubscribes&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/unsubscribes&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bob@example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tag&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;*&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unsubscribe_from_all</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/unsubscribes&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;address&#39;</span><span class="p">:</span><span class="s1">&#39;bob@example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unsubscribe_from_all</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/unsubscribes&quot;</span><span class="p">,</span>
+  <span class="ss">:address</span> <span class="o">=&gt;</span> <span class="s1">&#39;bob@example.com&#39;</span><span class="p">,</span>
+  <span class="ss">:tag</span> <span class="o">=&gt;</span> <span class="s1">&#39;*&#39;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">AddUnsubscribeAllChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">UnsubscribeFromAll</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">UnsubscribeFromAll</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/unsubscribes&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;address&quot;</span><span class="p">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;tag&quot;</span><span class="p">,</span> <span class="s">&quot;*&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">CreateUnsubscription</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">Unsubscribe</span><span class="p">(</span><span class="s">&quot;bob@example.com&quot;</span><span class="p">,</span> <span class="s">&quot;*&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Address has been added to the unsubscribes table&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;bob@example.com&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-multiple-unsubscribes">
+<h3>Add multiple unsubscribes<a class="headerlink" href="#add-multiple-unsubscribes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/unsubscribes, Content-Type: application/json
+</pre></div>
+</div>
+<p>Add multiple unsubscribe records to the unsubscribe list in a single API call.</p>
+<p>Request body is expected to be a valid JSON encoded string containing up
+to 1000 unsubscribe records in the following format.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tag&quot;</span><span class="o">:</span> <span class="s2">&quot;Some tag&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Thu, 13 Oct 2011 18:02:00 UTC&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;bob@example.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tag&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;carol@example.com&quot;</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Fields within each individual unsubscribe record are the same as for the &#8220;add
+a single unsubscribe&#8221; API method, with the same defaults and optionality rules.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The current versions of our language libraries do not support
+adding multiple unsubscribes yet.</p>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;3 addresses have been added to the unsubscribes table&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-single-unsubscribe">
+<h3>Delete a single unsubscribe<a class="headerlink" href="#delete-a-single-unsubscribe" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>DELETE /&lt;domain&gt;/unsubscribes/&lt;address&gt;
+</pre></div>
+</div>
+<p>Remove an address from the unsubscribes list. If <code class="docutils literal"><span class="pre">tag</span></code> parameter is not provided,
+completely removes an address from the list.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>tag</td>
+<td>Specific tag to remove (optional)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Unsubscribe event has been removed&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="complaints">
+<span id="api-complaints"></span><h2>Complaints<a class="headerlink" href="#complaints" title="Permalink to this headline">¶</a></h2>
+<p>Complaint list stores email addresses of recipients who marked your messages
+as a spam (for ESPs that support FBL).</p>
+<p>Mailgun can notify your application every time a recipient flags your message
+as spam via a <a class="reference internal" href="user_manual.html#um-tracking-spam-complaints"><span class="std std-ref">complaint webhook</span></a>.</p>
+<div class="section" id="view-all-complaints">
+<h3>View all complaints<a class="headerlink" href="#view-all-complaints" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /&lt;domain&gt;/complaints
+</pre></div>
+</div>
+<p>Paginate over a list of complaints for a domain.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Via this API method complaints are returned in the alphabetical
+order. If you wish to poll for the recently occurred complaints,
+please consider using the <a class="reference internal" href="api-events.html#api-events"><span class="std std-ref">Events API</span></a>.</p>
+</div>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>limit</td>
+<td>Maximum number of records to return (optional, default: 100)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetComplaints</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/complaints&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/complaints&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;skip&#39;</span>  <span class="o">=&gt;</span> <span class="mi">5</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_complaints</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_complaints</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints&quot;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GetComplaintsChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">GetComplaints</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">GetComplaints</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/complaints&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetComplaints</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">[]</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Complaint</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">GetComplaints</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;items&quot;</span><span class="o">:</span>
+    <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Fri, 21 Oct 2011 11:02:55 GMT&quot;</span>
+      <span class="p">},</span>
+      <span class="p">...</span>
+    <span class="p">],</span>
+  <span class="s2">&quot;paging&quot;</span><span class="o">:</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;first&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">first</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;next&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">next</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;previous&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">previous</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="s2">&quot;last&quot;</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">last</span> <span class="nx">page</span> <span class="nx">URL</span><span class="o">&gt;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="view-a-single-complaint">
+<h3>View a single complaint<a class="headerlink" href="#view-a-single-complaint" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>GET /&lt;domain&gt;/complaints/&lt;address&gt;
+</pre></div>
+</div>
+<p>Fetch a single spam complaint by a given email address. This is useful to check
+if a particular user has complained.</p>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints/baz@example.com
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetComplaint</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/complaints/{address}&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;address&quot;</span><span class="o">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+<span class="nv">$complaint</span> <span class="o">=</span> <span class="s1">&#39;user@example.com&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/complaints/</span><span class="si">$complaint</span><span class="s2">&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_complaint</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints/baz@example.com&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_complaint</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+                 <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints/&quot;</span><span class="p">\</span>
+                 <span class="s2">&quot;baz@example.com&quot;</span><span class="p">){</span><span class="o">|</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">result</span><span class="o">|</span> <span class="n">response</span> <span class="p">}</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GetComplaintChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">GetComplaint</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">GetComplaint</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/complaints/baz@example.com&quot;</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetComplaints</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Complaint</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">GetSingleComplaint</span><span class="p">(</span><span class="s">&quot;baz@example.com&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;baz@example.com&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Fri, 21 Oct 2011 11:02:55 GMT&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">404</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;No spam complaints found for this address&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-a-single-complaint">
+<h3>Add a single complaint<a class="headerlink" href="#add-a-single-complaint" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/complaints
+</pre></div>
+</div>
+<p>Add an address to the complaints list.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>address</td>
+<td>Valid email address</td>
+</tr>
+<tr class="row-odd"><td>created_at</td>
+<td>Timestamp of a complaint event in <a class="reference internal" href="api-intro.html#date-format"><span class="std std-ref">RFC2822 format</span></a> (optional, default: current time)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints <span class="se">\</span>
+    -F <span class="nv">address</span><span class="o">=</span><span class="s1">&#39;bob@example.com&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">AddComplaint</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;address&quot;</span><span class="o">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/complaints&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
+
+<span class="c1"># Issue the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/complaints&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;address&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bob@example.com&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_complaint</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;address&#39;</span><span class="p">:</span> <span class="s1">&#39;bob@example.com&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_complaint</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/complaints&quot;</span><span class="p">,</span>
+  <span class="ss">:address</span> <span class="o">=&gt;</span> <span class="s1">&#39;bob@example.com&#39;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">AddComplaintChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">AddComplaint</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">AddComplaint</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/complaints&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;address&quot;</span><span class="p">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">CreateComplaint</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="nx">emailAddress</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">CreateComplaint</span><span class="p">(</span><span class="s">&quot;bob@example.com&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="mi">200</span>
+<span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Address has been addded to the complaints table&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;bob@example.com&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-multiple-complaints">
+<h3>Add multiple complaints<a class="headerlink" href="#add-multiple-complaints" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/complaints, Content-Type: application/json
+</pre></div>
+</div>
+<p>Add multiple complaint records to the complaint list in a single API call.</p>
+<p>Request body is expected to be a valid JSON encoded string containing up
+to 1000 complaint records in the following format.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;Thu, 13 Oct 2011 18:02:00 UTC&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;address&quot;</span><span class="o">:</span> <span class="s2">&quot;bob@example.com&quot;</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Fields within each individual complaint record are the same as for the &#8220;add
+a single unsubscribe&#8221; API method, with the same defaults and optionality rules.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The current versions of our language libraries do not support
+adding multiple complaints yet.</p>
+</div>
+<p>Expected response:</p>
+<div class="highlight-url"><div class="highlight"><pre><span></span>200
+{
+  &quot;message&quot;: &quot;2 complaint addresses have been added to the complaints table&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-single-complaint">
+<h3>Delete a single complaint<a class="headerlink" href="#delete-a-single-complaint" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre><span></span>DELETE /&lt;domain&gt;/complaints/&lt;address&gt;
+</pre></div>
+</div>
+<p>Remove a given spam complaint.</p>
+<p>Expected response:</p>
+<div class="highlight-url"><div class="highlight"><pre><span></span>200
+{
+  &quot;message&quot;: &quot;Spam complaint has been removed&quot;
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/api-suppressions.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:54 GMT -->
+</html>

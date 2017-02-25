@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Add SMS to your Web App (with 4 lines of code)</title>
+	<atom:link href="https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html/feed" rel="self" type="application/rss+xml" />
+	<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html</link>
+	<description></description>
+	<lastBuildDate>Thu, 12 Jan 2017 13:19:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.2</generator>
+	<item>
+		<title>By: Twilio</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4455</link>
+		<dc:creator><![CDATA[Twilio]]></dc:creator>
+		<pubDate>Fri, 26 Aug 2016 17:31:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4455</guid>
+		<description><![CDATA[Hey Rajat, 
+We have more info on our pricing right here https://www.twilio.com/sms/pricing
+Let us know if you have any questions! We&#039;re happy to help.]]></description>
+		<content:encoded><![CDATA[<p>Hey Rajat,<br />
+We have more info on our pricing right here <a href="https://www.twilio.com/sms/pricing" rel="nofollow">https://www.twilio.com/sms/pricing</a><br />
+Let us know if you have any questions! We&#8217;re happy to help.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Rajat sadana</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4454</link>
+		<dc:creator><![CDATA[Rajat sadana]]></dc:creator>
+		<pubDate>Fri, 26 Aug 2016 07:57:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4454</guid>
+		<description><![CDATA[What&#039;s the pricing model]]></description>
+		<content:encoded><![CDATA[<p>What&#8217;s the pricing model</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Sarika</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4342</link>
+		<dc:creator><![CDATA[Sarika]]></dc:creator>
+		<pubDate>Thu, 26 May 2016 18:55:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4342</guid>
+		<description><![CDATA[Useful information. 
+Thanks, Sarika]]></description>
+		<content:encoded><![CDATA[<p>Useful information.<br />
+Thanks, Sarika</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Asif Alvi</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4250</link>
+		<dc:creator><![CDATA[Asif Alvi]]></dc:creator>
+		<pubDate>Mon, 18 Apr 2016 12:22:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4250</guid>
+		<description><![CDATA[sir can u make codes for this ?]]></description>
+		<content:encoded><![CDATA[<p>sir can u make codes for this ?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: dprothero</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4249</link>
+		<dc:creator><![CDATA[dprothero]]></dc:creator>
+		<pubDate>Mon, 18 Apr 2016 12:16:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4249</guid>
+		<description><![CDATA[You can retrieve messages using the Messages list resource: https://www.twilio.com/docs/api/rest/message#list
+
+You can pass a From=[your number] for one request to get all the messages from a particular phone number and then make a second request with To=[your number] to get the inbound messages.
+
+The other option would be to make a single request without a filter and then filter them in your own PHP code.]]></description>
+		<content:encoded><![CDATA[<p>You can retrieve messages using the Messages list resource: <a href="https://www.twilio.com/docs/api/rest/message#list" rel="nofollow">https://www.twilio.com/docs/api/rest/message#list</a></p>
+<p>You can pass a From=[your number] for one request to get all the messages from a particular phone number and then make a second request with To=[your number] to get the inbound messages.</p>
+<p>The other option would be to make a single request without a filter and then filter them in your own PHP code.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Asif Alvi</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4243</link>
+		<dc:creator><![CDATA[Asif Alvi]]></dc:creator>
+		<pubDate>Sat, 16 Apr 2016 07:08:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4243</guid>
+		<description><![CDATA[Thanks a lot sir,
+one more thing i wanna do. I have two twilio number , if i select the one number  of them, then the messages related to that number should be appear and when i select another number then their messages should be appear. Please tell me how to do it and how can i implement in my dashboard.
+Thanks once again,]]></description>
+		<content:encoded><![CDATA[<p>Thanks a lot sir,<br />
+one more thing i wanna do. I have two twilio number , if i select the one number  of them, then the messages related to that number should be appear and when i select another number then their messages should be appear. Please tell me how to do it and how can i implement in my dashboard.<br />
+Thanks once again,</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: dprothero</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4240</link>
+		<dc:creator><![CDATA[dprothero]]></dc:creator>
+		<pubDate>Thu, 14 Apr 2016 13:19:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4240</guid>
+		<description><![CDATA[Definitely check out our PHP quick start here: bit.ly/1Xxo09Y]]></description>
+		<content:encoded><![CDATA[<p>Definitely check out our PHP quick start here: bit.ly/1Xxo09Y</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Asif Alvi</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4239</link>
+		<dc:creator><![CDATA[Asif Alvi]]></dc:creator>
+		<pubDate>Thu, 14 Apr 2016 11:21:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4239</guid>
+		<description><![CDATA[Hello Twilio
+I want to recieve message form my twilio number at my dashboard which are live and also want to send the messages from my dashboard. I made my dashboard for the purpose of receiving and sending messages from my twilio number. Please give some suggestion for that i can do these things in my dashboard. I want to use Twilio library in PHP language. 
+Thanking you]]></description>
+		<content:encoded><![CDATA[<p>Hello Twilio<br />
+I want to recieve message form my twilio number at my dashboard which are live and also want to send the messages from my dashboard. I made my dashboard for the purpose of receiving and sending messages from my twilio number. Please give some suggestion for that i can do these things in my dashboard. I want to use Twilio library in PHP language.<br />
+Thanking you</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nilima</title>
+		<link>https://twilioinc.wpengine.com/2014/04/add-sms-to-your-web-app-in-4-lines-of-code.html#comment-4225</link>
+		<dc:creator><![CDATA[Nilima]]></dc:creator>
+		<pubDate>Mon, 11 Apr 2016 07:10:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13230#comment-4225</guid>
+		<description><![CDATA[Rackons.com  is a free local classifieds website &#038; online classifieds platform where you can post free advertisements related a business, product, items and service offered in India!!!. Rackons.com,  launched in 2015, a place where people can connect with each other to buy/sell/find goods and services. We have 9 Categories &#038; Approx 150 sub-categories including Electronics, Real estate, vehicles, jobs, community, personals,Entertainment etc Rackons.com  provides many new features for sellers to grow their business fast &#038; promote their service in all over world..Rackons.com  works for both sellers as well as buyers. so Everyone can use our free as well as premium service. Sellers can sell anything, Buyers can buy anything from Rackons.com 
+New features :
+SEND PM Option : Buyers can send message privately to sellers related to their products or purchase. This is only best features for sellers &#038; buyers both where they can meet to each other &#038; discuss about products, service.
+
+Add Money to wallet : This option is only provide by Rackons.com  classified site, No Other company provide this features for sellers. Through this features, sellers can add some money in their Rackons account wallet, &#038; they can use that money to promote their business by premium ad or premium banner or many ways. And they will get Extra money also i.e. If they pay 500/- then they will get 20% extra mean 600/- will be credit in their wallet. click here to get extra money : http://rackons.com/rackonswallet-p259 
+
+Promo Code : This also best option for small &#038; medium business sellers, If they dont want to invest money to purchase premium ad then they can use promo code then they will get some amount in their wallet &#038; can use that money in premium ads Its also best &#038; free service for sellers. They can use free premium ads service without pay any fees.
+
+Live chat Support : Rackons.com  company also provide live chat support for both sellers as well as buyers, if they want any type of service &#038; they are unable to find or post any type of problems then our live chat support team will help you both. Its very easy &#038; fast service.
+
+Social Sharing : Rackons.com  also provide social sharing option for sellers, Rackons.com  will share all premium ads on all social media like facebook, twiiter, Google+, linkedin. pinterest, etc Through this sharing, buyers can see their ads &#038; can contact them through this sharing. So this is very useful for both sellers as well as buyers.
+
+Mobile recharge : This is premium service. When sellers will buy premium ad then they can get Free Mobile recharge, they can see pricing of premium ad &#038; mobile recharge system while publish an ad on site http://rakcons.com/item/new 
+
+Many More features for sellers &#038; buyers...So Rackons.com  is India&#039;s as well as all over world best classified company, No Other company will provide your thats all features.. Its Totally Free service..
+
+If you want more business with rackons.com  then you need to pay..You can also join with Rackons.com  &#038; can earn money..Note: Investors can also invest money in Rackons.com  Its very big brand company..]]></description>
+		<content:encoded><![CDATA[<p>Rackons.com  is a free local classifieds website &amp; online classifieds platform where you can post free advertisements related a business, product, items and service offered in India!!!. Rackons.com,  launched in 2015, a place where people can connect with each other to buy/sell/find goods and services. We have 9 Categories &amp; Approx 150 sub-categories including Electronics, Real estate, vehicles, jobs, community, personals,Entertainment etc Rackons.com  provides many new features for sellers to grow their business fast &amp; promote their service in all over world..Rackons.com  works for both sellers as well as buyers. so Everyone can use our free as well as premium service. Sellers can sell anything, Buyers can buy anything from Rackons.com<br />
+New features :<br />
+SEND PM Option : Buyers can send message privately to sellers related to their products or purchase. This is only best features for sellers &amp; buyers both where they can meet to each other &amp; discuss about products, service.</p>
+<p>Add Money to wallet : This option is only provide by Rackons.com  classified site, No Other company provide this features for sellers. Through this features, sellers can add some money in their Rackons account wallet, &amp; they can use that money to promote their business by premium ad or premium banner or many ways. And they will get Extra money also i.e. If they pay 500/- then they will get 20% extra mean 600/- will be credit in their wallet. click here to get extra money : <a href="http://rackons.com/rackonswallet-p259" rel="nofollow">http://rackons.com/rackonswallet-p259</a> </p>
+<p>Promo Code : This also best option for small &amp; medium business sellers, If they dont want to invest money to purchase premium ad then they can use promo code then they will get some amount in their wallet &amp; can use that money in premium ads Its also best &amp; free service for sellers. They can use free premium ads service without pay any fees.</p>
+<p>Live chat Support : Rackons.com  company also provide live chat support for both sellers as well as buyers, if they want any type of service &amp; they are unable to find or post any type of problems then our live chat support team will help you both. Its very easy &amp; fast service.</p>
+<p>Social Sharing : Rackons.com  also provide social sharing option for sellers, Rackons.com  will share all premium ads on all social media like facebook, twiiter, Google+, linkedin. pinterest, etc Through this sharing, buyers can see their ads &amp; can contact them through this sharing. So this is very useful for both sellers as well as buyers.</p>
+<p>Mobile recharge : This is premium service. When sellers will buy premium ad then they can get Free Mobile recharge, they can see pricing of premium ad &amp; mobile recharge system while publish an ad on site <a href="http://rakcons.com/item/new" rel="nofollow">http://rakcons.com/item/new</a> </p>
+<p>Many More features for sellers &amp; buyers&#8230;So Rackons.com  is India&#8217;s as well as all over world best classified company, No Other company will provide your thats all features.. Its Totally Free service..</p>
+<p>If you want more business with rackons.com  then you need to pay..You can also join with Rackons.com  &amp; can earn money..Note: Investors can also invest money in Rackons.com  Its very big brand company..</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

@@ -1,0 +1,671 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/ruby/rails by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:55 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+<meta name="description" content="With the amount of noise in social media and e-mail inboxes, it&#39;s hard to make a meaningful connection with your customers or audience. SMS text and/or MMS picture messages, however, are a personal communication channel with an open rate above 95%, which make them a great choice for social communication.
+In this tutorial, you will learn how to enable your users to opt-in for an SMS marketing campaign using their mobile phone.">
+
+    
+
+    <title>
+      SMS and MMS Marketing Notifications - Ruby / Rails Tutorial - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/ruby/rails" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    
+    
+    <meta property="og:url" content="https://www.twilio.com?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+<link rel="stylesheet" href="https://www.twilio.com/docs/static/legacy/walkthrough.css" />
+
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["enable-video-rooms", "marketplace"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      tutorials
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/tutorials" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">Tutorials</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+
+      <div class="uk-width-3-4 uk-hidden-small">
+        <div class="breadcrumbs">
+          <a href="https://www.twilio.com/docs/tutorials">Tutorials</a> &gt;
+          <span>
+            SMS and MMS Marketing Notifications (Ruby |
+            Rails)
+          </span>
+          <span class="get-the-code">
+            <a target="_blank" title="Download Source Code" data-metric="download_source" 
+               href="https://github.com/TwilioDevEd/marketing-notifications-rails/archive/master.zip">
+              <i class="fa fa-download"></i>
+            </a>
+            <a target="_blank" title="Visit at GitHub" data-metric="view_source" 
+               href="https://github.com/TwilioDevEd/marketing-notifications-rails/tree/master">
+              <i class="fa fa-github"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+        <div class="search">
+          <form action="https://www.twilio.com/docs/search" method="GET">
+            <div class="wrapper">
+              <input id="search-box" name="q" type="text" value="">
+            </div>
+            <button type="submit">
+              <i class="fa fa-fw fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+<div class="viewsaurus-container">
+	<div id="viewsaurus" data-title="SMS and MMS Marketing Notifications">
+  <div class="saurus-panes">
+    <div class="saurus-prose">
+      <div class="saurus-prose-header">
+        <div class="title-outer"><span class="step-title">SMS and MMS Marketing Notifications</span></div>
+      </div>
+      <div class="saurus-nav-buttons">
+        <div class="saurus-nav-button nav-overview">
+          <div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div>
+          <div class="nav-divider"></div>
+        </div>
+        <div class="saurus-nav-button nav-previous">
+          <div class="saurus-nav-button-inner"><a href="#"> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div>
+          <div class="nav-divider"></div>
+        </div>
+        <div class="saurus-nav-button nav-next clickable">
+          <div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div>
+        </div>
+        <div class="saurus-next-title"><span class="next-title-inner"></span></div>
+      </div>
+      <div class="saurus-progress-bar"></div>
+      <div class="saurus-start">
+        <p>SMS and MMS messages are a personal way to engage with users, offering a much higher open rate than e-mail and more impact than a tweet. Learn how to engage customers in a mobile marketing campaign using SMS and MMS messages.</p><a href="#0">Start Tutorial</a>
+      </div>
+      <div class="saurus-content">
+<div data-title="Subscribing for Notifications" class="chapter">
+  <div data-title="Introduction" class="step"><h2 id="sms-and-mms-marketing-notifications">SMS and MMS Marketing Notifications</h2>
+<p>Ready to implement SMS and MMS marketing notifications? Here&#39;s how it works at a high level:</p>
+<ol>
+<li><p>A user you&#39;d like to reach sends an SMS text message to a Twilio phone number you advertise in print, online or in TV.</p>
+</li>
+<li><p>Your application confirms that the user wants to receive SMS and MMS notifications.</p>
+</li>
+<li><p>An administrator or marketing campaign manager uses a web form to craft a message that will go out to all subscribers via SMS/MMS message.</p>
+</li>
+</ol>
+<h2 id="building-blocks">Building Blocks</h2>
+<p>To get this done, you&#39;ll be working with the following Twilio APIs:</p>
+<ul>
+<li><a href="http://www.local.twilio.com/docs/api/twiml">TwiML</a> and the <a href="https://www.twilio.com/docs/api/twiml/sms/message">&lt;Message&gt; Verb</a>: We&#39;ll use TwiML to manage interactions initiated by the user via SMS</li>
+<li><a href="https://www.twilio.com/docs/api/rest/sending-sms">Messages Resource</a>: We will use the REST API to broadcast messages out to all subscribers</li>
+</ul>
+<p>Let&#39;s get started! Click the right arrow to move on to the next step of the tutorial.</p>
+
+  </div>
+  <div data-title="Creating a Subscriber" data-file="app/models/subscriber.rb" class="step"><h2 id="creating-a-subscriber">Creating a Subscriber</h2>
+<p>We begin by generating an <a href="http://guides.rubyonrails.org/active_record_basics.html">Active Record</a> model that we will store in a postgres database. For our purposes we don&#39;t need to store very much information about the subscriber - only their phone number (so we can send them updates) and a boolean flag indicating whether or not they are opted-in to receive updates.</p>
+<p>We&#39;ll use the <a href="http://guides.rubyonrails.org/command_line.html#rails-generate">Rails generate command</a> to create our model:</p>
+<p><code>bin/rails generate model Subscriber phone_number:string subscribed:boolean</code></p>
+<p>This generator creates our model, migration and schema for us. Now all we need to run is <code>rake db:migrate</code> and we have a table of Subscribers.</p>
+<p>Now that we have a model object to save a subscriber, let&#39;s move up to the controller level to see how we create one.</p>
+
+  </div>
+  <div data-title="Handling An Incoming Message" data-file="app/controllers/notifications_controller.rb" data-highlight="" class="step"><h2 id="handling-an-incoming-message">Handling An Incoming Message</h2>
+<p>Since the <code>incoming</code> function will be called every time our application receives a message, it has a lot it needs to do. We&#39;ll look at how this function works piece by piece as the tutorial continues, but let&#39;s focus on the first message a user sends us for now.</p>
+
+  </div>
+  <div data-title="Creating a New Subscriber" data-file="app/controllers/notifications_controller.rb" data-highlight="3-16" class="step"><h2 id="creating-a-new-subscriber">Creating a New Subscriber</h2>
+<p>We begin by getting the user&#39;s phone number from the <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request">incoming Twilio request</a>. Now, we need to find a <code>Subscriber</code> model with that phone number (this should be a unique property of the <code>Subscriber</code>).</p>
+<p>If there&#39;s no subscriber with this phone number, we create one, save it, and respond with a message asking them to text &quot;add&quot; to confirm that they want to receive messages from us.</p>
+<p>We&#39;ve created a <code>Subscriber</code> model to keep track of the people that want to receive our messages, and we have learned how to save them in the database when they text us for the first time.</p>
+<p>Next, let&#39;s look at the logic we need to put in place to allow them to manage their subscription status.</p>
+
+  </div>
+</div>
+<div data-title="Managing Subscriptions" class="chapter">
+  <div data-title="User Story: Managing Subscriptions" data-file="app/controllers/notifications_controller.rb" data-highlight="" class="step"><h2 id="managing-subscriptions">Managing Subscriptions</h2>
+<p>We want to provide the user with two SMS commands to manage their subscription status: <code>add</code> and <code>remove</code>.  These commands will toggle a boolean flag for their <code>Subscriber</code> record in the database, and will determine whether or not they receive messages from our marketing campaign. Because we want to respect our users&#39; preferences, we don&#39;t opt them in automatically - rather, we have them confirm that they want to receive messages from us first.</p>
+<p>To make this happen, we will need to update the controller logic which handles the incoming text message to do a couple things:</p>
+<ul>
+<li>If the user is a person already in the database, parse the message they sent to see if it&#39;s a command we recognize</li>
+<li>If it is a <code>add</code> or <code>remove</code> command, update their subscription status in the database</li>
+<li>If it is a command we don&#39;t recognize, send them a message explaining available commands.</li>
+</ul>
+
+  </div>
+  <div data-title="Handling the Form Submission" data-file="app/controllers/notifications_controller.rb" data-highlight="28-42" class="step"><h2 id="handling-the-form-submission">Handling the Form Submission</h2>
+<p>On the server, we grab the message text and image URL from the POST body, then loop through all Subscribers and call a function on our <code>Subscriber</code> model to send the message.</p>
+<p>When the messages are on their way, we redirect back to the same web form with a <a href="http://api.rubyonrails.org/classes/ActionDispatch/Flash.html">flash</a> message containing feedback about the messaging attempt.</p>
+<p>Let&#39;s jump into the model now to see how these messages are sent out.</p>
+
+  </div>
+  <div data-title="Using the Twilio REST Client" data-file="app/models/subscriber.rb" data-highlight="3-14" class="step"><h2 id="using-the-twilio-rest-client">Using the Twilio REST Client</h2>
+<p>When the model object is loaded, it creates a <a href="http://twilio.github.io/twilio-node">Twilio REST API client</a> that it can use to send SMS and MMS messages. The client requires your Twilio account credentials (an account SID and auth token), which can be found <a href="https://www.twilio.com/user/account/voice-messaging">in the account portal</a>.</p>
+<p>Next all we need to do is call <code>messages.create</code> on the client object in order to send our message. The Twilio Message API call requires a &#39;From&#39; and &#39;To&#39; parameter, and either a &#39;Body&#39; or a &#39;MediaUrl&#39; attribute (or both).</p>
+<p>These nine lines of code are all you need to send an SMS in Rails.</p>
+
+  </div>
+  <div data-title="Where to Next?" class="step"><h2 id="where-to-next-">Where to Next?</h2>
+<p>That&#39;s it! We&#39;ve just implemented a an opt-in process and an administrative
+interface to run an SMS and MMS marketing campaign. Now all you need is
+killer content to share with your users via text or MMS.</p>
+<p>If you&#39;re a Sinatra developer working with Twilio, you might enjoy these
+other tutorials:</p>
+<p><a href="http://www.twilio.com/docs/tutorials/walkthrough/warm-transfer/ruby/sinatra"><strong>Warm Transfer</strong></a></p>
+<p>With Warm Transfers your agents will have the ability to conference
+in another agent in realtime.</p>
+<p><a href="http://www.twilio.com/docs/tutorials/walkthrough/automated-survey/ruby/sinatra"><strong>Automated Survey</strong></a></p>
+<p>Instantly collect structured data from your users with a survey conducted
+over a voice call or SMS text messages.</p>
+<h3 id="did-this-help-">Did this help?</h3>
+<p>Thanks for checking this tutorial out! If you have any feedback to share
+with us, we&#39;d love to hear it. <a href="mailto:deved-oss@twilio.com">Contact the Twilio Developer Education Team</a> to let us know what you think.</p>
+
+  </div>
+</div>
+<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="app/models/subscriber.rb" data-mode="ruby">Y2xhc3MgU3Vic2NyaWJlciA8IEFjdGl2ZVJlY29yZDo6QmFzZQoKICAjIE5vdGlmeSBvdXIgYXBwb2ludG1lbnQgYXR0ZW5kZWUgWCBtaW51dGVzIGJlZm9yZSB0aGUgYXBwb2ludG1lbnQgdGltZQogIGRlZiBzZW5kX21lc3NhZ2UobXNnLCBpbWFnZV91cmwpCiAgICBAdHdpbGlvX251bWJlciA9IEVOVlsnVFdJTElPX05VTUJFUiddCiAgICBAY2xpZW50ID0gVHdpbGlvOjpSRVNUOjpDbGllbnQubmV3IEVOVlsnVFdJTElPX0FDQ09VTlRfU0lEJ10sIEVOVlsnVFdJTElPX0FVVEhfVE9LRU4nXQogICAgbWVzc2FnZSA9IEBjbGllbnQuYWNjb3VudC5tZXNzYWdlcy5jcmVhdGUoCiAgICAgIDpmcm9tID0+IEB0d2lsaW9fbnVtYmVyLAogICAgICA6dG8gPT4gc2VsZi5waG9uZV9udW1iZXIsCiAgICAgIDpib2R5ID0+IG1zZywKICAgICAgOm1lZGlhX3VybCA9PiBpbWFnZV91cmwKICAgICkKICAgIHB1dHMgbWVzc2FnZS50bwogIGVuZAoKZW5kCg==</textarea>
+<textarea class="saurus-file" data-file="app/controllers/notifications_controller.rb" data-mode="ruby">Y2xhc3MgTm90aWZpY2F0aW9uc0NvbnRyb2xsZXIgPCBBcHBsaWNhdGlvbkNvbnRyb2xsZXIKICAjIFJlY2VpdmUgaW5jb21pbmcgU01TCiAgZGVmIGluY29taW5nCiAgICAjIEdyYWIgdGhlIHBob25lIG51bWJlciBmcm9tIGluY29taW5nIFR3aWxpbyBwYXJhbXMKICAgIHBob25lX251bWJlciA9IHBhcmFtc1s6RnJvbV0KCiAgICAjIEZpbmQgdGhlIHN1YnNjcmliZXIgYXNzb2NpYXRlZCB3aXRoIHRoaXMgbnVtYmVyIG9yIGNyZWF0ZSBhIG5ldyBvbmUKICAgIHN1YnNjcmliZXJfZXhpc3RzID0gU3Vic2NyaWJlci5leGlzdHM/KHBob25lX251bWJlcjogcGhvbmVfbnVtYmVyKQogICAgc3Vic2NyaWJlciA9IFN1YnNjcmliZXIuZmluZF9vcl9jcmVhdGVfYnkocGhvbmVfbnVtYmVyOiBwaG9uZV9udW1iZXIpCgogICAgYmVnaW4KICAgICAgaWYgc3Vic2NyaWJlcl9leGlzdHMKICAgICAgICAjIFByb2Nlc3MgdGhlIGNvbW1hbmQgZnJvbSBvdXIgc3Vic2NyaWJlcgogICAgICAgIGJvZHkgPSBwYXJhbXMuZmV0Y2goOkJvZHksICcnKS5kb3duY2FzZQogICAgICAgIG91dHB1dCA9IHByb2Nlc3NfbWVzc2FnZShib2R5LCBzdWJzY3JpYmVyKQogICAgICBlbHNlCiAgICAgICAgb3V0cHV0ID0gIlRoYW5rcyBmb3IgY29udGFjdGluZyBUV0JDISBUZXh0ICdhZGQnIGlmIHlvdSB3b3VsZCB0byByZWNlaXZlIHVwZGF0ZXMgdmlhIHRleHQgbWVzc2FnZS4iCiAgICAgIGVuZAogICAgcmVzY3VlCiAgICAgIG91dHB1dCA9ICJTb21ldGhpbmcgd2VudCB3cm9uZy4gVHJ5IGFnYWluLiIKICAgIGVuZAoKICAgICMgUmVuZGVyIHRoZSBUd2lNTCByZXNwb25zZQogICAgcmVzcG9uZChvdXRwdXQpCiAgZW5kCgogICMgQ3JlYXRlIGEgbmV3IG5vdGlmaWNhdGlvbgogIGRlZiBuZXcKICAgIG1lc3NhZ2UgPSBwYXJhbXNbOm1lc3NhZ2VdCiAgICBpbWFnZV91cmwgPSBwYXJhbXNbOmltYWdlX3VybF0KCiAgICBTdWJzY3JpYmVyLmFsbC5lYWNoIGRvIHxzfAogICAgICBiZWdpbgogICAgICAgIHMuc2VuZF9tZXNzYWdlKG1lc3NhZ2UsIGltYWdlX3VybCkKICAgICAgICBmbGFzaFs6c3VjY2Vzc10gPSAiTWVzc2FnZXMgb24gdGhlaXIgd2F5ISIKICAgICAgcmVzY3VlIAogICAgICAgIGZsYXNoWzphbGVydF0gPSAiU29tZXRoaW5nIHdoZW4gd3JvbmcuIgogICAgICBlbmQKICAgIGVuZAogICAgcmVkaXJlY3RfdG8gJy8nCiAgZW5kCgogIGRlZiBpbmRleAogIGVuZAoKICBwcml2YXRlCiAgIyBVc2UgY2FsbGJhY2tzIHRvIHNoYXJlIGNvbW1vbiBzZXR1cCBvciBjb25zdHJhaW50cyBiZXR3ZWVuIGFjdGlvbnMuCgogICMgUHJvY2VzcyBpbmNvbWluZyBTTVMKICBkZWYgcHJvY2Vzc19tZXNzYWdlKG1lc3NhZ2UsIHN1YnNjcmliZXIpCiAgICBpZiBtZXNzYWdlID09ICdhZGQnIHx8IG1lc3NhZ2UgPT0gJ3JlbW92ZScKICAgICAgIyBJZiB0aGUgdXNlciBoYXMgc3Vic2NyaWJlZCBmbGlwIHRoZSBiaXQKICAgICAgIyBhbmQgbGV0IHRoZW0ga25vdwogICAgICBzdWJzY3JpYmVkID0gbWVzc2FnZSA9PSAnYWRkJwogICAgICBzdWJzY3JpYmVyLnVwZGF0ZSBzdWJzY3JpYmVkOiBzdWJzY3JpYmVkCgogICAgICAjIFJlc3BvbmQgYXBwcm9wcmlhdGVseQogICAgICBvdXRwdXQgPSAiWW91IGFyZSBub3cgc3Vic2NyaWJlZCBmb3IgdXBkYXRlcy4iCiAgICAgIGlmICFzdWJzY3JpYmVyLnN1YnNjcmliZWQKICAgICAgICBvdXRwdXQgPSAiWW91IGhhdmUgdW5zdWJzY3JpYmVkIGZyb20gbm90aWZpY2F0aW9ucy4gVGVzdCAnYWRkJyB0byBzdGFydCByZWNlaWV2aW5nIHVwZGF0ZXMgYWdhaW4iCiAgICAgIGVuZAogICAgZWxzZQogICAgICAjIElmIHdlIGRvbid0IHJlY29nbml6ZSB0aGUgY29tbWFuZCwgdGV4dCBiYWNrIHdpdGggdGhlIGxpc3Qgb2YKICAgICAgIyBhdmFpbGFibGUgY29tbWFuZHMKICAgICAgb3V0cHV0ID0gIlNvcnJ5LCB3ZSBkb24ndCByZWNvZ25pemUgdGhhdCBjb21tYW5kLiBBdmFpbGFibGUgY29tbWFuZHMgYXJlOiAnYWRkJyBvciAncmVtb3ZlJy4iCiAgICBlbmQKICAgIHJldHVybiBvdXRwdXQKICBlbmQKCiAgIyBTZW5kIGFuIFNNUyBiYWNrIHRvIHRoZSBTdWJzY3JpYmVyCiAgZGVmIHJlc3BvbmQobWVzc2FnZSkKICAgIHJlc3BvbnNlID0gVHdpbGlvOjpUd2lNTDo6UmVzcG9uc2UubmV3IGRvIHxyfAogICAgICByLk1lc3NhZ2UgbWVzc2FnZQogICAgZW5kCiAgICByZW5kZXIgdGV4dDogcmVzcG9uc2UudGV4dAogIGVuZAplbmQK</textarea>
+</div>
+</div>
+      <div class="saurus-overview">
+        <ul></ul>
+      </div>
+    </div>
+    <div class="saurus-code">
+      <div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div>
+      <div class="saurus-editor"></div>
+    </div>
+    <div class="saurus-explorer">
+      <div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/marketing-notifications-rails" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a>
+    </div>
+  </div>
+</div>
+</div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js-lib/ace/ace.js"></script>
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js-lib/ace/theme-monokai.js"></script>
+
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js/walkthrough.min.js"></script>
+
+
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/tutorials/walkthrough/marketing-notifications/ruby/rails by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:55 GMT -->
+</html>

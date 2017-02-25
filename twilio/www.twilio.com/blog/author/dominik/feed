@@ -1,0 +1,1504 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Dominik Kundel &#8211; Twilio Cloud Communications Blog</title>
+	<atom:link href="https://twilioinc.wpengine.com/author/dominik/feed" rel="self" type="application/rss+xml" />
+	<link>https://twilioinc.wpengine.com</link>
+	<description></description>
+	<lastBuildDate>Fri, 13 Jan 2017 19:24:02 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.2</generator>
+
+<image>
+	<url>https://twilioinc.wpengine.com/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png</url>
+	<title>Dominik Kundel &#8211; Twilio Cloud Communications Blog</title>
+	<link>https://twilioinc.wpengine.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Build a Basic Call Center in Just a Few Minutes with Twilio</title>
+		<link>https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html</link>
+		<comments>https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html#comments</comments>
+		<pubDate>Wed, 04 Jan 2017 20:05:53 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[conference]]></category>
+		<category><![CDATA[Node.js]]></category>
+		<category><![CDATA[twiml]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19366</guid>
+		<description><![CDATA[<p>TwiML Bins are a great tool to quickly build basic Twilio apps such as a personal conference line. But that is nowhere near the limit of their power. In the next 10 minutes we will build a basic call center that you can use with multiple agents. Setup Before we get started, make sure you have a Twilio account (you can get one here) and that you... <a class="read-more" href="https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html">Build a Basic Call Center in Just a Few Minutes with Twilio</a></p>]]></description>
+				<content:encoded><![CDATA[<p><a href="https://www.twilio.com/blog/2016/05/introducing-native-twiml-bins-powered-by-the-twilio-cloud.html">TwiML Bins</a> are a great tool to quickly build basic Twilio apps such as <a href="https://www.twilio.com/blog/2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html">a personal conference line</a>. But that is nowhere near the limit of their power. In the next 10 minutes we will build a basic call center that you can use with multiple agents.</p>
+<h3 id="h.887prrv91w1m" class="c2 c8">Setup</h3>
+<p>Before we get started, make sure you have a Twilio account (you can <a href="https://www.twilio.com/try-twilio">get one here</a>) and that you are logged into the <a href="https://www.twilio.com/console">Console</a>.</p>
+<p>Additionally you will need <a href="https://nodejs.org">Node.js</a> installed on your computer.</p>
+<h3 id="h.fkd5tx7q5l8m" class="c2 c8">Please Hold the Line &#8211; Adding People to the Queue</h3>
+<p>TwiML Bins allow you to host instructions written in Twilio’s markup language <a href="https://www.twilio.com/docs/api/twiml">TwiML</a> directly within Twilio. They can be used for incoming and outgoing calls as well as for incoming SMS.</p>
+<p>For our call center we need two different TwiML Bins. One that enqueues people and one that picks someone from the queue and connects them.<br />
+<img class="&quot; aligncenter" style="width: 624.00px; height: 336.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/KKrQicwdXdts9MhEmCxphbwfQEznXZLE70vroYGCPFlv19QDwWHFhCNPBv0BYVnuWz5jUeq25GUTa18ufCSKTZKfs86b2-FoJ9W9yR9gYssFBygzkAAd5jES3gqeKHjt-hNHI_zY.png" alt="create-twiml-bin.gif" /></p>
+<p><a href="https://www.twilio.com/console/dev-tools/twiml-bins/create">Create a TwiML Bin</a> with the name “Join Queue” and enter the following TwiML:</p><pre class="crayon-plain-tag">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+  &lt;Say voice="alice"&gt;Welcome to our call center! Please wait until someone is ready to assist you.&lt;/Say&gt;
+  &lt;Enqueue waitUrl="http://twimlets.com/holdmusic?Bucket=com.twilio.music.guitars"&gt;callcenter&lt;/Enqueue&gt;
+&lt;/Response&gt;</pre><p>This TwiML will say a greeting and then add the caller to the <code>callcenter</code> queue using the <a href="https://www.twilio.com/docs/api/twiml/enqueue"><code>&lt;Enqueue&gt;</code></a> verb. Click “Create” to save your TwiML Bin.</p>
+<p>This TwiML Bin should be triggered whenever a call comes into your Twilio number. Go to the configuration screen of your <a href="https://www.twilio.com/console/phone-numbers/incoming">existing Twilio phone number</a> or <a href="https://www.twilio.com/console/phone-numbers/search">purchase a new one</a>. Select &#8220;TwiML&#8221; from the dropdown next to “A call comes in” and then select your new TwiML Bin. Make sure to save the changes.</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 156.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/xyz0j3c-n0B4SGZYUqhhgdE1oHZY7WCslR4DU3EMn5rdqjlgjlY2EWGbhy0jktmi6F4A-vci6rIgSyDAc9s7YUGk4yFgBR9mkp7yTcJSzYt7AxYBbhgGCTPbsTBwej4GtGGtSvsz.png" alt="configure-twimlbin.png" /></p>
+<h3 id="h.ga0uw77ya4sh" class="c2 c8">Working Off the Queue</h3>
+<p><img class="&quot; aligncenter" style="width: 500.00px; height: 281.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/cFiw8zBcKK95P1jLcv_1Ur88ofW2pZLcGLuiMy_S_bTwYUvGvnTSNSoJWaV-T3qULsrTYwo_MecGaPtOvCjIniGxQvxQa_pdIJlOJ74cxxlyGM64z1BOFtdaRA_AkkOmuZ_1GOdk.png" alt="" /></p>
+<p>Next <a href="https://www.twilio.com/console/dev-tools/twiml-bins/create">create a second TwiML Bin</a> called “Work Off Queue” and add the following lines:</p><pre class="crayon-plain-tag">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+  &lt;Say voice="alice"&gt;Be ready to be connected to the next customer&lt;/Say&gt;
+  &lt;Dial&gt;
+    &lt;Queue&gt;callcenter&lt;/Queue&gt;
+  &lt;/Dial&gt;
+&lt;/Response&gt;</pre><p>In order to work off the queue we use the <a href="https://www.twilio.com/docs/api/twiml/queue"><code>&lt;Queue&gt;</code></a> noun nested inside a <a href="https://www.twilio.com/docs/api/twiml/dial"><code>&lt;Dial&gt;</code></a> element. It will automatically grab a connection out of the specified queue and establish a connection with the other person. Save the TwiML Bin by clicking “Create” and copy the URL to your TwiML Bin Handler that you will find on the next page.<br />
+<img class="&quot; aligncenter" style="width: 624.00px; height: 180.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/ZVMRQ74d9VjVmsbSLHoQEF55z0wgZvLwRRZ4rjFBCpC_N8AtHDp9AIjUm6dOxGtkW4UO4phP9NRbxeHAuhbBn_am4-VtongMIAm51Xov9gfCm3kqMcBMOlPVuyhwXY_R4hqSbtnE.png" alt="twimlbin-url.png" /></p>
+<p>Now we will use the <a href="https://www.twilio.com/docs/api/rest/making-calls">Twilio REST API to initiate a call</a> to our own cell phone using our TwiML Bin. Rather than working with the REST API directly we are going to use the <a href="https://www.twilio.com/docs/libraries/node">Node.js helper library</a>. However, you can use any other language you might be more comfortable with.</p>
+<p>Create a new folder on your computer and install the Twilio Node.js helper library by running:</p><pre class="crayon-plain-tag">npm init -y
+npm install twilio --save</pre><p>Create a new file called <code>call-from-queue.js</code> and add the following code:</p><pre class="crayon-plain-tag">var twilio = require('twilio');
+var client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+var from = 'YOUR_TWILIO_NUMBER';
+var to = process.argv[2]; // take the passed in command-line argument
+var url = 'YOUR_TWIML_BIN_URL';
+
+if (!to) {
+  throw new TypeError('Please pass in a phone number to call to this script.')
+}
+
+client.calls.create({
+  from: from,
+  to: to,
+  url: url
+}).then(function () {
+  console.log('Your phone should be ringing');
+}).catch(function (err) {
+  console.error(err.message);
+});</pre><p>For this code to run you’ll have to store your Twilio Account SID and Twilio Auth Token as the respective environment variables <code>TWILIO_ACCOUNT_SID</code> and <code>TWILIO_AUTH_TOKEN</code>. Alternatively you can pass the two arguments directly into the <code>twilio()</code> call. Make sure to replace <code>YOUR_TWILIO_NUMBER</code> with a valid Twilio number you own. This can be the same number as number you used above. Replace <code>YOUR_TWIML_BIN_URL</code> with the URL of the second TwiML Bin.</p>
+<p>Ask a friend to call into your Twilio number to be put into the queue. Now all you need to do is execute the script with your own phone number to call your phone and work off the queue.</p><pre class="crayon-plain-tag">node call-from-queue.js +491111111111111</pre><p></p>
+<h3 id="h.jl6hq2j84lh2" class="c2 c8">What’s Next?</h3>
+<p>Awesome! You just built your first call center but you don’t have to stop here though. How about creating a new TwiML Bin and using its URL to place it into a <a href="https://www.twilio.com/docs/api/twiml/enqueue#attributes-waitUrl"><code>waitUrl</code></a> attribute for the <a href="https://www.twilio.com/docs/api/twiml/enqueue"><code>&lt;Enqueue&gt;</code></a> to give a nice customized message to the user while they are waiting or even the position they are in the queue. Or check out one of these other resources for things that you can build with TwiML Bins:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://www.twilio.com/blog/2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html">Set up your own conference line</a></li>
+<li><a href="https://www.twilio.com/blog/2016/07/how-to-set-up-a-temporary-phone-number-in-less-than-five-minutes-with-twiml-bins.html">Create a temporary “burner” phone number</a></li>
+<li><a href="https://www.twilio.com/blog/2016/11/set-up-an-sms-forwarding-number-in-5-minutes-with-twilio.html">Forward incoming SMS using TwiML Bins</a></li>
+<li>The <a href="https://www.twilio.com/docs/api/twiml">TwiML documentation</a></li>
+</ul>
+<p>The power of TwiML is huge and the applications vast. I would love to hear and see what you build with it! So feel free to drop me a line:</p>
+<ul style="padding-left: 36px;">
+<li>Email: dkundel@twilio.com</li>
+<li>Twitter: <a href="https://twitter.com/dkundel">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel">dkundel</a></li>
+</ul>
+<p><a href="https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html">Build a Basic Call Center in Just a Few Minutes with Twilio</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html/feed</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>SMS Versenden mit Node.js und Twilio</title>
+		<link>https://twilioinc.wpengine.com/2016/12/sms-versenden-mit-node-js-und-twilio.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/12/sms-versenden-mit-node-js-und-twilio.html#respond</comments>
+		<pubDate>Tue, 20 Dec 2016 12:01:53 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Developers Drawing The Owl]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19344</guid>
+		<description><![CDATA[<p>Mit nur 16 Zeilen Code (inklusive Leerzeilen) kannst du SMS mit Twilio verschicken: [crayon-58794fdfee4cf408971078/] Soweit so gut. Aber bevor du jetzt den Code direkt in dein Projekt kopierst, müssen wir noch ein paar Schritte erledigen, damit der Code auch funktioniert. Was Muss Ich Tun? Bevor du anfangen kannst, SMS mit Twilio zu versenden, musst du zuerst einen Twilio Account erstellen. Du kannst dich hier kostenlos anmelden. Da wir... <a class="read-more" href="https://twilioinc.wpengine.com/2016/12/sms-versenden-mit-node-js-und-twilio.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/12/sms-versenden-mit-node-js-und-twilio.html">SMS Versenden mit Node.js und Twilio</a></p>]]></description>
+				<content:encoded><![CDATA[<p>Mit nur 16 Zeilen Code (inklusive Leerzeilen) kannst du <a href="https://www.twilio.com/docs/api/rest/sending-messages">SMS mit Twilio verschicken</a>:</p><pre class="crayon-plain-tag">var client = require('twilio')(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);
+ 
+client.messages.create({
+  from: 'DEINE_TWILIO_NUMMER',
+  to: 'DEINE_EIGENE_NUMMER',
+  body: 'Du hast gerade deine erste SMS von Node.js mit Twilio verschickt!'
+}, function (err, message) {
+  if(err) {
+    console.error(err.message);
+  } else {
+    console.log('SMS versandt!');
+  }
+});</pre><p>Soweit so gut. Aber bevor du jetzt den Code direkt in dein Projekt kopierst, müssen wir noch ein paar Schritte erledigen, damit der Code auch funktioniert.</p>
+<h3 id="h.jftm1yvm8trf" class="c1 c4">Was Muss Ich Tun?</h3>
+<p>Bevor du anfangen kannst, <a href="https://www.twilio.com/docs/api/rest/sending-messages">SMS mit Twilio zu versenden</a>, musst du zuerst einen Twilio Account erstellen. Du kannst dich <a href="https://www.twilio.com/try-twilio">hier kostenlos anmelden</a>.</p>
+<p>Da wir die SMS mit Node.js verschicken werden, brauchen wir zusätzlich Node.js mit <a href="https://npmjs.com"><code>npm</code></a> auf unserem System. Du kannst <a href="https://nodejs.org">Node.js kostenlos hier herunterladen</a>.</p>
+<p>Als letzter Schritt brauchst du eine Twilio <a href="https://www.twilio.com/console/phone-numbers/search/buy/results?Country=DE&amp;searchType=number&amp;capability%5B%5D=sms">SMS-kompatible Telefonnummer</a>. Diese kannst du dir in der <a href="https://www.twilio.com/console/phone-numbers/search">Twilio Console</a> zuweisen.</p>
+<h3 id="h.dgsnrb3fmxjp" class="c1 c4">Zeit für Code!</h3>
+<p>Okay, jetzt wo wir alle Voraussetzungen erfüllt haben, können wir mit dem Programmieren anfangen.</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 352.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/1IqMT1hOnqX2pXSOCMRnMjjSB7xll4FdCg7jP7BInYFlEO7UeV7wnBV4D0jy74fmoFUtPJUOJlViWCWQmY9ZJw8rP2DCVH6rgsO8BAU8394Q6FUU2vuXvLpUy8bR_abxjR-_h98E-1.png" alt="ausgehende-sms.png" /></p>
+<p>Eine SMS mit Twilio zu verschicken, ist so einfach, wie einen HTTP Request an die <a href="https://www.twilio.com/docs/api/rest/sending-messages#post"><code>/Messages</code></a> Ressource der <a href="https://www.twilio.com/docs/api/rest">Twilio REST API</a> zu machen. Wir können das Ganze entweder manuell machen oder mit einer unserer <a href="https://www.twilio.com/docs/libraries">Helper Libraries</a>. In dem oben stehenden Code benutzen wir die <a href="https://www.twilio.com/docs/libraries/node">Node.js Twilio Hilfsbibliothek</a>. Installiere die Bibliothek mit <code>npm</code> in dem Ordner deines Projekts:</p><pre class="crayon-plain-tag">npm install twilio</pre><p>Als nächstes erstelle eine Datei mit dem Namen <code>sms.js</code> innerhalb deines Ordners und füge die folgenden Zeilen hinzu:</p><pre class="crayon-plain-tag">var client = require('twilio')(
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
+);</pre><p>Diese Zeilen erstellen eine neue <code>Twilio REST Client</code> Instanz. Die beiden Argumente, die wir zu der Initialisierung geben, sind die <a href="https://support.twilio.com/hc/en-us/articles/223136027-Auth-Tokens-and-how-to-change-them">Zugangsdaten für deinen Twilio Account</a>. Du kannst sie entweder direkt als Strings dort einfügen oder wie in dem obigen Code als Umgebungsvariabeln <code>TWILIO_ACCOUNT_SID</code> und <code>TWILIO_AUTH_TOKEN</code> speichern. Du findest diese Zugangsdaten in der <a href="https://www.twilio.com/console">Twilio Console</a>. Du findest mehr über das Setzen von Umgebungsvariabeln in diesem <a href="https://www.techjunkie.com/environment-variables-windows-10/">Tutorial für Windows</a> und <a href="https://codewithintent.com/how-to-setup-os-x-el-capitan-environment-variables-create-read-update-delete/">hier für macOS</a>.</p>
+<p>Jetzt wo wir eine Twilio REST Client Instanz erstellt haben, können wir die eigentliche SMS verschicken. Füge dafür diesen Code unter deinem bisherigen Code hinzu:</p><pre class="crayon-plain-tag">client.messages.create({
+  from: 'DEINE_TWILIO_NUMMER',
+  to: 'DEINE_EIGENE_NUMMER',
+  body: 'Du hast gerade deine erste SMS von Node.js mit Twilio verschickt!'
+}, function (err, message) {
+  if(err) {
+    console.error(err.message);
+  } else {
+    console.log('SMS versandt!');
+  }
+});</pre><p>Stelle dabei sicher, dass du <code>DEINE_TWILIO_NUMMER</code> mit deiner eigentlichen Twilio Telefonnummer ersetzt und <code>DEINE_EIGENE_NUMMER</code> mit der jeweiligen Telefonnummer ersetzt, an die du die SMS versenden möchtest. Während dein Account in einer Trial ist, kannst du allerdings nur an deine eigene Nummer SMS versenden.</p>
+<p>Das letzte, dass du machen musst, ist die Datei zu speichern und auszuführen. Führe dazu die folgende Zeile in deinem Projekt aus:</p><pre class="crayon-plain-tag">node sms.js</pre><p>Das war&#8217;s! Je nach Netzempfang solltest du dann auch unmittelbar die SMS auf deinem Handy empfangen.</p>
+<h3 id="h.bukeukcuyh6o" class="c1 c4">Und Nu&#8217;?</h3>
+<p>SMS zu verschicken, ist nur eine von vielen Dingen, die du mit Twilio erledigen kannst, um Kommunikation direkt in deine Apps einzubauen. Hier sind ein paar Beispiele (auf Englisch), was du alles mit Twilio machen kannst:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://www.twilio.com/docs/guides/sms/how-to-receive-and-reply-in-node-js">SMS Emfangen und Beantworten in Node.js</a></li>
+<li><a href="https://www.twilio.com/docs/guides/voice/how-to-make-outbound-phone-calls-in-python">Telefonanrufe Starten mit Python</a></li>
+</ul>
+<p>Baust du etwas Cooles, über das du dich gerne unterhalten willst oder hast du irgendwelche Fragen zu Twilio? Du kannst mir gerne jederzeit eine E-Mail an <a href="https://twitter.com/dkundel">@dkundel</a>) schicken oder mir bei Twitter schreiben: <a href="https://twitter.com/dkundel">@dkundel</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2016/12/sms-versenden-mit-node-js-und-twilio.html">SMS Versenden mit Node.js und Twilio</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/12/sms-versenden-mit-node-js-und-twilio.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Set Up an SMS Forwarding Number in 5 Minutes with Twilio</title>
+		<link>https://twilioinc.wpengine.com/2016/11/set-up-an-sms-forwarding-number-in-5-minutes-with-twilio.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/11/set-up-an-sms-forwarding-number-in-5-minutes-with-twilio.html#respond</comments>
+		<pubDate>Tue, 29 Nov 2016 19:21:01 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Developers Drawing The Owl]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19195</guid>
+		<description><![CDATA[<p>There is a variety of scenarios where you want to forward SMS from a Twilio number to your cell phone. It could be when you don’t want to give your real number in an online sale or to avoid losing access to your 2FA protected account if you lose your phone. With TwiML Bin and its new templating functionality you can build an app in less than 5... <a class="read-more" href="https://twilioinc.wpengine.com/2016/11/set-up-an-sms-forwarding-number-in-5-minutes-with-twilio.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/11/set-up-an-sms-forwarding-number-in-5-minutes-with-twilio.html">Set Up an SMS Forwarding Number in 5 Minutes with Twilio</a></p>]]></description>
+				<content:encoded><![CDATA[<p>There is a variety of scenarios where you want to forward SMS from a Twilio number to your cell phone. It could be when you don’t want to give your real number in an online sale or to avoid losing access to your 2FA protected account if you lose your phone. With <a href="https://www.twilio.com/blog/2016/10/introducing-templates-for-twiml-bins.html">TwiML Bin</a> and its new <a href="https://www.twilio.com/blog/2016/10/introducing-templates-for-twiml-bins.html">templating functionality</a> you can build an app in less than 5 minutes that will forward all incoming messages to any SMS-capable phone.</p>
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/GZwGloqFSek" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>
+<p>Before we get started, make sure you have a Twilio account (you can <a href="https://www.twilio.com/try-twilio">get one here</a>) and that you are logged into the <a href="https://www.twilio.com/console">Console</a>.</p>
+<h2 id="h.oj0owba7jmat" class="c2 c9">Writing the TwiML Code</h2>
+<p>Create a new TwiML Bin in your <a href="https://www.twilio.com/console/dev-tools/twiml-bins">developer console</a>.</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 336.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/11/w942tZ4hy_Rx_Qa2h03DtgNTojZin65ZXNtKRbqXnFQx8vyCp23cFr2Bzj03c93lsmoIP-CtpaWdFyQ1G42k2Rr7W9rO9nUIKrWBmGbT5TXXjZpLrm3XaLAfE77fGtQhmHnNU5td.png" alt="create-twiml-bin.gif" /> <img class="&quot; aligncenter" style="width: 624.00px; height: 305.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/11/vu5vzax9RT5h1nZQLc-tLcmWBJHRpMSP3Os1UAZjzx7BbQ1ZWEW0yvFpK8fJeu2VkReAyd6bixrW9af1Ez3J-7mGD4EEi7VTs5ui9BTzfYJ9vTyIgSVJVb8Jr-_1orpGZAx0JKTx.png" alt="twiml-basics.png" /></p>
+<p>Give your TwiML bin a name like “SMS Forwarder” and paste the following code into it:</p><pre class="crayon-plain-tag">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+  &lt;Message to="+49111111111111"&gt;
+    {{From}}: {{Body}}
+  &lt;/Message&gt;
+&lt;/Response&gt;</pre><p>Replace the <code>+49111111111111</code> with your own phone number <a href="https://support.twilio.com/hc/en-us/articles/223183008-Formatting-International-Phone-Numbers">including your country code in the E.164 format</a> that you want to send the SMS to. Afterwards click “Create” to save your new TwiML Bin.</p>
+<h2 id="h.8qx21gpn559y" class="c2 c9">Configuring a Phone Number</h2>
+<p>Buy a <a href="https://www.twilio.com/console/phone-numbers/search">new Twilio phone number</a> or <a href="https://www.twilio.com/console/phone-numbers/incoming">configure an existing one</a> to point to your TwiML Bin for incoming SMS.<br />
+<img class="alignnone size-large wp-image-19197" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/11/twiml-configuration-1024x252.png" alt="twiml-configuration" width="640" height="158" srcset="https://twilioinc.wpengine.com/wp-content/uploads/2016/11/twiml-configuration-1024x252.png 1024w, https://twilioinc.wpengine.com/wp-content/uploads/2016/11/twiml-configuration-300x74.png 300w, https://twilioinc.wpengine.com/wp-content/uploads/2016/11/twiml-configuration-768x189.png 768w, https://twilioinc.wpengine.com/wp-content/uploads/2016/11/twiml-configuration-200x49.png 200w" sizes="(max-width: 640px) 100vw, 640px" /></p>
+<p>Now when an SMS comes in, the TwiML Bin will be triggered and the <code>{{From}}</code> will be replaced with the sender’s phone number and the <code>{{Body}}</code> with the content of the SMS. The returned TwiML instructs Twilio to send a new SMS to your cell phone with the body of the received SMS and the sender’s phone number.</p>
+<p>Give it a spin and ask a friend to send you an SMS to your Twilio number and you should now receive SMS sent to that Twilio number on your own cell phone. And all in just 6 lines of XML.</p>
+<h2 id="h.ia2f91phbeb2" class="c2 c9">Just the Beginning</h2>
+<p>The power of TwiML is huge and the applications vast. If you want to learn more about TwiML you should check out:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://www.twilio.com/blog/2016/07/how-to-set-up-a-temporary-phone-number-in-less-than-five-minutes-with-twiml-bins.html">Set up a temporary “burner” phone number with TwiML Bins</a></li>
+<li><a href="https://www.twilio.com/blog/2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html">How to set up a conference line</a></li>
+<li><a href="https://www.twilio.com/blog/2016/10/introducing-templates-for-twiml-bins.html">Introduction to TwiML Bin template</a></li>
+<li>The <a href="https://www.twilio.com/docs/api/twiml">TwiML documentation</a></li>
+</ul>
+<p>I would love to hear and see what you built with it! So feel free to drop me a line:</p>
+<ul style="padding-left: 36px;">
+<li>Email: <a href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></li>
+<li>Twitter: <a href="https://twitter.com/dkundel">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel">dkundel</a></li>
+</ul>
+<p><a href="https://twilioinc.wpengine.com/2016/11/set-up-an-sms-forwarding-number-in-5-minutes-with-twilio.html">Set Up an SMS Forwarding Number in 5 Minutes with Twilio</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/11/set-up-an-sms-forwarding-number-in-5-minutes-with-twilio.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>A quick guide to JavaScript Promises</title>
+		<link>https://twilioinc.wpengine.com/2016/10/guide-to-javascript-promises.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/10/guide-to-javascript-promises.html#comments</comments>
+		<pubDate>Mon, 03 Oct 2016 18:00:57 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[js]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18926</guid>
+		<description><![CDATA[<p>When you are writing JavaScript, callbacks are one of the most confusing concepts. Promises are the new approach to improve working with async code. One of the biggest problems of callbacks is the chaining of different asynchronous activities. You end up calling anonymous function after function to pass around values. The result is an unmaintainable “callback hell”. Promises try to solve this problem but can be a bit confusing... <a class="read-more" href="https://twilioinc.wpengine.com/2016/10/guide-to-javascript-promises.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/10/guide-to-javascript-promises.html">A quick guide to JavaScript Promises</a></p>]]></description>
+				<content:encoded><![CDATA[<p><img class="&quot; alignright" style="width: 319.33px; height: 232.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/31orCejQRkSvmchYeZC2GKswNtst-d_xEoSPoP3X-bAm9RRe8hxz59vVZrrRm78VvJgVbuUo5R7dAikR2gY1rxtqQ14yMJP8K4CS3Siiir_wRpB6IYgoWGlpokE51vV4eYAI2lpP-1.png" alt="icompile.eladkarako.com_callback_hell.gif" /></p>
+<p>When you are writing JavaScript, <a href="https://developer.mozilla.org/en-US/docs/Mozilla/js-ctypes/Using_js-ctypes/Declaring_and_Using_Callbacks#Using_Callbacks">callbacks</a> are one of the most confusing concepts. <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a> are the new approach to improve working with async code.</p>
+<p>One of the biggest problems of callbacks is the chaining of different asynchronous activities. You end up calling anonymous function after function to pass around values. The result is an unmaintainable “callback hell”. Promises try to solve this problem but can be a bit confusing in the beginning.</p>
+<p>Let’s define what Promises are, why they are incredibly useful and how to do things like executing calls in parallel or in series. For this we will look at different examples of doing HTTP requests using two different Node.js libraries.</p>
+<h3 id="h.mxzlthhm8c5t" class="c2 c8">Setup</h3>
+<p>Before we get started you need the following things to try our code examples:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://nodejs.org/en/">Node.js</a> version 6.0 or higher. You can check your version by running <code>node -v</code> in your command line. You can upgrade by downloading the latest binary from <a href="https://nodejs.org/en/download/">their website</a> or by using a tool like <a href="https://github.com/creationix/nvm">nvm</a>.</li>
+</ul>
+<p>Once you have this, you need to create a new folder. I’ll create a <code>promises</code> folder in my home directory. Install the <a href="https://www.npmjs.com/package/node-fetch"><code>fetch</code></a> and <a href="https://www.npmjs.com/package/request"><code>request</code></a> libraries by running the following command in that folder:</p><pre class="crayon-plain-tag">npm install node-fetch request --save</pre><p>Create a new file called <code>promises.js</code> and place the following lines in there to load the library:</p><pre class="crayon-plain-tag">'use strict';
+
+const fetch = require('node-fetch');
+const request = require('request');</pre><p>We will be working out of the same <code>promise.js</code> file throughout the whole post.</p>
+<h3 id="h.jj1oi5rjnfgm" class="c2 c8">Quick Promise Overview</h3>
+<p>To understand the benefits of Promises let’s first look at how to do an asynchronous call without promises. For this we will do an HTTP GET request using the <code>request</code> library.</p>
+<p>Add the following lines to <code>promises.js</code>:</p><pre class="crayon-plain-tag">request.get('http://httpbin.org/get', (error, response, body) =&gt; {
+  if (error) {
+    console.error('Oh shoot. Something went wrong:');
+    console.error(error.message);
+    return;
+  }
+
+  console.log('Request done. Response status code: %d', response.statusCode);
+});</pre><p>Now run this code by executing the following command:</p><pre class="crayon-plain-tag">node promises.js</pre><p>As you can see, we pass in the callback function as a second argument to <code>request.get</code> call. The library will automatically execute this function when the response for the HTTP request comes in. It will pass three arguments. The first argument is the potential error or <code>null</code> if it was successful. The second argument is the HTTP response and the third argument is the response body.</p>
+<p>If we use <code>fetch</code> instead of the <code>request.get</code> we can leverage Promises as fetch will return a <code>Promise</code> instead of accepting a callback as a second argument. A <code>Promise</code> is an object that has two important methods: <code>then()</code> and <code>catch()</code>. <code>then()</code> can receive 1 or 2 arguments and <code>catch()</code> can be used to handle errors.</p>
+<p>For <code>then()</code>, the first function argument is called if the result of the call was successful. The second function will be called if there was an error resolving the Promise. We’ll look into the difference between that error handler and <code>catch()</code> later.</p>
+<p>Replace the previous code with the following to start using Promises:</p><pre class="crayon-plain-tag">fetch('http://httpbin.org/get')
+.then(response =&gt; {
+  console.log('Request using Promises done. Response status code: %d', response.status);
+})
+.catch(error =&gt; {
+  console.error('Oh shoot. Something went wrong with the promise code:');
+  console.error(error.message);
+});</pre><p>Re-run the code by executing again <code>node promises.js</code>.</p>
+<p>So far there is no big difference from the callback code aside from it being a bit cleaner. The real magic comes when we want to do some data manipulation or make multiple calls. For this the general rule is that if the handler function that we pass to <code>then</code> or <code>catch</code> returns a value or another Promise, the Promise-chain will continue.</p>
+<p>As an example add a function that extracts the status code and returns it:</p><pre class="crayon-plain-tag">function extractStatusCode(response) {
+  return response.status;
+}
+
+fetch('http://httpbin.org/get')
+.then(extractStatusCode)
+.then(statusCode =&gt; {
+  console.log('Request using Promises, part II. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('Oh shoot. Something went wrong with the promise code:');
+  console.error(error.message);
+});</pre><p>Run the code again. The output in the console should be the same but our code is more structured.</p>
+<p>This code will first perform the HTTP request, then call the <code>extractStatusCode</code> function and once that function returned it will execute our anonymous function that will log the response status code.</p>
+<h3 id="h.c47ayhvnyay3" class="c2 c8">Catching Errors</h3>
+<p><img class="&quot; alignright" style="width: 327.40px; height: 238.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/YS8PLVpcyhjaXzBZwzJ93O93W5blxqXQg-qqTIFEBXG0EG-OLRlgERwItSphhZ9imcpJQ35f0I7-s2FAZcQUHktJjU3-iMOTYuK2eFTQcctukZoxW9TzIvNAtrTNnR5YVtd7S5tX-4.png" alt="13ywPzPJdfhmBG.gif" /></p>
+<p>Now that we are using Promises we might hit an issue. All of our code will fail silently if we don’t catch errors properly.</p>
+<p>Imagine using Promises like wrapping your whole code into a <code>try {}</code> block. Your code will just silently fail unless you catch them explicitly. Catching errors is hugely important and not just ‘common courtesy’.</p>
+<p>In order to properly catch errors we have two options. The first way is to pass a second function into our <code>then()</code> call.</p>
+<p>Make the following changes to your code to test this:</p><pre class="crayon-plain-tag">function extractStatusCode(response) {
+  return response.status;
+}
+
+fetch('invalid URL')
+.then(extractStatusCode, errorInFetch =&gt; {
+  console.error('An error occurred in the fetch call.');
+  console.error(errorInFetch.message);
+  // return null as response code since no request has been performed
+  return null;
+})
+.then(statusCode =&gt; {
+  console.log('Request using Promises. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('This will never be executed');
+});</pre><p>When you run this code you’ll see that it will hit the error handler we added and print the respective messages to the screen:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 129.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/MDMEk6tcP9UztGgMMeYhTJVy9vSDPNxF-TE5gkr5HHGeoFimdsz1v985Uu0kAVwqQvzdRE25IXavzCaSJKhJqi5iDV0OX0I6kipDWE8vvOMlwbnbMC_0f2sGdTIGTWN42qRWG4ek-4.png" alt="Screen Shot 2016-09-29 at 3.13.27 PM.png" /></p>
+<p>However it is not executing the <code>catch</code> handler because we are returning a value of <code>null</code> in the handler. From that point on the Promise chain is considered to be on the happy path again since the error has been handled.</p>
+<p>We can make sure that it continues treating this as an error by <code>throw</code>ing the error or returning by returning a new Promise using <code>Promise.reject(error)</code>:</p><pre class="crayon-plain-tag">function extractStatusCode(response) {
+  return response.status;
+}
+
+fetch('invalid URL')
+.then(extractStatusCode, errorInFetch =&gt; {
+  console.error('An error occurred in the fetch call.');
+  console.error(errorInFetch.message);
+  // forward the error
+  return Promise.reject(errorInFetch);
+})
+.then(statusCode =&gt; {
+  console.log('Request using Promises. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('This will now be executed as another exception handler.');
+});</pre><p>Now that we know how to handle an error with <code>then()</code> what’s the difference between this and <code>catch()</code>?</p>
+<p>To understand this let’s fix our <code>fetch</code> snippet again to use a valid url and instead break the <code>extractStatusCode</code> function by overriding <code>response</code> with <code>undefined</code> before accessing the <code>status</code> property:</p><pre class="crayon-plain-tag">function extractStatusCode(response) {
+  response = undefined;
+  return response.status;
+}
+
+fetch('http://httpbin.org/get')
+.then(extractStatusCode, errorInFetch =&gt; {
+  console.error('This will not be executed.');
+  console.error(errorInFetch.message);
+  // forward the error
+  return Promise.reject(errorInFetch);
+})
+.then(statusCode =&gt; {
+  console.log('Request using Promises. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('There was an error somewhere in the chain.');
+  console.error(error.message);
+});</pre><p><img class="&quot; aligncenter" style="width: 624.00px; height: 121.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/6i33oKjzuVOypuMfZrOrLoDwwpQZNnqg1Bj6A96ggBi1f1jykx51RNVvHUoZity2m8ssF7dTdA0GHF8lkZVXnfJUiK0BPOnLwTT3ywctJhZpkJ_-BrYyOnDbUi_KJjy1OE4A8xOT-4.png" alt="Screen Shot 2016-09-29 at 3.17.10 PM.png" /></p>
+<p>The error handler in the <code>then()</code> part isn’t executed because this handler is only for the previous Promise and not the handler. However our <code>catch()</code> handler will be executed since it catches any errors that happen in the chain.</p>
+<h3 id="h.oionnge8vivt" class="c2 c8">Executing in Parallel</h3>
+<p><img class="&quot; alignright" style="width: 292.50px; height: 219.38px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/gkYYQjOd3_hIFskG7pg6MBnP8uvvZFAL2j7xUHL-nPB7OvM835olCSo0594rCSnmvMl63Zyms_vZqHz1aKzPmY4wN6FpnQEhVYy-jWUw68YuPPrz6ieaW4VPxAXdYGWza_TdZBsc-4.png" alt="obAMTQ7SeWqPK.gif" /></p>
+<p>This is where the magic of Promises comes in. Consider the case in which we want to send multiple HTTP requests or do multiple asynchronous calls and want to know when they’re done.</p>
+<p>The endpoints we want to request are held in an array. Using callbacks this can be quite a mess. To accomplish it we have to use counters in the callbacks to check if we are done and other similar hacks.</p>
+<p>With Promises we can simply <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">map</a> over the array of messages, return the Promise in the map function and pass the resulting array into the built-in function <code>Promise.all()</code>. This will return a new Promise that resolves as soon as all calls succeed, or rejects once one of them fails.</p><pre class="crayon-plain-tag">const queryParameters = ['ahoy', 'hello', 'hallo'];
+
+const fetchPromises = queryParameters.map(queryParam =&gt; {
+  return fetch(`http://httpbin.org/get?${queryParam}`)
+    .then(response =&gt; {
+      // parse response body as JSON
+      return response.json()
+    })
+    .then(response =&gt; {
+      // extract the URL property from the response object
+      let url = response.url;
+      console.log('Response from: %s', url);
+      return url;
+    });
+});
+
+Promise.all(fetchPromises).then(allUrls =&gt; {
+  console.log('The return values of all requests are passed as an array:');
+  console.log(allUrls);
+}).catch(error =&gt; {
+  console.error('A call failed:');
+  console.error(error.message);
+});</pre><p>If you run this code you should multiple requests being made. However there is no guarantee in which order the calls are run and finished as they are executed in parallel.</p>
+<h3 id="h.f5i3smjodbfy" class="c2 c8">Executing in Series</h3>
+<p><img class="&quot; alignright" style="width: 300.00px; height: 225.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/5vTdWZEcbtgpgO-Wg4a7P_BPjeCG0DWjeK4uMsPlUvYgoAx0fASq-NJHwN9n_hjtkzly4zc2D0d3h-Az7PwrN1CiQm0DUCsII2j38mXtewOoYCKMaWGnNjsOPpIIGaiPWbhd4QRR-1.png" alt="26AHRsTEXSMgl3rXi.gif" /></p>
+<p>While executing in parallel is cool and performant we sometimes have to make several calls in series due to restrictions or dependencies. We can also use Promises for this.</p>
+<p>Chaining Promises when you know all necessary calls is super easy to do. However, it’s more complicated if we dynamically generate the asynchronous functions we need to execute.</p>
+<p>There is a way we can get this done:</p><pre class="crayon-plain-tag">const queryParameters = ['ahoy', 'hello', 'hallo'];
+
+let mostRecentPromise = Promise.resolve([]); // start with an immediately resolving promise and an empty list
+queryParameters.forEach(queryParam =&gt; {
+  // chain the promise to the previous one
+  mostRecentPromise = mostRecentPromise.then(requestedUrlsSoFar =&gt; {
+    return fetch(`http://httpbin.org/get?${queryParam}`)
+      .then(response =&gt; {
+        // parse response body as JSON
+        return response.json()
+      })
+      .then(response =&gt; {
+        // extract the URL property from the response object
+        let url = response.url;
+        console.log('Response from: %s', url);
+        requestedUrlsSoFar.push(url);
+        return requestedUrlsSoFar;
+      });
+  });
+});
+
+mostRecentPromise.then(allUrls =&gt; {
+  console.log('The return values of all requests are passed as an array:');
+  console.log(allUrls);
+}).catch(error =&gt; {
+  console.error('A call failed:');
+  console.error(error.message);
+});</pre><p>The concept here is to chain the calls and execute the next one once the previous one resolves by wrapping it into a <code>then()</code> handler. This is the same approach we would do manually if we knew the amount of calls.</p>
+<p>Right now we are using a <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a></code> loop for this. This works but it isn’t really the most readable solution. To improve this we can use the <code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce">reduce</a></code> method of our array.</p>
+<p>Modify the code accordingly:</p><pre class="crayon-plain-tag">const queryParameters = ['ahoy', 'hello', 'hallo'];
+
+let mostRecentPromise = queryParameters.reduce((previousPromise, queryParam) =&gt; {
+  return previousPromise.then(requestedUrlsSoFar =&gt; {
+    return fetch(`http://httpbin.org/get?${queryParam}`)
+      .then(response =&gt; {
+        // parse response body as JSON
+        return response.json()
+      })
+      .then(response =&gt; {
+        // extract the URL property from the response object
+        let url = response.url;
+        console.log('Response from: %s', url);
+        requestedUrlsSoFar.push(url);
+        return requestedUrlsSoFar;
+      });
+  });
+}, Promise.resolve([]));
+
+mostRecentPromise.then(allUrls =&gt; {
+  console.log('The return values of all requests are passed as an array:');
+  console.log(allUrls);
+}).catch(error =&gt; {
+  console.error('A call failed:');
+  console.error(error.message);
+});</pre><p>The overall approach here is the same as with the <code>forEach</code> loop. We specify a starting value of <code>Promise.resolve([])</code> and call the <code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce">reduce</a></code> method on the <code>messages</code> array with a function that receives two arguments. One is the previous return value and the other is the current value of the array that we are accessing. This way we can <code>reduce</code> the array to a single value. In our case this will be the most recent Promise that we can then use to know when everything is done.</p>
+<h3 id="h.d764kwkierp" class="c2 c8">Turning Callback Code Into a Promise</h3>
+<p><img class="&quot; alignright" style="width: 323.38px; height: 182.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/Q0xjaIUmUq2RHKEB4HRutU3d4duoEWWzJWk9r04eZVHsXPpTahkErszFU9CxUd3yPC16EM_gzR4pHNaNj10TJ5MG0EjlvuHg1QrzCNuSObxLHisW_ODeByxZ5xDmf_iQoQqg9ru2-1.png" alt="" /></p>
+<p>Now that we know how to use Promises we have a problem to solve. What do we do with asynchronous code that doesn’t support Promises? For this we can wrap the function into a new function and use the <code>new Promise()</code> constructor. This constructor receives a function with two arguments:  <code>resolve</code> and <code>reject</code>. These arguments are functions we call when we want to resolve or reject a promise.</p>
+<p>Here’s an example function that reads a file from disk and returns the content in a Promise:</p><pre class="crayon-plain-tag">const fs = require('fs');
+
+function readFileWithPromise(path) {
+  return new Promise((resolve, reject) =&gt; {
+    fs.readFile(path, 'utf8', (err, content) =&gt; {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(content);
+    });
+  });
+}
+
+readFileWithPromise('/etc/hosts').then(content =&gt; {
+  console.log('File content:');
+  console.log(content);
+}).catch(err =&gt; {
+  console.error('An error occurred reading this file.');
+  console.error(err.message);
+});</pre><p>When we call <code>new Promise()</code> with a function as an argument, this function will immediately get executed asynchronously. We then execute <code>fs.readFile</code> with the necessary arguments. Once the callback of the <code>readFile</code> call is executed we check whether there is an error or not. If there is an error we will <code>reject</code> the Promise with the respective error. If there is no error we <code>resolve</code> the Promise.</p>
+<h3 id="h.bdfipzvi2sm4" class="c2 c8">Conclusion</h3>
+<p>Now you hopefully have a better idea of Promises and are ready to ditch the times of the old <em>callback hell</em> for some cleaner and more maintainable code. And if you are hooked you should check out what the future of JavaScript is going to bring with <a href="https://www.twilio.com/blog/2015/10/asyncawait-the-hero-javascript-deserved.html">async/await</a> to further improve asynchronous programming in JavaScript.</p>
+<p>Also make sure to let me know what your experience with Promises is and why you love it (or hate it). Maybe you even have a crazy hack using Promises you want to show off? Just drop me a line:</p>
+<ul style="padding-left: 36px;">
+<li>Email: <a class="c0" href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></li>
+<li>Twitter: <a href="https://twitter.com/dkundel">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel">dkundel</a></li>
+<li>Twitch (streaming live code): <a href="https://twitch.tv/twilio">twilio</a></li>
+</ul>
+<p><a href="https://twilioinc.wpengine.com/2016/10/guide-to-javascript-promises.html">A quick guide to JavaScript Promises</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/10/guide-to-javascript-promises.html/feed</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Writing a bot for Programmable Chat in Node.js</title>
+		<link>https://twilioinc.wpengine.com/2016/08/writing-a-bot-for-ip-messaging-in-node-js.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/08/writing-a-bot-for-ip-messaging-in-node-js.html#respond</comments>
+		<pubDate>Mon, 29 Aug 2016 18:47:41 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[IP Messaging]]></category>
+		<category><![CDATA[js]]></category>
+		<category><![CDATA[nodejs]]></category>
+		<category><![CDATA[Programmable Chat]]></category>
+		<category><![CDATA[Twilio IP]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18663</guid>
+		<description><![CDATA[<p>It seems like bots are the new hot thing that every chat supports. They usually augment conversations or they can perform tasks for the user. We will add to an existing Programmable Chat chat a simple bot that will return us a GIF whenever we ask for it. Getting Your Initial Chat Up And Running We will be working off an existing chat application. Before we get started with... <a class="read-more" href="https://twilioinc.wpengine.com/2016/08/writing-a-bot-for-ip-messaging-in-node-js.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/08/writing-a-bot-for-ip-messaging-in-node-js.html">Writing a bot for Programmable Chat in Node.js</a></p>]]></description>
+				<content:encoded><![CDATA[<p>It seems like bots are the new hot thing that every chat supports. They usually <a href="https://www.twilio.com/blog/2016/05/build-sms-slack-bot-python.html">augment conversations</a> or they can <a href="https://www.twilio.com/blog/2016/05/creating-a-phone-number-lookup-bot-using-microsoft-bot-framework-and-c.html">perform tasks</a> for the user. We will add to an existing <a href="https://www.twilio.com/docs/api/ip-messaging">Programmable Chat</a> chat a simple bot that will return us a GIF whenever we ask for it.</p>
+<h2 id="h.a3c7m6xyohe4" class="c1 c3 c10">Getting Your Initial Chat Up And Running</h2>
+<p>We will be working off an existing chat application. Before we get started with our bot we need to get a couple of things ready.<br />
+First of all, make sure you have:</p>
+<ul style="padding-left: 36px;">
+<li>Node.js and npm which you can get <a href="https://nodejs.org/en">here</a></li>
+<li>A Twilio Account to set up Programmable Chat &#8211; <a href="https://www.twilio.com/try-twilio">Sign up for free</a></li>
+<li><a href="https://ngrok.com/">ngrok</a> &#8211; You can read more about ngrok <a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html">here</a></li>
+</ul>
+<p>The existing chat application that we will base our work off is <a href="https://www.twilio.com/docs/api/ip-messaging/guides/quickstart-js">this quickstart project</a>. It only takes 5 minutes to set this project up. Clone the repository by running:</p><pre class="crayon-plain-tag">git clone https://github.com/TwilioDevEd/ipm-quickstart-node.git
+cd ipm-quickstart-node</pre><p>Configure it according to the <a href="https://github.com/TwilioDevEd/ipm-quickstart-node/blob/master/README.md">README</a>.</p>
+<h2 id="h.2u449dmnunxp" class="c1 c3 c10">Intercepting Messages</h2>
+<p><a href="https://www.twilio.com/docs/api/ip-messaging">Twilio Programmable Chat</a> will handle the sending of chat messages from client to client. The product also has <a href="https://www.twilio.com/docs/api/ip-messaging/webhooks">webhook</a> notifications for when new messages in our chat are sent. Using these webhooks we can control whether a message should be delivered or blocked. All this can be done simply by returning different HTTP status codes. Status code 200 (<code>OK</code>) means continue delivering this message and 403 (<code>Forbidden</code>) means block this message.<br />
+Before we decide whether to block or forward a message we will need to access the data that Twilio sends to our application. To do that we first need to parse it first by adding <code>body-parser</code> to our project using npm:</p><pre class="crayon-plain-tag">npm install body-parser --save</pre><p>Once the package is installed add it to <code>index.js</code>:</p><pre class="crayon-plain-tag">require('dotenv').load();
+var http = require('http');
+var path = require('path');
+var AccessToken = require('twilio').AccessToken;
+var IpMessagingGrant = AccessToken.IpMessagingGrant;
+var express = require('express');
+var bodyParser = require('body-parser');
+var randomUsername = require('./randos');
+
+// Create Express webapp
+var app = express();
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.json({})) 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));</pre><p>Add a very basic endpoint to <code>index.js</code> that will print the data received and return the status code 200 to tell Twilio to continue with delivering the message:</p><pre class="crayon-plain-tag">app.post('/message', function (req, res, next) {
+  console.dir(req.body, { depth: 1 });
+  res.sendStatus(200);
+});
+
+// Create http server and run it
+var server = http.createServer(app);
+var port = process.env.PORT || 3000;
+server.listen(port, function() {
+    console.log('Express server running on *:' + port);
+});</pre><p>Restart the server by running:</p><pre class="crayon-plain-tag">node .</pre><p>We need to expose our application to the public so Twilio can deliver the webhook. For this execute in a different terminal:</p><pre class="crayon-plain-tag">ngrok http 3000</pre><p><img class="&quot; aligncenter" style="width: 624.00px; height: 294.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/HWDleH9ulWrWm5W4yqA7pi5XMqzUYVYF5zlYHbDbzByBi9iJoMc-ropkzFmm5ZY336yHks2nDIzGwtr96zGVwEubVlYqoTYf9NSOePAmNswkgCPpZj4VbgNKmSVNsorxIDD2F0ig.png" alt="screenshot-ngrok.png" /><br />
+Afterwards go to your messaging service in the console and configure the webhook URL as: <code>http://&lt;your_ngrok_url&gt;.ngrok.io/message</code>.<br />
+Make sure that the HTTP method is <code>POST</code> and that <code>OnMessageSend</code> is activated.<br />
+<img class="&quot; aligncenter" style="width: 624.00px; height: 352.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/RwUKCGD8VHe_gGv5Fhn5zs9xqxlh95-9_jGTLh6QHqJg1PdlrgZvAQFoSXbMdtFxcVWNYprS-hezkiZX7vBfwiIdtC9ZH_mbATMIbp1j6Q7Pt3If9F8MdY3tTSu0-tUXDNH0kCCQ.png" alt="ipm-screenshot-webhook.png" /><br />
+Navigate to <a href="http://localhost:3000">http://localhost:3000</a> and start writing messages. You should see them start appearing on in your terminal with additional information for the message.<br />
+<img class="&quot; aligncenter" style="width: 624.00px; height: 270.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/B7L4cS7JyKkRgeQChiRNv9ahytEJ2OgFPJhbx5NNS-Too8tz_9o2OlG_OG2WLJRNsW0V6ux0bfMNumiG8xS84gGBvBXsBdaefbogJLlHnSifQV738VK-MBZS44ygXd5L5jkNlUhg.png" alt="logging-messages.gif" /></p>
+<h2 id="h.tm5iaiv749fz" class="c1 c3 c10">Controlling The Conversation</h2>
+<p>Now that you are receiving all the necessary information, we can dive deeper into the <a href="https://www.twilio.com/docs/api/ip-messaging/webhooks#pre-processing">control</a> that these webhooks provide. If we return the status code 403 instead of 200 we can block the respective message. Let’s alter the route to intercept and not deliver messages that start with <code>/gif</code>:</p><pre class="crayon-plain-tag">app.post('/message', function (req, res, next) {
+  if (req.body.Body.toLowerCase().indexOf('/gif') === 0) {
+    res.sendStatus(403);
+  } else {
+    res.sendStatus(200);
+  }
+});</pre><p>Restart your server and send a message with <code>/gif</code>. You should see that it’s not showing up. All other messages will normally appear.<br />
+<img class="&quot; aligncenter" style="width: 624.00px; height: 382.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/mELd-O_zoRF1GCXZxIWDZyo3ixRY-7-pAyPBfoaOZhNS00Q3QcD77KQRinL2el-C67t88LWz4y1C2HczZDoEwKPikAJ59GaWmopenJ1Yv7QL1i6DDoOuaVSlBYLpShTU3rnCzg2f.png" alt="blocked-gif-message.gif" /></p>
+<h2 id="h.dhi13sk7g6nk" class="c1 c3 c10">Let The Bots Join!</h2>
+<p>So far we can intercept the content that is being sent but we want to actually send our own messages. We want our bot to actually participate in the chat. For this we will forward the message at all times and then use the information about the channel to place the bot in the channel and write a message to it using the <a href="https://www.twilio.com/docs/libraries/node">Twilio helper library</a>.<br />
+Modify the <code>index.js</code> file accordingly:</p><pre class="crayon-plain-tag">require('dotenv').load();
+var http = require('http');
+var path = require('path');
+var Twilio = require('twilio');
+var AccessToken = Twilio.AccessToken;
+var IpMessagingGrant = AccessToken.IpMessagingGrant;
+var express = require('express');
+var bodyParser = require('body-parser');
+var randomUsername = require('./randos');
+
+var client = new Twilio.IpMessagingClient();
+var service = client.services(process.env.TWILIO_IPM_SERVICE_SID);
+var botName = 'gifinator';
+
+// Create Express webapp
+var app = express();
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.json({})) 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.get('/token', function(request, response) {
+// ----------------------
+// Hidden for conciseness
+// ----------------------
+});
+
+app.post('/message', function (req, res, next) {
+    res.sendStatus(200);
+
+    if (req.body.Body.toLowerCase().indexOf('/gif') === 0) {
+        var channel = service.channels(req.body.ChannelSid);
+        channel.members.create({
+            identity: botName
+        }).then(function (response) {
+            return channel.messages.create({
+                from: botName,
+                body: 'http://i.giphy.com/h8E7oT2FGEJkQ.gif'
+            });
+        }).then(function (response) {
+            console.log('Bot message sent!');
+        }).catch(function (err) {
+            console.error('Failed to send message');
+            console.error(err);
+        });
+    }
+});
+
+// Create http server and run it
+var server = http.createServer(app);
+var port = process.env.PORT || 3000;
+server.listen(port, function() {
+    console.log('Express server running on *:' + port);
+});</pre><p>Once you restarted the server try writing <code>/gif</code> in the chat again. Now you should see the bot write the actual message and your message staying preserved.<br />
+<img class="&quot; aligncenter" style="width: 624.00px; height: 385.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/XOY6C6quaBUi8FvTA78R6BqWgU9mPkYPvx3YBTXPygYAAB3OBeMRDndjIAddOtMZ-_RhK5152hcP6KdFut-EuokN5xTmQoOYhaRapzYtXSpK45BiqaKXVuFkVyy4VaVlNvzLnEHQ.png" alt="returned-gif-link.gif" /></p>
+<h2 id="h.i2v093t0j8c9" class="c1 c3 c10">Upgrade Your Bot</h2>
+<p>So far we are only sending text with our bot. We can use the new <a href="https://www.twilio.com/docs/api/ip-messaging/rest/messages#action-create">message attributes</a> to add additional contextual information to our message, such as information that this is actually a picture.<br />
+For this send an object as attributes that specifies the type as <code>'image'</code> when creating the message:</p><pre class="crayon-plain-tag">app.post('/message', function (req, res, next) {
+// ----------------------
+// Hidden for conciseness
+// ----------------------
+            return channel.messages.create({
+                from: botName,
+                body: 'http://i.giphy.com/h8E7oT2FGEJkQ.gif',
+                attributes: JSON.stringify({
+                    type: 'image'
+                })
+            })
+// ----------------------
+// Hidden for conciseness
+// ----------------------
+});</pre><p>Now that we are sending this information we need to update our front-end to display the image. Open <code>public/index.js</code> and update the <code>printMessage</code> method as well as the event listener for <code>messageAdded</code> to wrap an image-tag around the content:</p><pre class="crayon-plain-tag">// ----------------------
+// Hidden for conciseness
+// ----------------------
+
+    // Helper function to print chat message to the chat window
+    function printMessage(fromUser, message, type) {
+        var $user = $('&lt;span class="username"&gt;').text(fromUser + ':');
+        if (fromUser === username) {
+            $user.addClass('me');
+        }
+        // replace original $message declaration with the following lines
+        var $message = $('&lt;span class="message"&gt;');
+        if (type === 'image') {
+            $message.html('&lt;img width="500" src="' + message + '"/&gt;');
+        } else {
+            $message = $message.text(message);
+        }
+        var $container = $('&lt;div class="message-container"&gt;');
+        $container.append($user).append($message);
+        $chatWindow.append($container);
+        $chatWindow.scrollTop($chatWindow[0].scrollHeight);
+    }
+
+// ----------------------
+// Hidden for conciseness
+// ----------------------
+    
+    // Set up channel after it has been found
+    function setupChannel() {
+        // Join the general channel
+        generalChannel.join().then(function(channel) {
+            print('Joined channel as ' +
+                  '&lt;span class="me"&gt;' + username + '&lt;/span&gt;.', true);
+        });
+
+        // Listen for new messages sent to the channel
+        generalChannel.on('messageAdded', function(message) {
+            var type;
+            if (message.attributes) {
+                type = message.attributes.type;
+            }
+            printMessage(message.author, message.body, type);
+        });
+    }</pre><p>Now restart the server and reload your browser and you should be able to see the GIF properly appear the next time you write <code>/gif</code>!</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 484.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/HTybh5Fq9oO-a7aFZpU-6690HDQFTts2Db3UhFAWFlncgfl-RFFIBmtzglc3qChiW8xShUjpE7WxSZEImASPQaBjFglC5iiCzZBGdNvwJRcQ6tIqdRBT-a-9Jjge0Whw4fs40ByG.png" alt="with-actual-gif.gif" /></p>
+<h2 id="h.e713exwsddxg" class="c1 c10">Rise Of The Bots<img class="&quot; alignright" style="width: 287.00px; height: 400.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/nwZp8jaQKlIK1LQbaQjoP-UHXu7FjFngHr0weeiqE6agBjzKB5Cp2U1KNSpHq6vOOqdecnnv9GRMtZb1nn_Kdvqi4d6K-DokDZOhWqL_i9IPwXShvao8nCC4Yzsq2bAiZaAji8Rz.png" alt="mIZ9rPeMKefm0.gif" /></h2>
+<p>Amazing! You just finished your first bot!<br />
+But you don’t have to stop here. You could extend the bot to return a random GIF using the <a href="https://api.giphy.com/">Giphy API</a> or come up with your very own bots. How about a bot that recommends a restaurant whenever you talk with your colleagues about lunch? Now that you have the tools you are only limited by your imagination!<br />
+Let me know what you came up with by sending me a message or tell me in person at <a href="https://www.twilio.com/signal/london">SIGNAL London</a>. You can use DKUNDEL20 to get 20% off.</p>
+<p>We can’t wait to see what you build!</p>
+<ul style="padding-left: 36px;">
+<li>Email: <a class="c7" href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></li>
+<li>Twitter: <a href="https://twitter.com/dkundel">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel">dkundel</a></li>
+<li>Twitch (streaming live code): <a href="https://twitch.tv/dkundel">dkundel</a></li>
+</ul>
+<p><a href="https://twilioinc.wpengine.com/2016/08/writing-a-bot-for-ip-messaging-in-node-js.html">Writing a bot for Programmable Chat in Node.js</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/08/writing-a-bot-for-ip-messaging-in-node-js.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Get started with writing TypeScript today!</title>
+		<link>https://twilioinc.wpengine.com/2016/08/start-writing-typescript-today.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/08/start-writing-typescript-today.html#comments</comments>
+		<pubDate>Fri, 12 Aug 2016 16:37:35 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[Developers Drawing The Owl]]></category>
+		<category><![CDATA[How To Guides]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[Node.js]]></category>
+		<category><![CDATA[typescript]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18389</guid>
+		<description><![CDATA[<p>Tabs vs. spaces isn’t the only big discussion point in the world of programming. Another point of contention lies in statically-typed vs. dynamically-typed languages. TypeScript is Microsoft’s attempt to add a stronger type system to JavaScript while making both camps happy. Instead of wading into the debate, let&#8217;s look at three aspects of TypeScript: How to add TypeScript to an existing JavaScript project Improving your development experience and... <a class="read-more" href="https://twilioinc.wpengine.com/2016/08/start-writing-typescript-today.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/08/start-writing-typescript-today.html">Get started with writing TypeScript today!</a></p>]]></description>
+				<content:encoded><![CDATA[<p>Tabs vs. spaces isn’t the only big discussion point in the world of programming. Another point of contention lies in statically-typed vs. dynamically-typed languages. <a href="https://typescriptlang.org">TypeScript</a> is Microsoft’s attempt to add a stronger type system to JavaScript while making both camps happy. Instead of wading into the debate, let&#8217;s look at three aspects of TypeScript:</p>
+<ol class="c11 lst-kix_8spzaxuhzo8h-0 start" start="1">
+<li>How to add TypeScript to an existing JavaScript project</li>
+<li>Improving your development experience and tooling</li>
+<li>Down-transpiling TypeScript and modern JavaScript to older standards</li>
+</ol>
+<h3>Why TypeScript?</h3>
+<p><img class="&quot; alignright" style="width: 349.50px; height: 187.86px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/F0Fpa9QGxpTayd8ZKHfJ3wVhVUyN6tHdy6C6EY_iAGuDQpePacZHWgzluy_tcreSiod3Tx6dvB56adPmX3PBesV8Hk68_0nNIfyHEtqIUh5Pa5-3WDG_zXeaxBM2yxI1oo0FWJJW-5.png" alt="giphy.gif" /></p>
+<p>Here are some reasons you might want to write TypeScript:</p>
+<ul style="padding-left: 36px;">
+<li>TypeScript is a superset of JavaScript, so the learning curve is not that steep.</li>
+<li>It’s ES2015 compliant and can transpile it down to ES3 or ES5. No more need for Babel in most cases.</li>
+<li>Types are optional, so you can gradually introduce them.</li>
+<li>A richer development experience including better auto-complete and project wide refactoring</li>
+</ul>
+<p>You can find great list of reasons here: <a href="https://medium.com/@alexewerlof/when-should-i-use-typescript-311cb5fe801b">When should I use TypeScript?</a></p>
+<h3>Setup your environment</h3>
+<p>There are plenty of <a href="https://gist.github.com/dkundel/e2f0fe6ebc88b382506b362cef0020af">Getting Started with TypeScript</a> guides that focus on how to start from scratch. We will instead add TypeScript to an existing Node.js project.</p>
+<p>Before we get started make sure you have <a href="https://nodejs.org/en/download/">Node.js installed</a> and that the version is newer than 6.0. You can check this by running:</p><pre class="crayon-plain-tag">node --version</pre><p>Then clone the project that we will be working on:</p><pre class="crayon-plain-tag">git clone https://github.com/dkundel/basic-node-server.git -b typescript-boilerplate
+cd basic-node-server</pre><p>Install all the necessary dependencies and start the server to test if it works:</p><pre class="crayon-plain-tag">npm install
+npm start</pre><p><img class="&quot; aligncenter" style="width: 209.09px; height: 411.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/vXNq1MBnStXCD-iTA7GoPH8VEiY7DQoqYPaP6CuOzRSbhkfdpDZWJYywm2Vmvx-kq5CVbUrom4MC-Z-m5vM2FkRCanjFoHbpTm2iVCVtF7nX8KQu9PIggdF3Y3U1sQbq3RcDTY2i-5.png" alt="gif-of-gifs.gif" /></p>
+<p>Navigate in your browser to <code><a href="http://localhost:3000/api/gifs">http://localhost:3000/api/gifs</a></code>. If you see a bunch of Silicon Valley gifs, your Node.js project works correctly.</p>
+<p>Next you need the TypeScript compiler. It&#8217;s recommended you install it locally to the project:</p><pre class="crayon-plain-tag">npm install typescript --save</pre><p>For the best TypeScript experience, you should either use <a href="http://code.visualstudio.com/">Visual Studio Code</a>, <a href="https://www.visualstudio.com/products/visual-studio-community-vs">Visual Studio</a> or a <a href="https://github.com/Microsoft/TypeScript/wiki/TypeScript-Editor-Support">plug-in for your favorite text editor</a>. I’ll be using Visual Studio Code which is available for free for Mac, Windows and Linux.</p>
+<p>Once you have your IDE set up you are all set to dive into the world of TypeScript.</p>
+<h3>Configuring the TypeScript project</h3>
+<p>A TypeScript project is typically described by a <code>tsconfig.json</code> file that is located in the root directory of your project. It defines various properties for the compiler such as which files to compile or ignore, which ECMAScript version it should compile to, how to treat modules and other options. It even provides support for handling JSX files named TSX and can compile them directly to React statements.</p>
+<p>Add the following <code>tsconfig.json</code> file to your project:</p><pre class="crayon-plain-tag">{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "sourceMap": true
+  }
+}</pre><p></p>
+<h3>Definitions first</h3>
+<p>TypeScript is all about types. Most libraries, however, are not written in TypeScript. So how do we get type-information on all the libraries we want to use?</p>
+<p>The answer is <a href="https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html">definition files</a> which provide interfaces and type information for existing libraries. To manage definition files we will use the <a href="https://github.com/typings/typings"><code>typings</code></a> tool. To install it run:</p><pre class="crayon-plain-tag">npm install typings --save</pre><p>Now that we have both the compiler and the <code>typings</code> tool we need to create npm scripts entries to use them. To do so, modify the <code>package.json</code> file in the root of the project:</p><pre class="crayon-plain-tag">{
+  "name": "basic-node-server",
+  "version": "1.0.0",
+  "description": "A basic Node server that is running on Express.js. Used to show how to add TypeScript to a project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo "Error: no test specified" &amp;&amp; exit 1",
+    "typings": "typings",
+    "tsc": "tsc",
+    "start": "npm run tsc &amp;&amp; node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git https://github.com/dkundel/basic-node-server.git"
+  },
+  "author": "Dominik Kundel &lt;dominik.kundel@gmail.com&gt;",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dkundel/basic-node-server/issues"
+  },
+  "homepage": "https://github.com/dkundel/basic-node-server#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.1"
+  }
+}</pre><p>Now install the typings for express, body-parser, Node and others by running:</p><pre class="crayon-plain-tag">npm run typings -- install dt~express dt~body-parser dt~express-serve-static-core dt~mime dt~serve-static env~node --global --save</pre><p>If you want to know more about the <code>typings</code> tool and what’s going on, check out the <a href="https://github.com/typings/typings">project website</a>.</p>
+<h3>Our first TypeScript file</h3>
+<p>You might have noticed a TypeScript file called <code>mockdb.ts</code> in the <code>api/</code> folder of the project you cloned. Create a file named <code>api/users.ts</code>. This file will consume <code>mockdb.ts</code> and implement a set of REST endpoints for users.</p>
+<p>Import the <code>Router</code> from the <code>express</code> library, create a new class <code>Users</code> with two <code>public</code> methods <code>get()</code> and <code>getUser()</code>, and export a new router:</p><pre class="crayon-plain-tag">import { Router } from 'express';
+
+export class Users {
+  public get() {
+
+  }
+
+  public getUser() {
+
+  }
+}
+
+const users = new Users();
+
+export const UsersRouter = Router();
+UsersRouter.get('/', users.get);
+UsersRouter.get('/:id', users.getUser);</pre><p>If you compare this file to the structure of the existing <code>gifs.js</code> you will notice three slight differences.</p>
+<ol class="c11 lst-kix_gqv7q16nxlmu-0 start" start="1">
+<li>We don’t use the <code>module.exports</code>. Instead we use the new ES2015 <code>export</code> keyword.</li>
+<li>We replace <code>require(...)</code> with the new ES2015 <code>import ... from ...</code> syntax</li>
+<li>We declare methods as public or private.</li>
+</ol>
+<p>So far we don’t have any type annotations and that’s fine. The type annotation in TypeScript is optional. But we want to learn how to do it! So let’s adjust the function signature of the two methods. They are both <code>express</code> request handlers.</p>
+<p>We need to import the <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html">interfaces</a> for <code>Request</code>, <code>Response</code> and <code>NextFunction</code> since they are the three arguments that get passed. Afterwards we can annotate the three arguments in each method with the types and declare <code>next</code> as optional by appending a <code>?</code> to the argument name:</p><pre class="crayon-plain-tag">import { Router, Request, Response, NextFunction } from 'express';
+
+export class Users {
+  public get(req: Request, res: Response, next?: NextFunction) {
+
+  }
+
+  public getUser(req: Request, res: Response, next?: NextFunction) {
+
+  }
+}
+
+const users = new Users();
+
+export const UsersRouter = Router();
+UsersRouter.get('/', users.get);
+UsersRouter.get('/:id', users.getUser);</pre><p>We now have typed arguments and a much better autocomplete in our IDE. For example, now you don’t have to look up the available methods on a response object on the project website.</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 293.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/Ckoh0fclmhK-ctyxM4R574JSKVCqlcjYYsCIztls694TgNnFQUSbz47TbF_DmHgzseRvaRt1ttkgqQERIJNZf5Vd4RKVo5_6us54M3ydIfxrw-OkCiQ_tGTNBmo4a6Z0KKP6-eZQ-5.png" alt="vscode-intellisense.gif" /></p>
+<p>Our routes don’t yet return anything. Let’s send <code>Ahoy!</code> on the routes and include the <code>:id</code> passed to the URL:</p><pre class="crayon-plain-tag">  public get(req: Request, res: Response, next?: NextFunction) {
+    res.send(200, 'Ahoy!');
+  }
+
+  public getUser(req: Request, res: Response, next?: Function) {
+    res.send(200, `Ahoy ${req.params.id}`);
+  }</pre><p>We also need to consume our new file. Modify <code>api/index.js</code> to require the file:</p><pre class="crayon-plain-tag">'use strict';
+
+const express = require('express');
+
+let router = express.Router();
+
+router.use((req, res, next) =&gt; {
+  console.log(`Access to API. Route: ${req.path}`);
+  next();
+});
+
+router.use('/users', require('./users').UsersRouter);
+router.use('/gifs', require('./gifs').GifsRouter);
+
+module.exports = { router };</pre><p><img class="&quot; alignright" style="width: 292px; height: 164px; margin-left: 0px; margin-top: 0px; transform: rotate(0rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/CuMzfy-a01nOUR5wId7liRWklK5xvBF42_y6dQtbvkvYaWkpZYyxeIjd6Bs6vVCYkiLXmuAIiA_Rm62odPI2_BmXpL4qhYJgbSfG_IXSPm5W_eYCxCYaD2WwdmfzZd47uMPPF4kL-5.png" alt="l41YwWrjEhTGpE3zG.gif" /></p>
+<p>Re-run <code>npm start</code> and navigate to <code><a href="http://localhost:3000/api/users">http://localhost:3000/api/users</a></code> and you will see <code>Ahoy!</code> on the screen.</p>
+<p>We just wrote our first TypeScript and consumed it straight from our existing JavaScript. This is that easy because by default the compiled JavaScript is put in the same place as the TypeScript file. This means we actually execute the JavaScript but develop in the TypeScript file.</p>
+<h3>Advanced TypeScript features</h3>
+<p>Now that we wrote some basic TypeScript let’s explore a couple of more features by looking more into the existing <code>mockdb.ts</code>.</p>
+<p>Import the necessary components from <code>mockdb.ts</code> inside our <code>users.ts</code> file and instantiate a database instance:</p><pre class="crayon-plain-tag">import { Router, Request, Response, NextFunction } from 'express';
+
+import { MockDB, MOCK_USERS, User } from './mockdb';
+
+const db = new MockDB&lt;User&gt;(MOCK_USERS);
+
+export class Users {
+  public get(req: Request, res: Response, next?: NextFunction) {
+    res.send(200, 'Hurray');
+  }
+
+  public getUser(req: Request, res: Response, next?: Function) {
+    res.send(200, `Hurray ${req.params.id}`);
+  }
+}
+
+const users = new Users();
+
+export const UsersRouter = Router();
+UsersRouter.get('/', users.get);
+UsersRouter.get('/:id', users.getUser);</pre><p>You may notice that we pass <pre class="crayon-plain-tag">&lt;User&gt;</pre> to our constructor. This is TypeScript’s support for <a href="https://www.typescriptlang.org/docs/handbook/generics.html">generics</a>. <code>MockDB</code> uses them to determine which type of data is stored. In our case these are entries of the type <code>User</code>. The argument itself is the mock data we want to populate the database with.</p>
+<p>Now when we try to use the database in the request handlers we get more information about the types that are returned by the calls:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 221.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/sn9xc5djBcM_Hgnzs2d7tXozz49vziO0oPBX2E-PqZCo_43-KqlAgul6JjsmMsK1sEP3oyZf-oG6VgI504IR5OXziS-pMCL7ovAXXmEbmOXmquASkBRWK6xDnM7ESrICMsyxf-VY-5.png" alt="vscode-intellisense-2.gif" /></p>
+<p>Modify the <code>get()</code> and <code>getUser()</code> methods now to consume the database:</p><pre class="crayon-plain-tag">  public get(req: Request, res: Response, next?: NextFunction) {
+    let data = db.get();
+    res.send(200, { data });
+  }
+
+  public getUser(req: Request, res: Response, next?: Function) {
+    let id = parseInt(req.params.id, 10);
+    res.send(200, db.get(id));
+  }</pre><p>We are now consuming another TypeScript file and made use of the power of generics.</p>
+<p>To see more features of TypeScript you can check out the <code>mockdb.ts</code> file. You’ll find how to define and extend <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html">interfaces</a>, how to create optional properties, and that <a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html">specific values can be types</a>, too.</p>
+<h3>From ES2015 to ES5</h3>
+<p>Right now our codebase is a mixture of TypeScript and ES2015 JavaScript. This works well together because the TypeScript is compiled in place, so we are executing normal JavaScript.</p>
+<p>By <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">adding three lines</a> in our <code>tsconfig.json</code> we can not only output the result of our TypeScript into a different folder but also convert our ES2015 JavaScript to be ES5 compliant:</p><pre class="crayon-plain-tag">{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "out"
+  }
+}</pre><p>Re-run <code>npm run tsc</code>. We have now a new folder <code>out</code> that contains our compiled TypeScript but also our ES2015 JavaScript converted to ES5. And we did all of that without the usage of Babel! If you run <code>node out/index.js</code> you will be running an ES5 version of the program. So now you can run this also with older versions of Node.</p>
+<h3>Conclusion</h3>
+<p>As we’ve seen it’s super easy to move your JavaScript project to TypeScript since any JavaScript is valid TypeScript. In most cases we don’t even need a transpiler like Babel anymore. If we add type annotations we get type-safety during compile time and better tooling for our code editor.</p>
+<p>We just looked at a small set of things TypeScript is useful for. You can find more features on <a href="https://typescriptlang.org">the project page.</a></p>
+<p><a href="https://typescriptlang.org"><img class="&quot; alignright" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/uLHaU8gz5zNDYftwug299nc9K3sv97v88LfX7mMOj0suedBlp8O2OsZiwhKRbPhMa-NY4B5pbNna3TR4q8feJovf9VCKIroYnK04wdHgrCq_HnVbzV6IuteLXsuqLtTBP6GUNC02-5.png" alt="3o85xsYMcHHV6ZdKww.gif" /></a></p>
+<p>You are now well prepared to move your projects to TypeScript or even start your next project in TypeScript.</p>
+<p>I personally love TypeScript but I’d love to hear how your experience will be. Please reach out and let me know. We can’t wait to see what you build!</p>
+<ul style="padding-left: 36px;">
+<li>Email: <a class="c9" href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></li>
+<li>Twitter: <a href="https://twitter.com/dkundel">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel">dkundel</a></li>
+<li>Twitch (streaming live code): <a href="https://twitch.tv/dkundel">dkundel</a></li>
+</ul>
+<p><a href="https://twilioinc.wpengine.com/2016/08/start-writing-typescript-today.html">Get started with writing TypeScript today!</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/08/start-writing-typescript-today.html/feed</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Build your own Pokemon Go SMS Service with Node.js, Express and Twilio</title>
+		<link>https://twilioinc.wpengine.com/2016/07/pokemon-go-sms-node-js-twilio.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/07/pokemon-go-sms-node-js-twilio.html#respond</comments>
+		<pubDate>Fri, 29 Jul 2016 18:26:22 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[pokemon]]></category>
+		<category><![CDATA[PokemonGo]]></category>
+		<category><![CDATA[SMS]]></category>
+		<category><![CDATA[twilio]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18449</guid>
+		<description><![CDATA[<p>Pokemon GO is everywhere right now and if you are like Ash Ketchum or me you want to catch &#8217;em all. This journey can be difficult but tools such as PokeVision can help us on our quest. The problem with these tools is that they require you to actively check them. Let&#8217;s build a service using Twilio SMS that notifies you via SMS when certain Pokemon are... <a class="read-more" href="https://twilioinc.wpengine.com/2016/07/pokemon-go-sms-node-js-twilio.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/07/pokemon-go-sms-node-js-twilio.html">Build your own Pokemon Go SMS Service with Node.js, Express and Twilio</a></p>]]></description>
+				<content:encoded><![CDATA[<p>Pokemon GO is everywhere right now and if you are like Ash Ketchum or me you want to catch &#8217;em all. This journey can be difficult but tools such as PokeVision can help us on our quest. The problem with these tools is that they require you to actively check them. Let&#8217;s build a service using <a href="https://www.twilio.com/docs/api/rest/sending-messages">Twilio SMS</a> that notifies you via SMS when certain Pokemon are found around your location.<br />
+<!--
+If you want to get an idea of what this looks like, text an address like <code>Alexanderplatz, Berlin</code> to one of the following numbers:
+
+<ul style="padding-left: 36px;">
+ 	
+<li>Germany (or EU): <strong>+49 157 35986402</strong></li>
+
+
+ 	
+<li>United States (or Intl): <strong>+1 (650) 667-7150</strong></li>
+
+
+ 	
+<li>United Kingdom: <strong>+44 169 1700065</strong></li>
+
+
+</ul>
+
+
+You should get an SMS with the Pokemon closest to the address and when they disappear.
+--></p>
+<p><b>DISCLAIMER: </b><em><span style="font-weight: 400;">Pokemon Go doesn&#8217;t have an official API and the mechanisms the community uses for tools around the game are shifting constantly. This might totally break.</span></em></p>
+<p>Now let’s learn how to build this ourselves!</p>
+<h3 id="h.5lp5qlie7nwu" class="c0 c8">Choose your Starter</h3>
+<h3 class="c0 c8"><img class="alignnone wp-image-18455 size-full" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/starter-pokemon-1.gif" width="446" height="327" /></h3>
+<p>To get started we need to make a couple of choices. Unlike the choices that Professor Oak gives you, for this project, you can choose from a <a href="https://www.twilio.com/docs/libraries">variety of programming languages</a> and web frameworks, as long as they can make and <a href="https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html">receive HTTP requests</a>.</p>
+<p>For this tutorial we&#8217;ll use a basic <a href="http://expressjs.com/">Express</a> server and <a href="https://nodejs.org/en/">Node.js</a>. The things you need for this journey are:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://nodejs.org/en/">Node.js</a> version 6.0 or higher. Check your version with <code>node -v</code>.</li>
+<li>A Twilio Account to send and receive SMS &#8211; <a href="https://www.twilio.com/try-twilio">Sign up for free!</a></li>
+<li><a href="https://ngrok.com/">ngrok</a> &#8211; You can read more about ngrok <a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html">here</a>.</li>
+</ul>
+<p>To get a <a href="https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html#Express">basic Express server</a>, start by cloning the following <code>template</code> branch of <a href="https://github.com/dkundel/pokemon-go-sms/tree/template">this project</a> and install the dependencies:</p><pre class="crayon-plain-tag">git clone -b template https://github.com/dkundel/pokemon-go-sms.git
+cd pokemon-go-sms
+npm install</pre><p>With the code in place, spin up the app by running:</p><pre class="crayon-plain-tag">npm start</pre><p>Navigate to <a href="http://localhost:3000/Kanto">http://localhost:3000/Kanto</a>. You should see a message saying <code>Ahoy! Kanto</code>. Feel free to change <code>Kanto</code> in the URL with other things. It should change the message.</p>
+<p><img class="&quot; aligncenter" style="width: 528.00px; height: 201.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/ca7pzMaHm7pRhV4Bn3SPgM_148t3Sx86VdC-w7hb9HsUmLyOHSHpOaDGOjrN6mUexi1wqnjRhbPsM8gjDNj8ySBCQCU4jVUE6TkFkWm6h9oaS2S2Ob-wnwMC_5KEm27F0sYol8AZ.png" alt="Screen Shot 2016-07-29 at 3.49.02 PM.png" /></p>
+<h3 id="h.3vi27lnjv3sg" class="c0 c8">Initialize your Pokedex</h3>
+<p><img class="&quot; alignright" style="width: 198px; height: 149px; margin-left: 0px; margin-top: 0px; transform: rotate(0rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/qx0iFQoomvyJ2j6ErKMPeNqdlvYTiGW8QZREwuudUQ7vVT1dM6QigndIoY-427VEorfDiS6wTFn66VjC2FF_Y0OdXTG3EVNz9rIeUgPOwaNilV17d75hU3ARLU5Qr9waXyevs8Fz-2.png" alt="97n5YIwlTBh8A.gif" /></p>
+<p>You can&#8217;t be the very best on this journey without having the necessary data. Or in other words you need your Pokedex. In our case we will use a Node module called <a href="https://github.com/brentschooley/pokespotter"><code>pokespotter</code></a>. It’s a basic wrapper around the Niantic API that will return you the list of Pokemon around a certain location.</p>
+<p>Start by installing <code>pokespotter</code>:</p><pre class="crayon-plain-tag">npm install pokespotter --save</pre><p>Require the <code>pokespotter</code> module at the top of the <code>index.js</code> file.</p><pre class="crayon-plain-tag">'use strict';
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const Pokespotter = require('pokespotter');</pre><p><span style="font-weight: 400;">You need at least one Pokemon GO account for <code>pokespotter</code> to work. This can be either a Google account or a Pokemon Trainer Club account   Save your account credentials along with the account provider you have chosen (&#8216;google&#8217; if you are using a Google account or &#8216;ptc&#8217; for Pokemon Trainer Club accounts) as the environment variables <code>PGO_USERNAME</code>, <code>PGO_PASSWORD</code> and <code>PGO_PROVIDER</code>. You can also pass these values directly as arguments to the <code>Pokespotter()</code> call.</span></p>
+<p>Add the following two lines to your <code>index.js</code> file:</p><pre class="crayon-plain-tag">const PORT = process.env.PORT || 3000;
+
+const POKEDEX = Pokespotter.Pokedex;
+const spotter = Pokespotter(process.env.PGO_USERNAME, process.env.PGO_PASSWORD, process.env.PGO_PROVIDER);</pre><p><span style="font-weight: 400;">Now add a function that will call <code>spotter.getNearby</code> and executes a function that simply returns the list of Pokemon for now:</span></p><pre class="crayon-plain-tag">const spotter = Pokespotter();
+
+function getPokemonByAddress(address) {
+  return spotter.getNearby(address, { steps: 2 }).then(pokemon =&gt; {
+    return pokemon;
+  });
+}
+
+app.get('/:address', (req, res) =&gt; {</pre><p>The <code>getNearby</code> method gets two properties. An address or set of coordinates as well as an options object where we specify a steps value. For now we chose <code>2</code> which gives you roughly a radius of 200m. <span style="font-weight: 400;">The current time for a scan </span><span style="font-weight: 400;">for this radius is roughly 30 seconds. You can reduce this time by passing into the <code>Pokespotter()</code> constructor an array of users. At the current radius 7 spots are visited so the optimal number of accounts will be 7. <span style="font-weight: 400;">You can also increase the radius but it also increases the response time significantly. </span></span></p>
+<p>Now that we have this function we need to consume it. Modify the <a href="http://expressjs.com/en/guide/routing.html">handler</a> for <code>/:address</code>:</p><pre class="crayon-plain-tag">app.get('/:address', (req, res) =&gt; {
+  getPokemonByAddress(req.params.address).then(pokemon =&gt; {
+    res.type('application/json').send({result: pokemon});
+  }).catch(err =&gt; {
+    res.type('text/plain').status(500).send('An error occurred. Check your console.');
+    console.error(err);
+  });
+});</pre><p>Open again <a href="http://localhost:3000/Central%20Park,%20New%20York">http://localhost:3000/Central Park, New York</a> and you should get a first glimpse of the Pokemon around Central Park. Feel free to replace everything after the <code>3000/</code> with your own address to check the Pokemon near you.</p>
+<h3 id="h.d5cqv6e8daxu" class="c0 c8">Identify your Pokemon</h3>
+<p><img class="&quot; alignright" style="width: 330.18px; height: 261.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/tQZ-j7kxefxBU6zXYKorV3KQWCoYBfl0E_g5paStDfbtwH4Ku2CU7mmBBMrhDgJ5LhFRlPGjzgYIUf7ymNhksW6DPmohlU815ETv5XIT6dCrpVlomJevpC06GE6Js-PJRPFaQDpW-2.png" alt="DRfu7BT8ZK1uo.gif" /></p>
+<p>For our text messages we are interested in 3 pieces of information for every Pokemon:</p>
+<ul style="padding-left: 36px;">
+<li>Name of the Pokemon</li>
+<li>Distance from location</li>
+<li>Time till disappearance</li>
+</ul>
+<p>The first two are already provided by <code>pokespotter</code>. For the third one we have a timestamp when the Pokemon is going to disappear. We can use that and the <a href="https://www.npmjs.com/package/moment"><code>moment</code></a> module to provide the information. Additionally we will sort the result by distance.</p><pre class="crayon-plain-tag">npm install moment --save</pre><p>Require the two modules at the top of the file:</p><pre class="crayon-plain-tag">const Pokespotter = require('pokespotter');
+const moment = require('moment');</pre><p>Add a new function that uses <code>moment.duration().humanize()</code> to add a readable version of the duration to every Pokemon and a function that compares the distance of two Pokemon. Alter the <code>getPokemonByAddress</code> function to use the two new functions:</p><pre class="crayon-plain-tag">function enhancePokeInfo(pokemon) {
+    pokemon.duration = moment.duration(pokemon.expirationTime - Date.now()).humanize();
+    return pokemon;
+}
+
+function sortClosestPokemon(pokemonA, pokemonB) {
+  return pokemonA.distance - pokemonB.distance;
+}
+
+function getPokemonByAddress(address) {
+  return spotter.getNearby(address, { steps: 2 }).then(pokemon =&gt; {
+    return pokemon.map(enhancePokeInfo).sort(sortClosestPokemon)
+  });
+}</pre><p>Restart the server and refresh the browser. You should see more useful information now.</p>
+<h3 id="h.ict50gv3tl9v" class="c0 c8">Enhancing your Pokedex with Twilio</h3>
+<p><img class="&quot; alignright" style="width: 164.77px; height: 238.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/bKhCcWapodQkZN24gKZLUQfZe_6XddMXaT3TZzlc5OHNWdI1eB2YtpXnnZLFivXZlKx1JfdZGOtbirBIHA0yYrX9akWXpiOy4UALEEJpxfErEppqZxRrSz5Xc-RsNLSTc9Wpi4KO-2.png" alt="uJjHRgeNiIWRy.gif" /></p>
+<p>Alright we got the basic information going. But we didn&#8217;t want to create a web service for our Pokedex but an SMS service. This is where <a href="https://www.twilio.com/sms/api">Twilio SMS</a> comes into play.</p>
+<p>In order to receive SMS we need to create a new <code>POST</code> endpoint for our web server that will handle all <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request">incoming SMS</a>. Twilio will then pass the content of our SMS and all related information to that endpoint.</p>
+<p>First add a function that makes our information look more readable and limits it to only 6 Pokemon to keep the SMS short:</p><pre class="crayon-plain-tag">function formatPokeList(pokeList, address) {
+  let formattedPokemon = pokeList.map(pokemon =&gt; {
+    return `${pokemon.name}, ${pokemon.distance}m, ${pokemon.duration}`;
+  }).join('\n')
+  return `There are the following Pokemon around ${address}:\n${formattedPokemon}`;
+}
+
+app.get('/:address', (req, res) =&gt; {</pre><p>Now add a new <code>POST</code> endpoint for <code>/incoming</code> that uses the <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request#request-parameters"><code>Body</code></a> that Twilio sends as an address and logs the lookup result to the console. Feel free to adjust the other endpoint to use the format function, too:</p><pre class="crayon-plain-tag">app.get('/:address', (req, res) =&gt; {
+  let address = req.params.address;
+  getPokemonByAddress(address).then(pokemon =&gt; {
+    res.type('text/plain').send(formatPokeList(pokemon, address));
+  }).catch(err =&gt; {
+    res.type('text/plain').status(500).send('An error occurred. Check your console.');
+    console.error(err);
+  });
+});
+
+app.post('/incoming', (req, res) =&gt; {
+  let message = req.body.Body;
+  res.send(`&lt;Response&gt;&lt;Message&gt;Searching for your Pokemon! One moment.&lt;/Message&gt;&lt;/Response&gt;`);
+  getPokemonByAddress(message).then(pokemon =&gt; {
+    console.log(formatPokeList(pokemon, message));
+  }).catch(err =&gt; {
+    console.error(err);
+  });
+});
+
+app.listen(PORT, () =&gt; {
+  console.log(`Listening on port ${PORT}`);
+});</pre><p>Make sure to restart the server. In order to receive SMS we first need to expose our local server to the web for Twilio to access it. Run in a separate console window:</p><pre class="crayon-plain-tag">ngrok http 3000</pre><p><img class="&quot; aligncenter" style="width: 624.00px; height: 294.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/0ZKId-JlqZlgWuLkO1_wHLW64oI_275SFcZBzSMOEgfcEZjCZIo7NhDMw4b9Wsmp3ziC-MAMdvgdUtXhQGnAHihWkhhKs5y7P80c-nIUHLtmZX_adwp2zdndDK1faKM9kJYX6naO-2.png" alt="screenshot-ngrok.png" /></p>
+<p><a href="https://www.twilio.com/console/phone-numbers/incoming">Get a Twilio phone number</a> and configure the webhook URL for incoming messages to be <code>http://&lt;your_ngrok_url&gt;.ngrok.io/incoming</code>. Afterwards send an SMS to your <a href="https://www.twilio.com/console/phone-numbers/incoming">Twilio phone number</a> with an address and you should see the result show up in your terminal window.</p>
+<p><img class="alignnone size-large wp-image-18454" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-1024x460.png" alt="ScreenshotTerminal" width="640" height="288" srcset="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-1024x460.png 1024w, https://twilioinc.wpengine.com/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-300x135.png 300w, https://twilioinc.wpengine.com/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-768x345.png 768w, https://twilioinc.wpengine.com/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-200x90.png 200w, https://twilioinc.wpengine.com/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM.png 1104w" sizes="(max-width: 640px) 100vw, 640px" /></p>
+<p><span style="font-weight: 400;">Now the last step is to actually reply with an SMS. If we would know the response immediately we could directly reply to the request that Twilio does to our server using </span><a href="https://www.twilio.com/docs/api/twiml/sms/your_response#twiml-interpreter"><span style="font-weight: 400;">TwiML</span></a><span style="font-weight: 400;">. However, because it takes a fairly long time to request the data we need to use the </span><a href="https://www.twilio.com/docs/api/rest/sending-messages"><span style="font-weight: 400;">Twilio REST API</span></a><span style="font-weight: 400;"> or in our case the </span><a href="https://www.twilio.com/docs/libraries"><span style="font-weight: 400;">Twilio helper library</span></a><span style="font-weight: 400;"> to reply to the message at a later point. </span></p>
+<p>Install it via:</p><pre class="crayon-plain-tag">npm install twilio --save</pre><p>Make sure your Twilio Account SID (<code>TWILIO_ACCOUNT_SID</code>) and <a href="https://www.twilio.com/help/faq/twilio-basics/what-is-the-auth-token-and-how-can-i-change-it">Twilio Auth Token</a> (<code>TWILIO_AUTH_TOKEN</code>) are set as the respective environment variables. Require the helper library at the top of your file:</p><pre class="crayon-plain-tag">const moment = require('moment');
+const twilio = require('twilio');
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);</pre><p>Modify the <code>POST</code> request handler to send a message with the result:</p><pre class="crayon-plain-tag">app.post('/incoming', (req, res) =&gt; {
+  let message = req.body.Body;
+  res.send(`&lt;Response&gt;&lt;Message&gt;Searching for your Pokemon! One moment.&lt;/Message&gt;&lt;/Response&gt;`);
+  getPokemonByAddress(message).then(pokemon =&gt; {
+    let response = formatPokeList(pokemon, message);
+    return client.sendMessage({
+      from: req.body.To,
+      to: req.body.From,
+      body: response
+    });
+  }).catch(err =&gt; {
+    console.error(err);
+  });
+});</pre><p>Restart your server and send another SMS to your Twilio phone number. You will now get a reply SMS with the 6 closest Pokemon to that location.</p>
+<p><img style="width: 347.50px; height: 347.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); display: inline;" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/p5yC_k9GrHPc4ZJbVAcEJGGqIlgXzkk_kr9x_aOCUwGfG9SoROxR9oEEMrYpmDgkO9OUZdXAE7Tn6OOPOSvo06iWEnEEGcAiUaxkNrHiPWNeSB20fLmk5nQTqGmiaimx2ZcMbavR-2.png" alt="GOd1Ljyn4usSc.gif" /><img class="alignnone wp-image-18452 size-medium" style="display: inline;" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/IMG_0949-169x300.jpg" alt="screenshot SMS response" width="169" height="300" srcset="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/IMG_0949-169x300.jpg 169w, https://twilioinc.wpengine.com/wp-content/uploads/2016/07/IMG_0949-576x1024.jpg 576w, https://twilioinc.wpengine.com/wp-content/uploads/2016/07/IMG_0949-112x200.jpg 112w, https://twilioinc.wpengine.com/wp-content/uploads/2016/07/IMG_0949.jpg 750w" sizes="(max-width: 169px) 100vw, 169px" /></p>
+<h3 id="h.ll2jgsql2j1a" class="c0 c8">A Wild SMS Appeared!</h3>
+<p>Lastly we have one more problem. How do we get informed if that one Pokemon that we are looking for shows up at a certain location? Let&#8217;s add an SMS notification whenever this happens and an easy way to subscribe to it.</p>
+<p>First create a new map instance at the top of your file that will hold all the necessary subscriber information:</p><pre class="crayon-plain-tag">const PokeWatchers = new Map();
+const PORT = process.env.PORT || 3000;</pre><p>Next we need to add subscribers to this map. We will add them based on the format of SMS they send. If you send something such as: <code>Subscribe: Pikachu; Alexanderplatz, Berlin</code> it will notify you when there is a Pikachu around Alexanderplatz in Berlin.</p>
+<p>For this modify our SMS request handler:</p><pre class="crayon-plain-tag">app.post('/incoming', (req, res) =&gt; {
+  let message = req.body.Body;
+  if (message.toLowerCase().trim().indexOf('subscribe:') === 0 &amp;&amp; message.indexOf(';') !== -1) {
+    message = message.substr('subscribe:'.length);
+    let [pokemonName, location] = message.split(';').map(m =&gt; m.trim());
+
+    if (POKEDEX.indexOf(pokemonName) !== -1) {
+      PokeWatchers.set(`${req.body.From},${pokemonName}`, location);
+      res.type('text/plain').send(`We will be on the watch for ${pokemonName} around ${location}`);
+    } else {
+      res.type('text/plain').send(`The Pokemon with the name ${pokemonName} doesn't exist.`);
+    }
+  } else {
+    res.send(`&lt;Response&gt;&lt;Message&gt;Searching for your Pokemon! One moment.&lt;/Message&gt;&lt;/Response&gt;`);    
+    getPokemonByAddress(message).then(info =&gt; {
+      let { location, pokemon } = info;
+      let response = formatPokeList(pokemon, location);
+      return client.sendMessage({
+        from: req.body.To,
+        to: req.body.From,
+        body: response
+      });
+    }).catch(err =&gt; {
+      console.error('An error occurred');
+      console.error(err);
+    });
+  }
+});</pre><p>Now that we know which Pokemon we should be looking for and where, all we need to do is to look for them on a regular basis. We will be doing this every 60 seconds. Once we found the respective Pokemon for someone, we will also stop looking for it. You can re-subscribe by sending the same message again.</p>
+<p><span style="font-weight: 400;">In order to send a message without previously receiving one we again need to use the the </span><a href="https://www.twilio.com/docs/libraries"><span style="font-weight: 400;">Twilio helper library</span></a><span style="font-weight: 400;">. </span></p>
+<p>Create a new function <code>watchForPokemon</code> and run setInterval when the server starts. Make sure to replace <code>{{YOUR TWILIO NUMBER}}</code> with your own Twilio phone number:</p><pre class="crayon-plain-tag">function watchForPokemon() {
+  console.log('Looking for Pokemon...');
+  for(let [keyInfo, address] of PokeWatchers) {
+    let [number, wantedPokemon] = keyInfo.split(',');
+    getPokemonByAddress(address).then(pokemon =&gt; {
+      let availablePokemon = pokemon.filter(poke =&gt; poke.name.toLowerCase() === wantedPokemon.toLowerCase());
+      if (availablePokemon.length !== 0) {
+        let body = formatPokeList(availablePokemon, address);
+        let from = '{{YOUR TWILIO NUMBER}}';
+        let to = number;
+        PokeWatchers.delete(keyInfo);
+        return client.sendMessage({body, from, to});
+      }
+      return Promise.resolve(true);
+    }).catch(err =&gt; {
+      console.error('An error occurred. Check your console.');
+      console.error(err);
+    });
+  }
+}
+
+app.listen(PORT, () =&gt; {
+  console.log(`Listening on port ${PORT}`);
+  watchForPokemon();
+  setInterval(watchForPokemon, 60 * 1000);
+});</pre><p>That&#8217;s it! Restart your server and you can start sending <code>Subscribe</code> messages. To test it, I recommend to search for a Pokemon that is very common to the area that you want to watch for. This way you should get instantly an SMS.</p>
+<p><img class="&quot; aligncenter" style="width: 500.00px; height: 300.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/iP3IbN8UOTBAnr8ZTXKys7P16jeocNC0eS9WExAsxhalQVauq8zSHuLebyBKJZUTQ3-k-ZPdsCQY3ZNmAjSAIEcCpMJNcXhcKk5hDALLlleIey4XXPcokh8XShGVL5wtWoQjdgmu-1.png" alt="10LKovKon8DENq.gif" /></p>
+<h3 id="h.2iqa4wj6kcn6" class="c0 c8">Go and Explore</h3>
+<p>We made it! Hopefully now we will be able to catch &#8217;em all. You don&#8217;t have to stop here though. How about filtering out common Pokemon or providing a way to sort them by rarity?<br />
+I can&#8217;t wait to see what you build with this! Feel free to contact me to tell me what you build or if you have any questions:</p>
+<ul style="padding-left: 36px;">
+<li>Email: <a class="c4" href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></li>
+<li>Twitter: <a href="https://twitter.com/dkundel">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel">dkundel</a></li>
+<li>Twitch (streaming live code): <a href="https://twitch.tv/dkundel">dkundel</a></li>
+</ul>
+<p>Please remember that this system is based on an unofficial API that isn&#8217;t guaranteed to always work and they might block you. So you might have to sometimes fallback to travel across the land to search for Pokemon.</p>
+<p><img class="alignnone size-full wp-image-18456" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/07/flying-away.gif" alt="flying-away" width="431" height="327" /></p>
+<p><a href="https://twilioinc.wpengine.com/2016/07/pokemon-go-sms-node-js-twilio.html">Build your own Pokemon Go SMS Service with Node.js, Express and Twilio</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/07/pokemon-go-sms-node-js-twilio.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Supercharge your Twilio API calls with Add-ons</title>
+		<link>https://twilioinc.wpengine.com/2016/05/supercharge-your-twilio-api-calls-with-add-ons.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/05/supercharge-your-twilio-api-calls-with-add-ons.html#comments</comments>
+		<pubDate>Tue, 24 May 2016 17:34:45 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[Developers Drawing The Owl]]></category>
+		<category><![CDATA[Add-ons]]></category>
+		<category><![CDATA[fraud]]></category>
+		<category><![CDATA[Lookup]]></category>
+		<category><![CDATA[Sentiment Analysis]]></category>
+		<category><![CDATA[SMS]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18028</guid>
+		<description><![CDATA[<p>Twilio Add-ons let you supercharge your Twilio API calls with features and capabilities offered by other communications API&#8217;s. Let&#8217;s add some Add-ons to our account and see how these mashups let us build better apps with fewer API calls. Activating your favorite Add-ons Find Add-ons to add to your account by heading over to the new Twilio Marketplace section of the Console. In this post we&#8217;ll look at two... <a class="read-more" href="https://twilioinc.wpengine.com/2016/05/supercharge-your-twilio-api-calls-with-add-ons.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/05/supercharge-your-twilio-api-calls-with-add-ons.html">Supercharge your Twilio API calls with Add-ons</a></p>]]></description>
+				<content:encoded><![CDATA[<p><a href="https://www.twilio.com/docs/api/add-ons">Twilio Add-ons</a> let you supercharge your Twilio API calls with features and capabilities offered by other communications API&#8217;s. Let&#8217;s add some Add-ons to our account and see how these mashups let us build better apps with fewer API calls.</p>
+<p><img class="&quot; aligncenter" style="width: 320.00px; height: 240.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/SkMLyCdBm0JXkfUEm1YsChC_y21XC_5rkN8IDUY1HBcYRBehQE6ssYPPDmUX0Idr5rMBhQEYO4_4T0OBLohzRV3QPAq1S5GC5y4b3VjLR5j6e2KkBr1r6Y9VSC72mzt7C8CA9F55.png" alt="giphy.gif" /></p>
+<h3 id="h.d93koxu3e6t9" class="c2 c8">Activating your favorite Add-ons</h3>
+<p>Find Add-ons to add to your account by heading over to the new <a href="https://www.twilio.com/console/add-ons">Twilio Marketplace</a> section of the <a href="https://www.twilio.com/console">Console</a>. In this post we&#8217;ll look at two of them, the <em>Whitepages Pro Phone Reputation </em>and the <em>IBM Watson Message Sentiment</em> Add-ons.</p>
+<p>To activate the <em><a href="https://www.twilio.com/add-ons/whitepages-pro-phone-rep">Whitepages Pro Phone Reputation</a></em><em> </em>and the <em><a href="https://www.twilio.com/add-ons/ibm-watson-sentiment">IBM Watson</a></em><em><a href="https://www.twilio.com/add-ons/ibm-watson-sentiment"> Message Sentiment</a></em><em> </em>Add-ons, press the <em>Install</em> button.</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 344.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/9T_wF7K-gh7QOO5rB66roDmAzXGI23CRr41Rc7wVQ2CPRpPiasA8MCylFfdvnhj6CPKH1v3YGa_MvKcu1mj77zlmohCHVv06x2DctR7uLedpBxlP7SbcqPzHx16r66ynZNESOm7o.png" alt="install-addon.gif" /></p>
+<p>For the Whitepages Pro Phone Reputation Add-on, make sure that the <em>Use In Lookups</em> checkbox is selected. For the IBM Watson Message Sentiment Add-on, make sure that the <em>Use In Incoming SMS Message</em> checkbox is selected.</p>
+<p><img class="&quot; aligncenter" style="width: 592.52px; height: 309.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/o8ts5zq08ATRn4x7FtlduQ6zSnBbxACIrfFq70eUvn31j7G8wA4A4ZkJJUbxzQfOfNL2yIvxJ3TFJN3ecbYIdOL-HxHdkNdJO4Se6Eqj-pWyZYxX4-_MWoC0HR4ek8vSs1sihYoU.png" alt="addon-installed-config-notes.png" /></p>
+<p>Once both Add-ons are activated we’re ready to start using them.</p>
+<h3 id="h.s9xli6xq07d2" class="c2 c8">No more spam or serial-fraudsters!<img class="&quot; alignright" style="width: 271.78px; height: 146.50px; margin-left: 10.00px; margin-top: 10.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/mkZWElOpBhAxddKRa-4KXVl0jzjckxcleA2xT98vzxuWH4Bq67paNvB2KhaGR3RbQwHB0B84A0uBkH25mtjc16HQ2tXYhn7XFHJr4VTBiKw7ycpG1fMJB0kg7pSqi39Bp6pR9s7i.png" alt="giphy (2).gif" /></h3>
+<p>With the Whitepages Pro Add-on we can retrieve fraud score information as part of a request to the Twilio <a href="https://www.twilio.com/lookup">Lookup API</a>.</p>
+<p>To tell Twilio we want this additional data all we need to do is pass the <code>AddOns</code> parameter to the API specifying the unique names of the Add-ons to use.</p>
+<p>For example, using the <a href="https://www.twilio.com/docs/libraries/node">Twilio Node helper library</a> you include an <code>addOns</code> parameter with your Lookup request:</p><pre class="crayon-plain-tag">'use strict';
+
+let LookupsClient = require('twilio').LookupsClient;
+let client = new LookupsClient('YOUR_TWILIO_ACCOUNT_SID', 'YOUR_TWILIO_AUTH_TOKEN');
+
+client.phoneNumbers('+15108675309').get({
+  type: 'carrier',
+  addOns: 'whitepages_pro_phone_reputation'
+}, (error, number) =&gt; {
+  console.dir(number.addOns.results['whitepages_pro_phone_reputation'], { depth: 5 });
+});</pre><p>Twilio will do a phone number lookup and mash the results of that API request together with the result from the Whitepages Pro API, placing that data into a property named <code>add_ons</code>.</p><pre class="crayon-plain-tag">{
+    "country_code": "US",
+    "phone_number": "+15108675309",
+    "national_format": "(510) 867-5309",
+    "carrier": {
+        "mobile_country_code": "310",
+        "mobile_network_code": "120",
+        "name": "Sprint Spectrum, L.P.",
+        "type": "mobile",
+        "error_code": null
+    },
+    "add_ons": {
+        "status": "successful",
+        "message": null,
+        "code": null,
+        "results": {
+            "whitepages_pro_phone_reputation": {
+                "status": "successful",
+                "message": null,
+                "code": null,
+                "result": {
+                    "results": [
+                        {
+                            "phone_number": "5108675309",
+                            "reputation": {
+                                "level": 1,
+                                "details": [
+                                    {
+                                        "score": 1,
+                                        "type": "NotApplicable",
+                                        "category": "NotApplicable"
+                                    }
+                                ],
+                                "volume_score": 2,
+                                "report_count": 1
+                            }
+                        }
+                    ],
+                    "messages": []
+                },
+                "requestSid": "XRbcbde3f247cdd7bfd02b92053a3db9ac"
+            }
+        }
+    },
+    "url": "https://lookups.twilio.com/v1/PhoneNumbers/+15108675309?Type=carrier"
+}</pre><p>The reputation of the phone number is described in the <code>add_ons.results.whitepages_pro_phone_reputation</code>property with Level 1 meaning there is a low chance of this phone number being fraud related while Level 4 is a 97% chance that this is a fraud related number.</p>
+<h3 id="h.g66czw1kt1cp" class="c2 c8">Happy or sad customer SMS?</h3>
+<p>Programmatically receiving and responding to SMS messages can enable great customer experiences. However without appropriately determining the <a href="https://www.twilio.com/blog/2016/03/identify-customer-emotions-using-ibm-bluemix-and-twilio-voice.html">context of the message</a> we can end up with a static experience that feels robotic to the user.</p>
+<p>With the <em>IBM Watson Message Sentiment</em> Add-on you can perform <a href="http://www.alchemyapi.com/api/sentiment-analysis">sentiment analysis</a> on every incoming message without making any changes to your application. Because we&#8217;ve enabled the Add-on we start getting the semantic analysis results automatically passed in the payload of every incoming SMS webhook request.</p>
+<p>Grab the <code>ibm_watson_sentiment</code> information out of the <code>AddOns</code> property from the payload and use it to determine whether the message is positive, negative or neutral and even how strong the sentiment is so that you can reply accordingly.</p>
+<p>Give it a try using Node.js by creating a new file called <code>server.js</code> and dropping this code into it:</p><pre class="crayon-plain-tag">'use strict';
+
+const bodyParser = require('body-parser');
+const express = require('express');
+const http = require('http');
+const twilio = require('twilio');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.post('/sms', (req, res) =&gt; {
+  let twiml = new twilio.TwimlResponse();
+  
+  let addOnResults = JSON.parse(req.body.AddOns);
+  let sentimentResult = addOnResults.results['ibm_watson_sentiment'];
+  if (sentimentResult.status === 'successful') {
+    if (sentimentResult.result.docSentiment.type === 'positive') {
+      twiml.message('YAY! Glad to see you happy!');
+    } else if (sentimentResult.result.docSentiment.type === 'negative') {
+      twiml.message('That is unfortunate. Anything I can do?');
+    } else {
+      twiml.message('Ahoy! How are you?');
+    }
+  } else {
+    twiml.message('We could not determine how you feel :(');
+  }
+  
+  res.type('text/xml').send(twiml.toString());
+});
+
+http.createServer(app).listen(port, () =&gt; {
+  console.log(`listening on port '${port}'`);
+});</pre><p>Install the application dependencies and start the server:</p><pre class="crayon-plain-tag">$ npm install body-parser express twilio
+$ node server.js</pre><p><img class="&quot; alignright" style="width: 223.70px; height: 397.50px; margin-left: 10.00px; margin-top: 10.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/NLXYChqKQqNyj46qlAfNqqjjHvxn0x_nsmx4gjI-EG00BQcZUV7_q3ywuqTQLVSbg8DEmKPIniy4s34-vFc4r_LwfSq-ZHDIMgMDRFIF-o8dG5PqrwYrUi8CbCtJbglb7sfGW07r.png" alt="sentiment-sms-screenshot.png" /></p>
+<p>Run <code>ngrok http 3000</code> in a separate window to expose your server to the public using <a href="https://ngrok.com/">ngrok</a>. If you want to know more about ngrok you can read more <a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html">here</a>.</p>
+<p>Wire up the <a href="https://www.twilio.com/console/phone-numbers/incoming">Message Request URL</a> of an SMS enabled Twilio Phone Number with your ngrok URL. Send a text message to that number and watch as your application responds with a contextually appropriate message.</p>
+<h3>Just the beginning</h3>
+<p>Awesome! We have now supercharged our API calls to improve our customers experience even more and all that with only a few changes. Checking for fraud and the sentiment of a message is just the beginning though. You can find more Add-ons in the <a href="https://www.twilio.com/add-ons">Twilio Marketplace</a>.</p>
+<p>Interested in offering your own API in the Twilio Marketplace? <a href="https://www.twilio.com/add-ons/publish">Request an invite</a> and we&#8217;ll get in touch with you.</p>
+<p>I can’t wait to see what you build with the new Add-ons! Feel free to contact me on Twitter <a href="https://twitter.com/dkundel">@dkundel</a> or via email <a class="c4" href="mailto:dkundel@twilio.com">dkundel@twilio.com</a> to tell me more about it.</p>
+<p><img class="&quot; aligncenter" style="width: 392px; height: 294px; margin-left: 0px; margin-top: 0px; transform: rotate(0rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/fhtXkyiPXzt31ucWWLggqQKyH7dXL1bP8QeIVFNFstP0RmuKQMV64_KxgPxDlg_o1oV0x6nAaHUCc-r35uHkYXBTWtPBPAHODp6mrLKn8VT6LBZL0qn9UHC4nhtfWptGRMq6pizR.png" alt="Flying away Dragonball Scene" /></p>
+<p><a href="https://twilioinc.wpengine.com/2016/05/supercharge-your-twilio-api-calls-with-add-ons.html">Supercharge your Twilio API calls with Add-ons</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/05/supercharge-your-twilio-api-calls-with-add-ons.html/feed</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		</item>
+		<item>
+		<title>Conference Monitoring à la Iron Man</title>
+		<link>https://twilioinc.wpengine.com/2016/05/conference-call-monitoring-twilio.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/05/conference-call-monitoring-twilio.html#respond</comments>
+		<pubDate>Fri, 20 May 2016 20:36:35 +0000</pubDate>
+		<dc:creator><![CDATA[Dominik Kundel]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[Developers Drawing The Owl]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=17888</guid>
+		<description><![CDATA[<p>Even in a place like the Marvel universe communication is key in resolving conflicts and team performance. Get Tony Stark, Steve Rogers and the other Avengers in a conference call and who knows, the whole Civil War thing might have been avoided. With conference events, we can build a dashboard how Iron Man would have probably built it for the Avengers to monitor their conference calls.... <a class="read-more" href="https://twilioinc.wpengine.com/2016/05/conference-call-monitoring-twilio.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/05/conference-call-monitoring-twilio.html">Conference Monitoring à la Iron Man</a></p>]]></description>
+				<content:encoded><![CDATA[<p>Even in a place like the Marvel universe communication is key in resolving conflicts and team performance. Get Tony Stark, Steve Rogers and the other Avengers in a conference call and who knows, the whole Civil War thing might have been avoided.</p>
+<p>With <a href="https://www.twilio.com/blog/2016/05/introducing-conference-events.html">conference events</a>, we can build a dashboard how Iron Man would have probably built it for the Avengers to monitor their conference calls.</p>
+<p><em>No worries there will be no spoilers! ;)</em></p>
+<h3>Mission Briefing</h3>
+<p><img class="&quot; aligncenter" style="width: 480.00px; height: 198.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/BIXePVF-4J7Y2DLxArvvX4B1pM2evWQw1LRujdkxqvGnxQEzYaj0pC4tk1JkIbpEsGXZLgqkIpK-n4G5YGZf7tVZuKV1SnVXdtps4PP4NtaOUPp62Jzh6c6nX_Tn2Gw4k-Xiccwt-1.png" alt="civil-war-briefing.gif" /></p>
+<p>There is no successful mission without a proper briefing. For this mission we will be using the following tools:</p>
+<ul style="padding-left: 36px;">
+<li>Node.js and NPM which you can get here: <a href="https://nodejs.org/en/">https://nodejs.org/en/</a></li>
+<li>A Twilio Account to get a Twilio Phone Number – <a href="https://www.twilio.com/try-twilio">Sign up for free</a>!</li>
+<li><a href="https://ngrok.com/">ngrok</a> – You can read more about ngrok <a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html">here</a>.</li>
+</ul>
+<p>Additionally our dashboard will be using <a href="https://angularjs.org/">AngularJS</a>. While this project doesn’t require any substantial AngularJS knowledge you can brush up your AngularJS skills in this article: <a href="https://www.twilio.com/blog/2016/05/build-video-chat-using-angularjs-1-x.html">Build a Video Chat using AngularJS</a></p>
+<p>Alright we should be properly prepared to start coding. Ready? Let’s go!</p>
+<h3>Systems Setup</h3>
+<p><img class="&quot; aligncenter" style="width: 500.00px; height: 100.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/jo1DkBq3g5E8P5dZdHVF2kCyWyZYOX4pUnnmLGeeJT3WUg5ZLS5K5uX5SblAELxsHsCD5hxBRTgheZIOdBlR5e3jmm8wiLSTnuDS3znzqDnMugalqOK8t35kNSDl61V9Jb3lu_Dh-1.png" alt="iron-man-setup-2.gif" /></p>
+<p>Our core mission is to add a dashboard to an existing conference call phone number. Start by cloning this project:</p><pre class="crayon-plain-tag">git clone -b template git@github.com:dkundel/twilio-conference-dashboard.git
+cd twilio-conference-dashboard
+npm install</pre><p>This will install all necessary dependencies for us and provide us with a basic server to work on.</p>
+<p>Copy the <code>.env.example</code> in the main directory to a new file called <code>.env</code> and add the credentials of your Twilio account from the <a href="https://www.twilio.com/console">Console</a>.</p>
+<p>Now we are ready to run the server. For this, we can either type <code>node index.js</code> from the main directory of the project or use the <code>npm run dev</code> script. The latter uses <em><a href="https://www.npmjs.com/package/nodemon">nodemon</a></em> to make sure that the server is reloaded every time we do a code change.</p>
+<p>You can verify if everything works by opening <code><a href="http://localhost:3000">http://localhost:3000</a></code> in your browser. You should see a screen that looks like this:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 298.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/ZqvbdhkHHhL6ihsO33cY-PnXmXz3mnG2pDFTKXFUPHAbLu7XhtT2rGvtnipwHFcELI-oqq73wjk6OV8Rojpa0hFOWhWMzAdF78fUChLFPO3Qui-nNZtENSAiBj5R55BSBRf3Cjkk-1.png" alt="Screen Shot 2016-05-10 at 6.14.00 PM.png" /></p>
+<h3>Establishing Communications</h3>
+<p><img class="&quot; alignright" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/1qJF50IMrB5zk0q1cJMyFyHBGq79o1oYgJ8cqls31LyF-7Ufj9j5xzlwBN6vsyWPK1JJlw3D8sp6i1TwkYDo9pAN0wRGT9hTwydlgrZsllSAYBflzGQoOn0gPwtoCBiID1_s7qAM-1.png" alt="screenshot-ngrok.png" width="381" height="299" /></p>
+<p>Now that we have our application running we need to connect a Twilio <a href="https://www.twilio.com/console/phone-numbers/incoming">phone number</a> to it so we can dial into the conference. For this we first need to expose our application to the internet via a public URL. This is where <em><a href="https://ngrok.com/">ngrok</a></em> comes into play.</p>
+<p>Run <code>ngrok http 3000</code> in a separate terminal and keep it running. You will get an ngrok URL that we will use with our Twilio phone number.</p>
+<p>Navigate to <code>http://&lt;your_ngrok_url&gt;.ngrok.io/voice</code> and make sure that the TwiML returned looks like this:</p><pre class="crayon-plain-tag">&lt;Response&gt;
+    &lt;Say&gt;Welcome to the conference!&lt;/Say&gt;
+    &lt;Dial&gt;
+        &lt;Conference waitUrl="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"&gt;myConference&lt;/Conference&gt;
+    &lt;/Dial&gt;
+&lt;/Response&gt;</pre><p>This TwiML instructs Twilio to first respond to every call with a voice saying “Welcome to the conference!” using the <a href="https://www.twilio.com/docs/api/twiml/say"><code>&lt;Say&gt;</code></a> verb. Afterwards, it uses the <a href="https://www.twilio.com/docs/api/twiml/dial"><code>&lt;Dial&gt;</code></a> to direct the call into a <a href="https://www.twilio.com/docs/api/twiml/conference"><code>&lt;Conference&gt;</code></a>. The <a href="https://www.twilio.com/docs/api/twiml/conference#attributes-waitUrl"><code>waitUrl</code></a> attribute specifies which webhook Twilio should contact for instructions what to do while the call is waiting for the conference to start. In our case, we use a <em><a href="https://www.twilio.com/labs/twimlets/holdmusic">Twimlet</a></em> that plays a song for us.</p>
+<p>In the <a href="https://www.twilio.com/console/phone-numbers/incoming">Console</a> locate one of your existing phone numbers or buy a new number and add the ngrok URL as the Webhook value:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 350.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/E3muqw2WMsYCa-5SSeVf6BNps1kCzJXLKJMqY83LkNQA3zztzZqFcifd4iCqQIRsI6HA7BWciRVHMEUw_OOXz0fHEZmaLWxjED_OVpWQnV-81Lrk1UL0r_0_U8fc5v10KzR8ytlM-1.png" alt="screenshot-console.png" /></p>
+<p>Call the phone number and you should be able to hear &#8220;Welcome to the conference&#8221; followed by some music. That&#8217;s awesome, however, we are not done yet.</p>
+<h3>Receiving Status Updates from HQ</h3>
+<p>We want to receive updates whenever the status of the conference changes. For this we need to add two new attributes <a href="https://www.twilio.com/docs/api/twiml/conference#attributes-statusCallback"><code>statusCallback</code></a> and <a href="https://www.twilio.com/docs/api/twiml/conference#attributes-statusCallbackEvent"><code>statusCallbackEvent</code></a> to the <a href="https://www.twilio.com/docs/api/twiml/conference"><code>&lt;Conference&gt;</code></a> element.</p>
+<p>Open <code>voice.js</code> in the <code>lib</code> folder and add the two new properties to the conference TwiML:</p><pre class="crayon-plain-tag">//...
+node.conference('myConference', {
+  waitUrl: 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient',
+  statusCallback: '/status',
+  statusCallbackEvent: 'start end join leave mute'
+});
+//...</pre><p>We&#8217;re telling Twilio that when the start, end, join, leave and mute conference events happen, we want it to make an HTTP request to the <code>/status</code> route of our application.</p>
+<p>Reload <code>http://&lt;your_ngrok_url&gt;.ngrok.io/voice</code> and you should be able to see the updated XML.</p><pre class="crayon-plain-tag">&lt;Response&gt;
+    &lt;Say&gt;Welcome to the conference!&lt;/Say&gt;
+    &lt;Dial&gt;
+        &lt;Conference waitUrl="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient" statusCallback="/status" statusCallbackEvent="start end join leave mute"&gt;myConference&lt;/Conference&gt;
+    &lt;/Dial&gt;
+&lt;/Response&gt;</pre><p>Now lets create that new <code>/status</code> route back in our Node application. Create a new file named <code>status.js</code> in the <code>lib</code> folder. Export a new request handler that for now just logs the request body:</p><pre class="crayon-plain-tag">'use strict';
+
+function statusRouteHandler (req, res, next) {
+  console.log('Status Update:');
+  console.dir(req.body);
+  res.send('Ahoy!');
+}
+module.exports = statusRouteHandler;</pre><p>Next add the <code>/status</code> route to <code>index.js</code>:</p><pre class="crayon-plain-tag">// configuring middleware
+// ...
+
+// configure routes
+app.post('/mute', require('./lib/mute'));
+app.all('/voice', require('./lib/voice'));
+app.post('/status', require('./lib/status'));
+
+// start server
+// ...</pre><p><img class="&quot; alignright" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/n6hq6zAyypYy2AepujsqD4KXaQcmvgQu7frdFE_cHI_iEUfTG-11wkj4x3TiKKuv594oFqkz0_PVVOauXHD_0XM2hNNE8JdRrQ3jb5SXA9dOtkBr_m7mBiBbhfonz8CuKxiB59Zv-1.png" alt="screenshot-terminal.png" width="324" height="321" /></p>
+<p>That’s it! Give your number another ring and you should be able to see events being logged in the console. Make sure to wait until the music starts before you hang up in order to properly join the conference. The events you should see pop up in the console are <code>participant-join</code>, <code>participant-leave</code> and <code>conference-end</code>. There is no <code>conference-start</code> event since the conference will only start once at least two participants are in.</p>
+<h3>Gathering Caller Intel</h3>
+<p>If we have a close look at the data we receive in the statusCallback request, we get data about the conference like the callback event, conference friendly name, and the conference SID. We&#8217;ll store those in a variable named <code>data</code> and for use in our dashboard. One thing we don&#8217;t get is much about the actual caller, like their phone number. To get that we can use the Twilio Node.js helper library and the <code>CallSid</code> to look up the Call resource.</p><pre class="crayon-plain-tag">'use strict';
+
+const twilio = require('twilio');
+const client = twilio();
+
+function statusRouteHandler (req, res, next) {
+  const eventName = req.body.StatusCallbackEvent;
+  const callSid = req.body.CallSid;
+  let data = {
+    name: req.body.FriendlyName,
+    conference: req.body.ConferenceSid
+  };
+  
+  if (eventName.indexOf('participant-') !== 0) {
+    res.status(200).send();
+    return;
+  }
+  
+  client.calls(callSid).get((err, call) =&gt; {
+    if (err) {
+      console.error('An error occurred!');
+      console.dir(err);
+      res.status(500).send('error!');
+      return;
+    }
+    
+    console.dir(call);
+    res.status(200).send();
+    return;
+  });
+}
+
+module.exports = statusRouteHandler;</pre><p>Dial the number again and you now have the phone number of the caller which you can use to locate even more information from a source like a local database. Say for example we wanted to find out which superhero was calling into the conference. You could use the handy database of superhero phone numbers that you keep, or you could just use the one I&#8217;ve included in the project.</p>
+<p>Use it by calling <code>PeopleService.get(callSid).then()</code> to retrieve a profile:</p><pre class="crayon-plain-tag">'use strict';
+
+const twilio = require('twilio');
+const client = twilio();
+const PeopleService = require('./superheroService');
+
+function statusRouteHandler (req, res, next) {
+  // ... excluded for readability ...
+  client.calls(callSid).get((err, call) =&gt; {
+    if (err) {
+      console.error('An error occurred!');
+      console.dir(err);
+      res.status(500).send('error!');
+      return;
+    }
+    data.number = call.fromFormatted;
+    data.muted = req.body.Muted === 'true';
+    data.sid = callSid;
+    PeopleService.get(callSid).then((profile) =&gt; {
+      data.profile = profile;
+      console.log('User info:');
+      console.dir(data);
+      res.status(200).send();
+    });
+  });
+}
+
+module.exports = statusRouteHandler;</pre><p></p>
+<h3>Connection Established. Waiting for data…</h3>
+<p><img class="&quot; aligncenter" style="width: 500.00px; height: 100.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/7vO3V_O21Ehtfy3bps3xpHd5zMyWZvjNNq5Hax0EDOmoQFKVkyx2a8nl0x7GOdtSFTz2hRlxi0Vl_Nmp3g9qXcyawBSGL3A4LQ1ZuDPQonpfHhJSRo8nWBdvqLR-Y3eE8xm2bEd4-1.png" alt="iron-man-interface.gif" /></p>
+<p>Now that we have all the caller data collected we need to send it to our dashboard whenever there is a new conference event. To do this we will use a <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">WebSocket</a> wrapper called <a href="http://socket.io/">Socket.IO</a>.</p>
+<p>Require the Socket.IO module in our <code>index.js</code> and pass it an HTTP server instance. We are returned an <code>io</code> instance that allows us to send messages and listen for events. Because we want to send those messages to the dashboard when Twilio requests the <code>/status</code> route, we&#8217;ll pass the instance of Socket.IO into that route handler.</p><pre class="crayon-plain-tag">// configuring middleware
+// ...
+const io = require('socket.io')(server);
+
+// configure routes
+app.post('/mute', require('./lib/mute'));
+app.all('/voice', require('./lib/voice'));
+app.post('/status', require('./lib/status')(io));
+
+io.on('connection', (socket) =&gt; {
+  console.log('a user connected');
+ 
+  socket.on('disconnect', () =&gt; {
+    console.log('user disconnected');
+  });
+});
+
+// start server
+// ...</pre><p>Change the function export to accept the instance of Socket.IO and then use that instance to pass our dashboard client the conference event data. Additionally change the route handler to return the caller data via a Socket.IO message instead of an HTTP response by using the emit method:</p><pre class="crayon-plain-tag">'use strict';
+
+const twilio = require('twilio');
+const client = twilio();
+const PeopleService = require('./superheroService');
+
+let io;
+
+function statusRouteHandler(req, res, next) {
+  const eventName = req.body.StatusCallbackEvent;
+  const callSid = req.body.CallSid;
+  const accountSid = req.body.AccountSid;
+  let data = {
+    name: req.body.FriendlyName,
+    conference: req.body.ConferenceSid
+  };
+  
+  if (eventName.indexOf('participant-') !== 0) {
+    io.emit(eventName, data);
+    res.status(200).send();
+    return;
+  }
+  
+  client.calls(callSid).get((err, call) =&gt; {
+    if (err) {
+      console.error('An error occurred!');
+      console.dir(err);
+      res.status(500).send('error!');
+      return;
+    }
+    data.number = call.fromFormatted;
+    data.muted = req.body.Muted === 'true';
+    data.sid = callSid;
+    PeopleService.get(callSid).then((profile) =&gt; {
+      data.profile = profile;
+      console.log('User info:');
+      console.dir(data);
+      
+      io.emit(eventName, data);
+      res.status(200).send('');
+    });
+  });
+}
+
+module.exports = function (ioInstance) {
+  io = ioInstance;
+  return statusRouteHandler;
+}</pre><p>The last thing we need to do is to listen for the respective events in our dashboard. For this, we need to open the <code>conference.service.js</code> file in the <code>public</code> folder. I already made sure to include the Socket.IO client library in the <code>index.html</code> and added it to Angular’s dependency injection. So we are ready to use it and populate the <code>initialize</code> function of the service.</p>
+<p>Since we need to perform some basic actions for every event we will maintain an array of all events we are listening on and loop over them. The events we are interested in are:</p><pre class="crayon-plain-tag">var events = [ 
+  'conference-start',
+  'conference-end',
+  'participant-join',
+  'participant-leave',
+  'participant-mute',
+  'participant-unmute'
+]</pre><p>For each of the events, we create a new <code>eventData</code> object that contains the event name, the data it sent as well as a readable message that we generate with <code>getEventMessage(event, data)</code>. Additionally, we maintain an object containing all participants. This object has to be updated depending on the message.</p>
+<p>Once we have all necessary data we broadcast it in order to inform components such as our controller that there has been an update. For this we use the <a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$broadcast"><code>$rootScope.$broadcast</a><a href="https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$broadcast"></code></a> function of AngularJS.</p>
+<p>Stitching all of this code together we end up with the following code in our <code>public/conference.service.js</code>:</p><pre class="crayon-plain-tag">(function () {
+  // ... excluded for readability ...
+  function ConferenceService($http, io, $rootScope) {
+    var participants = {};
+    var socket = io();
+    
+    var events = [ 
+      'conference-start',
+      'conference-end',
+      'participant-join',
+      'participant-leave',
+      'participant-mute',
+      'participant-unmute'
+    ];
+
+    initialize();
+
+    function initialize() {
+      events.forEach(function (event) {
+        socket.on(event, function (data) {
+          var eventData = {
+            event: event,
+            data: data,
+            message: getEventMessage(event, data)
+          };
+          
+          if ('participant-join') {
+            data.joined = Date.now();
+          }
+          
+          if (event === 'participant-leave') {
+            delete participants[data.sid];
+          } else if (event.indexOf('participant-') === 0) {
+            participants[data.sid] = data;
+          }
+          
+          $rootScope.$broadcast('conferenceStatus.update', eventData);
+        });
+      });
+    }
+    // ... excluded for readability ...
+  }
+})();</pre><p>That’s it. The connection is established and the data is being piped through. If you navigate to in your browser to <code><a href="http://localhost:3000/">http://localhost:3000/</a></code> and start calling into the conference with a couple of phones you should be able to see your dashboard being populated with the team and the respective log messages!</p>
+<p><img class="&quot; aligncenter" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/KE_9u3TezN1jKO3dDolPLU7RvnCmUyigOJbEKQTw6SP3QE27N96sFQGgumPT2ABKkto8PK8_u6wwpWFqaj_N75604DVkmwoeU0oOEXhjlUnOIm9bA5YnG318D1oIZaz7V4jLBLY0-1.png" alt="dashboard.gif" width="401" height="346" /></p>
+<h3>Comms and dashboard up and running. Time to save the world!</h3>
+<p><img class="&quot; alignnone" style="width: 480.00px; height: 198.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/05/Ghiar6d1JfNnRjoQXG9sN1YloQoCXSF-Uxq08su7xF5ZLZLJ4ibzq4vc7UkJ8ZzP0j_rLVUQfmPilkVLU2l0FMbVWC1KGDlIk-hDI0mRv2WtpXxPEuShlqvN242L0Q5dokgGGdZf-1.png" alt="civil-war-clash.gif" /></p>
+<p>We did it! We have not only a way to easily get everyone in the same conference call but a way to monitor status changes in the conference. Building a dashboard using these events is just the beginning and I’m curious to hear what you build with it! Talk to me on Twitter <a href="https://twitter.com/dkundel">@dkundel</a>, via email at <a href="https://www.twilio.com/signal">SIGNAL</a>.</p>
+<p>If you didn’t register yet for SIGNAL, there is still time! Iron Man didn’t RSVP yet but there will be certainly enough <a href="https://www.twilio.com/signal/bots">bots</a> and you shouldn’t miss <a href="https://www.twilio.com/signal/$bash">$bash</a>. Use DKUNDEL20 to get a 20% discount when registering. I’m looking forward to seeing you there!</p>
+<p><a href="https://twilioinc.wpengine.com/2016/05/conference-call-monitoring-twilio.html">Conference Monitoring à la Iron Man</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/05/conference-call-monitoring-twilio.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

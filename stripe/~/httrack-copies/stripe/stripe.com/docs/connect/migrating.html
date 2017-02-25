@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/connect/migrating by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="bhWqvbmOMiQtWQWwTVvhjQstGx7dWhGnl_BVZxGAO633j77Av0v2YeAdIa-BU9T2IlOVmYH20AfWRV9PtFfx3A==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Recipient to Account Migrations</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Recipient to Account Migrations">
+    <meta property="og:url" content="migrating.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Recipient to Account Migrations">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a class='selected' href="migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Recipient to Account Migrations </h1>
+  <p>Learn how to migrate your existing recipients to Connect. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<p><a href="../api.html#recipients">Recipients</a> were deprecated in March 2015 and <strong>will be removed from the Stripe API during the first half of 2017.</strong> The replacement is <a href="../../connect.html">Connect</a>, a powerful set of tools for verifying and paying individuals &amp; businesses through Stripe. If your business currently relies on Recipients, you need to migrate to using Connect as soon as possible. You may have already received communications from Stripe with a timeline and next steps for the transition.</p>
+
+<p>After the Recipients API has been removed, anyone receiving funds through Stripe must have a Stripe account. With Connect, you’ll be able to convert your existing Recipients to Managed Accounts and, with careful testing, be able to seamlessly transition your existing recipients.</p>
+
+<p>To help you transition, we created a migration path for turning your <a href="../api/index.html#recipient_object">Recipient</a> objects into <a href="../api/index.html#account_object">Account</a> objects. This guide is designed to address common questions about moving to Connect from Transfer Recipients, help you work through your integration changes, and ease your business’s transition to the new API.</p></section>
+
+<section>
+<h3 id="terminology">Terminology</h3>
+
+<p>In Connect terms, anyone getting paid is a “provider”, who:</p>
+
+<ul>
+  <li>Has their own <a href="../api/index.html#account_object">Stripe account</a>.</li>
+  <li>Provides the good or performs the service being sold.</li>
+</ul>
+
+<p>Your business is the “platform” through which providers conduct their business. For example, if you have an on-demand taxi service, the “platform” runs the application which allows customers to book a ride, and the “provider” is the driver who picks up the customer and provides the service. When the ride is complete, the platform pays the provider from funds collected from the customer’s credit card.</p>
+
+<p>Your platform creates a <strong>Managed Account</strong> for each provider who is paid through your application or service. A managed account is a Stripe account but, unlike a standalone account, does not have access to the Stripe dashboard. All access to Stripe is managed by and mediated through your platform and Stripe integration. Similar to a Recipient, a Managed Account is used to moved funds from Stripe to a bank account or debit card.</p>
+
+<p>Each platform can charge an <strong>Application Fee</strong> as part of payments made to the provider. Continuing the taxi example, the platform might collect 10% of each ride as an “application fee”. This fee should be charged at the time the good or service is paid for.</p>
+
+<h3 id="stripe-connect">Stripe Connect</h3>
+
+<p>At a high level, Connect (with Managed Accounts) offers many advantages over the Recipients API:</p>
+
+<ul>
+  <li>
+    <p>Accounting is built into Connect. It is straightforward to track available account balances and transactions across all of your connected Stripe accounts. You’re no longer mixing your operating funds with funds designated for your sellers. You can send a transfer to a managed account by making a single API call.</p>
+  </li>
+  <li>
+    <p>More powerful features: Every new feature we add to Stripe is immediately available to your providers. You’re able to take advantage of features like <a href="../api/index.html#update_account-statement_descriptor">custom statement descriptors for each account</a>, automatic transfers, and <a href="bank-transfers.html#instant-payouts">Instant Payouts</a></p>
+  </li>
+  <li>
+    <p>New accounts follow a straightforward <a href="identity-verification.html">verification process</a>, and you are able to collect information from the account as needed rather than ask for it all up front.</p>
+  </li>
+  <li>
+    <p>With Connect, you can pay providers in <a href="../../global.html">a growing number of countries</a>—anywhere Stripe is available. This allows you to expand your business into new markets without significant engineering effort.</p>
+  </li>
+  <li>
+    <p>As a Connect platform, you have full control over the payment flow. For a given refund, you can choose to have your provider pay the refund, or pay the refund from your platform directly. You also choose whether or not you refund your platform’s fee on the transaction. Previously, with recipients, tracking these type of refunds could only be reconciled with manual programming and accounting.</p>
+  </li>
+  <li>
+    <p>Connect provides a full account history for each connected account, which simplifies the design of any reporting tools, reducing the amount of complexity in your application.</p>
+  </li>
+</ul></section>
+
+<section>
+<h2 id="example-migration-project-plan">Example Migration Project Plan</h2>
+
+<h3 id="user-facing-communications">User-Facing Communications</h3>
+
+<ol>
+  <li>Update your existing Terms of Service to include or link to the <a href="../../au/connect-account/legal.html">Stripe Connected Account Agreement</a>.</li>
+  <li>Audit existing recipients, find inactive users, determine how many should be migrated to Connect.</li>
+  <li>Notify existing users of your Terms of Service update.</li>
+</ol>
+
+<h3 id="engineering-changes">Engineering Changes</h3>
+
+<ol>
+  <li><a href="https://dashboard.stripe.com/account/applications/settings">Register your Connect platform on your Dashboard</a>.</li>
+  <li>Verify that your account meets the necessary <a href="#required-api--bindings-versions">API and Bindings Versions</a> to use all features of Managed Accounts.</li>
+  <li>Update your application to use the Connect APIs. Before replacing your existing Recipient code, you should use Managed Accounts for all new providers on your platform, allowing you to test and debug your Connect implementation without breaking your existing payment flow.
+    <ul>
+      <li>Update your <a href="#payment-flow-changes">Payment Flow</a>.</li>
+      <li>Update your use of <a href="#transferring-funds">Transfers</a> and decide on transfer schedules for your Managed Accounts.</li>
+      <li>(Optional) Update your <a href="#accounting--reporting">Accounting &amp; Reporting</a>.</li>
+    </ul>
+  </li>
+  <li>Establish a <a href="#webhooks--managed-account-verification-flow">Connect Webhook</a> for your Platform.</li>
+  <li>Build and test <a href="identity-verification.html">Managed Account verification flow.</a></li>
+  <li>Begin to use Managed Accounts for all new providers on your platform.</li>
+  <li>Audit existing recipients, find inactive users, determine how many will be migrated.</li>
+  <li><a href="#migrating-existing-recipients">Migrate a small batch of recipients.</a>
+   <!-- not strictly an engineering change, will require outreach and coordination with user-facing comms -->
+
+    <ul>
+      <li>Migrating over a few recipients at a time and dealing with errors as they happen will allow you to fix problems with your Connect integration gradually rather than dealing with a variety of different errors all at once.</li>
+    </ul>
+    <li>Correct any problems with verification flow.</li>
+  
+    <li>Continue to migrate over small batches.</li>
+  </li>
+  <li>Once all recipients are migrated, remove inactive Recipients code from your codebase.</li>
+</ol></section>
+
+<section>
+<h3 id="required-api--bindings-versions">Required API &amp; Bindings Versions</h3>
+
+<p>Connect with Managed Accounts may require that you upgrade the Stripe API version on your account. If possible, try to upgrade to the newest available version (<a href="../upgrades.html#2016-07-06"><code>2016-07-06</code></a> or later). The <strong>minimum</strong> API version for Managed Accounts is <a href="../upgrades.html#2014-12-17"><code>2014-12-17</code></a>.</p>
+
+<p><strong>Caution:</strong> upgrading the API version on your Stripe account <strong>may cause your existing implementation to break</strong>. Please read through <a href="../upgrades.html">API Upgrades</a> for a summary of API changes and proceed with caution.</p>
+
+<p>Verify your API version <a href="https://dashboard.stripe.com/account/apikeys">from your Dashboard</a>. If you have more than one account—for example, an extra account for testing—be sure that you check the API settings on your platform’s account.</p>
+
+<p>Rather than set the new version from your Dashboard, we recommend setting your code to <a href="../api/index.html#versioning">use a specific version</a>. This allows you test the version upgrade without changing the version for your entire account. Later, when you’re satisfied that your implementation works with the latest API version, go ahead and upgrade your API version through the Dashboard.</p>
+
+<p>You may also need to update the version of the Stripe bindings you’re using in order to use all of the features of Connect. While it’s best to use the latest versions of the Stripe libraries, here are the minimum supported versions for using Connect with Managed Accounts:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Binding</th>
+        <th>Recommended</th>
+        <th>Minimum</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tr>
+      <td><a href="https://github.com/stripe/stripe-ruby">stripe-ruby</a></td>
+      <td><a href="https://github.com/stripe/stripe-ruby/releases">1.57.1 or later</a></td>
+      <td>1.19.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/stripe/stripe-python">stripe-python</a></td>
+      <td><a href="https://github.com/stripe/stripe-python/releases">1.43.0 or later</a></td>
+      <td>1.19.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/stripe/stripe-php">stripe-php</a></td>
+      <td><a href="https://github.com/stripe/stripe-php/releases">4.3.0 or later</a></td>
+      <td>3.10.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/stripe/stripe-java">stripe-java</a></td>
+      <td><a href="https://github.com/stripe/stripe-java/releases">3.5.0 or later</a></td>
+      <td>1.27.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/stripe/stripe-node">stripe-node</a></td>
+      <td><a href="https://github.com/stripe/stripe-node/releases">4.14.0 or later</a></td>
+      <td>3.7.0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/stripe/stripe-go">stripe-go</a></td>
+      <td><a href="https://github.com/stripe/stripe-go/releases">19.0.1 or later</a></td>
+      <td>6.0.0</td>
+      <td>Always sets the required API version.</td>
+    </tr>
+  </table>
+
+<h3 id="api-differences">API differences</h3>
+
+<p>There are several differences between the Managed Accounts you’ll be switching to and the recipients you currently use:</p>
+
+<ul>
+  <li>Accounts have balances. Whereas with recipients you would transfer funds directly from your balance to a recipient’s bank
+account, accounts hold their own balances. This introduces an extra conceptual step: funds are transferred to the managed account’s
+Stripe balance (normally as part of the charge request), and then the funds are paid out from that balance to their bank account. This enables Stripe to automatically
+handle many payout models automatically. For example, you can use Stripe to payout recipients on a weekly basis
+with no additional work: simply set the account to weekly payouts, and Stripe will accumulate balances for the
+account as payments come in, paying them to the bank account on the schedule you specify.</li>
+  <li>When transfering to an account, you should usually specify the <a href="payments-fees.html#charging-through-the-platform">destination</a> at charge time (though you may keep a
+portion of this as an <code>application_fee</code>). While Stripe supports transfers directly from your balance to a third-party
+account’s balance, this should be done fairly infrequently. If you are unable to determine which managed account receives the funds at charge time, Stripe may not be
+able to support your business model.</li>
+</ul>
+</section>
+
+<section>
+
+<h3 id="payment-flow-changes">Payment Flow Changes</h3>
+
+<p>One major change with Connect is that—except in special circumstances—each payment made to a Managed Account must be linked to an original charge by a customer. By linking each transfer to a customer purchase, you can clearly track the movement of money through your platform, which simplifies both your accounting and compliance flow.</p>
+
+<p>Unlike Recipients, Connect is designed to have the transfer to the managed account happen at the time of purchase. Previously, your application may have tracked the amount due to each provider, keeping payments in your Stripe account balance until you were ready to pay each recipient. With Connect, your platform is paid through <a href="payments-fees.html#collecting-fees">Application Fees</a>, and the transfer to the connected account happens automatically during the charge.</p>
+
+<p>For each charge, your application specifies an “application fee” that is immediately transferred to your platform’s Stripe balance. For example, if your taxi service collects $2.50 for each ride booked through your app, that $2.50 is your “application fee”. Stripe’s processing fees are deducted from the application fees you collect.</p>
+
+<p>While the transfer to your provider’s Stripe balance happens immediately, transfers to your provider’s bank accounts can happen either automatically, or on a manual schedule defined by your software. In general, any funds paid to a managed account must be transferred out to their bank account within 30 days. See <a href="#transfers">Transfers</a> for more details.</p>
+
+<p>This guide focuses on the use of <a href="payments-fees.html#charging-through-the-platform">Destination Charges</a>, which allow you create the necessary charge, transfer, and application fee at the time of purchase with a single API call.</p>
+
+<h3 id="api-differences">API Differences</h3>
+
+<p>With Recipients, your payment flow looked something like this:</p><div class="code">
+  <pre class="language-ruby numbered" ><code># First: create the charge
+Charge::create(source =&gt; &quot;tok_xxx&quot;, amount =&gt; 1000)
+
+# Later: transfer funds to the recipient, less $2.00 fee to platform
+Transfer::create(amount =&gt; 800, destination =&gt; &quot;rp_198249abl281izck&quot;)
+</code></pre>
+</div>
+
+<p>With Connect, this is now handled with a single <a href="../api.html#create_charge">Create Charge</a> API call with the <code>destination</code> parameter:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/charges \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d amount=1000 \
+   -d currency=usd \
+   -d source=&quot;{TOKEN}&quot; \
+   -d destination=&quot;{CONNECTED_STRIPE_ACCOUNT_ID}&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+Stripe::Charge.create({
+  :amount =&gt; 1000,
+  :currency =&gt; &quot;usd&quot;,
+  :source =&gt; {TOKEN},
+  :destination =&gt; {CONNECTED_STRIPE_ACCOUNT_ID}
+})
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+stripe.Charge.create(
+  amount=1000,
+  currency=&quot;usd&quot;,
+  source={TOKEN},
+  destination={CONNECTED_STRIPE_ACCOUNT_ID}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\Charge::create(array(
+  &#39;amount&#39; =&gt; 1000,
+  &#39;currency&#39; =&gt; &#39;usd&#39;,
+  &#39;source&#39; =&gt; {TOKEN},
+  &#39;destination&#39; =&gt; {CONNECTED_STRIPE_ACCOUNT_ID}
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; chargeParams = new HashMap&lt;String, Object&gt;();
+chargeParams.put(&quot;amount&quot;, 1000);
+chargeParams.put(&quot;currency&quot;, &quot;usd&quot;);
+chargeParams.put(&quot;source&quot;, {TOKEN});
+chargeParams.put(&quot;destination&quot;, {CONNECTED_STRIPE_ACCOUNT_ID});
+
+Charge.create(chargeParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.charges.create({
+  amount: 1000,
+  currency: &#39;usd&#39;,
+  source: {TOKEN},
+  destination: {CONNECTED_STRIPE_ACCOUNT_ID}
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>When you use the <code>destination</code> parameter, the following objects are created immediately in the Stripe API:</p>
+
+<ul>
+  <li>The entire amount of the charge will be immediately transferred to the destination account. The ID of the resulting transfer will be returned in the <code>transfer</code> field of the response.</li>
+  <li>The Stripe fee comes out of the charge object on the platform’s account (i.e., you pay the fee).</li>
+  <li>The amount specified by the <code>application_fee</code> parameter (if provided) will be deducted from the total amount and credited to the platform’s account.</li>
+</ul>
+
+<p>The destination account receives a charge object. The platform account will have the charge object and a transfer (the transfer is tied to the destination account’s charge). The platform account will have an application fee object, too, if an <a href="#collecting-fees">application fee was set</a>. Note, as well, that the Stripe fee is paid by the platform account in this case.</p>
+
+<p>This may seem complicated, but such complexity is necessary to handle many edge cases of currency conversion and possible refunds. This structure allows each part of the flow to be refunded independently of others. For example, you can choose to refund the charge to a customer’s credit card with or without reversing the transfer to the connected account, and with or without reversing the application fee you took.</p>
+
+<p>The following are also true when creating charges with the <code>destination</code> parameter:
+- The charge will be attributed to the destination account for tax reporting.
+- When using a token as the payment source, the token must be created using the platform’s publishable key. If charging a <code>Customer</code> object, the <code>Customer</code> must exist within the platform’s account.
+- The charge will be settled in the default currency of the destination account. The platform will also take its <code>application_fee</code> in this currency, accumulating balances in the currency of the destination account. If the platform does not have a bank account in this currency, the platform may manually <a href="payments-fees.html#handling-balances-in-multiple-currencies">convert these balances to another currency</a>.</p>
+<h4 id="issuing-refunds">Issuing refunds on charges</h4>
+  <p>Detination charges created on the platform account can be refunded using the platform account's secret key:</p>
+
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/charges/{CHARGE_ID}/refunds \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d amount=1000
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+ch = Stripe::Charge.retrieve(CHARGE_ID)
+ch.refunds.create(:amount =&gt; 1000)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+ch = stripe.Charge.retrieve(CHARGE_ID)
+ch.refunds.create(amount=1000)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+$ch = \Stripe\Charge::retrieve(CHARGE_ID);
+$ch-&gt;refunds-&gt;create(array(&#39;amount&#39; =&gt; 1000));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Charge ch = Charge.retrieve(CHARGE_ID);
+
+Map&lt;String, Object&gt; refundParams = new HashMap&lt;String, Object&gt;();
+refundParams.put(&quot;amount&quot;, 1000);
+
+ch.refund(refundParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.charges.createRefund(
+  CHARGE_ID,
+  {amount: 1000},
+  function(err, refund) {}
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>When refunding a charge that has a <code>destination</code> value, by default the destination account will keep the funds that were transferred to it, leaving the platform account to cover the negative balance from the refund. To pull back the funds from the connected account to cover the refund, set the <code>reverse_transfer</code> parameter to true when creating the refund:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/charges/{CHARGE_ID}/refunds \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d amount=1000 \
+   -d reverse_transfer=true
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+ch = Stripe::Charge.retrieve(CHARGE_ID)
+ch.refunds.create(:amount =&gt; 1000, :reverse_transfer =&gt; true)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+ch = stripe.Charge.retrieve(CHARGE_ID)
+ch.refunds.create(amount=1000, reverse_transfer=true)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+$ch = \Stripe\Charge::retrieve(CHARGE_ID);
+$ch-&gt;refunds-&gt;create(array(&#39;amount&#39; =&gt; 1000, &#39;reverse_transfer&#39; =&gt; true));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Charge ch = Charge.retrieve(CHARGE_ID);
+
+Map&lt;String, Object&gt; refundParams = new HashMap&lt;String, Object&gt;();
+refundParams.put(&quot;amount&quot;, 1000);
+refundParams.put(&quot;reverse_transfer&quot;, true);
+
+ch.refund(refundParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.charges.createRefund(
+  CHARGE_ID,
+  {amount: 1000, reverse_transfer: true},
+  function(err, refund) {}
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>When you use the <code>reverse_transfer</code> parameter, a proportional amount of the transfer will be reversed to cover the refund. If the <code>refund_application_fee</code> parameter is also set to true:</p>
+
+<ul>
+  <li>If the refund results in the entire charge being refunded, your application fees will also be refunded</li>
+  <li>Otherwise, a proportional amount of the application fee will be refunded to the Connected account</li>
+</ul>
+
+<p>If you want to charge a variable fee that is unknown at the time of the charge, collect the largest amount upfront and
+then refund the difference using <a href="../api.html#create_fee_refund">application fee refunds</a>. You can access the application
+fee ID and object via the <code>application_fee</code> parameter returned as part of the charge object.</p>
+
+<h4 id="stripe-fees--refunds">Stripe Fees &amp; Refunds</h4>
+
+<p>As with Recipients, Stripe fees are charged against your platform account. Be sure to set your application fee with this in mind. To have your managed accounts pay the Stripe processing fees, you can calculate Stripe’s fee and add it to your application fee when creating a charge.</p>
+
+<p>For a given refund, Stripe will refund the processing fee in proportion to the amount refunded. For example, if you make a $10 charge, and then refund $5, Stripe will refund half of the processing fee. Likewise, if you make a $10 charge and refund it completely, Stripe will refund all processing fees. With destination charges it’s important to note that the fee refund is credited to the <strong>platform</strong> account.</p>
+</section>
+
+<section>
+<h2 id="migrating-existing-recipients">Migrating existing recipients</h2>
+
+<p>Stripe provides a new endpoint for turning any recipient into an account. Stripe will copy over the identity details, verification state, and bank account or debit card information, although we will not migrate historical transfer data. <strong>This migration will also put the recipient
+in read-only mode.</strong> Any Recipient object that has been migrated to an Account object can no longer be used for updates or transfers: you must use the new account instead.</p>
+
+<p>To migrate a recipient to an account, make a POST request to <code>/v1/accounts</code>, passing the existing recipient ID:</p>
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="curl"
+           >curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="go"
+           >Go</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/accounts \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d from_recipient=&quot;{RECIPIENT_ID}&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Caution! This makes the Recipient object read-only and disables
+# transfers to the recipient.
+account = Stripe::Account.create({
+  from_recipient: &#39;rp_198249abl281izck&#39;
+})
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Caution! This makes the Recipient object read-only and disables
+# transfers to the recipient.
+account = stripe.Account.create(
+  from_recipient=&#39;rp_198249abl281izck&#39;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Caution! This makes the Recipient object read-only and disables
+// transfers to the recipient.
+$account = \Stripe\Account::create(array(
+  &quot;from_recipient&quot; =&gt; &quot;rp_198249abl281izck&quot;
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+// Caution! This makes the Recipient object read-only and disables
+// transfers to the recipient.
+Map&lt;String, Object&gt; accountParams = new HashMap&lt;String, Object&gt;();
+accountParams.put(&quot;from_recipient&quot;, &quot;rp_198249abl281izck&quot;);
+
+Account account = Account.create(accountParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>    // Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Caution! This makes the Recipient object read-only and disables
+// transfers to the recipient.
+stripe.accounts.create({
+  from_recipient: &quot;rp_198249abl281izck&quot;
+}, function(err, account) {
+  // asynchronously called
+});
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-go numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.Key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+// Caution! This makes the Recipient object read-only and disables
+// transfers to the recipient.
+acc, err := account.New(&amp;stripe.AccountParams{
+  FromRecipient: &quot;rp_198249abl281izck&quot;,
+})
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>The request returns an Account object <a href="../api.html#account_object">as described here</a>. <strong>The Recipient object
+will now be read-only</strong>, and will contain a reference to the newly created account:</p>
+<div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/recipients/{RECIPIENT_ID} \
+   -u {PLATFORM_SECRET_KEY}:
+</code></pre>
+</div>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;id&quot;: &quot;{RECIPIENT_ID}&quot;,
+  ...
+  &quot;migrated_to&quot;: &quot;{STRIPE_ACCOUNT_ID}&quot;
+}</code></pre>
+</div>
+
+<h2 id="verification-for-migrated-recipients">Verification for Migrated Recipients</h2>
+
+<p>Before migrating any Recipients, be sure you’ve read and understood <a href="identity-verification.html">Managed Account Verification</a>. We designed the migration process to allow you to create a Managed Account from a Verified Recipient without needing to collect information. However, in some cases you will need to collect information at the time of migration — these are detailed below.</p>
+
+<p>Stripe will let you know what information is required in the <a href="../api/index.html#account_object-verification-fields_needed">fields_needed</a> property of the managed account.  When this information is required, Stripe will send an <a href="../api/index.html#event_types-account.updated"><code>account.updated</code> event</a> with details on what information you need to collect, and when the information is due by. It may take Stripe a few minutes to verify the identity information you submit via the <a href="../api/index.html#update_account">update account</a> endpoint, so it is best to rely on your Connect webhook to know about changes to your managed account’s verification status.</p>
+
+<h3 id="verified-recipient-individual">Verified Recipient, Individual</h3>
+
+<p>When you migrate a <strong>Verified Recipient for an individual (not a business)</strong> (that is, a <a href="../api/index.html#recipient_object">Recipient</a> whose <code>verified</code> property is <code>true</code>, and <code>type</code> is <code>individual</code>) to a Managed Account, the account will be immediately active for charges and transfers to the associated bank account. At some point, when you have paid this account approximately $4–7k in volume, Stripe will require you to collect the following information:</p>
+
+<ul>
+  <li>Home Address</li>
+</ul>
+
+<p>In a minority of cases, Stripe may also ask for the managed account owner’s tax ID (SSN or EIN in the United States) and date of birth.</p>
+
+<h3 id="verified-recipient-business">Verified Recipient, Business</h3>
+
+<p>When you migrate a <strong>Verified Recipient for a business</strong> to a Managed Account, the account will be immediately active for charges and transfers to the associated bank account. At some point, when this account has been paid $4–7k in volume, Stripe will require you to collect the following information:</p>
+
+<ul>
+  <li>The name, date of birth, and address of a representative of the business.</li>
+</ul>
+
+<h3 id="unverified-recipient-individual">Unverified Recipient (Individual)</h3>
+
+<p>When you migrate an <strong>Unverified Recipient (individual)</strong> to a Managed Account, the account will be active for charges and transfers to the associated bank account. At some point, when you have paid this account approximately $4–7k in volume, Stripe will require you to collect the following information about the individual:</p>
+
+<ul>
+  <li>Home address</li>
+  <li>Date of birth</li>
+  <li>Last 4 digits of their Social Security Number (SSN)</li>
+</ul>
+
+<p>If Stripe is unable to verify the individual based on that information, we may ask that you provide the individual’s full SSN or a copy of a government-issued photo ID.</p>
+
+<h3 id="unverified-recipient-business">Unverified Recipient (Business)</h3>
+
+<p>When you migrate an <strong>Unverified Recipient (individual)</strong> to a Managed Account, the account will be active for charges, however, transfers will be disabled to the associated bank account. To enable transfers, you will need to provide the name of a of the business representative.</p>
+
+<p>At some point, when you have paid this account approximately $4–7k in volume, Stripe will require you to collect the following information about the individual:</p>
+
+<ul>
+  <li>The date of birth, and address of a representative of the business.</li>
+  <li>The business’s Employer Identification Number (EIN)</li>
+</ul></section>
+
+<section>
+<h3 id="creating-a-new-account">Creating a new account</h3>
+
+<p>To create a new account (as opposed to creating a recipient), use the same <code>/v1/accounts</code> endpoint, but provide more information than you would when creating a recipient:</p>
+<div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/accounts \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d country=US \
+   -d managed=true \
+   -d legal_entity[type]=individual \
+   -d legal_entity[first_name]=Bob \
+   -d legal_entity[last_name]=Smith \
+   -d legal_entity[dob][day]=20 \
+   -d legal_entity[dob][month]=7 \
+   -d legal_entity[dob][year]=1969 \
+   -d external_account=EXTERNAL_ACCOUNT_TOKEN
+</code></pre>
+</div>
+
+<p>Note the <code>managed=true</code> parameter, which is necessary to indicate that the account will not be able to log in to the Stripe Dashboard. Bear in mind that <code>country</code> is a required parameter and <strong>cannot be changed after account creation</strong>.  All parameters after this are optional and may be provided at later dates. The <code>external_account</code> parameter can be either a hash of bank account details, a bank account token obtained from <a href="../stripe.html#collecting-bank-account-details">Stripe.js</a>, or a debit card token obtained from <a href="../stripe.html#collecting-card-details">Stripe.js</a>.</p>
+
+<p>To enable transfers, you must provide at least the name and date of birth. (<a href="updating-accounts.html">Learn more about Managed Accounts.</a>)</p>
+
+<h3 id="transferring-funds">Transferring Funds</h3>
+
+<p>With Connect, you must specify who will receive the funds <strong>at charge</strong> time, as discussed above under <a href="#payment-flow-changes">Payment Flow Changes</a>.</p>
+
+<p>By default, Stripe will pay out available funds to the third-party’s bank account on a rolling basis as funds become
+available, usually 2 days for Managed Accounts in the U.S. (<a href="payments-fees.html">Learn more about processing charges.</a>)</p>
+
+<p>If you need to pay out additional funds, for example as a bonus for reaching certain goals, you may do so via the
+Transfers API. For example:</p>
+<div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/transfers \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d amount=1000 \
+   -d currency=usd \
+   -d destination=&quot;{CONNECTED_STRIPE_ACCOUNT_ID}&quot;
+</code></pre>
+</div>
+
+<p>However, you should mainly rely on application fees and “destination” charges as a means of moving money between your platform and your managed accounts.</p>
+
+<p>Again, with this new design, it should be fairly uncommon to need to transfer funds directly from your Stripe account to another. (<a href="special-case-transfers.html">Learn more about sending transfers.</a>)</p>
+
+<h3 id="updating-an-account">Updating an account</h3>
+
+<p>In order to keep an account in good standing, Stripe may ask for additional information. It is your
+obligation to collect this information from the user, and provide it to Stripe. To do this, you should listen for
+the <code>account.updated</code> event via <a href="https://dashboard.stripe.com/account/webhooks">Connect webhooks</a>. When you receive an <code>account.updated</code> event, you’ll want to check the received data for three relevant fields:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;verification&quot;: {
+    &quot;fields_needed&quot;: [
+      &quot;legal_entity.address.line1&quot;,
+      &quot;legal_entity.address.city&quot;,
+      &quot;legal_entity.address.state&quot;,
+      &quot;legal_entity.address.postal_code&quot;,
+      &quot;legal_entity.ssn_last_4&quot;
+    ],
+    &quot;due_by&quot;: 1484607600,
+    &quot;contacted&quot;: false
+  }
+}</code></pre>
+</div>
+
+<p>In this example, Stripe is requesting the address and last four digits (last 4) of the Social Security number, and informing you that you have three days to provide it—with the usual consequence that Stripe will pause transfers for the account if the information is not received in time. See the <a href="updating-accounts.html#account-verification">managed account guide</a> for more details on these fields.</p>
+
+<p>In the United States, the name, date of birth, address, and last four digits of the Social Security number is usually, but not always, sufficient to fully verify an identity.</p>
+
+<p>When implementing this flow, it may be helpful to refer to the <a href="../recipes/identity-verification-notifications-for-managed-accounts.html">Handling Identity Verification Notifications for Managed Accounts</a> recipe. This recipe demonstrates emailing your providers in response to Stripe <code>account.updated</code> notifications.</p></section>
+
+<section>
+<h2 id="accounting--reporting">Accounting &amp; Reporting</h2>
+
+<p>Following the recommended flow in <a href="#payment-flow-changes">Payment Flow Changes</a> eliminates the need to manage a “pool” or “float” of balances in your platform account. Instead, for each charge, Stripe automatically transfers funds to your provider’s Stripe account balance. Rather than managing a pool of balances in your own software, you can track your Managed Account balances through the Stripe API. Just like your platform account, accounting entries are exposed to your application through Balance Transaction objects and the <a href="../api.html#balance_history">Balance History API</a>.</p>
+
+<p>A common task here is to create a view for managed accounts in your app which replicates what Stripe shows in the “Transfers” section of the Dashboard, showing charges, refunds, fees, and other transactions associated with a transfer. This is possible by passing the <a href="../api/index.html#balance_history-transfer">transfer property</a> to the <a href="../api.html#balance_history">list balance history</a> API endpoint.</p>
+
+<p>For more on this, see: <a href="https://support.stripe.com/questions/how-can-i-find-the-charges-and-other-transactions-associated-with-each-transfer">How can I find the charges and other transactions associated with each transfer?</a></p>
+</section>
+<section>
+  <h2>Now that you're migrated</h2>
+  <p>Read more about what you can do with your connected accounts.</p>
+<ul class="next-steps">
+    <li><a href="managed-accounts.html"><span>Managed Accounts</a></li>
+    <li><a href="updating-accounts.html"><span>Updating accounts</a></li>
+    <li><a href="payments-fees.html"><span>Payments and fees</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/connect/migrating by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:52 GMT -->
+</html>

@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html?utm_source=blog&utm_medium=link&utm_campaign=sms-4-lines-april-2014 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Building a Real-time SMS Voting App Part 1: Node.js &#038; CouchDB &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="This is the first in a four-part series of blog posts on building a real-time SMS and voice voting application using Node.js."/>
+<link rel="canonical" href="https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Building a Real-time SMS Voting App Part 1: Node.js &#038; CouchDB Comments Feed" href="https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Carter Rabasa');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'cloudant,couchdb,developers,how to,JavaScript,Node.js,nodejitsu,nosql,real-time,SMS,voting,Votr');
+	__gaTracker('set', 'dimension8', '2012-09-18T13:35:57+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=10927' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2012%2F09%2Fbuilding-a-real-time-sms-voting-app-part-1-node-js-couchdb.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2012%2F09%2Fbuilding-a-real-time-sms-voting-app-part-1-node-js-couchdb.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-10927 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-10927" class="row post-10927 post type-post status-publish format-standard hentry category-all-things-code tag-cloudant tag-couchdb tag-developers tag-how-to tag-javascript tag-node-js tag-nodejitsu tag-nosql tag-real-time tag-sms tag-voting tag-votr">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Building a Real-time SMS Voting App Part 1: Node.js &#038; CouchDB</h2>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/carter">Carter Rabasa</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html" rel="bookmark"><time class="entry-date published" datetime="2012-09-18T13:35:57+00:00">September 18, 2012</time><time class="updated" datetime="2016-08-25T16:19:04+00:00">August 25, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html" data-text="Building a Real-time SMS Voting App Part 1: Node.js &#038; CouchDB ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p><em>This is the first in a multi-part series of blog posts on building a <a href="https://www.twilio.com/docs/api/rest/sending-messages" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest/sending-messages', 'real-time SMS');">real-time SMS</a> and voice voting application using Node.js. In part one, we will create the <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express', 'https://www.twilio.com/blog/2012/09/Node.js');">Node.js</a> application, set-up the CouchDB database and connect everything to Twilio so that we can process votes via SMS.</em></p>
+<p><img class="alignright size-full wp-image-10928" title="Firstpicture" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/Firstpicture.png" alt="" width="294" height="220" />A few months ago, I was attending <a href="http://seattlegov.startupweekend.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://seattlegov.startupweekend.org/', 'Startup Weekend GOV in Seattle');">Startup Weekend GOV in Seattle</a> where Twilio was a sponsor. I was there to support the event and help out teams that needed assistance with marketing validation, prototyping and pitching. I love helping out with Startup Weekend events, but sometimes I get a little antsy and wish I was working on something of my own. During this event, I happened to have some downtime so I decided to scratch my itch and start working on Votr, a SMS voting application built on Node.js.</p>
+<p>Although I have been building web applications since 1999 and have used Java, PHP, Python and Ruby, this was my first experience using technologies like Node.js and CouchDB. In all past projects, I had used a RDBMS like MySQL, typically with an language-specific ORM. Having transitioned fairly painlessly between these technologies, I was shocked at how clueless I felt writing a Node.js app and working with a NoSQL database like CouchDB.</p>
+<p>I thought it might be useful for other people who are making a similar transition to write about my experience coding Votr, the pitfalls I ran into and a few solutions that I discovered. In this first post I’ll simply walk through the basics of getting started: creating an app, setting-up the database and processing votes over SMS.</p>
+<h2 id="internal-source-marker_0.9910464219540066" dir="ltr">Create a Node App</h2>
+<p>First, you’ll need to have <a href="http://nodejs.org/download/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://nodejs.org/download/', 'Node.js and NPM installed');">Node.js and NPM installed</a>. For the remainder of this blog post, I’ll be rocking the terminal on Mac OS X, but these steps should be easy to follow on Windows or Linux. Here’s how you install <a href="http://expressjs.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://expressjs.com/', 'Express');">Express</a> and create an app:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da301360068936928" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+sudo npm install express -g 
+express -H votr-part1 cd votr-part1/ npm install</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da301360068936928-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301360068936928-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da301360068936928-1"><span class="crayon-e">sudo </span><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">express</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">g</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301360068936928-2"><span class="crayon-i">express</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">H</span><span class="crayon-h"> </span><span class="crayon-i">votr</span><span class="crayon-o">-</span><span class="crayon-e">part1 </span><span class="crayon-r">cd</span><span class="crayon-h"> </span><span class="crayon-i">votr</span><span class="crayon-o">-</span><span class="crayon-i">part1</span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-e">npm </span><span class="crayon-i">install</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0020 seconds] -->
+<p>At this point, you should have a starter node application. Let’s go ahead and deploy this to the cloud.</p>
+<h3><strong>1) Sign-up for a Nodejitsu account</strong></h3>
+<p>For the purpose of this tutorial I’m going to use <a href="http://nodejitsu.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://nodejitsu.com/', 'Nodejitsu');">Nodejitsu</a> to deploy our Node app.</p>
+<p><img class="alignnone size-full wp-image-10977" title="nodejitsu" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/nodejitsu.png" alt="" width="499" height="258" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/nodejitsu.png 499w, https://www.twilio.com/blog/wp-content/uploads/2012/09/nodejitsu-300x155.png 300w" sizes="(max-width: 499px) 100vw, 499px" /></p>
+<h3><strong>2) Install Jitsu, the command-line tool for Nodejitsu</strong></h3>
+<p><a href="https://github.com/nodejitsu/jitsu" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/nodejitsu/jitsu', 'https://github.com/nodejitsu/jitsu');">https://github.com/nodejitsu/jitsu</a></p>
+<h3><strong>3) Deploy the app</strong></h3>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da301373913737154" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+jitsu deploy</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da301373913737154-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da301373913737154-1"><span class="crayon-e">jitsu </span><span class="crayon-i">deploy</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p></p>
+<p>You’ll be asked to enter a subdomain for your application and the version of Node.js to use. The defaults should work fine, so feel free to hit enter. Once your deployment has finished, check to see that it’s running:</p>
+<p><a href="http://your-subdomain.jit.su/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://your-subdomain.jit.su/', 'http://your-subdomain.jit.su/');">http://your-subdomain.jit.su</a></p>
+<h2 dir="ltr"><strong>Set-up CouchDB</strong></h2>
+<p><a href="http://wiki.apache.org/couchdb/Installation" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://wiki.apache.org/couchdb/Installation', 'Setting-up a local CouchDB');">Setting-up a local CouchDB</a> is easy, but for the purposes of this tutorial I’m going to show you how to use <a href="https://cloudant.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://cloudant.com/', 'Cloudant’s');">Cloudant’s</a> hosted CouchDB. I evaluated a few different hosted solutions and experienced the fewest issues with Cloudant. I really came to love their web interface for CouchDB.</p>
+<p>Before we dive in it, you might be wondering how CouchDB (and NoSQL in general) is different than something like MySQL. While that’s outside of the scope of this tutorial, below is a table that compares some of the core concepts from MySQL to CouchDB:</p>
+<div dir="ltr">
+<table>
+<tbody>
+<tr>
+<td><strong>RDBMS</strong></td>
+<td><strong>NoSQL</strong></td>
+</tr>
+<tr>
+<td>Database</td>
+<td>CouchDB server</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>Database</td>
+</tr>
+<tr>
+<td>Row</td>
+<td>Document</td>
+</tr>
+<tr>
+<td>Column</td>
+<td>things get tricky&#8230;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;<br />
+&nbsp;</p>
+<h3><strong>1) Sign-up for a Cloudant account</strong></h3>
+<p><img class="alignnone size-full wp-image-10978" title="cloudant1" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant1.png" alt="" width="499" height="181" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant1.png 499w, https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant1-300x108.png 300w" sizes="(max-width: 499px) 100vw, 499px" /></p>
+<h3><strong>2) Create a database called “events”</strong></h3>
+<p><img class="alignnone size-full wp-image-10979" title="cloudant2" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant2.png" alt="" width="498" height="191" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant2.png 498w, https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant2-300x115.png 300w" sizes="(max-width: 498px) 100vw, 498px" /></p>
+<h3><strong>3) Create a new document</strong></h3>
+<p><img class="alignnone size-full wp-image-10980" title="cloudant3" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant3.png" alt="" width="498" height="207" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant3.png 498w, https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant3-300x124.png 300w" sizes="(max-width: 498px) 100vw, 498px" /></p>
+<h3><strong>4) Populate the document with some test data</strong></h3>
+<p><strong></strong>Unlike a SQL database, there is no concept of a schema. I don’t have to define in advance what kind of attributes by documents are going to have. If you are starting twitch uncontrollably, don’t worry. There are other ways to enforce data integrity in a NoSQL database like <a href="http://guide.couchdb.org/draft/validation.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://guide.couchdb.org/draft/validation.html', 'validation functions');">validation functions</a>, but a schema isn’t one of them.</p>
+<p>In our app, our event documents will be structured like this:</p>
+<ul>
+<li><strong>Name:</strong> the name of the event where voting is taking place</li>
+<li><strong>Short Name:</strong> a URL-friendly version of this</li>
+<li><strong>State:</strong> the state of voting (on, off, etc)</li>
+<li><strong>Vote Options:</strong>an array of options for voting, where each option look like
+<ul>
+<li><strong>Id:</strong> number to use for voting</li>
+<li><strong>Name:</strong> the name to display</li>
+<li><strong>Votes:</strong> the number of votes cast for this option</li>
+<li><strong>Numbers:</strong> an array of phone numbers that have voted for this option</li>
+</ul>
+</li>
+</ul>
+<p>Let’s go ahead and load a dummy event document into our database so we can get on with building our app.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da301380979263425" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+{
+  "name": "Demo Voting",
+  "shortname": "demo",
+  "voteoptions": [{
+    "id": 1,
+    "name": "foo",
+    "votes": 0,
+    "numbers": []
+  },
+  {
+    "id": 2,
+    "name": "bar",
+    "votes": 0,
+    "numbers": []
+  },
+  {
+    "id": 3,
+    "name": "baz",
+    "votes": 0,
+    "numbers": []
+  }],
+  "phonenumber": "change this later",
+  "state": "on"
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da301380979263425-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-2">2</div><div class="crayon-num" data-line="crayon-58794da301380979263425-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-4">4</div><div class="crayon-num" data-line="crayon-58794da301380979263425-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-6">6</div><div class="crayon-num" data-line="crayon-58794da301380979263425-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-8">8</div><div class="crayon-num" data-line="crayon-58794da301380979263425-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-10">10</div><div class="crayon-num" data-line="crayon-58794da301380979263425-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-12">12</div><div class="crayon-num" data-line="crayon-58794da301380979263425-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-14">14</div><div class="crayon-num" data-line="crayon-58794da301380979263425-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-16">16</div><div class="crayon-num" data-line="crayon-58794da301380979263425-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-18">18</div><div class="crayon-num" data-line="crayon-58794da301380979263425-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-20">20</div><div class="crayon-num" data-line="crayon-58794da301380979263425-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-22">22</div><div class="crayon-num" data-line="crayon-58794da301380979263425-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da301380979263425-24">24</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da301380979263425-1"><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"name"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"Demo Voting"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da301380979263425-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"shortname"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"demo"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"voteoptions"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794da301380979263425-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"id"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"name"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"foo"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da301380979263425-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"votes"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"numbers"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794da301380979263425-9"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-10"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794da301380979263425-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"id"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">2</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"name"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"bar"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da301380979263425-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"votes"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"numbers"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794da301380979263425-15"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-16"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794da301380979263425-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"id"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">3</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"name"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"baz"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da301380979263425-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"votes"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-20"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"numbers"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794da301380979263425-21"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-22"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"phonenumber"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"change this later"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da301380979263425-23"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"state"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"on"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da301380979263425-24"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0071 seconds] -->
+<p></p>
+<p><img class="alignnone size-full wp-image-10981" title="cloudant4" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant4.png" alt="" width="498" height="190" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant4.png 498w, https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant4-300x114.png 300w" sizes="(max-width: 498px) 100vw, 498px" /></p>
+<h3><strong>5) Create a view to query events</strong></h3>
+<p>Once our app is up and running, we’ll need to be able to query events. In the world of CouchDB, you use <a href="http://guide.couchdb.org/draft/views.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://guide.couchdb.org/draft/views.html', 'views');">views</a> to query documents. For anyone who has worked with Oracle databases, this will sound familiar. In Oracle, a view is simply a predefined SQL query that behaves like a read-only table. In CouchDB, a view is a map function that processes all of the documents in your database and created a hash of key/value pairs. These functions are stored inside of special documents called <a href="http://guide.couchdb.org/draft/design.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://guide.couchdb.org/draft/design.html', 'Design Documents');">Design Documents</a>. In our app, we’ll want to be able to query events based on their phone number and their short name. Let’s go ahead and create a design document and paste in the content of the Gist below.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da30138c597598631" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+{
+  "_id": "_design/event",
+  "views": {
+    "byShortname": {
+      "map": "function (doc) { if (doc.shortname) { emit(doc.shortname, doc) } } "
+    },
+    "byPhonenumber": {
+      "map": "function (doc) { if (doc.phonenumber) { emit(doc.phonenumber, doc) } } "
+    },
+    "all": {
+      "map": "function (doc) { if (doc.name) emit(doc.name, doc); }"
+    }
+  }
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da30138c597598631-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da30138c597598631-2">2</div><div class="crayon-num" data-line="crayon-58794da30138c597598631-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da30138c597598631-4">4</div><div class="crayon-num" data-line="crayon-58794da30138c597598631-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da30138c597598631-6">6</div><div class="crayon-num" data-line="crayon-58794da30138c597598631-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da30138c597598631-8">8</div><div class="crayon-num" data-line="crayon-58794da30138c597598631-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da30138c597598631-10">10</div><div class="crayon-num" data-line="crayon-58794da30138c597598631-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da30138c597598631-12">12</div><div class="crayon-num" data-line="crayon-58794da30138c597598631-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794da30138c597598631-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da30138c597598631-1"><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da30138c597598631-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"_id"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"_design/event"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da30138c597598631-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"views"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da30138c597598631-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"byShortname"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794da30138c597598631-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"map"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"function (doc) { if (doc.shortname) { emit(doc.shortname, doc) } } "</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da30138c597598631-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794da30138c597598631-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"byPhonenumber"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da30138c597598631-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"map"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"function (doc) { if (doc.phonenumber) { emit(doc.phonenumber, doc) } } "</span></div><div class="crayon-line" id="crayon-58794da30138c597598631-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da30138c597598631-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"all"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794da30138c597598631-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"map"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"function (doc) { if (doc.name) emit(doc.name, doc); }"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da30138c597598631-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794da30138c597598631-13"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794da30138c597598631-14"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0034 seconds] -->
+<p></p>
+<h2 dir="ltr"><strong>Process Incoming Votes</strong></h2>
+<p>Ok, now that we’re done with the appetizers, let’s get to the main course: writing our Node.js app. The express command gave us a nice scaffold to use, so let’s start implementing the specifics.</p>
+<h3><strong>1) Create utils.js</strong></h3>
+<p><strong></strong>Let’s create a utility <a href="https://github.com/connor/connor_old/blob/master/source/_posts/2012-05-27-your-first-node-dot-js-module.markdown/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/connor/connor_old/blob/master/source/_posts/2012-05-27-your-first-node-dot-js-module.markdown/', 'module');">module</a> to store some useful functions:</p>
+<p><a href="https://github.com/crabasa/votr-part1/blob/master/utils.js" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/crabasa/votr-part1/blob/master/utils.js');">https://github.com/crabasa/votr-part1/blob/master/utils.js</a></p>
+<h3><strong>2) Edit package.json and add some dependencies</strong></h3>
+<p><strong></strong>While we defined a few functions of our own above, but there’s nothing cool about reinventing the wheel. We’re going to make use of two NPM modules (<a href="https://npmjs.org/package/cradle" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://npmjs.org/package/cradle', 'cradle');">cradle</a> and <a href="https://npmjs.org/package/twiliosig" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://npmjs.org/package/twiliosig', 'twiliosig');">twiliosig</a>) so let’s go ahead and add those dependencies to our package manifest file.</p>
+<p><a href="https://github.com/crabasa/votr-part1/blob/master/package.json" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/crabasa/votr-part1/blob/master/package.json', 'https://github.com/crabasa/votr-part1/blob/master/package.json');">https://github.com/crabasa/votr-part1/blob/master/package.json</a></p>
+<h3><strong>3) Create config.js and edit the values for your CloudDB</strong></h3>
+<p><strong></strong>In order to configure the app to point at your CouchDB instance on Cloundant, you’ll need to provide the following four values:</p>
+<ul>
+<li>config.couchdb.url: &#8216;https://your-username.cloudant.com&#8217;</li>
+<li>config.couchdb.port: 443</li>
+<li>config.couchdb.username: &#8216;your username&#8217;</li>
+<li>config.couchdb.password: &#8216;your password&#8217;</li>
+</ul>
+<p><a href="https://github.com/crabasa/votr-part1/blob/master/config-sample.js" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/crabasa/votr-part1/blob/master/config-sample.js');">https://github.com/crabasa/votr-part1/blob/master/config-sample.js</a></p>
+<h3><strong>4) Create events.js</strong></h3>
+<p><strong></strong>This module is going to encapsulate access to our events database on CouchDB and provide some nice and simple methods for the rest of our app. This way, if we change our mind about CouchDB and decide to use a different datastore, we’ll just have one file to edit. Let’s define three methods:</p>
+<ol>
+<li>findBy &#8211; looks up an event based on a key</li>
+<li>hasVoted &#8211; checks to see if a person has already voted for a specific event</li>
+<li>saveVote &#8211; saves a person’s vote</li>
+</ol>
+<p><a href="https://github.com/crabasa/votr-part1/blob/master/events.js" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/crabasa/votr-part1/blob/master/events.js');">https://github.com/crabasa/votr-part1/blob/master/events.js</a></p>
+<h3><strong>5) Edit routes/index.js</strong></h3>
+<p><strong></strong>Let’s create a function called voteSMS to handle the incoming requests from Twilio. Each time Twilio receives an SMS, this function will be called.</p>
+<p><a href="https://github.com/crabasa/votr-part1/blob/master/routes/index.js" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/crabasa/votr-part1/blob/master/routes/index.js');">https://github.com/crabasa/votr-part1/blob/master/routes/index.js</a></p>
+<h3><strong>6) Edit app.js</strong></h3>
+<p><strong></strong>Add a route to our Express application to accept POST requests for the path “/vote/sms” and wire it to the voteSMS function we just created.</p>
+<p><a href="https://github.com/crabasa/votr-part1/blob/master/app.js" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/crabasa/votr-part1/blob/master/app.js');">https://github.com/crabasa/votr-part1/blob/master/app.js</a></p>
+<h3><strong>7) Create views/forbidden.hjs</strong></h3>
+<p><strong></strong>In the event that someone figures out the SMS Request URL of your voting application (because, I don’t know, it’s posted both here and on Github!) they might be tempted to try to generate phony requests and hijack the voting. Thankfully, this application checks <a href="http://www.twilio.com/docs/security#validating-requests" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twilio.com/docs/security#validating-requests', 'X-Twilio-Signature');">X-Twilio-Signature</a> and displays the following video to would-be intruders.</p>
+<p><iframe src="https://www.youtube.com/embed/RfiQYRn7fBg" frameborder="0" width="560" height="315"></iframe></p>
+<h2 dir="ltr"><strong>Wire Incoming SMS Messages to Our App</strong></h2>
+<p>Ok, we’re almost done! The last thing we need to do is set-up a phone number to process incoming votes over SMS.</p>
+<h3><strong>1) Sign-up for a Twilio account</strong></h3>
+<p><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'https://www.twilio.com/try-twilio');">https://www.twilio.com/try-twilio</a></p>
+<p><img class="alignnone size-full wp-image-10968" title="twilio1" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio11.png" alt="" width="500" height="266" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio11.png 500w, https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio11-300x159.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></p>
+<h3><strong>2) <strong>Go to your dashboard and </strong>configure your number</strong></h3>
+<p><img class="alignnone size-full wp-image-10969" title="twilio3" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio3.png" alt="" width="498" height="66" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio3.png 498w, https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio3-300x39.png 300w" sizes="(max-width: 498px) 100vw, 498px" /></p>
+<p><img class="alignnone size-full wp-image-10970" title="twilio4" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio4.png" alt="" width="498" height="155" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio4.png 498w, https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio4-300x93.png 300w" sizes="(max-width: 498px) 100vw, 498px" /></p>
+<p><img class="alignnone size-full wp-image-10971" title="twilio5" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio5.png" alt="" width="499" height="246" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio5.png 499w, https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio5-300x147.png 300w" sizes="(max-width: 499px) 100vw, 499px" /></p>
+<h3><strong>3) Go back to the Node.js app and edit config.js</strong></h3>
+<p><strong></strong>If you click on “Dashboard”, you’ll see your Account SID and Auth Token. The Auth Token is initially hidden, but just click on the key to reveal it.</p>
+<p><img class="alignnone size-full wp-image-10972" title="twilio6" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio6.png" alt="" width="494" height="31" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio6.png 494w, https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio6-300x18.png 300w" sizes="(max-width: 494px) 100vw, 494px" /></p>
+<p>Please copy these values into config.js.</p>
+<h3><strong>4) Deploy to Nodejitsu</strong></h3>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794da30139a085691396" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+jitsu deploy</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794da30139a085691396-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794da30139a085691396-1"><span class="crayon-e">jitsu </span><span class="crayon-i">deploy</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>&nbsp;</p>
+<h3><strong>5) Edit the event on Cloudant to reflect your new Twilio phone number</strong></h3>
+<p><img class="alignnone size-full wp-image-10974" title="twilio7" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio71.png" alt="" width="500" height="214" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio71.png 500w, https://www.twilio.com/blog/wp-content/uploads/2012/09/twilio71-300x128.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></p>
+<p>When you enter your number, please make sure it’s in <a href="http://en.wikipedia.org/wiki/E.164" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://en.wikipedia.org/wiki/E.164', 'E.164');">E.164</a> format (e.g. +12026189023).</p>
+<h2 dir="ltr"><strong>Let’s Vote!</strong></h2>
+<p>At this point you can pull out your phone and start testing your voting app. Here’s a simple script I use:</p>
+<ol>
+<li>Send a valid vote: text “1” (no quotes) to the voting number</li>
+<li>Send an out of range vote: text “7”</li>
+<li>Send an invalid vote: text “A”</li>
+<li>Try to vote twice: text “1”</li>
+</ol>
+<p>Below you’ll see the results of these text messages in Nodejitsu logs for your app:</p>
+<p><img class="alignnone size-full wp-image-10975" title="nodejitsu2" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/nodejitsu2.png" alt="" width="500" height="190" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/nodejitsu2.png 500w, https://www.twilio.com/blog/wp-content/uploads/2012/09/nodejitsu2-300x114.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></p>
+<p>Let’s double check our DB on Cloudant to verify the vote came in:</p>
+<p><img class="alignnone size-full wp-image-10976" title="cloudant5" src="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant5.png" alt="" width="500" height="369" srcset="https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant5.png 500w, https://www.twilio.com/blog/wp-content/uploads/2012/09/cloudant5-300x221.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></p>
+<p>That concludes part one of building a real-time SMS voting application using Node.js. All of the source code for this application can be found on Github: <a href="https://github.com/crabasa/votr-part1" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/crabasa/votr-part1', 'https://github.com/crabasa/votr-part1');">https://github.com/crabasa/votr-part1</a>.</p>
+<p>You may be wondering where the &#8220;real-time&#8221; part was. In <a href="https://www.twilio.com/blog/2012/12/building-a-real-time-sms-voting-app-part-2-socket-io-and-highcharts-js.html">part two</a>, we’ll build a visualization for this voting application using <a href="http://www.highcharts.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.highcharts.com/', 'Highcharts JS');">Highcharts JS</a> and animate this visualization in real-time using <a href="http://socket.io/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://socket.io/', 'Socket.io');">Socket.io</a>.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html" data-text="Building a Real-time SMS Voting App Part 1: Node.js &#038; CouchDB ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/6417ca1c133ad9c74479a0f9a3f0dc95?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6417ca1c133ad9c74479a0f9a3f0dc95?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/carter">Carter Rabasa</a></span></span> <span class="author-meta author-email"><a href="mailto:carter@twilio.com">carter@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With JavaScript</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express', '');">
+          <h5>SMS and MMS Notifications with Node.js</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" rel="bookmark" title="Permanent Link to Answering Health Questions via SMS with IBM Watson and Twilio" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html', '');">
+          <h5>Answering Health Questions via SMS with IBM Watson and Twilio<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/building-your-own-personal-assistant-with-twilio-and-google-calendar.html" rel="bookmark" title="Permanent Link to Building your own personal assistant with Twilio and Google Calendar" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/building-your-own-personal-assistant-with-twilio-and-google-calendar.html', '');">
+          <h5>Building your own personal assistant with Twilio and Google Calendar<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-1696">
+        <div id="dsq-comment-header-1696" class="dsq-comment-header">
+            <cite id="dsq-cite-1696">
+                <span id="dsq-author-user-1696">Colin</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1696" class="dsq-comment-body">
+            <div id="dsq-comment-message-1696" class="dsq-comment-message"><p>Fantastic tutorial, can&#8217;t wait for the next 3 parts.</p>
+<p>I&#8217;ve run into an issue that maybe you can help me with. I keep getting a 403 from /vote/sms. It reaches Twilio and Nodejitsu, but for some reason nodejitsu returns a 403. I thought this might be due to the incorrect Twilio auth keys, but I&#8217;ve double checked them and they&#8217;re correct. Any ideas?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-1697">
+        <div id="dsq-comment-header-1697" class="dsq-comment-header">
+            <cite id="dsq-cite-1697">
+                <span id="dsq-author-user-1697">Colin</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1697" class="dsq-comment-body">
+            <div id="dsq-comment-message-1697" class="dsq-comment-message"><p>I bypassed it using &#8220;config.disableTwilioSigCheck = true;&#8221; in config.js but I&#8217; not sure why the Twilio auth keys are not working.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-3" id="dsq-comment-1698">
+        <div id="dsq-comment-header-1698" class="dsq-comment-header">
+            <cite id="dsq-cite-1698">
+http://www.twilio.com                <span id="dsq-author-user-1698">Twilio</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1698" class="dsq-comment-body">
+            <div id="dsq-comment-message-1698" class="dsq-comment-message"><p>Colin, you can always email our support team at <a href="mailto:help@twilio.com">help@twilio.com</a> who can walk you through it. Also, part two was just posted yesterday: <a href="http://www.twilio.com/blog/2012/12/building-a-real-time-sms-voting-app-part-2-socket-io-and-highcharts-js.html" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://www.twilio.com/blog/2012/12/building-a-real-time-sms-voting-app-part-2-socket-io-and-highcharts-js.html', 'http://www.twilio.com/blog/2012/12/building-a-real-time-sms-voting-app-part-2-socket-io-and-highcharts-js.html');" rel="nofollow">http://www.twilio.com/blog/2012/12/building-a-real-time-sms-voting-app-part-2-socket-io-and-highcharts-js.html</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-1699">
+        <div id="dsq-comment-header-1699" class="dsq-comment-header">
+            <cite id="dsq-cite-1699">
+http://www.facebook.com/tyler.shambora                <span id="dsq-author-user-1699">Tyler Shambora</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1699" class="dsq-comment-body">
+            <div id="dsq-comment-message-1699" class="dsq-comment-message"><p>This is pretty frickin&#8217; slick&#8230;.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-1742">
+        <div id="dsq-comment-header-1742" class="dsq-comment-header">
+            <cite id="dsq-cite-1742">
+                <span id="dsq-author-user-1742">Jon Lange</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1742" class="dsq-comment-body">
+            <div id="dsq-comment-message-1742" class="dsq-comment-message"><p>Great Tutorial. I have a few concerns about Cloudant for scaling however, as they charge for data and I/O. On a massive scale this cost would be enormous, and buying dedicated nodes is very expensive. Have you considered using you own server, and Futon, (CouchDB&#8217;s built in web GUI). I found it to be easier than Cloudant&#8217;s and it also lets you control replication, (I couldn&#8217;t seem to find where replication is triggered in Cloudant).</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-1889">
+        <div id="dsq-comment-header-1889" class="dsq-comment-header">
+            <cite id="dsq-cite-1889">
+                <span id="dsq-author-user-1889">Ohad</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1889" class="dsq-comment-body">
+            <div id="dsq-comment-message-1889" class="dsq-comment-message"><p>Great tutorial.<br />
+In which IDE did you use to write those js files ?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-1916">
+        <div id="dsq-comment-header-1916" class="dsq-comment-header">
+            <cite id="dsq-cite-1916">
+http://carter.rabasa.com                <span id="dsq-author-user-1916">crabasa</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1916" class="dsq-comment-body">
+            <div id="dsq-comment-message-1916" class="dsq-comment-message"><p>I didn&#8217;t use an IDE. Just Sublime Text:</p>
+<p><a href="http://www.sublimetext.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://www.sublimetext.com/', 'http://www.sublimetext.com/');" rel="nofollow">http://www.sublimetext.com/</a></p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-3" id="dsq-comment-2336">
+        <div id="dsq-comment-header-2336" class="dsq-comment-header">
+            <cite id="dsq-cite-2336">
+                <span id="dsq-author-user-2336">Chris V. Nicholson</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2336" class="dsq-comment-body">
+            <div id="dsq-comment-message-2336" class="dsq-comment-message"><p>Hi Carter &#8211; thanks for the tutorial. Looks like Connor has taken down his piece on node.js modules, but there is still a version of it here: <a href="https://github.com/connor/connor_old/blob/master/source/_posts/2012-05-27-your-first-node-dot-js-module.markdown" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://github.com/connor/connor_old/blob/master/source/_posts/2012-05-27-your-first-node-dot-js-module.markdown', 'https://github.com/connor/connor_old/blob/master/source/_posts/2012-05-27-your-first-node-dot-js-module.markdown');" rel="nofollow">https://github.com/connor/connor_old/blob/master/source/_posts/2012-05-27-your-first-node-dot-js-module.markdown</a></p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-4" id="dsq-comment-2353">
+        <div id="dsq-comment-header-2353" class="dsq-comment-header">
+            <cite id="dsq-cite-2353">
+http://carter.rabasa.com                <span id="dsq-author-user-2353">crabasa</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2353" class="dsq-comment-body">
+            <div id="dsq-comment-message-2353" class="dsq-comment-message"><p>Chris, thanks for catching that! I&#8217;ve updated the link.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-2348">
+        <div id="dsq-comment-header-2348" class="dsq-comment-header">
+            <cite id="dsq-cite-2348">
+                <span id="dsq-author-user-2348">Chris V. Nicholson</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2348" class="dsq-comment-body">
+            <div id="dsq-comment-message-2348" class="dsq-comment-message"><p>Hi Carter &#8211; I&#8217;m getting some funny errors when I send a vote in to the Twilio number:</p>
+<p><a href="https://gist.github.com/anonymous/6015374" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://gist.github.com/anonymous/6015374', 'https://gist.github.com/anonymous/6015374');" rel="nofollow">https://gist.github.com/anonymous/6015374</a></p>
+<p>Do you have a moment to glance at this?</p>
+<p>Cheers, Chris</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2354">
+        <div id="dsq-comment-header-2354" class="dsq-comment-header">
+            <cite id="dsq-cite-2354">
+http://carter.rabasa.com                <span id="dsq-author-user-2354">crabasa</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2354" class="dsq-comment-body">
+            <div id="dsq-comment-message-2354" class="dsq-comment-message"><p>It looks like the &#8220;event&#8221; variable is null. Make sure that in your event document in CouchDB the value for &#8220;phone number&#8221; is in E.164 form (i.e. +15551234567). Shoot me a tweet @carterrabasa if you need any more help.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-2495">
+        <div id="dsq-comment-header-2495" class="dsq-comment-header">
+            <cite id="dsq-cite-2495">
+                <span id="dsq-author-user-2495">ascInd</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2495" class="dsq-comment-body">
+            <div id="dsq-comment-message-2495" class="dsq-comment-message"><p>A small Clarification</p>
+<p>In Twilio i have added the </p>
+<p>Message request URl as: <a href="http://viveknode-js.nodejitsu.com/vote/sms" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://viveknode-js.nodejitsu.com/vote/sms', 'http://viveknode-js.nodejitsu.com/vote/sms');" rel="nofollow">http://viveknode-js.nodejitsu.com/vote/sms</a></p>
+<p>For the number: +1 850-304-2594</p>
+<p>From where i need to send the sms<br />
+From number: ?<br />
+To number: ?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2598">
+        <div id="dsq-comment-header-2598" class="dsq-comment-header">
+            <cite id="dsq-cite-2598">
+                <span id="dsq-author-user-2598">Mirza</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2598" class="dsq-comment-body">
+            <div id="dsq-comment-message-2598" class="dsq-comment-message"><p>From number: Any</p>
+<p>To number: +18503042594</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-2709">
+        <div id="dsq-comment-header-2709" class="dsq-comment-header">
+            <cite id="dsq-cite-2709">
+                <span id="dsq-author-user-2709">LESH</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2709" class="dsq-comment-body">
+            <div id="dsq-comment-message-2709" class="dsq-comment-message"><p>Help, im getting this error as soon as I send the sms vote. The &#8216;phonenumber&#8217; property is set properly to my twilio number.<br />
+screenshot: <a href="http://i.imgur.com/72NWPrN.jpg" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://i.imgur.com/72NWPrN.jpg', 'http://i.imgur.com/72NWPrN.jpg');" rel="nofollow">http://i.imgur.com/72NWPrN.jpg</a> (error starts at line 3)</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2710">
+        <div id="dsq-comment-header-2710" class="dsq-comment-header">
+            <cite id="dsq-cite-2710">
+http://carter.rabasa.com                <span id="dsq-author-user-2710">crabasa</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2710" class="dsq-comment-body">
+            <div id="dsq-comment-message-2710" class="dsq-comment-message"><p>Hey Lesh. Make sure that you&#8217;ve created the event document in your CouchDB and that the &#8220;phonenumber&#8221; attribute is +14692034435. You have to have the &#8220;+1&#8221; in there.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-2728">
+        <div id="dsq-comment-header-2728" class="dsq-comment-header">
+            <cite id="dsq-cite-2728">
+                <span id="dsq-author-user-2728">wellwellmisseesanderson</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2728" class="dsq-comment-body">
+            <div id="dsq-comment-message-2728" class="dsq-comment-message"><p>Hey, great start to a cool app. I&#8217;m getting thrown this a 403 each time when I try to vote. Any possibilities as to why?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2731">
+        <div id="dsq-comment-header-2731" class="dsq-comment-header">
+            <cite id="dsq-cite-2731">
+http://carter.rabasa.com                <span id="dsq-author-user-2731">crabasa</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2731" class="dsq-comment-body">
+            <div id="dsq-comment-message-2731" class="dsq-comment-message"><p>Hmmm, not sure why that would be happening. Feel free to shoot me an email to discuss in more detail: <a href="mailto:carter@twilio.com">carter@twilio.com</a>.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-2740">
+        <div id="dsq-comment-header-2740" class="dsq-comment-header">
+            <cite id="dsq-cite-2740">
+                <span id="dsq-author-user-2740">Marc Nicholas</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2740" class="dsq-comment-body">
+            <div id="dsq-comment-message-2740" class="dsq-comment-message"><p>Thank you for putting this together! Just what I was looking for in terms of how to approach this stack&#8230;</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3202">
+        <div id="dsq-comment-header-3202" class="dsq-comment-header">
+            <cite id="dsq-cite-3202">
+                <span id="dsq-author-user-3202">pwei</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3202" class="dsq-comment-body">
+            <div id="dsq-comment-message-3202" class="dsq-comment-message"><p>Express 4.0 seperated it&#8217;s core from the generator; you&#8217;ll have to npm install express-generator too.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-3420">
+        <div id="dsq-comment-header-3420" class="dsq-comment-header">
+            <cite id="dsq-cite-3420">
+                <span id="dsq-author-user-3420">OLalekan</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3420" class="dsq-comment-body">
+            <div id="dsq-comment-message-3420" class="dsq-comment-message"><p>Tried running this tutorial via IBM Bluemix, its not working. The instance failed to accept connections</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3617">
+        <div id="dsq-comment-header-3617" class="dsq-comment-header">
+            <cite id="dsq-cite-3617">
+                <span id="dsq-author-user-3617">Aditya Joshi</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3617" class="dsq-comment-body">
+            <div id="dsq-comment-message-3617" class="dsq-comment-message"><p>How to debug? when i send message nothing  happens on log!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2012/09/10927 http://www.twilioblog.com/?p=10927';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Building a Real-time SMS Voting App Part 1: Node.js &#038; CouchDB";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html?cf_action=sync_comments&amp;post_id=10927';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2012\/09\/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2012/09/building-a-real-time-sms-voting-app-part-1-node-js-couchdb.html?utm_source=blog&utm_medium=link&utm_campaign=sms-4-lines-april-2014 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+</html>

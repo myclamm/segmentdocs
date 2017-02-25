@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Build your own Pokemon Go SMS Service with Node.js, Express and Twilio &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Pokemon GO is everywhere right now. Learn how you can build your own SMS notification service using Node.js and Twilio to catch &#039;em all!"/>
+<link rel="canonical" href="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Build your own Pokemon Go SMS Service with Node.js, Express and Twilio Comments Feed" href="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Dominik Kundel');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'pokemon,PokemonGo,SMS,twilio');
+	__gaTracker('set', 'dimension8', '2016-07-29T11:26:22+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=18449' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F07%2Fpokemon-go-sms-node-js-twilio.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F07%2Fpokemon-go-sms-node-js-twilio.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-18449 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-18449" class="row post-18449 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-pokemon tag-pokemongo tag-sms tag-twilio">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Build your own Pokemon Go SMS Service with Node.js, Express and Twilio</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="274" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/M5c7qbSM8LgFENCh1_u346mKceQr1QNftQsmyZNZWP1tdZqHWc0sbA2hlhnBcmAYOxZR4K7mtsWqhbYMxgcAaE4tkrbFOjQSGuGHf08UEC2HVcyo9uhiGeVQFKVIpansc94aQKLM-2.png" class="img-responsive wp-post-image" alt="M5c7qbSM8LgFENCh1_u346mKceQr1QNftQsmyZNZWP1tdZqHWc0sbA2hlhnBcmAYOxZR4K7mtsWqhbYMxgcAaE4tkrbFOjQSGuGHf08UEC2HVcyo9uhiGeVQFKVIpansc94aQKLM-2" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/07/M5c7qbSM8LgFENCh1_u346mKceQr1QNftQsmyZNZWP1tdZqHWc0sbA2hlhnBcmAYOxZR4K7mtsWqhbYMxgcAaE4tkrbFOjQSGuGHf08UEC2HVcyo9uhiGeVQFKVIpansc94aQKLM-2.png 700w, https://www.twilio.com/blog/wp-content/uploads/2016/07/M5c7qbSM8LgFENCh1_u346mKceQr1QNftQsmyZNZWP1tdZqHWc0sbA2hlhnBcmAYOxZR4K7mtsWqhbYMxgcAaE4tkrbFOjQSGuGHf08UEC2HVcyo9uhiGeVQFKVIpansc94aQKLM-2-300x129.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/07/M5c7qbSM8LgFENCh1_u346mKceQr1QNftQsmyZNZWP1tdZqHWc0sbA2hlhnBcmAYOxZR4K7mtsWqhbYMxgcAaE4tkrbFOjQSGuGHf08UEC2HVcyo9uhiGeVQFKVIpansc94aQKLM-2-200x86.png 200w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/dominik">Dominik Kundel</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html" rel="bookmark"><time class="entry-date published" datetime="2016-07-29T11:26:22+00:00">July 29, 2016</time><time class="updated" datetime="2016-08-02T13:39:40+00:00">August 2, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html" data-text="Build your own Pokemon Go SMS Service with Node.js, Express and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>Pokemon GO is everywhere right now and if you are like Ash Ketchum or me you want to catch &#8217;em all. This journey can be difficult but tools such as PokeVision can help us on our quest. The problem with these tools is that they require you to actively check them. Let&#8217;s build a service using <a href="https://www.twilio.com/docs/api/rest/sending-messages" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest/sending-messages', 'Twilio SMS');">Twilio SMS</a> that notifies you via SMS when certain Pokemon are found around your location.<br />
+<!--
+If you want to get an idea of what this looks like, text an address like <code>Alexanderplatz, Berlin</code> to one of the following numbers:
+
+<ul style="padding-left: 36px;">
+ 	
+<li>Germany (or EU): <strong>+49 157 35986402</strong></li>
+
+
+ 	
+<li>United States (or Intl): <strong>+1 (650) 667-7150</strong></li>
+
+
+ 	
+<li>United Kingdom: <strong>+44 169 1700065</strong></li>
+
+
+</ul>
+
+
+You should get an SMS with the Pokemon closest to the address and when they disappear.
+--></p>
+<p><b>DISCLAIMER: </b><em><span style="font-weight: 400;">Pokemon Go doesn&#8217;t have an official API and the mechanisms the community uses for tools around the game are shifting constantly. This might totally break.</span></em></p>
+<p>Now let’s learn how to build this ourselves!</p>
+<h3 id="h.5lp5qlie7nwu" class="c0 c8">Choose your Starter</h3>
+<h3 class="c0 c8"><img class="alignnone wp-image-18455 size-full" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/starter-pokemon-1.gif" width="446" height="327" /></h3>
+<p>To get started we need to make a couple of choices. Unlike the choices that Professor Oak gives you, for this project, you can choose from a <a href="https://www.twilio.com/docs/libraries" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/libraries', 'variety of programming languages');">variety of programming languages</a> and web frameworks, as long as they can make and <a href="https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html', 'receive HTTP requests');">receive HTTP requests</a>.</p>
+<p>For this tutorial we&#8217;ll use a basic <a href="http://expressjs.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://expressjs.com/', 'Express');">Express</a> server and <a href="https://nodejs.org/en/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://nodejs.org/en/', 'https://www.twilio.com/blog/2016/07/Node.js');">Node.js</a>. The things you need for this journey are:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://nodejs.org/en/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://nodejs.org/en/', 'https://www.twilio.com/blog/2016/07/Node.js');">Node.js</a> version 6.0 or higher. Check your version with <code>node -v</code>.</li>
+<li>A Twilio Account to send and receive SMS &#8211; <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'Sign up for free!');">Sign up for free!</a></li>
+<li><a href="https://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/', 'ngrok');">ngrok</a> &#8211; You can read more about ngrok <a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html', 'here');">here</a>.</li>
+</ul>
+<p>To get a <a href="https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html#Express" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2016/07/how-to-receive-a-post-request-in-node-js.html#Express', 'basic Express server');">basic Express server</a>, start by cloning the following <code>template</code> branch of <a href="https://github.com/dkundel/pokemon-go-sms/tree/template" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/dkundel/pokemon-go-sms/tree/template', 'this project');">this project</a> and install the dependencies:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c5fe729340735" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+git clone -b template https://github.com/dkundel/pokemon-go-sms.git
+cd pokemon-go-sms
+npm install</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c5fe729340735-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c5fe729340735-2">2</div><div class="crayon-num" data-line="crayon-58794fe87c5fe729340735-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c5fe729340735-1"><span class="crayon-e">git </span><span class="crayon-r">clone</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">b</span><span class="crayon-h"> </span><span class="crayon-e">template </span><span class="crayon-i">https</span><span class="crayon-o">:</span><span class="crayon-c">//github.com/dkundel/pokemon-go-sms.git</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c5fe729340735-2"><span class="crayon-r">cd</span><span class="crayon-h"> </span><span class="crayon-i">pokemon</span><span class="crayon-o">-</span><span class="crayon-i">go</span><span class="crayon-o">-</span><span class="crayon-e">sms</span></div><div class="crayon-line" id="crayon-58794fe87c5fe729340735-3"><span class="crayon-e">npm </span><span class="crayon-i">install</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0018 seconds] -->
+<p>With the code in place, spin up the app by running:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c610180038820" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm start</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c610180038820-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c610180038820-1"><span class="crayon-e">npm </span><span class="crayon-i">start</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>Navigate to <a href="http://localhost:3000/Kanto" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://localhost:3000/Kanto', 'http://localhost:3000/Kanto');">http://localhost:3000/Kanto</a>. You should see a message saying <code>Ahoy! Kanto</code>. Feel free to change <code>Kanto</code> in the URL with other things. It should change the message.</p>
+<p><img class="&quot; aligncenter" style="width: 528.00px; height: 201.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/ca7pzMaHm7pRhV4Bn3SPgM_148t3Sx86VdC-w7hb9HsUmLyOHSHpOaDGOjrN6mUexi1wqnjRhbPsM8gjDNj8ySBCQCU4jVUE6TkFkWm6h9oaS2S2Ob-wnwMC_5KEm27F0sYol8AZ.png" alt="Screen Shot 2016-07-29 at 3.49.02 PM.png" /></p>
+<h3 id="h.3vi27lnjv3sg" class="c0 c8">Initialize your Pokedex</h3>
+<p><img class="&quot; alignright" style="width: 198px; height: 149px; margin-left: 0px; margin-top: 0px; transform: rotate(0rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/qx0iFQoomvyJ2j6ErKMPeNqdlvYTiGW8QZREwuudUQ7vVT1dM6QigndIoY-427VEorfDiS6wTFn66VjC2FF_Y0OdXTG3EVNz9rIeUgPOwaNilV17d75hU3ARLU5Qr9waXyevs8Fz-2.png" alt="97n5YIwlTBh8A.gif" /></p>
+<p>You can&#8217;t be the very best on this journey without having the necessary data. Or in other words you need your Pokedex. In our case we will use a Node module called <a href="https://github.com/brentschooley/pokespotter" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/brentschooley/pokespotter', 'pokespotter');"><code>pokespotter</code></a>. It’s a basic wrapper around the Niantic API that will return you the list of Pokemon around a certain location.</p>
+<p>Start by installing <code>pokespotter</code>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c61c125366455" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm install pokespotter --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c61c125366455-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c61c125366455-1"><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">pokespotter</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>Require the <code>pokespotter</code> module at the top of the <code>index.js</code> file.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c626886226532" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+'use strict';
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const Pokespotter = require('pokespotter');</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c626886226532-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c626886226532-2">2</div><div class="crayon-num" data-line="crayon-58794fe87c626886226532-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c626886226532-4">4</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom" data-line="crayon-58794fe87c626886226532-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c626886226532-1"><span class="crayon-s">'use strict'</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c626886226532-2">&nbsp;</div><div class="crayon-line" id="crayon-58794fe87c626886226532-3"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">express</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'express'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c626886226532-4"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">bodyParser</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'body-parser'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom" id="crayon-58794fe87c626886226532-5"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">Pokespotter</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'pokespotter'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0027 seconds] -->
+<p><span style="font-weight: 400;">You need at least one Pokemon GO account for <code>pokespotter</code> to work. This can be either a Google account or a Pokemon Trainer Club account   Save your account credentials along with the account provider you have chosen (&#8216;google&#8217; if you are using a Google account or &#8216;ptc&#8217; for Pokemon Trainer Club accounts) as the environment variables <code>PGO_USERNAME</code>, <code>PGO_PASSWORD</code> and <code>PGO_PROVIDER</code>. You can also pass these values directly as arguments to the <code>Pokespotter()</code> call.</span></p>
+<p>Add the following two lines to your <code>index.js</code> file:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c630615839186" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const PORT = process.env.PORT || 3000;
+
+const POKEDEX = Pokespotter.Pokedex;
+const spotter = Pokespotter(process.env.PGO_USERNAME, process.env.PGO_PASSWORD, process.env.PGO_PROVIDER);</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c630615839186-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c630615839186-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c630615839186-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c630615839186-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c630615839186-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">PORT</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">PORT</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-h"> </span><span class="crayon-cn">3000</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c630615839186-2">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c630615839186-3"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">POKEDEX</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Pokespotter</span><span class="crayon-sy">.</span><span class="crayon-i">Pokedex</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794fe87c630615839186-4"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">spotter</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Pokespotter</span><span class="crayon-sy">(</span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">PGO_USERNAME</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">PGO_PASSWORD</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">PGO_PROVIDER</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0036 seconds] -->
+<p><span style="font-weight: 400;">Now add a function that will call <code>spotter.getNearby</code> and executes a function that simply returns the list of Pokemon for now:</span></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c63a925999602" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const spotter = Pokespotter();
+
+function getPokemonByAddress(address) {
+  return spotter.getNearby(address, { steps: 2 }).then(pokemon =&gt; {
+    return pokemon;
+  });
+}
+
+app.get('/:address', (req, res) =&gt; {</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c63a925999602-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c63a925999602-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c63a925999602-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c63a925999602-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c63a925999602-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c63a925999602-6">6</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794fe87c63a925999602-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c63a925999602-8">8</div><div class="crayon-num" data-line="crayon-58794fe87c63a925999602-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c63a925999602-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">spotter</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Pokespotter</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c63a925999602-2">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c63a925999602-3"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">getPokemonByAddress</span><span class="crayon-sy">(</span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c63a925999602-4"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">spotter</span><span class="crayon-sy">.</span><span class="crayon-e">getNearby</span><span class="crayon-sy">(</span><span class="crayon-i">address</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-v">steps:</span><span class="crayon-h"> </span><span class="crayon-cn">2</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c63a925999602-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-i">pokemon</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c63a925999602-6"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794fe87c63a925999602-7"><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c63a925999602-8">&nbsp;</div><div class="crayon-line" id="crayon-58794fe87c63a925999602-9"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'/:address'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0047 seconds] -->
+<p>The <code>getNearby</code> method gets two properties. An address or set of coordinates as well as an options object where we specify a steps value. For now we chose <code>2</code> which gives you roughly a radius of 200m. <span style="font-weight: 400;">The current time for a scan </span><span style="font-weight: 400;">for this radius is roughly 30 seconds. You can reduce this time by passing into the <code>Pokespotter()</code> constructor an array of users. At the current radius 7 spots are visited so the optimal number of accounts will be 7. <span style="font-weight: 400;">You can also increase the radius but it also increases the response time significantly. </span></span></p>
+<p>Now that we have this function we need to consume it. Modify the <a href="http://expressjs.com/en/guide/routing.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://expressjs.com/en/guide/routing.html', 'handler');">handler</a> for <code>/:address</code>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c645670572680" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+app.get('/:address', (req, res) =&gt; {
+  getPokemonByAddress(req.params.address).then(pokemon =&gt; {
+    res.type('application/json').send({result: pokemon});
+  }).catch(err =&gt; {
+    res.type('text/plain').status(500).send('An error occurred. Check your console.');
+    console.error(err);
+  });
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c645670572680-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794fe87c645670572680-2">2</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c645670572680-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c645670572680-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c645670572680-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c645670572680-6">6</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794fe87c645670572680-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c645670572680-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c645670572680-1"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'/:address'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794fe87c645670572680-2"> <span class="crayon-h"> </span><span class="crayon-e">getPokemonByAddress</span><span class="crayon-sy">(</span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">params</span><span class="crayon-sy">.</span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c645670572680-3"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">type</span><span class="crayon-sy">(</span><span class="crayon-s">'application/json'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span><span class="crayon-v">result:</span><span class="crayon-h"> </span><span class="crayon-i">pokemon</span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c645670572680-4"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">err</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c645670572680-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">type</span><span class="crayon-sy">(</span><span class="crayon-s">'text/plain'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">status</span><span class="crayon-sy">(</span><span class="crayon-cn">500</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-s">'An error occurred. Check your console.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c645670572680-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794fe87c645670572680-7"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c645670572680-8"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0063 seconds] -->
+<p>Open again <a href="http://localhost:3000/Central Park, New York" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://localhost:3000/Central%20Park,%20New%20York', 'http://localhost:3000/Central Park, New York');">http://localhost:3000/Central Park, New York</a> and you should get a first glimpse of the Pokemon around Central Park. Feel free to replace everything after the <code>3000/</code> with your own address to check the Pokemon near you.</p>
+<h3 id="h.d5cqv6e8daxu" class="c0 c8">Identify your Pokemon</h3>
+<p><img class="&quot; alignright" style="width: 330.18px; height: 261.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tQZ-j7kxefxBU6zXYKorV3KQWCoYBfl0E_g5paStDfbtwH4Ku2CU7mmBBMrhDgJ5LhFRlPGjzgYIUf7ymNhksW6DPmohlU815ETv5XIT6dCrpVlomJevpC06GE6Js-PJRPFaQDpW-2.png" alt="DRfu7BT8ZK1uo.gif" /></p>
+<p>For our text messages we are interested in 3 pieces of information for every Pokemon:</p>
+<ul style="padding-left: 36px;">
+<li>Name of the Pokemon</li>
+<li>Distance from location</li>
+<li>Time till disappearance</li>
+</ul>
+<p>The first two are already provided by <code>pokespotter</code>. For the third one we have a timestamp when the Pokemon is going to disappear. We can use that and the <a href="https://www.npmjs.com/package/moment" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.npmjs.com/package/moment', 'moment');"><code>moment</code></a> module to provide the information. Additionally we will sort the result by distance.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c650925742798" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm install moment --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c650925742798-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c650925742798-1"><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">moment</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Require the two modules at the top of the file:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c659191015569" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const Pokespotter = require('pokespotter');
+const moment = require('moment');</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c659191015569-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c659191015569-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c659191015569-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">Pokespotter</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'pokespotter'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794fe87c659191015569-2"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">moment</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'moment'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0017 seconds] -->
+<p>Add a new function that uses <code>moment.duration().humanize()</code> to add a readable version of the duration to every Pokemon and a function that compares the distance of two Pokemon. Alter the <code>getPokemonByAddress</code> function to use the two new functions:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c663114707411" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+function enhancePokeInfo(pokemon) {
+    pokemon.duration = moment.duration(pokemon.expirationTime - Date.now()).humanize();
+    return pokemon;
+}
+
+function sortClosestPokemon(pokemonA, pokemonB) {
+  return pokemonA.distance - pokemonB.distance;
+}
+
+function getPokemonByAddress(address) {
+  return spotter.getNearby(address, { steps: 2 }).then(pokemon =&gt; {
+    return pokemon.map(enhancePokeInfo).sort(sortClosestPokemon)
+  });
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c663114707411-1">1</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c663114707411-2">2</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c663114707411-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c663114707411-4">4</div><div class="crayon-num" data-line="crayon-58794fe87c663114707411-5">5</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794fe87c663114707411-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c663114707411-7">7</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c663114707411-8">8</div><div class="crayon-num" data-line="crayon-58794fe87c663114707411-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c663114707411-10">10</div><div class="crayon-num" data-line="crayon-58794fe87c663114707411-11">11</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c663114707411-12">12</div><div class="crayon-num" data-line="crayon-58794fe87c663114707411-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c663114707411-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c663114707411-1"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">enhancePokeInfo</span><span class="crayon-sy">(</span><span class="crayon-i">pokemon</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c663114707411-2"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">pokemon</span><span class="crayon-sy">.</span><span class="crayon-v">duration</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">moment</span><span class="crayon-sy">.</span><span class="crayon-e">duration</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-sy">.</span><span class="crayon-i">expirationTime</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">Date</span><span class="crayon-sy">.</span><span class="crayon-e">now</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">humanize</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c663114707411-3"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-i">pokemon</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794fe87c663114707411-4"><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794fe87c663114707411-5">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794fe87c663114707411-6"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">sortClosestPokemon</span><span class="crayon-sy">(</span><span class="crayon-i">pokemonA</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">pokemonB</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c663114707411-7"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">pokemonA</span><span class="crayon-sy">.</span><span class="crayon-i">distance</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">pokemonB</span><span class="crayon-sy">.</span><span class="crayon-i">distance</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794fe87c663114707411-8"><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794fe87c663114707411-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c663114707411-10"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">getPokemonByAddress</span><span class="crayon-sy">(</span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794fe87c663114707411-11"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">spotter</span><span class="crayon-sy">.</span><span class="crayon-e">getNearby</span><span class="crayon-sy">(</span><span class="crayon-i">address</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-v">steps:</span><span class="crayon-h"> </span><span class="crayon-cn">2</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794fe87c663114707411-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">pokemon</span><span class="crayon-sy">.</span><span class="crayon-e">map</span><span class="crayon-sy">(</span><span class="crayon-i">enhancePokeInfo</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">sort</span><span class="crayon-sy">(</span><span class="crayon-i">sortClosestPokemon</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794fe87c663114707411-13"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c663114707411-14"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0075 seconds] -->
+<p>Restart the server and refresh the browser. You should see more useful information now.</p>
+<h3 id="h.ict50gv3tl9v" class="c0 c8">Enhancing your Pokedex with Twilio</h3>
+<p><img class="&quot; alignright" style="width: 164.77px; height: 238.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/bKhCcWapodQkZN24gKZLUQfZe_6XddMXaT3TZzlc5OHNWdI1eB2YtpXnnZLFivXZlKx1JfdZGOtbirBIHA0yYrX9akWXpiOy4UALEEJpxfErEppqZxRrSz5Xc-RsNLSTc9Wpi4KO-2.png" alt="uJjHRgeNiIWRy.gif" /></p>
+<p>Alright we got the basic information going. But we didn&#8217;t want to create a web service for our Pokedex but an SMS service. This is where <a href="https://www.twilio.com/sms/api" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/sms/api', 'Twilio SMS');">Twilio SMS</a> comes into play.</p>
+<p>In order to receive SMS we need to create a new <code>POST</code> endpoint for our web server that will handle all <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml/sms/twilio_request', 'incoming SMS');">incoming SMS</a>. Twilio will then pass the content of our SMS and all related information to that endpoint.</p>
+<p>First add a function that makes our information look more readable and limits it to only 6 Pokemon to keep the SMS short:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c66e035556279" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+function formatPokeList(pokeList, address) {
+  let formattedPokemon = pokeList.map(pokemon =&gt; {
+    return `${pokemon.name}, ${pokemon.distance}m, ${pokemon.duration}`;
+  }).join('\n')
+  return `There are the following Pokemon around ${address}:\n${formattedPokemon}`;
+}
+
+app.get('/:address', (req, res) =&gt; {</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c66e035556279-1">1</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c66e035556279-2">2</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c66e035556279-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c66e035556279-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c66e035556279-5">5</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c66e035556279-6">6</div><div class="crayon-num" data-line="crayon-58794fe87c66e035556279-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c66e035556279-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c66e035556279-1"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">formatPokeList</span><span class="crayon-sy">(</span><span class="crayon-i">pokeList</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c66e035556279-2"> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">formattedPokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pokeList</span><span class="crayon-sy">.</span><span class="crayon-e">map</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c66e035556279-3"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-sy">`</span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-v">pokemon</span><span class="crayon-sy">.</span><span class="crayon-i">name</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-v">pokemon</span><span class="crayon-sy">.</span><span class="crayon-i">distance</span><span class="crayon-sy">}</span><span class="crayon-i">m</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-v">pokemon</span><span class="crayon-sy">.</span><span class="crayon-i">duration</span><span class="crayon-sy">}</span><span class="crayon-sy">`</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c66e035556279-4"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">join</span><span class="crayon-sy">(</span><span class="crayon-s">'\n'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c66e035556279-5"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-sy">`</span><span class="crayon-e">There</span><span class="crayon-h"> </span><span class="crayon-e">are</span><span class="crayon-h"> </span><span class="crayon-e">the</span><span class="crayon-h"> </span><span class="crayon-e">following</span><span class="crayon-h"> </span><span class="crayon-e">Pokemon</span><span class="crayon-h"> </span><span class="crayon-e">around</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-i">address</span><span class="crayon-sy">}</span><span class="crayon-o">:</span><span class="crayon-sy">\</span><span class="crayon-e">n</span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-i">formattedPokemon</span><span class="crayon-sy">}</span><span class="crayon-sy">`</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794fe87c66e035556279-6"><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794fe87c66e035556279-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c66e035556279-8"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'/:address'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0068 seconds] -->
+<p>Now add a new <code>POST</code> endpoint for <code>/incoming</code> that uses the <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request#request-parameters" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml/sms/twilio_request#request-parameters', 'Body');"><code>Body</code></a> that Twilio sends as an address and logs the lookup result to the console. Feel free to adjust the other endpoint to use the format function, too:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c679809903126" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+app.get('/:address', (req, res) =&gt; {
+  let address = req.params.address;
+  getPokemonByAddress(address).then(pokemon =&gt; {
+    res.type('text/plain').send(formatPokeList(pokemon, address));
+  }).catch(err =&gt; {
+    res.type('text/plain').status(500).send('An error occurred. Check your console.');
+    console.error(err);
+  });
+});
+
+app.post('/incoming', (req, res) =&gt; {
+  let message = req.body.Body;
+  res.send(`&lt;Response&gt;&lt;Message&gt;Searching for your Pokemon! One moment.&lt;/Message&gt;&lt;/Response&gt;`);
+  getPokemonByAddress(message).then(pokemon =&gt; {
+    console.log(formatPokeList(pokemon, message));
+  }).catch(err =&gt; {
+    console.error(err);
+  });
+});
+
+app.listen(PORT, () =&gt; {
+  console.log(`Listening on port ${PORT}`);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c679809903126-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794fe87c679809903126-2">2</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c679809903126-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c679809903126-4">4</div><div class="crayon-num" data-line="crayon-58794fe87c679809903126-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-6">6</div><div class="crayon-num" data-line="crayon-58794fe87c679809903126-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-8">8</div><div class="crayon-num" data-line="crayon-58794fe87c679809903126-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-10">10</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c679809903126-11">11</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-12">12</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c679809903126-13">13</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-14">14</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c679809903126-15">15</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-16">16</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c679809903126-17">17</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-18">18</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794fe87c679809903126-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-20">20</div><div class="crayon-num" data-line="crayon-58794fe87c679809903126-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c679809903126-22">22</div><div class="crayon-num" data-line="crayon-58794fe87c679809903126-23">23</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c679809903126-1"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'/:address'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794fe87c679809903126-2"> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">address</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">params</span><span class="crayon-sy">.</span><span class="crayon-i">address</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c679809903126-3"> <span class="crayon-h"> </span><span class="crayon-e">getPokemonByAddress</span><span class="crayon-sy">(</span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794fe87c679809903126-4"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">type</span><span class="crayon-sy">(</span><span class="crayon-s">'text/plain'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-e">formatPokeList</span><span class="crayon-sy">(</span><span class="crayon-i">pokemon</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c679809903126-5"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">err</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c679809903126-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">type</span><span class="crayon-sy">(</span><span class="crayon-s">'text/plain'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">status</span><span class="crayon-sy">(</span><span class="crayon-cn">500</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-s">'An error occurred. Check your console.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c679809903126-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c679809903126-8"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c679809903126-9"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c679809903126-10">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c679809903126-11"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">post</span><span class="crayon-sy">(</span><span class="crayon-s">'/incoming'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c679809903126-12"> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">message</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-sy">.</span><span class="crayon-i">Body</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c679809903126-13"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-o">&lt;</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-i">Message</span><span class="crayon-o">&gt;</span><span class="crayon-e">Searching </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">your </span><span class="crayon-i">Pokemon</span><span class="crayon-o">!</span><span class="crayon-h"> </span><span class="crayon-e">One </span><span class="crayon-v">moment</span><span class="crayon-sy">.</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Message</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span><span class="crayon-sy">`</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c679809903126-14"> <span class="crayon-h"> </span><span class="crayon-e">getPokemonByAddress</span><span class="crayon-sy">(</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c679809903126-15"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-e">formatPokeList</span><span class="crayon-sy">(</span><span class="crayon-i">pokemon</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c679809903126-16"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">err</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c679809903126-17"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c679809903126-18"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794fe87c679809903126-19"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c679809903126-20">&nbsp;</div><div class="crayon-line" id="crayon-58794fe87c679809903126-21"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">listen</span><span class="crayon-sy">(</span><span class="crayon-i">PORT</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c679809903126-22"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-e">Listening</span><span class="crayon-h"> </span><span class="crayon-e">on</span><span class="crayon-h"> </span><span class="crayon-e">port</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-i">PORT</span><span class="crayon-sy">}</span><span class="crayon-sy">`</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c679809903126-23"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0162 seconds] -->
+<p>Make sure to restart the server. In order to receive SMS we first need to expose our local server to the web for Twilio to access it. Run in a separate console window:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c683971469013" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ngrok http 3000</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c683971469013-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c683971469013-1"><span class="crayon-e">ngrok </span><span class="crayon-i">http</span><span class="crayon-h"> </span><span class="crayon-cn">3000</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 294.67px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/0ZKId-JlqZlgWuLkO1_wHLW64oI_275SFcZBzSMOEgfcEZjCZIo7NhDMw4b9Wsmp3ziC-MAMdvgdUtXhQGnAHihWkhhKs5y7P80c-nIUHLtmZX_adwp2zdndDK1faKM9kJYX6naO-2.png" alt="screenshot-ngrok.png" /></p>
+<p><a href="https://www.twilio.com/console/phone-numbers/incoming" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/phone-numbers/incoming', 'Get a Twilio phone number');">Get a Twilio phone number</a> and configure the webhook URL for incoming messages to be <code>http://&lt;your_ngrok_url&gt;.ngrok.io/incoming</code>. Afterwards send an SMS to your <a href="https://www.twilio.com/console/phone-numbers/incoming" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/phone-numbers/incoming', 'Twilio phone number');">Twilio phone number</a> with an address and you should see the result show up in your terminal window.</p>
+<p><img class="alignnone size-large wp-image-18454" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-1024x460.png" alt="ScreenshotTerminal" width="640" height="288" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-1024x460.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-300x135.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-768x345.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM-200x90.png 200w, https://www.twilio.com/blog/wp-content/uploads/2016/07/Screen-Shot-2016-07-29-at-5.46.29-PM.png 1104w" sizes="(max-width: 640px) 100vw, 640px" /></p>
+<p><span style="font-weight: 400;">Now the last step is to actually reply with an SMS. If we would know the response immediately we could directly reply to the request that Twilio does to our server using </span><a href="https://www.twilio.com/docs/api/twiml/sms/your_response#twiml-interpreter" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml/sms/your_response#twiml-interpreter', 'TwiML');"><span style="font-weight: 400;">TwiML</span></a><span style="font-weight: 400;">. However, because it takes a fairly long time to request the data we need to use the </span><a href="https://www.twilio.com/docs/api/rest/sending-messages" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest/sending-messages', 'Twilio REST API');"><span style="font-weight: 400;">Twilio REST API</span></a><span style="font-weight: 400;"> or in our case the </span><a href="https://www.twilio.com/docs/libraries" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/libraries', 'Twilio helper library');"><span style="font-weight: 400;">Twilio helper library</span></a><span style="font-weight: 400;"> to reply to the message at a later point. </span></p>
+<p>Install it via:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c68e325380537" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm install twilio --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c68e325380537-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c68e325380537-1"><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">twilio</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>Make sure your Twilio Account SID (<code>TWILIO_ACCOUNT_SID</code>) and <a href="https://www.twilio.com/help/faq/twilio-basics/what-is-the-auth-token-and-how-can-i-change-it" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/help/faq/twilio-basics/what-is-the-auth-token-and-how-can-i-change-it', 'Twilio Auth Token');">Twilio Auth Token</a> (<code>TWILIO_AUTH_TOKEN</code>) are set as the respective environment variables. Require the helper library at the top of your file:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c698404699899" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const moment = require('moment');
+const twilio = require('twilio');
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c698404699899-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794fe87c698404699899-2">2</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794fe87c698404699899-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c698404699899-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">moment</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'moment'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794fe87c698404699899-2"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">twilio</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'twilio'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794fe87c698404699899-3"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">twilio</span><span class="crayon-sy">(</span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">TWILIO_ACCOUNT_SID</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">TWILIO_AUTH_TOKEN</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0029 seconds] -->
+<p>Modify the <code>POST</code> request handler to send a message with the result:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c6a2410936651" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+app.post('/incoming', (req, res) =&gt; {
+  let message = req.body.Body;
+  res.send(`&lt;Response&gt;&lt;Message&gt;Searching for your Pokemon! One moment.&lt;/Message&gt;&lt;/Response&gt;`);
+  getPokemonByAddress(message).then(pokemon =&gt; {
+    let response = formatPokeList(pokemon, message);
+    return client.sendMessage({
+      from: req.body.To,
+      to: req.body.From,
+      body: response
+    });
+  }).catch(err =&gt; {
+    console.error(err);
+  });
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c6a2410936651-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6a2410936651-2">2</div><div class="crayon-num" data-line="crayon-58794fe87c6a2410936651-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6a2410936651-4">4</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c6a2410936651-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6a2410936651-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6a2410936651-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6a2410936651-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6a2410936651-9">9</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c6a2410936651-10">10</div><div class="crayon-num" data-line="crayon-58794fe87c6a2410936651-11">11</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c6a2410936651-12">12</div><div class="crayon-num" data-line="crayon-58794fe87c6a2410936651-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6a2410936651-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c6a2410936651-1"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">post</span><span class="crayon-sy">(</span><span class="crayon-s">'/incoming'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6a2410936651-2"> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">message</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-sy">.</span><span class="crayon-i">Body</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c6a2410936651-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-o">&lt;</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-i">Message</span><span class="crayon-o">&gt;</span><span class="crayon-e">Searching </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">your </span><span class="crayon-i">Pokemon</span><span class="crayon-o">!</span><span class="crayon-h"> </span><span class="crayon-e">One </span><span class="crayon-v">moment</span><span class="crayon-sy">.</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Message</span><span class="crayon-o">&gt;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span><span class="crayon-sy">`</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6a2410936651-4"> <span class="crayon-h"> </span><span class="crayon-e">getPokemonByAddress</span><span class="crayon-sy">(</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c6a2410936651-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">formatPokeList</span><span class="crayon-sy">(</span><span class="crayon-i">pokemon</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6a2410936651-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">sendMessage</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6a2410936651-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">from:</span><span class="crayon-h"> </span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-sy">.</span><span class="crayon-st">To</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6a2410936651-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">to</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-sy">.</span><span class="crayon-i">From</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6a2410936651-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">body:</span><span class="crayon-h"> </span><span class="crayon-i">response</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794fe87c6a2410936651-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c6a2410936651-11"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">err</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794fe87c6a2410936651-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c6a2410936651-13"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6a2410936651-14"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0094 seconds] -->
+<p>Restart your server and send another SMS to your Twilio phone number. You will now get a reply SMS with the 6 closest Pokemon to that location.</p>
+<p><img style="width: 347.50px; height: 347.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); display: inline;" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/p5yC_k9GrHPc4ZJbVAcEJGGqIlgXzkk_kr9x_aOCUwGfG9SoROxR9oEEMrYpmDgkO9OUZdXAE7Tn6OOPOSvo06iWEnEEGcAiUaxkNrHiPWNeSB20fLmk5nQTqGmiaimx2ZcMbavR-2.png" alt="GOd1Ljyn4usSc.gif" /><img class="alignnone wp-image-18452 size-medium" style="display: inline;" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/IMG_0949-169x300.jpg" alt="screenshot SMS response" width="169" height="300" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/07/IMG_0949-169x300.jpg 169w, https://www.twilio.com/blog/wp-content/uploads/2016/07/IMG_0949-576x1024.jpg 576w, https://www.twilio.com/blog/wp-content/uploads/2016/07/IMG_0949-112x200.jpg 112w, https://www.twilio.com/blog/wp-content/uploads/2016/07/IMG_0949.jpg 750w" sizes="(max-width: 169px) 100vw, 169px" /></p>
+<h3 id="h.ll2jgsql2j1a" class="c0 c8">A Wild SMS Appeared!</h3>
+<p>Lastly we have one more problem. How do we get informed if that one Pokemon that we are looking for shows up at a certain location? Let&#8217;s add an SMS notification whenever this happens and an easy way to subscribe to it.</p>
+<p>First create a new map instance at the top of your file that will hold all the necessary subscriber information:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c6ad023480297" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const PokeWatchers = new Map();
+const PORT = process.env.PORT || 3000;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num crayon-marked-num crayon-top crayon-bottom" data-line="crayon-58794fe87c6ad023480297-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6ad023480297-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line crayon-marked-line crayon-top crayon-bottom" id="crayon-58794fe87c6ad023480297-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">PokeWatchers</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">Map</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6ad023480297-2"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">PORT</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">PORT</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-h"> </span><span class="crayon-cn">3000</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0021 seconds] -->
+<p>Next we need to add subscribers to this map. We will add them based on the format of SMS they send. If you send something such as: <code>Subscribe: Pikachu; Alexanderplatz, Berlin</code> it will notify you when there is a Pikachu around Alexanderplatz in Berlin.</p>
+<p>For this modify our SMS request handler:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c6b7934298357" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+app.post('/incoming', (req, res) =&gt; {
+  let message = req.body.Body;
+  if (message.toLowerCase().trim().indexOf('subscribe:') === 0 &amp;&amp; message.indexOf(';') !== -1) {
+    message = message.substr('subscribe:'.length);
+    let [pokemonName, location] = message.split(';').map(m =&gt; m.trim());
+
+    if (POKEDEX.indexOf(pokemonName) !== -1) {
+      PokeWatchers.set(`${req.body.From},${pokemonName}`, location);
+      res.type('text/plain').send(`We will be on the watch for ${pokemonName} around ${location}`);
+    } else {
+      res.type('text/plain').send(`The Pokemon with the name ${pokemonName} doesn't exist.`);
+    }
+  } else {
+    res.send(`&lt;Response&gt;&lt;Message&gt;Searching for your Pokemon! One moment.&lt;/Message&gt;&lt;/Response&gt;`);    
+    getPokemonByAddress(message).then(info =&gt; {
+      let { location, pokemon } = info;
+      let response = formatPokeList(pokemon, location);
+      return client.sendMessage({
+        from: req.body.To,
+        to: req.body.From,
+        body: response
+      });
+    }).catch(err =&gt; {
+      console.error('An error occurred');
+      console.error(err);
+    });
+  }
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794fe87c6b7934298357-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c6b7934298357-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6b7934298357-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6b7934298357-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6b7934298357-9">9</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-10">10</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6b7934298357-11">11</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-12">12</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794fe87c6b7934298357-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-14">14</div><div class="crayon-num" data-line="crayon-58794fe87c6b7934298357-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-16">16</div><div class="crayon-num" data-line="crayon-58794fe87c6b7934298357-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-18">18</div><div class="crayon-num" data-line="crayon-58794fe87c6b7934298357-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-20">20</div><div class="crayon-num" data-line="crayon-58794fe87c6b7934298357-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-22">22</div><div class="crayon-num" data-line="crayon-58794fe87c6b7934298357-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-24">24</div><div class="crayon-num" data-line="crayon-58794fe87c6b7934298357-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-26">26</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom" data-line="crayon-58794fe87c6b7934298357-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6b7934298357-28">28</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794fe87c6b7934298357-1"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">post</span><span class="crayon-sy">(</span><span class="crayon-s">'/incoming'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-2"> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">message</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-sy">.</span><span class="crayon-i">Body</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c6b7934298357-3"> <span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-e">toLowerCase</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">trim</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">indexOf</span><span class="crayon-sy">(</span><span class="crayon-s">'subscribe:'</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">===</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-h"> </span><span class="crayon-o">&amp;&amp;</span><span class="crayon-h"> </span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-e">indexOf</span><span class="crayon-sy">(</span><span class="crayon-s">';'</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">!==</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-4"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">message</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-e">substr</span><span class="crayon-sy">(</span><span class="crayon-s">'subscribe:'</span><span class="crayon-sy">.</span><span class="crayon-i">length</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6b7934298357-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">let</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-i">pokemonName</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-r">location</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-e">split</span><span class="crayon-sy">(</span><span class="crayon-s">';'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">map</span><span class="crayon-sy">(</span><span class="crayon-v">m</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">m</span><span class="crayon-sy">.</span><span class="crayon-e">trim</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-6">&nbsp;</div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6b7934298357-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">POKEDEX</span><span class="crayon-sy">.</span><span class="crayon-e">indexOf</span><span class="crayon-sy">(</span><span class="crayon-i">pokemonName</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">!==</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-cn">1</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">PokeWatchers</span><span class="crayon-sy">.</span><span class="crayon-e">set</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-sy">.</span><span class="crayon-i">From</span><span class="crayon-sy">}</span><span class="crayon-sy">,</span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-i">pokemonName</span><span class="crayon-sy">}</span><span class="crayon-sy">`</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-r">location</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6b7934298357-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">type</span><span class="crayon-sy">(</span><span class="crayon-s">'text/plain'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-e">We</span><span class="crayon-h"> </span><span class="crayon-e">will</span><span class="crayon-h"> </span><span class="crayon-e">be</span><span class="crayon-h"> </span><span class="crayon-e">on</span><span class="crayon-h"> </span><span class="crayon-e">the</span><span class="crayon-h"> </span><span class="crayon-r">watch</span><span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-i">pokemonName</span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-e">around</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-r">location</span><span class="crayon-sy">}</span><span class="crayon-sy">`</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-st">else</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6b7934298357-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">type</span><span class="crayon-sy">(</span><span class="crayon-s">'text/plain'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">send</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-e">The</span><span class="crayon-h"> </span><span class="crayon-e">Pokemon</span><span class="crayon-h"> </span><span class="crayon-e">with</span><span class="crayon-h"> </span><span class="crayon-e">the</span><span class="crayon-h"> </span><span class="crayon-r">name</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-i">pokemonName</span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-i">doesn</span><span class="crayon-s">'t exist.`);</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-12"><span class="crayon-s">    }</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794fe87c6b7934298357-13"><span class="crayon-s">  } else {</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-14"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;res.send(`&lt;Response&gt;&lt;Message&gt;Searching for your Pokemon! One moment.&lt;/Message&gt;&lt;/Response&gt;`);&nbsp;&nbsp;&nbsp;&nbsp;</span></div><div class="crayon-line" id="crayon-58794fe87c6b7934298357-15"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;getPokemonByAddress(message).then(info =&gt; {</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-16"><span class="crayon-s">      let { location, pokemon } = info;</span></div><div class="crayon-line" id="crayon-58794fe87c6b7934298357-17"><span class="crayon-s">      let response = formatPokeList(pokemon, location);</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-18"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return client.sendMessage({</span></div><div class="crayon-line" id="crayon-58794fe87c6b7934298357-19"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from: req.body.To,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-20"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to: req.body.From,</span></div><div class="crayon-line" id="crayon-58794fe87c6b7934298357-21"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body: response</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-22"><span class="crayon-s">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</span></div><div class="crayon-line" id="crayon-58794fe87c6b7934298357-23"><span class="crayon-s">    }).catch(err =&gt; {</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-24"><span class="crayon-s">      console.error('</span><span class="crayon-e">An </span><span class="crayon-e">error </span><span class="crayon-i">occurred</span>'<span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794fe87c6b7934298357-25"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-26"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom" id="crayon-58794fe87c6b7934298357-27"> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6b7934298357-28"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0155 seconds] -->
+<p>Now that we know which Pokemon we should be looking for and where, all we need to do is to look for them on a regular basis. We will be doing this every 60 seconds. Once we found the respective Pokemon for someone, we will also stop looking for it. You can re-subscribe by sending the same message again.</p>
+<p><span style="font-weight: 400;">In order to send a message without previously receiving one we again need to use the the </span><a href="https://www.twilio.com/docs/libraries" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/libraries', 'Twilio helper library');"><span style="font-weight: 400;">Twilio helper library</span></a><span style="font-weight: 400;">. </span></p>
+<p>Create a new function <code>watchForPokemon</code> and run setInterval when the server starts. Make sure to replace <code>{{YOUR TWILIO NUMBER}}</code> with your own Twilio phone number:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794fe87c6c2764183550" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+function watchForPokemon() {
+  console.log('Looking for Pokemon...');
+  for(let [keyInfo, address] of PokeWatchers) {
+    let [number, wantedPokemon] = keyInfo.split(',');
+    getPokemonByAddress(address).then(pokemon =&gt; {
+      let availablePokemon = pokemon.filter(poke =&gt; poke.name.toLowerCase() === wantedPokemon.toLowerCase());
+      if (availablePokemon.length !== 0) {
+        let body = formatPokeList(availablePokemon, address);
+        let from = '{{YOUR TWILIO NUMBER}}';
+        let to = number;
+        PokeWatchers.delete(keyInfo);
+        return client.sendMessage({body, from, to});
+      }
+      return Promise.resolve(true);
+    }).catch(err =&gt; {
+      console.error('An error occurred. Check your console.');
+      console.error(err);
+    });
+  }
+}
+
+app.listen(PORT, () =&gt; {
+  console.log(`Listening on port ${PORT}`);
+  watchForPokemon();
+  setInterval(watchForPokemon, 60 * 1000);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794fe87c6c2764183550-1">1</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-2">2</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-9">9</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-10">10</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-11">11</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-12">12</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-13">13</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-14">14</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-15">15</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-16">16</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-17">17</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-18">18</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794fe87c6c2764183550-19">19</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-20">20</div><div class="crayon-num" data-line="crayon-58794fe87c6c2764183550-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-22">22</div><div class="crayon-num" data-line="crayon-58794fe87c6c2764183550-23">23</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-24">24</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794fe87c6c2764183550-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794fe87c6c2764183550-26">26</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794fe87c6c2764183550-1"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">watchForPokemon</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-2"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Looking for Pokemon...'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-3"> <span class="crayon-h"> </span><span class="crayon-st">for</span><span class="crayon-sy">(</span><span class="crayon-v">let</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-i">keyInfo</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">address</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-e">of </span><span class="crayon-i">PokeWatchers</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-4"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">let</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-i">number</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">wantedPokemon</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">keyInfo</span><span class="crayon-sy">.</span><span class="crayon-e">split</span><span class="crayon-sy">(</span><span class="crayon-s">','</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">getPokemonByAddress</span><span class="crayon-sy">(</span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">availablePokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pokemon</span><span class="crayon-sy">.</span><span class="crayon-e">filter</span><span class="crayon-sy">(</span><span class="crayon-v">poke</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-v">poke</span><span class="crayon-sy">.</span><span class="crayon-v">name</span><span class="crayon-sy">.</span><span class="crayon-e">toLowerCase</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">===</span><span class="crayon-h"> </span><span class="crayon-v">wantedPokemon</span><span class="crayon-sy">.</span><span class="crayon-e">toLowerCase</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">availablePokemon</span><span class="crayon-sy">.</span><span class="crayon-i">length</span><span class="crayon-h"> </span><span class="crayon-o">!==</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">body</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">formatPokeList</span><span class="crayon-sy">(</span><span class="crayon-i">availablePokemon</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">address</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-e ">from</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'{{YOUR TWILIO NUMBER}}'</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-st">to</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">number</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">PokeWatchers</span><span class="crayon-sy">.</span><span class="crayon-e">delete</span><span class="crayon-sy">(</span><span class="crayon-i">keyInfo</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-e">sendMessage</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span><span class="crayon-i">body</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">from</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-st">to</span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-13"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-14"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">Promise</span><span class="crayon-sy">.</span><span class="crayon-e">resolve</span><span class="crayon-sy">(</span><span class="crayon-t">true</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-15"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">err</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-16"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'An error occurred. Check your console.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-17"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-18"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794fe87c6c2764183550-19"> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794fe87c6c2764183550-20"><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794fe87c6c2764183550-21">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-22"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">listen</span><span class="crayon-sy">(</span><span class="crayon-i">PORT</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794fe87c6c2764183550-23"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-e">Listening</span><span class="crayon-h"> </span><span class="crayon-e">on</span><span class="crayon-h"> </span><span class="crayon-e">port</span><span class="crayon-h"> </span><span class="crayon-sy">$</span><span class="crayon-sy">{</span><span class="crayon-i">PORT</span><span class="crayon-sy">}</span><span class="crayon-sy">`</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794fe87c6c2764183550-24"> <span class="crayon-h"> </span><span class="crayon-e">watchForPokemon</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794fe87c6c2764183550-25"> <span class="crayon-h"> </span><span class="crayon-r">setInterval</span><span class="crayon-sy">(</span><span class="crayon-i">watchForPokemon</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">60</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-cn">1000</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794fe87c6c2764183550-26"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0175 seconds] -->
+<p>That&#8217;s it! Restart your server and you can start sending <code>Subscribe</code> messages. To test it, I recommend to search for a Pokemon that is very common to the area that you want to watch for. This way you should get instantly an SMS.</p>
+<p><img class="&quot; aligncenter" style="width: 500.00px; height: 300.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/iP3IbN8UOTBAnr8ZTXKys7P16jeocNC0eS9WExAsxhalQVauq8zSHuLebyBKJZUTQ3-k-ZPdsCQY3ZNmAjSAIEcCpMJNcXhcKk5hDALLlleIey4XXPcokh8XShGVL5wtWoQjdgmu-1.png" alt="10LKovKon8DENq.gif" /></p>
+<h3 id="h.2iqa4wj6kcn6" class="c0 c8">Go and Explore</h3>
+<p>We made it! Hopefully now we will be able to catch &#8217;em all. You don&#8217;t have to stop here though. How about filtering out common Pokemon or providing a way to sort them by rarity?<br />
+I can&#8217;t wait to see what you build with this! Feel free to contact me to tell me what you build or if you have any questions:</p>
+<ul style="padding-left: 36px;">
+<li>Email: <a class="c4" href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></li>
+<li>Twitter: <a href="https://twitter.com/dkundel" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/dkundel', '@dkundel');">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/dkundel', 'dkundel');">dkundel</a></li>
+<li>Twitch (streaming live code): <a href="https://twitch.tv/dkundel" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitch.tv/dkundel', 'dkundel');">dkundel</a></li>
+</ul>
+<p>Please remember that this system is based on an unofficial API that isn&#8217;t guaranteed to always work and they might block you. So you might have to sometimes fallback to travel across the land to search for Pokemon.</p>
+<p><img class="alignnone size-full wp-image-18456" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/flying-away.gif" alt="flying-away" width="431" height="327" /></p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html" data-text="Build your own Pokemon Go SMS Service with Node.js, Express and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/8492cae550ace194748f18e81d1f488d?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8492cae550ace194748f18e81d1f488d?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/dominik">Dominik Kundel</a></span></span> <span class="author-meta author-email"><a href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Use Twilio Tutorials to Start Building</h3>         <a href="https://www.twilio.com/docs/tutorials/walkthrough/call-tracking/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/call-tracking/php/laravel', '');">
+          <h5>Call Tracking</h5>
+        </a>
+         <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/php/laravel', '');">
+          <h5>SMS and MMS Notifications</h5>
+        </a>
+         <a href="https://www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/php/laravel', '');">
+          <h5>Two-Factor Authentication with Authy</h5>
+        </a>
+      
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2016/07/18449 https://www.twilio.com/blog/?p=18449';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Build your own Pokemon Go SMS Service with Node.js, Express and Twilio";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html?cf_action=sync_comments&amp;post_id=18449';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2016\/07\/pokemon-go-sms-node-js-twilio.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+</html>

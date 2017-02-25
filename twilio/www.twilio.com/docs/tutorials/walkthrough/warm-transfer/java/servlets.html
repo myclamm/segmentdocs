@@ -1,0 +1,748 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/tutorials/walkthrough/warm-transfer/java/servlets by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:55 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+<meta name="description" content="Have you ever been disconnected from a support call while being transferred to another support agent? Warm transfer eliminates this problem. Using Twilio-powered warm transfers your agents will have the ability add other people to an in-progress phone call to provide a seamless customer experience.">
+
+    
+
+    <title>
+      Warm Transfer - Java / Servlets Tutorial - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/tutorials/walkthrough/warm-transfer/java/servlets" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    
+    
+    <meta property="og:url" content="https://www.twilio.com?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+<link rel="stylesheet" href="https://www.twilio.com/docs/static/legacy/walkthrough.css" />
+
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["marketplace", "enable-video-rooms"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      tutorials
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/tutorials" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">Tutorials</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+
+      <div class="uk-width-3-4 uk-hidden-small">
+        <div class="breadcrumbs">
+          <a href="https://www.twilio.com/docs/tutorials">Tutorials</a> &gt;
+          <span>
+            Warm Transfer (Java |
+            Servlets)
+          </span>
+          <span class="get-the-code">
+            <a target="_blank" title="Download Source Code" data-metric="download_source" 
+               href="https://github.com/TwilioDevEd/warm-transfer-servlets/archive/master.zip">
+              <i class="fa fa-download"></i>
+            </a>
+            <a target="_blank" title="Visit at GitHub" data-metric="view_source" 
+               href="https://github.com/TwilioDevEd/warm-transfer-servlets/tree/master">
+              <i class="fa fa-github"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+        <div class="search">
+          <form action="https://www.twilio.com/docs/search" method="GET">
+            <div class="wrapper">
+              <input id="search-box" name="q" type="text" value="">
+            </div>
+            <button type="submit">
+              <i class="fa fa-fw fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+<div class="viewsaurus-container">
+	<div id="viewsaurus" data-title="Warm Transfer">
+  <div class="saurus-panes">
+    <div class="saurus-prose">
+      <div class="saurus-prose-header">
+        <div class="title-outer"><span class="step-title">Warm Transfer</span></div>
+      </div>
+      <div class="saurus-nav-buttons">
+        <div class="saurus-nav-button nav-overview">
+          <div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div>
+          <div class="nav-divider"></div>
+        </div>
+        <div class="saurus-nav-button nav-previous">
+          <div class="saurus-nav-button-inner"><a href="#"> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div>
+          <div class="nav-divider"></div>
+        </div>
+        <div class="saurus-nav-button nav-next clickable">
+          <div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div>
+        </div>
+        <div class="saurus-next-title"><span class="next-title-inner"></span></div>
+      </div>
+      <div class="saurus-progress-bar"></div>
+      <div class="saurus-start">
+        <p>In this tutorial, we will learn how to implement Warm Transfers using Java and Servlets</p><a href="#0">Start Tutorial</a>
+      </div>
+      <div class="saurus-content">
+<div data-title="Setting Up The Application" class="chapter">
+  <div data-title="What Are We Building?" data-file="src/main/java/com/twilio/warmtransfer/servlets/guice/WarmTransferServletModule.java" class="step"><h2 id="warm-transfer">Warm Transfer</h2>
+<p><img src="http://howtodocs.s3.amazonaws.com/warm-transfers.png" alt="Warm Transfer"></p>
+<p>Have you ever been disconnected from a support call while being transferred to
+someone else?</p>
+<p>Warm transfer eliminates this problem. Using Twilio powered
+warm transfers your agents will have the ability
+to dial in another agent in real-time.</p>
+<p>Here is how it works at a high level:</p>
+<ol>
+<li><p>The first agent becomes available when he/she connects through the web client.</p>
+</li>
+<li><p>The second agent also becomes available when he/she connects through the web client.</p>
+</li>
+<li><p>A client calls our support line.</p>
+</li>
+<li><p>The client stays on hold while the first agent joins the call.</p>
+</li>
+<li><p>While the first agent is on the phone with the client, he/she can dial a second agent into the call.</p>
+</li>
+<li><p>Once the second agent is on the call, the first one can disconnect from it.
+The client and the second agent stay on the call.</p>
+</li>
+</ol>
+<p>Let&#39;s get started!</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="http://www.twilio.com/docs/java/install">Getting started with Twilio Java</a></li>
+</ul>
+
+  </div>
+  <div data-title="Setting Up the Voice Webhook" data-file="src/main/java/com/twilio/warmtransfer/servlets/guice/WarmTransferServletModule.java" data-highlight="26" class="step"><h2 id="setting-up-the-voice-webhook">Setting Up the Voice Webhook</h2>
+<p>First let&#39;s configure the voice webhook for the Twilio number that customers
+will dial when they want to talk to a support agent.
+<img src="http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif" alt="Configure Voice"></p>
+<p>This should be the public-facing URL or your app in production:
+<code>http://***.ngrok.io/conference/connect/client</code></p>
+
+  </div>
+  <div data-title="Connecting an Agent" data-file="src/main/webapp/js/main.js" data-highlight="17-51" class="step"><h2 id="connecting-an-agent">Connecting an Agent</h2>
+<p>Here you can see all front-end code necessary to connect an agent using
+<a href="http://www.twilio.com/webrtc">Twilio&#39;s Voice Web Client</a>.</p>
+<p>We essentially need three things to have a live web client:</p>
+<ul>
+<li>A capability token (provided by our app)</li>
+<li>A unique identifier (string) for each agent</li>
+<li>Event listeners to handle different Twilio-triggered events</li>
+</ul>
+<p>In the next step we&#39;ll take a closer look into capability token
+generation.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="http://www.twilio.com/docs/api/client/twilio-js">Twilio.js Library</a></li>
+<li><a href="http://www.twilio.com/docs/quickstart/client">Twilio Client Quickstart</a></li>
+<li><a href="http://www.twilio.com/docs/quickstart/java/twiml">TwiML response with the twilio-java library</a></li>
+</ul>
+
+  </div>
+  <div data-title="Generate a Capability Token" data-file="src/main/java/com/twilio/warmtransfer/utils/TwilioAuthenticatedActions.java" data-highlight="44-50" class="step"><h2 id="generate-a-capability-token">Generate a Capability Token</h2>
+<p>In order to connect the <a href="http://www.twilio.com/webrtc">Twilio Voice Web Client</a>
+we need a <a href="http://www.twilio.com/docs/client/capability-tokens">capability token</a>.</p>
+<p>To allow incoming connections through the web client an identifier must
+be provided when generating the token. For this tutorial we used fixed
+identifier strings like <code>agent1</code> and <code>agent2</code>, but you can use any
+generated string for your call center clients. These identifiers will be
+used to create outbound calls to the specified agent using the <a href="http://www.twilio.com/docs/api/rest">Twilio
+REST API</a>.</p>
+<hr>
+<p><strong>See also:</strong></p>
+<ul>
+<li><a href="http://www.twilio.com/docs/client/capability-tokens">Twilio Client: Capability Tokens</a></li>
+<li><a href="http://www.twilio.com/docs/quickstart/java/client/hello-monkey">Generate Capability Tokens with twilio-java</a></li>
+<li><a href="http://www.twilio.com/docs/api/rest/making-calls">Making Calls With Twilio REST API</a></li>
+</ul>
+
+  </div>
+  <div data-title="Handling Incoming Calls" data-file="src/main/java/com/twilio/warmtransfer/servlets/ConnectClientServlet.java" data-highlight="22-31" class="step"><h2 id="handling-incoming-calls">Handling Incoming Calls</h2>
+<p>When a client makes a call to our Twilio number the application receives
+a POST request asking for instructions. We&#39;ll use <a href="http://www.twilio.com/docs/api/twiml/">TwiML</a> to instruct the client
+to join a conference room and the Twilio REST API client to start a call with
+the first agent, so he can join the same conference.</p>
+<p>When providing instructions to the client, we also provide a callback
+<a href="http://www.twilio.com/docs/api/twiml/conference#attributes-waitUrl"><code>waitUrl</code></a>,
+which in our case is another end point of our application. This returns more TwiML
+to <a href="http://www.twilio.com/docs/api/twiml/say">say</a> welcome to the user, and also
+<a href="http://www.twilio.com/docs/api/twiml/play">play</a> some music while on hold.
+Take a look at the code
+<a href="http://github.com/TwilioDevEd/warm-transfer-servlets/blob/master/src/main/java/com/twilio/warmtransfer/utils/TwimlBuilder.java#L23">here</a></p>
+<p>We use the client&#39;s <a href="http://www.twilio.com/help/faq/voice/what-is-a-call-sid"><code>CallSid</code></a> as the conference identifier. Since all participants
+need this identifier to join the conference, we&#39;ll need to store it in a database so that we can grab it when we dial the second agent in later.</p>
+
+  </div>
+  <div data-title="Providing TwiML Instruction For The Client" data-file="src/main/java/com/twilio/warmtransfer/utils/TwimlBuilder.java" data-highlight="15, 29-40" class="step"><h2 id="providing-twiml-instruction-for-the-client">Providing TwiML Instruction For The Client</h2>
+<p>Here we create a <code>VoiceResponse</code> using its Buider, and it will contain a
+<a href="http://www.twilio.com/docs/api/twiml/dial"><code>Dial</code></a> verb with a
+<a href="http://www.twilio.com/docs/api/twiml/conference"><code>Conference</code></a> noun that
+will instruct the client to join a specific conference room.</p>
+
+  </div>
+  <div data-title="Dial First Agent Into the Call" data-file="src/main/java/com/twilio/warmtransfer/utils/TwilioAuthenticatedActions.java" data-highlight="36,37,52-57" class="step"><h2 id="dial-first-agent-into-the-call">Dial First Agent Into the Call</h2>
+<p>For our app we created a <code>callAgent</code> method to handle dialing our agents. This method uses
+Twilio&#39;s Sdk <code>Call</code> class to create a new call. The <code>create</code> static method
+receives the following parameters:</p>
+<ol>
+<li><p><code>To</code>  : The agent web client&#39;s identifier (<code>agent1</code> or <code>agent2</code>)</p>
+</li>
+<li><p><code>From</code>: Your Twilio number</p>
+</li>
+<li><p><code>Url</code> : A URL to ask for TwiML instructions when the call connects</p>
+</li>
+</ol>
+<p>The <code>create</code> method returns an object which contains the <code>execute</code> method and 
+the call to Twilio&#39;s API only happens when this <code>execute</code> method is called.</p>
+<p>Once the agent answers the call in the web client, a request is made to the
+callback URL instructing this call to join the conference room where
+the client is already waiting.</p>
+
+  </div>
+  <div data-title="Dial Second Agent Into the Call" data-file="src/main/java/com/twilio/warmtransfer/servlets/CallAgentServlet.java" data-highlight="23-35" class="step"><h2 id="dial-second-agent-into-the-call">Dial Second Agent Into the Call</h2>
+<p>When the client and the first agent are both in the call we are ready to
+perform a <em>warm  transfer</em> to a second agent. The first agent makes a
+request and we look for his <code>conferenceId</code> needed to dial the second agent in.
+Since we already have a <code>callAgent</code> method we can simply call it to connect the second agent in.</p>
+
+  </div>
+  <div data-title="The First Agent Leaves the Call" data-file="src/main/java/com/twilio/warmtransfer/utils/TwimlBuilder.java" data-highlight="31-33" class="step"><h2 id="the-first-agent-leaves-the-call">The First Agent Leaves the Call</h2>
+<p>When the three participants have joined the same call, the first agent has
+served his purpose. Now he can drop the call, leaving agent two and the client
+to have a pleasant conversation.</p>
+<p>It is important to notice the differences between the TwiML each one of the
+participants received when joining the call. Both, agent one and two, have
+<code>startConferenceOnEnter</code> set to <code>true</code>. This means the conference will start when
+any of them joins the call. For the client calling and for agent two <code>endConferenceOnExit</code>
+is set to true. This causes the call to end when either of these two participants
+drops the call.</p>
+
+  </div>
+  <div class="step"><h2 id="where-to-next-">Where to next?</h2>
+<p>That&#39;s it! We have just implemented warm transfers using Java Servlets.
+Now your clients won&#39;t get disconnect from support calls while they are being
+transferred to some else.</p>
+<p>If you&#39;re a Java developer working with Twilio, you might also enjoy these
+tutorials:</p>
+<p><a href="http://www.twilio.com/docs/tutorials/walkthrough/click-to-call/java/servlets"><strong>Click-To-Call</strong></a></p>
+<p>Click-to-call enables your company to convert web traffic into phone calls with the click of a button. Learn how to implement it in minutes.</p>
+<p><a href="http://www.twilio.com/docs/tutorials/walkthrough/automated-survey/java/spring"><strong>Automated-Surveys</strong></a></p>
+<p>Learn to implement automated surveys in your Spring web app with Twilio.</p>
+<p>Thanks for checking out this tutorial! If you have any feedback
+to share with us, we&#39;d love to hear it.
+<a href="mailto:deved-oss@twilio.com">Contact the Twilio Developer Education Team</a> to let us know what you think.</p>
+
+  </div>
+</div>
+<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="src/main/java/com/twilio/warmtransfer/servlets/guice/WarmTransferServletModule.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2bGV0cy5ndWljZTsKCmltcG9ydCBjb20uZ29vZ2xlLmluamVjdC5Qcm92aWRlczsKaW1wb3J0IGNvbS5nb29nbGUuaW5qZWN0Lm5hbWUuTmFtZWQ7CmltcG9ydCBjb20uZ29vZ2xlLmluamVjdC5zZXJ2bGV0LlNlcnZsZXRNb2R1bGU7CmltcG9ydCBjb20udHdpbGlvLmh0dHAuVHdpbGlvUmVzdENsaWVudDsKaW1wb3J0IGNvbS50d2lsaW8ud2FybXRyYW5zZmVyLnNlcnZsZXRzLkNhbGxBZ2VudFNlcnZsZXQ7CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2bGV0cy5Db25mZXJlbmNlV2FpdFNlcnZsZXQ7CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2bGV0cy5Db25uZWN0QWdlbnRTZXJ2bGV0OwppbXBvcnQgY29tLnR3aWxpby53YXJtdHJhbnNmZXIuc2VydmxldHMuQ29ubmVjdENsaWVudFNlcnZsZXQ7CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2bGV0cy5JbmRleFNlcnZsZXQ7CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2bGV0cy5Ub2tlblNlcnZsZXQ7CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci51dGlscy5Ud2lsaW9BdXRoZW50aWNhdGVkQWN0aW9uczsKCmltcG9ydCBqYXZhLnV0aWwuTWFwOwoKaW1wb3J0IHN0YXRpYyBqYXZhLmxhbmcuU3lzdGVtLmdldGVudjsKCgpwdWJsaWMgY2xhc3MgV2FybVRyYW5zZmVyU2VydmxldE1vZHVsZSBleHRlbmRzIFNlcnZsZXRNb2R1bGUgewogICAgQE92ZXJyaWRlCiAgICBwdWJsaWMgdm9pZCBjb25maWd1cmVTZXJ2bGV0cygpIHsKICAgICAgICBzZXJ2ZSgiLyIpLndpdGgoSW5kZXhTZXJ2bGV0LmNsYXNzKTsKICAgICAgICBzZXJ2ZSgiL3Rva2VuIikud2l0aChUb2tlblNlcnZsZXQuY2xhc3MpOwogICAgICAgIHNlcnZlKCIvY29uZmVyZW5jZS93YWl0Iikud2l0aChDb25mZXJlbmNlV2FpdFNlcnZsZXQuY2xhc3MpOwogICAgICAgIHNlcnZlKCIvY29uZmVyZW5jZS9jb25uZWN0L2NsaWVudCIpLndpdGgoQ29ubmVjdENsaWVudFNlcnZsZXQuY2xhc3MpOwogICAgICAgIHNlcnZlKCIvY29uZmVyZW5jZS9jb25uZWN0L2FnZW50KiIpLndpdGgoQ29ubmVjdEFnZW50U2VydmxldC5jbGFzcyk7CiAgICAgICAgc2VydmUoIi9jb25mZXJlbmNlL2NhbGwvYWdlbnQyIikud2l0aChDYWxsQWdlbnRTZXJ2bGV0LmNsYXNzKTsKCiAgICAgICAgYmluZChUd2lsaW9BdXRoZW50aWNhdGVkQWN0aW9ucy5jbGFzcyk7CiAgICB9CgogICAgQFByb3ZpZGVzCiAgICBwdWJsaWMgVHdpbGlvUmVzdENsaWVudCB0d2lsaW9SZXN0Q2xpZW50KCkgewogICAgICAgIHJldHVybiBuZXcgVHdpbGlvUmVzdENsaWVudC5CdWlsZGVyKAogICAgICAgICAgICAgICAgZ2V0ZW52KCJUV0lMSU9fQUNDT1VOVF9TSUQiKSwgZ2V0ZW52KCJUV0lMSU9fQVVUSF9UT0tFTiIpKQogICAgICAgICAgICAgICAgLmJ1aWxkKCk7CiAgICB9CgogICAgQE5hbWVkKCJlbnYiKQogICAgQFByb3ZpZGVzCiAgICBwdWJsaWMgTWFwPFN0cmluZywgU3RyaW5nPiBlbnYoKSB7CiAgICAgICAgcmV0dXJuIFN5c3RlbS5nZXRlbnYoKTsKICAgIH0KfQo=</textarea>
+<textarea class="saurus-file" data-file="src/main/webapp/js/main.js" data-mode="javascript">JChmdW5jdGlvbigpIHsKICB2YXIgY3VycmVudEFnZW50SWQ7CiAgdmFyIGN1cnJlbnRDb25uZWN0aW9uOwogIHZhciAkY2FsbFN0YXR1cyA9ICQoJyNjYWxsLXN0YXR1cycpOwogIHZhciAkY29ubmVjdEFnZW50MUJ1dHRvbiA9ICQoIiNjb25uZWN0LWFnZW50MS1idXR0b24iKTsKICB2YXIgJGNvbm5lY3RBZ2VudDJCdXR0b24gPSAkKCIjY29ubmVjdC1hZ2VudDItYnV0dG9uIik7CgogIHZhciAkYW5zd2VyQ2FsbEJ1dHRvbiA9ICQoIiNhbnN3ZXItY2FsbC1idXR0b24iKTsKICB2YXIgJGhhbmd1cENhbGxCdXR0b24gPSAkKCIjaGFuZ3VwLWNhbGwtYnV0dG9uIik7CiAgdmFyICRkaWFsQWdlbnQyQnV0dG9uID0gJCgiI2RpYWwtYWdlbnQyLWJ1dHRvbiIpOwoKICAkY29ubmVjdEFnZW50MUJ1dHRvbi5vbignY2xpY2snLCB7IGFnZW50SWQ6ICdhZ2VudDEnIH0sIGFnZW50Q2xpY2tIYW5kbGVyKTsKICAkY29ubmVjdEFnZW50MkJ1dHRvbi5vbignY2xpY2snLCB7IGFnZW50SWQ6ICdhZ2VudDInIH0sIGFnZW50Q2xpY2tIYW5kbGVyKTsKICAkaGFuZ3VwQ2FsbEJ1dHRvbi5vbignY2xpY2snLCBoYW5nVXApOwogICRkaWFsQWdlbnQyQnV0dG9uLm9uKCdjbGljaycsIGRpYWxBZ2VudDIpOwoKICBmdW5jdGlvbiBmZXRjaFRva2VuKGFnZW50SWQpIHsKICAgICQucG9zdCgndG9rZW4nLCB7ImFnZW50SWQiOmFnZW50SWR9LCBmdW5jdGlvbihkYXRhKSB7CiAgICAgIGN1cnJlbnRBZ2VudElkID0gZGF0YS5hZ2VudElkOwogICAgICBjb25uZWN0Q2xpZW50KGRhdGEudG9rZW4pCiAgICB9LCAnanNvbicpOwogIH0KCiAgZnVuY3Rpb24gY29ubmVjdENsaWVudCh0b2tlbikgewogICAgVHdpbGlvLkRldmljZS5zZXR1cCh0b2tlbik7CiAgfQoKICBUd2lsaW8uRGV2aWNlLnJlYWR5KGZ1bmN0aW9uIChkZXZpY2UpIHsKICAgIHVwZGF0ZUNhbGxTdGF0dXMoIlJlYWR5Iik7CiAgICBhZ2VudENvbm5lY3RlZEhhbmRsZXIoZGV2aWNlLl9jbGllbnROYW1lKTsKICB9KTsKCiAgLy8gQ2FsbGJhY2sgZm9yIHdoZW4gVHdpbGlvIENsaWVudCByZWNlaXZlcyBhIG5ldyBpbmNvbWluZyBjYWxsCiAgVHdpbGlvLkRldmljZS5pbmNvbWluZyhmdW5jdGlvbihjb25uZWN0aW9uKSB7CiAgICBjdXJyZW50Q29ubmVjdGlvbiA9IGNvbm5lY3Rpb247CiAgICB1cGRhdGVDYWxsU3RhdHVzKCJJbmNvbWluZyBzdXBwb3J0IGNhbGwiKTsKCiAgICAvLyBTZXQgYSBjYWxsYmFjayB0byBiZSBleGVjdXRlZCB3aGVuIHRoZSBjb25uZWN0aW9uIGlzIGFjY2VwdGVkCiAgICBjb25uZWN0aW9uLmFjY2VwdChmdW5jdGlvbigpIHsKICAgICAgdXBkYXRlQ2FsbFN0YXR1cygiSW4gY2FsbCB3aXRoIGN1c3RvbWVyIik7CiAgICAgICRhbnN3ZXJDYWxsQnV0dG9uLnByb3AoJ2Rpc2FibGVkJywgdHJ1ZSk7CiAgICAgICRoYW5ndXBDYWxsQnV0dG9uLnByb3AoJ2Rpc2FibGVkJywgZmFsc2UpOwogICAgICAkZGlhbEFnZW50MkJ1dHRvbi5wcm9wKCdkaXNhYmxlZCcsIGZhbHNlKTsKICAgIH0pOwoKICAgIC8vIFNldCBhIGNhbGxiYWNrIG9uIHRoZSBhbnN3ZXIgYnV0dG9uIGFuZCBlbmFibGUgaXQKICAgICRhbnN3ZXJDYWxsQnV0dG9uLmNsaWNrKGZ1bmN0aW9uKCkgewogICAgICBjb25uZWN0aW9uLmFjY2VwdCgpOwogICAgfSk7CiAgICAkYW5zd2VyQ2FsbEJ1dHRvbi5wcm9wKCdkaXNhYmxlZCcsIGZhbHNlKTsKICB9KTsKCiAgLyogUmVwb3J0IGFueSBlcnJvcnMgdG8gdGhlIGNhbGwgc3RhdHVzIGRpc3BsYXkgKi8KICBUd2lsaW8uRGV2aWNlLmVycm9yKGZ1bmN0aW9uIChlcnJvcikgewogICAgdXBkYXRlQ2FsbFN0YXR1cygiRVJST1I6ICIgKyBlcnJvci5tZXNzYWdlKTsKICAgIGRpc2FibGVDb25uZWN0QnV0dG9ucyhmYWxzZSk7CiAgfSk7CgogIC8vIENhbGxiYWNrIGZvciB3aGVuIHRoZSBjYWxsIGZpbmFsaXplcwogIFR3aWxpby5EZXZpY2UuZGlzY29ubmVjdChmdW5jdGlvbihjb25uZWN0aW9uKSB7CiAgICBjYWxsRW5kZWRIYW5kbGVyKGNvbm5lY3Rpb24uZGV2aWNlLl9jbGllbnROYW1lKTsKICB9KTsKCiAgZnVuY3Rpb24gZGlhbEFnZW50MigpIHsKICAgICQucG9zdCgnL2NvbmZlcmVuY2UvY2FsbC9hZ2VudDInKQogIH0KCiAgLyogRW5kIGEgY2FsbCAqLwogIGZ1bmN0aW9uIGhhbmdVcCgpIHsKICAgIFR3aWxpby5EZXZpY2UuZGlzY29ubmVjdEFsbCgpOwogIH0KCiAgZnVuY3Rpb24gYWdlbnRDbGlja0hhbmRsZXIoZSkgewogICAgdmFyIGFnZW50SWQgPSBlLmRhdGEuYWdlbnRJZDsKICAgIGRpc2FibGVDb25uZWN0QnV0dG9ucyh0cnVlKTsKICAgIGZldGNoVG9rZW4oYWdlbnRJZCk7CiAgfQoKICBmdW5jdGlvbiBhZ2VudENvbm5lY3RlZEhhbmRsZXIoYWdlbnRJZCkgewogICAgJCgnI2Nvbm5lY3QtYWdlbnQtcm93JykuYWRkQ2xhc3MoJ2hpZGRlbicpOwogICAgJCgnI2Nvbm5lY3RlZC1hZ2VudC1yb3cnKS5yZW1vdmVDbGFzcygnaGlkZGVuJyk7CiAgICB1cGRhdGVDYWxsU3RhdHVzKCJDb25uZWN0ZWQgYXM6ICIgKyBhZ2VudElkKTsKCiAgICBpZiAoYWdlbnRJZCA9PT0gJ2FnZW50MScpIHsKICAgICAgJGRpYWxBZ2VudDJCdXR0b24ucmVtb3ZlQ2xhc3MoJ2hpZGRlbicpLnByb3AoJ2Rpc2FibGVkJywgdHJ1ZSk7CiAgICB9CiAgICBlbHNlIHsKICAgICAgJGRpYWxBZ2VudDJCdXR0b24uYWRkQ2xhc3MoJ2hpZGRlbicpCiAgICB9CiAgfQoKICBmdW5jdGlvbiBjYWxsRW5kZWRIYW5kbGVyKGFnZW50SWQpIHsKICAgICRkaWFsQWdlbnQyQnV0dG9uLnByb3AoJ2Rpc2FibGVkJywgdHJ1ZSk7CiAgICAkaGFuZ3VwQ2FsbEJ1dHRvbi5wcm9wKCdkaXNhYmxlZCcsIHRydWUpOwogICAgJGFuc3dlckNhbGxCdXR0b24ucHJvcCgnZGlzYWJsZWQnLCB0cnVlKQogICAgdXBkYXRlQ2FsbFN0YXR1cygiQ29ubmVjdGVkIGFzOiAiICsgYWdlbnRJZCk7CiAgfQoKICBmdW5jdGlvbiBkaXNhYmxlQ29ubmVjdEJ1dHRvbnMoZGlzYWJsZSkgewogICAgJGNvbm5lY3RBZ2VudDFCdXR0b24ucHJvcCgnZGlzYWJsZWQnLCBkaXNhYmxlKTsKICAgICRjb25uZWN0QWdlbnQyQnV0dG9uLnByb3AoJ2Rpc2FibGVkJywgZGlzYWJsZSk7CiAgfQoKICBmdW5jdGlvbiB1cGRhdGVDYWxsU3RhdHVzKHN0YXR1cykgewogICAgJGNhbGxTdGF0dXMudGV4dChzdGF0dXMpOwogIH0KfSk7Cg==</textarea>
+<textarea class="saurus-file" data-file="src/main/java/com/twilio/warmtransfer/utils/TwilioAuthenticatedActions.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLndhcm10cmFuc2Zlci51dGlsczsKCgppbXBvcnQgY29tLmdvb2dsZS5pbmplY3QuSW5qZWN0OwppbXBvcnQgY29tLmdvb2dsZS5pbmplY3QubmFtZS5OYW1lZDsKaW1wb3J0IGNvbS50d2lsaW8uaHR0cC5Ud2lsaW9SZXN0Q2xpZW50OwppbXBvcnQgY29tLnR3aWxpby5qd3QuY2xpZW50LkNsaWVudENhcGFiaWxpdHk7CmltcG9ydCBjb20udHdpbGlvLmp3dC5jbGllbnQuSW5jb21pbmdDbGllbnRTY29wZTsKaW1wb3J0IGNvbS50d2lsaW8ucmVzdC5hcGkudjIwMTAuYWNjb3VudC5DYWxsOwppbXBvcnQgY29tLnR3aWxpby50eXBlLlBob25lTnVtYmVyOwoKaW1wb3J0IGphdmEubmV0LlVSSTsKaW1wb3J0IGphdmEudXRpbC5NYXA7CgppbXBvcnQgc3RhdGljIGphdmEudXRpbC5BcnJheXMuYXNMaXN0OwoKCnB1YmxpYyBjbGFzcyBUd2lsaW9BdXRoZW50aWNhdGVkQWN0aW9ucyB7CiAgICBwcml2YXRlIE1hcDxTdHJpbmcsIFN0cmluZz4gZW52OwogICAgcHJpdmF0ZSBTdHJpbmcgYWNjb3VudFNpZDsKICAgIHByaXZhdGUgU3RyaW5nIGF1dGhUb2tlbjsKICAgIHByaXZhdGUgU3RyaW5nIHR3aWxpb051bWJlcjsKICAgIHByaXZhdGUgVHdpbGlvUmVzdENsaWVudCB0d2lsaW9SZXN0Q2xpZW50OwoKICAgIEBJbmplY3QKICAgIHB1YmxpYyBUd2lsaW9BdXRoZW50aWNhdGVkQWN0aW9ucyhUd2lsaW9SZXN0Q2xpZW50IHR3aWxpb1Jlc3RDbGllbnQsCiAgICAgICAgICAgIEBOYW1lZCgiZW52IikgTWFwPFN0cmluZywgU3RyaW5nPiBlbnYpIHsKICAgICAgICB0aGlzKGVudik7CiAgICAgICAgdGhpcy50d2lsaW9SZXN0Q2xpZW50ID0gdHdpbGlvUmVzdENsaWVudDsKICAgIH0KCiAgICBUd2lsaW9BdXRoZW50aWNhdGVkQWN0aW9ucyhNYXA8U3RyaW5nLCBTdHJpbmc+IGVudikgdGhyb3dzIFJ1bnRpbWVFeGNlcHRpb24gewogICAgICAgIHRoaXMuZW52ID0gZW52OwogICAgICAgIGlmIChlbnYuY29udGFpbnNLZXkoIlRXSUxJT19BQ0NPVU5UX1NJRCIpICYmIGVudi5jb250YWluc0tleSgiVFdJTElPX0FVVEhfVE9LRU4iKQogICAgICAgICAgICAgICAgJiYgZW52LmNvbnRhaW5zS2V5KCJUV0lMSU9fTlVNQkVSIikpIHsKICAgICAgICAgICAgdGhpcy5hY2NvdW50U2lkID0gZW52LmdldCgiVFdJTElPX0FDQ09VTlRfU0lEIik7CiAgICAgICAgICAgIHRoaXMuYXV0aFRva2VuID0gZW52LmdldCgiVFdJTElPX0FVVEhfVE9LRU4iKTsKICAgICAgICAgICAgdGhpcy50d2lsaW9OdW1iZXIgPSBlbnYuZ2V0KCJUV0lMSU9fTlVNQkVSIik7CiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgdGhyb3cgbmV3IFJ1bnRpbWVFeGNlcHRpb24oIlRXSUxJT19BQ0NPVU5UX1NJRCwgVFdJTElPX0FVVEhfVE9LRU4gYW5kIFRXSUxJT19OVU1CRVIgbXVzdCBiZSBzZXQgb24gc3lzdGVtIGVudmlyb25tZW50LiIpOwogICAgICAgIH0KICAgIH0KCiAgICBwdWJsaWMgU3RyaW5nIGdldFRva2VuRm9yQWdlbnQoU3RyaW5nIGFnZW50TmFtZSkgewogICAgICAgIENsaWVudENhcGFiaWxpdHkgY2xpZW50Q2FwYWJpbGl0eSA9IG5ldyBDbGllbnRDYXBhYmlsaXR5LkJ1aWxkZXIoYWNjb3VudFNpZCwgYXV0aFRva2VuKQogICAgICAgICAgICAgICAgLnNjb3Blcyhhc0xpc3QobmV3IEluY29taW5nQ2xpZW50U2NvcGUoYWdlbnROYW1lKSkpCiAgICAgICAgICAgICAgICAuYnVpbGQoKTsKCiAgICAgICAgcmV0dXJuIGNsaWVudENhcGFiaWxpdHkudG9Kd3QoKTsKICAgIH0KCiAgICBwdWJsaWMgU3RyaW5nIGNhbGxBZ2VudChmaW5hbCBTdHJpbmcgYWdlbnRJZCwgZmluYWwgU3RyaW5nIGNhbGxiYWNrVXJsKSB7CiAgICAgICAgQ2FsbCBjYWxsID0gQ2FsbC5jcmVhdGUobmV3IFBob25lTnVtYmVyKCJjbGllbnQ6IiArIGFnZW50SWQpLAogICAgICAgICAgICAgICAgbmV3IFBob25lTnVtYmVyKHR3aWxpb051bWJlciksCiAgICAgICAgICAgICAgICBVUkkuY3JlYXRlKGNhbGxiYWNrVXJsKSkuZXhlY3V0ZSh0d2lsaW9SZXN0Q2xpZW50KTsKICAgICAgICByZXR1cm4gY2FsbC5nZXRTaWQoKTsKICAgIH0KfQo=</textarea>
+<textarea class="saurus-file" data-file="src/main/java/com/twilio/warmtransfer/servlets/ConnectClientServlet.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2bGV0czsKCmltcG9ydCBjb20uZ29vZ2xlLmluamVjdC5JbmplY3Q7CmltcG9ydCBjb20uZ29vZ2xlLmluamVjdC5TaW5nbGV0b247CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2aWNlcy5BY3RpdmVDYWxsc1NlcnZpY2U7CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci51dGlscy5Ud2lsaW9BdXRoZW50aWNhdGVkQWN0aW9uczsKCmltcG9ydCBqYXZheC5zZXJ2bGV0LlNlcnZsZXRFeGNlcHRpb247CmltcG9ydCBqYXZheC5zZXJ2bGV0Lmh0dHAuSHR0cFNlcnZsZXRSZXF1ZXN0OwppbXBvcnQgamF2YXguc2VydmxldC5odHRwLkh0dHBTZXJ2bGV0UmVzcG9uc2U7CmltcG9ydCBqYXZhLmlvLklPRXhjZXB0aW9uOwoKQFNpbmdsZXRvbgpwdWJsaWMgY2xhc3MgQ29ubmVjdENsaWVudFNlcnZsZXQgZXh0ZW5kcyBCYXNlU2VydmxldCB7CgogICAgQEluamVjdAogICAgcHVibGljIENvbm5lY3RDbGllbnRTZXJ2bGV0KFR3aWxpb0F1dGhlbnRpY2F0ZWRBY3Rpb25zIHR3aWxpb0F1dGhlbnRpY2F0ZWRBY3Rpb25zKSB7CiAgICAgICAgc3VwZXIodHdpbGlvQXV0aGVudGljYXRlZEFjdGlvbnMpOwogICAgfQoKICAgIEBPdmVycmlkZQogICAgcHVibGljIHZvaWQgZG9Qb3N0KEh0dHBTZXJ2bGV0UmVxdWVzdCByZXF1ZXN0LCBIdHRwU2VydmxldFJlc3BvbnNlIHJlc3BvbnNlKSB0aHJvd3MgU2VydmxldEV4Y2VwdGlvbiwgSU9FeGNlcHRpb24gewogICAgICAgIFN0cmluZyBjb25mZXJlbmNlSWQgPSByZXF1ZXN0LmdldFBhcmFtZXRlcigiQ2FsbFNpZCIpOwoKICAgICAgICBTdHJpbmcgY2FsbGJhY2sgPSBtYWtlQ2FsbGJhY2tVUkkocmVxdWVzdCwgIi9jb25mZXJlbmNlL2Nvbm5lY3QvYWdlbnQxIik7CiAgICAgICAgdHdpbGlvQXV0aGVudGljYXRlZEFjdGlvbnMuY2FsbEFnZW50KCJhZ2VudDEiLCBjYWxsYmFjayk7CiAgICAgICAgQWN0aXZlQ2FsbHNTZXJ2aWNlLnNhdmVOZXdDb25mZXJlbmNlKCJhZ2VudDEiLCBjb25mZXJlbmNlSWQpOwoKICAgICAgICByZXNwb25zZS5zZXRDb250ZW50VHlwZSgidGV4dC94bWwiKTsKICAgICAgICByZXNwb25zZS5nZXRXcml0ZXIoKS53cml0ZShnZW5lcmF0ZUNvbm5lY3RDb25mZXJlbmNlKGNvbmZlcmVuY2VJZCwgZmFsc2UsIHRydWUpKTsKICAgIH0KfQo=</textarea>
+<textarea class="saurus-file" data-file="src/main/java/com/twilio/warmtransfer/utils/TwimlBuilder.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLndhcm10cmFuc2Zlci51dGlsczsKCmltcG9ydCBjb20udHdpbGlvLnR3aW1sLkNvbmZlcmVuY2U7CmltcG9ydCBjb20udHdpbGlvLnR3aW1sLkRpYWw7CmltcG9ydCBjb20udHdpbGlvLnR3aW1sLk1ldGhvZDsKaW1wb3J0IGNvbS50d2lsaW8udHdpbWwuUGxheTsKaW1wb3J0IGNvbS50d2lsaW8udHdpbWwuU2F5OwppbXBvcnQgY29tLnR3aWxpby50d2ltbC5Ud2lNTEV4Y2VwdGlvbjsKaW1wb3J0IGNvbS50d2lsaW8udHdpbWwuVm9pY2VSZXNwb25zZTsKCnB1YmxpYyBjbGFzcyBUd2ltbEJ1aWxkZXIgewogICAgcHJpdmF0ZSBWb2ljZVJlc3BvbnNlLkJ1aWxkZXIgYnVpbGRlcjsKCiAgICBwdWJsaWMgVHdpbWxCdWlsZGVyKCkgewogICAgICAgIHRoaXMuYnVpbGRlciA9IG5ldyBWb2ljZVJlc3BvbnNlLkJ1aWxkZXIoKTsKICAgIH0KCiAgICBwdWJsaWMgVHdpbWxCdWlsZGVyIGdlbmVyYXRlV2FpdCgpIHRocm93cyBUd2lNTEV4Y2VwdGlvbiB7CiAgICAgICAgU2F5IHNheSA9IG5ldyBTYXkuQnVpbGRlcigiVGhhbmsgeW91IGZvciBjYWxsaW5nLiBQbGVhc2Ugd2FpdCBpbiBsaW5lIGZvciBhIGZldyBzZWNvbmRzLiBBbiBhZ2VudCB3aWxsIGJlIHdpdGggeW91IHNob3J0bHkuIikKICAgICAgICAgICAgICAgIC5idWlsZCgpOwogICAgICAgIFBsYXkgcGxheSA9IG5ldyBQbGF5LkJ1aWxkZXIoImh0dHA6Ly9jb20udHdpbGlvLm11c2ljLmNsYXNzaWNhbC5zMy5hbWF6b25hd3MuY29tL0J1c3lTdHJpbmdzLm1wMyIpCiAgICAgICAgICAgICAgICAubG9vcCgwKQogICAgICAgICAgICAgICAgLmJ1aWxkKCk7CiAgICAgICAgYnVpbGRlci5zYXkoc2F5KTsKICAgICAgICBidWlsZGVyLnBsYXkocGxheSk7CiAgICAgICAgcmV0dXJuIHRoaXM7CiAgICB9CgogICAgcHVibGljIFR3aW1sQnVpbGRlciBnZW5lcmF0ZUNvbm5lY3RDb25mZXJlbmNlKFN0cmluZyBjb25mZXJlbmNlSWQsIGJvb2xlYW4gc3RhcnRPbkVudGVyLCBib29sZWFuIGVuZE9uRXhpdCkgdGhyb3dzIFR3aU1MRXhjZXB0aW9uIHsKICAgICAgICBEaWFsIGRpYWwgPSBuZXcgRGlhbC5CdWlsZGVyKCkKICAgICAgICAgICAgICAgIC5jb25mZXJlbmNlKG5ldyBDb25mZXJlbmNlLkJ1aWxkZXIoY29uZmVyZW5jZUlkKQogICAgICAgICAgICAgICAgICAgICAgICAuc3RhcnRDb25mZXJlbmNlT25FbnRlcihzdGFydE9uRW50ZXIpCiAgICAgICAgICAgICAgICAgICAgICAgIC5lbmRDb25mZXJlbmNlT25FeGl0KGVuZE9uRXhpdCkKICAgICAgICAgICAgICAgICAgICAgICAgLndhaXRVcmwoIi9jb25mZXJlbmNlL3dhaXQiKQogICAgICAgICAgICAgICAgICAgICAgICAud2FpdE1ldGhvZChNZXRob2QuUE9TVCkKICAgICAgICAgICAgICAgICAgICAgICAgLmJ1aWxkKCkpCiAgICAgICAgICAgICAgICAuYnVpbGQoKTsKICAgICAgICBidWlsZGVyLmRpYWwoZGlhbCk7CiAgICAgICAgcmV0dXJuIHRoaXM7CiAgICB9CgogICAgcHVibGljIFN0cmluZyB0b0VzY2FwZWRYTUwoKSB7CiAgICAgICAgdHJ5IHsKICAgICAgICAgICAgcmV0dXJuIHRoaXMuYnVpbGRlci5idWlsZCgpLnRvWG1sKCk7CiAgICAgICAgfSBjYXRjaCAoVHdpTUxFeGNlcHRpb24gZSkgewogICAgICAgICAgICB0aHJvdyBuZXcgUnVudGltZUV4Y2VwdGlvbihlKTsKICAgICAgICB9CiAgICB9Cn0K</textarea>
+<textarea class="saurus-file" data-file="src/main/java/com/twilio/warmtransfer/servlets/CallAgentServlet.java" data-mode="java">cGFja2FnZSBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2bGV0czsKCmltcG9ydCBjb20uZ29vZ2xlLmluamVjdC5JbmplY3Q7CmltcG9ydCBjb20uZ29vZ2xlLmluamVjdC5TaW5nbGV0b247CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci5zZXJ2aWNlcy5BY3RpdmVDYWxsc1NlcnZpY2U7CmltcG9ydCBjb20udHdpbGlvLndhcm10cmFuc2Zlci51dGlscy5Ud2lsaW9BdXRoZW50aWNhdGVkQWN0aW9uczsKCmltcG9ydCBqYXZheC5zZXJ2bGV0LlNlcnZsZXRFeGNlcHRpb247CmltcG9ydCBqYXZheC5zZXJ2bGV0Lmh0dHAuSHR0cFNlcnZsZXRSZXF1ZXN0OwppbXBvcnQgamF2YXguc2VydmxldC5odHRwLkh0dHBTZXJ2bGV0UmVzcG9uc2U7CmltcG9ydCBqYXZhLmlvLklPRXhjZXB0aW9uOwoKCkBTaW5nbGV0b24KcHVibGljIGNsYXNzIENhbGxBZ2VudFNlcnZsZXQgZXh0ZW5kcyBCYXNlU2VydmxldCB7CgogICAgQEluamVjdAogICAgcHVibGljIENhbGxBZ2VudFNlcnZsZXQoVHdpbGlvQXV0aGVudGljYXRlZEFjdGlvbnMgdHdpbGlvQXV0aGVudGljYXRlZEFjdGlvbnMpIHsKICAgICAgICBzdXBlcih0d2lsaW9BdXRoZW50aWNhdGVkQWN0aW9ucyk7CiAgICB9CgogICAgQE92ZXJyaWRlCiAgICBwdWJsaWMgdm9pZCBkb1Bvc3QoSHR0cFNlcnZsZXRSZXF1ZXN0IHJlcXVlc3QsIEh0dHBTZXJ2bGV0UmVzcG9uc2UgcmVzcG9uc2UpIHRocm93cyBTZXJ2bGV0RXhjZXB0aW9uLCBJT0V4Y2VwdGlvbiB7CiAgICAgICAgU3RyaW5nIGFnZW50SWQgPSAiYWdlbnQyIjsKICAgICAgICBTdHJpbmcgY29uZmVyZW5jZUlkID0gQWN0aXZlQ2FsbHNTZXJ2aWNlLmdldENvbmZlcmVuY2VGcm9tQWdlbnRJRCgiYWdlbnQxIik7CiAgICAgICAgU3RyaW5nIGNhbGxiYWNrVXJsID0gbWFrZUNhbGxiYWNrVVJJKHJlcXVlc3QsICIvY29uZmVyZW5jZS9jb25uZWN0LyIgKyBhZ2VudElkKTsKICAgICAgICB0d2lsaW9BdXRoZW50aWNhdGVkQWN0aW9ucy5jYWxsQWdlbnQoYWdlbnRJZCwgY2FsbGJhY2tVcmwpOwogICAgICAgIEFjdGl2ZUNhbGxzU2VydmljZS5zYXZlTmV3Q29uZmVyZW5jZShhZ2VudElkLCBjb25mZXJlbmNlSWQpOwogICAgfQp9</textarea>
+</div>
+</div>
+      <div class="saurus-overview">
+        <ul></ul>
+      </div>
+    </div>
+    <div class="saurus-code">
+      <div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div>
+      <div class="saurus-editor"></div>
+    </div>
+    <div class="saurus-explorer">
+      <div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/warm-transfer-servlets" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a>
+    </div>
+  </div>
+</div>
+</div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js-lib/ace/ace.js"></script>
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js-lib/ace/theme-monokai.js"></script>
+
+<script type="text/javascript" src="https://www.twilio.com/docs/static/js/walkthrough.min.js"></script>
+
+
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/tutorials/walkthrough/warm-transfer/java/servlets by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:55 GMT -->
+</html>

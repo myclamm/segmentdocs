@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/author/samagnew by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:36 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="../xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="../wp-content/cache/autoptimize/css/autoptimize_e1bf36b4de50088bdd3584484458b2d1.css" rel="stylesheet" /><link type="text/css" media="screen" href="../wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Sam Agnew &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="samagnew.html" />
+<link rel="next" href="samagnew/page/2.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='../s0.wp.html' />
+<link rel='dns-prefetch' href='../s.w.html' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="../feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="../comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Posts by Sam Agnew Feed" href="samagnew/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc0db0.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel="icon" href="../wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="../wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="archive author author-samagnew author-95 group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="../www.googletagmanager.com/ns980e.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="../index.html">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="../../index.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../index.html', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="../../blog.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../blog.html', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="../../docs/tutorials.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../docs/tutorials.html', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="../../docs/api.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../docs/api.html', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="https://support.twilio.com/hc/en-us" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://support.twilio.com/hc/en-us', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="../../login.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../login.html', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="../../try-twilio.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../try-twilio.html', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			<header class="page-header">
+				<h1 class="page-title">Author: <span class="vcard">Sam Agnew</span></h1>			</header><!-- .page-header -->
+
+						
+				
+<article id="post-19322" class="row post-19322 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-python tag-python-3-5 tag-sanic tag-twilio-sms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html" rel="bookmark">Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="189" src="../wp-content/uploads/2016/12/21VC0iKKbFDAY_yVLwtESY3v5-C2KbIh8B-B0q7yU2CGeIs-b4LOBeHcJVX9WgPlfS-6POyD8xBGUgKPAQ63G6-UBYp-aUkIR5GilmibgCQ4Qe6kvEpIQsdLHSQGQXvcGDKiq4gF.png" class="img-responsive wp-post-image" alt="21VC0iKKbFDAY_yVLwtESY3v5-C2KbIh8B-B0q7yU2CGeIs-b4LOBeHcJVX9WgPlfS-6POyD8xBGUgKPAQ63G6-UBYp-aUkIR5GilmibgCQ4Qe6kvEpIQsdLHSQGQXvcGDKiq4gF" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/12/21VC0iKKbFDAY_yVLwtESY3v5-C2KbIh8B-B0q7yU2CGeIs-b4LOBeHcJVX9WgPlfS-6POyD8xBGUgKPAQ63G6-UBYp-aUkIR5GilmibgCQ4Qe6kvEpIQsdLHSQGQXvcGDKiq4gF.png 900w, https://www.twilio.com/blog/wp-content/uploads/2016/12/21VC0iKKbFDAY_yVLwtESY3v5-C2KbIh8B-B0q7yU2CGeIs-b4LOBeHcJVX9WgPlfS-6POyD8xBGUgKPAQ63G6-UBYp-aUkIR5GilmibgCQ4Qe6kvEpIQsdLHSQGQXvcGDKiq4gF-300x89.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/12/21VC0iKKbFDAY_yVLwtESY3v5-C2KbIh8B-B0q7yU2CGeIs-b4LOBeHcJVX9WgPlfS-6POyD8xBGUgKPAQ63G6-UBYp-aUkIR5GilmibgCQ4Qe6kvEpIQsdLHSQGQXvcGDKiq4gF-768x227.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/12/21VC0iKKbFDAY_yVLwtESY3v5-C2KbIh8B-B0q7yU2CGeIs-b4LOBeHcJVX9WgPlfS-6POyD8xBGUgKPAQ63G6-UBYp-aUkIR5GilmibgCQ4Qe6kvEpIQsdLHSQGQXvcGDKiq4gF-200x59.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>uvloop has been making waves in the Python world lately as a blazingly fast drop-in for asyncio&#8217;s default event loop. Sanic is a Flask-like, uvloop-based web framework that&#8217;s written to go fast. It is also named after the popular Sanic Internet meme, a poorly drawn version of Sonic the Hedgehog. Sanic is made for Python 3.5 . The framework allows you to take advantage of async/await syntax for defining&#8230; <a class="read-more" href="../2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="samagnew.html">Sam Agnew</a></span></span> on <span class="posted-on"><a href="../2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html" rel="bookmark"><time class="entry-date published" datetime="2016-12-20T10:00:10+00:00">December 20, 2016</time><time class="updated" datetime="2016-12-16T16:58:36+00:00">December 16, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/12/getting-started-with-sanic-the-asynchronous-uvloop-based-web-framework-for-python-3-5.html" data-text="Getting started with Sanic: the asynchronous, uvloop based web framework for Python 3.5+ ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-19199" class="row post-19199 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-python tag-twilio-voice">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/11/how-to-hang-up-currently-active-twilio-phone-calls-with-python.html" rel="bookmark">How to Hang Up Currently Active Twilio Phone Calls with Python</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="424" src="../wp-content/uploads/2016/11/4982722491_7342befb96_b-1024x679.jpg" class="img-responsive wp-post-image" alt="4982722491_7342befb96_b" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/11/4982722491_7342befb96_b.jpg 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/11/4982722491_7342befb96_b-300x199.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/11/4982722491_7342befb96_b-768x509.jpg 768w, https://www.twilio.com/blog/wp-content/uploads/2016/11/4982722491_7342befb96_b-200x133.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>In case you found this in an emergency, here is all of the code you need to hang up all currently in progress, ringing or queued phone calls: </p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-587948339382b497297771" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+from twilio.rest import TwilioRestClient
+from twilio.rest.resources import Call
+
+
+client = TwilioRestClient()
+
+for call in client.calls.iter(status=Call.QUEUED):
+    call.hangup()
+
+for call in client.calls.iter(status=Call.RINGING):
+    call.hangup()
+
+for call in client.calls.iter(status=Call.IN_PROGRESS):
+    call.hangup()</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-587948339382b497297771-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339382b497297771-2">2</div><div class="crayon-num" data-line="crayon-587948339382b497297771-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339382b497297771-4">4</div><div class="crayon-num" data-line="crayon-587948339382b497297771-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339382b497297771-6">6</div><div class="crayon-num" data-line="crayon-587948339382b497297771-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339382b497297771-8">8</div><div class="crayon-num" data-line="crayon-587948339382b497297771-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339382b497297771-10">10</div><div class="crayon-num" data-line="crayon-587948339382b497297771-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339382b497297771-12">12</div><div class="crayon-num" data-line="crayon-587948339382b497297771-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339382b497297771-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-587948339382b497297771-1"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-e">rest </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">TwilioRestClient</span></div><div class="crayon-line crayon-striped-line" id="crayon-587948339382b497297771-2"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-v">rest</span><span class="crayon-sy">.</span><span class="crayon-e">resources </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">Call</span></div><div class="crayon-line" id="crayon-587948339382b497297771-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-587948339382b497297771-4">&nbsp;</div><div class="crayon-line" id="crayon-587948339382b497297771-5"><span class="crayon-v">client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">TwilioRestClient</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-587948339382b497297771-6">&nbsp;</div><div class="crayon-line" id="crayon-587948339382b497297771-7"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">call </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">calls</span><span class="crayon-sy">.</span><span class="crayon-k ">iter</span><span class="crayon-sy">(</span><span class="crayon-v">status</span><span class="crayon-o">=</span><span class="crayon-v">Call</span><span class="crayon-sy">.</span><span class="crayon-i">QUEUED</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-587948339382b497297771-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">call</span><span class="crayon-sy">.</span><span class="crayon-e">hangup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-587948339382b497297771-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-587948339382b497297771-10"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">call </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">calls</span><span class="crayon-sy">.</span><span class="crayon-k ">iter</span><span class="crayon-sy">(</span><span class="crayon-v">status</span><span class="crayon-o">=</span><span class="crayon-v">Call</span><span class="crayon-sy">.</span><span class="crayon-i">RINGING</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-587948339382b497297771-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">call</span><span class="crayon-sy">.</span><span class="crayon-e">hangup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-587948339382b497297771-12">&nbsp;</div><div class="crayon-line" id="crayon-587948339382b497297771-13"><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">call </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">calls</span><span class="crayon-sy">.</span><span class="crayon-k ">iter</span><span class="crayon-sy">(</span><span class="crayon-v">status</span><span class="crayon-o">=</span><span class="crayon-v">Call</span><span class="crayon-sy">.</span><span class="crayon-i">IN_PROGRESS</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-587948339382b497297771-14"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">call</span><span class="crayon-sy">.</span><span class="crayon-e">hangup</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0066 seconds] -->
+<p> In order for this to work, make sure you grab your Account SID and Auth Token from your Twilio Console and set them as environment variables: </p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-587948339383b710389344" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+export TWILIO_ACCOUNT_SID="YOUR_ACCOUNT_SID"
+export TWILIO_AUTH_TOKEN="YOUR_AUTH_TOKEN"</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-587948339383b710389344-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-587948339383b710389344-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-587948339383b710389344-1"><span class="crayon-e">export </span><span class="crayon-v">TWILIO_ACCOUNT_SID</span><span class="crayon-o">=</span><span class="crayon-s">"YOUR_ACCOUNT_SID"</span></div><div class="crayon-line crayon-striped-line" id="crayon-587948339383b710389344-2"><span class="crayon-e">export </span><span class="crayon-v">TWILIO_AUTH_TOKEN</span><span class="crayon-o">=</span><span class="crayon-s">"YOUR_AUTH_TOKEN"</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p> Why would I need to do this? Sometimes when testing your code&#8230; <a class="read-more" href="../2016/11/how-to-hang-up-currently-active-twilio-phone-calls-with-python.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="samagnew.html">Sam Agnew</a></span></span> on <span class="posted-on"><a href="../2016/11/how-to-hang-up-currently-active-twilio-phone-calls-with-python.html" rel="bookmark"><time class="entry-date published updated" datetime="2016-11-23T11:32:40+00:00">November 23, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/11/how-to-hang-up-currently-active-twilio-phone-calls-with-python.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/11/how-to-hang-up-currently-active-twilio-phone-calls-with-python.html" data-text="How to Hang Up Currently Active Twilio Phone Calls with Python ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-19033" class="row post-19033 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-ios tag-swift tag-swift-package-manager tag-swiftyjson tag-xcode">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/10/getting-started-with-swift-package-manager.html" rel="bookmark">Getting Started with Swift Package Manager</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="150" src="../wp-content/uploads/2016/10/Screen-Shot-2016-10-27-at-3.13.00-PM.png" class="img-responsive wp-post-image" alt="screen-shot-2016-10-27-at-3-13-00-pm" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-27-at-3.13.00-PM.png 922w, https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-27-at-3.13.00-PM-300x70.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-27-at-3.13.00-PM-768x180.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-27-at-3.13.00-PM-200x47.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>When building iOS applications with Swift, you often need to use third party libraries as dependencies to avoid rewriting code that other developers have already created and shared. Swift Package Manager (SwiftPM) is a command-line tool for building, testing and managing Swift project dependencies. We will create a very basic Swift command line program that will parse some JSON using the popular SwiftyJSON framework to learn how to&#8230; <a class="read-more" href="../2016/10/getting-started-with-swift-package-manager.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="samagnew.html">Sam Agnew</a></span></span> on <span class="posted-on"><a href="../2016/10/getting-started-with-swift-package-manager.html" rel="bookmark"><time class="entry-date published updated" datetime="2016-10-27T12:14:27+00:00">October 27, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/10/getting-started-with-swift-package-manager.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/10/getting-started-with-swift-package-manager.html" data-text="Getting Started with Swift Package Manager ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18933" class="row post-18933 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-ios tag-javascript tag-node-js tag-socket-io tag-swift tag-websockets tag-xcode">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/09/getting-started-with-socket-io-in-swift-on-ios.html" rel="bookmark">Getting started with Socket.io in Swift on iOS</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="249" src="../wp-content/uploads/2016/09/Call-Progress-Events-Blog-Post.png" class="img-responsive wp-post-image" alt="call-progress-events-blog-post" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/09/Call-Progress-Events-Blog-Post.png 710w, https://www.twilio.com/blog/wp-content/uploads/2016/09/Call-Progress-Events-Blog-Post-300x117.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/09/Call-Progress-Events-Blog-Post-200x78.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>WebSockets are a powerful protocol for real-time event based communication. Socket.io makes working with WebSockets easier on iOS with Swift compared to implementing all the underlying bits yourself. Let&#8217;s demonstrate how to work with the Swift Socket.io client library by building an application to monitor the status of Twilio phone calls. This application will be similar to the application built in another tutorial for getting started with Socket.io on&#8230; <a class="read-more" href="../2016/09/getting-started-with-socket-io-in-swift-on-ios.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="samagnew.html">Sam Agnew</a></span></span> on <span class="posted-on"><a href="../2016/09/getting-started-with-socket-io-in-swift-on-ios.html" rel="bookmark"><time class="entry-date published updated" datetime="2016-09-30T14:11:26+00:00">September 30, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/09/getting-started-with-socket-io-in-swift-on-ios.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/09/getting-started-with-socket-io-in-swift-on-ios.html" data-text="Getting started with Socket.io in Swift on iOS ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18684" class="row post-18684 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-flask tag-python tag-sms tag-twilio-sms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/09/how-to-receive-and-respond-to-a-text-message-with-python-flask-and-twilio.html" rel="bookmark">How to Receive and Respond to a Text Message with Python, Flask and Twilio</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="240" src="../wp-content/uploads/2016/09/PythonHeaderImage.png" class="img-responsive wp-post-image" alt="PythonHeaderImage" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/09/PythonHeaderImage.png 640w, https://www.twilio.com/blog/wp-content/uploads/2016/09/PythonHeaderImage-300x113.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/09/PythonHeaderImage-200x75.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Here’s all the code you need to receive an SMS message and to send a response using Python, Flask, and Twilio: </p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794833979e8351082866" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+from flask import Flask, request
+from twilio import twiml
+
+
+app = Flask(__name__)
+
+
+@app.route('/sms', methods=['POST'])
+def sms():
+    number = request.form['From']
+    message_body = request.form['Body']
+
+    resp = twiml.Response()
+    resp.message('Hello {}, you said: {}'.format(number, message_body))
+    return str(resp)
+
+if __name__ == '__main__':
+    app.run()</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794833979e8351082866-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-2">2</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-4">4</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-6">6</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-8">8</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-10">10</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-12">12</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-14">14</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-16">16</div><div class="crayon-num" data-line="crayon-58794833979e8351082866-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794833979e8351082866-18">18</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794833979e8351082866-1"><span class="crayon-e">from </span><span class="crayon-e">flask </span><span class="crayon-e">import </span><span class="crayon-i">Flask</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">request</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-2"><span class="crayon-e">from </span><span class="crayon-e">twilio </span><span class="crayon-e">import </span><span class="crayon-e">twiml</span></div><div class="crayon-line" id="crayon-58794833979e8351082866-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-4">&nbsp;</div><div class="crayon-line" id="crayon-58794833979e8351082866-5"><span class="crayon-v">app</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Flask</span><span class="crayon-sy">(</span><span class="crayon-i">__name__</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-6">&nbsp;</div><div class="crayon-line" id="crayon-58794833979e8351082866-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-8"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/sms'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794833979e8351082866-9"><span class="crayon-e">def </span><span class="crayon-e">sms</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'From'</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794833979e8351082866-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">message_body</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'Body'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-12">&nbsp;</div><div class="crayon-line" id="crayon-58794833979e8351082866-13"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">resp</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-14"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">resp</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-s">'Hello {}, you said: {}'</span><span class="crayon-sy">.</span><span class="crayon-e">format</span><span class="crayon-sy">(</span><span class="crayon-i">number</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">message_body</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794833979e8351082866-15"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">str</span><span class="crayon-sy">(</span><span class="crayon-i">resp</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-16">&nbsp;</div><div class="crayon-line" id="crayon-58794833979e8351082866-17"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">__name__</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'__main__'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794833979e8351082866-18"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">run</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0069 seconds] -->
+<p> If you’d like to know how that works, check out this short video: Can you walk me through this step by step? When someone texts your Twilio number, Twilio makes an HTTP request to your app. Details about that SMS are passed via the request parameters&#8230;. <a class="read-more" href="../2016/09/how-to-receive-and-respond-to-a-text-message-with-python-flask-and-twilio.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="samagnew.html">Sam Agnew</a></span></span> on <span class="posted-on"><a href="../2016/09/how-to-receive-and-respond-to-a-text-message-with-python-flask-and-twilio.html" rel="bookmark"><time class="entry-date published updated" datetime="2016-09-01T11:50:53+00:00">September 1, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/09/how-to-receive-and-respond-to-a-text-message-with-python-flask-and-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/09/how-to-receive-and-respond-to-a-text-message-with-python-flask-and-twilio.html" data-text="How to Receive and Respond to a Text Message with Python, Flask and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18627" class="row post-18627 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-alamofire tag-ios tag-kanna tag-swift tag-web-scraping">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/08/web-scraping-and-parsing-html-in-swift-with-kanna-and-alamofire.html" rel="bookmark">Web Scraping and Parsing HTML in Swift with Kanna and Alamofire</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="584" height="424" src="../wp-content/uploads/2016/08/3pvGWs9.png" class="img-responsive wp-post-image" alt="3pvGWs9" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/08/3pvGWs9.png 584w, https://www.twilio.com/blog/wp-content/uploads/2016/08/3pvGWs9-300x218.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/08/3pvGWs9-200x145.png 200w" sizes="(max-width: 584px) 100vw, 584px" />            </div>
+					
+					<p>When building iOS applications, we often need to work with data from various APIs. But sometimes the data you want access to isn&#8217;t nicely packaged and available via a REST API. In these cases we can scrape data directly from a web page using the Kanna Swift library. Let&#8217;s build an iOS app that will display all of the upcoming metal shows in New York City by&#8230; <a class="read-more" href="../2016/08/web-scraping-and-parsing-html-in-swift-with-kanna-and-alamofire.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="samagnew.html">Sam Agnew</a></span></span> on <span class="posted-on"><a href="../2016/08/web-scraping-and-parsing-html-in-swift-with-kanna-and-alamofire.html" rel="bookmark"><time class="entry-date published" datetime="2016-08-18T10:00:00+00:00">August 18, 2016</time><time class="updated" datetime="2016-11-17T09:08:42+00:00">November 17, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/web-scraping-and-parsing-html-in-swift-with-kanna-and-alamofire.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/web-scraping-and-parsing-html-in-swift-with-kanna-and-alamofire.html" data-text="Web Scraping and Parsing HTML in Swift with Kanna and Alamofire ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18473" class="row post-18473 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-flask tag-mms tag-pokemon tag-pokemongo tag-python tag-twilio-mms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" rel="bookmark">Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="298" src="../wp-content/uploads/2016/08/PokemonFauxBanner.jpg" class="img-responsive wp-post-image" alt="PokemonFauxBanner" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/08/PokemonFauxBanner.jpg 645w, https://www.twilio.com/blog/wp-content/uploads/2016/08/PokemonFauxBanner-300x140.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/08/PokemonFauxBanner-200x93.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Pokemon Go is awesome and we all want to show off when we catch rare Pokemon. Let&#8217;s build a quick hack using Python and Twilio MMS that will allow you to trick your friends into thinking that you&#8217;ve encountered legendary Pokemon. You can continue reading to find out how to build this, or try it out now by texting an image and the name of a legendary Pokemon&#8230; <a class="read-more" href="../2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="samagnew.html">Sam Agnew</a></span></span> on <span class="posted-on"><a href="../2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" rel="bookmark"><time class="entry-date published" datetime="2016-08-02T09:43:24+00:00">August 2, 2016</time><time class="updated" datetime="2016-08-17T12:41:41+00:00">August 17, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" data-text="Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18283" class="row post-18283 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-add-ons tag-flask tag-ibm-watson tag-python tag-sentiment-analysis tag-sms tag-twilio-add-ons tag-twilio-sms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/07/sms-sentiment-analysis-in-python-with-flask-and-the-ibm-watson-twilio-add-on.html" rel="bookmark">SMS Sentiment Analysis in Python with Flask and the IBM Watson Twilio Add-on</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="360" src="https://www.twilio.com/blog/wp-content/uploads/2016/07/watson-1024x576.jpg" class="img-responsive wp-post-image" alt="watson" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/07/watson-1024x576.jpg 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/07/watson-300x169.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/07/watson-768x432.jpg 768w, https://www.twilio.com/blog/wp-content/uploads/2016/07/watson-200x113.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>With Twilio&#8217;s new Add-ons marketplace developers can reap the benefits of third party APIs with the flip of a switch. The IBM Watson Message Sentiment Add-on adds sentiment analysis information to every SMS request sent to your web application. Let&#8217;s build a Flask app that will determine the sentiment of text messages sent to your Twilio number. Getting started Before writing any code make sure you have: Python&#8230; <a class="read-more" href="https://www.twilio.com/blog/2016/07/sms-sentiment-analysis-in-python-with-flask-and-the-ibm-watson-twilio-add-on.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/samagnew">Sam Agnew</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/07/sms-sentiment-analysis-in-python-with-flask-and-the-ibm-watson-twilio-add-on.html" rel="bookmark"><time class="entry-date published" datetime="2016-07-14T12:37:58+00:00">July 14, 2016</time><time class="updated" datetime="2016-11-30T12:25:37+00:00">November 30, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/07/sms-sentiment-analysis-in-python-with-flask-and-the-ibm-watson-twilio-add-on.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/07/sms-sentiment-analysis-in-python-with-flask-and-the-ibm-watson-twilio-add-on.html" data-text="SMS Sentiment Analysis in Python with Flask and the IBM Watson Twilio Add-on ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18242" class="row post-18242 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-javascript tag-lookup tag-node-js tag-twilio-lookup">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2016/06/how-to-validate-phone-numbers-in-nodejavascript-with-the-twilio-lookup-api.html" rel="bookmark">How to Validate Phone numbers in Node/JavaScript with the Twilio Lookup API</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="585" height="346" src="https://www.twilio.com/blog/wp-content/uploads/2016/06/Screen-Shot-2016-06-30-at-1.02.13-PM.png" class="img-responsive wp-post-image" alt="Screen Shot 2016-06-30 at 1.02.13 PM" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/06/Screen-Shot-2016-06-30-at-1.02.13-PM.png 585w, https://www.twilio.com/blog/wp-content/uploads/2016/06/Screen-Shot-2016-06-30-at-1.02.13-PM-300x177.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/06/Screen-Shot-2016-06-30-at-1.02.13-PM-200x118.png 200w" sizes="(max-width: 585px) 100vw, 585px" />            </div>
+					
+					<p>Twilio Lookup is a phonebook REST API that you can use to check whether a number exists, determine whether a phone can receive text messages, and retrieve carrier data associated with a number. Let&#8217;s write some code to validates phone numbers using the Twilio Node module. Getting started Before we dive into the code you&#8217;ll need to make sure you have: Node.js and npm installed A Twilio Account –&#8230; <a class="read-more" href="https://www.twilio.com/blog/2016/06/how-to-validate-phone-numbers-in-nodejavascript-with-the-twilio-lookup-api.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/samagnew">Sam Agnew</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/06/how-to-validate-phone-numbers-in-nodejavascript-with-the-twilio-lookup-api.html" rel="bookmark"><time class="entry-date published updated" datetime="2016-06-30T10:21:33+00:00">June 30, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/06/how-to-validate-phone-numbers-in-nodejavascript-with-the-twilio-lookup-api.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/06/how-to-validate-phone-numbers-in-nodejavascript-with-the-twilio-lookup-api.html" data-text="How to Validate Phone numbers in Node/JavaScript with the Twilio Lookup API ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			    <script type="text/javascript">
+    // <![CDATA[
+        var disqus_shortname = 'twilioblog';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + 'disqus.com/forums/' + disqus_shortname + '/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    //]]>
+    </script>
+
+			
+	<nav class="navigation posts-navigation" role="navigation">
+		<h2 class="screen-reader-text">Posts navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://www.twilio.com/blog/author/samagnew/page/2" >Older posts</a></div></div>
+	</nav>
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_691d8e4f13b7c95b73244635d6d4e5fa.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/author/samagnew by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:53 GMT -->
+</html>

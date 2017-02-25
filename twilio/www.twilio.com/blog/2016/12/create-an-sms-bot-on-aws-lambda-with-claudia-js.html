@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Create an SMS bot on AWS Lambda with Claudia.js &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Create an SMS bot on AWS Lambda with Claudia.js Comments Feed" href="https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Phil Nash');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Amazon Lambda,bots,Claudia.js,Node.js,SMS');
+	__gaTracker('set', 'dimension8', '2016-12-19T11:22:34+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=19332' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F12%2Fcreate-an-sms-bot-on-aws-lambda-with-claudia-js.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F12%2Fcreate-an-sms-bot-on-aws-lambda-with-claudia-js.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-19332 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-19332" class="row post-19332 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-amazon-lambda tag-bots tag-claudia-js tag-node-js tag-sms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Create an SMS bot on AWS Lambda with Claudia.js</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="240" src="https://www.twilio.com/blog/wp-content/uploads/2016/12/header.png" class="img-responsive wp-post-image" alt="" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/12/header.png 640w, https://www.twilio.com/blog/wp-content/uploads/2016/12/header-300x113.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/12/header-200x75.png 200w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/phil">Phil Nash</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html" rel="bookmark"><time class="entry-date published" datetime="2016-12-19T11:22:34+00:00">December 19, 2016</time><time class="updated" datetime="2016-12-20T03:19:11+00:00">December 20, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html" data-text="Create an SMS bot on AWS Lambda with Claudia.js ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p><a href="https://www.twilio.com/docs/api/rest/sending-messages" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest/sending-messages', 'SMS');">SMS</a> chat bots and <a href="https://aws.amazon.com/lambda/details/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://aws.amazon.com/lambda/details/', 'AWS Lambda');">AWS Lambda</a> go well together if you want to build a bot that can reach people all over the world without worrying about your underlying infrastructure. In just a few steps we&#8217;re going to see how easy it is to deploy a Node.js chat bot on Lambda using <a href="https://claudiajs.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://claudiajs.com/', 'https://www.twilio.com/blog/2016/12/Claudia.js');">Claudia.js</a>.</p>
+<h3 id="h.vc3lmadkpd3a">What is Claudia.js?</h3>
+<p>I&#8217;ve always liked the idea of Amazon&#8217;s Lambda service, but the first time I tried to use it I found the deployment process troubling. As I uploaded the zip file of my project to the AWS dashboard, <em>yes that is how you deploy to Lambda</em>, to test my work I thought to myself, &#8220;There must be a better way.&#8221;</p>
+<p>Thankfully I wasn&#8217;t the only one, so tools like <a href="https://claudiajs.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://claudiajs.com/', 'https://www.twilio.com/blog/2016/12/Claudia.js');">Claudia.js</a>, <a href="https://serverless.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://serverless.com/', 'Serverless');">Serverless</a> and <a href="http://senecajs.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://senecajs.org/', 'Seneca');">Seneca</a> were born. Each of them offer various features and different methods of deploying apps to Lambda. I was recently drawn to Claudia.js not only because it makes deploying applications to Lambda easier, but because it comes with Claudia Bot Builder, a framework that abstracts away the differences between a host of bot platforms. Together they make it really easy to write and deploy bots to Lambda, so let&#8217;s build an SMS bot to see how it all works.</p>
+<h3 id="h.w58tep42dcdy">Before we start</h3>
+<p>There are a few things we&#8217;re going to need to get this project off the ground</p>
+<ul>
+<li>
+A <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'Twilio account');">Twilio account</a> and a <a href="https://www.twilio.com/console/phone-numbers/incoming" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/phone-numbers/incoming', 'Twilio phone number');">Twilio phone number</a> that can receive SMS messages
+</li>
+<li>
+An <a href="https://aws.amazon.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://aws.amazon.com/', 'AWS account');">AWS account</a>
+</li>
+<li>
+Node.js v4.3.2, the version that runs on Lambda (you can install multiple versions of Node.js using <a href="https://github.com/creationix/nvm/blob/master/README.markdown" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/creationix/nvm/blob/master/README.markdown', 'nvm');">nvm</a>)
+</li>
+</ul>
+<p>Don&#8217;t worry if you&#8217;re just trying this out, both Twilio and AWS have free tiers that you can use to build this bot.</p>
+<p>Now we need to prepare AWS for use with Claudia.js.</p>
+<h3 id="h.4qux07plq4nk">Setting up AWS</h3>
+<p>Claudia.js will need access to your AWS account, so it&#8217;s best to create a profile that only contains the permissions that Claudia.js needs to deploy our bot. To do so, go to the <a href="https://console.aws.amazon.com/iam/home?region=us-east-1#users" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://console.aws.amazon.com/iam/home?region=us-east-1#users', 'Users section');">Users section</a> of the <a href="https://console.aws.amazon.com/iam/home?region=us-east-1#home" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://console.aws.amazon.com/iam/home?region=us-east-1#home', 'Identity &#038; Access Management service');">Identity &#038; Access Management service</a>. Create a new user and give it a recognisable name.</p>
+<p><img alt="Fill in a user name in the User name field and check the box for Programmatic Access." src="https://www.twilio.com/blog/wp-content/uploads/2016/12/adiPpSZuf_HcqLGgaD0IVnVk5slYXXtc2CeX2MnNHY6r_boqGzhOUEQSy471q-ACW8Ci9GjSqiUUTLDu1dt39dPLyMEOus3FWirdzuSBgdp9Xn5YJQk1OKPG0gVGTdoADre5IOc.png" class="aligncenter"></p>
+<p>Make sure &#8220;Programmatic Access&#8221; is checked. Click &#8220;Next: Permissions&#8221;. On the next screen you will be able to select the permissions the user has. We need three permissions for this user: AWSLambdaFullAccess, IAMFullAccess and AmazonAPIGatewayAdministrator.</p>
+<p><img alt="Choose 'Attach existing policies directly' and use the search box to find the three permissions we need to add to the user." src="https://www.twilio.com/blog/wp-content/uploads/2016/12/nylN-HHm1D8oAqROAPXJsl6BxIFu1Gs3i8uLIyDcJy6wekEhu8m2zdjcgTBHgwVzMqner3SOn4NVHZ_AvRRpFHP6wr__YVKybr0zdS7FDfeDKF3FNXxmiaJ1OhzvtblZnCJCtw.png" class="aligncenter"> </p>
+<p>Click &#8220;Next: Review&#8221; to review your user and ensure they have the correct permissions, click &#8220;Create User&#8221;. You should see the success screen and your new user&#8217;s Access Key ID and Secret Access Key. Don&#8217;t move on from this screen yet, these credentials will only be shown to you once!</p>
+<p><img alt="The success screen shows the user credentials for your new user." src="https://www.twilio.com/blog/wp-content/uploads/2016/12/dmT87Nne1RSCEqqb582JkkKRm148BZjFv_6b2c6DgqsmJxMXYG7YNtEQQDnTfu-4ImVcSPECXjrvfNFhhBGoAU4EcxP4WgwB0bmvDmH14yStAjg_YUmG-hc2HDAC46Au5SHLe1s.png" class="aligncenter"></p>
+<p>Claudia.js uses the AWS Node.js module so we need to store the credentials in the conventional location; either <code>~/.aws/credentials</code> on Mac or Linux and <code>C:\Users\USER_NAME\.awscredentials</code> on Windows. If you don&#8217;t already have a credentials file, create one and add the following:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b2406d753559902" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+[claudia]
+aws_access_key_id = YOUR_ACCESS_KEY_ID
+aws_secret_access_key = YOUR_SECRET_ACCESS_KEY</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b2406d753559902-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b2406d753559902-2">2</div><div class="crayon-num" data-line="crayon-5879482b2406d753559902-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b2406d753559902-1"><span class="crayon-sy">[</span><span class="crayon-i">claudia</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b2406d753559902-2"><span class="crayon-v">aws_access_key_id</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">YOUR_ACCESS_KEY_ID</span></div><div class="crayon-line" id="crayon-5879482b2406d753559902-3"><span class="crayon-v">aws_secret_access_key</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">YOUR_SECRET_ACCESS_KEY</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0016 seconds] -->
+<p></p>
+<p>We&#8217;ve now setup a profile called &#8220;claudia&#8221; that we can use with Claudia.js.</p>
+<p>If you&#8217;d like to learn more, there is an in depth <a href="http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/configuring-the-jssdk.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/configuring-the-jssdk.html', 'tutorial on setting permissions up for the AWS Node.js SDK in the AWS documentation');">tutorial on setting permissions up for the AWS Node.js SDK in the AWS documentation</a>.</p>
+<h3 id="h.9glhh0b6g1a6">Creating our bot</h3>
+<p>Now that we&#8217;ve set up the permissions for Claudia.js we can start our bot. First up jump into the command line, create a directory to keep the bot&#8217;s code in and and start a new Node.js project:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b24086181290286" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ mkdir quote-bot
+$ cd quote-bot
+$ npm init --yes</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b24086181290286-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b24086181290286-2">2</div><div class="crayon-num" data-line="crayon-5879482b24086181290286-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b24086181290286-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">mkdir</span><span class="crayon-h"> </span><span class="crayon-i">quote</span><span class="crayon-o">-</span><span class="crayon-i">bot</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b24086181290286-2"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-r">cd</span><span class="crayon-h"> </span><span class="crayon-i">quote</span><span class="crayon-o">-</span><span class="crayon-i">bot</span></div><div class="crayon-line" id="crayon-5879482b24086181290286-3"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">npm </span><span class="crayon-i">init</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">yes</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p></p>
+<p>Not seen <code>--yes</code> before? It accepts all the defaults from <code>npm init</code> without you have to tap enter the whole way through!</p>
+<p>Install Claudia.js as a development dependency.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b24092710009583" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ npm install claudia --save-dev</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b24092710009583-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b24092710009583-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">claudia</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span><span class="crayon-o">-</span><span class="crayon-i">dev</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p></p>
+<p>We&#8217;ll also need the Claudia Bot Builder as a dependency.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b2409c067134816" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ npm install claudia-bot-builder --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b2409c067134816-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b2409c067134816-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">claudia</span><span class="crayon-o">-</span><span class="crayon-i">bot</span><span class="crayon-o">-</span><span class="crayon-i">builder</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<p>Create a file called <code>bot.js</code> and open the project in your favourite editor.</p>
+<h4 id="h.a60q81gz48p2">Some helpful npm scripts</h4>
+<p>Before we write our bot, we&#8217;re going to put a couple of helpful npm scripts in place. We have installed Claudia.js as a development dependency and we need to run the executable, so npm scripts is the easiest place to do that. Open <code>package.json</code> and add the following to the <code>scripts</code> section:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240ad750688561" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+  "scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "create": "claudia create --region us-east-1 --api-module bot --profile claudia",
+    "update": "claudia update --profile claudia"
+  },</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240ad750688561-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240ad750688561-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-5879482b240ad750688561-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-5879482b240ad750688561-4">4</div><div class="crayon-num" data-line="crayon-5879482b240ad750688561-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240ad750688561-1"> <span class="crayon-h"> </span><span class="crayon-s">"scripts"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240ad750688561-2"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-s">"test"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-5879482b240ad750688561-3"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-s">"create"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"claudia create --region us-east-1 --api-module bot --profile claudia"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-5879482b240ad750688561-4"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-s">"update"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"claudia update --profile claudia"</span></div><div class="crayon-line" id="crayon-5879482b240ad750688561-5"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0020 seconds] -->
+<p></p>
+<p>The create script will do all our initial setup, adding the Lambda function and configuring AWS API Gateway so that we have URLs for the bot platforms&#8217; webhooks. If you named your AWS profile differently in <code>~/.aws/credentials</code> use that as the <code>--profile</code> argument.</p>
+<p>The update script will deploy updates to your bot. Enough of this config, let&#8217;s write a bot!</p>
+<h3 id="h.q40tjl2id6n">Writing the bot</h3>
+<p>Open up <code>bot.js</code> and start by requiring the Claudia Bot Builder.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240b8868407492" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+// bot.js
+var botBuilder = require('claudia-bot-builder');</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240b8868407492-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240b8868407492-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240b8868407492-1"><span class="crayon-c">// bot.js</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240b8868407492-2"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">botBuilder</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'claudia-bot-builder'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p></p>
+<p>Then we pass a handler function to the <code>botBuilder</code> which will deal with incoming messages.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240c2457118831" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+// bot.js
+var botBuilder = require('claudia-bot-builder');
+
+var bot = botBuilder(function(message) {
+  return 'Hello world!';
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240c2457118831-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240c2457118831-2">2</div><div class="crayon-num" data-line="crayon-5879482b240c2457118831-3">3</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-5879482b240c2457118831-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-5879482b240c2457118831-5">5</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-5879482b240c2457118831-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240c2457118831-1"><span class="crayon-c">// bot.js</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240c2457118831-2"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">botBuilder</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'claudia-bot-builder'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5879482b240c2457118831-3">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-5879482b240c2457118831-4"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">bot</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">botBuilder</span><span class="crayon-sy">(</span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-5879482b240c2457118831-5"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-s">'Hello world!'</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-5879482b240c2457118831-6"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0024 seconds] -->
+<p></p>
+<p>Then export the <code>bot</code>.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240cc857286801" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+// bot.js
+var botBuilder = require('claudia-bot-builder');
+
+var bot = botBuilder(function(message) {
+  return 'Hello world!';
+});
+
+module.exports = bot;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240cc857286801-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240cc857286801-2">2</div><div class="crayon-num" data-line="crayon-5879482b240cc857286801-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240cc857286801-4">4</div><div class="crayon-num" data-line="crayon-5879482b240cc857286801-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240cc857286801-6">6</div><div class="crayon-num" data-line="crayon-5879482b240cc857286801-7">7</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-5879482b240cc857286801-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240cc857286801-1"><span class="crayon-c">// bot.js</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240cc857286801-2"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">botBuilder</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'claudia-bot-builder'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5879482b240cc857286801-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240cc857286801-4"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">bot</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">botBuilder</span><span class="crayon-sy">(</span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5879482b240cc857286801-5"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-s">'Hello world!'</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240cc857286801-6"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5879482b240cc857286801-7">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-5879482b240cc857286801-8"><span class="crayon-v">module</span><span class="crayon-sy">.</span><span class="crayon-v">exports</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">bot</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0028 seconds] -->
+<p></p>
+<p>And that&#8217;s it! We&#8217;ve created a bot that will respond to every incoming message with &#8220;Hello world!&#8221;.</p>
+<p>Ok, that&#8217;s a pretty boring bot. Let&#8217;s have it do something a bit more interesting. I found the simplicity of building my first bot with Claudia so inspirational I wanted to share some more inspiration with you. I called this bot quote-bot, so we&#8217;re going to have it return inspirational quotes when you ask for one, otherwise it will return a greeting.</p>
+<p>We&#8217;ll first install a couple more dependencies:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240d7634202971" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ npm install greeting node-fetch --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240d7634202971-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240d7634202971-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-e">greeting </span><span class="crayon-i">node</span><span class="crayon-o">-</span><span class="crayon-i">fetch</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p></p>
+<p>Let&#8217;s do a simple test to check if the incoming message wants a quote. For this we&#8217;re going to look for the string &#8220;quote&#8221; in the incoming text. For more complicated use cases, I&#8217;d start looking at natural language processing or a cognitive service like the <a href="https://www.ibm.com/watson/developercloud/conversation.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.ibm.com/watson/developercloud/conversation.html', 'Watson Conversation API');">Watson Conversation API</a>, <a href="https://www.luis.ai/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.luis.ai/', 'Luis');">Luis</a> or <a href="https://wit.ai/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://wit.ai/', 'https://www.twilio.com/blog/2016/12/wit.ai');">wit.ai</a>.</p>
+<p>If we do need a quote, we&#8217;ll use the <a href="https://www.npmjs.com/package/node-fetch" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.npmjs.com/package/node-fetch', 'node-fetch module');">node-fetch module</a> to look up a random quote from the <a href="http://forismatic.com/en/api/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://forismatic.com/en/api/', 'Forismatic API');">Forismatic API</a>. For asynchronous tasks like this, Claudia Bot Builder requires us to return a Promise which later resolves to the message to respond with. If you want to learn more about Promises, including more node-fetch examples, check out this <a href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html', 'guide to Promises');">guide to Promises</a> by Dominik.</p>
+<p>If we don&#8217;t ask for a quote, we&#8217;ll generate a random greeting with the <a href="https://www.npmjs.com/package/greeting" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.npmjs.com/package/greeting', 'greeting module');">greeting module</a>.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240e2681695231" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+// bot.js
+var botBuilder = require('claudia-bot-builder');
+var greeting = require('greeting');
+var fetch = require('node-fetch');
+
+var bot = botBuilder(function(message) {
+  if (message.text.match(/quote/i)) {
+    return fetch('http://api.forismatic.com/api/1.0/?method=getQuote&amp;format=text&amp;lang=en').then(function(res) {
+      return res.text();
+    });
+  } else {
+    return greeting.random();
+  }
+});
+
+module.exports = bot;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240e2681695231-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240e2681695231-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-5879482b240e2681695231-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-5879482b240e2681695231-4">4</div><div class="crayon-num" data-line="crayon-5879482b240e2681695231-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240e2681695231-6">6</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-5879482b240e2681695231-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-5879482b240e2681695231-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-5879482b240e2681695231-9">9</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-5879482b240e2681695231-10">10</div><div class="crayon-num crayon-marked-num" data-line="crayon-5879482b240e2681695231-11">11</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-5879482b240e2681695231-12">12</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-5879482b240e2681695231-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240e2681695231-14">14</div><div class="crayon-num" data-line="crayon-5879482b240e2681695231-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879482b240e2681695231-16">16</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240e2681695231-1"><span class="crayon-c">// bot.js</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240e2681695231-2"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">botBuilder</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'claudia-bot-builder'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-5879482b240e2681695231-3"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">greeting</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'greeting'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-5879482b240e2681695231-4"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">fetch</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'node-fetch'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5879482b240e2681695231-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240e2681695231-6"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">bot</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">botBuilder</span><span class="crayon-sy">(</span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-5879482b240e2681695231-7"> <span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-v">text</span><span class="crayon-sy">.</span><span class="crayon-e">match</span><span class="crayon-sy">(</span><span class="crayon-c ">/quote/i</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-5879482b240e2681695231-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-s">'http://api.forismatic.com/api/1.0/?method=getQuote&amp;format=text&amp;lang=en'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">res</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-5879482b240e2681695231-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">text</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-5879482b240e2681695231-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-5879482b240e2681695231-11"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-st">else</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-5879482b240e2681695231-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">greeting</span><span class="crayon-sy">.</span><span class="crayon-e">random</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-5879482b240e2681695231-13"> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240e2681695231-14"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5879482b240e2681695231-15">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879482b240e2681695231-16"><span class="crayon-v">module</span><span class="crayon-sy">.</span><span class="crayon-v">exports</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">bot</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0077 seconds] -->
+<p></p>
+<p>As you can see, the <code>message</code> object that is passed to our handler contains the text of the message sent to our bot. You can also get the original request sent to the endpoint with <code>message.originalRequest</code>.</p>
+<h3 id="h.ow5cg764owpw">Deploying the bot</h3>
+<p>We are now ready to deploy our bot. On the command line run our create script:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240ec842665911" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ npm run create</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240ec842665911-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240ec842665911-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">npm </span><span class="crayon-e">run </span><span class="crayon-i">create</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p></p>
+<p>This is where Claudia.js is doing all the magic. It creates the Lambda function and configures the AWS API Gateway for all our potential bots. In the output at the end you can see the URLs you can use for webhooks for all the supported services.</p>
+<p>We&#8217;re not quite done yet as we need to configure our bot for receiving Twilio webhooks. Run:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879482b240fd950637998" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ npm run update -- --configure-twilio-sms-bot</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879482b240fd950637998-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879482b240fd950637998-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">npm </span><span class="crayon-e">run </span><span class="crayon-i">update</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">configure</span><span class="crayon-o">-</span><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-i">sms</span><span class="crayon-o">-</span><span class="crayon-i">bot</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0014 seconds] -->
+<p></p>
+<p>This will update your bot, though we haven&#8217;t changed anything just yet, and finally ask for your Twilio account details. Enter your Account SID, your Auth Token (which you can find in your <a href="https://www.twilio.com/console" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console', 'Twilio console');">Twilio console</a>) and the <a href="https://www.twilio.com/console/phone-numbers/incoming" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/phone-numbers/incoming', 'phone number');">phone number</a> you want to use.</p>
+<p><img alt="At the end of the script a number of URLs are produced, make sure to copy the one for Twilio." src="https://www.twilio.com/blog/wp-content/uploads/2016/12/dHhu1tqaAnnwdGQ8o1OLg15okEWXr2TmSMh0i0muyCvAQfusyI-7dQfRliVHxuSpdv4b2d0GSWArNMM4N1661SLLLeNfF21dbzAlTbspwkSE6Ew95i6MDtGRdBstjB2m7QWFldc.png" class="aligncenter"></p>
+<p>Take the webhook URL that the script outputs and enter it into the webhook field for the messaging settings of your Twilio phone number:<br />
+ <br />
+<img alt="In the Twilio console, edit your phone number and enter the Twilio URL from Claudia into the webhook field for messaging." src="https://www.twilio.com/blog/wp-content/uploads/2016/12/bJ7YJJgAXfkJHSp5B8ckR8f2JLiWYtH319RJ1tyEZ7XMmFJ8px2xavxyVaxHD5_mhjUnqbwB2GIljO_JXHA8G4NADE9G5lgkZSSk6zP-I6VX-tIr02Pk4rIWlBk5wWvMZ8XXJQ4.png" class="aligncenter"></p>
+<p>Everything is in place to send your first message to your bot. Grab your phone, enter your number and ask for a quote.</p>
+<p><img alt="Now when you send an SMS to your number it will respond with a greeting. If you ask for a quote you will receive back an inspirational quote." src="https://www.twilio.com/blog/wp-content/uploads/2016/12/saWqSx4ESV5y-kvXB1wvVqx3mNBtmmDY-YIE-lAfXTemfQ-JzC-2zHo_de2dvnZH2VF5omWrQyTp_MZIvC8gyAMawoAfELcEvtwKTcFPAwTUwh2nPrH1-6bXO5VKESr5cci-Uw.png" class="aligncenter"></p>
+<p>Want to give this a go yourself? Send an SMS message to my bot at +447481345328 if you&#8217;re in the UK or  +12016903488 if you&#8217;re in the US.</p>
+<h3 id="h.37e3p0bi1xf1">Bots, bots, bots</h3>
+<p>That is all you need to do to get a bot running on AWS Lambda with Claudia.js. If you want to check out the complete code for this, take a look at the <a href="https://github.com/philnash/quote-bot" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/philnash/quote-bot', 'GitHub repo');">GitHub repo</a> for this project.</p>
+<p>Now you can create any bot you fancy, run it on AWS Lambda and have the power of Node.js and a world of APIs and AI at your fingertips.</p>
+<p>Why not try hooking your bot up to another service as well? Claudia Bot Builder supports Twilio as well as Facebook Messenger, Slack, Telegram, Skype, Kik and GroupMe.</p>
+<p>What do you think about Claudia.js and AWS Lambda? Have you built a bot of your own yet and what did you use? Drop me a note in the comments or hit me up on <a href="mailto:philnash@twilio.com">email</a> or <a href="https://twitter.com/philnash" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/philnash', 'Twitter');">Twitter</a>.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html" data-text="Create an SMS bot on AWS Lambda with Claudia.js ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/79fac5826d02217e841fd2354db2ae37?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/79fac5826d02217e841fd2354db2ae37?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/phil">Phil Nash</a></span></span> <span class="author-meta author-email"><a href="mailto:pnash@twilio.com">pnash@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/philnash">@philnash<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Use Twilio Tutorials to Start Building</h3>         <a href="https://www.twilio.com/docs/tutorials/walkthrough/call-tracking/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/call-tracking/php/laravel', '');">
+          <h5>Call Tracking</h5>
+        </a>
+         <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/php/laravel', '');">
+          <h5>SMS and MMS Notifications</h5>
+        </a>
+         <a href="https://www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/php/laravel', '');">
+          <h5>Two-Factor Authentication with Authy</h5>
+        </a>
+      
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2016/12/19332 https://www.twilio.com/blog/?p=19332';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "https://www.twilio.com/blog/2016/12/Create an SMS bot on AWS Lambda with Claudia.js";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html?cf_action=sync_comments&amp;post_id=19332';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2016\/12\/create-an-sms-bot-on-aws-lambda-with-claudia-js.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:53 GMT -->
+</html>

@@ -1,0 +1,1549 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/guides/voice/how-to-respond-to-incoming-phone-calls-in-python by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    <meta name="description" content="Learn how to respond to incoming phone calls in your Python web application in this guide. This example uses the Flask web framework and ngrok to respond to incoming phone calls to your Twilio phone number.">
+    
+    
+    
+
+    <title>
+      How to Respond to Incoming Phone Calls in Python - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/guides/voice/how-to-respond-to-incoming-phone-calls-in-python" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    <meta property="og:title" content="How to Respond to Incoming Phone Calls in Python">
+    
+    
+    <meta property="og:description" content="Learn how to respond to incoming phone calls in your Python web application in this guide. This example uses the Flask web framework and ngrok to respond to incoming phone calls to your Twilio phone number.">
+    
+    
+    
+    <meta property="og:image" content="https://www.twilio.comhttps://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/social-voice-python.2e16d0ba.fill-1200x630-c100.png">
+    
+    <meta property="og:url" content="https://www.twilio.com/docs/guides/voice/how-to-respond-to-incoming-phone-calls-in-python?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    <meta name="twitter:title" content="How to Respond to Incoming Phone Calls in Python">
+    
+    
+    <meta name="twitter:description" content="Learn how to respond to incoming phone calls in your Python web application in this guide. This example uses the Flask web framework and ngrok to respond to incoming phone calls to your Twilio phone number.">
+    
+    
+    
+    <meta name="twitter:image" content="https://www.twilio.comhttps://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/social-voice-python.2e16d0ba.fill-1120x600-c100.png">
+    <meta name="twitter:card" content="summary_large_image">
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["marketplace", "enable-video-rooms"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      guides
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/guides" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">Guides</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+      
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+      <div class="uk-width-3-4 uk-hidden-small">
+      
+      
+        <div class="breadcrumbs">
+          
+            
+          
+            
+          
+            
+              <a href="https://www.twilio.com/docs/guides">Guides</a> &gt;
+            
+          
+            
+              <a href="https://www.twilio.com/docs/guides/voice">Programmable Voice Guides</a> &gt;
+            
+          
+          <span>Respond to Incoming Phone Calls in Python</span>
+        </div>
+      
+      </div>
+
+      
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+  <div class="search">
+    <form action="https://www.twilio.com/docs/search" method="GET">
+      <div class="wrapper">
+        <input id="search-box" name="q" type="text" value=""/>
+      </div>
+      <button type="submit">
+        <i class="fa fa-fw fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+    
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+  <div class="coderail-container">
+
+    <div class="sidenav-column">
+      <div class="theme-switcher uk-hidden-small">
+  <div class="theme-wrapper">
+    <a data-theme="light" class="selected">
+      <i class="fa fa-fw fa-sun-o"></i>
+    </a>
+    <a data-theme="dark" >
+      <i class="fa fa-fw fa-moon-o"></i>
+    </a>
+  </div>
+</div>
+      
+        <div class="sidenav" data-uk-sticky="{boundary: true}">
+          
+
+<ul id="doc_menu" class="sidenav__section" data-swiftype-index="false">
+
+  <!-- Page entries -->
+  
+    <li id="dynamic-menu">
+      <ul>
+        
+          
+          
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/guides/voice">
+          Programmable Voice Guides
+      </a>
+  </li>
+
+
+
+        
+          
+            
+<li class="menu-title expanded" role="menu-title" id="doc-navigation-parent">
+  Respond to Incoming Phone Calls in Python
+</li>
+<ul class="menu-accordion expanded" role="menu-accordion" id="doc-navigation"></ul>
+
+          
+          
+
+
+        
+          
+          
+
+
+<li class="menu-title" role="menu-title">
+    <span class="heading">Related Guides</span>
+</li>
+
+<ul class="menu-accordion" role="menu-accordion">
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-modify-calls-in-progress-in-python">
+        Modify Calls In Progress With Python
+      </a>
+    </li>
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-retrieve-call-logs-in-python">
+        Retrieve Call Logs with Python
+      </a>
+    </li>
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-make-outbound-phone-calls-in-python">
+        Make Outbound Phone Calls with Python
+      </a>
+    </li>
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-create-conference-calls-in-python">
+        Create Conference Calls in Python
+      </a>
+    </li>
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-gather-user-input-via-keypad-in-python">
+        Gather User Input via Keypad (DTMF Tones) in Python
+      </a>
+    </li>
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-record-phone-calls-in-python">
+        Record Phone Calls in Python
+      </a>
+    </li>
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-use-voice-add-ons-in-python">
+        Use Voice Add-ons in Python
+      </a>
+    </li>
+  
+    <li >
+      <a href="https://www.twilio.com/docs/guides/voice/how-to-use-recordings-add-ons-in-python">
+        How To Use Recording Add-ons in Python
+      </a>
+    </li>
+  
+</ul>
+        
+        
+      </ul>
+    </li>
+  
+</ul>
+
+        </div>
+      
+    </div>
+
+    <div class="primary-column 
+        ">
+      <div class="docs-prose">
+        
+  
+    
+    <h1 class="page-title ">
+      Respond to Incoming Phone Calls in Python
+    </h1>
+    
+      
+<div class="authors">
+  <div class="authors-body">
+    <div class="author">
+      <img src="https://www.gravatar.com/avatar/7ff74e11de7b63c4ec66966b9cb75f63?d=mm&amp;s=50" title="Andrew Baker" alt="Andrew Baker" />
+      Andrew Baker
+    </div>
+  </div>
+  <div class="authors-footer"></div>
+</div>
+
+
+    
+  
+  
+    <div class="block-rich_text ">
+      
+        
+
+<div class="rich-text"><p>In this guide, we'll show you how to use <a href="https://www.twilio.com/voice">Programmable Voice</a> to respond to incoming phone calls in your Python web application. Code on your server can decide what a caller hears when they dial the number you've bought or ported to Twilio.</p><p>The code snippets in this guide are written using the <a href="http://flask.pocoo.org/">Flask web framework</a> and the <a href="https://www.twilio.com/docs/libraries/python">Twilio Python SDK</a>. Let's get started!</p><p></p></div>
+
+      
+    </div>
+  
+    <div class="block-content_snippet ">
+      
+        <div class="block-rich_text">
+
+<div class="rich-text"><h2 id="respond-to-incoming-calls-in-your-web-application"><a class="toclink" href="#respond-to-incoming-calls-in-your-web-application">Respond to incoming calls in your web application</a></h2><p><img alt="Incoming Voice" class="richtext-image full-width" height="450" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/incoming-voice.width-800.png" width="800"/></p><p>Twilio makes answering a phone call as easy as responding to an HTTP request. When a Twilio phone number receives an incoming call, Twilio will send an HTTP request to your web application, asking for instructions on how to handle the call. Your web application will respond with an XML document containing <a href="https://www.twilio.com/docs/api/twiml">TwiML</a>. That TwiML contains the instruction that Twilio will follow to say some arbitrary text, play an MP3 file, make a recording and much more.</p><p>To start answering phone calls, you must:<br/></p><p></p><ul><li><a href="https://www.twilio.com/console/phone-numbers/incoming">Buy and configure a Twilio-powered phone number</a> capable of making and receiving phone calls, and point it at your web application</li><li>Write web application code to tell Twilio how to handle the incoming call using TwiML</li><li>Make your web application accessible on the Internet so Twilio can send you a webhook request when you receive a call</li></ul></div>
+</div>
+      
+    </div>
+  
+    <div class="block-content_snippet ">
+      
+        <div class="block-rich_text">
+
+<div class="rich-text"><h2 id="buy-and-configure-a-phone-number"><a class="toclink" href="#buy-and-configure-a-phone-number">Buy and configure a phone number</a></h2><p>In the <a href="https://www.twilio.com/console">Twilio Console</a>, you can search for and buy phone numbers in countries around the world. Numbers that have the Voice capability can make and receive voice phone calls from just about anywhere on the planet.</p><p><img alt="Search for voice capable numbers" class="richtext-image full-width" height="368" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/console-voice-search.width-800.png" width="800"><br/></img></p><p>Once you purchase a number, you'll need to configure that number to send a request to your web application. This callback mechanism is called a <a href="https://en.wikipedia.org/wiki/Webhook">webhook</a>. This can be done in the number's configuration page.<br/></p><p><img alt="configure an incoming phone number URL" class="richtext-image full-width" height="267" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/console-webhook.width-800.png" width="800"/></p></div>
+</div>
+      
+    </div>
+  
+    <div class="block-content_snippet ">
+      
+        <div class="block-rich_text">
+
+<div class="rich-text"><h2 id="what-is-a-webhook"><a class="toclink" href="#what-is-a-webhook">What is a Webhook?</a></h2><p>Webhooks are user-defined <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> callbacks. They are usually triggered by some event, such as receiving an SMS message or an incoming phone call. When that event occurs, Twilio makes an HTTP request (usually a <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">POST or a GET</a>) to the URL configured for the webhook.</p><p>To handle a webhook, you only need to build a small web application that can accept the HTTP requests. Almost all server-side programming languages offer some framework for you to do this. Examples across languages include <a href="http://www.asp.net/">ASP.NET MVC</a> for C#, <a href="https://en.wikipedia.org/wiki/Java_servlet">Servlets</a> and <a href="http://sparkjava.com/">Spark</a> for Java, <a href="https://expressjs.com/">Express</a> for Node.js, <a href="https://www.djangoproject.com/">Django</a> and <a href="http://flask.pocoo.org/">Flask</a> for Python, and <a href="http://rubyonrails.org/">Rails</a> and <a href="http://www.sinatrarb.com/">Sinatra</a> for Ruby. <a href="https://secure.php.net/">PHP</a> which has its own web app framework built in, although frameworks like <a href="https://laravel.com/">Laravel</a>, <a href="https://symfony.com/">Symfony</a> and <a href="http://www.yiiframework.com/">Yii</a><a href="http://www.yiiframework.com/">Yii</a> are also popular.</p><p>Whichever framework and language you choose, webhooks function the same for every Twilio application. They will make an HTTP request to a URI that you provide to Twilio. Your application performs whatever logic you feel necessary - read/write from a database, integrate with another API or perform some computation - then replies to Twilio with a TwiML response with the instructions you want Twilio to perform.</p></div>
+</div>
+      
+    </div>
+  
+    <div class="block-content_snippet ">
+      
+        <div class="block-rich_text">
+
+<div class="rich-text"><h2 id="what-is-twiml"><a class="toclink" href="#what-is-twiml">What is TwiML?</a></h2><p><a href="https://www.twilio.com/docs/api/twiml">TwiML</a> is the Twilio Markup Language, which is just to say that it's an <a href="https://en.wikipedia.org/wiki/XML">XML</a> document with special tags defined by Twilio to help you build your SMS and voice applications. TwiML is easier shown than explained:</p></div>
+</div>
+<div class="block-twiml_sample">
+
+<div>
+    <div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Say&gt;</span>Thanks for calling!<span class="nt">&lt;/Say&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+</div>
+</div>
+<div class="block-rich_text">
+
+<div class="rich-text"><p>Every TwiML document will have the root <b>&lt;Response</b>&gt; element and within that can contain one or more <b>verbs</b>. Verbs are actions you'd like Twilio to take, such as <a href="https://www.twilio.com/docs/api/twiml/say">&lt;Say&gt;</a> a greeting to a caller, or send an SMS <a href="https://www.twilio.com/docs/api/twiml/sms/message">&lt;Message&gt;</a> in reply to an incoming message. For a full reference on everything you can do with TwiML, refer to our <a href="https://www.twilio.com/docs/api/twiml">TwiML API Reference</a>.</p></div>
+</div>
+      
+    </div>
+  
+    <div class="block-rich_text ">
+      
+        
+
+<div class="rich-text"><h2 id="write-python-to-handle-the-incoming-phone-call"><a class="toclink" href="#write-python-to-handle-the-incoming-phone-call">Write Python to handle the incoming phone call</a></h2><p>Now comes the fun part - writing code that will handle an incoming HTTP request from Twilio! Our code will dictate what happens when our phone number receives a call by responding with TwiML.</p></div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-respond-to-an-incoming-call-with-twiml" 
+  data-title="Respond to an incoming call with TwiML" data-pref="server">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-respond-to-an-incoming-call-with-twiml">Respond to an incoming call with TwiML</a>
+        <ul style="visibility:hidden" >
+          
+            <li class="sample-tab active" 
+              data-ext="py">Python</li>
+          
+        </ul>
+      </div>
+
+      
+        
+          <div class="sample-version-tabs" data-ext="py">
+            
+            <span>SDK Version:</span>
+            
+            <ul>
+              
+                <li class="sample-version-tab" data-version="5.x"
+                  
+                  
+                  >5.x</li>
+              
+                <li class="sample-version-tab" data-version="6.x"
+                  
+                  
+                  >6.x</li>
+              
+            </ul>
+          </div>
+        
+      
+          
+      
+        <pre data-ext="py" data-version="6.x" class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls with a &#39;Hello world&#39; message&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s2">&quot;hello world!&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+      
+        <pre data-ext="py" data-version="5.x" class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls with a &#39;Hello world&#39; message&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s2">&quot;hello world!&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Respond to an incoming call with TwiML
+    </h5>
+    
+      <p>On your server, you can respond to a Twilio webhook request with TwiML. TwiML is a set of XML tags that tell Twilio how to handle an incoming call.</p>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-the-twiml-generated-by-our-server-code" 
+  data-title="The TwiML generated by our server code" data-pref="output">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-the-twiml-generated-by-our-server-code">The TwiML generated by our server code</a>
+        <ul style="visibility:hidden" >
+          
+            <li class="sample-tab active" 
+              data-ext="xml">XML</li>
+          
+        </ul>
+      </div>
+
+      
+        
+      
+          
+      
+        <pre data-ext="xml" data-version="default" class="codehilite"><code><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">  <span class="nt">&lt;Say</span> <span class="na">voice=</span><span class="s">&quot;alice&quot;</span><span class="nt">&gt;</span>hello world!<span class="nt">&lt;/Say&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      The TwiML generated by our server code
+    </h5>
+    
+      <p>At the end of the day, the Twilio helper is just helping you generate an XML string that looks like this.</p>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-content_snippet ">
+      
+        <div class="block-rich_text">
+
+<div class="rich-text"><p>In order for the webhooks in this code sample to work, Twilio must be able to send your web application an HTTP request over the Internet. Of course, that means your application needs to have a URL or IP address that Twilio can reach.</p><p>In production you probably have a public URL, but you probably don't during development. That's where <a href="https://ngrok.com/">ngrok</a> comes in. ngrok gives you a public URL for a local port on your development machine, which you can use to configure your Twilio webhooks as described above.</p></div>
+</div>
+<div class="block-markdown">
+
+<div>
+    <p>Once ngrok is installed, you can use it at the command line to create a tunnel to whatever port your web application is running on. For example, this will create a public URL for a web application listening on port 3000.</p>
+<div class="codehilite"><pre><span class="code-line">ngrok http 3000
+</span></pre></div>
+</div>
+</div>
+<div class="block-rich_text">
+
+<div class="rich-text"><p>After executing that command, you will see that ngrok has given your application a public URL that you can use in your webhook configuration in the <a href="https://www.twilio.com/console/phone-numbers/incoming">Twilio console</a>.</p><p><img alt="ngrok screen" class="richtext-image full-width" height="201" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/ngrok.width-800.png" width="800"/></p><p>Grab your ngrok public URL and head back to the phone number you configured earlier. Now let's switch it from using a TwiML Bin to use your new ngrok URL. Don't forget to append the URL path to your actual TwiML logic! ("http://&lt;your ngrok subdomain&gt;.ngrok.io/voice" for example)</p><p><img alt="configure an incoming phone number URL" class="richtext-image full-width" height="267" src="https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/console-webhook.width-800.png" width="800"><br/></img></p></div>
+</div>
+      
+    </div>
+  
+    <div class="block-rich_text ">
+      
+        
+
+<div class="rich-text"><h2 id="create-python-responses-to-incoming-calls"><a class="toclink" href="#create-python-responses-to-incoming-calls">Create Python responses to incoming calls</a></h2><p>In the example above, we returned pre-defined TwiML in response to the incoming call. The real power of using webhooks like this is executing dynamic code (<a href="https://www.twilio.com/docs/api/twiml/twilio_request">based on the information Twilio sends to your application</a>) to change what you present to the user on the other end of the phone call. You could query your database, reference a customer's phone number in your CRM, or execute any kind of custom logic before determining how to respond to your user.</p></div>
+
+      
+    </div>
+  
+    <div class="block-code_sample ">
+      
+        
+
+<div class="md-code-sample" id="code-create-a-dynamic-response-to-an-incoming-call" 
+  data-title="Create a dynamic response to an incoming call" data-pref="server">
+
+  <div class="inline-mode">
+    <div class="code-snippets">
+      <div class="sample-tabs">
+      <a class="title" href="#code-create-a-dynamic-response-to-an-incoming-call">Create a dynamic response to an incoming call</a>
+        <ul style="visibility:hidden" >
+          
+            <li class="sample-tab active" 
+              data-ext="py">Python</li>
+          
+        </ul>
+      </div>
+
+      
+        
+          <div class="sample-version-tabs" data-ext="py">
+            
+            <span>SDK Version:</span>
+            
+            <ul>
+              
+                <li class="sample-version-tab" data-version="5.x"
+                  
+                  
+                  >5.x</li>
+              
+                <li class="sample-version-tab" data-version="6.x"
+                  
+                  
+                  >6.x</li>
+              
+            </ul>
+          </div>
+        
+      
+          
+      
+        <pre data-ext="py" data-version="6.x" class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls and mention the caller&#39;s city&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Get the caller&#39;s city from Twilio&#39;s request to our app</span>
+</span><span class="code-line">    <span class="n">city</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;FromCity&#39;</span><span class="p">]</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s1">&#39;Never gonna give you up, {}!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">city</span><span class="p">),</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Play an audio file for the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s1">&#39;https://demo.twilio.com/docs/classic.mp3&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+      
+        <pre data-ext="py" data-version="5.x" class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls and mention the caller&#39;s city&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Get the caller&#39;s city from Twilio&#39;s request to our app</span>
+</span><span class="code-line">    <span class="n">city</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;FromCity&#39;</span><span class="p">]</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s1">&#39;Never gonna give you up, {}!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">city</span><span class="p">),</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Play an audio file for the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s1">&#39;https://demo.twilio.com/docs/classic.mp3&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+      
+    </div>
+
+    
+  </div>
+
+  <div class="button-mode">
+    <h5 class="title">
+      <i class="fa fa-fw fa-code"></i>
+      Create a dynamic response to an incoming call
+    </h5>
+    
+      <p>Twilio sends POST parameters to your application with information about the call and caller. You can use this information to create a dynamic TwiML response.</p>
+    
+    <div class="active-tail"></div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+  
+    <div class="block-rich_text ">
+      
+        
+
+<div class="rich-text"><h2 id="where-to-next"><a class="toclink" href="#where-to-next">Where to next?</a></h2><p>If this guide was helpful, you might also want to check out these guides for Programmable Voice and Node.js.</p><p></p><ul><li><a href="https://www.twilio.com/docs/guides/voice/how-to-create-conference-calls-in-python">Create Conference Calls in Python</a><br/></li><li><a href="https://www.twilio.com/docs/guides/voice/how-to-record-phone-calls-in-python">Record Phone Calls in Python</a><br/></li><li><a href="https://www.twilio.com/docs/guides/voice/how-to-gather-user-input-via-keypad-in-python">Gather User Input via Keypad (DTMF Tones) in Python</a><br/></li></ul><p>Happy hacking!</p><p></p></div>
+
+      
+    </div>
+  
+
+    
+      
+<div class="contributors">
+  <div class="contributors-body">
+  
+    <div class="contributor">
+      
+        <label>Contributors:</label>
+      
+      <img src="https://www.gravatar.com/avatar/7ff74e11de7b63c4ec66966b9cb75f63?d=mm&amp;s=50" title="Andrew Baker" alt="Andrew Baker" />
+    </div>
+  
+    <div class="contributor">
+      
+      <img src="https://www.gravatar.com/avatar/407fa5f5cddffcdc88cb06df18bfb8fc?d=mm&amp;s=50" title="Rob Spectre" alt="Rob Spectre" />
+    </div>
+  
+    <div class="contributor">
+      
+      <img src="https://www.gravatar.com/avatar/4786cf28e0f5886c4b006f7487333845?d=mm&amp;s=50" title="Kevin Whinnery" alt="Kevin Whinnery" />
+    </div>
+  
+    <div class="contributor">
+      
+      <img src="https://www.gravatar.com/avatar/6ed438a57f60fe82f88d521af08a47cc?d=mm&amp;s=50" title="Ricky Robinett" alt="Ricky Robinett" />
+    </div>
+  
+    <div class="contributor">
+      
+      <img src="https://www.gravatar.com/avatar/560630d6945c6a8777533e7ea3b4e69b?d=mm&amp;s=50" title="David Prothero" alt="David Prothero" />
+    </div>
+  
+  </div>
+  <div class="contributors-footer"></div>
+</div>
+
+
+    
+
+        
+          
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+// Unique identifiers
+PAGE_URL = "https://www.twilio.com/docs/guides/voice/how-to-respond-to-incoming-phone-calls-in-python";
+
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'http://twiliodocumentation.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+        
+      </div>
+    </div>
+
+    <div class="code-column">
+      
+  <div id="coderail" class="code-rail" data-uk-sticky="{boundary: true}">
+
+  <div class="rail-placeholder"></div>
+
+  <div class="rail-header uk-hidden">
+
+    <div class="rail-header-wrapper">
+
+      <div class="rail-navigation">
+        <div class="inner">
+          <a href="#previous" class="inactive" data-previous>
+            <i class="fa fa-fw fa-arrow-left left"></i>
+          </a>
+        </div>
+        <div class="inner">
+          <span>
+            <span class="current-index">1</span>
+            <span>/</span>
+            <span class="snippet-total">1</span>
+          </span>
+        </div>
+        <div class="inner">
+          <a href="#next" data-next>
+            <i class="fa fa-fw fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="rail-title">
+        <div class="title-content inner">
+          <span>Loading Code Samples...</span>
+          <i class="fa fa-fw fa-chevron-down"></i>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rail-toolbar uk-hidden">
+
+    <div class="rail-current-language">
+      <div class="inner">
+        <span>Language</span>
+        <i class="fa fa-fw fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <a href="#code" class="uk-hidden tab" data-code>Code</a>
+      <a href="#output" class="uk-hidden inactive" data-output>Output</a>
+
+      <span class="separator"></span>
+
+      <a id="download" class="uk-hidden">
+        <i class="fa fa-fw fa-download"></i>
+        <span>Download Project</span>
+      </a>
+
+      <a id="github" class="uk-hidden" target="_blank">
+        <i class="fa fa-fw fa-github-square"></i>
+        <span>View on GitHub</span>
+      </a>
+
+      <a id="defrosty" class="fr-on" href="#defrosty">
+        <i class="fa fa-fw fa-eye"></i>
+        <span class="wider-tooltip">Toggle Highlighted Lines</span>
+      </a>
+
+      <a id="clippy" href="#copy">
+        <i class="fa fa-fw fa-copy"></i>
+        <span>Copy to Clipboard</span>
+      </a>
+
+      <a id="linkcode" href="#linkcode">
+        <i class="fa fa-fw fa-link"></i>
+        <span>Link to this Code</span>
+      </a>
+
+      <a href="#expand" data-expand>
+        <i class="fa fa-fw fa-arrows-alt"></i>
+        <span>Full Screen</span>
+      </a>
+      <a href="#collapse" class="uk-hidden" data-collapse>
+        <i class="fa fa-fw fa-compress"></i>
+        <span>Normal Size</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="rail-samples">
+    <ul>
+      
+        <li>
+          <a href="#code-respond-to-an-incoming-call-with-twiml">
+            Respond to an incoming call with TwiML
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-the-twiml-generated-by-our-server-code">
+            The TwiML generated by our server code
+          </a>
+        </li>
+      
+        <li>
+          <a href="#code-create-a-dynamic-response-to-an-incoming-call">
+            Create a dynamic response to an incoming call
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="rail-languages"></div>
+
+  <div class="rail-content">
+    <div class="rail-content-inner">
+      
+        
+        <div data-sample-title="Respond to an incoming call with TwiML"
+            data-sample="code-respond-to-an-incoming-call-with-twiml" 
+            data-pref="server"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/guides/voice/respond-incoming-calls-guide/respond-no-parameters/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="py">Python</option>
+              
+            </select>
+          </div>
+
+          
+            
+              <div class="sample-version-tabs" 
+                data-ext="py">
+                <div class="sample-version-tabs-inner">
+                  
+                  <span>SDK Version:</span>
+                  
+                  <ul>
+                    
+                      <li class="sample-version-tab" data-version="5.x"
+                        
+                        
+                        >5.x</li>
+                    
+                      <li class="sample-version-tab" data-version="6.x"
+                        
+                        
+                        >6.x</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="py" 
+                data-version="6.x"
+                data-filename="example.6.x.py"
+                class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls with a &#39;Hello world&#39; message&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s2">&quot;hello world!&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+            
+              <pre data-ext="py" 
+                data-version="5.x"
+                data-filename="example.5.x.py"
+                class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls with a &#39;Hello world&#39; message&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s2">&quot;hello world!&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="The TwiML generated by our server code"
+            data-sample="code-the-twiml-generated-by-our-server-code" 
+            data-pref="output"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/guides/voice/respond-incoming-calls-guide/response-raw-twiml/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="xml">XML</option>
+              
+            </select>
+          </div>
+
+          
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="xml" 
+                data-version="default"
+                data-filename="https://www.twilio.com/docs/guides/voice/example.xml"
+                class="codehilite"><code><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">  <span class="nt">&lt;Say</span> <span class="na">voice=</span><span class="s">&quot;alice&quot;</span><span class="nt">&gt;</span>hello world!<span class="nt">&lt;/Say&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+        
+        <div data-sample-title="Create a dynamic response to an incoming call"
+            data-sample="code-create-a-dynamic-response-to-an-incoming-call" 
+            data-pref="server"
+            data-download-url=""
+            data-github-url="https://github.com/TwilioDevEd/api-snippets/blob/master/guides/voice/respond-incoming-calls-guide/respond-with-parameters/{{ filename }}"
+            class="code-sample">
+
+          <div class="sample-language-data" style="display:none;">
+            <select>
+              
+                <option value="py">Python</option>
+              
+            </select>
+          </div>
+
+          
+            
+              <div class="sample-version-tabs" 
+                data-ext="py">
+                <div class="sample-version-tabs-inner">
+                  
+                  <span>SDK Version:</span>
+                  
+                  <ul>
+                    
+                      <li class="sample-version-tab" data-version="5.x"
+                        
+                        
+                        >5.x</li>
+                    
+                      <li class="sample-version-tab" data-version="6.x"
+                        
+                        
+                        >6.x</li>
+                    
+                  </ul>
+                </div>
+              </div>
+            
+          
+
+          
+
+          <div class="snippet-container">
+            
+              <pre data-ext="py" 
+                data-version="6.x"
+                data-filename="example.6.x.py"
+                class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls and mention the caller&#39;s city&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Get the caller&#39;s city from Twilio&#39;s request to our app</span>
+</span><span class="code-line">    <span class="n">city</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;FromCity&#39;</span><span class="p">]</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s1">&#39;Never gonna give you up, {}!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">city</span><span class="p">),</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Play an audio file for the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s1">&#39;https://demo.twilio.com/docs/classic.mp3&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+            
+              <pre data-ext="py" 
+                data-version="5.x"
+                data-filename="example.5.x.py"
+                class="codehilite"><code><span class="code-line"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span>
+</span><span class="code-line"><span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">twiml</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">
+</span><span class="code-line"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/voice&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span class="code-line"><span class="k">def</span> <span class="nf">voice</span><span class="p">():</span>
+</span><span class="code-line">    <span class="sd">&quot;&quot;&quot;Respond to incoming phone calls and mention the caller&#39;s city&quot;&quot;&quot;</span>
+</span><span class="code-line">    <span class="c1"># Get the caller&#39;s city from Twilio&#39;s request to our app</span>
+</span><span class="code-line">    <span class="n">city</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s1">&#39;FromCity&#39;</span><span class="p">]</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Start our TwiML response</span>
+</span><span class="code-line">    <span class="n">resp</span> <span class="o">=</span> <span class="n">twiml</span><span class="o">.</span><span class="n">Response</span><span class="p">()</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Read a message aloud to the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">say</span><span class="p">(</span><span class="s1">&#39;Never gonna give you up, {}!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">city</span><span class="p">),</span> <span class="n">voice</span><span class="o">=</span><span class="s1">&#39;alice&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="c1"># Play an audio file for the caller</span>
+</span><span class="code-line">    <span class="n">resp</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s1">&#39;https://demo.twilio.com/docs/classic.mp3&#39;</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line">    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</span><span class="code-line">
+</span><span class="code-line"><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="code-line">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre>
+            
+          </div>
+
+          <div class="output-snippet-container">
+            
+          </div>
+
+        </div>
+        
+      
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
+  </div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/guides/voice/how-to-respond-to-incoming-phone-calls-in-python by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+</html>

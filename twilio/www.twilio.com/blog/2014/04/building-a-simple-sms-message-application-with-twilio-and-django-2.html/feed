@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Building a Simple SMS Message Application with Twilio and Django</title>
+	<atom:link href="https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html/feed" rel="self" type="application/rss+xml" />
+	<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html</link>
+	<description></description>
+	<lastBuildDate>Thu, 12 Jan 2017 13:19:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.2</generator>
+	<item>
+		<title>By: Andres De Jesus</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-4490</link>
+		<dc:creator><![CDATA[Andres De Jesus]]></dc:creator>
+		<pubDate>Fri, 07 Oct 2016 13:52:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-4490</guid>
+		<description><![CDATA[I am having issues trying to use this tutorial with django 1.9 or 1.10 it keep saying patterns cannot be imported help would be greatly appreciated. thank you in advance]]></description>
+		<content:encoded><![CDATA[<p>I am having issues trying to use this tutorial with django 1.9 or 1.10 it keep saying patterns cannot be imported help would be greatly appreciated. thank you in advance</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Benjamin Bao</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-4069</link>
+		<dc:creator><![CDATA[Benjamin Bao]]></dc:creator>
+		<pubDate>Thu, 21 Jan 2016 10:22:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-4069</guid>
+		<description><![CDATA[Hi! I have a question, I deployed my django website to Heroku with twilio integrated, and I set the SMS Request URL to my website URL (http://www.mywebsite.com/sms/) and implemented to reply with some basic texts. However I&#039;m getting Error 11200, HTTP code 502 Bad Gateway.]]></description>
+		<content:encoded><![CDATA[<p>Hi! I have a question, I deployed my django website to Heroku with twilio integrated, and I set the SMS Request URL to my website URL (<a href="http://www.mywebsite.com/sms/" rel="nofollow">http://www.mywebsite.com/sms/</a>) and implemented to reply with some basic texts. However I&#8217;m getting Error 11200, HTTP code 502 Bad Gateway.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Josh Sullivan</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-4066</link>
+		<dc:creator><![CDATA[Josh Sullivan]]></dc:creator>
+		<pubDate>Wed, 20 Jan 2016 12:25:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-4066</guid>
+		<description><![CDATA[I&#039;m writing a script to display messages for each number in `django_twilio.Caller`. Any idea how to pass a twilio number in the urls?]]></description>
+		<content:encoded><![CDATA[<p>I&#8217;m writing a script to display messages for each number in <code>django_twilio.Caller</code>. Any idea how to pass a twilio number in the urls?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Jonah</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-3626</link>
+		<dc:creator><![CDATA[Jonah]]></dc:creator>
+		<pubDate>Thu, 16 Jul 2015 19:14:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-3626</guid>
+		<description><![CDATA[Hi Paul,
+
+
+Loved your post and while it has helped me a bit, I&#039;d love if you could help me out of a jam.
+
+
+Here&#039;s the deal:
+
+
+Two of my best friends are getting married in a couple of weeks. I&#039;ve had this idea to have a &quot;marriage texting diary&quot; which will ask them a simple question (eg. &quot;How was your day? What do you want to remember from today?) each day for the first year of their marriage, then I&#039;ll compile all their responses and print a book for their 1st anniversary.
+
+
+Sounds cute, right?
+
+
+Well the challenge is that I&#039;m not technically proficient by any means. I know nothing about coding or database architecture and while I&#039;ve been trying to learn, it has been a real challenge.
+
+
+Any chance you could help me out/point me in the right direction?
+
+
+Your assistance would mean a ton to me and to the newlyweds.
+
+
+Thanks in advance,
+
+
+Jonah]]></description>
+		<content:encoded><![CDATA[<p>Hi Paul,</p>
+<p>Loved your post and while it has helped me a bit, I&#8217;d love if you could help me out of a jam.</p>
+<p>Here&#8217;s the deal:</p>
+<p>Two of my best friends are getting married in a couple of weeks. I&#8217;ve had this idea to have a &#8220;marriage texting diary&#8221; which will ask them a simple question (eg. &#8220;How was your day? What do you want to remember from today?) each day for the first year of their marriage, then I&#8217;ll compile all their responses and print a book for their 1st anniversary.</p>
+<p>Sounds cute, right?</p>
+<p>Well the challenge is that I&#8217;m not technically proficient by any means. I know nothing about coding or database architecture and while I&#8217;ve been trying to learn, it has been a real challenge.</p>
+<p>Any chance you could help me out/point me in the right direction?</p>
+<p>Your assistance would mean a ton to me and to the newlyweds.</p>
+<p>Thanks in advance,</p>
+<p>Jonah</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Twilio</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-3146</link>
+		<dc:creator><![CDATA[Twilio]]></dc:creator>
+		<pubDate>Mon, 15 Sep 2014 17:38:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-3146</guid>
+		<description><![CDATA[Hey Mike, 
+You can build a messaging app/solution for your Church members using Twilio. You can learn more about https://www.twilio.com/sms and contact help@twilio.com if you have any questions. Additionally, if you don&#039;t have developers to build the SMS app, we&#039;re happy to connect you with a partner who can build it for you.]]></description>
+		<content:encoded><![CDATA[<p>Hey Mike,<br />
+You can build a messaging app/solution for your Church members using Twilio. You can learn more about <a href="https://www.twilio.com/sms" rel="nofollow">https://www.twilio.com/sms</a> and contact <a href="mailto:help@twilio.com">help@twilio.com</a> if you have any questions. Additionally, if you don&#8217;t have developers to build the SMS app, we&#8217;re happy to connect you with a partner who can build it for you.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: melia</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-3145</link>
+		<dc:creator><![CDATA[melia]]></dc:creator>
+		<pubDate>Mon, 15 Sep 2014 16:22:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-3145</guid>
+		<description><![CDATA[Hello My name is Mike and I am looking for a way to send mass text messages to a church group for ~4000 members. How can do this? I appreciate your input. I am currently using email to text methods. But as you know they are not the most efficient way. Please advice. TY]]></description>
+		<content:encoded><![CDATA[<p>Hello My name is Mike and I am looking for a way to send mass text messages to a church group for ~4000 members. How can do this? I appreciate your input. I am currently using email to text methods. But as you know they are not the most efficient way. Please advice. TY</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Paul Hallett</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-3065</link>
+		<dc:creator><![CDATA[Paul Hallett]]></dc:creator>
+		<pubDate>Sat, 12 Jul 2014 10:00:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-3065</guid>
+		<description><![CDATA[Of course! When you create new Message resources with the Twilio Python library, it will return details about that message, including the message sid. Check out the list of properties here: https://www.twilio.com/docs/api/rest/message#instance-properties]]></description>
+		<content:encoded><![CDATA[<p>Of course! When you create new Message resources with the Twilio Python library, it will return details about that message, including the message sid. Check out the list of properties here: <a href="https://www.twilio.com/docs/api/rest/message#instance-properties" rel="nofollow">https://www.twilio.com/docs/api/rest/message#instance-properties</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Omar Co</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-3064</link>
+		<dc:creator><![CDATA[Omar Co]]></dc:creator>
+		<pubDate>Fri, 11 Jul 2014 21:36:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-3064</guid>
+		<description><![CDATA[Is there an easy way of getting the message sid from messages being sent out by Twilio. This question gives more details: http://stackoverflow.com/questions/24706819/getting-sms-twilio-message-sid-as-it-is-being-created-from-an-outgoing-message]]></description>
+		<content:encoded><![CDATA[<p>Is there an easy way of getting the message sid from messages being sent out by Twilio. This question gives more details: <a href="http://stackoverflow.com/questions/24706819/getting-sms-twilio-message-sid-as-it-is-being-created-from-an-outgoing-message" rel="nofollow">http://stackoverflow.com/questions/24706819/getting-sms-twilio-message-sid-as-it-is-being-created-from-an-outgoing-message</a></p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Paul Hallett</title>
+		<link>https://twilioinc.wpengine.com/2014/04/building-a-simple-sms-message-application-with-twilio-and-django-2.html#comment-3055</link>
+		<dc:creator><![CDATA[Paul Hallett]]></dc:creator>
+		<pubDate>Tue, 08 Jul 2014 15:06:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13169#comment-3055</guid>
+		<description><![CDATA[Should be solved now, thanks for pointing this out.]]></description>
+		<content:encoded><![CDATA[<p>Should be solved now, thanks for pointing this out.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

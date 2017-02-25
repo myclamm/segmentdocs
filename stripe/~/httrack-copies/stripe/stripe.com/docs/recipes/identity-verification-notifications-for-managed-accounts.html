@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/recipes/identity-verification-notifications-for-managed-accounts by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="hl5ftK5NYWaIpwYNQlaQcmK_0WZUT1t4BKHG4Ysn8g8fxEvJqIilI0XjIhKOXqUJS8Ff4QjjmthFFMzJLvA4fg==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Handling Identity Verification Notifications</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Handling Identity Verification Notifications">
+    <meta property="og:url" content="identity-verification-notifications-for-managed-accounts.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Handling Identity Verification Notifications">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Handling Identity Verification Notifications for Managed Accounts</h1>
+  <p>Create a webhook built on the Sinatra framework to notify Managed Accounts when identity verification information is needed. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=connect">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3>More recipes</h3>
+    <p>Check out our <a href="../recipes.html">other recipes</a> and discover more ways to integrate Stripe.</p>
+  </aside>
+
+<p>Stripe makes use of <a href="../webhooks.html">webhooks</a> to notify you about events that happen in your account and in Stripe accounts that are connected to yours. You can leverage webhooks to do all sorts of cool things, like notifying your customer when a recurring payment fails, adding invoice items to an invoice before it’s paid, or sending custom receipts.</p>
+
+<p>You can create a webhook script that is written in Ruby and the Sinatra framework. This script listens for the <code>account.updated</code> event that occurs when one of your connected accounts is updated. When Stripe indicates that additional information is required, the webhook script sends an email to the connected account owner a link to request they update their information. This event is useful for many reasons, though the script within this recipe focuses on when identity verification is needed.</p>
+
+<p>You can find the full source used in this recipe on <a href="https://github.com/adamjstevenson/stripe-sinatra-managed-account-notification-webhook">Github</a>.</p></section>
+
+<section>
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>This recipe makes use of <a href="https://mailgun.com/">Mailgun</a> to notify your connected users of the identity verification information needed. You’ll need to create a free <a href="https://mailgun.com/signup">Mailgun account</a> to use this example, though you could alternatively send email directly from your server or use another mailing service if you prefer. You also need:</p>
+
+<ul>
+  <li>A Stripe account with <a href="../../connect.html">Connect</a> enabled, in a country that supports Managed Accounts</li>
+  <li>A Ruby &gt;= 1.9.3 environment</li>
+</ul></section>
+
+<section>
+<h2 id="setting-up-the-framework">Setting up the framework</h2>
+
+<p>To start, open a terminal window and create a directory for our webhook, then move into that directory:</p>
+<div class="code">
+  <nav class="nav-filename icon-terminal">
+    Terminal
+  </nav>
+  <pre class="language-bash numbered" ><code>mkdir webhook-handler &amp;&amp; cd webhook-handler</code></pre>
+</div>
+
+<p>Next, create the files that you’ll use for your webhook handler:</p>
+<div class="code">
+  <nav class="nav-filename icon-terminal">
+    Terminal
+  </nav>
+  <pre class="language-bash numbered" ><code>touch webhook.rb config.ru Gemfile</code></pre>
+</div>
+
+<p>The <strong>webhook.rb</strong> file does all the work, listening for POST requests from Stripe and taking actions depending on the event type. Open the file in your text editor and create an outline for your webhook script:</p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    webhook.rb
+  </nav>
+  <pre class="language-ruby numbered" ><code>require &#39;sinatra&#39;
+require &#39;stripe&#39;
+require &#39;mailgun&#39;
+
+# Responds to webhooks sent by Stripe
+post &#39;/webhook&#39; do
+
+end</code></pre>
+</div>
+
+<p>Next, edit the <strong>config.ru</strong> file and add the following lines:</p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    config.ru
+  </nav>
+  <pre class="language-ruby numbered" ><code>require &#39;./webhook-handler&#39;
+run Sinatra::Application</code></pre>
+</div>
+
+<p>Then add the Ruby gems you’ll be using to the <strong>Gemfile</strong>:</p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    Gemfile
+  </nav>
+  <pre class="language-ruby numbered" ><code>source &#39;https://rubygems.org&#39;
+gem &#39;sinatra&#39;
+gem &#39;stripe&#39;
+gem &#39;mailgun-ruby&#39;</code></pre>
+</div>
+
+<p>Finally, run bundler to install the gems for your application.</p>
+<div class="code">
+  <nav class="nav-filename icon-terminal">
+    Terminal
+  </nav>
+  <pre class="language-bash numbered" ><code>bundle install</code></pre>
+</div>
+</section>
+
+<section>
+<h2 id="creating-the-webhook-handler">Creating the webhook handler</h2>
+
+<p>The framework for the webhook has been created, but it’s not very useful yet. Get your webhook handler prepared by modifying your <strong>webhook.rb</strong> file as shown below:</p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    webhook.rb
+  </nav>
+  <pre class="language-ruby numbered" ><code>require &#39;sinatra&#39;
+require &#39;stripe&#39;
+require &#39;mailgun&#39;
+
+set :secret_key, ENV[&#39;STRIPE_KEY&#39;]
+Stripe.api_key = settings.secret_key
+
+set :mailgun_key, ENV[&#39;MAILGUN_KEY&#39;]
+mg_client = Mailgun::Client.new settings.mailgun_key
+
+# Responds to webhooks sent by Stripe
+post &quot;/webhook&quot; do
+  # Retrieve the request&#39;s body and parse it as JSON
+  event_json = JSON.parse(request.body.read)
+
+  # Retrieve the event from Stripe
+  event = Stripe::Event.retrieve({ id: event_json[&#39;id&#39;] },
+  { stripe_account: event_json[&#39;user_id&#39;] })
+
+  # Only respond to `account.updated` events
+  if event.type.eql?(&#39;account.updated&#39;)
+    # Determine if identity verification is needed
+
+  else
+    # Nothing to see here, return a 200
+    status 200
+  end
+end</code></pre>
+</div>
+
+<p>To clarify what’s happening here, you’re first reading the environmental variables for your Stripe secret key and Mailgun key. You should keep these in environmental variables where they’re out of your code base.</p>
+
+<p>The webhook request is then parsed as JSON to find the ID of that event. Using this ID, you make an API call to retrieve the event again from Stripe; though this isn’t a requirement, it’s very much recommended to verify the authenticity of the event. Note that you also pass in the <a href="../connect/authentication.html#authentication-via-the-stripe-account-header">Stripe-account header</a> to authenticate as the connected account (where the <code>account.updated</code> event occurred).</p>
+
+<p>Finally, the last block inspects the event type. If it’s an <code>account.updated</code> event type, then the script takes action. Otherwise, it just returns an HTTP 200 status to Stripe to indicate that everything is hunky dory.</p></section>
+
+<section>
+<h2 id="the-legal-entity-verification-hash">The legal entity verification hash</h2>
+
+<p>For the purpose of this webhook script, there are only a few things to be concerned with:</p>
+
+<ol>
+  <li>Finding out when we need more information about a connected account.</li>
+  <li>Determining what that information is and notifying the connected user about it.</li>
+</ol>
+
+<p>To do this, the part of the event payload that’s important is the <code>verification</code> hash and the <code>fields_needed</code> list specifically. You can read more about this in the <a href="../connect/identity-verification.html#legal-entity-verification-hash">identity verification documentation</a>, but to obtain this from the event you retrieved you’ll add the below to your <strong>webhook.rb</strong> file:</p>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>...
+# Determine if identity verification is needed
+unless event.data.object.verification.fields_needed.nil?
+  # Send a notification to the connected account
+
+end
+...</code></pre>
+</div>
+
+<p>This line checks to see if any fields are needed; if so, you’ll want to contact the connected account to let them know.</p></section>
+
+<section>
+<h2 id="emailing-the-connected-account-owner">Emailing the connected account owner</h2>
+<p>Use Mailgun to email the account owner by adding the below code to the same <strong>webhook.rb</strong> file:</p>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>...
+# Send a notification to the connected account
+  message_params = {
+    from: &#39;you@yourdomain.com&#39;, # Your domain or Mailgun Sandbox domain
+    to: event.data.object.email, # Email address of the connected account
+    subject: &#39;Please update your account information&#39;,
+    text: &#39;Hi there! We need some additional information about your account
+    to continue sending you transfers. You can get this to us by following
+    the link here: https://yourdomain.com/account/submit_info&#39;
+   }
+   result = mg_client.send_message(&#39;yourdomain.com&#39;, message_params).to_h!
+...</code></pre>
+</div>
+
+<p>Note: You’ll want to be sure to update all of the <strong>yourdomain.com</strong> pointers as necessary to reflect your own site or the settings you find in your <a href="https://mailgun.com/app/domains">Mailgun configuration</a>.</p>
+
+<p>To think through each step a bit:</p>
+
+<ol>
+  <li>
+    <p>When Stripe sends an event to your webhook endpoint at <strong>yoursite.com/webhook</strong>, the webhook script first retrieves the event from Stripe to validate its authenticity.</p>
+  </li>
+  <li>
+    <p>The script checks to determine if the event type is <code>account.updated</code>. If not, it returns a <strong>200</strong>. If it is, it looks for any <code>fields_needed</code> in the <code>verification</code> hash.</p>
+  </li>
+  <li>
+    <p>If there are fields found there, Mailgun sends an email to the owner of the connected account indicating that additional information is needed along with a link to your site. Hooray!</p>
+  </li>
+</ol>
+
+<p>Now that your webhook is ready to go, you’ll be able to start the server by setting the environmental variables. You can test this locally with the following command:</p>
+<div class="code">
+  <nav class="nav-filename icon-terminal">
+    Terminal
+  </nav>
+  <pre class="language-bash numbered" ><code>SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 MAILGUN_KEY=mg_key ruby webhook.rb</code></pre>
+</div>
+</section>
+
+<section>
+<h2 id="testing">Testing</h2>
+<p>The webhook endpoint needs to be available publicly on the web for Stripe to communicate with it. You can deploy this webhook handler to a server or  test this locally on your computer using a service like <a href="https://ngrok.com/">Ngrok</a>.</p>
+
+<p>Once your webhook endpoint is accessible on the internet, you’ll want to <a href="https://dashboard.stripe.com/account/webhooks">configure this endpoint</a> in the Dashboard. Select <a href="../webhooks.html#configuring-your-webhook-settings">Connect</a> as the endpoint type, since this event occurs on the connected account.</p>
+
+<p>To test account verification stages, use the <a href="../connect/testing-verification.html">Connect verification testing guide</a>. This triggers verification stages for a connected test account, sends events to your webhook handler. You can learn more about working with Managed Accounts in the <a href="../connect/managed-accounts.html">Connect documentation</a>.</p></section>
+
+<section>
+<h2 id="extending-this-recipe">Extending this recipe</h2>
+
+<ul>
+  <li>
+    <p>This webhook script can only listen for account information that’s needed, and send notifications. You also need to provide a form on your website or app where your connected users can update this information. You can learn more about updating accounts in the <a href="../connect/updating-accounts.html">Connect documentation</a> as well.</p>
+  </li>
+  <li>
+    <p>The <code>verification</code> hash may contain a <code>due_by</code> timestamp representing the date that this information needs to be submitted by. Bank transfers are typically disabled if the information is provided by that date, so you may also want to communicate this with your connected account users. You can read more on this in the <a href="../connect/updating-accounts.html#account-verification">updating accounts</a> section of the Connect documentation.</p>
+  </li>
+  <li>
+    <p>The email doesn’t specify which fields are needed. You could include this when notifying the connected account owner by inspecting the <code>fields_needed</code> property (<code>event.data.object.verification.fields_needed</code>).</p>
+  </li>
+  <li>
+    <p>You can examine the <code>charges_enabled</code> and <code>transfers_enabled</code> properties of this event to understand the account’s current capabilities.</p>
+  </li>
+</ul></section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/recipes/identity-verification-notifications-for-managed-accounts by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:59 GMT -->
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS Comments Feed" href="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Sam Agnew');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Flask,MMS,pokemon,PokemonGo,Python,Twilio MMS');
+	__gaTracker('set', 'dimension8', '2016-08-02T09:43:24+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=18473' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F08%2Fpokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F08%2Fpokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-18473 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-18473" class="row post-18473 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-flask tag-mms tag-pokemon tag-pokemongo tag-python tag-twilio-mms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="298" src="https://www.twilio.com/blog/wp-content/uploads/2016/08/PokemonFauxBanner.jpg" class="img-responsive wp-post-image" alt="PokemonFauxBanner" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/08/PokemonFauxBanner.jpg 645w, https://www.twilio.com/blog/wp-content/uploads/2016/08/PokemonFauxBanner-300x140.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/08/PokemonFauxBanner-200x93.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/samagnew">Sam Agnew</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" rel="bookmark"><time class="entry-date published" datetime="2016-08-02T09:43:24+00:00">August 2, 2016</time><time class="updated" datetime="2016-08-17T12:41:41+00:00">August 17, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" data-text="Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>Pokemon Go is awesome and we all want to show off when we catch rare Pokemon. Let&#8217;s build a quick hack using Python and <a href="https://www.twilio.com/docs/api/rest/sending-messages" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest/sending-messages', 'Twilio MMS');">Twilio MMS</a> that will allow you to trick your friends into thinking that you&#8217;ve encountered legendary Pokemon.</p>
+<p>You can continue reading to find out how to build this, or try it out now by texting an image and the name of a legendary Pokemon to:</p>
+<p><strong>(646) 760-3289</strong></p>
+<p><img class="&quot; aligncenter" style="width: 384.00px; height: 512.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/08/EO3MSWNJQgSSfxy9SPO4Srw_vVX1ROIcWHyltp9iJ15GHGacb6Lig1mqD6qDrUKcNELZjEFAADi19NBj_C-Gx7_Um6hjTCbGRT8h6geZdzmKumEAxCQycMRv-GRZN1YBnVVdlRQL.png" alt="articuno_spotted.png" /></p>
+<h3 id="h.x9ey9xmwbhok" class="c2 c5">Getting started</h3>
+<p>Before diving into the code, you&#8217;ll first need to make sure you have the following:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://www.python.org/downloads/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.python.org/downloads/', 'Python and pip');">Python and pip</a> installed on your machine</li>
+<li>A free Twilio account &#8211; <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'sign up here');">sign up here</a></li>
+<li><a href="https://github.com/sagnew/pokemon-faux/raw/master/pokemon_images.zip" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/sagnew/pokemon-faux/raw/master/pokemon_images.zip');">The images</a> we will need to use including screenshots of models of the legendary Pokemon and the overlay for the Pokemon encounter screen. Create a new folder called <code>pokemon-go-images</code> in the directory where you want your project to live and save them there.</li>
+</ul>
+<p>The dependencies we are going to use will be:</p>
+<ul style="padding-left: 36px;">
+<li>The <a href="https://www.twilio.com/docs/libraries/python" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/libraries/python', 'Twilio Python');">Twilio Python</a> library for generating TwiML to respond to incoming messages</li>
+<li><a href="https://python-pillow.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://python-pillow.org/', 'Pillow');">Pillow</a> for image manipulation</li>
+<li><a href="http://flask.pocoo.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://flask.pocoo.org/', 'Flask');">Flask</a> as the <a href="https://www.fullstackpython.com/web-frameworks.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.fullstackpython.com/web-frameworks.html', 'web framework');">web framework</a> for our web application</li>
+<li><a href="http://docs.python-requests.org/en/master/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.python-requests.org/en/master/', 'Requests');">Requests</a> for downloading images from text messages</li>
+</ul>
+<p>Open your terminal and enter these commands, preferably in the safety of a <a href="http://docs.python-guide.org/en/latest/dev/virtualenvs/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.python-guide.org/en/latest/dev/virtualenvs/', 'virtual environment');">virtual environment</a>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879502e9b88a550890301" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+pip install twilio==5.4.0 Flask==0.11.1 requests==2.10.0 Pillow==3.3.0</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879502e9b88a550890301-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879502e9b88a550890301-1"><span class="crayon-e">pip </span><span class="crayon-e">install </span><span class="crayon-v">twilio</span><span class="crayon-o">==</span><span class="crayon-cn">5.4.0</span><span class="crayon-h"> </span><span class="crayon-v">Flask</span><span class="crayon-o">==</span><span class="crayon-cn">0.11.1</span><span class="crayon-h"> </span><span class="crayon-v">requests</span><span class="crayon-o">==</span><span class="crayon-cn">2.10.0</span><span class="crayon-h"> </span><span class="crayon-v">Pillow</span><span class="crayon-o">==</span><span class="crayon-cn">3.3.0</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p></p>
+<h3 id="h.9p5z208t2yxu" class="c2 c5">Overlaying images on top of each other</h3>
+<p>Let&#8217;s write some code to take the image we want to manipulate and overlay the Pokemon catching screen over it. We will use the Image module from PIL.</p>
+<p>We need a function that takes a path to an image and the name of a Pokemon. Our function will resize the images to be compatible with each other, paste the overlay over the background image, paste the selected Pokemon on the image and then overwrite the original image with the new image.</p>
+<p>Open a file called <code>overlay.py</code> and add the following code (comments are included in-line to explain what is happening):</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879502e9b89c586834248" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+from PIL import Image
+
+
+def overlay(original_image_path, pokemon):
+
+    overlay_image = Image.open('pokemon-go-images/overlay.png')
+
+    # This is the image the user sends through text.
+    background = Image.open(original_image_path)
+
+    # Resizes the image received so that the height is always 512px.
+    base_height = 512.0
+    height_percent = base_height / background.size[1]
+    width = int(background.size[0] * height_percent)
+
+    background = background.resize((width, int(base_height)), Image.BILINEAR)
+
+    # Resize the overlay.
+    overlay_image = overlay_image.resize(background.size, Image.BILINEAR)
+
+    # Specify which pokemon sprite is used.
+    pokemon_img = Image.open('pokemon-go-images/{}.png'.format(pokemon))
+
+    # Convert images to RGBA format.
+    background = background.convert('RGBA')
+    overlay_image = overlay_image.convert('RGBA')
+    pokemon_img = pokemon_img.convert('RGBA')
+
+    new_img = background
+    new_img.paste(overlay_image, (0, 0), overlay_image)
+
+    # Place the pokemon sprite centered on the background + overlay image.
+    new_img.paste(pokemon_img,
+                  (int(width / 4), int(base_height / 4)),
+                  pokemon_img)
+
+    # Save the new image.
+    new_img.save(original_image_path,'PNG')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-2">2</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-4">4</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-6">6</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-8">8</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-10">10</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-12">12</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-14">14</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-16">16</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-18">18</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-20">20</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-22">22</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-24">24</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-26">26</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-28">28</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-30">30</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-32">32</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-33">33</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-34">34</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-35">35</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-36">36</div><div class="crayon-num" data-line="crayon-5879502e9b89c586834248-37">37</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b89c586834248-38">38</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879502e9b89c586834248-1"><span class="crayon-e">from </span><span class="crayon-e">PIL </span><span class="crayon-e">import </span><span class="crayon-e">Image</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-2">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b89c586834248-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-4"><span class="crayon-e">def </span><span class="crayon-e">overlay</span><span class="crayon-sy">(</span><span class="crayon-i">original_image_path</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">pokemon</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">overlay_image</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Image</span><span class="crayon-sy">.</span><span class="crayon-e">open</span><span class="crayon-sy">(</span><span class="crayon-s">'pokemon-go-images/overlay.png'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># This is the image the user sends through text.</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">background</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Image</span><span class="crayon-sy">.</span><span class="crayon-e">open</span><span class="crayon-sy">(</span><span class="crayon-i">original_image_path</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-10">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b89c586834248-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Resizes the image received so that the height is always 512px.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">base_height</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">512.0</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">height_percent</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">base_height</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-v">background</span><span class="crayon-sy">.</span><span class="crayon-v">size</span><span class="crayon-sy">[</span><span class="crayon-cn">1</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">width</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-sy">(</span><span class="crayon-v">background</span><span class="crayon-sy">.</span><span class="crayon-v">size</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-i">height_percent</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-15">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">background</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">background</span><span class="crayon-sy">.</span><span class="crayon-e">resize</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-i">width</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-sy">(</span><span class="crayon-i">base_height</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">Image</span><span class="crayon-sy">.</span><span class="crayon-i">BILINEAR</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-17">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Resize the overlay.</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">overlay_image</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">overlay_image</span><span class="crayon-sy">.</span><span class="crayon-e">resize</span><span class="crayon-sy">(</span><span class="crayon-v">background</span><span class="crayon-sy">.</span><span class="crayon-i">size</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">Image</span><span class="crayon-sy">.</span><span class="crayon-i">BILINEAR</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-20">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b89c586834248-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Specify which pokemon sprite is used.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">pokemon_img</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Image</span><span class="crayon-sy">.</span><span class="crayon-e">open</span><span class="crayon-sy">(</span><span class="crayon-s">'pokemon-go-images/{}.png'</span><span class="crayon-sy">.</span><span class="crayon-e">format</span><span class="crayon-sy">(</span><span class="crayon-i">pokemon</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-23">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Convert images to RGBA format.</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-25"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">background</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">background</span><span class="crayon-sy">.</span><span class="crayon-e">convert</span><span class="crayon-sy">(</span><span class="crayon-s">'RGBA'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-26"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">overlay_image</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">overlay_image</span><span class="crayon-sy">.</span><span class="crayon-e">convert</span><span class="crayon-sy">(</span><span class="crayon-s">'RGBA'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-27"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">pokemon_img</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pokemon_img</span><span class="crayon-sy">.</span><span class="crayon-e">convert</span><span class="crayon-sy">(</span><span class="crayon-s">'RGBA'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-28">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b89c586834248-29"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">new_img</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">background</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-30"><span class="crayon-e">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">new_img</span><span class="crayon-sy">.</span><span class="crayon-e">paste</span><span class="crayon-sy">(</span><span class="crayon-i">overlay_image</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">0</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">overlay_image</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-31">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-32"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Place the pokemon sprite centered on the background + overlay image.</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-33"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">new_img</span><span class="crayon-sy">.</span><span class="crayon-e">paste</span><span class="crayon-sy">(</span><span class="crayon-i">pokemon_img</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-34"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">(</span><span class="crayon-t">int</span><span class="crayon-sy">(</span><span class="crayon-i">width</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-cn">4</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">int</span><span class="crayon-sy">(</span><span class="crayon-i">base_height</span><span class="crayon-h"> </span><span class="crayon-o">/</span><span class="crayon-h"> </span><span class="crayon-cn">4</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-5879502e9b89c586834248-35"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">pokemon_img</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-36">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b89c586834248-37"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Save the new image.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b89c586834248-38"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">new_img</span><span class="crayon-sy">.</span><span class="crayon-e">save</span><span class="crayon-sy">(</span><span class="crayon-i">original_image_path</span><span class="crayon-sy">,</span><span class="crayon-s">'PNG'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0138 seconds] -->
+<p>Try running it on your own image. This works best with images taken on phones, but let&#8217;s just see if it works for now. Open up your Python shell in the same directory as the file you just created and enter the following two lines:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879502e9b8a8255750964" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+from overlay import overlay
+overlay('path/to/image', 'mewtwo')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879502e9b8a8255750964-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8a8255750964-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879502e9b8a8255750964-1"><span class="crayon-e">from </span><span class="crayon-e">overlay </span><span class="crayon-e">import </span><span class="crayon-e">overlay</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8a8255750964-2"><span class="crayon-e">overlay</span><span class="crayon-sy">(</span><span class="crayon-s">'path/to/image'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'mewtwo'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Now open the new image and see if you are catching a Mewtwo on a train like I am:</p>
+<p><img class="&quot; aligncenter" style="width: 384.00px; height: 512.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/08/Kh9mnGYDHMcZ2EUO_Y4ULRpjqzANoNiODED1Ko2GJLpq2HUPMoF3SgNSnv0A-tyS7tZ3dtRJGQOBr0OIQy3TRrQCet-wWOcP4nJWEY4JI1WWaYAVUsAu7Gun5Z4dafTH-pxyefpn.png" alt="mewtwo_spotted.png" /></p>
+<h3 id="h.cf9726bxf5o8" class="c2 c5">Responding to picture text messages</h3>
+<p>We need a Twilio phone number before we can respond to messages. You can <a href="https://www.twilio.com/console/phone-numbers/search" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/phone-numbers/search', 'buy a Twilio phone number here');">buy a Twilio phone number here</a>.</p>
+<p>Now that we have the image manipulation taken care of, make a Flask app that receives picture messages and responds to them with a Pokemon being captured in that picture.</p>
+<p>Open a file called <code>app.py</code> in the same directory as before and add the following code:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879502e9b8bb655505077" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+import requests
+from flask import Flask, request, send_from_directory
+from twilio import twiml
+
+from overlay import overlay
+
+UPLOAD_FOLDER = '/Path/to/your/code/directory'
+legendary_pokemon = ['articuno', 'zapdos', 'moltres', 'mewtwo', 'mew']
+
+app = Flask(__name__)
+
+
+@app.route('/sms', methods=['POST', 'GET'])
+def sms():
+    # Generate TwiML to respond to the message.
+    response = twiml.Response()
+    response.message("Please wait while we try to catch your Pokemon")
+
+    if request.form['NumMedia'] != '0':
+
+        # Default to Mew if no Pokemon is selected.
+        if request.form['Body']:
+            # Take the first word they sent, and convert it to lowercase.
+            pokemon = request.form['Body'].split()[0].lower()
+            if not pokemon in legendary_pokemon:
+                pokemon = 'mew'
+        else:
+            pokemon = 'mew'
+
+        # Save the image to a new file.
+        filename = request.form['MessageSid'] + '.png'
+        with open('{}/{}'.format(UPLOAD_FOLDER, filename), 'wb') as f:
+           image_url = request.form['MediaUrl0']
+           f.write(requests.get(image_url).content)
+
+        # Manipulate the image.
+        overlay('{}/{}'.format(UPLOAD_FOLDER, filename), pokemon)
+
+        # Respond to the text message.
+        with response.message() as message:
+            message.body = "{0}".format("Congrats on the sweet catch.")
+            message.media('http://{your_ngrok_url}/uploads/{}'.format(filename))
+    else:
+        response.message("Send me an image that you want to catch a Pokemon on!")
+
+    return str(response)
+
+
+@app.route('/uploads/', methods=['GET', 'POST'])
+def uploaded_file(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
+
+if __name__ == "__main__":
+    app.run()</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-2">2</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-4">4</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-6">6</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-8">8</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-10">10</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-12">12</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-14">14</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-16">16</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-18">18</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-20">20</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-22">22</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-24">24</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-26">26</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-28">28</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-29">29</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-30">30</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-31">31</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-32">32</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-33">33</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-34">34</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-35">35</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-36">36</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-37">37</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-38">38</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-39">39</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-40">40</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-41">41</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-42">42</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-43">43</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-44">44</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-45">45</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-46">46</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-47">47</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-48">48</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-49">49</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-50">50</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-51">51</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-52">52</div><div class="crayon-num" data-line="crayon-5879502e9b8bb655505077-53">53</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879502e9b8bb655505077-54">54</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879502e9b8bb655505077-1"><span class="crayon-e">import </span><span class="crayon-e">requests</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-2"><span class="crayon-e">from </span><span class="crayon-e">flask </span><span class="crayon-e">import </span><span class="crayon-i">Flask</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">request</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">send_from_directory</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-3"><span class="crayon-e">from </span><span class="crayon-e">twilio </span><span class="crayon-e">import </span><span class="crayon-e">twiml</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-4">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-5"><span class="crayon-e">from </span><span class="crayon-e">overlay </span><span class="crayon-e">import </span><span class="crayon-e">overlay</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-6">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-7"><span class="crayon-v">UPLOAD_FOLDER</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'/Path/to/your/code/directory'</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-8"><span class="crayon-v">legendary_pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-s">'articuno'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'zapdos'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'moltres'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'mewtwo'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'mew'</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-10"><span class="crayon-v">app</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Flask</span><span class="crayon-sy">(</span><span class="crayon-i">__name__</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-11">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-12">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-13"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/sms'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'GET'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-14"><span class="crayon-e">def </span><span class="crayon-e">sms</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Generate TwiML to respond to the message.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-s">"Please wait while we try to catch your Pokemon"</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-18">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'NumMedia'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">!=</span><span class="crayon-h"> </span><span class="crayon-s">'0'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-20">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Default to Mew if no Pokemon is selected.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'Body'</span><span class="crayon-sy">]</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Take the first word they sent, and convert it to lowercase.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'Body'</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-e">split</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-e">lower</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-25"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-st">not</span><span class="crayon-h"> </span><span class="crayon-e">pokemon </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-i">legendary_pokemon</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-26"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'mew'</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-27"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">else</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-28"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">pokemon</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'mew'</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-29">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-30"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Save the image to a new file.</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-31"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">filename</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'MessageSid'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-s">'.png'</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-32"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">with </span><span class="crayon-e">open</span><span class="crayon-sy">(</span><span class="crayon-s">'{}/{}'</span><span class="crayon-sy">.</span><span class="crayon-e">format</span><span class="crayon-sy">(</span><span class="crayon-i">UPLOAD_FOLDER</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">filename</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'wb'</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-st">as</span><span class="crayon-h"> </span><span class="crayon-i">f</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-33"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-v">image_url</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'MediaUrl0'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-34"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-v">f</span><span class="crayon-sy">.</span><span class="crayon-e">write</span><span class="crayon-sy">(</span><span class="crayon-v">requests</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-i">image_url</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-i">content</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-35">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-36"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Manipulate the image.</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-37"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">overlay</span><span class="crayon-sy">(</span><span class="crayon-s">'{}/{}'</span><span class="crayon-sy">.</span><span class="crayon-e">format</span><span class="crayon-sy">(</span><span class="crayon-i">UPLOAD_FOLDER</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">filename</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">pokemon</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-38">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-39"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-p"># Respond to the text message.</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-40"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">with </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-st">as</span><span class="crayon-h"> </span><span class="crayon-i">message</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-41"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-v">body</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"{0}"</span><span class="crayon-sy">.</span><span class="crayon-e">format</span><span class="crayon-sy">(</span><span class="crayon-s">"Congrats on the sweet catch."</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-42"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-e">media</span><span class="crayon-sy">(</span><span class="crayon-s">'http://{your_ngrok_url}/uploads/{}'</span><span class="crayon-sy">.</span><span class="crayon-e">format</span><span class="crayon-sy">(</span><span class="crayon-i">filename</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-43"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">else</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-44"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-s">"Send me an image that you want to catch a Pokemon on!"</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-45">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-46"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">str</span><span class="crayon-sy">(</span><span class="crayon-i">response</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-47">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-48">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-49"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/uploads/'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'GET'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-50"><span class="crayon-e">def </span><span class="crayon-e">uploaded_file</span><span class="crayon-sy">(</span><span class="crayon-i">filename</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-51"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">send_from_directory</span><span class="crayon-sy">(</span><span class="crayon-i">UPLOAD_FOLDER</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">filename</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-52">&nbsp;</div><div class="crayon-line" id="crayon-5879502e9b8bb655505077-53"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">__name__</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">"__main__"</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879502e9b8bb655505077-54"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">run</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0199 seconds] -->
+<p>The <code>/sms</code> route responds to an <a href="https://www.twilio.com/docs/quickstart/python/sms/hello-monkey" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/quickstart/python/sms/hello-monkey', 'incoming text message');">incoming text message</a> with some Twilio flavored XML called <a href="https://www.twilio.com/docs/api/twiml" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml', 'TwiML');">TwiML</a>. Notice that the ‘NumMedia’ parameter is not zero, meaning we received an MMS. Twilio does not return an image itself, they return a URL to the image.</p>
+<p>We create a string called filename using the <code>MessageSid</code> parameter to maintain a unique identifier for each image. Then the program opens the file to write the content of Twilio’s image to the file.</p>
+<p>The second route, <code>/uploads/&lt;filename&gt;</code> handles the delivery of the <code>message.media</code> TwiML using that URL to retrieve the new image.</p>
+<p>Your Flask app will need to be visible from the internet in order for Twilio to send requests to it. We will use <a href="https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html', 'ngrok');">ngrok</a> for this, which you’ll need to install if you don’t have it. In your terminal run the following command:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879502e9b8c8436736337" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ngrok http 5000</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879502e9b8c8436736337-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879502e9b8c8436736337-1"><span class="crayon-e">ngrok </span><span class="crayon-i">http</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 173.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/08/yjHkInUbMGrCihY3LTrX-m37FxJs-kaZ67KS9fWgqibk0flIc9pTPbxg04VMtv1dqkxBXAzSssvMMmxkEqNYdid_dAScvUs7WO1YbKbuWZ4tKZMhBZI5eJ1IikXwjxKT8dEcxTad.png" alt="bLqHzdmXrzBH4pEr4ADRoWbU2Kgitkg848ZYE-aRACC0ZGMgC6a_98CmPb9VCzvFSrpbbDc35J_IdTwUShfEqx4zuzJdqthNy9En-RE3-8Ma2h3gXOzA3kErkbqrvjqBZxJg4sZH.png" /></p>
+<p>This provides us with a publicly accessible URL to the Flask app. Configure your phone number as seen in this image:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 129.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/08/hLcTZHwSC3_pwqO87dSM13v8vtDdN3hcpLTlxeRQJAkJWJxoJuqXgxf1pA4WCClYoJSjXNdyo_BBbaEbNvuuEbJdv13BhXQXkT1mxTymdfvkGXRe1HegPurZyyN__QLHiL7jSyBD.png" alt="022N1RISjv9KCUvlhfN4dJtBKJvzP_96q9d558H2YMmpLGOoyl9PSqap29D11yzHgHHJVCY2u6x86xQs37xvSv1ZB3t7vxZEp3rb4n58ZuvwdSkT-ydPBD8DgvCqMmknzPHF3r4w.png" /></p>
+<p>Before testing this out, make sure that you’ve changed the file paths and the URL to reflect your own.</p>
+<p>Now try texting an image and the name of a legendary Pokemon to your newly configured Twilio number. Looks like we found a Zapdos in the Twilio New York office!</p>
+<p><img class="&quot; aligncenter" style="width: 384.00px; height: 512.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/08/340VI5qIe56hRInfbKWYzkY0l34DEGJZEHtTNcB1OTTP_I212YIshes022s-dGrkZ3Vb_krDgF3g0fbmNLt0AANtw_gixk8YtL_9cRb-63iIIbWzfWgTl4tHPnGnOfdFXtBc8OaH.png" alt="zapdos_spotted.png" /></p>
+<h3 id="h.qh3mb1jwurqo" class="c2 c5">Time to catch &#8217;em all!</h3>
+<p>Now that you can send messages to make it look like you are catching legendary Pokemon in any arbitrary picture, your quest to making your friends think you are a Pokemon master can truly begin.</p>
+<p>The code for this project also lives on <a href="https://github.com/sagnew/pokemon-faux" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/sagnew/pokemon-faux', 'this GitHub repository');">this GitHub repository</a>.</p>
+<p>For more Pokemon Go-related awesomeness, check out <a href="https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2016/07/pokemon-go-sms-node-js-twilio.html', 'this post');">this post</a> that will walk you through setting up SMS alerts when rare Pokemon are nearby.</p>
+<p>Feel free to reach out if you have any questions or comments or just want to show off the cool stuff you’ve built.</p>
+<ul style="padding-left: 36px;">
+<li>Email: sagnew@twilio.com</li>
+<li>Twitter: <a href="http://twitter.com/sagnewshreds" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/sagnewshreds', '@Sagnewshreds');">@Sagnewshreds</a></li>
+<li>Github: <a href="https://github.com/sagnew" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/sagnew', 'Sagnew');">Sagnew</a></li>
+<li>Twitch (streaming live code): <a href="http://www.twitch.tv/sagnewshreds" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twitch.tv/sagnewshreds', 'Sagnewshreds');">Sagnewshreds</a></li>
+</ul>
+<p>Thanks to my good friend <a href="https://github.com/9" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/9', 'Shahan Akhter');">Shahan Akhter</a> for helping out with image manipulation and tweaking the Python code to make the images look better.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html" data-text="Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/5752e6c34d193772888e17292419c318?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/5752e6c34d193772888e17292419c318?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/samagnew">Sam Agnew</a></span></span> <span class="author-meta author-email"><a href="mailto:sagnew@twilio.com">sagnew@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Python</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/python/django" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/python/django', '');">
+          <h5>SMS and MMS Notifications with Python</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/net-promoter-score-python-sms.html" rel="bookmark" title="Permanent Link to Calculating Net Promoter Score with Python and SMS" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/net-promoter-score-python-sms.html', '');">
+          <h5>Calculating Net Promoter Score with Python and SMS<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" rel="bookmark" title="Permanent Link to Build a Photobooth with an Arduino Yun, a Webcam and Dropbox" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html', '');">
+          <h5>Build a Photobooth with an Arduino Yun, a Webcam and Dropbox<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" rel="bookmark" title="Permanent Link to Building A Multi Channel Support Desk with TaskRouter" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html', '');">
+          <h5>Building A Multi Channel Support Desk with TaskRouter<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2016/08/18473 https://www.twilio.com/blog/?p=18473';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Pokemon Faux: Create Fake Pokemon Go Screenshots with Python, Flask and Twilio MMS";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html?cf_action=sync_comments&amp;post_id=18473';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2016\/08\/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2016/08/pokemon-faux-create-fake-pokemon-go-screenshots-with-python-flask-and-twilio-mms.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+</html>

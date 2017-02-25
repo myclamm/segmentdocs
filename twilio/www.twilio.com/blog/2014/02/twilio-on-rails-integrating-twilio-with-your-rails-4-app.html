@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Twilio on Rails &#8211; Integrating Twilio With Your Rails 4 App &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Basics of integrating Twilio with a Rails 4 app. Will cover 1) signing-up 2) purchasing a phone number 3) connecting that phone number to a Rails app."/>
+<link rel="canonical" href="https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Twilio on Rails &#8211; Integrating Twilio With Your Rails 4 App Comments Feed" href="https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Carter Rabasa');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'developer,NGrok,rails,Ruby,rubyonrails,Voice,webhook');
+	__gaTracker('set', 'dimension8', '2014-02-26T09:50:46+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=13014' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2014%2F02%2Ftwilio-on-rails-integrating-twilio-with-your-rails-4-app.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2014%2F02%2Ftwilio-on-rails-integrating-twilio-with-your-rails-4-app.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-13014 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-13014" class="row post-13014 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-developer tag-ngrok tag-rails tag-ruby tag-rubyonrails tag-voice tag-webhook">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Twilio on Rails &#8211; Integrating Twilio With Your Rails 4 App</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="265" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/twilio-on-rails2.png" class="img-responsive wp-post-image" alt="twilio-on-rails2" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/twilio-on-rails2.png 640w, https://www.twilio.com/blog/wp-content/uploads/2014/02/twilio-on-rails2-300x124.png 300w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/carter">Carter Rabasa</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html" rel="bookmark"><time class="entry-date published" datetime="2014-02-26T09:50:46+00:00">February 26, 2014</time><time class="updated" datetime="2017-01-04T02:11:56+00:00">January 4, 2017</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html" data-text="Twilio on Rails &#8211; Integrating Twilio With Your Rails 4 App ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p dir="ltr">In this blog post I’m going to walk you through the basics of integrating Twilio with your Rails 4 application. We’ll cover signing-up for Twilio, purchasing a phone number and connecting that phone number to your Rails app. But first I’d like to tell you a story.</p>
+<p dir="ltr">Long before I joined Twilio and became a <a href="http://www.jobscore.com/jobs/twilio/developer-evangelist-any-major-u-s-city/a2IQ0sWv0r4B0BeJe4bk1X?ref=rss&amp;sid=68" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.jobscore.com/jobs/twilio/developer-evangelist-any-major-u-s-city/a2IQ0sWv0r4B0BeJe4bk1X?ref=rss&amp;sid=68', 'Developer Evangelist');">Developer Evangelist</a> I was a small business owner who needed to build a reasonably complex web application and was running out of time. It was 2005 and I had recently left my job as a J2EE developer to start a <a href="http://dckickball.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://dckickball.org/', 'recreational sports league');">recreational sports league</a>. Why I would do such a thing is for another post, but I needed to build some software quickly that was going to allow people to sign-up for my new league, join a team and make a payment online. And those were just the initial requirements. I knew I could build this software using a Java stack (Struts, Hibernate, MySQL) but I was nervous about how fast I could pull it all together. I needed to launch and open registration in a matter of weeks in order to start my registration push for the upcoming Spring season.</p>
+<p dir="ltr">Enter Ruby on Rails which <a href="http://weblog.rubyonrails.org/2005/12/13/rails-1-0-party-like-its-one-oh-oh/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://weblog.rubyonrails.org/2005/12/13/rails-1-0-party-like-its-one-oh-oh/', 'went 1.0');">went 1.0</a> on December 13th, 2005. With Rails, I was able to rapidly build the software that I needed and registration opened on-time. Following the launch I was able to continue to iterate rapidly, migrate database schema changes effortlessly and generally focus on my customers rather than minutiae. I think it’s fair to say that Rails was one of the most influential technologies to hit the web in the past decade and it’s been part of my toolbelt ever since.</p>
+<h3 dir="ltr">Step 1: Create Twilio Account</h3>
+<p dir="ltr">Now, back to our regularly scheduled program where we fast forward to 2014 and integrate Twilio with a <a href="http://weblog.rubyonrails.org/2013/6/25/Rails-4-0-final/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://weblog.rubyonrails.org/2013/6/25/Rails-4-0-final/', 'Rails 4');">Rails 4</a> web application. The first thing we need to do is sign-up for a <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twilio.com/try-twilio', 'free Twilio account');">free Twilio account</a>.</p>
+<p dir="ltr"><img class="alignnone size-full wp-image-13016" alt="try twilio for free" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/try-twilio-e1393018688273.png" width="600" height="329" /></p>
+<p dir="ltr">Once you sign-up, Twilio will need to either send you a text message or give you a quick call to verify that you’re a real person and not a malicious spam bot.</p>
+<p> <img class="alignnone size-full wp-image-13017" alt="verify human" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/verify-human.png" width="600" height="228" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/verify-human.png 600w, https://www.twilio.com/blog/wp-content/uploads/2014/02/verify-human-300x114.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p dir="ltr">You’ll get either a text message or a phone call with a verification code. Enter that verification code and we can proceed to the fun part: getting a phone number.</p>
+<p><img class="alignnone size-full wp-image-13018" alt="verification code" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/verify-code.png" width="495" height="295" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/verify-code.png 495w, https://www.twilio.com/blog/wp-content/uploads/2014/02/verify-code-300x178.png 300w" sizes="(max-width: 495px) 100vw, 495px" /></p>
+<p dir="ltr">Twilio will assign you a random phone number, but you can feel free to look around and see what other numbers are available. For the purposes of this tutorial, any number will do.</p>
+<p dir="ltr"><img class="alignnone size-full wp-image-13042" alt="first phone number" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/first-number.png" width="600" height="243" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/first-number.png 600w, https://www.twilio.com/blog/wp-content/uploads/2014/02/first-number-300x121.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p dir="ltr">At this point you have now become the proud owner of a programmable phone number. Sweet! Go ahead and click on “Get started”. On the next page click on the red button to “Go To Your Account”.</p>
+<h3 dir="ltr">Step 2: Configure Twilio Number</h3>
+<p dir="ltr">When you’re logged-in to the dashboard, you can click on the “numbers” tab to see all of the phone numbers you own.</p>
+<p><img class="alignnone size-full wp-image-13019" alt="manage numbers" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/manage-numbers.png" width="600" height="239" /></p>
+<p dir="ltr">Clicking on a number brings you to the number’s configuration page. When someone sends a message or makes a phone call to your number, Twilio needs to know <b>what to do</b>. In order to deal with these inbound events, Twilio makes use of a construct known as a <a href="http://en.wikipedia.org/wiki/Webhook" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://en.wikipedia.org/wiki/Webhook', 'webhook');">webhook</a>. A webhook is simply a URL that Twilio will call in to in order to retrieve instructions on how to handle the incoming message or phone call.</p>
+<p><img class="alignnone size-full wp-image-13034" alt="twilio webhooks" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/webhook.png" width="600" height="352" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/webhook.png 600w, https://www.twilio.com/blog/wp-content/uploads/2014/02/webhook-300x176.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p dir="ltr">Each phone number has two configurable webhooks:</p>
+<ol>
+<li dir="ltr">Voice Request URL for incoming phone calls</li>
+<li dir="ltr">Messaging Request URL for incoming SMS or MMS messages</li>
+</ol>
+<p dir="ltr">In this blog post we’re going to build a simple app that lets a person make a phone call to your Twilio number. Since that’s an inbound phone call, we’ll need to set the Voice Request URL to point to a route in our Rails app. Let’s dive into that.</p>
+<h3 dir="ltr">Step 3: Create a Rails 4 App</h3>
+<p dir="ltr">If you already have an existing Rails 4 app, go ahead and skip to step 4. For those of you who are just getting started here are some simple steps for creating one. First you’ll need to <a href="http://rubyonrails.org/download" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://rubyonrails.org/download', 'install Rails');">install Rails</a> on your system. Once you’ve done this, open up your terminal application and change to the directory where you keep your projects. Creating a new Rails web application is as simple as:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53cde8444690883" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+rails new a-name-for-your-app</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53cde8444690883-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53cde8444690883-1"><span class="crayon-e">rails </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-i">a</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-o">-</span><span class="crayon-st">for</span><span class="crayon-o">-</span><span class="crayon-i">your</span><span class="crayon-o">-</span><span class="crayon-i">app</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>This will make a new directory and create all of the scaffolding for your application. In order to ease our integration with Twilio, we’re going to make use of the 
+			<span id="crayon-58794dc53cdfc163920113" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-i">ruby</span></span></span> gem. Open Gemfile and add the following line:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53ce07676672342" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+gem 'twilio-ruby'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53ce07676672342-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53ce07676672342-1"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'twilio-ruby'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>Then run 
+			<span id="crayon-58794dc53ce11663922016" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">bundle </span><span class="crayon-i">install</span></span></span>.</p>
+<h3 dir="ltr">Step 4: Add Endpoints for Twilio</h3>
+<p dir="ltr">In order to handle the inbound phone call, let’s create a new file called 
+			<span id="crayon-58794dc53ce1b131517236" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">twilio_controller</span><span class="crayon-sy">.</span><span class="crayon-i">rb</span></span></span> and place it in the 
+			<span id="crayon-58794dc53ce25451867383" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">app</span><span class="crayon-o">/</span><span class="crayon-i">controllers</span></span></span> directory:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53ce2e057015849" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+require 'twilio-ruby'
+
+class TwilioController &lt; ApplicationController
+  include Webhookable
+
+  after_filter :set_header
+
+  skip_before_action :verify_authenticity_token
+
+  def voice
+  	response = Twilio::TwiML::Response.new do |r|
+  	  r.Say 'Hey there. Congrats on integrating Twilio into your Rails 4 app.', :voice =&gt; 'alice'
+         r.Play 'http://linode.rabasa.com/cantina.mp3'
+  	end
+
+  	render_twiml response
+  end
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-2">2</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-4">4</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-6">6</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-8">8</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-10">10</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-12">12</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-14">14</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-16">16</div><div class="crayon-num" data-line="crayon-58794dc53ce2e057015849-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce2e057015849-18">18</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53ce2e057015849-1"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'twilio-ruby'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-2">&nbsp;</div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-3"><span class="crayon-r">class</span><span class="crayon-h"> </span><span class="crayon-i">TwilioController</span><span class="crayon-h"> </span><span class="crayon-o">&lt;</span><span class="crayon-h"> </span><span class="crayon-i">ApplicationController</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">include</span><span class="crayon-h"> </span><span class="crayon-i">Webhookable</span></div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">after_filter</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">set_header</span></div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-8"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">skip_before_action</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">verify_authenticity_token</span></div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-10"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">voice</span></div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">Twilio</span><span class="crayon-o">::</span><span class="crayon-i">TwiML</span><span class="crayon-o">::</span><span class="crayon-v">Response</span><span class="crayon-sy">.</span><span class="crayon-i">new</span><span class="crayon-h"> </span><span class="crayon-st">do</span><span class="crayon-h"> </span><span class="crayon-o">|</span><span class="crayon-i">r</span><span class="crayon-o">|</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-i">Say</span><span class="crayon-h"> </span><span class="crayon-s">'Hey there. Congrats on integrating Twilio into your Rails 4 app.'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-v">voice</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">'alice'</span></div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-i">Play</span><span class="crayon-h"> </span><span class="crayon-s">'http://linode.rabasa.com/cantina.mp3'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-15">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">render_twiml</span><span class="crayon-h"> </span><span class="crayon-i">response</span></div><div class="crayon-line" id="crayon-58794dc53ce2e057015849-17"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce2e057015849-18"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0051 seconds] -->
+<p></p>
+<p dir="ltr">You’ll see that this controller has an action called 
+			<span id="crayon-58794dc53ce39569033005" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">voice</span></span></span>. The purpose of the voice action is to tell Twilio what to do when someone calls your Twilio number. In this case, we make use of the 
+			<span id="crayon-58794dc53ce43059762891" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-i">ruby</span></span></span> helper library to build a response object and then render that response object as TwiML. There’s a lot of stuff going on here, so let’s unpack it.</p>
+<h4 dir="ltr">Disabling CSRF Detection</h4>
+<p>Rails ships with a great feature that helps prevent <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://en.wikipedia.org/wiki/Cross-site_request_forgery', 'CSRF attacks');">CSRF attacks</a>. This is accomplished by automatically embedding a randomly generated token in an app&#8217;s web forms and then checking to see that this token is present and correct when the form is submitted. This feature is typically enabled in the 
+			<span id="crayon-58794dc53ce4d547317721" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">app</span><span class="crayon-o">/</span><span class="crayon-i">controllers</span><span class="crayon-o">/</span><span class="crayon-v">application</span><span class="crayon-sy">.</span><span class="crayon-i">rb</span></span></span> file with the line 
+			<span id="crayon-58794dc53ce57902727584" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">protect_from_forgery </span><span class="crayon-i">with</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">exception</span></span></span>. This line tells all controllers to enable CSRF detection and to throw an exception when they occur</p>
+<p>However, if your app wants to provide a POST endpoint to external 3rd parties (like Twilio) you have to disable CSRF detection for these endpoints. Luckily Rails makes it easy to disable CSRF detection for a controller or even for specific actions in a controller. In our case, we use the following line in 
+			<span id="crayon-58794dc53ce61876167065" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">app</span><span class="crayon-o">/</span><span class="crayon-i">controllers</span><span class="crayon-o">/</span><span class="crayon-v">twilio_controller</span><span class="crayon-sy">.</span><span class="crayon-i">rb</span></span></span> to disable CSRF detection: 
+			<span id="crayon-58794dc53ce6b415654317" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">skip_before_action</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-i">verify_authenticity_token</span></span></span></p>
+<h4 dir="ltr">TwiML</h4>
+<p>I’ve mentioned several times that Twilio uses webhooks to figure out “what to do”. The instructions that your app sends Twilio are encoded in <a href="https://www.twilio.com/docs/api/twiml" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml', 'TwiML');">TwiML</a>, which is what we call the Twilio XML vocabulary.</p>
+<p>In the code above we are using the 
+			<span id="crayon-58794dc53ce75109665026" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-i">ruby</span></span></span> helper library to programmatically generate TwiML. It’s very similar to how you might use <a href="http://builder.rubyforge.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://builder.rubyforge.org/', 'Builder');">Builder</a> to generate XML. Please keep in mind that you aren’t required to use the helper library, it’s just a convenient way to generate some TwiML.</p>
+<h4>The Webhookable Concern</h4>
+<p>Rails introduced native support for <a href="http://stackoverflow.com/a/15078070/476286" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://stackoverflow.com/a/15078070/476286', 'Concerns');">Concerns</a> in Rails 4. Concerns are a way to encourage code reuse in controllers and models, and you’ll see a concerns subdirectory in both the controllers and models directories.</p>
+<p>Since Twilio webhooks all require similar functionality, it seemed like a great candidate for a Concern. Let&#8217;s create a file called 
+			<span id="crayon-58794dc53ce80027482182" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">webhookable</span><span class="crayon-sy">.</span><span class="crayon-i">rb</span></span></span> and place it in 
+			<span id="crayon-58794dc53ce8a442238204" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">app</span><span class="crayon-o">/</span><span class="crayon-i">controllers</span><span class="crayon-o">/</span><span class="crayon-i">concerns</span></span></span>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53ce93421703256" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+module Webhookable
+extend ActiveSupport::Concern
+
+	def set_header
+      		response.headers["Content-Type"] = "text/xml"
+	end
+
+	def render_twiml(response)
+      		render text: response.text
+	end
+
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53ce93421703256-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce93421703256-2">2</div><div class="crayon-num" data-line="crayon-58794dc53ce93421703256-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce93421703256-4">4</div><div class="crayon-num" data-line="crayon-58794dc53ce93421703256-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce93421703256-6">6</div><div class="crayon-num" data-line="crayon-58794dc53ce93421703256-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce93421703256-8">8</div><div class="crayon-num" data-line="crayon-58794dc53ce93421703256-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce93421703256-10">10</div><div class="crayon-num" data-line="crayon-58794dc53ce93421703256-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53ce93421703256-12">12</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53ce93421703256-1"><span class="crayon-r">module</span><span class="crayon-h"> </span><span class="crayon-i">Webhookable</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce93421703256-2"><span class="crayon-i">extend</span><span class="crayon-h"> </span><span class="crayon-i">ActiveSupport</span><span class="crayon-o">::</span><span class="crayon-i">Concern</span></div><div class="crayon-line" id="crayon-58794dc53ce93421703256-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce93421703256-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">set_header</span></div><div class="crayon-line" id="crayon-58794dc53ce93421703256-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-v">headers</span><span class="crayon-sy">[</span><span class="crayon-s">"Content-Type"</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"text/xml"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce93421703256-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794dc53ce93421703256-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce93421703256-8"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">render_twiml</span><span class="crayon-sy">(</span><span class="crayon-i">response</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc53ce93421703256-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">render</span><span class="crayon-h"> </span><span class="crayon-i">text</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">text</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce93421703256-10"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794dc53ce93421703256-11">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53ce93421703256-12"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0032 seconds] -->
+<p>&nbsp;</p>
+<p dir="ltr">This Concern provides two simple capabilities:</p>
+<ol>
+<li dir="ltr">Setting the HTTP response content type to “text/xml”</li>
+<li dir="ltr">Rendering the TwiML object to raw XML</li>
+</ol>
+<h4 dir="ltr">Adding the Route</h4>
+<p>The last thing we need to do it edit 
+			<span id="crayon-58794dc53ce9e677841666" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">config</span><span class="crayon-o">/</span><span class="crayon-v">routes</span><span class="crayon-sy">.</span><span class="crayon-i">rb</span></span></span> and wire up a URL path to our controller and action:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53cea7304547490" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+post 'twilio/voice' =&gt; 'twilio#voice'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53cea7304547490-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53cea7304547490-1"><span class="crayon-i">post</span><span class="crayon-h"> </span><span class="crayon-s">'twilio/voice'</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-s">'twilio#voice'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p></p>
+<h3> Step 5: Make it Live</h3>
+<p dir="ltr">Save all your files and head back to the terminal to fire up your local development server:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53ceb1118943381" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+rails server</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53ceb1118943381-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53ceb1118943381-1"><span class="crayon-e">rails </span><span class="crayon-i">server</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>The server by default runs on localhost at port 3000. Open up your web browser and go to <a href="http://localhost:3000/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://localhost:3000/', 'http://localhost:3000/');">http://localhost:3000</a> and you should see this:</p>
+<p><img class="alignnone size-full wp-image-13035" style="border: 1px solid #ccc;" alt="rails-welcome" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/rails-welcome.png" width="368" height="101" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/rails-welcome.png 368w, https://www.twilio.com/blog/wp-content/uploads/2014/02/rails-welcome-300x82.png 300w" sizes="(max-width: 368px) 100vw, 368px" /></p>
+<p dir="ltr">You can test the twilio_controller from the command line using cURL:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53cebc490883407" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ curl -X POST http://localhost:3000/twilio/voice -d 'foo=bar'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53cebc490883407-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53cebc490883407-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">curl</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">X</span><span class="crayon-h"> </span><span class="crayon-e">POST </span><span class="crayon-i">http</span><span class="crayon-o">:</span><span class="crayon-c">//localhost:3000/twilio/voice -d 'foo=bar'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<p dir="ltr">You should get back the following XML:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53cec6008974968" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">XHTML</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+&lt;?xml version="1.0" encoding="UTF-8"&gt;
+&lt;Response&gt;
+  &lt;Say&gt;Hey there. Congrats on integrating Twilio into your Rails 4 app.&lt;/Say&gt;
+  &lt;Play&gt;http://linode.rabasa.com/cantina.mp3&lt;/Play&gt;
+&lt;/Response&gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53cec6008974968-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53cec6008974968-2">2</div><div class="crayon-num" data-line="crayon-58794dc53cec6008974968-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc53cec6008974968-4">4</div><div class="crayon-num" data-line="crayon-58794dc53cec6008974968-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53cec6008974968-1"><span class="crayon-r ">&lt;?xml </span><span class="crayon-e ">version</span><span class="crayon-o">=</span><span class="crayon-s ">"1.0"</span><span class="crayon-h"> </span><span class="crayon-e ">encoding</span><span class="crayon-o">=</span><span class="crayon-s ">"UTF-8"</span><span class="crayon-r ">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53cec6008974968-2"><span class="crayon-r ">&lt;Response&gt;</span></div><div class="crayon-line" id="crayon-58794dc53cec6008974968-3"><span class="crayon-i ">&nbsp;&nbsp;</span><span class="crayon-r ">&lt;Say&gt;</span><span class="crayon-i ">Hey there. Congrats on integrating Twilio into your Rails 4 app.</span><span class="crayon-r ">&lt;/Say&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc53cec6008974968-4"><span class="crayon-i ">&nbsp;&nbsp;</span><span class="crayon-r ">&lt;Play&gt;</span><span class="crayon-i ">http://linode.rabasa.com/cantina.mp3</span><span class="crayon-r ">&lt;/Play&gt;</span></div><div class="crayon-line" id="crayon-58794dc53cec6008974968-5"><span class="crayon-r ">&lt;/Response&gt;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p></p>
+<p dir="ltr">Now we just need to get our Rails app on the public internet. There are generally two options for this:</p>
+<ol>
+<li dir="ltr">Deploy your Rails app to your VPS or PaaS of choice.</li>
+<li dir="ltr">Use a tunnelling service to take the server running on your development machine and make it available at an address on the public internet.</li>
+</ol>
+<p dir="ltr">For this purposes of this blog post I’m going to go with option 2 using an amazing tool called Ngrok. My colleague <a href="http://twitter.com/kevinwhinnery" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/kevinwhinnery', 'Kevin Whinnery');">Kevin Whinnery</a> wrote a great blog post on <a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html', 'getting up and running with Ngrok');">getting up and running with Ngrok</a>.</p>
+<p dir="ltr">Once you’ve installed Ngrok, you can get it running and connected to your Rails server like this:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc53ced0658791012" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ngrok 3000</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc53ced0658791012-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc53ced0658791012-1"><span class="crayon-i">ngrok</span><span class="crayon-h"> </span><span class="crayon-cn">3000</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p></p>
+<p dir="ltr">Once Ngrok is running it will acquire a unique URL for your web application:</p>
+<p> <img class="alignnone size-full wp-image-13036" style="border: 1px solid #ccc;" alt="ngrok running" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/ngrok.png" width="600" height="204" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/ngrok.png 600w, https://www.twilio.com/blog/wp-content/uploads/2014/02/ngrok-300x102.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p dir="ltr">You can test to see that this is working by pasting that URL into your browser. If you see the “Welcome Aboard” message, it’s time for a fist pump! Your app is on the public internet and ready for the final step.</p>
+<h3 dir="ltr">Step 6: Complete Configuration and Test</h3>
+<p dir="ltr">Head back to your Twilio dashboard, click on the “numbers” tab and click on your Twilo number. You’ll see a screen like the one below. In the field for Voice Request URL, please enter the URL to your Ngrok server plus the path to your voice action (
+			<span id="crayon-58794dc53cedb583705957" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">twilio</span><span class="crayon-o">/</span><span class="crayon-i">voice</span></span></span>).</p>
+<p> <img class="alignnone size-full wp-image-13037" style="border: 1px solid #ccc;" alt="configure twilio number" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/configure.png" width="600" height="449" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/configure.png 600w, https://www.twilio.com/blog/wp-content/uploads/2014/02/configure-300x224.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p dir="ltr">Now, for the moment of truth: call your Twilio phone number. Keep an eye on Ngrok, you should see this happen when the call connects:</p>
+<p> <img class="alignnone size-full wp-image-13038" style="border: 1px solid #ccc;" alt="ngrok gets twilio request" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/ngrok2.png" width="371" height="88" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/ngrok2.png 371w, https://www.twilio.com/blog/wp-content/uploads/2014/02/ngrok2-300x71.png 300w" sizes="(max-width: 371px) 100vw, 371px" /></p>
+<p>If you hear a message followed by some awesome music, you’re done! You have succeeded in integrating Twilio into your Rails 4 application.</p>
+<p dir="ltr"><em>[Credit to <a href="https://soundcloud.com/saltech" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://soundcloud.com/saltech', 'Michael Sallis');">Michael Sallis</a> for his <a href="https://soundcloud.com/saltech/star-wars-cantina-band-dj-1" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://soundcloud.com/saltech/star-wars-cantina-band-dj-1', 'Star Wars cantina remix');">Star Wars cantina remix</a> which is shared under a <a href="http://creativecommons.org/licenses/by/3.0/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://creativecommons.org/licenses/by/3.0/', 'CC 3.0 license');">CC 3.0 license</a>]</em></p>
+<p dir="ltr">If you flip over to the terminal running your Rails app, you’ll also see this:</p>
+<p><img class="alignnone size-full wp-image-13039" style="border: 1px solid #ccc;" alt="rails twilio params" src="https://www.twilio.com/blog/wp-content/uploads/2014/02/rails-params.png" width="600" height="112" srcset="https://www.twilio.com/blog/wp-content/uploads/2014/02/rails-params.png 600w, https://www.twilio.com/blog/wp-content/uploads/2014/02/rails-params-300x56.png 300w" sizes="(max-width: 600px) 100vw, 600px" /></p>
+<p dir="ltr">Not only is Twilio making a HTTP POST request to your app, it is <a href="https://www.twilio.com/docs/api/twiml/twilio_request" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml/twilio_request', 'passing a large number of parameters');">passing a large number of parameters</a>. These parameters are everything that Twilio knows about the number making the call (caller) and the number being called (callee) including geographic information like City. Your app can optionally use this information to be much smarter about how it responds to these requests.</p>
+<h3 dir="ltr">Wrapping Up</h3>
+<p dir="ltr">And that’s it! You have now successfully:</p>
+<ol>
+<li dir="ltr">Signed-up for Twilio</li>
+<li dir="ltr">Acquired a phone number</li>
+<li dir="ltr">Set up a Rails 4 app</li>
+<li dir="ltr">Connected Twilio to your Rails app</li>
+<li dir="ltr">Processed an inbound phone call</li>
+</ol>
+<p dir="ltr">All of the code I showed you today is hosted up on Github, <a href="https://github.com/crabasa/twilio-rails-4" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/crabasa/twilio-rails-4', 'feel free to fork away');">feel free to fork away</a>. In the next blog post, I’ll walk you through:</p>
+<ul>
+<li dir="ltr">Securing your webhooks so that only Twilio may access them</li>
+<li dir="ltr">Using Twilio’s REST API to do outbound SMS</li>
+</ul>
+<p dir="ltr">Until then, happy hacking!</p>
+<p dir="ltr"><strong>UPDATE:</strong> Check-out <a href="https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html', 'Part 2');">Part 2</a> of this blog post series.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html" data-text="Twilio on Rails &#8211; Integrating Twilio With Your Rails 4 App ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/6417ca1c133ad9c74479a0f9a3f0dc95?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6417ca1c133ad9c74479a0f9a3f0dc95?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/carter">Carter Rabasa</a></span></span> <span class="author-meta author-email"><a href="mailto:carter@twilio.com">carter@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Ruby</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails', '');">
+          <h5>SMS and MMS Notifications with Ruby</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" rel="bookmark" title="Permanent Link to Managing Development Environment Variables Across Multiple Ruby Applications" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html', '');">
+          <h5>Managing Development Environment Variables Across Multiple Ruby Applications<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" rel="bookmark" title="Permanent Link to Note Taking On the Go With Evernote and Twilio &#8211; Part One" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html', '');">
+          <h5>Note Taking On the Go With Evernote and Twilio &#8211; Part One<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-2792">
+        <div id="dsq-comment-header-2792" class="dsq-comment-header">
+            <cite id="dsq-cite-2792">
+http://saveyourcall.com/                <span id="dsq-author-user-2792">Eric Anderson</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2792" class="dsq-comment-body">
+            <div id="dsq-comment-message-2792" class="dsq-comment-message"><p>After maintaining a Rails-based Twilio app I found Sinatra to be a better fit for Twilio. The restful routes that Rails guides you towards just doesn&#8217;t fit well with a call flow. Sinatra&#8217;s more adhoc approach worked better for me.</p>
+<p>Of course the Sinatra can be mounted in a Rails app. This is nice because you can handle your calls with a mounted Sinatra app and the web portion of the app can still take advantage of Rails. Both the Rails portion and the Sinatra portion can share the same models. This way you get the best of both worlds.</p>
+<p>Also since Sinatra supports builder I don&#8217;t find the Twilio library necessary. Here is an example Sinatra route from my app:</p>
+<p><a href="http://pastie.org/8798721" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://pastie.org/8798721', 'http://pastie.org/8798721');" rel="nofollow">http://pastie.org/8798721</a></p>
+<p>The twiml method called is just a helper method that looks like:</p>
+<p><a href="http://pastie.org/8798749" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://pastie.org/8798749', 'http://pastie.org/8798749');" rel="nofollow">http://pastie.org/8798749</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-2793">
+        <div id="dsq-comment-header-2793" class="dsq-comment-header">
+            <cite id="dsq-cite-2793">
+http://about.me/tamouse                <span id="dsq-author-user-2793">Tamara Temple</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2793" class="dsq-comment-body">
+            <div id="dsq-comment-message-2793" class="dsq-comment-message"><p>Thanks much for this article. I&#8217;m having a go with webhooks from another service, but this article was particularly useful. And thanks for the info about ngrok &#8212; I was seriously considering having to roll up something myself to test this!</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2811">
+        <div id="dsq-comment-header-2811" class="dsq-comment-header">
+            <cite id="dsq-cite-2811">
+http://www.twilio.com                <span id="dsq-author-user-2811">Twilio</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2811" class="dsq-comment-body">
+            <div id="dsq-comment-message-2811" class="dsq-comment-message"><p>Tamara,<br />
+Glad to hear it. Let us know if you need any help testing or need a few ideas to get you started building. We&#8217;re here to help.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-2816">
+        <div id="dsq-comment-header-2816" class="dsq-comment-header">
+            <cite id="dsq-cite-2816">
+                <span id="dsq-author-user-2816">Asnad Atta</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2816" class="dsq-comment-body">
+            <div id="dsq-comment-message-2816" class="dsq-comment-message"><p>You forget to add protect_from_forgery :only =&gt; [:voice] in controller. I stucked for a while any way thanks for the nice tutorial.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-2818">
+        <div id="dsq-comment-header-2818" class="dsq-comment-header">
+            <cite id="dsq-cite-2818">
+http://carter.rabasa.com                <span id="dsq-author-user-2818">crabasa</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2818" class="dsq-comment-body">
+            <div id="dsq-comment-message-2818" class="dsq-comment-message"><p>Hey Asnad. I don&#8217;t think you&#8217;re using protect_from_forgery correctly in this case. This is a method that is used to protect Rails apps from CSRF attacks. You can read more about them here:</p>
+<p><a href="http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf', 'http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf');" rel="nofollow">http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf</a></p>
+<p>Since the HTTP POST request from Twilio will not contain the CSRF token that the Rails app expects (if you have turned this feature on), you actually have to tell your Rails app to exclude the Twilio action(s) from being inspected. To do this, you would include the following line:</p>
+<p>protect_from_forgery :except =&gt; [:voice]</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-3" id="dsq-comment-3042">
+        <div id="dsq-comment-header-3042" class="dsq-comment-header">
+            <cite id="dsq-cite-3042">
+                <span id="dsq-author-user-3042">Asnad Atta</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3042" class="dsq-comment-body">
+            <div id="dsq-comment-message-3042" class="dsq-comment-message"><p>yes you are right Thanks</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-2866">
+        <div id="dsq-comment-header-2866" class="dsq-comment-header">
+            <cite id="dsq-cite-2866">
+                <span id="dsq-author-user-2866">Tom Hanlon</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2866" class="dsq-comment-body">
+            <div id="dsq-comment-message-2866" class="dsq-comment-message"><p>Great write up, I look forward to future posts!</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-3179">
+        <div id="dsq-comment-header-3179" class="dsq-comment-header">
+            <cite id="dsq-cite-3179">
+http://carter.rabasa.com                <span id="dsq-author-user-3179">crabasa</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3179" class="dsq-comment-body">
+            <div id="dsq-comment-message-3179" class="dsq-comment-message"><p>Here you go: <a href="https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html', 'https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html');" rel="nofollow">https://www.twilio.com/blog/2014/10/twilio-on-rails-part-2-rails-4-app-sending-sms-mms.html</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-2957">
+        <div id="dsq-comment-header-2957" class="dsq-comment-header">
+            <cite id="dsq-cite-2957">
+                <span id="dsq-author-user-2957">kamal namdeo</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2957" class="dsq-comment-body">
+            <div id="dsq-comment-message-2957" class="dsq-comment-message"><p>Can you please share that how can i make a outbound call to a person who want to register in my application and make a verification through his voice(in short i want to register a person in my rails app through voice call verification), Is that possible with twillo or suggest some other way to do it?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-3123">
+        <div id="dsq-comment-header-3123" class="dsq-comment-header">
+            <cite id="dsq-cite-3123">
+                <span id="dsq-author-user-3123">venkat</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3123" class="dsq-comment-body">
+            <div id="dsq-comment-message-3123" class="dsq-comment-message"><p>hi can, anybody please how to make conference call to continue this flow, i tried with d.conference, there i am getting music, can anybody please give me proper way to get conference call .</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-3313">
+        <div id="dsq-comment-header-3313" class="dsq-comment-header">
+            <cite id="dsq-cite-3313">
+                <span id="dsq-author-user-3313">ztredded</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3313" class="dsq-comment-body">
+            <div id="dsq-comment-message-3313" class="dsq-comment-message"><p>How did you get the code inside those interactive boxes?  I&#8217;m writing a ruby blog and would like to be able to do this&#8230;</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2014/02/13014 http://twilioinc.wpengine.com/?p=13014';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Twilio on Rails &#8211; Integrating Twilio With Your Rails 4 App";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html?cf_action=sync_comments&amp;post_id=13014';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2014\/02\/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2014/02/twilio-on-rails-integrating-twilio-with-your-rails-4-app.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+</html>

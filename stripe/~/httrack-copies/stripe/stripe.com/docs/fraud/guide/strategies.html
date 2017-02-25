@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/fraud/guide/strategies by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:40 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="BP322bwcLzkRQAFq-y0f54SBN9OvgVficQgQ6WE-Ud-dZ-KkutnrfNwEJXU3JSqcrf-5VPMtlkIwvRrBxOmbrg==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Methods of Fraud Prevention</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Methods of Fraud Prevention">
+    <meta property="og:url" content="strategies.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Methods of Fraud Prevention">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Methods of Fraud Prevention</h1>
+  <p>There are a number of possible anti-fraud methods that you can use, each with a different trade-off between customer conversion and fraud losses. This is part two of our <a href="../guide.html">Understanding and Preventing Online Fraud</a> guide.</p>
+</header>
+
+<section>
+<aside class="note">
+  <h3>Keeping your fraud prevention strategy updated</h3>
+  <p>Fraud prevention should be considered an ongoing process. As your business grows and develops, so too must your strategy. What works one year—or even during one season—may not work the next. Some businesses even change their strategies during peak periods, such as holidays or sales events.</p>
+</aside>
+
+<p>An effective fraud prevention strategy uses a number of methods that are best suited for your business while keeping any customer burden to a minimum. A strategy that uses too few methods of fraud prevention cannot prevent a lot of fraud. Likewise, a strategy that uses too many methods can result in false positives–this causes frustration for your customers as they may need to take additional steps to complete their order, or be unable to complete it at all.</p>
+
+<p>This balance between an acceptable level of losses and customer conversion is central to how you develop your fraud prevention strategy and decide upon the methods you use. Too strong a strategy can be almost as detrimental to your business as having  a weak strategy. Depending on the service you provide, the goods you sell, or how your business operates, certain methods are more effective than others.</p>
+
+<p>Our fraud prevention toolset, <a href="../../../radar.html">Radar</a>, is built directly into the payment flow and combines a customizable rules engine with powerful machine learning algorithms. This process detects patterns across payments from each and every business processing payments with Stripe, assessing each payment processed for risk. You can use the features of Radar to create a highly effective fraud prevention strategy.</p></section>
+<section>
+<h2 id="rules-based-methods">Rules-based methods</h2>
+
+<p>Using <a href="../rules.html">rules</a>, you can adopt methods that evaluate payments based upon your specific criteria, and take the appropriate action automatically. You can also create rules that make use of multiple criteria, allowing you to allow or block payments that  meet multiple conditions. The following recommendations for rules can help prevent many common attempts at fraud.</p>
+
+<h3 id="card-verification-code-check-cvc">Card verification code check (CVC)</h3>
+
+<p>The CVC (also referred to as CVV) is the three or four digit number printed directly on the credit card, usually either on the signature strip or the front of the card. Businesses cannot store the CVC number, so it’s unlikely that a fraudster who has acquired card details through the use of hacking has this information.</p>
+
+<p>CVC numbers were implemented by the banks and card networks to reduce “card-not-present” fraud, so that only those in physical possession of the card should have access to it. However, this does not protect against physical theft of a card, or card data that is compromised when used on a compromised computer or website that isn’t secure. Making use of the CVC check provides an important signal to businesses. Issuers can, and do, authorize payments that fail the check, so rejecting these types of payments is well worth considering.</p>
+
+<p>Radar includes a <a href="../../radar/rules.html#built-in-rules">built-in rule</a> to block any payments that fail the CVC verification check. This can be enabled or disabled within the <a href="https://dashboard.stripe.com/fraud/rules">Dashboard</a>.</p>
+
+<h3 id="address-verification-avs">Address verification (AVS)</h3>
+
+<aside class="note">
+  <h3>Support for AVS</h3>
+  <p>AVS is widely supported for cards issued in the United States, Canada, and the United Kingdom, though some card issuers may not support it. Additionally, support within other countries is sporadic.</p>
+  <p>American Express offers the greatest support for these checks internationally, though there are certain cards that the checks are not supported on.</p>
+</aside>
+
+<p>AVS is comprised of two checks: one based on the ZIP code and another based on the street address. AVS checks determine whether both of these pieces of information match the billing address on file with the card issuer. If either of these checks fail, there’s a higher chance that the person making the payment is not the legitimate owner of the card. It’s worth noting that there are situations where these address checks can fail on legitimate transactions. For example, a customer entered their address incorrectly, or has recently moved and not yet updated their address with their bank.</p>
+
+<p>Despite the limited support internationally, AVS can provide you with powerful signals for fraud, and are particularly important if you ship physical goods. Shipping to a verified billing address provides a strong remedy against fraud, particularly if you ship with a signature requirement on delivery.</p>
+
+<p>Radar also includes a <a href="../../radar/rules.html#built-in-rules">default rule</a> to block any payments that fail ZIP code verification, which can be enabled or disabled within the <a href="https://dashboard.stripe.com/fraud/rules">Dashboard</a>.</p>
+
+<h3 id="country-limiting">Country limiting</h3>
+
+<p>If you’re experiencing increased fraud coming from certain countries, you can set up rules to block payments from any country you do not want to accept payments from, using the <code>:ip_country:</code> and <code>:card_country:</code> rule attributes. For example, you can create the following rule to block all payments and cards originating from Canada:</p>
+
+<p><code>Block if <span class="rules attribute">:ip_country:</span> = <span class="rules string-value">ca</span> and <span class="rules attribute">:card_country:</span> = <span class="rules string-value">'ca'</span></code></p>
+
+<p>Similarly, if your business only supports the country it operates in, you can create a rule that blocks any payments from all other countries. For example, a rule to block payments that don’t originate from Australia is:</p>
+
+<p><code>Block if <span class="rules attribute">:ip_country:</span> != <span class="rules string-value">au</span> and <span class="rules attribute">:card_country:</span> != <span class="rules string-value">'au'</span></code></p>
+
+<h3 id="card-type-limiting">Card type limiting</h3>
+
+<p>You can set limits on which type of cards to accept, either by brand, (e.g., Mastercard), or by funding type (e.g., pre-paid). This can be particularly helpful if you see excessive fraud from certain card types.</p>
+
+<p>To block payments from all Visa-issued debit cards, an example rule would be:</p>
+
+<p><code>Block if <span class="rules attribute">:card_brand:</span> = <span class="rules string-value">visa</span> and <span class="rules attribute">:card_funding:</span> = <span class="rules string-value">'debit'</span></code></p></section>
+
+<section>
+<h2 id="manual-review">Manually review payments</h2>
+
+<aside class="note">
+  <h3>Reviewing payments of elevated risk</h3>
+  <p>Stripe’s machine learning performs a <a href="../../radar/risk-evaluation.html">risk evaluation</a> on every payment processed, identifying any that may be fraudulent. Payments that have an elevated risk level are automatically placed in review by a default rule that is set up for you.</p>
+</aside>
+
+<p>Radar includes a <a href="../../radar/review.html">review</a> process that allows you to place certain payments into review–though keep in mind that these payments are still processed and the credit card charged. These payments are placed into the <a href="https://dashboard.stripe.com/fraud">review queue</a> for you to take a closer look at. Should you suspect that the payment is fraudulent, you can refund it.</p>
+
+<p>Here are some considerations when reviewing a payment:</p>
+
+<ul>
+  <li>Does the billing address match the shipping address?</li>
+  <li>Has the billing address been verified by AVS? Does it also match the card’s country of origin?</li>
+  <li>Does the customer’s email address match the cardholder’s name?</li>
+  <li>Is this an order that the customer has asked to be expedited?</li>
+  <li>Have multiple orders from different credit cards originated from this same IP address?</li>
+  <li>Has this customer made many order attempts that have been declined?</li>
+</ul>
+
+<p>If you are unsure about a payment when you’re reviewing it, you should always contact the customer by phone or email. If a payment’s billing and shipping address do not match, look into the shipping address using <a href="https://www.google.com/maps/streetview">Google Maps &amp; Street View</a> to find out more. A common tactic that fraudsters use is to have orders shipped to a freight/mail forwarding service or storage facility that forwards the goods to their actual location.</p></section>
+
+<section>
+<h2 id="delayed-shipping">Delayed shipping</h2>
+
+<p>If you’re shipping physical goods, consider delaying cthe shipment of goods by 24-48 hours. This time gives cardholders a chance to spot any fraud on their accounts. However, not all cardholders check their statements on a daily basis, and their bank may not proactively contact them about the transaction.</p>
+
+<p>Customers that request overnight or expedited shipping should be considered higher risk, as the increased cost of such services is of no consequence to fraudsters. One tactic you can use to identify these types of payments is to offer same day or overnight shipping at a very high cost–many times more expensive than any other shipping option you provide. It’s far less likely that any legitimate customer would pay such a high cost, but a fraudster would want the goods to be shipped as soon as possible and have no regard for the additional cost. You can then manually screen any customers that opt for the expensive shipping option and scrutinize the order to determine if it looks genuine.</p></section>
+
+<section>
+<h2 id="auth-and-capture">Auth and capture</h2>
+
+<p>When there is an attempt to charge a credit card, it is processed in two parts. The charge is first <em>authorized</em> by requesting authorization for the amount to charge from the bank. Once approved, the charge is then <em>captured</em> immediately afterwards and the amount deducted from the card.</p>
+
+<p><a href="https://support.stripe.com/questions/does-stripe-support-authorize-and-capture">Auth and capture</a> is the process of performing these two steps at separate times. The authorization can be made first, which holds the amount on the card and appears on a customer’s statement as a pending transaction. The charge can then be captured up to seven days later. Capturing a charge completes the payment and the funds are deducted from the customer’s card. If a charge is not captured within the time limit, the authorization is released.</p>
+
+<p>Similar to delayed shipping, this method can allow enough time for potential fraud to come to light, giving you the option to carefully review the transaction.</p></section>
+
+<section>
+<h2 id="statement-descriptors">Statement descriptors</h2>
+
+<p>The statement descriptor is the line that appears on customers’ card statements with information about the company that’s associated with a payment. One use of this is to insert a short, random code that your customer then has to verify. When you suspect a transaction might be fraudulent, you can contact your customer and ask them to give you the code that is shown on their online statement.</p>
+
+<p>You can use either edit your <a href="https://dashboard.stripe.com/account">default statement descriptor</a> within the Dashboard or set a <a href="https://support.stripe.com/questions/does-stripe-support-dynamic-descriptors">dynamic statement descriptor</a> whenever a payment is created through the API. While this method cannot help against a fraudster that may have access to a cardholder’s online bank or credit account, this is extremely rare. Using the statement descriptor in this manner can provide reassurance that the customer is likely to be genuine.</p></section>
+
+<section>
+<h2 id="card-number-blacklisting">Card number blacklisting</h2>
+
+<p>If you see an increase in fraud coming from a small set of credit card numbers, consider blocking further payments from them. You can use the API to <a href="#">set up card restrictions</a>, or click the <strong>Report Fraudulent Payment</strong> button when viewing the payment information in the Dashboard to refund it and flag the transaction with Stripe.</p></section>
+
+<section>
+<h2 id="identity-verification">Identity verification</h2>
+
+<p>For some, verifying the identity of customers can be beneficial. Asking your customers to connect their <a href="https://developers.facebook.com/docs/facebook-login/overview/">Facebook</a> or <a href="https://developer.linkedin.com/docs/oauth2">LinkedIn</a> accounts, for example, can serve as further proof of their identity. Connecting a social networking account doesn’t prove who a person is, but it’s an extra step that a fraudster might not take. Of course, some legitimate customers may not want to go through this additional process, and your conversion rate may suffer as a result.</p></section>
+
+<section>
+<ul class="next-steps">
+    <li><a href="consequences.html"><span>Next: The Consequences of Fraudulent Payments</a></li>
+</ul>
+</section>
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/fraud/guide/strategies by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:40 GMT -->
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/orders/shipping-integration by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:45 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="VeMnPaf8rXGWVS15bAHcyHMwmVVmAtFyZGzxpnWWMwbMeTNAoTlpNFsRCWagCemzWk4X0jquENIl2fuO0EH5dw==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Automated Shipping Calculations in the Orders API</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Automated Shipping Calculations in the Orders API">
+    <meta property="og:url" content="shipping-integration.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Automated Shipping Calculations in the Orders API">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a class='selected' href="shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Automated Shipping Calculations</h1>
+  <p>Use a shipping provider to automatically calculate shipping rates on your Stripe orders. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=relay">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<p>Calculating shipping rates on your orders often means keeping several systems in sync or charging a flat-rate amount that either over- or under-charges your customer. If you already have your products represented in Stripe, we can help you calculate accurate shipping rates from a number of carriers without doing any additional work. Stripe has partnered with <a href="https://easypost.com/">EasyPost</a> and <a href="https://goshippo.com/">Shippo</a> to help you get shipping rates directly from USPS, UPS, FedEx, and other carriers for your Stripe orders.</p>
+
+<p>You can represent products and orders within Stripe, rather than on your own site or through a third-party. If you are not yet familiar with the APIs for products and orders, we recommend that you first visit the <a href="../orders.html">Orders API</a> documentation before diving into shipping cost calculations.</p>
+
+<p>To enable dynamic shipping rates for your orders, follow our guides to get started with <a href="easypost.html">EasyPost</a> or <a href="shippo.html">Shippo</a>. You can optionally read on below to learn how the integration works.</p></section>
+
+<section>
+<h2 id="how-it-works">How the integration works</h2>
+
+<p>Stripe’s shipping integrations automatically manage everything necessary to calculate shipping costs for your orders. To help explain how the integration functions, read the high-level and technical overviews below. (The latter is intended for developers.)</p></section>
+
+<section>
+<h2 id="high-level-overview">High-level overview</h2>
+
+<p>When you create an order via Stripe, Stripe programmatically sends the following details to your shipping provider:</p>
+
+<ul>
+  <li>The specific versions (as SKUs) of the products being ordered</li>
+  <li>Your <strong>From address</strong> as specified in the Dashboard</li>
+  <li>The customer’s destination shipping address</li>
+</ul>
+
+<p>Stripe uses the addresses provided along with the weight and dimensions of the SKUs to calculate shipping costs through your shipping provider. The shipping provider returns the shipping methods to Stripe, which are added to the order in real-time. You can let your customers choose between the returned shipping methods, and Stripe will automatically update your order total as you select different shipping methods.</p>
+
+<p>The shipping rates calculated by the shipping provider depend on the size and weight of your products. It is therefore important that you provide Stripe with accurate dimensions for your products. You can do this from the Dashboard or the <a href="../api.html#product_object-package_dimensions">Stripe API</a>. To use the Dashboard, navigate to a product page and click the <strong>Edit product</strong> button. Make sure that the <strong>Shippable</strong> checkbox is checked and fill in the width, height, length, and weight at the bottom of the page.</p>
+  <div class="image full">
+    <a href="../../img/documentation/relay/product-dimensions.png" class="zoomable" data-width="680" data-height="194"><img src="../../img/documentation/relay/product-dimensions.png" width="100%"></a>
+  </div>
+
+<p>To use the API, perform an <a href="../api.html#update_product">update product</a> request like the one below. In the API, we assume that <code>width</code>, <code>height</code>, and <code>length</code> are in inches while <code>weight</code> is in ounces:</p>
+<div class="code">
+  <nav class="nav-filename icon-terminal">
+    Terminal
+  </nav>
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/products/pr_6rpcQjKz7PexY2 \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d package_dimensions[width]=15 \
+   -d package_dimensions[height]=10 \
+   -d package_dimensions[length]=15 \
+   -d package_dimensions[weight]=32
+</code></pre>
+</div>
+
+<p>This shipping cost calculation service is usually provided free of charge by the shipping provider, so using a shipping integration with Stripe in most cases does not cost you anything. In addition to getting shipping rates, some providers let you purchase and print shipping labels online. This process varies between providers, and we encourage you to read the specific guides for <a href="easypost.html">EasyPost</a> and <a href="shippo.html">Shippo</a> to learn how label generation is supported.</p></section>
+
+<section>
+<h2 id="technical-overview">Technical overview</h2>
+
+<p>Once you set up your shipping integration, you should automatically see multiple shipping methods show up in your order’s <code>shipping_methods</code> array. For example, the following request creates an order shippable to a US address:</p>
+<div class="code">
+  <nav class="nav-filename icon-terminal">
+    Terminal
+  </nav>
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/orders \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d items[][parent]=easypost_test_sku \
+   -d currency=usd \
+   -d shipping[name]=&quot;Jenny Rosen&quot; \
+   -d shipping[address][line1]=&quot;123 Main Street&quot; \
+   -d shipping[address][postal_code]=94110 \
+   -d shipping[address][city]=&quot;San Francisco&quot; \
+   -d shipping[address][state]=CA \
+   -d shipping[address][country]=US \
+   -d email=&quot;jenny@example.net&quot;
+</code></pre>
+</div>
+
+<p>When processing the request, Stripe uses the shipping provider’s API to obtain shipping methods and includes them directly in the response. For this example, the response below includes three USPS shipping methods. Note that the first shipping method has been chosen by default and that the order total reflects the shipping costs in addition to the cost of the SKU.</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;id&quot;: &quot;or_18N3kWDAu10Yox5RuJQQpN69&quot;,
+  &quot;object&quot;: &quot;order&quot;,
+  &quot;amount&quot;: 7559,
+  ...
+  &quot;items&quot;: [
+    {
+      &quot;object&quot;: &quot;order_item&quot;,
+      &quot;amount&quot;: 6999,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;description&quot;: &quot;Slim Jeans&quot;,
+      &quot;parent&quot;: &quot;easypost_test_sku&quot;,
+      &quot;quantity&quot;: 1,
+      &quot;type&quot;: &quot;sku&quot;
+    },
+    {
+      &quot;object&quot;: &quot;order_item&quot;,
+      &quot;amount&quot;: 560,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;description&quot;: &quot;USPS: Priority (1 day delivery)&quot;,
+      &quot;parent&quot;: &quot;rate_d3a94b44b02b48668a1d228a8c4982e6&quot;,
+      &quot;quantity&quot;: null,
+      &quot;type&quot;: &quot;shipping&quot;
+    }
+  ],
+  ...
+  &quot;selected_shipping_method&quot;: &quot;rate_d3a94b44b02b48668a1d228a8c4982e6&quot;,
+  &quot;shipping_methods&quot;: [
+    {
+      &quot;id&quot;: &quot;rate_d3a94b44b02b48668a1d228a8c4982e6&quot;,
+      &quot;amount&quot;: 560,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;description&quot;: &quot;USPS: Priority (1 day delivery)&quot;
+    },
+    {
+      &quot;id&quot;: &quot;rate_fc289c1131a94af58e19aa3e724d40c5&quot;,
+      &quot;amount&quot;: 595,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;description&quot;: &quot;USPS: ParcelSelect (2 day delivery)&quot;
+    },
+    {
+      &quot;id&quot;: &quot;rate_c8401086a10049fc9b3a9a37bcbcd5d4&quot;,
+      &quot;amount&quot;: 2066,
+      &quot;currency&quot;: &quot;usd&quot;,
+      &quot;description&quot;: &quot;USPS: Express (1 day delivery)&quot;
+    }
+  ],
+  ...
+}</code></pre>
+</div>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/orders/shipping-integration by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:46 GMT -->
+</html>

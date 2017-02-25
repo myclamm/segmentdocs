@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_b676eaf05dfe5a400015616b53497651.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Building A Multi Channel Support Desk with TaskRouter &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Learn to Multi Channel Support Desk that handles both voice and SMS with Twilio&#039;s TaskRouter API and Python code in this tutorial."/>
+<link rel="canonical" href="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Building A Multi Channel Support Desk with TaskRouter Comments Feed" href="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Matt Makai');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Flask,Python,SMS,Support Desk,Task Router,Twilio TaskRouter,Voice');
+	__gaTracker('set', 'dimension8', '2015-02-18T12:00:08+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=14676' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fmulti-channel-support-desk-taskrouter.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fmulti-channel-support-desk-taskrouter.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-14676 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-14676" class="row post-14676 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-flask tag-python tag-sms tag-support-desk tag-taskrouter tag-twilio-taskrouter tag-voice">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Building A Multi Channel Support Desk with TaskRouter</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="274" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/title-image1-1024x439.jpg" class="img-responsive wp-post-image" alt="title-image" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/title-image1-1024x439.jpg 1024w, https://www.twilio.com/blog/wp-content/uploads/2015/02/title-image1-300x128.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2015/02/title-image1.jpg 1600w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/mmakai">Matt Makai</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" rel="bookmark"><time class="entry-date published" datetime="2015-02-18T12:00:08+00:00">February 18, 2015</time><time class="updated" datetime="2015-09-24T09:31:14+00:00">September 24, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" data-text="Building A Multi Channel Support Desk with TaskRouter ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p dir="ltr">We live in a time where there are more ways than ever for businesses and their customers to connect. As developers, we have the opportunity to build applications that help facilitate these connections. But if you’ve built a support desk before, you know that writing the code that manages agent availability and integrates multiple channels of communication can be complicated. Twilio built TaskRouter to help make building this type of functionality in your applications a bit easier.</p>
+<p dir="ltr">In this post, we’ll show you specifically how to use the Twilio TaskRouter to build a support desk application that initially allows customers to contact you via phone. We&#8217;ll walk you through enhancing that application to scale to multiple agents and then add SMS as a second communication channel, routing each customer to the best agent for them.</p>
+<p dir="ltr">Before we start coding, be sure to pull up the <a href="https://github.com/makaimc/taskrouter-multi-channel-support-desk/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/makaimc/taskrouter-multi-channel-support-desk/', 'companion GitHub repository');">companion GitHub repository</a> with every step <a href="https://github.com/makaimc/taskrouter-multi-channel-support-desk/releases" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/makaimc/taskrouter-multi-channel-support-desk/releases', 'pre-built and tagged');">pre-built and tagged</a>. You can also deploy our example support desk using this Heroku Deploy button below.</p>
+<p dir="ltr"><a href="https://heroku.com/deploy?template=https://github.com/makaimc/taskrouter-multi-channel-support-desk" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://heroku.com/deploy?template=https://github.com/makaimc/taskrouter-multi-channel-support-desk', '');"><img alt="Heroku deploy button" src="https://www.herokucdn.com/deploy/button.png" /></a></p>
+<h2>Our Tools</h2>
+<p dir="ltr">Let’s take a quick look at the collection of tools we’ll be using to build our support desk:</p>
+<ul>
+<li><a href="https://www.python.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.python.org/', 'Python');">Python</a> to build and execute our application code which is also <a href="https://github.com/makaimc/taskrouter-multi-channel-support-desk" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/makaimc/taskrouter-multi-channel-support-desk', 'available on GitHub');">available on GitHub</a></li>
+<li>A <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'Twilio account');">Twilio account</a> and at least one active <a href="https://www.twilio.com/user/account/phone-numbers/incoming" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account/phone-numbers/incoming', 'Twilio phone number');">Twilio phone number</a></li>
+<li>A <a href="http://flask.pocoo.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://flask.pocoo.org/', 'Flask');">Flask</a> application that generates a response with the <a href="https://github.com/twilio/twilio-python" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/twilio/twilio-python', 'Twilio Python helper library');">Twilio Python helper library</a> version 3.7.0 or greater</li>
+<li><a href="https://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/', 'Ngrok');">Ngrok</a> for a secure tunnel to our running Flask application server</li>
+</ul>
+<p dir="ltr">Sign up for a <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'Twilio account');">Twilio account</a> and we’ll get started coding.</p>
+<h2>Setting The Stage</h2>
+<p dir="ltr">As we mentioned, we’ll be building our support desk as a Flask application. This will provide a nimble foundation that we can iterate on throughout this post. Let’s start by getting Flask set up.</p>
+<p dir="ltr">A best practice when working with Python is to isolate each application’s dependencies from the other projects using <a href="https://virtualenv.pypa.io/en/latest/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://virtualenv.pypa.io/en/latest/', 'virtualenv');">virtualenv</a>. Virtualenv installation depends on your operating system, so here are guides for <a href="http://www.tylerbutler.com/2012/05/how-to-install-python-pip-and-virtualenv-on-windows-with-powershell/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.tylerbutler.com/2012/05/how-to-install-python-pip-and-virtualenv-on-windows-with-powershell/', 'Windows');">Windows</a>, <a href="http://jamie.curle.io/blog/installing-pip-virtualenv-and-virtualenvwrapper-on-os-x/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://jamie.curle.io/blog/installing-pip-virtualenv-and-virtualenvwrapper-on-os-x/', 'Mac OS X');">Mac OS X</a> and <a href="http://roundhere.net/journal/virtualenv-ubuntu-12-10/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://roundhere.net/journal/virtualenv-ubuntu-12-10/', 'Ubuntu Linux');">Ubuntu Linux</a> users.</p>
+<p dir="ltr">Create a new <a href="https://virtualenv.pypa.io/en/latest/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://virtualenv.pypa.io/en/latest/', 'virtualenv');">virtualenv</a> to separate your Python dependencies from other apps you’re working on with the following command. Virtualenv will create a directory for you with an isolated Python interpreter that’s clean of extraneous libraries and dependencies.</p>
+<p>
+			<span id="crayon-58794d7ce34a5379636481" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">virtualenv </span><span class="crayon-i">supportdesk</span></span></span></p>
+<p dir="ltr">Be sure to activate the virtualenv before we install the dependencies.</p>
+<p>
+			<span id="crayon-58794d7ce34b7121552252" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">source </span><span class="crayon-i">supportdesk</span><span class="crayon-o">/</span><span class="crayon-i">bin</span><span class="crayon-o">/</span><span class="crayon-i">activate</span></span></span></p>
+<p dir="ltr">The dependencies we need for this project are the Twilio helper library and Flask. To install them run the following <a href="https://pip.pypa.io/en/latest/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://pip.pypa.io/en/latest/', 'pip');">pip</a> command on the command line. If you need to install pip, here are a few more specific installation guides for <a href="http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows', 'Windows');">Windows</a>, <a href="http://docs.python-guide.org/en/latest/starting/install/osx/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.python-guide.org/en/latest/starting/install/osx/', 'Mac OS X');">Mac OS X</a> and <a href="https://pip.pypa.io/en/latest/installing.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://pip.pypa.io/en/latest/installing.html', 'Linux');">Linux</a>.</p>
+<p>
+			<span id="crayon-58794d7ce34c3521697336" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">pip </span><span class="crayon-e">install </span><span class="crayon-e">twilio </span><span class="crayon-i">flask</span></span></span></p>
+<p dir="ltr">Now your environment is ready to execute Python code that relies on Flask and the Twilio helper library, so let’s write the code to make that work. There is also a <a href="https://github.com/makaimc/taskrouter-multi-channel-support-desk" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/makaimc/taskrouter-multi-channel-support-desk', 'tagged GitHub repository available');">tagged GitHub repository available</a> with this code in case you don’t want to type it all in. Let’s get started by creating a new file named 
+			<span id="crayon-58794d7ce34cd962729546" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span>. At the top of our new file add the following imports.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce34d7485774943" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+import os
+from flask import Flask, Response
+from twilio import twiml</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce34d7485774943-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce34d7485774943-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce34d7485774943-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce34d7485774943-1"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-k ">os</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce34d7485774943-2"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">flask </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-i">Flask</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">Response</span></div><div class="crayon-line" id="crayon-58794d7ce34d7485774943-3"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">twilio </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-i">twiml</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p></p>
+<p dir="ltr">In the above code we obtain os to pull in environment variables, Flask library for our web application and the Twilio helper library for <a href="https://www.twilio.com/docs/api/twiml" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml', 'TwiML');">TwiML</a> which we’ll use to respond to incoming Twilio HTTP POST webhooks.</p>
+<p dir="ltr">After our import code add three new lines to obtain the necessary environment variables. Two of the three variables we need are the Twilio Account SID and Auth Token, which can both be <a href="https://www.twilio.com/user/account/voice-messaging" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account/voice-messaging', 'found on the Account Portal');">found on the Account Portal</a>. The third environment variable is the support agent number. In this post, you can play the role of the support agent as we’re building the application. As the support agent, you’ll need to fill in your cell phone number for the 
+			<span id="crayon-58794d7ce34e2990535428" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">SUPPORT_AGENT_NUMBER</span></span></span> with the “+12025551234” format.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce34ec485567889" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
+AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
+SUPPORT_AGENT_NUMBER = os.environ.get('SUPPORT_AGENT_NUMBER', '')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce34ec485567889-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce34ec485567889-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce34ec485567889-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce34ec485567889-1"><span class="crayon-v">ACCOUNT_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'TWILIO_ACCOUNT_SID'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce34ec485567889-2"><span class="crayon-v">AUTH_TOKEN</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'TWILIO_AUTH_TOKEN'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce34ec485567889-3"><span class="crayon-v">SUPPORT_AGENT_NUMBER</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'SUPPORT_AGENT_NUMBER'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0030 seconds] -->
+<p></p>
+<p dir="ltr">Next we create the Flask application and add a simple route for ‘/’ so we can ensure the app is running properly.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce34f6062517794" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+app = Flask(__name__)
+
+@app.route('/')
+def working():
+    return "Service desk up and running!"</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce34f6062517794-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce34f6062517794-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce34f6062517794-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce34f6062517794-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce34f6062517794-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce34f6062517794-1"><span class="crayon-v">app</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Flask</span><span class="crayon-sy">(</span><span class="crayon-i">__name__</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce34f6062517794-2">&nbsp;</div><div class="crayon-line" id="crayon-58794d7ce34f6062517794-3"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce34f6062517794-4"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">working</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-58794d7ce34f6062517794-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-s">"Service desk up and running!"</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0020 seconds] -->
+<p></p>
+<p dir="ltr">Finally let’s add a main function so the application runs on a port specified in an environment variable or defaults to 5000.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce3500505986374" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+if __name__ == '__main__':
+    # first attempt to get the PORT environment variable, 
+    # otherwise default to port 5000
+    port = int(os.environ.get("PORT", 5000))
+    if port == 5000:
+        app.debug = True
+    app.run(host='0.0.0.0', port=port)</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce3500505986374-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce3500505986374-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce3500505986374-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce3500505986374-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce3500505986374-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce3500505986374-6">6</div><div class="crayon-num" data-line="crayon-58794d7ce3500505986374-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce3500505986374-1"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">__name__</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'__main__'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce3500505986374-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># first attempt to get the PORT environment variable, </span></div><div class="crayon-line" id="crayon-58794d7ce3500505986374-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># otherwise default to port 5000</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce3500505986374-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">port</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">int</span><span class="crayon-sy">(</span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">"PORT"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce3500505986374-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">port</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce3500505986374-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-v">debug</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">True</span></div><div class="crayon-line" id="crayon-58794d7ce3500505986374-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">run</span><span class="crayon-sy">(</span><span class="crayon-v">host</span><span class="crayon-o">=</span><span class="crayon-s">'0.0.0.0'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">port</span><span class="crayon-o">=</span><span class="crayon-i">port</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0041 seconds] -->
+<p></p>
+<p dir="ltr">Save the file and we can run the Flask application using the following command.</p>
+<p>
+			<span id="crayon-58794d7ce350a308383690" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">python </span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span></p>
+<p dir="ltr">The Flask server should display the following message if it starts up successfully through the above command.</p>
+<p>
+			<span id="crayon-58794d7ce3514669821063" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-e">Running </span><span class="crayon-e">on </span><span class="crayon-i">http</span><span class="crayon-o">:</span><span class="crayon-c">//127.0.0.1:5000/</span></span></span></p>
+<p dir="ltr">We can now confirm our simple Flask app is running by going to <a href="http://127.0.0.1:5000/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://127.0.0.1:5000/', 'http://127.0.0.1:5000/');">http://127.0.0.1:5000</a> in a web browser. If the application is running successfully you should see the simple success message, “Support desk up and running!”.</p>
+<p dir="ltr">However, we haven’t yet added any support desk functionality. Let’s write some code for that now. Stop the Flask server with 
+			<span id="crayon-58794d7ce351e538395446" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">CTRL</span><span class="crayon-o">-</span><span class="crayon-i">C</span></span></span> and open the 
+			<span id="crayon-58794d7ce352b363159620" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span> file back up.</p>
+<p dir="ltr">Initially our support desk is going to be extremely basic. We’ll add a single route (
+			<span id="crayon-58794d7ce3540126026470" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">call</span></span></span>) that Twilio can POST to when a call comes into our application. Whenever anyone calls our number we’ll forward their call (using the <a href="https://www.twilio.com/docs/api/twiml/dial" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml/dial', '&lt;Dial&gt; verb');">&lt;Dial&gt; verb</a>) to a single agent, Ender. Remember, you’ll be playing the role of Ender, so make sure to put your phone number into the 
+			<span id="crayon-58794d7ce3553362173731" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">SUPPORT_AGENT_NUMBER</span></span></span> environment variable so your phone will ring whenever there’s a support call. In this function we’re using the Twilio Python helper library to generate our TwiML.</p>
+<p dir="ltr">Write the /call function as shown below highlighted between our previous app.py code. If you don’t want to have to write all the code, the <a href="https://github.com/makaimc/taskrouter-multi-channel-support-desk/tree/tutorial-step-2" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/makaimc/taskrouter-multi-channel-support-desk/tree/tutorial-step-2', 'tutorial-step-2 tag');">tutorial-step-2 tag</a><a href="https://github.com/makaimc/branded-mms-coupons" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/makaimc/branded-mms-coupons', ' ');"> </a>of our Git repo contains all the code up to this point including this new 
+			<span id="crayon-58794d7ce3560390285125" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">call</span></span></span> function.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce356a097372457" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+@app.route('/')
+def working():
+    return "Service desk up and running!"
+
+@app.route('/call', methods=['GET', 'POST'])
+def call():
+    r = twiml.Response()
+    r.dial(SUPPORT_AGENT_NUMBER)
+    return Response(str(r), content_type='application/xml')
+
+if __name__ == '__main__':
+    # first attempt to get the PORT environment variable, 
+    # otherwise default to port 5000
+    port = int(os.environ.get("PORT", 5000))
+    if port == 5000:
+        app.debug = True
+    app.run(host='0.0.0.0', port=port)</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce356a097372457-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce356a097372457-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-4">4</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794d7ce356a097372457-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce356a097372457-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-8">8</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794d7ce356a097372457-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-10">10</div><div class="crayon-num" data-line="crayon-58794d7ce356a097372457-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-12">12</div><div class="crayon-num" data-line="crayon-58794d7ce356a097372457-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-14">14</div><div class="crayon-num" data-line="crayon-58794d7ce356a097372457-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce356a097372457-16">16</div><div class="crayon-num" data-line="crayon-58794d7ce356a097372457-17">17</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce356a097372457-1"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce356a097372457-2"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">working</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-58794d7ce356a097372457-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-s">"Service desk up and running!"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce356a097372457-4">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794d7ce356a097372457-5"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/call'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'GET'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce356a097372457-6"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">call</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce356a097372457-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce356a097372457-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-e">dial</span><span class="crayon-sy">(</span><span class="crayon-i">SUPPORT_AGENT_NUMBER</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794d7ce356a097372457-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">str</span><span class="crayon-sy">(</span><span class="crayon-i">r</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/xml'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce356a097372457-10">&nbsp;</div><div class="crayon-line" id="crayon-58794d7ce356a097372457-11"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">__name__</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'__main__'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce356a097372457-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># first attempt to get the PORT environment variable, </span></div><div class="crayon-line" id="crayon-58794d7ce356a097372457-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># otherwise default to port 5000</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce356a097372457-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">port</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">int</span><span class="crayon-sy">(</span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">"PORT"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce356a097372457-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">port</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce356a097372457-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-v">debug</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-t">True</span></div><div class="crayon-line" id="crayon-58794d7ce356a097372457-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">run</span><span class="crayon-sy">(</span><span class="crayon-v">host</span><span class="crayon-o">=</span><span class="crayon-s">'0.0.0.0'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">port</span><span class="crayon-o">=</span><span class="crayon-i">port</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0084 seconds] -->
+<p></p>
+<p dir="ltr">In order for Twilio to access our application and the critical 
+			<span id="crayon-58794d7ce3578350045112" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">call</span></span></span> route, it needs to be exposed someplace publicly. For development purposes we can run 
+			<span id="crayon-58794d7ce3586706680808" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span> locally and use a tool like <a href="https://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/', 'Ngrok');">Ngrok</a> to tunnel our localhost to the outside world.</p>
+<p dir="ltr">The reason why a localhost tunnel is necessary is that your development machine is likely behind a router that won’t allow direct inbound connections to your Flask application. We can get around this localhost issue with a localhost tunnel service, one of which is Ngrok. Sign up for Ngrok, <a href="https://ngrok.com/download" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/download', 'download the Ngrok tunnel application and install it on your development machine.');">download the Ngrok tunnel application and install it on your development machine.</a></p>
+<p dir="ltr">Fire up Ngrok on port 5000 where our Flask application is running with the following command. See <a href="https://www.twilio.com/blog/2014/03/configure-windows-for-local-webhook-testing-using-ngrok.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2014/03/configure-windows-for-local-webhook-testing-using-ngrok.html', 'this configuring Ngrok post');">this configuring Ngrok post</a> if you’re running Windows. On Linux and Mac OS X Ngrok can be run with the following command when you’re in the directory that Ngrok is located in.</p>
+<p>
+			<span id="crayon-58794d7ce3598118515918" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-o">/</span><span class="crayon-i">ngrok</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span></span></span></p>
+<p dir="ltr">Ngrok will load up a screen like the one in the following screenshot. Take note of the unique https:// forwarding URL as we’ll need that again in a minute to configure our Twilio number’s incoming message handling URL.</p>
+<p dir="ltr"><img alt="" src="https://lh3.googleusercontent.com/jd9SxAciRl2DrhXyIwGNMam9CWmII1leMkEFb7efTrtAlcuVj89Z4_6mHMC_WDNOe5jYBNJvtDGfiSBn7Fb6SMZdYmi4GbxMGM_pRzgxTP7YxB8W_i98ztaKnCtCciHytyg" width="624px;" height="171px;" /></p>
+<p dir="ltr">The Flask application running on port 5000 can now be accessed through the forwarding URL set up by Ngrok.</p>
+<p dir="ltr">We’re now ready to set up the Twilio number. Head back to the Twilio web page and press the “Setup number” button for the number you purchased. A configuration page with default values for voice and messaging will come up and look like the following screen.</p>
+<p dir="ltr">Now that the application is working properly we can take the Ngrok URL plus the 
+			<span id="crayon-58794d7ce35aa546764472" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">call</span></span></span> route and paste it into our Twilio Request URL as shown in the following screenshot:</p>
+<p dir="ltr"><img alt="" src="https://lh4.googleusercontent.com/QGFo1TLt-TCg2mA0fIYj3wObeGqxbYyBKp4HQ-PLCQi4PltrlMiNUmfLu8TnaCIBAwj95oyQCdYSZ_D3zL-TQZFmlt1_S1e83rJ15kuh0Ed0kcsVCrlkGhp2xfFUMK4l4Ts" width="624px;" height="391px;" /></p>
+<p dir="ltr">Give your Twilio number a call and you’ll notice that we’re ringing our one support desk agent, Ender (who just happens to be borrowing your cell phone). Wow, I feel sorry for Ender. He’s going to get overloaded almost immediately. Not only is he having to handle every single incoming call but he has to answer them at exact moment they come in. Since Ender can’t control when calls come to him he can’t even step away for lunch without being interrupted. He probably can’t even go to sleep!</p>
+<p dir="ltr">We should enhance our application to give Ender a break. It may even be time for us to hire more than one agent. In the rest of this post we’ll show you how to upgrade your support desk using TaskRouter to make life better for both Ender and your customers.</p>
+<h2>Meet TaskRouter</h2>
+<p dir="ltr">Ender is really hungry, he hasn’t been able to take a lunch break for days. Don’t worry Ender &#8211; once we implement TaskRouter we’ll have the ability to know when you or any other agents are available and only pass along tasks to those who are. If our support desk has multiple agents, TaskRouter can direct each task to the best person or process. But before we get too far ahead of ourselves let&#8217;s walk through getting TaskRouter set up.</p>
+<p dir="ltr">To access TaskRouter functionality, select “TaskRouter” from the dropdown as shown in the upper left hand corner of the Twilio account portal.</p>
+<p dir="ltr"><img alt="" src="https://lh6.googleusercontent.com/HnhGIMeh3nkrvCObHlOOvxGvqTDtognRZd9T4Vs3hwlNI6LqrK9xVcvtPK14U5A6bJscWDKDjWsjGg4UbKFOaXCz4WbORK3NQDEAwvIcLo5M1ToYmUZ3HMSBSqu4FlQDdCU" width="624px;" height="143px;" /></p>
+<p dir="ltr">Selecting TaskRouter brings us to the “Getting Started” page with some basic instructions about setting up an application. The functionality for setting up our TaskRouter application is under the “Manage” item within the top menu bar.</p>
+<p dir="ltr"><img alt="" src="https://lh5.googleusercontent.com/mmpArH_qJwSYvOShUgk-C3FJqjFmTNuLywqAlBp3unr2PnbZs37YXxOisSwmede6-_quB1HJUyfbi28yWDpHQqcZnN5fRgkAEUn-3yIfXZ5nft6VrfzJBUd3CQx8rZuHi-Y" width="624px;" height="100px;" /></p>
+<p dir="ltr">Let’s start our TaskRouter application by <a href="https://www.twilio.com/user/account/taskrouter/workspaces/create" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account/taskrouter/workspaces/create', 'creating a “Workspace”');">creating a “Workspace”</a>. A Workspace is the root of a TaskRouter application. It acts as a container for all other TaskRouter elements. We can call our workspace: “My Excellent Support Desk”. Make sure to select “First In, First Out” as the Template.  This sets up a default Workflow which we can take advantage of in a few minutes.</p>
+<p dir="ltr"><img alt="" src="https://lh4.googleusercontent.com/XZR8C_fs3yd7Rh4VN0GiCpnCKqWoQ-U2E33Z4c_WV0IO2qRwuKjhRKIeJI4qcOnDPtVbBtin625GcG0XZusjKwNtuS49lCe6yPurWJfyQYDBCf-RwG5nSrXP31PTnSwKsPM" width="624px;" height="259px;" /></p>
+<p dir="ltr">Once we hit the “Save” button our Workspace will be created and further information about it will be displayed like what we see in the following screen. Take note of the Workspace SID as we’ll use that in our code throughout this post to reference the Workspace we’re creating.</p>
+<p dir="ltr"><img alt="" src="https://lh4.googleusercontent.com/7_Kdyc-hjsNR3UYB72euPZtln87cK5Qui24c8QsNyKy9cztv4CMRT8GiGLv5HmtGwlgSKdlC1T_cQ_VAeVq8hEeGUwbRAyg-cP8qdhVCVS240EiXnEzHSJbGQXCZ0ygBSo8" width="624px;" height="347px;" /></p>
+<p dir="ltr">Next click the “Workers” tab so we can create a record for our first support desk agent Ender.</p>
+<p dir="ltr"><img alt="" src="https://lh3.googleusercontent.com/3-XMb3Cb3tB_mI-_pQ3qMkMj3GsPxGx4fLC10LYSN_c29jSy_pTuLSnufaM1tJ6WQWwCQBvykKWa8qWQvTxfCXsS1dUunAmM3cPDvI7Ym7-Du7E0I74XJEubrON4SonfGjo" width="624px;" height="221px;" /></p>
+<p dir="ltr">Workers represent people like our wonderful agent Ender or processes that can handle tasks. Let’s define Ender as a TaskRouter Worker because he’s our first support desk agent.</p>
+<p dir="ltr">Click the “Create Worker” button. When the page loads up, fill in Ender’s information. The Friendly Name should of course be “Ender”, Activity set to “Idle” and Attributes with the following JSON. Make sure to replace the phone_number with your cell phone number if you want the calls to come to you for testing.</p>
+<p>
+			<span id="crayon-58794d7ce35c5170780642" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">{</span><span class="crayon-s">"training"</span><span class="crayon-o">:</span><span class="crayon-sy">[</span><span class="crayon-s">"voice"</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"phone_number"</span><span class="crayon-o">:</span><span class="crayon-s">"+12025551234"</span><span class="crayon-sy">}</span></span></span></p>
+<p dir="ltr">This JSON lets TaskRouter know the <a href="https://www.twilio.com/docs/taskrouter/workers" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/taskrouter/workers', 'skills and attributes of our Worker');">skills and attributes of our Worker</a>. Your screen should look like the following and then it’s ready for you to press the “Save” button.</p>
+<p dir="ltr"><img alt="" src="https://lh5.googleusercontent.com/A1J5jG5RhOLKZdj7YZu45bv8Zl8ocVzSwsNjzaoW0QaVyATja38FPQQh5fSefRmdDYWiEEmXr0WbXbR2T0VS2vfvh0mkU9CBVEpi7X7BxphFA80_vIErzLoRg9cHUZhNFn4" width="624px;" height="313px;" /></p>
+<p dir="ltr">Now that we have Workers, we’ll create a new Task Queue. I bet you can guess what Task Queues do… they queue our tasks based on priority and match them to workers with appropriate attributes. Let’s create a new Task Queue called “Technical Phone Support”. There are few things we set here. The Reservation and Assignment Activity options let you tell TaskRouter which Activity a Worker should enter when they are reserved and assigned. The Target Workers option is a SQL-like query that lets us only assign Tasks in this Task Queue to workers with certain attributes. For this Task Queue, we only want to assign to workers that have been trained to handle voice tasks:</p>
+<p dir="ltr"><img alt="" src="https://lh4.googleusercontent.com/Ge4TBXAfeEou8TKexiNg1KwC74fHS3UPisGVkC5hC3MrRihc7gI0Lbcbr_H-ruftr_Xc-XpWamFOoEWxz0c_iD6Zl16LxzjO4KuPZp1zCrd0sXud882wusKJv1OLPMzIjyQ" width="624px;" height="341px;" /></p>
+<p dir="ltr">The next part of our TaskRouter app is a Workflow. Workflows examine tasks as they come in and make sure they’re assigned to the appropriate Task Queues. We’ll update the “Default Fifo Workflow” by clicking over to the Workflows tab and selecting the Workflow that was created as part of our Workspace.</p>
+<p dir="ltr"><img alt="" src="https://lh6.googleusercontent.com/E1EZff0M_nyTUtuDH05R9IedAV6zOf6sYQBHz4vS1AesUyZyIeVmCpFepwCdLybeCMVLqKBj0jSoqxJFQUthF9Gnda1owW_AFecLUv8nSo0Jwz0P0SKRN4s9w9VMPEDzMfc" width="624px;" height="169px;" /></p>
+<p dir="ltr">In the Workflow configuration screen set the Assignment Callback URL to 
+			<span id="crayon-58794d7ce35e1642143125" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">[</span><span class="crayon-i">our</span><span class="crayon-o">-</span><span class="crayon-i">ngrok</span><span class="crayon-o">-</span><span class="crayon-i">forwarding</span><span class="crayon-o">-</span><span class="crayon-i">url</span><span class="crayon-sy">]</span><span class="crayon-o">/</span><span class="crayon-i">assign</span></span></span>. We haven’t written the 
+			<span id="crayon-58794d7ce35f2056931865" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">assign</span></span></span> route yet but don’t worry we’ll write that in the next section of this post:</p>
+<p dir="ltr"><img alt="" src="https://lh6.googleusercontent.com/eCIwxzkh3YsQw49moU1D2yR-CP54In080nfaT9k_kcUe88_48ngDc3Nj0fUtgfKIfnq52P2eAfaiZ0niIiCGARmnBf1v6IEjmsfyEAPz8zfxCWpBn4AkDCPvsdPmbZ3j538" width="624px;" height="436px;" /></p>
+<p dir="ltr">There are only two parts of our TaskRouter application we haven’t looked at yet &#8211; Tasks and Activities. Tasks are unique actions we need our agents to address &#8211; which in our case will be  phone calls and SMS messages. We’ll be creating Tasks programmatically as phone calls or SMS messages come into our app.</p>
+<p dir="ltr">Activities represent the state of a Worker. By default, TaskRouter creates four common default Activities for you: Offline, Idle, Busy and Reserved. These are all we’ll need for our support desk. If Ender decides to grab lunch we can make sure his state is Offline so he doesn’t keep getting calls.</p>
+<p dir="ltr">Great news! We’ve just hired our second support desk agent, Petra. If you don’t have a second phone sitting around to test with, you can quickly deploy a new instance of Twilio Client from <a href="https://github.com/choppen5/twilio-client-quicker-starter" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/choppen5/twilio-client-quicker-starter', 'this github repo.');">this github repo.</a> Let’s add Petra as a new Worker in our TaskRouter application. Set Petra’s Attributes to a similar JSON string as Ender but with a different phone number.</p>
+<p>
+			<span id="crayon-58794d7ce3607603279599" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">{</span><span class="crayon-s">"training"</span><span class="crayon-o">:</span><span class="crayon-sy">[</span><span class="crayon-s">"voice"</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"phone_number"</span><span class="crayon-o">:</span><span class="crayon-s">"+12025556789"</span><span class="crayon-sy">}</span></span></span></p>
+<p dir="ltr"><img alt="" src="https://lh5.googleusercontent.com/SmuvjOZOAQQNWVc0XfnCrolc-UweurfVNrAEP3FWQ4GpCdYYROb3HM9J-QfwEOZj55HJtReq-sHsSYTMU-MIsRcfB84IG8uz97_TMQcWgQCkk4IKiEcj_YkYblAWHZYeyeE" width="624px;" height="307px;" /></p>
+<h2>Support Desk 2.0</h2>
+<p dir="ltr">We’re now ready to update our support desk to v2.0. We’ll update our Flask application to not just call Ender whenever a call comes in but instead let TaskRouter intelligently route that call to either Ender or Petra depending on who is available. I can only imagine <a href="http://giphy.com/gifs/happy-excited-futbol-Tk1RH495RjYYM" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://giphy.com/gifs/happy-excited-futbol-Tk1RH495RjYYM', 'how excited Ender is');">how excited Ender is</a>.</p>
+<p dir="ltr">To get v2.0 up and running we need to update the code in 
+			<span id="crayon-58794d7ce361b607294542" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span> file starting with a couple extra imports.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce362c169839109" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+import json
+import os
+from flask import Flask, Response
+from flask import request
+from twilio import twiml</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num crayon-marked-num crayon-top crayon-bottom" data-line="crayon-58794d7ce362c169839109-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce362c169839109-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce362c169839109-3">3</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794d7ce362c169839109-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce362c169839109-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line crayon-marked-line crayon-top crayon-bottom" id="crayon-58794d7ce362c169839109-1"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-k ">json</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce362c169839109-2"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-k ">os</span></div><div class="crayon-line" id="crayon-58794d7ce362c169839109-3"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">flask </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-i">Flask</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">Response</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794d7ce362c169839109-4"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">flask </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">request</span></div><div class="crayon-line" id="crayon-58794d7ce362c169839109-5"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">twilio </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-i">twiml</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0022 seconds] -->
+<p></p>
+<p dir="ltr">Our 
+			<span id="crayon-58794d7ce363b469946486" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span> file now needs a new environment variable for the Workspace SID and Workflow SID for our TaskRouter application. We can also replace the 
+			<span id="crayon-58794d7ce364d552803554" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">SUPPORT_AGENT_NUMBER</span></span></span> environment variable with a new 
+			<span id="crayon-58794d7ce365d113639809" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">SUPPORT_DESK_NUMBER</span></span></span> that will be our main support desk call in number instead of using Ender’s phone number. The 
+			<span id="crayon-58794d7ce366c623986563" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">SUPPORT_DESK_NUMBER</span></span></span> will be the Twilio number we use for our support desk:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce367d264333335" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
+AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
+SUPPORT_DESK_NUMBER = os.environ.get('SUPPORT_DESK_NUMBER', '')
+WORKSPACE_SID = os.environ.get('WORKSPACE_SID', '')
+WORKFLOW_SID = os.environ.get('WORKFLOW_SID', '')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce367d264333335-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce367d264333335-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794d7ce367d264333335-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794d7ce367d264333335-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce367d264333335-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce367d264333335-1"><span class="crayon-v">ACCOUNT_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'TWILIO_ACCOUNT_SID'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce367d264333335-2"><span class="crayon-v">AUTH_TOKEN</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'TWILIO_AUTH_TOKEN'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794d7ce367d264333335-3"><span class="crayon-v">SUPPORT_DESK_NUMBER</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'SUPPORT_DESK_NUMBER'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794d7ce367d264333335-4"><span class="crayon-v">WORKSPACE_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'WORKSPACE_SID'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce367d264333335-5"><span class="crayon-v">WORKFLOW_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'WORKFLOW_SID'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0049 seconds] -->
+<p></p>
+<p dir="ltr">We also need to make a change to our /call route.  Instead of using the &lt;Dial&gt; verb, we’ll now use the &lt;Enqueue&gt; verb. This will allow us to pass the call to a TaskRouter Workflow in order to place the call into the appropriate TaskQueue.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce368e124604601" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+@app.route('/call', methods=['GET', 'POST'])
+def call():
+    r = twiml.Response()
+    r.enqueue('', workflowSid=WORKFLOW_SID)
+    return Response(str(r), content_type='application/xml')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce368e124604601-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce368e124604601-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce368e124604601-3">3</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794d7ce368e124604601-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce368e124604601-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce368e124604601-1"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/call'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'GET'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce368e124604601-2"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">call</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-58794d7ce368e124604601-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794d7ce368e124604601-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-e">enqueue</span><span class="crayon-sy">(</span><span class="crayon-s">''</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">workflowSid</span><span class="crayon-o">=</span><span class="crayon-i">WORKFLOW_SID</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce368e124604601-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">str</span><span class="crayon-sy">(</span><span class="crayon-i">r</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/xml'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0041 seconds] -->
+<p></p>
+<p dir="ltr">The previous code will handle passing our call to our Workflow. Remember when we created our Workflow we set the Assignment Callback URL to the 
+			<span id="crayon-58794d7ce369e999599935" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">assign</span></span></span> route? Let’s create that route so our Workflow can function properly:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce36ae958593403" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+@app.route('/assign', methods=['POST'])
+def assign():
+    number = json.loads(request.form['WorkerAttributes'])['phone_number']
+    instruction = {
+        "instruction": "dequeue",
+        "to": number,
+        "from": SUPPORT_DESK_NUMBER
+    }
+    return Response(json.dumps(instruction), content_type='application/json')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce36ae958593403-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36ae958593403-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce36ae958593403-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36ae958593403-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce36ae958593403-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36ae958593403-6">6</div><div class="crayon-num" data-line="crayon-58794d7ce36ae958593403-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36ae958593403-8">8</div><div class="crayon-num" data-line="crayon-58794d7ce36ae958593403-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce36ae958593403-1"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/assign'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36ae958593403-2"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">assign</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-58794d7ce36ae958593403-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">loads</span><span class="crayon-sy">(</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'WorkerAttributes'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">[</span><span class="crayon-s">'phone_number'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36ae958593403-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">instruction</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794d7ce36ae958593403-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"instruction"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"dequeue"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36ae958593403-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"to"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">number</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794d7ce36ae958593403-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"from"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">SUPPORT_DESK_NUMBER</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36ae958593403-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794d7ce36ae958593403-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">dumps</span><span class="crayon-sy">(</span><span class="crayon-i">instruction</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/json'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0055 seconds] -->
+<p></p>
+<p dir="ltr">Whenever a Worker is available for one of our Tasks, Twilio will make a POST request to the Assignment Callback URL. The POST request will include data about the assignment, including the Worker attributes we defined for that worker. We’ll pull the Worker’s phone number so we know who to place the call to.</p>
+<p dir="ltr">We respond to the POST request from Twilio and acknowledge the assignment by passing back some JSON instructions of what to do with this Task next. In this case, we’re using the <a href="https://www.twilio.com/docs/taskrouter/twiml-integration#automatically-bridging-call-to-worker" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/taskrouter/twiml-integration#automatically-bridging-call-to-worker', 'special dequeue instruction');">special dequeue instruction</a> which will handle calling the to number and connecting to our agent for us.</p>
+<p dir="ltr">We can now test our new application workflow. Let’s give our number a call now and see what happens. You’ll notice a new task has been added to our tasks:</p>
+<p dir="ltr"><img alt="" src="https://lh4.googleusercontent.com/gxZ8VVf4aC8furHYPhpy04tgdAlg5suW8NHesbSCESW-rIQbw0DMw1A0QD3YDJGoG841q_UOGCw0d8iCwp_xYVZrUCU4yANXEfXD4DFN5T4qAl4sukZUbTBH7aHsHjmH8Sc" width="624px;" height="164px;" /></p>
+<p dir="ltr">The status of one of our workers has changed as well. Petra is now handling the voice call!</p>
+<p dir="ltr"><img alt="" src="https://lh5.googleusercontent.com/4_ZkrQAFahFDy8F-3uZqN0C7I7C1I0pMzMJh2t-vu0m4iIZSiakbwpzqM7cOlKhxlIjyGPmSw3MAgeyTe2T9MRo2WINfb0rAGFdHd2TL0Fz32u3uT-TXbM7Klls-ABhNuGc" width="624px;" height="183px;" /></p>
+<p dir="ltr">As we hire new workers, TaskRouter will automatically handle making sure calls make it to the appropriate agent (based on skills and availability) at the appropriate time. Speaking of workers, has anyone heard from Ender? He’s been on his lunch break forever!</p>
+<h2>Adding SMS Request Handling</h2>
+<p dir="ltr">Business is booming at Our Excellent Support Desk! We just hired another agent! Meet Bean, Bean is 19, <a href="http://giphy.com/gifs/parks-and-recreation-rec-gif-JcFM11uOBtkDm" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://giphy.com/gifs/parks-and-recreation-rec-gif-JcFM11uOBtkDm', 'hip to all the jive');">hip to all the jive</a> kids are talking these days and a really fast texter. Bean can also handle phone calls so let’s create a new TaskRouter worker for Bean and give him both the “sms” and “voice” training attributes with the following JSON.</p>
+<p>
+			<span id="crayon-58794d7ce36c1832914926" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">{</span><span class="crayon-s">"training"</span><span class="crayon-o">:</span><span class="crayon-sy">[</span><span class="crayon-s">"voice"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"sms"</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"phone_number"</span><span class="crayon-o">:</span><span class="crayon-s">"+14155554567"</span><span class="crayon-sy">}</span></span></span></p>
+<p dir="ltr"><img alt="" src="https://lh6.googleusercontent.com/r_-K23sauTtV1rs01ScaYw2H_PVisQRBtG0hzvFwXmu3EpE-2co5R9W4ilCcx8ekdPYuybKBp2FV_Yylm16oqC0L_gDt2GB5WzMxKuzlBjzxQJwZli5LRvZ37ikODbpAlRQ" width="624px;" height="308px;" /></p>
+<p dir="ltr">Giving Bean training on “sms” doesn’t mean he’ll automatically get SMS tasks. We still have to create a new Task Queue for inbound messages and configure our Workflow handle routing those messages:</p>
+<p dir="ltr"><img alt="" src="https://lh5.googleusercontent.com/P-q7RBJRK5fuaH9JHMcpV1xTGXYIuA4YtiCo8d8VwvhpcuZaM-R80nSMttDi3KEI2lq_hr-vWIqgPCBRGIhVJ2vXgppWd4WatpAUyXhW5K7R-Nn2QcraOEhrOgbBIkL7XCo" width="624px;" height="356px;" /></p>
+<p dir="ltr">We also need to update our Workflow to include the new task queue. Open up our “Default Fifo Workflow”, scroll down to Routing Configuration and click “Add Filter”. We need two filters, one named Inbound SMS and the other called Inbound Calls. Inbound SMS will have a higher priority than Inbound Calls so that Bean is assigned to SMS first and will only be assigned calls if there are no inbound SMS to handle at that moment.</p>
+<p dir="ltr"><img alt="" src="https://lh5.googleusercontent.com/zob3wNp_CU3CGJcvN5rRSfwYnk9yagqJDeANpDGJT4_uaipEYOdGLILxrx6lnFlGr6TxL97vhgzJLeWObNOwg5tRBYYwHJsBkgrkPDlmb0GkTCnfGTqlLYQTl8wOwxrw38M" width="624px;" height="520px;" /></p>
+<p dir="ltr">Priority is set to 1 for Inbound SMS and 0 for Inbound Calls. Priority must be either zero or a positive integer. Higher numbers indicate higher priority.</p>
+<p dir="ltr">In order to handle text messages, we’ll need to add another route to our Flask app up to handle incoming messages, let’s call it /message:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce36d2233870103" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+@app.route('/message', methods=['POST'])
+def message():
+    r = twiml.Response()
+    r.message("Thanks. You'll hear back from us soon.")
+    return Response(str(r), content_type='application/xml')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce36d2233870103-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36d2233870103-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce36d2233870103-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36d2233870103-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce36d2233870103-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce36d2233870103-1"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/message'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36d2233870103-2"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-58794d7ce36d2233870103-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36d2233870103-4">   <span class="crayon-h"> </span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-s">"Thanks. You'll hear back from us soon."</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce36d2233870103-5"><span class="crayon-h"> </span>   <span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">str</span><span class="crayon-sy">(</span><span class="crayon-i">r</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/xml'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0037 seconds] -->
+<p></p>
+<p dir="ltr">Let’s make sure our support desk number is configured for incoming messages by copying the Ngrok Forwarding URL plus /message into the Messaging Request URL.</p>
+<p dir="ltr"><img alt="" src="https://lh5.googleusercontent.com/Bz2F-4n7f3SXf2Sl5B8bUEswb09kOVrx9tqjtvHy3qNUlcHZRhFxnho24eat0MkNSnpUMSkOef9UhCFVpKVxT3T3gK4ehNseGHqVSt-TlHGcRfC7LuFCLBoKz6xZSvV7Jgk" width="624px;" height="388px;" /></p>
+<p dir="ltr">Right now we’re just responding to an incoming message but we need to add the code that creates a task when this message comes in. With voice calls, we added tasks using TwiML. For SMS, let’s add tasks using the TaskRouter REST API via the Python helper library. First we need to import the TwilioTaskRouterClient, the new client for working with TaskRouter.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce36e2822636991" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+import json
+import os
+from flask import Flask, Response
+from flask import request
+from twilio import twiml
+from twilio.rest import TwilioRestClient, TwilioTaskRouterClient
+
+ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
+AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
+SUPPORT_DESK_NUMBER = os.environ.get('SUPPORT_DESK_NUMBER', '')
+WORKSPACE_SID = os.environ.get('WORKSPACE_SID', '')
+WORKFLOW_SID = os.environ.get('WORKFLOW_SID', '')
+
+client = TwilioRestClient(account=ACCOUNT_SID, token=AUTH_TOKEN)
+tr_client = TwilioTaskRouterClient(account=ACCOUNT_SID, token=AUTH_TOKEN)
+app = Flask(__name__)</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce36e2822636991-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-2">2</div><div class="crayon-num" data-line="crayon-58794d7ce36e2822636991-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-4">4</div><div class="crayon-num" data-line="crayon-58794d7ce36e2822636991-5">5</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-6">6</div><div class="crayon-num" data-line="crayon-58794d7ce36e2822636991-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-8">8</div><div class="crayon-num" data-line="crayon-58794d7ce36e2822636991-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-10">10</div><div class="crayon-num" data-line="crayon-58794d7ce36e2822636991-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-12">12</div><div class="crayon-num" data-line="crayon-58794d7ce36e2822636991-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-14">14</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794d7ce36e2822636991-15">15</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794d7ce36e2822636991-16">16</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce36e2822636991-1"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-k ">json</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36e2822636991-2"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-k ">os</span></div><div class="crayon-line" id="crayon-58794d7ce36e2822636991-3"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">flask </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-i">Flask</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">Response</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36e2822636991-4"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">flask </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">request</span></div><div class="crayon-line" id="crayon-58794d7ce36e2822636991-5"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">twilio </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">twiml</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794d7ce36e2822636991-6"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-e">rest </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-i">TwilioRestClient</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">TwilioTaskRouterClient</span></div><div class="crayon-line" id="crayon-58794d7ce36e2822636991-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36e2822636991-8"><span class="crayon-v">ACCOUNT_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'TWILIO_ACCOUNT_SID'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce36e2822636991-9"><span class="crayon-v">AUTH_TOKEN</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'TWILIO_AUTH_TOKEN'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36e2822636991-10"><span class="crayon-v">SUPPORT_DESK_NUMBER</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'SUPPORT_DESK_NUMBER'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce36e2822636991-11"><span class="crayon-v">WORKSPACE_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'WORKSPACE_SID'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36e2822636991-12"><span class="crayon-v">WORKFLOW_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">os</span><span class="crayon-sy">.</span><span class="crayon-v">environ</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'WORKFLOW_SID'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">''</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce36e2822636991-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36e2822636991-14"><span class="crayon-v">client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">TwilioRestClient</span><span class="crayon-sy">(</span><span class="crayon-v">account</span><span class="crayon-o">=</span><span class="crayon-i">ACCOUNT_SID</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k ">token</span><span class="crayon-o">=</span><span class="crayon-i">AUTH_TOKEN</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794d7ce36e2822636991-15"><span class="crayon-v">tr_client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">TwilioTaskRouterClient</span><span class="crayon-sy">(</span><span class="crayon-v">account</span><span class="crayon-o">=</span><span class="crayon-i">ACCOUNT_SID</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k ">token</span><span class="crayon-o">=</span><span class="crayon-i">AUTH_TOKEN</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794d7ce36e2822636991-16"><span class="crayon-v">app</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Flask</span><span class="crayon-sy">(</span><span class="crayon-i">__name__</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0101 seconds] -->
+<p></p>
+<p dir="ltr">Now we can use our TaskRouterClient to create a new task programmatically. We want to make sure our task has all the attributes it needs to be able to be addressed by Bean. These attributes are a phone number (so he knows who to contact) and the body of the message (so he knows what the person is asking about):</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce36f3679315731" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+@app.route('/message', methods=['POST'])
+def message():
+    task_attributes = {
+        "training" : "sms",
+        "phone_number" : request.form['From'],
+        "body": request.form['Body']
+    }
+    tasks = tr_client.tasks(WORKSPACE_SID).create(json.dumps(task_attributes),
+                                                  WORKFLOW_SID)
+    r = twiml.Response()
+    r.message("Thanks. You'll hear back from us soon.")
+    return Response(str(r), content_type='application/xml')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce36f3679315731-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36f3679315731-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794d7ce36f3679315731-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce36f3679315731-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce36f3679315731-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce36f3679315731-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce36f3679315731-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce36f3679315731-8">8</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794d7ce36f3679315731-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36f3679315731-10">10</div><div class="crayon-num" data-line="crayon-58794d7ce36f3679315731-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce36f3679315731-12">12</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce36f3679315731-1"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/message'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36f3679315731-2"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794d7ce36f3679315731-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">task_attributes</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce36f3679315731-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"training"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"sms"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce36f3679315731-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"phone_number"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'From'</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce36f3679315731-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"body"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'Body'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce36f3679315731-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce36f3679315731-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">tasks</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">tr_client</span><span class="crayon-sy">.</span><span class="crayon-e">tasks</span><span class="crayon-sy">(</span><span class="crayon-i">WORKSPACE_SID</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">create</span><span class="crayon-sy">(</span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">dumps</span><span class="crayon-sy">(</span><span class="crayon-i">task_attributes</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794d7ce36f3679315731-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">WORKFLOW_SID</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36f3679315731-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce36f3679315731-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-s">"Thanks. You'll hear back from us soon."</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce36f3679315731-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">str</span><span class="crayon-sy">(</span><span class="crayon-i">r</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/xml'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0073 seconds] -->
+<p></p>
+<p dir="ltr">We need to update our 
+			<span id="crayon-58794d7ce3704956228861" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">assign</span></span></span> route to make sure our Workflow properly supports SMS. We’ll look at the 
+			<span id="crayon-58794d7ce371b338018289" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">training</span></span></span> attribute we set when we created our tasks to see if it’s an SMS message. If it is, we’ll use Twilio to forward the question to whatever agent is assigned with the task:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce372b549549257" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+@app.route('/assign', methods=['POST'])
+def assign():
+    task_attrs = json.loads(request.form['TaskAttributes'])
+    if 'training' in task_attrs and task_attrs['training'] == 'sms':
+        number = json.loads(request.form['WorkerAttributes'])['phone_number']
+        instruction = {"instruction": "accept"}
+        client.messages.create(from_=SUPPORT_DESK_NUMBER, to=number,
+            body='Text {0} asking "{1}"'.format(task_attrs['phone_number'],
+                                                task_attrs['body']))
+        return Response(json.dumps(instruction),
+                        content_type='application/json')
+    # defaults to voice call
+    number = json.loads(request.form['WorkerAttributes'])['phone_number']
+    instruction = {
+        "instruction": "dequeue",
+        "to": number,
+        "from": SUPPORT_DESK_NUMBER
+    }
+    return Response(json.dumps(instruction), content_type='application/json')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce372b549549257-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794d7ce372b549549257-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce372b549549257-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce372b549549257-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce372b549549257-9">9</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-10">10</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce372b549549257-11">11</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794d7ce372b549549257-12">12</div><div class="crayon-num" data-line="crayon-58794d7ce372b549549257-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-14">14</div><div class="crayon-num" data-line="crayon-58794d7ce372b549549257-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-16">16</div><div class="crayon-num" data-line="crayon-58794d7ce372b549549257-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce372b549549257-18">18</div><div class="crayon-num" data-line="crayon-58794d7ce372b549549257-19">19</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce372b549549257-1"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/assign'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce372b549549257-2"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">assign</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794d7ce372b549549257-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">task_attrs</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">loads</span><span class="crayon-sy">(</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'TaskAttributes'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce372b549549257-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-s">'training'</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">task_attrs </span><span class="crayon-st">and</span><span class="crayon-h"> </span><span class="crayon-v">task_attrs</span><span class="crayon-sy">[</span><span class="crayon-s">'training'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'sms'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce372b549549257-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">loads</span><span class="crayon-sy">(</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'WorkerAttributes'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">[</span><span class="crayon-s">'phone_number'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce372b549549257-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">instruction</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-s">"instruction"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"accept"</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce372b549549257-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">messages</span><span class="crayon-sy">.</span><span class="crayon-e">create</span><span class="crayon-sy">(</span><span class="crayon-v">from_</span><span class="crayon-o">=</span><span class="crayon-i">SUPPORT_DESK_NUMBER</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">to</span><span class="crayon-o">=</span><span class="crayon-i">number</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce372b549549257-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">body</span><span class="crayon-o">=</span><span class="crayon-s">'Text {0} asking "{1}"'</span><span class="crayon-sy">.</span><span class="crayon-k ">format</span><span class="crayon-sy">(</span><span class="crayon-v">task_attrs</span><span class="crayon-sy">[</span><span class="crayon-s">'phone_number'</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce372b549549257-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">task_attrs</span><span class="crayon-sy">[</span><span class="crayon-s">'body'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce372b549549257-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">dumps</span><span class="crayon-sy">(</span><span class="crayon-i">instruction</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce372b549549257-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/json'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794d7ce372b549549257-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># defaults to voice call</span></div><div class="crayon-line" id="crayon-58794d7ce372b549549257-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">loads</span><span class="crayon-sy">(</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'WorkerAttributes'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">[</span><span class="crayon-s">'phone_number'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce372b549549257-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">instruction</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794d7ce372b549549257-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"instruction"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"dequeue"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce372b549549257-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"to"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">number</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794d7ce372b549549257-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"from"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">SUPPORT_DESK_NUMBER</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce372b549549257-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794d7ce372b549549257-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">dumps</span><span class="crayon-sy">(</span><span class="crayon-i">instruction</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/json'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0126 seconds] -->
+<p></p>
+<p dir="ltr"><img alt="" src="https://lh6.googleusercontent.com/uYZbUlXzmHl82T8m4s3SGNNg1sP9PvDNeg1mdY-3bALRqUFAL7QgqBOKxGO5wt7uXIOXX0gfDE2l7EIXhCtKP38Y5ou8VEdIqh-W4DjmguRNlRagEaoMERa_GXjTKZf64cg" width="624px;" height="200px;" /></p>
+<p dir="ltr">When a Worker is supporting customers on a phone call, we know that they’re available again after the phone call ends. For an SMS, we need a mechanism to let Bean (or any other agent) tell us that they’ve completed a task. If we were going super low-fi the agent could update their status directly in the TaskRouter dashboard but that’s not how we roll at our excellent support desk. Let’s add code to our /message endpoint that detects when one of our worker texts in the word ‘DONE’ and closes out the tasks for us:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d7ce373d003977735" class="crayon-syntax crayon-theme-solarized-dark crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 13px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><span class="crayon-title">app.py</span>
+			<div class="crayon-tools" style="font-size: 13px !important;height: 19.5px !important; line-height: 19.5px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 18.2px !important; line-height: 18.2px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 13px !important; line-height: 24px !important;">
+@app.route('/message', methods=['POST'])
+def message():
+    # check if one of our workers is completing a task
+    if request.form['Body'] == 'DONE':
+        from_number = request.form['From']
+        for w in tr_client.workers(WORKSPACE_SID).list():
+            if from_number == json.loads(w.attributes)['phone_number']:
+                # update worker status back to idle
+                for activity in tr_client.activities(WORKSPACE_SID).list():
+                    if activity.friendly_name == 'Idle':
+                        w.update(activity_sid=activity.sid)
+                        break
+                r = twiml.Response()
+                r.message("Ticket closed.")
+                return Response(str(r), content_type='application/xml')
+    task_attributes = {
+        "training" : "sms",
+        "phone_number" : request.form['From'],
+        "body": request.form['Body']
+    }
+    tasks = tr_client.tasks(WORKSPACE_SID).create(json.dumps(task_attributes),
+                                                  WORKFLOW_SID)
+    r = twiml.Response()
+    r.message("Thanks. You'll hear back from us soon.")
+    return Response(str(r), content_type='application/xml')</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d7ce373d003977735-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794d7ce373d003977735-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce373d003977735-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce373d003977735-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce373d003977735-9">9</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-10">10</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce373d003977735-11">11</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-12">12</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794d7ce373d003977735-13">13</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-14">14</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794d7ce373d003977735-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-16">16</div><div class="crayon-num" data-line="crayon-58794d7ce373d003977735-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-18">18</div><div class="crayon-num" data-line="crayon-58794d7ce373d003977735-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-20">20</div><div class="crayon-num" data-line="crayon-58794d7ce373d003977735-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-22">22</div><div class="crayon-num" data-line="crayon-58794d7ce373d003977735-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d7ce373d003977735-24">24</div><div class="crayon-num" data-line="crayon-58794d7ce373d003977735-25">25</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 13px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d7ce373d003977735-1"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/message'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce373d003977735-2"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794d7ce373d003977735-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># check if one of our workers is completing a task</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce373d003977735-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'Body'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'DONE'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce373d003977735-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">from_number</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'From'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce373d003977735-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-k ">w</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-v">tr_client</span><span class="crayon-sy">.</span><span class="crayon-e">workers</span><span class="crayon-sy">(</span><span class="crayon-i">WORKSPACE_SID</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-k ">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce373d003977735-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">from_number</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">loads</span><span class="crayon-sy">(</span><span class="crayon-k ">w</span><span class="crayon-sy">.</span><span class="crayon-i">attributes</span><span class="crayon-sy">)</span><span class="crayon-sy">[</span><span class="crayon-s">'phone_number'</span><span class="crayon-sy">]</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce373d003977735-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># update worker status back to idle</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce373d003977735-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-e">activity </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-v">tr_client</span><span class="crayon-sy">.</span><span class="crayon-e">activities</span><span class="crayon-sy">(</span><span class="crayon-i">WORKSPACE_SID</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-k ">list</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce373d003977735-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">activity</span><span class="crayon-sy">.</span><span class="crayon-v">friendly_name</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'Idle'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce373d003977735-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-k ">w</span><span class="crayon-sy">.</span><span class="crayon-e">update</span><span class="crayon-sy">(</span><span class="crayon-v">activity_sid</span><span class="crayon-o">=</span><span class="crayon-v">activity</span><span class="crayon-sy">.</span><span class="crayon-i">sid</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce373d003977735-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">break</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794d7ce373d003977735-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794d7ce373d003977735-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-s">"Ticket closed."</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794d7ce373d003977735-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">str</span><span class="crayon-sy">(</span><span class="crayon-i">r</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/xml'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce373d003977735-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">task_attributes</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794d7ce373d003977735-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"training"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"sms"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce373d003977735-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"phone_number"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'From'</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794d7ce373d003977735-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"body"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'Body'</span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce373d003977735-20"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794d7ce373d003977735-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">tasks</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">tr_client</span><span class="crayon-sy">.</span><span class="crayon-e">tasks</span><span class="crayon-sy">(</span><span class="crayon-i">WORKSPACE_SID</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">create</span><span class="crayon-sy">(</span><span class="crayon-k ">json</span><span class="crayon-sy">.</span><span class="crayon-e">dumps</span><span class="crayon-sy">(</span><span class="crayon-i">task_attributes</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce373d003977735-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">WORKFLOW_SID</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce373d003977735-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">twiml</span><span class="crayon-sy">.</span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d7ce373d003977735-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">r</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-s">"Thanks. You'll hear back from us soon."</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794d7ce373d003977735-25"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">Response</span><span class="crayon-sy">(</span><span class="crayon-k ">str</span><span class="crayon-sy">(</span><span class="crayon-i">r</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">content_type</span><span class="crayon-o">=</span><span class="crayon-s">'application/xml'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0158 seconds] -->
+<p></p>
+<p dir="ltr">Try giving your support desk number one more call or text message and see everything in action.</p>
+<h2>Wrapping It Up</h2>
+<p dir="ltr">A lot has changed for our support desk in just a day. This morning Ender looked <a href="http://giphy.com/gifs/falling-monday-working-dQd5kVCrNJi5W" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://giphy.com/gifs/falling-monday-working-dQd5kVCrNJi5W', 'like this');">like this</a>. But look around at all our agents now. Bean’s desk is covered in empty bags of Doritos as he’s excitedly responding to these new fangled text messages from customers. Petra and Ender are exchanging a high five as Ender finally returns from lunch. Most importantly, our customers are happy. With TaskRouter we’ve created an intelligent application that allows us to segment inbound customer communication and connect customers with the right agent at the right time.</p>
+<p dir="ltr">What’s next? You can add every inbound channel your customers want to communicate with you on using the blueprint we created today: Email, Facebook, Google Forms, Slack, HipChat. How are you going to use TaskRouter to make your code and business more efficient? Let us know in the comments or holler at us on twitter (@<a href="https://twitter.com/mattmakai" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/mattmakai', 'mattmakai');">mattmakai</a> or  @<a href="https://twitter.com/rickyrobinett" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/rickyrobinett', 'rickyrobinett');">rickyrobinett</a>).</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" data-text="Building A Multi Channel Support Desk with TaskRouter ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/3d5349571810cf24cd2c2fe905607464?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/3d5349571810cf24cd2c2fe905607464?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/mmakai">Matt Makai</a></span></span> <span class="author-meta author-email"><a href="mailto:mmakai@twilio.com">mmakai@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Python</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/python/django" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/python/django', '');">
+          <h5>SMS and MMS Notifications with Python</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/net-promoter-score-python-sms.html" rel="bookmark" title="Permanent Link to Calculating Net Promoter Score with Python and SMS" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/net-promoter-score-python-sms.html', '');">
+          <h5>Calculating Net Promoter Score with Python and SMS<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" rel="bookmark" title="Permanent Link to Build a Photobooth with an Arduino Yun, a Webcam and Dropbox" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html', '');">
+          <h5>Build a Photobooth with an Arduino Yun, a Webcam and Dropbox<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/send-sms-and-mms-from-your-arduino-yun.html" rel="bookmark" title="Permanent Link to How to Send SMS And MMS From Your Arduino Yun" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/send-sms-and-mms-from-your-arduino-yun.html', '');">
+          <h5>How to Send SMS And MMS From Your Arduino Yun<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2015/02/14676 http://twilioinc.wpengine.com/?p=14676';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Building A Multi Channel Support Desk with TaskRouter";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html?cf_action=sync_comments&amp;post_id=14676';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2015\/02\/multi-channel-support-desk-taskrouter.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+</html>

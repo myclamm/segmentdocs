@@ -1,0 +1,8 @@
+https://www.twilio.com -www.twilio.com/assets/* +www.twilio.com/*.css +www.twilio.com/*.js -www.twilio.com/documents/* -www.twilio.com/uploadedImages/* -O ~/httrack-copies/www.twilio/ -v
+File generated automatically on Fri, 13 Jan 2017 13:31:06, do NOT edit
+
+To update a mirror, just launch httrack without any parameters
+The existing cache will be used (and modified)
+To have other options, retype all parameters and launch HTTrack
+To continue an interrupted mirror, just launch httrack without any parameters
+

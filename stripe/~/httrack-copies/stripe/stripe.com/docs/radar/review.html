@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/radar/review by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="O5BTfo3cRL5Ca1C5_bdEGKVrQLr6p6TkvMDLEQk3poCiCkcDixmA-48vdKYxv3FjjBXOPaYLZUT9dcE5rOBs8Q==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Review</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Review">
+    <meta property="og:url" content="review.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Review">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a class='selected' href="review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Review</h1>
+  <p>Use reviews to supplement automated systems with human expertise. If you need help after reading this, <a href="https://support.stripe.com/email">get in touch</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<p>Stripe’s systems work to prevent fraud on your account automatically. Action is taken on payments in real-time so that your business can focus on what’s most important. While taking automated actions on payments can save significant human time and effort, there may be certain payments where you’d like to apply human judgment in addition to what our automated systems can provide. For instance, you might want to review transactions yourself that:</p>
+
+<ul>
+  <li>Have been evaluated by Stripe’s fraud prevention system as having an <a href="risk-evaluation.html#elevated-risk">elevated risk</a> of fraud</li>
+  <li>Have been made from outside your country</li>
+  <li>Are greater than a certain amount</li>
+  <li>Make use of an email address from an unusual domain</li>
+</ul>
+
+<p>Stripe’s review queue streamlines the process for giving unusual payments a second look. Instead of spending significant amounts of time manually reviewing a long list of payments, you can send a targeted list of payments to review that meet your specified criteria, and review them right from the Dashboard.</p></section>
+
+<section>
+<h2 id="reviewing-payments">Reviewing payments</h2>
+
+<p>The <a href="https://dashboard.stripe.com/fraud">review queue</a> in the Dashboard is a prioritized list of payments that need further investigation. There are two key ways to review payments: the <a href="#list-view">list view</a> allows you to perform reviews with at-a-glance information while the <a href="#detailed-view">detailed view</a> provides much more context about a payment. The detailed view can be further customized with your own data.</p>
+
+<p>Any payments placed into review have already been processed successfully. You can choose to approve a payment as-is, refund the payment, or refund the payment and mark as fraudulent.</p>
+
+<h3 id="list-view">List view</h3>
+
+<p>The list view contains information to help you quickly get a sense for each payment’s possible risk of fraud.</p>
+
+<div class="image full">
+  <p><a href="../../img/documentation/radar/review-queue.png" class="zoomable" data-width="1024" data-height="624"><img src="../../img/documentation/radar/review-queue.png" width="100%" /></a></p>
+  <p>Your manual review queue can be found within the <a href="https://dashboard.stripe.com/fraud">Radar</a> page of the Dashboard.</p>
+</div>
+
+<p>The list view highlights:</p>
+
+<ul>
+  <li>The risk level Stripe has assigned after evaluating the payment</li>
+  <li>Customer’s name</li>
+  <li>Card information</li>
+  <li>Amount, date and time of the payment</li>
+  <li>Country in which the payment was made, and country in which the card was issued</li>
+</ul>
+
+<h3 id="detailed-view">Detailed view</h3>
+
+<aside class="note">
+  <h3>Keyboard shortcuts</h3>
+  <p>You can quickly move between payments when viewing them in more detail by using the <code>J</code> and <code>K</code> keys.</p>
+</aside>
+
+<p>If you need to view further information about a payment before making a decision (such as any additional information you may have provided as <a href="#best-practices">metadata</a>), select the payment within the review queue to view the entire payment detail page. If you have multiple payments to review, you can quickly navigate between them using the Previous/Next buttons.</p>
+
+<div class="image full">
+  <p><a href="../../img/documentation/radar/detailed-view.png" class="zoomable" data-width="1024" data-height="624"><img src="../../img/documentation/radar/detailed-view.png" width="100%" /></a></p>
+</div>
+
+<h2 id="actions">Actions</h2>
+
+<aside class="note">
+  <h3>Disputed payments</h3>
+  <p>If a customer disputes a payment that is currently in your review queue, the review is automatically closed.</p>
+</aside>
+
+<p>Once you’ve reviewed a payment, you can remove it from the review queue by taking one of the following actions:</p>
+
+<ul>
+  <li><strong>Approve</strong>: Closes the review with no changes made to the payment</li>
+  <li><strong>Refund</strong>: Refunds the payment without reporting it to Stripe as fraudulent</li>
+  <li><strong>Refund and report fraud</strong>: Refunds the payment and reports it to Stripe as fraudulent. This improves our machine learning models’ judgments and further increases the effectiveness of our fraud prevention.</li>
+</ul>
+
+<h2 id="customizing-the-review-queue">Customizing the review queue</h2>
+
+<p>You can create <a href="docs/radar/rules.html#review-rules">rules</a> that automatically place payments in review based on the unique needs of your business. This give you the opportunity to identify payments that might require more investigation before you can make an informed decision.</p>
+
+<h2 id="best-practices">Best practices</h2>
+
+<p>Human reviews can add additional nuance to your fraud prevention strategy. While these reviews provide the additional insight, control, and information a person can bring to make a decision, doing so can come at a high cost without care. This can be a burden for operational resources or become unwieldy during peak seasons. To get the most out of reviews:</p>
+
+<ul>
+  <li><strong>Focus time on payments where human judgment can add valuable insight to the decision</strong>: Automated systems should be able to make decisions on the vast majority of payments, but there may be a few where a human can make a decision with a significantly higher level of accuracy. To make best use of valuable human time, only review transactions where a human can definitely make a better decision than an automated system.</li>
+  <li><strong>Leverage the insights from reviewers to develop hypotheses for fraud prevention strategies</strong>: As reviewers sort through your transactions, they develop intuitions for fraud prevention that can be translated into better rules. Collect insights from reviewers to <a href="testing.html#rules">test custom rules on your account</a>.</li>
+  <li><strong>Customize the process by presenting data unique to your business at review time</strong>: Pass along any additional customer or order information as metadata so that you can have all relevant information in the Dashboard at the time of review.  Some examples of useful metadata include:
+    <ul>
+      <li>More information about the order and its shipping information</li>
+      <li><a href="https://maps.google.com/">Google Maps</a> and Street View links to the customer’s shipping address so the reviewer can see if the address might be a drop-shipping or freight-forwarding service</li>
+    </ul>
+  </li>
+  <li><strong>Don’t slow down your customer journey</strong>: A review implies there is time between the order being taken and delivered. If your business inherently has a delay of this type (if you’re shipping physical goods, for example), taking the time to review a transaction doesn’t detract from the customer experience. If there isn’t a delay built into your product experience, adding in a review process could potentially slow down orders and serve as a bottleneck for good customers.</li>
+</ul></section>
+
+<section>
+<h2>Next steps</h2>
+<ul class="next-steps">
+    <li><a href="rules.html"><span>Rules</a></li>
+</ul>
+</section>
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/radar/review by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:55 GMT -->
+</html>

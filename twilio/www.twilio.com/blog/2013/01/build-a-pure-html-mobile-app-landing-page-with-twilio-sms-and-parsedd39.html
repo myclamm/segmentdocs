@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html?utm_source=blog&utm_medium=link&utm_campaign=sms-4-lines-april-2014 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_2fc7866ecddad6a19d36dd280e5fe78d.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Build a Pure HTML Mobile App Landing Page with Twilio SMS and Parse &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Kevin Whinnery shows you how to build a mobile app landing page with Twilio SMS and Parse"/>
+<link rel="canonical" href="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Build a Pure HTML Mobile App Landing Page with Twilio SMS and Parse Comments Feed" href="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Kevin Whinnery');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'customer-highlights');
+	__gaTracker('set', 'dimension7', 'HTML,Json,Mobile Landing Page,Parse JavaScript,SMS');
+	__gaTracker('set', 'dimension8', '2013-01-30T10:04:00+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=11580' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2013%2F01%2Fbuild-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2013%2F01%2Fbuild-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-11580 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-11580" class="row post-11580 post type-post status-publish format-standard hentry category-customer-highlights tag-html tag-json tag-mobile-landing-page tag-parse-javascript tag-sms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Build a Pure HTML Mobile App Landing Page with Twilio SMS and Parse</h2>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/kevinwhinnery">Kevin Whinnery</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html" rel="bookmark"><time class="entry-date published" datetime="2013-01-30T10:04:00+00:00">January 30, 2013</time><time class="updated" datetime="2015-09-24T13:09:01+00:00">September 24, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html" data-text="Build a Pure HTML Mobile App Landing Page with Twilio SMS and Parse ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p><img style="float: right; border: 1px solid #000; margin: 0 0 10px 10px;" alt="quora" src="https://www.twilio.com/blog/wp-content/uploads/2013/01/quora.png" width="292" height="106" />Every mobile app developer knows that all their hard work on UI, performance, and seamless platform integration means nothing unless a user actually finds, downloads and installs the app. <a href="http://www.twilio.com/solutions/mobile-app-distribution" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twilio.com/solutions/mobile-app-distribution', 'Twilio SMS can help');" target="_blank">Twilio SMS can help</a> by allowing users to receive an app download link directly on their phone. Great mobile apps like Quora (pictured at right) and <a href="http://www.flickr.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.flickr.com/', 'Flickr');" target="_blank">Flickr</a> have used Twilio SMS to great effect, helping drive downloads for their mobile apps across multiple platforms.</p>
+<p>Today, I&#8217;d like to show you how to build a pure HTML mobile app landing page with <a href="http://www.twilio.com/sms" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twilio.com/sms', 'Twilio SMS');" target="_blank">Twilio SMS</a> and <a href="http://parse.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://parse.com/', 'Parse');" target="_blank">Parse</a>. You can use this to drive more app downloads. Using pure HTML and JavaScript, we&#8217;ll create a landing page for a fictional app that helps kids read (<a href="http://www.imdb.com/title/tt0196229/quotes?qt=qt0375868" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.imdb.com/title/tt0196229/quotes?qt=qt0375868', 'because there&#8217;s more to life than being really, really good looking');" target="_blank">because there&#8217;s more to life than being really, really good looking</a>). </p>
+<p>This app is available for both iOS and Android, so we&#8217;ll need to be able to link to the proper page from both Android and iOS browsers. <a href="http://mad.site44.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://mad.site44.com/', 'The live site is here');">The live site is here</a> &#8211; nothing too fancy, but it provides two big download links, plus a small form to receive the app link via text message:</p>
+<p><a href="http://mad.site44.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://mad.site44.com/', '');"><img class="alignright size-full wp-image-11581" alt="ReadGood app landing page" src="https://www.twilio.com/blog/wp-content/uploads/2013/01/readgood.png" width="693" height="392" /></a></p>
+<p>If you enter your mobile phone number into the field and hit the button, you should receive a text message with a link that sends you directly to an app download page for a Zoolander-quoting app on either Android or iOS, depending on your platform version. Contrast this with the multi-step process of searching an app store on your mobile device, and you’ll notice a significant decrease in the friction of app download and install.<br />
+&nbsp;</p>
+<h3>Solution Overview</h3>
+<p>So what does it take to make this link magically beam down to our user&#8217;s phone? The overall flow is as follows:</p>
+<ul>
+<li>User arrives at our landing page</li>
+<li>User enters their phone number, which we submit to our back end (powered by Parse)</li>
+<li>Our back end code sends a link to our download page to a user&#8217;s phone via SMS</li>
+<li>The user clicks on a link in the SMS message sent to their phone, which loads our app download page in their mobile browser</li>
+<li>Our download page detects the current platform based on the browser&#8217;s user agent, and redirects to the proper app download page.</li>
+</ul>
+<p>The source code for this simple app landing page setup is located on <a href="https://github.com/kwhinnery/mad-parse" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/kwhinnery/mad-parse', 'GitHub');">GitHub</a>. We won&#8217;t go through every line of code in this example, but we will walk through the key bits of code and steps necessary to use this page with your own mobile app. Here are the main moving parts:</p>
+<ul>
+<li>A <a href="https://github.com/kwhinnery/mad-parse/blob/master/www/config.sample.json" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/kwhinnery/mad-parse/blob/master/www/config.sample.json', 'configuration file');">configuration file</a> which contains information about the app, including Parse API keys and app download links</li>
+<li>A <a href="https://github.com/kwhinnery/mad-parse/blob/master/config/global.sample.json" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/kwhinnery/mad-parse/blob/master/config/global.sample.json', 'Parse Cloud Code configuration file');">Parse Cloud Code configuration file</a>, which contains information about your app as it exists in Parse&#8217;s back end system.</li>
+<li>A JavaScript file containing server-side <a href="https://github.com/kwhinnery/mad-parse/blob/master/cloud/main.js" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/kwhinnery/mad-parse/blob/master/cloud/main.js');">JavaScript that will send a text message</a>, along with a file that contains all your <a href="https://github.com/kwhinnery/mad-parse/blob/master/cloud/cloudConfig.sample.js" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/kwhinnery/mad-parse/blob/master/cloud/cloudConfig.sample.js');">Twilio configuration information</a>.</li>
+<li>HTML files which will 1.) <a href="https://github.com/kwhinnery/mad-parse/blob/master/www/index.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/kwhinnery/mad-parse/blob/master/www/index.html', 'submit a user&#8217;s mobile number');">submit a user&#8217;s mobile number</a>, and 2.) <a href="https://github.com/kwhinnery/mad-parse/blob/master/www/download.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/kwhinnery/mad-parse/blob/master/www/download.html', 'redirect to the proper app download page');">redirect to the proper app download page</a> when opened on a mobile device.</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Configuring All The Things!</h3>
+<p>In order to customize this app landing page for your own use, you will first need to <a href="https://github.com/kwhinnery/mad-parse" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/kwhinnery/mad-parse', 'download or clone the app source from Github');">download or clone the app source from Github</a>. You will notice that this directory structure is the same as a new Parse Cloud Code project, plus a &#8220;www&#8221; directory which contains HTML files we want to deploy on a public web server. Once you have the code locally, rename all the configuration files, dropping the &#8220;sample&#8221; from their names:</p>
+<ul>
+<li>Rename &#8220;www/config.sample.json&#8221; to &#8220;www/config.json&#8221;</li>
+<li>Rename &#8220;config/global.sample.json&#8221; to &#8220;config/global.json&#8221;</li>
+<li>Rename &#8220;cloud/cloudConfig.sample.js&#8221; to &#8220;cloud/cloudConfig.js&#8221;</li>
+</ul>
+<p>If you haven&#8217;t already, you will now need to head out to<a href="http://parse.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://parse.com/', ' parse.com');"> parse.com</a> to sign up for an account and <a href="https://parse.com/apps/new" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://parse.com/apps/new', 'create a new application');">create a new application</a>. Once your application is created, you will see a dashboard screen which looks much like this one:</p>
+<p><a href="http://parse.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://parse.com/', '');" rel="attachment wp-att-11582"><img class="aligncenter size-full wp-image-11582" alt="Parse Dashboard" src="https://www.twilio.com/blog/wp-content/uploads/2013/01/parse1.png" width="610" height="340" /></a></p>
+<p>Open &#8220;www/config.json&#8221; (one of the files you just renamed) and replace &#8220;YOUR_PARSE_APPLICATION_ID&#8221; and &#8220;YOUR_PARSE_JAVASCRIPT_KEY&#8221; with the appropriate values from this dashboard page. Similarly, open up &#8220;config/global.json&#8221; and replace the UPPER_CASED values with the appropriate values for your application.</p>
+<p>That should be it for your Parse configuration. To configure your Twilio account credentials (<a href="https://www.twilio.com/user/account" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account', 'found here');">found here</a> after you have <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'signed up for an account');">signed up for an account</a>), open up &#8220;cloud/cloudConfig.js&#8221; in your app directory, and configure your Twilio account SID, auth token, and an outgoing number you can send a text message from (<a href="https://www.twilio.com/user/account/phone-numbers/available/local" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account/phone-numbers/available/local', 'you can buy one here');">you can buy one here</a>, if need be).</p>
+<p>&nbsp;</p>
+<h3>Deploying Your Cloud Code</h3>
+<p>Now that we have everything configured properly, let&#8217;s get this code running. In order to send an SMS text message to a potential user of your application, you will need to run a server-side script that uses Twilio&#8217;s REST API to send an outgoing text message. Usually, this requires a server side script (like one written in PHP or Python), but Parse provides a set of functionality called <a href="https://parse.com/docs/cloud_code_guide" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://parse.com/docs/cloud_code_guide', 'Cloud Code');">Cloud Code</a> which allows you to create functions that can be remotely invoked in your client-side JavaScript (or Objective-C or Java) code.</p>
+<p>If that wasn&#8217;t awesome enough, Parse also has support for some basic Twilio functionality baked right into one of its <a href="https://parse.com/docs/cloud_modules_guide#twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://parse.com/docs/cloud_modules_guide#twilio', 'Cloud Modules');">Cloud Modules</a>. The Twilio Cloud Module allows Parse users to send and receive SMS text messages via Twilio. In a few lines of code, we can send a text message from Parse like so:</p>
+<p><script src="https://gist.github.com/4583783.js"></script></p>
+<p>To deploy this code to Parse&#8217;s servers, we first need to <a href="https://parse.com/docs/cloud_code_guide#started-installing" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://parse.com/docs/cloud_code_guide#started-installing', 'install their command line tool');">install their command line tool</a>. We can then upload this code using the <a href="https://parse.com/docs/cloud_code_guide#started-simple" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://parse.com/docs/cloud_code_guide#started-simple', '&#8220;parse deploy&#8221; command from the root of the project');">&#8220;parse deploy&#8221; command from the root of the project</a> (where the cloud, config, and www folders reside).</p>
+<p>&nbsp;</p>
+<h3>Deploying Your Client Code</h3>
+<p>With our Parse cloud code in place, we can now upload the contents of the &#8220;www&#8221; directory to any web server we have access to, and it should just work! If you&#8217;re looking for a simple HTML hosting option, I really like the service provided by <a href="http://www.site44.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.site44.com/', 'site44');">site44</a>. It allows you to turn a Dropbox folder into a web root for a live website! Follow the instructions on their site, and use your Dropbox account to create a public-facing website for your app:</p>
+<p><a href="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html/mad-site44-com" rel="attachment wp-att-11584"><img class="aligncenter size-full wp-image-11584" alt="mad.site44.com" src="https://www.twilio.com/blog/wp-content/uploads/2013/01/mad.site44.com_.png" width="528" height="361" /></a></p>
+<p>After deploying your HTML pages to site44 (or the host of your choice), navigate to the “index.html” page that contains the form where we will enter in our desired mobile number. When we click the submit button, our JavaScript code on that page will intercept that event and submit a request to Parse, passing in the phone number the user gave us:</p>
+<p><script src="https://gist.github.com/4583835.js"></script></p>
+<p>Which will show up as&#8230;</p>
+<p><a href="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html/photo-9" rel="attachment wp-att-11583"><img class="aligncenter size-full wp-image-11583" alt="photo" src="https://www.twilio.com/blog/wp-content/uploads/2013/01/photo.png" width="326" height="540" /></a></p>
+<p>The link we sent points to an HTML file inside our &#8220;www&#8221; directory that will inspect the browser&#8217;s user agent to determine which app download link to open when it is loaded in the mobile device&#8217;s browser:</p>
+<p><script src="https://gist.github.com/4583892.js"></script></p>
+<p>&nbsp;</p>
+<h3>Conclusion</h3>
+<p>Using Twilio and Parse, we were able to quickly create a useful app landing page with no server side code. By allowing users to receive the app link directly on their phone, we reduce the barriers between them landing on our page and enjoying our finely crafted mobile application. With some tuning of the HTML and CSS, you should be able to make this page your own using screenshots, testimonials, and support content for your own real mobile app. Here&#8217;s to more downloads of your amazing mobile creation!</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html" data-text="Build a Pure HTML Mobile App Landing Page with Twilio SMS and Parse ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/4786cf28e0f5886c4b006f7487333845?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4786cf28e0f5886c4b006f7487333845?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/kevinwhinnery">Kevin Whinnery</a></span></span> <span class="author-meta author-email"><a href="mailto:kwhinnery@twilio.com">kwhinnery@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/kevinwhinnery">@kevinwhinnery<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Use Twilio Tutorials to Start Building</h3>         <a href="https://www.twilio.com/docs/tutorials/walkthrough/call-tracking/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/call-tracking/php/laravel', '');">
+          <h5>Call Tracking</h5>
+        </a>
+         <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/php/laravel', '');">
+          <h5>SMS and MMS Notifications</h5>
+        </a>
+         <a href="https://www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/php/laravel" onclick="__gaTracker('send', 'event', 'startbuilding-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/php/laravel', '');">
+          <h5>Two-Factor Authentication with Authy</h5>
+        </a>
+      
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-1762">
+        <div id="dsq-comment-header-1762" class="dsq-comment-header">
+            <cite id="dsq-cite-1762">
+                <span id="dsq-author-user-1762">Matt Berg</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1762" class="dsq-comment-body">
+            <div id="dsq-comment-message-1762" class="dsq-comment-message"><p>Great post Kevin. I&#8217;m curious, does this sample deal with preventing multiple texts to the same phone number?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-1772">
+        <div id="dsq-comment-header-1772" class="dsq-comment-header">
+            <cite id="dsq-cite-1772">
+http://twitter.com/kevinwhinnery                <span id="dsq-author-user-1772">Kevin Whinnery</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-1772" class="dsq-comment-body">
+            <div id="dsq-comment-message-1772" class="dsq-comment-message"><p>Not currently, no.  My thinking was that if people wanted to send the link to the same number multiple times, that would be okay.  Though using Parse, you could keep a persistent record of which numbers you&#8217;ve sent text messages to.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-2248">
+        <div id="dsq-comment-header-2248" class="dsq-comment-header">
+            <cite id="dsq-cite-2248">
+                <span id="dsq-author-user-2248">Dominic Nique Coryell</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2248" class="dsq-comment-body">
+            <div id="dsq-comment-message-2248" class="dsq-comment-message"><p>This was SUCH A GREAT ARTICLE.  You have no idea how much this helped me.  I have no coding experience and now I have a site to promote my mobile app.  Thanks.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-2250">
+        <div id="dsq-comment-header-2250" class="dsq-comment-header">
+            <cite id="dsq-cite-2250">
+http://www.twilio.com                <span id="dsq-author-user-2250">Twilio</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2250" class="dsq-comment-body">
+            <div id="dsq-comment-message-2250" class="dsq-comment-message"><p>Dominic, that&#8217;s great. I&#8217;d love to hear more about what you&#8217;re building and your experience creating the site. Can you shoot a note to <a href="mailto:kyleky@twilio.com">kyleky@twilio.com</a>?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-2732">
+        <div id="dsq-comment-header-2732" class="dsq-comment-header">
+            <cite id="dsq-cite-2732">
+                <span id="dsq-author-user-2732">Tony DiMatteo</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2732" class="dsq-comment-body">
+            <div id="dsq-comment-message-2732" class="dsq-comment-message"><p>HI, I don&#8217;t think this code is current.  The live site in your post doesn&#8217;t send a link anymore.  I&#8217;d love to see an updated version.  Thanks!</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-3170">
+        <div id="dsq-comment-header-3170" class="dsq-comment-header">
+            <cite id="dsq-cite-3170">
+                <span id="dsq-author-user-3170">kumarovski</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3170" class="dsq-comment-body">
+            <div id="dsq-comment-message-3170" class="dsq-comment-message"><p>This works too: <a href="http://linktexting.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://linktexting.com/', 'http://linktexting.com/');" rel="nofollow">http://linktexting.com</a> It&#8217;s built on top of twilio&#8217;s api and takes seconds to make the embed code for your landing page.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3068">
+        <div id="dsq-comment-header-3068" class="dsq-comment-header">
+            <cite id="dsq-cite-3068">
+                <span id="dsq-author-user-3068">alexandra.kwc</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3068" class="dsq-comment-body">
+            <div id="dsq-comment-message-3068" class="dsq-comment-message"><p>It`s hard to imagine modern business industry without mobile technologies. Mobile devices (laptops, smartphones and tablets) help to improve the effectiveness of the employee  labor.  I found an article on how mobile technologies help to improve business development.  </p>
+<p><a href="https://www.snappii.com/resource-center/mobile-apps-for-business/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://www.snappii.com/resource-center/mobile-apps-for-business/', 'https://www.snappii.com/resource-center/mobile-apps-for-business/');" rel="nofollow">https://www.snappii.com/resource-center/mobile-apps-for-business/</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-3188">
+        <div id="dsq-comment-header-3188" class="dsq-comment-header">
+            <cite id="dsq-cite-3188">
+                <span id="dsq-author-user-3188">kumarovski</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3188" class="dsq-comment-body">
+            <div id="dsq-comment-message-3188" class="dsq-comment-message"><p>This works as well: <a href="http://linktexting.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://linktexting.com/', 'http://linktexting.com/');" rel="nofollow">http://linktexting.com</a> and is built on top of twilio. </p>
+<p>Twilio has the best uptime so we used it to create the same form in seconds instead of hours.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3376">
+        <div id="dsq-comment-header-3376" class="dsq-comment-header">
+            <cite id="dsq-cite-3376">
+                <span id="dsq-author-user-3376">Miguel Fermín</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3376" class="dsq-comment-body">
+            <div id="dsq-comment-message-3376" class="dsq-comment-message"><p>You could also set it up in minutes using a service like <a href="https://textingpal.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://textingpal.com/', 'https://textingpal.com/');" rel="nofollow">https://textingpal.com</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2013/01/11580 http://www.twilioblog.com/?p=11580';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Build a Pure HTML Mobile App Landing Page with Twilio SMS and Parse";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html?cf_action=sync_comments&amp;post_id=11580';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2013\/01\/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2013/01/build-a-pure-html-mobile-app-landing-page-with-twilio-sms-and-parse.html?utm_source=blog&utm_medium=link&utm_campaign=sms-4-lines-april-2014 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+</html>

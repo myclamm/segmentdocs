@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/connect/deferred-accounts by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:42 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="exPJraglaBrgAgoFlmsfkO5eL25uJYn7hYeBh3AiklHiid3QruCsXy1GLhpaYyrrxyCh6TKJSFvEMouv1fVYIA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Deferring Account Activation</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Deferring Account Activation">
+    <meta property="og:url" content="deferred-accounts.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Deferring Account Activation">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Deferred Account Activation <span class="tag beta">Beta</span></h1>
+  <p>With Connect, you can create Stripe accounts for your users that don't have to be activated right away.</p>
+</header>
+
+<section>
+<p>Though the primary way for your platform to connect to standalone Stripe accounts is through the <a href="standalone-accounts.html">OAuth flow</a>, you can also create Stripe accounts with deferred activation requirements.</p>
+
+<p>When you create a deferred standalone account, Stripe will email the user to ask them to set up their account. In the meantime, the account is allowed to make a small number of charges before activation, with some <a href="#deferred-account-limits">limits</a>.</p></section>
+
+<section>
+<h2 id="creating-a-standalone-account">Creating a standalone account</h2>
+
+<p>To create and connect to a standalone account, set <code>managed</code> to false in <a href="../api.html#create_account">account creation request</a>. The only thing you need to provide is a country and an email address (although we recommend sending more information if you have it to make activation easier for your user later):</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+           >curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/accounts \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d country=US \
+   -d managed=false \
+   -d email=&quot;example@stripe.com&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+Stripe::Account.create(
+  :country =&gt; &quot;US&quot;,
+  :managed =&gt; false,
+  :email =&gt; &quot;example@stripe.com&quot;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+stripe.Account.create(
+  country=&quot;US&quot;,
+  managed=False,
+  email=&quot;example@stripe.com&quot;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+\Stripe\Account::create(array(
+  &quot;country&quot; =&gt; &quot;US&quot;,
+  &quot;managed&quot; =&gt; false,
+  &quot;email&quot; =&gt; &quot;example@stripe.com&quot;
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+
+Map&lt;String, Object&gt; accountParams = new HashMap&lt;String, Object&gt;();
+accountParams.put(&quot;country&quot;, &quot;US&quot;);
+accountParams.put(&quot;managed&quot;, false);
+accountParams.put(&quot;email&quot;, &quot;example@stripe.com&quot;);
+
+Account.create(accountParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&#39;stripe&#39;)(PLATFORM_SECRET_KEY);
+stripe.accounts.create({
+  country: &quot;US&quot;,
+  managed: false,
+  email: &quot;example@stripe.com&quot;
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Stripe will email the user with instructions on how to to claim their Stripe account (the account will automatically be connected to your platform). If a Stripe account under that email address already exists, the API request will return an error.</p>
+
+<p>The result of a successful API call will be the user’s account information:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  ...
+  &quot;id&quot;: &quot;acct_14qyt6Alijdnw0EA&quot;,
+  &quot;keys&quot;: {
+    &quot;secret&quot;: &quot;sk_live_AxSI9q6ieYWjGIeRbURf6EG0&quot;,
+    &quot;publishable&quot;: &quot;pk_live_h9xguYGf2GcfytemKs5tHrtg&quot;
+  }
+  ...
+}</code></pre>
+</div>
+</section>
+
+<section>
+<p>You’ll want to store these values on your side for later usage, as they’ll be used for <a href="authentication.html">authentication</a> purposes. Note that you’ll receive this result in response to the API call, before the user has claimed the account. You’ll also want to define a <a href="authentication.html#webhooks">webhook</a> so you’ll be notified when the account has been activated.</p>
+
+<p>Once a charge is made on the account, the country specified cannot be changed. If you intend to make charges on accounts before it’s activated (i.e., before <code>details_submitted</code> on the account object is set to <code>true</code>), you should be sure to ask the user explicitly what country they are in before creating the account.</p></section>
+
+<section>
+<h2 id="account-activation">Facilitating account activation</h2>
+
+<p>You can provide your user with a link to immediately activate their newly created account, though Stripe will also email them a link to activate.</p>
+<div class="code">
+  <pre class="language-url wrap" ><code>https://dashboard.stripe.com/account/activate?client_id=ca_32D88BD1qLklliziD7gYQvctJIhWBSQ7&amp;user_id=acct_14qyt6Alijdnw0EA</code></pre>
+</div>
+
+<p>Once the user claims this account, this link will no longer work.</p></section>
+
+<section>
+<h2 id="deferred-account-limits">Deferred account limits</h2>
+
+<p>Once the first charge is made on the account, the account holder will have one week to activate the account before Stripe blocks further charges. Stripe will also block charges after a volume threshold is reached, usually around a few thousand dollars. After this point, the account will have three weeks to activate before Stripe refunds the charges made.</p>
+
+<p>To ensure smooth payment processing and transfer scheduling, you should encourage your users to activate their Stripe accounts as soon as possible.</p></section>
+
+<section>
+  <h2>Up next</h2>
+  <p>Now you can use the API on your user's behalf to accept payments, set up recurring billing, fetch account data, and more.</p>
+<ul class="next-steps">
+    <li><a href="authentication.html"><span>Authentication</a></li>
+    <li><a href="payments-fees.html"><span>Creating charges and fees</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/connect/deferred-accounts by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:42 GMT -->
+</html>

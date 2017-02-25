@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/author/mspeir by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:14 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="../xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="../wp-content/cache/autoptimize/css/autoptimize_e1bf36b4de50088bdd3584484458b2d1.css" rel="stylesheet" /><link type="text/css" media="screen" href="../wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Megan Speir &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="mspeir.html" />
+<link rel="next" href="mspeir/page/2.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='../s0.wp.html' />
+<link rel='dns-prefetch' href='../s.w.html' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="../feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="../comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Posts by Megan Speir Feed" href="mspeir/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='../wp-json/index.html' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc0db0.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel="icon" href="../wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="../wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="../wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="archive author author-mspeir author-97 group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="../www.googletagmanager.com/ns980e.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="../index.html">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="../../index.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../index.html', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="../../blog.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../blog.html', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="../../docs/tutorials.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../docs/tutorials.html', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="../../docs/api.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../docs/api.html', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="https://support.twilio.com/hc/en-us" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://support.twilio.com/hc/en-us', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="../../login.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../login.html', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="../../try-twilio.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../try-twilio.html', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			<header class="page-header">
+				<h1 class="page-title">Author: <span class="vcard">Megan Speir</span></h1>			</header><!-- .page-header -->
+
+						
+				
+<article id="post-19352" class="row post-19352 post type-post status-publish format-standard has-post-thumbnail hentry category-developers-drawing-the-owl">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/12/gifted-artificial-intelligence-to-hack-gift-giving.html" rel="bookmark">Gifted: Artificial Intelligence to Hack Gift Giving</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="462" src="../wp-content/uploads/2016/12/AOJ_h3Q2ClGuT5_iDbswNoKyCPiekP3Hr6I55VfXnRXy67kWFoZRtO_sGw_DsauB_uQDgXwJPk-KULHttypdhW_Zi0zuygOLf2sfe8B-0BP_K4xKez_af5xLEpapycbbjQ2OQ9A2-1024x739.png" class="img-responsive wp-post-image" alt="AOJ_h3Q2ClGuT5_iDbswNoKyCPiekP3Hr6I55VfXnRXy67kWFoZRtO_sGw_DsauB_uQDgXwJPk-KULHttypdhW_Zi0zuygOLf2sfe8B-0BP_K4xKez_af5xLEpapycbbjQ2OQ9A2" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/12/AOJ_h3Q2ClGuT5_iDbswNoKyCPiekP3Hr6I55VfXnRXy67kWFoZRtO_sGw_DsauB_uQDgXwJPk-KULHttypdhW_Zi0zuygOLf2sfe8B-0BP_K4xKez_af5xLEpapycbbjQ2OQ9A2-1024x739.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/12/AOJ_h3Q2ClGuT5_iDbswNoKyCPiekP3Hr6I55VfXnRXy67kWFoZRtO_sGw_DsauB_uQDgXwJPk-KULHttypdhW_Zi0zuygOLf2sfe8B-0BP_K4xKez_af5xLEpapycbbjQ2OQ9A2-300x217.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/12/AOJ_h3Q2ClGuT5_iDbswNoKyCPiekP3Hr6I55VfXnRXy67kWFoZRtO_sGw_DsauB_uQDgXwJPk-KULHttypdhW_Zi0zuygOLf2sfe8B-0BP_K4xKez_af5xLEpapycbbjQ2OQ9A2-768x554.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/12/AOJ_h3Q2ClGuT5_iDbswNoKyCPiekP3Hr6I55VfXnRXy67kWFoZRtO_sGw_DsauB_uQDgXwJPk-KULHttypdhW_Zi0zuygOLf2sfe8B-0BP_K4xKez_af5xLEpapycbbjQ2OQ9A2-200x144.png 200w, https://www.twilio.com/blog/wp-content/uploads/2016/12/AOJ_h3Q2ClGuT5_iDbswNoKyCPiekP3Hr6I55VfXnRXy67kWFoZRtO_sGw_DsauB_uQDgXwJPk-KULHttypdhW_Zi0zuygOLf2sfe8B-0BP_K4xKez_af5xLEpapycbbjQ2OQ9A2.png 1600w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Artificial Intelligence (AI) is coming for us all. Michael Jordan, a mechanical engineer by trade, came to this realization while working as the director of energy and sustainability at a New York City based firm serving large real estate clients. While busy building energy models, Michael thought that much of his work in applied engineering was actually an optimization problem. Eventually, AI will solve most of&#8230; <a class="read-more" href="../2016/12/gifted-artificial-intelligence-to-hack-gift-giving.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/12/gifted-artificial-intelligence-to-hack-gift-giving.html" rel="bookmark"><time class="entry-date published updated" datetime="2016-12-20T12:50:25+00:00">December 20, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/12/gifted-artificial-intelligence-to-hack-gift-giving.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/12/gifted-artificial-intelligence-to-hack-gift-giving.html" data-text="Gifted: Artificial Intelligence to Hack Gift Giving ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-19263" class="row post-19263 post type-post status-publish format-standard has-post-thumbnail hentry category-developers-drawing-the-owl">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/12/giphy-and-twilio-text-a-gif-using-rapidapi.html" rel="bookmark">Giphy and Twilio Text A GIF Using RapidAPI</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="365" src="../wp-content/uploads/2016/12/BnahX_uCdHudQKftbH2T7EktG_vZACJZOSQ9vJxnfQE3KeWC9mpzYL5_yF2HtRvhtKJYnl33832jN2J0zDlEVE4_Kl7WFWSWQvH3gWcV6M-pQCjrUhxnIFQYbjMjMBegGCmJY54f.png" class="img-responsive wp-post-image" alt="BnahX_uCdHudQKftbH2T7EktG_vZACJZOSQ9vJxnfQE3KeWC9mpzYL5_yF2HtRvhtKJYnl33832jN2J0zDlEVE4_Kl7WFWSWQvH3gWcV6M-pQCjrUhxnIFQYbjMjMBegGCmJY54f" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/12/BnahX_uCdHudQKftbH2T7EktG_vZACJZOSQ9vJxnfQE3KeWC9mpzYL5_yF2HtRvhtKJYnl33832jN2J0zDlEVE4_Kl7WFWSWQvH3gWcV6M-pQCjrUhxnIFQYbjMjMBegGCmJY54f.png 913w, https://www.twilio.com/blog/wp-content/uploads/2016/12/BnahX_uCdHudQKftbH2T7EktG_vZACJZOSQ9vJxnfQE3KeWC9mpzYL5_yF2HtRvhtKJYnl33832jN2J0zDlEVE4_Kl7WFWSWQvH3gWcV6M-pQCjrUhxnIFQYbjMjMBegGCmJY54f-300x171.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/12/BnahX_uCdHudQKftbH2T7EktG_vZACJZOSQ9vJxnfQE3KeWC9mpzYL5_yF2HtRvhtKJYnl33832jN2J0zDlEVE4_Kl7WFWSWQvH3gWcV6M-pQCjrUhxnIFQYbjMjMBegGCmJY54f-768x438.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/12/BnahX_uCdHudQKftbH2T7EktG_vZACJZOSQ9vJxnfQE3KeWC9mpzYL5_yF2HtRvhtKJYnl33832jN2J0zDlEVE4_Kl7WFWSWQvH3gWcV6M-pQCjrUhxnIFQYbjMjMBegGCmJY54f-200x114.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>This post originally appeared on the RapidAPI blog by Lindsey Kirchoff. RapidAPI is a marketplace where developers can test and connect to multiple APIs from one endpoint. Lindsey created an API Smash using Twilio SMS and Giphy to text GIFs. One of the reasons that we built RapidAPI is to make it easier to call multiple APIs through one console. No more juggling multiple API libraries! We&#8217;re starting a series&#8230; <a class="read-more" href="../2016/12/giphy-and-twilio-text-a-gif-using-rapidapi.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/12/giphy-and-twilio-text-a-gif-using-rapidapi.html" rel="bookmark"><time class="entry-date published" datetime="2016-12-08T12:49:30+00:00">December 8, 2016</time><time class="updated" datetime="2016-12-08T12:52:31+00:00">December 8, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/12/giphy-and-twilio-text-a-gif-using-rapidapi.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/12/giphy-and-twilio-text-a-gif-using-rapidapi.html" data-text="Giphy and Twilio Text A GIF Using RapidAPI ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-19239" class="row post-19239 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/12/http-requests-in-python-3.html" rel="bookmark">HTTP Requests in Python 3</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="410" src="../wp-content/uploads/2016/12/header.gif" class="img-responsive wp-post-image" alt="header" />            </div>
+					
+					<p>The Python Package Index (PyPI) is home to almost 100,000 code library packages that help Python programmers accomplish many tasks ranging from building web applications to analyzing data. PyPI is also home to many helper libraries for APIs such as Twilio. Let&#8217;s demonstrate the power of PyPI packages by taking look at how to retrieve and parse JSON results from a RESTful API using four different Python HTTP&#8230; <a class="read-more" href="../2016/12/http-requests-in-python-3.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/12/http-requests-in-python-3.html" rel="bookmark"><time class="entry-date published" datetime="2016-12-06T14:33:32+00:00">December 6, 2016</time><time class="updated" datetime="2016-12-06T15:32:09+00:00">December 6, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/12/http-requests-in-python-3.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/12/http-requests-in-python-3.html" data-text="HTTP Requests in Python 3 ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-19070" class="row post-19070 post type-post status-publish format-image has-post-thumbnail hentry category-developers-drawing-the-owl post_format-post-format-image">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/11/how-to-send-an-sms-from-ios-in-swift.html" rel="bookmark">How to Send an SMS from iOS in Swift</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="253" src="../wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-1024x405.png" class="img-responsive wp-post-image" alt="tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-1024x405.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-300x119.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-768x304.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-200x79.png 200w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz.png 1410w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Sending text messages from your iOS app might be something you need or want to do and we&#8217;ve seen this problem solved for our friends on Android. It&#8217;s time to solve it with Swift. Why Shouldn&#8217;t I Send SMS from the REST API in Swift? While Twilio is a REST API and you could make an HTTP request to it directly, you would need to store your&#8230; <a class="read-more" href="../2016/11/how-to-send-an-sms-from-ios-in-swift.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/11/how-to-send-an-sms-from-ios-in-swift.html" rel="bookmark"><time class="entry-date published" datetime="2016-11-02T11:15:12+00:00">November 2, 2016</time><time class="updated" datetime="2016-11-03T09:44:57+00:00">November 3, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" data-text="How to Send an SMS from iOS in Swift ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18862" class="row post-18862 post type-post status-publish format-standard has-post-thumbnail hentry category-developers-drawing-the-owl">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/09/identity-management-in-spring-boot-with-twilio-and-stormpath-in-15-minutes.html" rel="bookmark">Identity Management in Spring Boot with Twilio and Stormpath in 15 Minutes</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="243" src="../wp-content/uploads/2016/09/twilio-speculative-white-1024x388.jpg" class="img-responsive wp-post-image" alt="twilio-speculative-white" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/09/twilio-speculative-white-1024x388.jpg 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/09/twilio-speculative-white-300x114.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/09/twilio-speculative-white-768x291.jpg 768w, https://www.twilio.com/blog/wp-content/uploads/2016/09/twilio-speculative-white-200x76.jpg 200w, https://www.twilio.com/blog/wp-content/uploads/2016/09/twilio-speculative-white.jpg 1320w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>This is a syndicated post, originally posted by Micah Silverman, Developer Evangelist at Stormpath, an api that lets developers add authentication, authorization, and user management to any web or mobile app in minutes. Micah created a Spring Boot application that uses Twilio&#8217;s Java Helper Library and Stormpath to send login notifications. Today, in less than 30 seconds or so, I was able to set up a Twilio&#8230; <a class="read-more" href="../2016/09/identity-management-in-spring-boot-with-twilio-and-stormpath-in-15-minutes.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/09/identity-management-in-spring-boot-with-twilio-and-stormpath-in-15-minutes.html" rel="bookmark"><time class="entry-date published" datetime="2016-09-29T13:58:11+00:00">September 29, 2016</time><time class="updated" datetime="2016-09-29T14:00:40+00:00">September 29, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/09/identity-management-in-spring-boot-with-twilio-and-stormpath-in-15-minutes.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/09/identity-management-in-spring-boot-with-twilio-and-stormpath-in-15-minutes.html" data-text="Identity Management in Spring Boot with Twilio and Stormpath in 15 Minutes ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18606" class="row post-18606 post type-post status-publish format-standard has-post-thumbnail hentry category-developers-drawing-the-owl">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/08/ryan-leslie-is-coming-to-signal-london.html" rel="bookmark">Ryan Leslie is Coming to SIGNAL London</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="425" src="../wp-content/uploads/2016/08/DSC_8792-1024x680.jpg" class="img-responsive wp-post-image" alt="DSC_8792" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/08/DSC_8792-1024x680.jpg 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/08/DSC_8792-300x199.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/08/DSC_8792-768x510.jpg 768w, https://www.twilio.com/blog/wp-content/uploads/2016/08/DSC_8792-200x133.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Who knew an artist could change the trajectory of their career one SMS at a time? Ryan Leslie, the Harvard educated, grammy-nominated rap and hip-hop artist did just this. He created SuperPhone, a platform that enables him (and you) to connect with an audience on a more personal level. Ryan will be joining us for SIGNAL London on September 20th, 2016. You don&#8217;t want to miss&#8230; <a class="read-more" href="../2016/08/ryan-leslie-is-coming-to-signal-london.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/08/ryan-leslie-is-coming-to-signal-london.html" rel="bookmark"><time class="entry-date published" datetime="2016-08-18T03:00:29+00:00">August 18, 2016</time><time class="updated" datetime="2016-08-17T16:16:59+00:00">August 17, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/ryan-leslie-is-coming-to-signal-london.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/ryan-leslie-is-coming-to-signal-london.html" data-text="Ryan Leslie is Coming to SIGNAL London ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18569" class="row post-18569 post type-post status-publish format-standard has-post-thumbnail hentry category-developers-drawing-the-owl">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/08/shahzeb-khan-builds-frank-ocean-album-detection.html" rel="bookmark">Shahzeb Khan Builds Frank Ocean Album Detection</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="355" src="../wp-content/uploads/2016/08/FO-homepage-e1471888753519-1024x568.png" class="img-responsive wp-post-image" alt="FO-homepage" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/08/FO-homepage-e1471888753519-1024x568.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/08/FO-homepage-e1471888753519-300x166.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/08/FO-homepage-e1471888753519-768x426.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/08/FO-homepage-e1471888753519-200x111.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Looking for a reason to start playing with Twilio&#8217;s PHP Helper Library, Shahzeb Khan built (650)82OCEAN while anxiously awaiting the release of his favorite artist&#8217;s latest album. Boys Don&#8217;t Cry is the long suspected second studio release from that of one Frank Ocean. Why a project around Frank Ocean? Shahzeb says, &#8220;I mean, it&#8217;s become a meme right?&#8221; Fans of the rap artist are all too&#8230; <a class="read-more" href="../2016/08/shahzeb-khan-builds-frank-ocean-album-detection.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/08/shahzeb-khan-builds-frank-ocean-album-detection.html" rel="bookmark"><time class="entry-date published" datetime="2016-08-12T16:24:12+00:00">August 12, 2016</time><time class="updated" datetime="2016-08-22T11:00:02+00:00">August 22, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/shahzeb-khan-builds-frank-ocean-album-detection.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/shahzeb-khan-builds-frank-ocean-album-detection.html" data-text="Shahzeb Khan Builds Frank Ocean Album Detection ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-17761" class="row post-17761 post type-post status-publish format-standard has-post-thumbnail hentry category-developers-drawing-the-owl">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html" rel="bookmark">How to Set Up Your Own Twilio Conference Line with TwiML Bins</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="560" height="315" src="../wp-content/uploads/2016/05/twimlconf.png" class="img-responsive wp-post-image" alt="twimlconf" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/05/twimlconf.png 560w, https://www.twilio.com/blog/wp-content/uploads/2016/05/twimlconf-300x169.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/05/twimlconf-200x113.png 200w" sizes="(max-width: 560px) 100vw, 560px" />            </div>
+					
+					<p>You never know when having a conference line is going to come in handy. Here at Twilio, we&#8217;ve even used them to record podcasts. Would you believe me when I say it&#8217;s super easy to set one up? And the process just got even easier with the new Console and native TwiML Bins. All you need to get started is your free Twilio account and a&#8230; <a class="read-more" href="../2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html" rel="bookmark"><time class="entry-date published" datetime="2016-05-05T12:31:58+00:00">May 5, 2016</time><time class="updated" datetime="2016-05-23T23:19:25+00:00">May 23, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/05/how-to-set-up-your-own-twilio-conference-line-with-twiml-bins.html" data-text="How to Set Up Your Own Twilio Conference Line with TwiML Bins ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-17093" class="row post-17093 post type-post status-publish format-standard has-post-thumbnail hentry category-developers-drawing-the-owl">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="../2016/02/sara-chipps-is-building-smart-jewelry-for-a-smarter-generation.html" rel="bookmark">Sara Chipps is Building Smart Jewelry for a Smarter Generation</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="320" src="../wp-content/uploads/2016/02/Sara-Chipps-4-1024x512.png" class="img-responsive wp-post-image" alt="Sara Chipps-4" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/02/Sara-Chipps-4.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/02/Sara-Chipps-4-300x150.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/02/Sara-Chipps-4-200x100.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Sara Chipps is the Founder and CEO at Jewelbots which builds friendship bracelets for the iPhone era. She also co-founded Girl Develop It, a non-profit that helps women become software engineers, and she served as the CTO of Flatiron School, a developer bootcamp in NYC. Sara will be speaking at SIGNAL, our developer conference for communications May 24-25 in San Francisco. Join us at SIGNAL and&#8230; <a class="read-more" href="../2016/02/sara-chipps-is-building-smart-jewelry-for-a-smarter-generation.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="mspeir.html">Megan Speir</a></span></span> on <span class="posted-on"><a href="../2016/02/sara-chipps-is-building-smart-jewelry-for-a-smarter-generation.html" rel="bookmark"><time class="entry-date published" datetime="2016-02-26T11:58:26+00:00">February 26, 2016</time><time class="updated" datetime="2016-02-26T14:31:47+00:00">February 26, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/02/sara-chipps-is-building-smart-jewelry-for-a-smarter-generation.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/02/sara-chipps-is-building-smart-jewelry-for-a-smarter-generation.html" data-text="Sara Chipps is Building Smart Jewelry for a Smarter Generation ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			    <script type="text/javascript">
+    // <![CDATA[
+        var disqus_shortname = 'twilioblog';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + 'disqus.com/forums/' + disqus_shortname + '/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    //]]>
+    </script>
+
+			
+	<nav class="navigation posts-navigation" role="navigation">
+		<h2 class="screen-reader-text">Posts navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="mspeir/page/2.html" >Older posts</a></div></div>
+	</nav>
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="../../try-twilio.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../try-twilio.html', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="../tag/net.html" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="../tag/arduino.html" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="../tag/java.html" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="../tag/javascript.html" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="../tag/php.html" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="../tag/python.html" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="../tag/ruby.html" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="../tag/swift.html" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="../tag/mms.html" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="../tag/programmable-chat.html" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="../tag/sip.html" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="../tag/sms.html" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="../tag/taskrouter.html" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="../tag/twilio-client.html" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="../tag/twilio-video.html" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="../tag/voice.html" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="../../docs/tutorials.html" onclick="__gaTracker('send', 'event', 'outbound-widget', '../../docs/tutorials.html', '');"><img src="../wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="../all-things-code.html" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="../customer-highlights.html" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="../developers-drawing-the-owl.html" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="../news.html" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="../stories-from-the-road.html" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="../inside-twilio.html" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="../feed" onclick="__gaTracker('send', 'event', 'outbound-widget', '../feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="../../company.html">Company</a></h4>
+          <ul>
+            <li><a href="../../company.html">About Twilio</a></li>
+            <li><a href="../../company/nine-values.html">Our Nine Values</a></li>
+            <li><a href="../../company/leadership-principles.html">Our Leadership Principles</a></li>
+            <li><a href="../../company/management.html">The Team</a></li>
+            <li><a href="../../press.html">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="../../company/jobs.html">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="../../products.html">Products</a></h4>
+          <ul>
+            <li><a href="../../voice.html">Voice</a></li>
+            <li><a href="../../video.html">Video</a></li>
+            <li><a href="../../sms.html">SMS (Text Messaging)</a></li>
+            <li><a href="../../mms.html">MMS (Picture Messaging)</a></li>
+            <li><a href="../../sms/toll-free.html">Toll-Free SMS</a></li>
+            <li><a href="../../sip-trunking.html">SIP Trunking</a></li>
+            <li><a href="../../client/mobile.html">Client Mobile</a></li>
+            <li><a href="../../webrtc.html">Client WebRTC</a></li>
+            <li><a href="../../stun-turn.html">Network Traversal Service</a></li>
+            <li><a href="../../taskrouter.html">TaskRouter</a></li>
+            <li><a href="../../phone-numbers.html">Phone Numbers</a></li>
+            <li><a href="../../sms/shortcodes.html">Short Codes</a></li>
+            <li><a href="../../support-plans.html">Support Plans</a></li>
+            <li><a href="../../platform.html">Platform</a></li>
+            <li><a href="../../lookup.html">Lookup</a></li>
+            <li><a href="../../docs/api/monitor/events.html">Monitor</a></li>
+            <li><a href="../../copilot.html">Messaging Copilot</a></li>
+            <li><a href="../../voice/conference.html">Global Conference</a></li>
+            <li><a href="../../authy.html">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="../../pricing.html">Pricing</a></h4>
+        <ul>
+          <li><a href="../../voice/pricing.html">Voice Pricing</a></li>
+          <li><a href="../../sms/pricing.html">Messaging Pricing</a></li>
+          <li><a href="../../sip-trunking/pricing.html">SIP Trunking Pricing</a></li>
+          <li><a href="../../client/pricing.html">Client Pricing</a></li>
+          <li><a href="../../stun-turn/pricing.html">Network Traversal Pricing</a></li>
+          <li><a href="../../taskrouter/pricing.html">TaskRouter</a></li>
+          <li><a href="../../lookup.html#pricing">Lookup</a></li>
+          <li><a href="../../international.html">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="../../use-cases.html">Use Cases</a></h4>
+          <ul>
+            <li><a href="https://customers.twilio.com/">Customer Stories</a></li>
+            <li><a href="../../showcase.html">Showcase</a></li>
+            <li><a href="../../use-cases/two-factor-authentication.html">Two-Factor Authentication</a></li>
+            <li><a href="../../use-cases/contact-center/appointment-reminders.html">Appointment Reminders</a></li>
+            <li><a href="../../use-cases/dispatch-notifications.html">Dispatch Notifications</a></li>
+            <li><a href="../../use-cases/eta-alerts.html">ETA Alerts</a></li>
+            <li><a href="../../use-cases/automated-surveys.html">Automated Surveys</a></li>
+            <li><a href="../../use-cases/commerce-communications/masked-phone-numbers.html">Masked Phone Numbers</a></li>
+            <li><a href="../../use-cases/visual-estimates.html">Visual Estimates</a></li>
+            <li><a href="../../doers.html">Developer Network</a></li>
+            <li><a href="../../webinars.html">Webinars</a></li>
+            <li><a href="../../white-papers.html">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="../../docs/index.html">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="../../docs/api.html">API Documentation</a></li>
+            <li><a href="../../docs/quickstart.html">Quickstarts</a></li>
+            <li><a href="../../docs/tutorials.html">How Tos</a></li>
+            <li><a href="../../docs/libraries.html">Helper Libraries</a></li>
+            <li><a href="../../docs/api/security.html">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="../../legal/tos.html">Terms of Service</a><aside>|</aside><a href="../../legal/privacy.html">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+<script type="text/javascript" defer src="../wp-content/cache/autoptimize/js/autoptimize_691d8e4f13b7c95b73244635d6d4e5fa.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/author/mspeir by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:32 GMT -->
+</html>

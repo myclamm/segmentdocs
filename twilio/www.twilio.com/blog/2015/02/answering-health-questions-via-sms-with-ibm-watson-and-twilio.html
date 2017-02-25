@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Answering Health Questions via SMS with IBM Watson and Twilio &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="IBM Watson and Twilio"/>
+<link rel="canonical" href="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Answering Health Questions via SMS with IBM Watson and Twilio Comments Feed" href="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Ricky Robinett');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Big Blue,Health SMS,IBM,JavaScript,Node.js,SMS,twilio sms,Watson,Watson SMS');
+	__gaTracker('set', 'dimension8', '2015-02-10T09:31:03+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=14615' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fanswering-health-questions-via-sms-with-ibm-watson-and-twilio.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fanswering-health-questions-via-sms-with-ibm-watson-and-twilio.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-14615 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-14615" class="row post-14615 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-big-blue tag-health-sms tag-ibm tag-javascript tag-node-js tag-sms tag-twilio-sms tag-watson tag-watson-sms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Answering Health Questions via SMS with IBM Watson and Twilio</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="360" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/img-video-jeopardy-1024x576.jpg" class="img-responsive wp-post-image" alt="img-video-jeopardy" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/img-video-jeopardy-1024x576.jpg 1024w, https://www.twilio.com/blog/wp-content/uploads/2015/02/img-video-jeopardy-300x168.jpg 300w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/rickyr">Ricky Robinett</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" rel="bookmark"><time class="entry-date published" datetime="2015-02-10T09:31:03+00:00">February 10, 2015</time><time class="updated" datetime="2016-07-25T08:55:58+00:00">July 25, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" data-text="Answering Health Questions via SMS with IBM Watson and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>Q: “Combining these two APIs can let you quickly query a complex health data set via SMS.”<br />
+A: “What are IBM Watson and Twilio?”</p>
+<p>You probably remember <a href="https://www.youtube.com/watch?v=yJptrlCVDHI" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.youtube.com/watch?v=yJptrlCVDHI', 'IBM Watson battling humans in Jeopardy');">IBM Watson battling humans in Jeopardy</a>. Now developers can access this same power via the Watson Question and Answer API. Currently IBM has exposed the health and travel data sets via the API. I wanted to build an app that lets me send a question about health in an SMS and get a response from the Watson. This app will allow me to trick my friends into being impressed by my expansive knowledge of healthy living. Today I’m going to show you how I did it using IBM Bluemix, the Watson Question and Answer API, Node.js and Twilio. You can try out the finished product by texting a health related question to: <strong>(929) 242-6747</strong></p>
+<h3>What’s In Our Fannypack</h3>
+<p>We’ll be using the following technologies to build our app:</p>
+<ul>
+<li><a href="https://console.ng.bluemix.net/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://console.ng.bluemix.net/', 'IBM Bluemix');">IBM Bluemix</a> &#8211; We’ll be using Bluemix to host our application, if you don’t have an account you can <a href="https://apps.admin.ibmcloud.com/manage/trial/bluemix.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://apps.admin.ibmcloud.com/manage/trial/bluemix.html', 'sign up for free');">sign up for free</a>.</li>
+<li><a href="https://github.com/cloudfoundry/cli#downloads" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/cloudfoundry/cli#downloads', 'Cloud Foundry CLI');">Cloud Foundry CLI</a> &#8211; We’ll use the Cloud Foundry CLI (cf) to interact with Bluemix from the command line.</li>
+<li>Node.js</li>
+<li><a href="http://hapijs.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://hapijs.com/', 'https://www.twilio.com/blog/2015/02/Hapi.js');">Hapi.js</a> &#8211; A HTTP server framework for Node.js.</li>
+<li>Twilio &#8211; <a href="http://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twilio.com/try-twilio', 'Sign up for free.');">Sign up for free.</a></li>
+</ul>
+<h3>Cause I’m Hapi</h3>
+<p>One of my favorite things to do when I’m building an application like this is to treat it as an opportunity to try new technologies I’ve been hearing about. I thought this application would be a fun excuse to use <a href="http://hapijs.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://hapijs.com/', 'https://www.twilio.com/blog/2015/02/Hapi.js');">Hapi.js</a>. Hapi.js is a Node.js HTTP server framework, in a similar vein to Express. If you’re wondering a bit more about Hapi and Node.js I’d highly recommend Matt Harrison’s great post <a href="http://matt-harrison.com/moving-from-express-to-hapi-js/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://matt-harrison.com/moving-from-express-to-hapi-js/', '“Express to Hapi.js”');">“Express to Hapi.js”</a>.</p>
+<p>In order to interact with the Watson Question and Answer API we need to deploy this application to IBM Bluemix. To start, let’s just build the Hapi.js “hello world” application and deploy it to Bluemix to make sure we have everything set up correctly. After that we’ll integrate Watson and Twilio.</p>
+<p>We can create a new directory on our location machine called twilio-watson and then initialize a new Node.js project in that directory:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5d94759169443" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+mkdir twilio-watson
+cd twilio-watson
+npm init</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5d94759169443-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5d94759169443-2">2</div><div class="crayon-num" data-line="crayon-58794db9c5d94759169443-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5d94759169443-1"><span class="crayon-r">mkdir</span><span class="crayon-h"> </span><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-e">watson</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5d94759169443-2"><span class="crayon-r">cd</span><span class="crayon-h"> </span><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-e">watson</span></div><div class="crayon-line" id="crayon-58794db9c5d94759169443-3"><span class="crayon-e">npm </span><span class="crayon-i">init</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>Now we can install the Hapi module:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5dbc576902855" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm install hapi --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5dbc576902855-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5dbc576902855-1"><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">hapi</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>Next, we’ll use the excellent <a href="http://hapijs.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://hapijs.com/', 'hello world from the Hapi homepage');">hello world from the Hapi homepage</a> as the foundation for our application:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5dc7845327026" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+var Hapi = require('hapi');
+
+// Create a server with a host and port
+var server = new Hapi.Server();
+
+server.connection({
+   host: 'localhost',
+   port: 8000
+});
+
+// Add the route
+server.route({
+   method: 'GET',
+   path:'/hello',
+   handler: function (req, reply) {
+      reply('hello world');
+   }
+});
+
+// Start the server
+server.start();</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-2">2</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-4">4</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-6">6</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-8">8</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-10">10</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-12">12</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-14">14</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-16">16</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-18">18</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dc7845327026-20">20</div><div class="crayon-num" data-line="crayon-58794db9c5dc7845327026-21">21</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5dc7845327026-1"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">Hapi</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'hapi'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-2">&nbsp;</div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-3"><span class="crayon-c">// Create a server with a host and port</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-4"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">server</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-v">Hapi</span><span class="crayon-sy">.</span><span class="crayon-e">Server</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-6"><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-e">connection</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-7"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-v">host:</span><span class="crayon-h"> </span><span class="crayon-s">'localhost'</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-8"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-v">port:</span><span class="crayon-h"> </span><span class="crayon-cn">8000</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-9"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-10">&nbsp;</div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-11"><span class="crayon-c">// Add the route</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-12"><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-13"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-v">method:</span><span class="crayon-h"> </span><span class="crayon-s">'GET'</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-14"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-v">path:</span><span class="crayon-s">'/hello'</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-15"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-v">handler:</span><span class="crayon-h"> </span><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">reply</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-e">reply</span><span class="crayon-sy">(</span><span class="crayon-s">'hello world'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-17"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-18"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-19">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dc7845327026-20"><span class="crayon-c">// Start the server</span></div><div class="crayon-line" id="crayon-58794db9c5dc7845327026-21"><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-e">start</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0059 seconds] -->
+<p>We need to make a couple of small changes to be able to deploy this app to Bluemix. On Bluemix, our application won’t be running on port 3000 of localhost. Fortunately, Bluemix provides the host and port that our app is running on in environment variables. Let’s update our code to use these variables if they’re available:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5dd2012065509" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+// The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:
+var host = (process.env.VCAP_APP_HOST || 'localhost');
+// The port on the DEA for communication with the application:
+var port = (process.env.VCAP_APP_PORT || 3000);
+
+// Create a server with a host and port
+var server = new Hapi.Server();
+server.connection({
+   host: host,
+   port: port
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5dd2012065509-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794db9c5dd2012065509-2">2</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5dd2012065509-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794db9c5dd2012065509-4">4</div><div class="crayon-num" data-line="crayon-58794db9c5dd2012065509-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dd2012065509-6">6</div><div class="crayon-num" data-line="crayon-58794db9c5dd2012065509-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5dd2012065509-8">8</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794db9c5dd2012065509-9">9</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794db9c5dd2012065509-10">10</div><div class="crayon-num" data-line="crayon-58794db9c5dd2012065509-11">11</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5dd2012065509-1"><span class="crayon-c">// The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794db9c5dd2012065509-2"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">host</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">VCAP_APP_HOST</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-h"> </span><span class="crayon-s">'localhost'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5dd2012065509-3"><span class="crayon-c">// The port on the DEA for communication with the application:</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794db9c5dd2012065509-4"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">port</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">VCAP_APP_PORT</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-h"> </span><span class="crayon-cn">3000</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5dd2012065509-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dd2012065509-6"><span class="crayon-c">// Create a server with a host and port</span></div><div class="crayon-line" id="crayon-58794db9c5dd2012065509-7"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">server</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-v">Hapi</span><span class="crayon-sy">.</span><span class="crayon-e">Server</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5dd2012065509-8"><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-e">connection</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794db9c5dd2012065509-9"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-i">host</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">host</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794db9c5dd2012065509-10"><span class="crayon-h">&nbsp;&nbsp; </span><span class="crayon-i">port</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">port</span></div><div class="crayon-line" id="crayon-58794db9c5dd2012065509-11"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0046 seconds] -->
+<p>We need to do one last thing before we deploy &#8211; we’re going to create a manifest.yml. We use this file to make sure Bluemix knows how to start our application:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5ddd417007782" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+applications:
+- name: [app-name]
+  command: node index.js</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5ddd417007782-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5ddd417007782-2">2</div><div class="crayon-num" data-line="crayon-58794db9c5ddd417007782-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5ddd417007782-1"><span class="crayon-i">applications</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5ddd417007782-2"><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-i">name</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-i">app</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794db9c5ddd417007782-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">command</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-e">node </span><span class="crayon-v">index</span><span class="crayon-sy">.</span><span class="crayon-i">js</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p>Make sure to replace [app-name] with an unique name for your application. Now let’s connect the Cloud Foundry CLI tool with Bluemix:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5de7934331288" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+cf api https://api.ng.bluemix.net
+cf login</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5de7934331288-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5de7934331288-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5de7934331288-1"><span class="crayon-e">cf </span><span class="crayon-e">api </span><span class="crayon-i">https</span><span class="crayon-o">:</span><span class="crayon-c">//api.ng.bluemix.net</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5de7934331288-2"><span class="crayon-e">cf </span><span class="crayon-i">login</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>Now we can push our application to Bluemix:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5df1169681908" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+cf push</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5df1169681908-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5df1169681908-1"><span class="crayon-e">cf </span><span class="crayon-i">push</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>Confirm we’re seeing “hello world” at [app-name].mybluemix.net/hello</p>
+<h3>Ask and You Shall Receive</h3>
+<p>Now that we have deployed our first app to Bluemix, we can start integrating Watson. In order to use the Watson API we need to sign up for the service using Cloud Foundry. We can see all our optional services:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5dfb152759969" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+cf marketplace</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5dfb152759969-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5dfb152759969-1"><span class="crayon-e">cf </span><span class="crayon-i">marketplace</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>There are a lot of optional services in the Bluemix marketplace. If you scroll through the list you’ll see the question_and_answer service. This is the one we want to add. We can add it like this:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e05084919239" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+cf create-service question_and_answer question_and_answer_free_plan [app-name]</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e05084919239-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e05084919239-1"><span class="crayon-e">cf </span><span class="crayon-i">create</span><span class="crayon-o">-</span><span class="crayon-e">service </span><span class="crayon-e">question_and_answer </span><span class="crayon-v">question_and_answer_free_plan</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-i">app</span><span class="crayon-o">-</span><span class="crayon-i">name</span><span class="crayon-sy">]</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p>We’ll also update our manifest.yml file to include the fact that we’re using the qa-service:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e0f468281878" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+applications:
+- services:
+  - qa-service
+  name: twilio-watson-post
+  command: node index.js</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e0f468281878-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794db9c5e0f468281878-2">2</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794db9c5e0f468281878-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e0f468281878-4">4</div><div class="crayon-num" data-line="crayon-58794db9c5e0f468281878-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e0f468281878-1"><span class="crayon-i">applications</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794db9c5e0f468281878-2"><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-i">services</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794db9c5e0f468281878-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-i">qa</span><span class="crayon-o">-</span><span class="crayon-e">service</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e0f468281878-4"><span class="crayon-e">&nbsp;&nbsp;</span><span class="crayon-i">name</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">twilio</span><span class="crayon-o">-</span><span class="crayon-i">watson</span><span class="crayon-o">-</span><span class="crayon-e">post</span></div><div class="crayon-line" id="crayon-58794db9c5e0f468281878-5"><span class="crayon-e">&nbsp;&nbsp;</span><span class="crayon-i">command</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-e">node </span><span class="crayon-v">index</span><span class="crayon-sy">.</span><span class="crayon-i">js</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p>We can get responses from the Watson API by making a simple POST request. We’ll use the Node.js <a href="https://github.com/request/request" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/request/request', 'request module');">request module</a> to make this request. Let’s install it and make sure it’s saved to our package.json file:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e19991052301" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm install request --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e19991052301-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e19991052301-1"><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">request</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>Now we can require it in our index.js:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e23010039811" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+var Hapi = require('hapi'),
+    request = require('request');</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e23010039811-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794db9c5e23010039811-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e23010039811-1"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">Hapi</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'hapi'</span><span class="crayon-sy">)</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794db9c5e23010039811-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">request</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'request'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0015 seconds] -->
+<p>Like our port and host values, Bluemix will pass us our Watson API credentials in environment variables. We can retrieve them will the following code after we get set our port and host variables:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e2d266897257" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+var service_url, service_username, service_password;
+if (process.env.VCAP_SERVICES) {
+  console.log('Parsing VCAP_SERVICES');
+  var services = JSON.parse(process.env.VCAP_SERVICES);
+  //service name, check the VCAP_SERVICES in bluemix to get the name of the services you have
+  var service_name = 'question_and_answer';
+
+  if (services[service_name]) {
+    var svc = services[service_name][0].credentials;
+    service_url = svc.url;
+    service_username = svc.username;
+    service_password = svc.password;
+  } else {
+    console.log('The service '+service_name+' is not in the VCAP_SERVICES, did you forget to bind it?');
+  }
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-2">2</div><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-4">4</div><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-6">6</div><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-8">8</div><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-10">10</div><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-12">12</div><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-14">14</div><div class="crayon-num" data-line="crayon-58794db9c5e2d266897257-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e2d266897257-16">16</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e2d266897257-1"><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-i">service_url</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">service_username</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">service_password</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-2"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">VCAP_SERVICES</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794db9c5e2d266897257-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Parsing VCAP_SERVICES'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">services</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">JSON</span><span class="crayon-sy">.</span><span class="crayon-e">parse</span><span class="crayon-sy">(</span><span class="crayon-v">process</span><span class="crayon-sy">.</span><span class="crayon-v">env</span><span class="crayon-sy">.</span><span class="crayon-i">VCAP_SERVICES</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e2d266897257-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c">//service name, check the VCAP_SERVICES in bluemix to get the name of the services you have</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">service_name</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'question_and_answer'</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e2d266897257-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-8"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-v">services</span><span class="crayon-sy">[</span><span class="crayon-i">service_name</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794db9c5e2d266897257-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">svc</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">services</span><span class="crayon-sy">[</span><span class="crayon-i">service_name</span><span class="crayon-sy">]</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-i">credentials</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">service_url</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">svc</span><span class="crayon-sy">.</span><span class="crayon-i">url</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e2d266897257-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">service_username</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">svc</span><span class="crayon-sy">.</span><span class="crayon-i">username</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">service_password</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">svc</span><span class="crayon-sy">.</span><span class="crayon-i">password</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e2d266897257-13"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-st">else</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'The service '</span><span class="crayon-o">+</span><span class="crayon-i">service_name</span><span class="crayon-o">+</span><span class="crayon-s">' is not in the VCAP_SERVICES, did you forget to bind it?'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e2d266897257-15"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e2d266897257-16"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0078 seconds] -->
+<p>Next we’ll create a new route called /question:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e38734161986" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+server.route({
+  method: 'POST',
+  path: '/question',
+  handler: function(req, reply) {
+
+  }
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e38734161986-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e38734161986-2">2</div><div class="crayon-num" data-line="crayon-58794db9c5e38734161986-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e38734161986-4">4</div><div class="crayon-num" data-line="crayon-58794db9c5e38734161986-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e38734161986-6">6</div><div class="crayon-num" data-line="crayon-58794db9c5e38734161986-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e38734161986-1"><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e38734161986-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">method</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'POST'</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794db9c5e38734161986-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">path</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'/question'</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e38734161986-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">handler</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">reply</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794db9c5e38734161986-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e38734161986-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794db9c5e38734161986-7"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0024 seconds] -->
+<p>Within this route we will make a request to Watson and output response. Let’s start by retrieving our question from the POST data and building out the options for our request:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e42886773066" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+server.route({
+  method: 'POST',
+  path: '/question',
+  handler: function(req, reply) {
+     var question = req.payload.Body;
+     var options = {
+         url: service_url + '/v1/question/healthcare/',
+         method: 'POST',
+         headers: {
+           'X-synctimeout' : '30'
+         },
+         auth: {
+           'user': service_username,
+           'password': service_password
+         },
+         json: {
+             'question': {
+               'evidenceRequest': {
+                 'items': 1 // the number of answers
+               },
+               'questionText': question
+             }
+           }
+     };
+  }
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e42886773066-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-2">2</div><div class="crayon-num" data-line="crayon-58794db9c5e42886773066-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-4">4</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794db9c5e42886773066-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-9">9</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-10">10</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-11">11</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-12">12</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-13">13</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-14">14</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-15">15</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-16">16</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-17">17</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-18">18</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-19">19</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-20">20</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-21">21</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-22">22</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e42886773066-23">23</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794db9c5e42886773066-24">24</div><div class="crayon-num" data-line="crayon-58794db9c5e42886773066-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e42886773066-26">26</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e42886773066-1"><span class="crayon-v">server</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e42886773066-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">method</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'POST'</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794db9c5e42886773066-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">path</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'/question'</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e42886773066-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">handler</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">req</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">reply</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794db9c5e42886773066-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">question</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">req</span><span class="crayon-sy">.</span><span class="crayon-v">payload</span><span class="crayon-sy">.</span><span class="crayon-i">Body</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">options</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-i">url</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">service_url</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-h"> </span><span class="crayon-s">'/v1/question/healthcare/'</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-i">method</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'POST'</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-i">headers</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-s">'X-synctimeout'</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">'30'</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-12"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-i">auth</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-s">'user'</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">service_username</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-s">'password'</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">service_password</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-15"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-16"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-i">json</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-17"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-s">'question'</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-18"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-s">'evidenceRequest'</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-19"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-s">'items'</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-h"> </span><span class="crayon-c">// the number of answers</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-20"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-sy">}</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-21"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-s">'questionText'</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">question</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794db9c5e42886773066-22"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e42886773066-23"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794db9c5e42886773066-24"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="crayon-sy">}</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e42886773066-25"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e42886773066-26"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0083 seconds] -->
+<p>Let’s breakdown this code a bit. First we define that we’re making a request to the Watson healthcare question API and that that request will be a POST request. We also are passing the auth credentials we pulled from Bluemix. We’re then passing JSON indicating that we want to receive 1 piece of evidence (which will be an answer) to our question.</p>
+<p>Now that we have our options defined we can use the request library to make the request and output our response to the browser:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e4c456788977" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+request(options, function(error, response, body) {
+  reply(body[0].question.evidencelist[0].text);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e4c456788977-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794db9c5e4c456788977-2">2</div><div class="crayon-num" data-line="crayon-58794db9c5e4c456788977-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e4c456788977-1"><span class="crayon-e">request</span><span class="crayon-sy">(</span><span class="crayon-i">options</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">error</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">response</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">body</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794db9c5e4c456788977-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-e">reply</span><span class="crayon-sy">(</span><span class="crayon-v">body</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-v">question</span><span class="crayon-sy">.</span><span class="crayon-v">evidencelist</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-i">text</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e4c456788977-3"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0025 seconds] -->
+<p>Let’s deploy the new version of our application so we can test it:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e57263203175" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+cf push</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e57263203175-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e57263203175-1"><span class="crayon-e">cf </span><span class="crayon-i">push</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>This is a great time to make sure our code is working correctly. Let’s quickly test this using curl:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e61541259036" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+curl --data "Body=How often should I wash my hands?" http://[your-app-url]/question</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e61541259036-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e61541259036-1"><span class="crayon-i">curl</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">data</span><span class="crayon-h"> </span><span class="crayon-s">"Body=How often should I wash my hands?"</span><span class="crayon-h"> </span><span class="crayon-i">http</span><span class="crayon-o">:</span><span class="crayon-c">//[your-app-url]/question</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<h3>“Mr. Watson &#8211; Come here &#8211; I want to see you”</h3>
+<p>In order to respond to an SMS we need to send back the answer with <a href="https://www.twilio.com/docs/api/twiml" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml', 'TwiML');">TwiML</a>. TwiML is a simple XML format that allows us to give Twilio basic instructions of what to do when an incoming phone call or text message comes into our Twilio phone number. We’ll be using the <a href="https://www.twilio.com/docs/libraries/node" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/libraries/node', 'Twilio Node.js module');">Twilio Node.js module</a> to help generate our TwiML. Let’s install it:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e6b021317688" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm install twilio --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e6b021317688-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e6b021317688-1"><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">twilio</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>Now let’s switch out the code in the callback of our request to respond with TwiML instead of just the answer text:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e75251835880" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+request(options, function(error, response, body) {
+  var resp = new twilio.TwimlResponse();
+  resp.message(body[0].question.evidencelist[0].text);
+  reply(resp.toString()).type('text/xml');
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e75251835880-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794db9c5e75251835880-2">2</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794db9c5e75251835880-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794db9c5e75251835880-4">4</div><div class="crayon-num" data-line="crayon-58794db9c5e75251835880-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e75251835880-1"><span class="crayon-e">request</span><span class="crayon-sy">(</span><span class="crayon-i">options</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-t">function</span><span class="crayon-sy">(</span><span class="crayon-i">error</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">response</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">body</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794db9c5e75251835880-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">resp</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-e">TwimlResponse</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794db9c5e75251835880-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">resp</span><span class="crayon-sy">.</span><span class="crayon-e">message</span><span class="crayon-sy">(</span><span class="crayon-v">body</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-v">question</span><span class="crayon-sy">.</span><span class="crayon-v">evidencelist</span><span class="crayon-sy">[</span><span class="crayon-cn">0</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-i">text</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794db9c5e75251835880-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-e">reply</span><span class="crayon-sy">(</span><span class="crayon-v">resp</span><span class="crayon-sy">.</span><span class="crayon-e">toString</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">type</span><span class="crayon-sy">(</span><span class="crayon-s">'text/xml'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794db9c5e75251835880-5"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0045 seconds] -->
+<p>That’s it! We can now push our application one last time to Bluemix:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794db9c5e80315020628" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+cf push</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794db9c5e80315020628-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794db9c5e80315020628-1"><span class="crayon-e">cf </span><span class="crayon-i">push</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>In order for Twilio to know to POST to our URL we need to add it as the Messaging Request URL for our Twilio phone number:<img alt="" src="https://lh6.googleusercontent.com/W_P-CebFXORxaxf_yjovjrJJcX_DpWbndha6oZ-po_fhLnFeQprWgUXtrj-FAUHuIk4qOUirwV_REpezYF_57I2PxqfgZqFoJIEAoY3C3xlQ9jRdOKJ7ZcerkZA6gZx0mZ0" width="624px;" height="379px;" /></p>
+<p>Now the moment of truth. Text a question to your number. Not sure what to ask? Try the question &#8211; “How often should I wash my hands?”. Victory!</p>
+<p><img alt="" src="https://lh3.googleusercontent.com/9x2qiuejahXK1RRrXbLYM63ntdFfog7vbjviZFNHH2SoSB6jwEpXVR1D24AF5XI3AF7nfK42P7BP5_DW_lEt_zwIfennMDsw0BapjREDhvdWtXt0sYrKwiuaadQVwMCTMxE" width="222px;" height="394px;" /></p>
+<p>If you’re not getting a response as expected, then this blog post on <a href="https://www.twilio.com/blog/2014/10/debugging-errors-in-your-twilio-apps.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2014/10/debugging-errors-in-your-twilio-apps.html', 'debugging your Twilio applications');">debugging your Twilio applications</a> may help. And you can always use the cf logs command to view the logs from your Bluemix application. You can view the <a href="https://github.com/rickyrobinett/twilio-watson" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/rickyrobinett/twilio-watson', 'final code on github');">final code on github</a>.</p>
+<h3>What’s Next?</h3>
+<p>Thanks to Watson and Twilio we can now trick our friends into thinking we have a wealth of health information. If they ask why you keep checking your phone just say you’re getting text messages from a friend. This app just scratches the surface on what you can do with the Watson APIs. Looking to make an improvement? See if you can get the app to work in more languages. Have any questions or want to show off your sick Twilio + Watson hack? You can find me <a href="http://twitter.com/rickyrobinett" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/rickyrobinett', '@rickyrobinett');">@rickyrobinett</a> or <a href="mailto:ricky@twilio.com">ricky@twilio.com</a></p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" data-text="Answering Health Questions via SMS with IBM Watson and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/6ed438a57f60fe82f88d521af08a47cc?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6ed438a57f60fe82f88d521af08a47cc?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/rickyr">Ricky Robinett</a></span></span> <span class="author-meta author-email"><a href="mailto:rrobinett@twilio.com">rrobinett@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/rickyrobinett">@rickyrobinett<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With JavaScript</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express', '');">
+          <h5>SMS and MMS Notifications with Node.js</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/building-your-own-personal-assistant-with-twilio-and-google-calendar.html" rel="bookmark" title="Permanent Link to Building your own personal assistant with Twilio and Google Calendar" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/building-your-own-personal-assistant-with-twilio-and-google-calendar.html', '');">
+          <h5>Building your own personal assistant with Twilio and Google Calendar<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/03/create-a-browser-based-photobooth-with-javascript-php-and-twilio.html" rel="bookmark" title="Permanent Link to Create a Browser-Based Photobooth with JavaScript, PHP and Twilio" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/03/create-a-browser-based-photobooth-with-javascript-php-and-twilio.html', '');">
+          <h5>Create a Browser-Based Photobooth with JavaScript, PHP and Twilio<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-3409">
+        <div id="dsq-comment-header-3409" class="dsq-comment-header">
+            <cite id="dsq-cite-3409">
+                <span id="dsq-author-user-3409">SomeGuy</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3409" class="dsq-comment-body">
+            <div id="dsq-comment-message-3409" class="dsq-comment-message"><p>I&#8217;m having some trouble getting this to work: when I try the first cf push, I get the following:</p>
+<p>Server error, status code: 400, error code: 170003, message: An app was not successfully detected by any available buildpack</p>
+<p>any idea how to fix this? I haven&#8217;t used bluemix before so I&#8217;m probably missing something obvious&#8230;.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-3410">
+        <div id="dsq-comment-header-3410" class="dsq-comment-header">
+            <cite id="dsq-cite-3410">
+                <span id="dsq-author-user-3410">rickyrobinett</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3410" class="dsq-comment-body">
+            <div id="dsq-comment-message-3410" class="dsq-comment-message"><p>This error typically indicates that bluemix is unable to determine what type of applications you want to run. Do you have a package.json and manifest.yml in the directory you&#8217;re running <code>cf push</code> from? Additionally, you can explicitly call cf push with a start script to indicate the language: <code>cf push -m 128M -c "node index.js"</code>. Let me know if that helps!</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3814">
+        <div id="dsq-comment-header-3814" class="dsq-comment-header">
+            <cite id="dsq-cite-3814">
+                <span id="dsq-author-user-3814">Louis G Vichy</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3814" class="dsq-comment-body">
+            <div id="dsq-comment-message-3814" class="dsq-comment-message"><p>@rickyrobinett:disqus  As of hapi 10.4.x, the start method requires a callback function. Thus instead of </p>
+<p>server.start();</p>
+<p>you should change it to </p>
+<p>server.start(function() {<br />
+  console.log(&#8216;jabSquared.ninja&#8217;);<br />
+});</p>
+<p>Cheer,<br />
+Louis</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-4275">
+        <div id="dsq-comment-header-4275" class="dsq-comment-header">
+            <cite id="dsq-cite-4275">
+                <span id="dsq-author-user-4275">Jeremy Molayem</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4275" class="dsq-comment-body">
+            <div id="dsq-comment-message-4275" class="dsq-comment-message"><p><a href="http://watson-qa-demo.mybluemix.net/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://watson-qa-demo.mybluemix.net/', 'http://watson-qa-demo.mybluemix.net/');" rel="nofollow">http://watson-qa-demo.mybluemix.net/</a></p>
+<p>I texted the number and did not get a response. I believe this tutorial is deprecated. Is it because IBM withdrew the QA service?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2015/02/14615 http://twilioinc.wpengine.com/?p=14615';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Answering Health Questions via SMS with IBM Watson and Twilio";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html?cf_action=sync_comments&amp;post_id=14615';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2015\/02\/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+</html>

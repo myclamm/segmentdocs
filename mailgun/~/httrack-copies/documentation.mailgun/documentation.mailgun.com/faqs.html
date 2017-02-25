@@ -1,0 +1,731 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/faqs.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FAQ &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="next" title="Email Best Practices" href="best_practices.html" />
+    <link rel="prev" title="Email Validation" href="api-email-validation.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+ 
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="http://www.mailgun.com/" class="logo">Mailgun - Email Automation by Rackspace</a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="http://www.mailgun.com/pricing" class="pricing-link"><b>Pricing</b></a>
+          <a href="http://www.mailgun.com/customers" class="customers-link"><b>Customers</b></a>
+          <div class="dropdown">
+                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b>Features <svg class="icon icon-dropdown" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b>Resources <svg class="icon icon-dropdown active" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+                <a href="http://www.mailgun.com/managed" class="managed-link"><b>Managed</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b>Contact</b></a>
+          <a href="https://www.mailgun.com/sessions/new" class="login-link"><b>Log in</b></a>
+          <a href="https://www.mailgun.com/signup" class="signup-link"><b>Sign Up</b></a>
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus />
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="best_practices.html" title="Email Best Practices" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="api-email-validation.html" title="Email Validation" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Email Best Practices</a></li>
+</ul>
+
+      <div class="admonition note">You can find your API Key in your <a href="https://mailgun.com/cp" target="_blank">Control Panel</a></div>
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="faq">
+<span id="faqs"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#getting-started-settings" id="id4">Getting Started / Settings</a><ul>
+<li><a class="reference internal" href="#why-not-just-use-sendmail-postfix-courier-imap" id="id5">Why not just use Sendmail + Postfix + Courier IMAP?</a></li>
+<li><a class="reference internal" href="#what-are-the-differences-between-free-and-paid-accounts" id="id6">What are the differences between free and paid accounts?</a></li>
+<li><a class="reference internal" href="#can-i-get-multiple-domains-and-ip-addresses" id="id7">Can I get multiple Domains and IP Addresses?</a></li>
+<li><a class="reference internal" href="#do-i-need-a-dedicated-ip-address" id="id8">Do I need a dedicated IP address?</a></li>
+<li><a class="reference internal" href="#how-do-i-pick-a-domain-name-for-my-mailgun-account" id="id9">How do I pick a domain name for my Mailgun account?</a></li>
+<li><a class="reference internal" href="#can-i-use-the-same-domain-name-for-mailgun-and-for-google-apps-or-another-email-server" id="id10">Can I use the same domain name for Mailgun and for Google Apps (or another email server)?</a></li>
+<li><a class="reference internal" href="#can-i-rename-a-domain" id="id11">Can I rename a domain?</a></li>
+<li><a class="reference internal" href="#do-you-have-support-for-multiple-logins-per-account" id="id12">Do you have support for multiple logins per account?</a></li>
+<li><a class="reference internal" href="#what-if-i-need-multiple-spf-records" id="id13">What if I need multiple SPF records?</a></li>
+<li><a class="reference internal" href="#how-do-i-know-if-my-dns-records-are-set-up-correctly" id="id14">How do I know if my DNS records are set up correctly</a></li>
+<li><a class="reference internal" href="#do-you-support-ssl-tls" id="id15">Do you support SSL/TLS?</a></li>
+<li><a class="reference internal" href="#ok-everything-is-set-up-how-do-i-start-using-mailgun" id="id16">Ok, everything is set up, how do I start using Mailgun?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sending" id="id17">Sending</a><ul>
+<li><a class="reference internal" href="#should-i-use-smtp-or-the-http-api" id="id18">Should I use SMTP or the HTTP API?</a></li>
+<li><a class="reference internal" href="#email-clients-say-sent-via-mailgun-us-with-messages-i-send-how-do-i-get-rid-of-this" id="id19">Email clients say &#8220;sent via mailgun.us&#8221; with messages I send.  How do I get rid of this?</a></li>
+<li><a class="reference internal" href="#what-is-the-difference-between-the-from-and-sender" id="id20">What is the difference between the &#8220;From&#8221; and &#8220;Sender&#8221;</a></li>
+<li><a class="reference internal" href="#where-do-i-specify-bcc-recipients" id="id21">Where do I specify BCC recipients?</a></li>
+<li><a class="reference internal" href="#how-do-i-send-the-same-message-to-multiple-users-using-mailgun" id="id22">How do I send the same message to multiple users using Mailgun?</a></li>
+<li><a class="reference internal" href="#i-am-getting-timeouts-when-connecting-via-smtp-why" id="id23">I am getting timeouts when connecting via SMTP. Why?</a></li>
+<li><a class="reference internal" href="#i-have-multiple-domains-at-mailgun-how-do-i-tell-mailgun-which-domain-to-send-mail-from" id="id24">I have multiple domains at Mailgun.  How do I tell Mailgun which domain to send mail from?</a></li>
+<li><a class="reference internal" href="#i-just-submitted-a-lot-of-messages-why-is-delivery-happening-so-slowly" id="id25">I just submitted a lot of messages. Why is delivery happening so slowly?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deliverability-reputation" id="id26">Deliverability / Reputation</a><ul>
+<li><a class="reference internal" href="#if-i-m-just-starting-to-send-mail-how-do-i-build-a-good-reputation" id="id27">If I&#8217;m just starting to send mail, how do I build a good reputation?</a></li>
+<li><a class="reference internal" href="#does-the-content-of-my-email-matter-for-deliverability" id="id28">Does the content of my email matter for deliverability?</a></li>
+<li><a class="reference internal" href="#should-i-use-my-primary-corporate-domain-name-to-send-email" id="id29">Should I use my primary corporate domain name to send email?</a></li>
+<li><a class="reference internal" href="#why-does-the-amount-of-email-i-send-matter" id="id30">Why does the amount of email I send matter?</a></li>
+<li><a class="reference internal" href="#does-the-amount-of-email-i-send-from-my-ip-affect-my-deliverability" id="id31">Does the amount of email I send from my IP affect my deliverability?</a></li>
+<li><a class="reference internal" href="#where-can-i-learn-more-about-deliverability-and-email" id="id32">Where can I learn more about Deliverability and Email?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#receiving" id="id33">Receiving</a><ul>
+<li><a class="reference internal" href="#do-you-provide-spam-filtering-for-incoming-mail" id="id34">Do you provide spam filtering for incoming mail?</a></li>
+<li><a class="reference internal" href="#what-happened-to-mailboxes" id="id35">What happened to Mailboxes?</a></li>
+<li><a class="reference internal" href="#how-do-you-handle-quotations-from-replies-and-signatures-when-receiving-mail" id="id36">How do you handle quotations from replies and signatures when receiving mail?</a></li>
+<li><a class="reference internal" href="#why-am-i-not-receiving-an-email-when-sending-via-the-route-with-the-sending-address-as-a-destination" id="id37">Why am I not receiving an email when sending via the route with the sending address as a destination?</a></li>
+<li><a class="reference internal" href="#how-do-i-know-if-http-post-callbacks-are-coming-from-mailgun-and-not-forged" id="id38">How do I know if HTTP POST callbacks are coming from Mailgun, and not forged?</a></li>
+<li><a class="reference internal" href="#how-do-i-know-if-the-sender-of-an-email-is-spoofed" id="id39">How do I know if the sender of an email is spoofed?</a></li>
+<li><a class="reference internal" href="#can-i-use-mailgun-for-my-personal-email-address" id="id40">Can I use Mailgun for my personal email address?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tracking" id="id41">Tracking</a><ul>
+<li><a class="reference internal" href="#can-i-use-mailgun-to-track-what-happens-with-my-emails" id="id42">Can I use Mailgun to track what happens with my emails?</a></li>
+<li><a class="reference internal" href="#what-about-email-list-management" id="id43">What about Email List Management?</a></li>
+<li><a class="reference internal" href="#what-is-the-difference-between-hard-and-soft-bounces-and-how-do-you-handle-them" id="id44">What is the difference between hard and soft bounces and how do you handle them?</a></li>
+<li><a class="reference internal" href="#do-i-control-the-unsubscribe-handling-or-do-you" id="id45">Do I control the unsubscribe handling or do you?</a></li>
+<li><a class="reference internal" href="#how-do-i-create-campaigns-in-mailgun" id="id46">How do I create Campaigns in Mailgun?</a></li>
+<li><a class="reference internal" href="#what-is-the-difference-between-tracking-stats-and-campaign-reports" id="id47">What is the difference between Tracking Stats and Campaign Reports?</a></li>
+<li><a class="reference internal" href="#do-you-support-a-b-testing" id="id48">Do you support A/B testing?</a></li>
+<li><a class="reference internal" href="#how-do-i-track-which-email-a-recipient-has-replied-to" id="id49">How do I track which email a recipient has replied to?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="getting-started-settings">
+<h2>Getting Started / Settings<a class="headerlink" href="#getting-started-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-not-just-use-sendmail-postfix-courier-imap">
+<h3>Why not just use Sendmail + Postfix + Courier IMAP?<a class="headerlink" href="#why-not-just-use-sendmail-postfix-courier-imap" title="Permalink to this headline">¶</a></h3>
+<p>You can but you should be aware that there is a constant battle raging between good and evil (i.e., spam) in the email universe.  In order to be on the &#8216;good&#8217; side of that battle and get your email delivered, there are numerous things you need to do.  You need to have the right authentication infrastructure and register your IP and Domain appropriately.  Also, you need to have a history of email sending that complies with ESPs rules in order to build a good reputation.</p>
+<p>Moreover, if you are going to receive, store and host emails, you better be prepared for maintaining this orchestra of software,
+take care of backups, hardware failures, security patches and monitoring. Stop kidding yourself, it&#8217;s not 1998 anymore. :-)</p>
+<p>Here&#8217;s a classic post, <a class="reference external" href="http://blog.codinghorror.com/so-youd-like-to-send-some-email-through-code/">So You&#8217;d Like to Send Some Email (Through Code)</a>, from Jeff Atwood about all of the hurdles in order to properly send email, and that&#8217;s just sending.</p>
+</div>
+<div class="section" id="what-are-the-differences-between-free-and-paid-accounts">
+<h3>What are the differences between free and paid accounts?<a class="headerlink" href="#what-are-the-differences-between-free-and-paid-accounts" title="Permalink to this headline">¶</a></h3>
+<p>First of all, for both free and paid accounts, you get 10,000 free messages per month. However, there are some limitations if you don&#8217;t provide payment information:</p>
+<ul class="simple">
+<li>You will not be able to send more than 10,000 messages per month</li>
+<li>Data retention for logs and the Events API is 2 days.</li>
+<li>The limit for number of domains is 5.</li>
+</ul>
+<p>If you do provide payment information:</p>
+<ul class="simple">
+<li>There is no limit on the number of emails sent or received.</li>
+<li>Data retention for Logs and the Events API is 30 days.</li>
+<li>You can create up to 1,000 domains.</li>
+</ul>
+<p>If these limits are not enough for you, or if you need to talk to us about a custom contract, you can reach us at <a class="reference external" href="mailto:sales&#37;&#52;&#48;mailgun&#46;com">sales<span>&#64;</span>mailgun<span>&#46;</span>com</a>.</p>
+<p>You can find a full list of features on our <a class="reference external" href="http://mailgun.com/pricing">pricing page</a>.</p>
+</div>
+<div class="section" id="can-i-get-multiple-domains-and-ip-addresses">
+<h3>Can I get multiple Domains and IP Addresses?<a class="headerlink" href="#can-i-get-multiple-domains-and-ip-addresses" title="Permalink to this headline">¶</a></h3>
+<p>By default we give you one shared IP address. If you would like a dedicated IP address, simply click on the &#8220;Upgrade&#8221; link in the My Account tab of the control panel. If you want multiple IPs, you can <a class="reference external" href="https://mailgun.com/app/support">contact our Support Team</a>.</p>
+<p>You can create multiple domains in the control panel or through the Domains API (limit of 5 for free accounts and 1,000 for paid accounts).</p>
+</div>
+<div class="section" id="do-i-need-a-dedicated-ip-address">
+<h3>Do I need a dedicated IP address?<a class="headerlink" href="#do-i-need-a-dedicated-ip-address" title="Permalink to this headline">¶</a></h3>
+<p>It depends on various factors.</p>
+<p>If you are sending a lot of email (greater than 50k per week), it is a good idea to have a dedicated IP in order to isolate your reputation.  If you are sharing your IP, you are sharing your reputation with those other senders.  In addition, ESPs limit the total volume per IP, per hour.  If you are a high volume sender you should consider a pool of IPs.  However, you will have trouble establishing your reputation if you are not sending enough volume consistently from an IP - in this case, a shared IP is preferred.</p>
+<p>If your email sending is volatile with large spikes of volume, ESPs may assume those large spikes are spam.  Also, if your overall volume is too low, they won&#8217;t acknowledge your reputation.  Generally, if you are sending less than 5,000 emails per day, a shared IP may be the right solution.</p>
+<p>The other thing to consider is using separate IPs for your bulk and transactional mail.  There are a couple reasons for this:</p>
+<ul class="simple">
+<li>Delivery of time-sensitive transactional emails may get queued behind a large batch of bulk/marketing emails.</li>
+<li>Your transactional mail will be affected by the reputation created by your bulk/marketing mail.</li>
+</ul>
+<p>Mailgun&#8217;s infrastructure mitigates some of the argument&#8217;s for a dedicated IP address.  First of all, we are constantly monitoring our shared IP addresses for any reputation issues.  We also allow you to schedule delivery of your emails by using the <code class="docutils literal"><span class="pre">o:deliverytime</span></code> parameter.  This allows you to delay the delivery by using a time in the future and also allows you to jump other messages in your queue (say from a large bulk mailing) by using a delivery time of now.</p>
+</div>
+<div class="section" id="how-do-i-pick-a-domain-name-for-my-mailgun-account">
+<h3>How do I pick a domain name for my Mailgun account?<a class="headerlink" href="#how-do-i-pick-a-domain-name-for-my-mailgun-account" title="Permalink to this headline">¶</a></h3>
+<p>The name of an email domain matters most for receiving messages:
+If your domain name is <code class="docutils literal"><span class="pre">mycompany.com</span></code> it means you can receive messages sent
+to <code class="docutils literal"><span class="pre">xxx&#64;mycompany.com</span></code></p>
+<p>Domain names do not matter as much if you&#8217;re only sending. You can send messages
+from <code class="docutils literal"><span class="pre">sales&#64;mycompany.com</span></code> even if your domain name is called
+<code class="docutils literal"><span class="pre">anothercompany.org</span></code>.  Although, it is best for deliverability if you are
+using the same domain in the From field that the actual sender is using.</p>
+<p>If your company&#8217;s primary domain is <code class="docutils literal"><span class="pre">mycompany.com</span></code>, we recommend the
+following domain names for mailgun:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">mycompany.com</span></code>, unless you&#8217;re already using this name for your corporate
+email;</li>
+<li><code class="docutils literal"><span class="pre">m.mycompany.com</span></code> or <code class="docutils literal"><span class="pre">mail.mycompany.com</span></code>;</li>
+<li><code class="docutils literal"><span class="pre">mycompany.net</span></code> or <code class="docutils literal"><span class="pre">mycompany.org</span></code>.</li>
+</ul>
+</div></blockquote>
+<p>Sometimes, it is a good idea to separate the domains for the type of messages
+you are sending. For example, some companies will use a different domains or
+subdomains for bulk marketing mailings and transactional or corporate mail in
+order to keep the reputations separate.</p>
+<p>Finally, if you want multiple addresses and you want to direct certain emails
+to certain IP addresses, you will need to have a unique domain or subdomain for
+each IP address.  In this situation, it&#8217;s best to
+<a class="reference external" href="https://mailgun.com/app/support">contact our Support Team</a> to discuss your
+infrastructure.</p>
+</div>
+<div class="section" id="can-i-use-the-same-domain-name-for-mailgun-and-for-google-apps-or-another-email-server">
+<h3>Can I use the same domain name for Mailgun and for Google Apps (or another email server)?<a class="headerlink" href="#can-i-use-the-same-domain-name-for-mailgun-and-for-google-apps-or-another-email-server" title="Permalink to this headline">¶</a></h3>
+<p>Yes, for sending. No, for receiving.  Only one email server can receive messages for a given domain name. It could be either
+Mailgun or Google servers, but not both.  However, you can use the same domain for sending at multiple
+servers.  If you&#8217;d like to register your Domain at multiple servers for sending but you don&#8217;t
+want to receive email at Mailgun, just don&#8217;t configure your MX records to point to Mailgun.</p>
+<p>If you are receiving emails elsewhere with your domain, we recommend using a subdomain at Mailgun so you can also receive emails at Mailgun. This helps improve deliverability and allows us to more easily deal with any issues that arise with recipient email servers.</p>
+</div>
+<div class="section" id="can-i-rename-a-domain">
+<h3>Can I rename a domain?<a class="headerlink" href="#can-i-rename-a-domain" title="Permalink to this headline">¶</a></h3>
+<p>No, you need to create a new one and delete the old one.  It&#8217;s a good idea to create the new one first.</p>
+</div>
+<div class="section" id="do-you-have-support-for-multiple-logins-per-account">
+<h3>Do you have support for multiple logins per account?<a class="headerlink" href="#do-you-have-support-for-multiple-logins-per-account" title="Permalink to this headline">¶</a></h3>
+<p>No, not at this time.  This is something that is in our feature pipeline.</p>
+</div>
+<div class="section" id="what-if-i-need-multiple-spf-records">
+<h3>What if I need multiple SPF records?<a class="headerlink" href="#what-if-i-need-multiple-spf-records" title="Permalink to this headline">¶</a></h3>
+<p>If you are using multiple email servers and you want an SPF record for each of them, you should NOT set up a separate TXT record for each.  You need to include the different servers in the same record.  Below is sample syntax:</p>
+<p>&#8216;v=spf1 include:myemailserver.com include:mailgun.org ~all&#8217;</p>
+</div>
+<div class="section" id="how-do-i-know-if-my-dns-records-are-set-up-correctly">
+<h3>How do I know if my DNS records are set up correctly<a class="headerlink" href="#how-do-i-know-if-my-dns-records-are-set-up-correctly" title="Permalink to this headline">¶</a></h3>
+<p>We have a &#8220;Verify Records&#8221; button when you click on a domain in the &#8220;Domains&#8221; tab that will confirm that they are set up correctly and if not, show the incorrect records in red.</p>
+<p>You could also use <a class="reference external" href="http://en.wikipedia.org/wiki/Domain_Information_Groper">dig</a> in your command line interface.</p>
+</div>
+<div class="section" id="do-you-support-ssl-tls">
+<h3>Do you support SSL/TLS?<a class="headerlink" href="#do-you-support-ssl-tls" title="Permalink to this headline">¶</a></h3>
+<p>Only TLS is supported. Support for SSL has been dropped due to the <a class="reference external" href="http://status.mailgun.com/incidents/9g4kmgh00y5x">POODLE security vulnerability</a>.</p>
+</div>
+<div class="section" id="ok-everything-is-set-up-how-do-i-start-using-mailgun">
+<h3>Ok, everything is set up, how do I start using Mailgun?<a class="headerlink" href="#ok-everything-is-set-up-how-do-i-start-using-mailgun" title="Permalink to this headline">¶</a></h3>
+<p>Mailgun is primarily a developer&#8217;s tool so the best way use Mailgun is through our APIs.  They are quite <a class="reference external" href="http://en.wikipedia.org/wiki/REST">RESTful</a> and we&#8217;ve tried to make them as intuitive as possible.  Our <a class="reference external" href="quickstart.html">Quickstart Guide</a> is a good place to start and you can also use the <a class="reference external" href="api_reference.html">API Reference</a> for more detail.  We also expose a lot of the features through the control panel.  The <a class="reference external" href="user_manual.html">User Manual</a> is a good place to get a full overview of all of the capabilities of Mailgun.</p>
+</div>
+</div>
+<div class="section" id="sending">
+<h2>Sending<a class="headerlink" href="#sending" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="should-i-use-smtp-or-the-http-api">
+<h3>Should I use SMTP or the HTTP API?<a class="headerlink" href="#should-i-use-smtp-or-the-http-api" title="Permalink to this headline">¶</a></h3>
+<p>It&#8217;s really up to you. Whatever you find easier is fine with us.  The HTTP API has some advantages, however.  First of all, it&#8217;s faster.  Second, we think it&#8217;s easier to use - you don&#8217;t have to deal with MIME because we will assemble it on our side.  Just use a request library available for your language of choice.</p>
+</div>
+<div class="section" id="email-clients-say-sent-via-mailgun-us-with-messages-i-send-how-do-i-get-rid-of-this">
+<h3>Email clients say &#8220;sent via mailgun.us&#8221; with messages I send.  How do I get rid of this?<a class="headerlink" href="#email-clients-say-sent-via-mailgun-us-with-messages-i-send-how-do-i-get-rid-of-this" title="Permalink to this headline">¶</a></h3>
+<p>Check the following:</p>
+<ul class="simple">
+<li>You have a custom domain defined in the &#8220;Domains&#8221; tab of the Control Panel.</li>
+<li>You&#8217;ve setup the DKIM DNS record (provided in the Control Panel, &#8220;Domains&#8221; tab).</li>
+<li>You&#8217;re authenticating (SMTP) or posting (API) against the custom domain. (e.g. <a class="reference external" href="https://api.mailgun.net/v3/youcustomdomain.com/messages">https://api.mailgun.net/v3/youcustomdomain.com/messages</a>)</li>
+</ul>
+<p>If you&#8217;re still seeing &#8220;via mailgun.org&#8221;, please <a class="reference external" href="https://mailgun.com/app/support">contact our Support Team</a> and we&#8217;ll investigate.</p>
+</div>
+<div class="section" id="what-is-the-difference-between-the-from-and-sender">
+<h3>What is the difference between the &#8220;From&#8221; and &#8220;Sender&#8221;<a class="headerlink" href="#what-is-the-difference-between-the-from-and-sender" title="Permalink to this headline">¶</a></h3>
+<p>Each message you send out has both the sender and from address. Simply put, the sender domain
+is what the receiving email server sees when initiating the session, and the from address is what your
+recipients will see. For better deliverability it is recommended to use the same from
+domain as the sender, but it is not required.</p>
+<p>You can technically set the from field to be whatever you like.  The sender must always be one of your Mailgun domains.</p>
+</div>
+<div class="section" id="where-do-i-specify-bcc-recipients">
+<h3>Where do I specify BCC recipients?<a class="headerlink" href="#where-do-i-specify-bcc-recipients" title="Permalink to this headline">¶</a></h3>
+<p>BCC functionality works like this: specify a BCC recipient in the recipients list when sending,
+but do not include their address in the &#8220;To&#8221; or &#8220;CC&#8221; fields.  You could also use the API, which has a
+specific BCC parameter.</p>
+</div>
+<div class="section" id="how-do-i-send-the-same-message-to-multiple-users-using-mailgun">
+<h3>How do I send the same message to multiple users using Mailgun?<a class="headerlink" href="#how-do-i-send-the-same-message-to-multiple-users-using-mailgun" title="Permalink to this headline">¶</a></h3>
+<p>Mailgun supports the ability send to a group of recipients through a single API call or SMTP session. This is achieved by either:</p>
+<ul class="simple">
+<li>Using Batch Sending by specifying multiple recipient email addresses as to parameters and using Recipient Variables.</li>
+<li>Using Mailing Lists with Template Variables.</li>
+</ul>
+<p>See the <a class="reference internal" href="user_manual.html#batch-sending"><span class="std std-ref">Batch Sending</span></a> section of the <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a> for more information.</p>
+</div>
+<div class="section" id="i-am-getting-timeouts-when-connecting-via-smtp-why">
+<h3>I am getting timeouts when connecting via SMTP. Why?<a class="headerlink" href="#i-am-getting-timeouts-when-connecting-via-smtp-why" title="Permalink to this headline">¶</a></h3>
+<p>Most often, this is caused by internet service providers (&#8220;ISP&#8221;) blocking port #25. This tends to happen if you are
+using a residential ISP.</p>
+<p>To check this, try running telnet in command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">telnet</span> <span class="n">smtp</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">org</span> <span class="mi">25</span>
+</pre></div>
+</div>
+<p>If port 25 is not blocked, you should see something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Trying</span> <span class="mf">174.37</span><span class="o">.</span><span class="mf">214.195</span><span class="o">...</span>
+<span class="n">Connected</span> <span class="n">to</span> <span class="n">mxa</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">org</span><span class="o">.</span>
+<span class="n">Escape</span> <span class="n">character</span> <span class="ow">is</span> <span class="s1">&#39;^]&#39;</span><span class="o">.</span>
+<span class="mi">220</span> <span class="n">mxa</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">org</span> <span class="p">(</span><span class="n">Mailgun</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>If you don&#8217;t see this, then you are being blocked.  There are a couple workarounds:</dt>
+<dd><ul class="first last simple">
+<li>Send using our HTTP API</li>
+<li>Try using port #587 or #2525</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="i-have-multiple-domains-at-mailgun-how-do-i-tell-mailgun-which-domain-to-send-mail-from">
+<h3>I have multiple domains at Mailgun.  How do I tell Mailgun which domain to send mail from?<a class="headerlink" href="#i-have-multiple-domains-at-mailgun-how-do-i-tell-mailgun-which-domain-to-send-mail-from" title="Permalink to this headline">¶</a></h3>
+<p>For SMTP, you have an SMTP username and password for each domain you have registered at Mailgun.
+To send mail from a particular domain, just use the appropriate credentials.  For the API, the domain is one
+of the parameters in the URI.</p>
+</div>
+<div class="section" id="i-just-submitted-a-lot-of-messages-why-is-delivery-happening-so-slowly">
+<h3>I just submitted a lot of messages. Why is delivery happening so slowly?<a class="headerlink" href="#i-just-submitted-a-lot-of-messages-why-is-delivery-happening-so-slowly" title="Permalink to this headline">¶</a></h3>
+<p>There are many factors that can affect the speed of delivery.
+1. Your established reputation for the domain and IPs on your account.
+2. The total number of IPs allocated to your account.
+3. The content quality for the emails being sent.</p>
+<p>For newly allocated IPs, Mailgun protects and improves the reputation by gradually increasing sending rates. This means, as time passes, with high quality traffic, being sent from your IPs, your sending rates will increase automatically. If you&#8217;re seeing slow delivery, please contact us... We&#8217;ll evaluate your account configuration to ensure it is configured for handling the volume you require.</p>
+</div>
+</div>
+<div class="section" id="deliverability-reputation">
+<h2>Deliverability / Reputation<a class="headerlink" href="#deliverability-reputation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="if-i-m-just-starting-to-send-mail-how-do-i-build-a-good-reputation">
+<h3>If I&#8217;m just starting to send mail, how do I build a good reputation?<a class="headerlink" href="#if-i-m-just-starting-to-send-mail-how-do-i-build-a-good-reputation" title="Permalink to this headline">¶</a></h3>
+<p>The way to think about your email reputation is much like your credit score.  When you haven&#8217;t sent any email, you don&#8217;t have a bad reputation but you don&#8217;t have a good one, either.  Also, no ESP is going to allow you to send a million emails to their mailboxes, much like no one is going to give you a credit card with a huge credit limit when you graduate from college.  There needs to be a history of performance for you to create a reputation.  We use algorithms for our new senders that automatically queues your email and sends them at rates that makes the ESPs happy, increasing those rates as your sending reputation grows.</p>
+<p>Some of the factors that help you build a good reputation faster and increase deliverability are:</p>
+<ul class="simple">
+<li>Limited spam complaints and bounces.</li>
+<li>Including the ability for recipients to unsubscribe.</li>
+<li>Recipients interacting with your emails in a good way: reading, replying, forwarding and adding your addresses to their contacts.</li>
+<li>Following ESPs&#8217; guidelines on sending rates.</li>
+<li>Paying attention to ESPs&#8217; feedback to slow or stop sending for a period of time.</li>
+<li>Having good content (see below for more guidance on content).</li>
+</ul>
+<p>Also, consider letting your users to reply to your emails. Having a meaningful email conversations with your audience will do wonders for your reputation as a member of email community.</p>
+<p>Finally, there are certification and white label services that can help (although, you still need some history of sending).  We have a partnership with <a class="reference external" href="http://www.returnpath.com/">Return Path</a> and get help get you signed up for their <a class="reference external" href="http://www.returnpath.com/solution-content/certification/">Email Certification Program</a>.  They have already audited our infrastructure so we can get you a discount off of their list pricing.</p>
+</div>
+<div class="section" id="does-the-content-of-my-email-matter-for-deliverability">
+<h3>Does the content of my email matter for deliverability?<a class="headerlink" href="#does-the-content-of-my-email-matter-for-deliverability" title="Permalink to this headline">¶</a></h3>
+<p>Absolutely.  Ideally, you send email that people want.  That&#8217;s over half the battle.  In addition, you should make your
+content interesting and relevant to the recipient.</p>
+<p>There are a few things to keep in mind about your email content. First, we suggest setting up a test mailbox at <a class="reference external" href="http://www.mail-tester.com/">http://www.mail-tester.com</a>. Mail-Tester will provide you with a full analysis of your email for free. Here are some other things to consider:</p>
+<ul class="simple">
+<li>Personalize your emails.  Make sure to include the recipient&#8217;s address in the &#8220;To:&#8221; field and include his/her name in the greeting.</li>
+<li>It is best to send multi-part emails using both text and HTML or text only. Sending HTML only email is not well received by ESPs. Also, remember that ESPs generally block images by default so HTML only will not look very good unless users are proactive about enabling images.</li>
+<li>Test how your html email looks across all email clients and browsers. <a class="reference external" href="http://litmus.com/">Litmus</a> and <a class="reference external" href="http://www.returnpath.com/">Return Path</a> have tools to do this.</li>
+<li>Make your content relevant and targeted to the recipient. There are even tools like <a class="reference external" href="http://movableink.com/">Movable Ink</a> that let you dynamically update your content after it is delivered.</li>
+<li>The higher the text to link and text to image ratios, the better. Too many links and images trigger spam flags at ESPs.</li>
+<li>Misspellings, spammy words (buy now!, Free!) are big spam flags, as are ALL CAPS AND EXCLAMATION MARKS!!!!!!!!!!!!!</li>
+<li>The from field in your emails should match the domain you are sending from. Hotmail is particularly focused on this.</li>
+<li>Make sure you are using unsubscribe links and headers in your emails. Many ESPs (particularly Hotmail) pay attention to this and if they are not there, you are likely to get filtered. You can always use Mailgun’s auto unsubscribe handling if you don’t want to deal with this on your end.</li>
+<li>Include your physical mailing address.  CAN-SPAM requires an unsubscribe link and a physical mailing list.  It is also a good idea to provide a link to your privacy policy.</li>
+<li>Gmail pays particularly close attention to Message ID and Received headers. Message IDs that are formed incorrectly (without brackets &lt;&gt; and with wrong domain after &#64;) can make Gmail think you are a spammer. The simplest way to create the right Message ID is to not set Message ID at all. Then Mailgun will create a perfect Message ID for you. Also, if you use the HTTP API, Mailgun will deal with all of this for you.</li>
+<li>Links should include the domain that is sending the email. Also, popular url shorteners can be a bad idea because they are frequently used by spammers.</li>
+<li>Long links may cause bounces.  Some ESPs will block emails with links (or any consecutive text) longer than 99 characters.</li>
+<li>A/B test your emails to optimize recipient engagement. Subject lines are particularly important. You can use Mailgun’s tagging and tracking statistics in order to measure A/B testing and improve your content.</li>
+</ul>
+</div>
+<div class="section" id="should-i-use-my-primary-corporate-domain-name-to-send-email">
+<h3>Should I use my primary corporate domain name to send email?<a class="headerlink" href="#should-i-use-my-primary-corporate-domain-name-to-send-email" title="Permalink to this headline">¶</a></h3>
+<p>You can, but remember that your reputation is tied to your domain name as well as the IP address.  If you are in danger of being classified as a &#8216;bad&#8217; sender of email, you will be affecting your domain reputation, which is very hard to recover from. It may be safer to use a completely separate domain (not a subdomain of your primary corporate domain) for sending marketing or even transactional email if you are worried about issues with domain reputation.</p>
+</div>
+<div class="section" id="why-does-the-amount-of-email-i-send-matter">
+<h3>Why does the amount of email I send matter?<a class="headerlink" href="#why-does-the-amount-of-email-i-send-matter" title="Permalink to this headline">¶</a></h3>
+<p>Rate limiting allows ESPs proper time to process and filter spam and ensure that transactional email doesn&#8217;t get backed up. Without rate limiting in place, ESPs would be even more overwhelmed than they already are. The ESPs all have different sending limits on a per hour, per day basis. Once you hit thresholds with the rate limits, send too much spam, or have any number of other issues, the ISP may start returning error messages. Some ESPs will want you to slow down the sending, stop sending for a period of time, or change your habits (due to bad engagement, bad reputation, etc). We automatically adjust your sending rates according to the feedback from these ESPs to keep you in their good graces.</p>
+<p>Generally, these rate limits are on a per IP address basis.  <a class="reference external" href="https://mailgun.com/app/support">Contact our Support Team</a> if you wish to purchase additional dedicated
+IP addresses for your account.</p>
+</div>
+<div class="section" id="does-the-amount-of-email-i-send-from-my-ip-affect-my-deliverability">
+<h3>Does the amount of email I send from my IP affect my deliverability?<a class="headerlink" href="#does-the-amount-of-email-i-send-from-my-ip-affect-my-deliverability" title="Permalink to this headline">¶</a></h3>
+<p>Yes. Generally speaking, you don&#8217;t want too few IPs, in case you experience more volume than you expect and you don&#8217;t want so many IPs that you look suspicious or spread out your volume over too many IPs. There has to be a balance of volume to IP/domain. Sending too much volume from an IP, sending from too many IPs or sending too little from a range of IPs can all lead to deliverability issues.</p>
+</div>
+<div class="section" id="where-can-i-learn-more-about-deliverability-and-email">
+<h3>Where can I learn more about Deliverability and Email?<a class="headerlink" href="#where-can-i-learn-more-about-deliverability-and-email" title="Permalink to this headline">¶</a></h3>
+<p>One of the best resources is the blog <a class="reference external" href="http://blog.wordtothewise.com/">Word to the Wise</a>.  Also, <a class="reference external" href="http://www.returnpath.com/">Return Path</a> is a service that enhances deliverability and they publish a lot of great information through their blog and white papers.  Below is are some best practices from the major ESPs.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://postmaster-us.info.aol.com/Postmaster.Guidelines.php">AOL Best Practices</a></li>
+<li><a class="reference external" href="https://support.google.com/mail/answer/81126?hl=en">Gmail Best Practices</a></li>
+<li><a class="reference external" href="http://mail.live.com/mail/policies.aspx">Hotmail Best Practices</a></li>
+<li><a class="reference external" href="https://help.yahoo.com/kb/postmaster/practices-senders-sln3435.html">Yahoo Best Practices</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="receiving">
+<h2>Receiving<a class="headerlink" href="#receiving" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="do-you-provide-spam-filtering-for-incoming-mail">
+<h3>Do you provide spam filtering for incoming mail?<a class="headerlink" href="#do-you-provide-spam-filtering-for-incoming-mail" title="Permalink to this headline">¶</a></h3>
+<p>Yes. Click on your domain in the <a class="reference external" href="https://mailgun.com/cp/domains">Control Panel</a> and enable
+our spam filtering service.</p>
+</div>
+<div class="section" id="what-happened-to-mailboxes">
+<h3>What happened to Mailboxes?<a class="headerlink" href="#what-happened-to-mailboxes" title="Permalink to this headline">¶</a></h3>
+<p>Mailgun has always meant to be a tool for developers and their applications.  We found that people were using mailboxes as a replacement for their personal hosted email, which we couldn&#8217;t support adequately. In addition, for the intended use case of handling inbound email for your application and/or service, we have found that Routes can handle 99% of these use cases better than mailboxes.</p>
+</div>
+<div class="section" id="how-do-you-handle-quotations-from-replies-and-signatures-when-receiving-mail">
+<h3>How do you handle quotations from replies and signatures when receiving mail?<a class="headerlink" href="#how-do-you-handle-quotations-from-replies-and-signatures-when-receiving-mail" title="Permalink to this headline">¶</a></h3>
+<p>We parse them and provide parameters for you to handle them as you wish.  Please take a look at our <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a>
+or <a class="reference internal" href="api_reference.html#api-reference"><span class="std std-ref">API Reference</span></a> to see more details on the parameters we provide.</p>
+</div>
+<div class="section" id="why-am-i-not-receiving-an-email-when-sending-via-the-route-with-the-sending-address-as-a-destination">
+<h3>Why am I not receiving an email when sending via the route with the sending address as a destination?<a class="headerlink" href="#why-am-i-not-receiving-an-email-when-sending-via-the-route-with-the-sending-address-as-a-destination" title="Permalink to this headline">¶</a></h3>
+<p>You&#8217;re most likely using GMail for sending your message. From GMail&#8217;s
+documentation (<a class="reference external" href="https://support.google.com/mail/troubleshooter/2935079?rd=1">https://support.google.com/mail/troubleshooter/2935079?rd=1</a>):</p>
+<p>Finally, if you&#8217;re sending mail to a mailing list that you subscribe to, those
+messages will only appear in &#8216;Sent Mail.&#8217; This behavior also occurs when sending to
+an email address that automatically forwards mail back to your Gmail address.
+To test forwarding addresses or mailing lists, use a different email address to
+send your message.</p>
+<p>When a message from, say, <code class="docutils literal"><span class="pre">bob&#64;gmail.com</span></code> goes through a
+route:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">test</span><span class="nd">@mailgun</span><span class="o">-</span><span class="n">domain</span><span class="o">.</span><span class="n">com</span> <span class="o">-&gt;</span> <span class="n">bob</span><span class="nd">@gmail</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>When this message arrives to GMail, it will have <code class="docutils literal"><span class="pre">bob&#64;gmail.com</span></code>
+as both sender and recipient, therefore GMail will not show it.</p>
+<p>In other words GMail does not show you messages you sent to yourself.</p>
+<p>The other possibility is that the address had previously experienced a Hard
+Bounce and is on the &#8216;do not send&#8217; list.  Check the Bounces tab for a list
+of these addresses and remove the address in question if it is there.</p>
+</div>
+<div class="section" id="how-do-i-know-if-http-post-callbacks-are-coming-from-mailgun-and-not-forged">
+<h3>How do I know if HTTP POST callbacks are coming from Mailgun, and not forged?<a class="headerlink" href="#how-do-i-know-if-http-post-callbacks-are-coming-from-mailgun-and-not-forged" title="Permalink to this headline">¶</a></h3>
+<p>Mailgun allows you to check the authenticity of its requests by providing three
+additional parameters in every HTTP POST request it makes. Please take a look
+at our <a class="reference external" href="user_manual.html#events-webhooks">webhooks documentation</a> for more information.</p>
+</div>
+<div class="section" id="how-do-i-know-if-the-sender-of-an-email-is-spoofed">
+<h3>How do I know if the sender of an email is spoofed?<a class="headerlink" href="#how-do-i-know-if-the-sender-of-an-email-is-spoofed" title="Permalink to this headline">¶</a></h3>
+<p>There is no 100% guarantee. However, there are some good clues. Mailgun provides
+DKIM and SPF verification for incoming mail, which is shown in the MIME headers
+once spam filtering is enabled in the <a class="reference external" href="https://mailgun.com/cp/domains">Control Panel</a>. This way you can at least
+know if the message is coming from an authenticated server.</p>
+</div>
+<div class="section" id="can-i-use-mailgun-for-my-personal-email-address">
+<h3>Can I use Mailgun for my personal email address?<a class="headerlink" href="#can-i-use-mailgun-for-my-personal-email-address" title="Permalink to this headline">¶</a></h3>
+<p>It&#8217;s not recommended. Honestly, there are plenty of hosted email services better suited for this than Mailgun: Rackspace Email, Gmail / Google Apps, Outlook, etc. Mailgun is meant to be a tool for developers and their applications.</p>
+</div>
+</div>
+<div class="section" id="tracking">
+<h2>Tracking<a class="headerlink" href="#tracking" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="can-i-use-mailgun-to-track-what-happens-with-my-emails">
+<h3>Can I use Mailgun to track what happens with my emails?<a class="headerlink" href="#can-i-use-mailgun-to-track-what-happens-with-my-emails" title="Permalink to this headline">¶</a></h3>
+<p>Yep, Mailgun tracks all of the typical events that occur with emails: Opens, Link Clicks, Bounces, Unsubscribes and
+Spam Complaints.  We make that data available to you via the Control Panel or through the API.  In addition, you can
+set up webhooks and we will post events to your URL. Take a look at our <a class="reference external" href="user_manual.html#tracking-messages">tracking documentation</a> for more information.</p>
+</div>
+<div class="section" id="what-about-email-list-management">
+<h3>What about Email List Management?<a class="headerlink" href="#what-about-email-list-management" title="Permalink to this headline">¶</a></h3>
+<p>Mailgun does have features to help you with list management.  First of all, we will not deliver again to recipients that
+have hard bounced, unsubscribed, or complained of spam.  This is to maintain your email reputation.  You can remove emails from these
+do not send lists if it was a temporary issue.  You can always access this information via the API or Control panel to update
+your lists.</p>
+</div>
+<div class="section" id="what-is-the-difference-between-hard-and-soft-bounces-and-how-do-you-handle-them">
+<h3>What is the difference between hard and soft bounces and how do you handle them?<a class="headerlink" href="#what-is-the-difference-between-hard-and-soft-bounces-and-how-do-you-handle-them" title="Permalink to this headline">¶</a></h3>
+<p>You can think of hard bounces like permanent errors and soft bounces as temporary errors.  We will stop attempting delivery after one hard bounce.  With soft bounces, we keep trying to deliver but eventually we will stop trying to delivery in accordance with the receiving ESP&#8217;s feedback.</p>
+</div>
+<div class="section" id="do-i-control-the-unsubscribe-handling-or-do-you">
+<h3>Do I control the unsubscribe handling or do you?<a class="headerlink" href="#do-i-control-the-unsubscribe-handling-or-do-you" title="Permalink to this headline">¶</a></h3>
+<p>It&#8217;s up to you.  You can use Mailgun&#8217;s unsubscribe handling.  You can include our unsubscribe variables: <code class="docutils literal"><span class="pre">%unsubscribe_url%</span></code> (for the entire domain) and <code class="docutils literal"><span class="pre">%tag_unsubscribe_url%</span></code> (for just emails with this tag) and we will take care of the unsubscribe handling for you.  Take a look at our <a class="reference external" href="user_manual.html#unsubscribes">unsubscribe documentation</a> for more information.</p>
+</div>
+<div class="section" id="how-do-i-create-campaigns-in-mailgun">
+<h3>How do I create Campaigns in Mailgun?<a class="headerlink" href="#how-do-i-create-campaigns-in-mailgun" title="Permalink to this headline">¶</a></h3>
+<p>It&#8217;s very simple, just tag your emails with the appropriate header and Mailgun will group all of the events that occur to emails with that tag. Our analytics and campaign reports include those tags as one of the dimensions by which you can view and filter data.  You can have multiple tags per email.  Take a look at our <a class="reference external" href="user_manual.html#tagging">tagging documentation</a> and <a class="reference external" href="user_manual.html#campaign-reports">campaign reports documentation</a> for more information.</p>
+</div>
+<div class="section" id="what-is-the-difference-between-tracking-stats-and-campaign-reports">
+<h3>What is the difference between Tracking Stats and Campaign Reports?<a class="headerlink" href="#what-is-the-difference-between-tracking-stats-and-campaign-reports" title="Permalink to this headline">¶</a></h3>
+<p>Tracking Stats are just event counters that give you an overview of what is happening to your email.  You can see all of the events that are occurring but the only other dimensions are domain and tag.  Campaign reports have other dimensions like recipient domain and time and give you a more in-depth analysis of what is happening with your emails.  In order to group emails for campaigns, you need to use the <code class="docutils literal"><span class="pre">X-Campaign-Id</span></code> header tag.</p>
+</div>
+<div class="section" id="do-you-support-a-b-testing">
+<h3>Do you support A/B testing?<a class="headerlink" href="#do-you-support-a-b-testing" title="Permalink to this headline">¶</a></h3>
+<p>Since creating a campaign is as easy as including an arbitrary tag, yes.  You can easily view which campaign is performing best by viewing the data grouped by tag.</p>
+</div>
+<div class="section" id="how-do-i-track-which-email-a-recipient-has-replied-to">
+<h3>How do I track which email a recipient has replied to?<a class="headerlink" href="#how-do-i-track-which-email-a-recipient-has-replied-to" title="Permalink to this headline">¶</a></h3>
+<p>This has been a popular question, so we wrote a <a class="reference external" href="http://blog.mailgun.com/tracking-replies-in-mailgun-or-any-other-email/">blog post</a> about it.  Basically, the Message-ID in the original email is included in the In-Reply-To header in the reply email.  So you can use that to track which specific email was replied to.  Mailgun will automatically include a unique Message-ID or you can set your own.</p>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/faqs.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:52 GMT -->
+</html>

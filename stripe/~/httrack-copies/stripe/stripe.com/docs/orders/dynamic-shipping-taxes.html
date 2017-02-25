@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/orders/dynamic-shipping-taxes by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="m5o9-kPRV5B7nEiNrrkGG1x2URYVY1EBkh9K3wKDHQgCACmHRRST1bbYbJJisTNgdQjfkUnPkKHTqkD3p1TXeQ==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+
+    <title>Orders API Dynamic Shipping and Tax Calculation</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="https://stripe.com/favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="https://stripe.com/img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="https://stripe.com/img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="https://stripe.com/img/v3/home/social.png">
+
+    <meta property="og:title" content="Orders API Dynamic Shipping and Tax Calculation">
+    <meta property="og:url" content="https://stripe.com/docs/orders/dynamic-shipping-taxes">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="https://stripe.com/img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="https://stripe.com/img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Orders API Dynamic Shipping and Tax Calculation">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="https://stripe.com/" title="Stripe"></a>
+          <a class="extension" href="https://stripe.com/docs">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="https://stripe.com/docs">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/quickstart">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/checkout/tutorial">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/checkout">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/custom-form">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/stripe.js">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/mobile/ios">iOS</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/mobile/android">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/charges">Creating Charges</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/declines">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/disputes/evidence">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes/types">Types</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes/faq">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/orders/guide">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders/tax-integration">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders/shipping-integration">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources">Getting Started</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/payment-methods">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/sources/cards">Cards</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/3d-secure">3D Secure</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/bancontact">Bancontact</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/giropay">Giropay</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/ideal">iDEAL</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/sepa-direct-debit">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/sofort">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/ach">ACH</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay/apps">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay/web">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/alipay">Alipay</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/bitcoin">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/quickstart">Quickstart</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/creating">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/discounts">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/trials">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/quantities">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/taxes">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/multiple">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/lifecycle">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/webhooks">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/changing">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/upgrading-downgrading">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/billing-cycle">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/canceling-pausing">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/invoices">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/plans">Managing Plans</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/connect">Overview</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/connecting-to-accounts">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/authentication">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/standalone-accounts">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/reference">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/managed-accounts">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/updating-accounts">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/identity-verification">Identity Verification</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/required-verification-information">Verification Fields</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/testing-verification">Testing Verification</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/bank-transfers">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/migrating">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/best-practices">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/payments-fees">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/special-case-transfers">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/connect/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/relay">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/relay/apps-guide">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/relay/apps-error-guide">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/radar">Overview</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/risk-evaluation">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/review">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/radar/review/auth-and-capture">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/rules">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/radar/rules/reference">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/radar/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/dashboard">Your Account</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/checklist">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/transfers">Getting Paid</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/reporting">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/libraries">API Libraries</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/upgrades">API Upgrades</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/webhooks">Webhooks</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/building-integrations">Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/recipes">Recipes</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/security">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="https://stripe.com/docs/api" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Dynamic Shipping and Tax Calculation in the Orders API</h1>
+  <p>When using Relay to sell products through apps, use callback-based shipping and tax calculation to provide accurate costs. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=orders">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<p>When an app creates an order though the <a href="https://stripe.com/docs/orders">Orders API</a> on your behalf, Stripe checks your shipping and tax settings to dynamically, and in real-time, set those costs. Sellers have four choices for both settings.</p>
+
+<p>Shipping can be set as:</p>
+
+<ul>
+  <li><code>free</code>: No additional cost, the default.</li>
+  <li><code>flat_rate</code>: A flat additional cost, regardless of the items ordered, the quantity, or the customer’s geographic location. You can even opt to waive the shipping cost above a certain order total.</li>
+  <li><code>callback</code>: Determined on the fly per order.</li>
+  <li><code>provider</code>: Calculated using a third party shipping provider like <a href="https://stripe.com/docs/orders/easypost">EasyPost</a>.</li>
+</ul>
+
+<p>Tax can be set as:</p>
+
+<ul>
+  <li><code>included</code>: No additional cost, the default.</li>
+  <li><code>percentage</code>: A flat additional cost, as a percent of the order total, before shipping.</li>
+  <li><code>callback</code>: Determined on the fly per order.</li>
+  <li><code>provider</code>: Calculated using a third party tax provider like <a href="https://stripe.com/docs/orders/avalara">Avalara</a> or <a href="https://stripe.com/docs/orders/taxjar">TaxJar</a>.</li>
+</ul>
+
+<p>Of the three, callback is the most flexible and complex, as it requires you to provide an endpoint on your own server that Stripe will reach out to upon order creation to retrieve these costs. The settings are also flexible enough to support different options for shipping and taxes: one could be flat or free, and the other could leverage a callback.</p>
+
+<p>If you select <code>callback</code>, create a page on your server that computes and returns the appropriate costs on demand. To know how the page should respond, you should first understand the information it will receive.</p></section>
+
+<section>
+<h2 id="order-creation-event">Order creation event</h2>
+
+<p>When an order is created, Stripe will issue a <code>POST</code> HTTP request to the specified endpoint with the details of the unpaid, created <code>order</code>. A sample <code>POST</code> body is:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;order&quot;: {
+    &quot;id&quot;: &quot;or_15iahK2eZvKYlo2CzKGgMVNl&quot;,
+    &quot;created&quot;: 1426898562,
+    &quot;object&quot;: &quot;order&quot;,
+    &quot;livemode&quot;: false,
+    &quot;status&quot;: &quot;created&quot;,
+    &quot;shipping&quot;: {
+      &quot;name&quot;: &quot;Jenny Rosen&quot;,
+      &quot;address&quot;: {
+        &quot;line1&quot;: &quot;1234 Main street&quot;,
+        &quot;line2&quot;: null,
+        &quot;city&quot;: &quot;Anytown&quot;,
+        &quot;state&quot;: &quot;CA&quot;,
+        &quot;postal_code&quot;: &quot;123456&quot;,
+        &quot;country&quot;: &quot;US&quot;
+      },
+      &quot;phone&quot;: null,
+      &quot;tracking_number&quot;: null,
+      &quot;carrier&quot;: null
+    },
+    &quot;items&quot;: [
+      {
+        &quot;amount&quot;: 1500,
+        &quot;currency&quot;: &quot;usd&quot;,
+        &quot;description&quot;: &quot;Unisex / M&quot;,
+        &quot;object&quot;: &quot;order_item&quot;,
+        &quot;parent&quot;: {
+          &quot;id&quot;: &quot;sku_h8UvZvy9JA4QXeuR5Wxt&quot;,
+          &quot;object&quot;: &quot;sku&quot;,
+          &quot;active&quot;: true,
+          &quot;attributes&quot;: {},
+          &quot;created&quot;: 1445530555,
+          &quot;currency&quot;: &quot;usd&quot;,
+          &quot;image&quot;: null,
+          &quot;inventory&quot;: {
+            &quot;quantity&quot;: 42,
+            &quot;type&quot;:&quot; finite&quot;,
+            &quot;value&quot;: null
+          },
+          &quot;livemode&quot;: false,
+          &quot;metadata&quot;: {},
+          &quot;package_dimensions&quot;:null,
+          &quot;price&quot;: 1500,
+          &quot;product&quot;: &quot;prod_6naDTQsFnjCXUqY9ZEph&quot;,
+          &quot;updated&quot;: 1445530556
+        },
+        &quot;type&quot;: &quot;sku&quot;
+      }
+    ],
+    &quot;amount&quot;: 1500,
+    &quot;currency&quot;: &quot;usd&quot;,
+    &quot;charge&quot;: null
+  }
+}</code></pre>
+</div>
+
+<p>For example, your page may calculate the tax due based upon the order amount and the customer’s address, both of which are in the received <code>order</code> object. As another example, shipping may be calculated based upon the total package size, total package weight, and the customer’s address. In this case, the page would need to look up the package’s dimensions, either from a previous store (in your database) or through the Stripe API.</p></section>
+
+<section>
+<h2 id="your-endpoint-response">Your endpoint response</h2>
+
+<p>Your endpoint must return a 200 status code, along with a JSON response. The JSON needs a top-level <code>order_update</code> object containing the following properties:</p>
+
+<ul>
+  <li>An <code>items</code> array which consists of <code>tax</code> <a href="https://stripe.com/docs/api#orderitems">OrderItems</a> to be appended to the order</li>
+  <li>A <code>shipping_methods</code> array which contains the shipping options to be presented to the user (as exposed on the <a href="https://stripe.com/docs/api#order_object">Order object</a>)</li>
+  <li>An optional <code>"order_id"</code> if you have an order identifier that is different from the Stripe identifier (which starts with <strong>or_</strong>)</li>
+</ul>
+
+<p>An example of a valid response is:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;order_update&quot;: {
+    &quot;order_id&quot;: &quot;abc-123-abcdefg&quot;,
+    &quot;items&quot;: [
+      {
+        &quot;parent&quot;: null,
+        &quot;type&quot;: &quot;tax&quot;,
+        &quot;description&quot;: &quot;Sales taxes&quot;,
+        &quot;amount&quot;: 245,
+        &quot;currency&quot;: &quot;usd&quot;
+      }
+    ],
+    &quot;shipping_methods&quot;: [
+      {
+        &quot;id&quot;: &quot;free_shipping&quot;,
+        &quot;description&quot;: &quot;Free 7-day shipping&quot;,
+        &quot;amount&quot;: 0,
+        &quot;currency&quot;: &quot;usd&quot;,
+        // Optional delivery estimate and tax items:
+        &quot;delivery_estimate&quot;: {
+          &quot;type&quot;: &quot;exact&quot;,
+          &quot;date&quot;: &quot;2017-01-20&quot;
+        },
+        &quot;tax_items&quot;: []
+      }, {
+        &quot;id&quot;: &quot;priority_shipping&quot;,
+        &quot;description&quot;: &quot;Priority shipping&quot;,
+        &quot;amount&quot;: 499,
+        &quot;currency&quot;: &quot;usd&quot;,
+        // Optional delivery estimate and tax items:
+        &quot;delivery_estimate&quot;: {
+          &quot;type&quot;: &quot;exact&quot;,
+          &quot;date&quot;: &quot;2017-01-15&quot;
+        },
+        &quot;tax_items&quot;: [
+          {
+            &quot;parent&quot;: &quot;priority_shipping&quot;,
+            &quot;type&quot;: &quot;tax&quot;,
+            &quot;description&quot;: &quot;Shipping sales taxes&quot;,
+            &quot;amount&quot;: 49,
+            &quot;currency&quot;: &quot;usd&quot;
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+</div>
+
+<p>Note that if your shipping costs are taxable, you must return a set of tax line items for them as well, nested under the <code>"tax_items"</code> property for each method. The one important difference between the top-level tax line items and those that apply to shipping methods is that the <code>"parent"</code> field is set to the <code>"id"</code> of the shipping method. For example, the $0.49 sales tax line item on priority shipping has the parent field <code>"priority_shipping"</code>. If no taxes apply to your shipping methods, you can omit the <code>"tax_items"</code> array.</p></section>
+
+<section>
+<h2 id="indicating-an-error">Indicating an error</h2>
+
+<p>Any non-<code>200</code> responses will be considered an error, which results in the order creation being rejected. This also means that if your endpoint is broken (e.g., due to a syntax error), orders cannot be created.</p>
+
+<p>Your endpoint can respond to the Stripe request with error messages that the API will return to the order creation request. Error codes are represented in the usual Stripe format with a <code>type</code>, <code>code</code>, and <code>message</code>:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;invalid_request_error&quot;,
+    &quot;code&quot;: &quot;shipping_calculation_failed&quot;,
+    &quot;message&quot;: &quot;The shipping information provided could not be verified&quot;,
+    &quot;param&quot;: &quot;shipping.country&quot;
+  }
+}</code></pre>
+</div>
+
+<p>Acceptable values for <code>code</code> are:</p>
+
+<ul>
+  <li><code>sku_inactive</code>: the SKU is marked as inactive</li>
+  <li><code>product_inactive</code>: the SKU belongs to an inactive product</li>
+  <li><code>out_of_inventory</code>: this SKU is out of stock</li>
+  <li><code>maximum_sku_quantity_exceeded</code>: the user tried to order more than the maximum allowed quantity of this SKU.</li>
+  <li><code>shipping_calculation_failed</code>: the shipping methods could not be computed</li>
+  <li><code>taxes_calculation_failed</code>: the taxes could not be computed</li>
+  <li><code>address_verification_failed</code>: the address could not be verified</li>
+  <li><code>upstream_order_creation_failed</code>: generic error code to use for any other error condition where a specific message should be returned to the end-user</li>
+</ul>
+
+<p>The different error codes have different requirements for additiona data to pass in order to make the user-facing error response as helpful as possible. We’ve outlined the required data below.</p>
+
+<h3 id="sku-level-errors">SKU-level errors</h3>
+
+<p><strong>Codes</strong>: <code>sku_inactive</code>, <code>product_inactive</code>, <code>out_of_inventory</code>, <code>maximum_sku_quantity_exceeded</code></p>
+
+<p>The error response <strong>must</strong> contain a value for <code>param</code> indicating the index of the order item that is inactive or out of stock. The following is an example of a valid response:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;invalid_request_error&quot;,
+    &quot;code&quot;: &quot;sku_inactive&quot;,
+    &quot;message&quot;: &quot;The SKU 12345 is no longer active.&quot;,
+    &quot;param&quot;: &quot;items[0]&quot;
+  }
+}</code></pre>
+</div>
+
+<p>Stripe will translate that to the following API response:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;invalid_request_error&quot;,
+    &quot;code&quot;: &quot;sku_inactive&quot;,
+    &quot;message&quot;: &quot;This SKU cannot be used to create an order: 12345 is marked as inactive.&quot;,
+    &quot;param&quot;: &quot;items[0]&quot;
+  }
+}</code></pre>
+</div>
+
+<h3 id="order-level-errors">Order-level errors</h3>
+
+<p><strong>Codes:</strong> <code>shipping_calculation_failed</code>, <code>taxes_calculation_failed</code>, <code>address_verification_failed</code></p>
+
+<p>The error response <em>can</em> contain a value for <code>param</code> indicating which parameter caused the validation to fail. The following is an example of a valid response:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;action_failed&quot;,
+    &quot;code&quot;: &quot;shipping_calculation_failed&quot;,
+    &quot;message&quot;: &quot;The zipcode and state do not match.&quot;,
+    &quot;param&quot;: &quot;shipping.address&quot;
+  }
+}</code></pre>
+</div>
+
+<p>Stripe will translate that to the following API response:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;action_failed&quot;,
+    &quot;code&quot;: &quot;shipping_calculation_failed&quot;,
+    &quot;message&quot;: &quot;Shipping calculation failed: The zipcode and state do not match.&quot;,
+    &quot;param&quot;: &quot;shipping.address&quot;
+  }
+}</code></pre>
+</div>
+
+<h3 id="general-errors">General errors</h3>
+
+<p><strong>Codes:</strong> <code>upstream_order_creation_failed</code></p>
+
+<p>The <code>message</code> in the error response will be included in the Stripe API response, but there are no additional requirements for your API response. The response below is a valid response:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;action_failed&quot;,
+    &quot;code&quot;: &quot;upstream_order_creation_failed&quot;,
+    &quot;message&quot;: &quot;Database connection dropped&quot;
+  }
+}</code></pre>
+</div>
+
+<p>Stripe will translate that to the following API response:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;action_failed&quot;,
+    &quot;code&quot;: &quot;upstream_order_creation_failed&quot;,
+    &quot;message&quot;: &quot;Order creation failed: Database connection dropped&quot;
+  }
+}</code></pre>
+</div>
+</section>
+
+<section>
+  <h2>Next steps</h2>
+  <p>Congrats! You've gone through how to use callback-based shipping and tax calculations in the Orders API. Some things you might want to see next:</p>
+<ul class="next-steps">
+    <li><a href="https://stripe.com/docs/orders"><span>Orders API Guide</a></li>
+    <li><a href="https://stripe.com/docs/recipes/product-discovery-app"><span>Building a Product Discovery App</a></li>
+    <li><a href="https://stripe.com/docs/api#products"><span>Products API docs</a></li>
+    <li><a href="https://stripe.com/docs/api#skus"><span>SKU API docs</a></li>
+    <li><a href="https://stripe.com/docs/api#orders"><span>Order API docs</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="https://stripe.com/contact/sales">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="https://stripe.com/assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="https://stripe.com/assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="https://stripe.com/assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="https://stripe.com/assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="https://stripe.com/assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="https://stripe.com/assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="https://stripe.com/assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="https://stripe.com/assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/orders/dynamic-shipping-taxes by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:41 GMT -->
+</html>

@@ -1,0 +1,1628 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/api-sending.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Messages &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="up" title="API Reference" href="api_reference.html" />
+    <link rel="next" title="Domains" href="api-domains.html" />
+    <link rel="prev" title="Introduction" href="api-intro.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+ 
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="http://www.mailgun.com/" class="logo">Mailgun - Email Automation by Rackspace</a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="http://www.mailgun.com/pricing" class="pricing-link"><b>Pricing</b></a>
+          <a href="http://www.mailgun.com/customers" class="customers-link"><b>Customers</b></a>
+          <div class="dropdown">
+                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b>Features <svg class="icon icon-dropdown" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b>Resources <svg class="icon icon-dropdown active" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+                <a href="http://www.mailgun.com/managed" class="managed-link"><b>Managed</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b>Contact</b></a>
+          <a href="https://www.mailgun.com/sessions/new" class="login-link"><b>Log in</b></a>
+          <a href="https://www.mailgun.com/signup" class="signup-link"><b>Sign Up</b></a>
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus />
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api-domains.html" title="Domains" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="api-intro.html" title="Introduction" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api-intro.html">Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Messages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sending">Sending</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieving-stored-messages">Retrieving Stored Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deleting-stored-messages">Deleting Stored Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-events.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-stats.html">Stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-tags.html">Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-suppressions.html">Suppressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-routes.html">Routes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-webhooks.html">Webhooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-mailinglists.html">Mailing Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-email-validation.html">Email Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">Email Best Practices</a></li>
+</ul>
+
+      <div class="admonition note">You can find your API Key in your <a href="https://mailgun.com/cp" target="_blank">Control Panel</a></div>
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="messages">
+<span id="api-sending-messages"></span><h1>Messages<a class="headerlink" href="#messages" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sending">
+<h2>Sending<a class="headerlink" href="#sending" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways to send emails using Mailgun API:</p>
+<ul class="simple">
+<li>You can pass the components of the messages such as <code class="docutils literal"><span class="pre">To</span></code>,
+<code class="docutils literal"><span class="pre">From</span></code>, <code class="docutils literal"><span class="pre">Subject</span></code>, HTML and text parts, attachments, etc. Mailgun
+will build a MIME representation of the message and send it. This is the
+preferred method.</li>
+<li>You can also build a MIME string yourself using a MIME library for your
+programming language and submit it to Mailgun.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can also use good old SMTP to send messages. But you will have
+to specify all advanced sending options via <a class="reference internal" href="user_manual.html#passing-sending-options"><span class="std std-ref">MIME headers</span></a></p>
+</div>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/messages
+</pre></div>
+</div>
+<p>Sends a message by assembling it from the components. Note that you can
+specify most parameters multiple times, HTTP supports this out of the box.
+This makes sense for parameters like <code class="docutils literal"><span class="pre">cc</span></code>, <code class="docutils literal"><span class="pre">to</span></code> or <code class="docutils literal"><span class="pre">attachment</span></code>.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>from</td>
+<td>Email address for <code class="docutils literal"><span class="pre">From</span></code> header</td>
+</tr>
+<tr class="row-odd"><td>to</td>
+<td>Email address of the recipient(s).
+Example: <code class="docutils literal"><span class="pre">&quot;Bob</span> <span class="pre">&lt;bob&#64;host.com&gt;&quot;</span></code>. You can use commas to
+separate multiple recipients.</td>
+</tr>
+<tr class="row-even"><td>cc</td>
+<td>Same as <code class="docutils literal"><span class="pre">To</span></code> but for <code class="docutils literal"><span class="pre">Cc</span></code></td>
+</tr>
+<tr class="row-odd"><td>bcc</td>
+<td>Same as <code class="docutils literal"><span class="pre">To</span></code> but for <code class="docutils literal"><span class="pre">Bcc</span></code></td>
+</tr>
+<tr class="row-even"><td>subject</td>
+<td>Message subject</td>
+</tr>
+<tr class="row-odd"><td>text</td>
+<td>Body of the message. (text version)</td>
+</tr>
+<tr class="row-even"><td>html</td>
+<td>Body of the message. (HTML version)</td>
+</tr>
+<tr class="row-odd"><td>attachment</td>
+<td>File attachment. You can post multiple <code class="docutils literal"><span class="pre">attachment</span></code>
+values. <strong>Important:</strong> You must use <code class="docutils literal"><span class="pre">multipart/form-data</span></code>
+encoding when sending attachments.</td>
+</tr>
+<tr class="row-even"><td>inline</td>
+<td>Attachment with <code class="docutils literal"><span class="pre">inline</span></code> disposition. Can be used to
+send inline images (see <a class="reference internal" href="user_manual.html#inline-image"><span class="std std-ref">example</span></a>).
+You can post multiple <code class="docutils literal"><span class="pre">inline</span></code> values.</td>
+</tr>
+<tr class="row-odd"><td>o:tag</td>
+<td>Tag string. See <a class="reference internal" href="user_manual.html#tagging"><span class="std std-ref">Tagging</span></a> for more information.</td>
+</tr>
+<tr class="row-even"><td>o:campaign</td>
+<td>Id of the campaign the message belongs to. See
+<span class="xref std std-ref">um-campaign-analytics</span> for details.</td>
+</tr>
+<tr class="row-odd"><td>o:dkim</td>
+<td>Enables/disables DKIM signatures on per-message basis.
+Pass <code class="docutils literal"><span class="pre">yes</span></code> or <code class="docutils literal"><span class="pre">no</span></code></td>
+</tr>
+<tr class="row-even"><td>o:deliverytime</td>
+<td>Desired time of delivery. See <a class="reference internal" href="api-intro.html#date-format"><span class="std std-ref">Date Format</span></a>. Note:
+Messages can be scheduled for a maximum of 3 days in the
+future.</td>
+</tr>
+<tr class="row-odd"><td>o:testmode</td>
+<td>Enables sending in test mode. Pass <code class="docutils literal"><span class="pre">yes</span></code> if needed.
+See <a class="reference internal" href="user_manual.html#manual-testmode"><span class="std std-ref">Sending in Test Mode</span></a></td>
+</tr>
+<tr class="row-even"><td>o:tracking</td>
+<td>Toggles tracking on a per-message basis, see
+<a class="reference internal" href="user_manual.html#tracking-messages"><span class="std std-ref">Tracking Messages</span></a> for details. Pass <code class="docutils literal"><span class="pre">yes</span></code> or <code class="docutils literal"><span class="pre">no</span></code>.</td>
+</tr>
+<tr class="row-odd"><td>o:tracking-clicks</td>
+<td>Toggles clicks tracking on a per-message basis. Has higher
+priority than domain-level setting. Pass <code class="docutils literal"><span class="pre">yes</span></code>, <code class="docutils literal"><span class="pre">no</span></code>
+or <code class="docutils literal"><span class="pre">htmlonly</span></code>.</td>
+</tr>
+<tr class="row-even"><td>o:tracking-opens</td>
+<td>Toggles opens tracking on a per-message basis. Has higher
+priority than domain-level setting. Pass <code class="docutils literal"><span class="pre">yes</span></code> or <code class="docutils literal"><span class="pre">no</span></code>.</td>
+</tr>
+<tr class="row-odd"><td>o:require-tls</td>
+<td><p class="first">If set to <cite>True</cite> this requires the message only be sent over
+a TLS connection. If a TLS connection can not be established,
+Mailgun will not deliver the message.</p>
+<p>If set to <cite>False</cite>, Mailgun will still try and upgrade the
+connection, but if Mailgun can not, the message will be
+delivered over a plaintext SMTP connection.</p>
+<p class="last">The default is False.</p>
+</td>
+</tr>
+<tr class="row-even"><td>o:skip-verification</td>
+<td><p class="first">If set to <cite>True</cite>, the certificate and hostname will not be
+verified when trying to establish a TLS connection and Mailgun
+will accept any certificate during delivery.</p>
+<p>If set to <cite>False</cite>, Mailgun will verify the certificate and
+hostname. If either one can not be verified, a TLS connection
+will not be established.</p>
+<p class="last">The default is <cite>False</cite>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td>h:X-My-Header</td>
+<td><code class="docutils literal"><span class="pre">h:</span></code> prefix followed by an arbitrary value allows to append
+a custom MIME header to the message (<code class="docutils literal"><span class="pre">X-My-Header</span></code>
+in this case). For example, <code class="docutils literal"><span class="pre">h:Reply-To</span></code> to specify Reply-To
+address.</td>
+</tr>
+<tr class="row-even"><td>v:my-var</td>
+<td><code class="docutils literal"><span class="pre">v:</span></code> prefix followed by an arbitrary name allows to
+attach a custom JSON data to the message.
+See <a class="reference internal" href="user_manual.html#manual-customdata"><span class="std std-ref">Attaching Data to Messages</span></a> for more information.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-url"><div class="highlight"><pre><span></span>POST /&lt;domain&gt;/messages.mime
+</pre></div>
+</div>
+<p>Posts a message in MIME format. Note: you will need to build a MIME
+string yourself. Use a MIME library for your programming language
+to do this. Pass the resulting MIME string as <code class="docutils literal"><span class="pre">message</span></code> parameter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You must use <code class="docutils literal"><span class="pre">multipart/form-data</span></code> encoding.</p>
+</div>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="78%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>to</td>
+<td>Email address of the recipient(s).
+Example: <code class="docutils literal"><span class="pre">&quot;Bob</span> <span class="pre">&lt;bob&#64;host.com&gt;&quot;</span></code>. You can use commas to
+separate multiple recipients.
+Make sure to include all <code class="docutils literal"><span class="pre">To</span></code>, <code class="docutils literal"><span class="pre">Cc</span></code> and <code class="docutils literal"><span class="pre">Bcc</span></code>
+recipients of the message.</td>
+</tr>
+<tr class="row-odd"><td>message</td>
+<td>MIME string of the message. Make sure to use
+<code class="docutils literal"><span class="pre">multipart/form-data</span></code> to send this as a file upload.</td>
+</tr>
+<tr class="row-even"><td>o:tag</td>
+<td>Tag string. See <a class="reference internal" href="user_manual.html#tagging"><span class="std std-ref">Tagging</span></a> for more information.</td>
+</tr>
+<tr class="row-odd"><td>o:campaign</td>
+<td>Id of the campaign the message belongs to. See
+<span class="xref std std-ref">um-campaign-analytics</span> for details.</td>
+</tr>
+<tr class="row-even"><td>o:deliverytime</td>
+<td>Desired time of delivery. See <a class="reference internal" href="api-intro.html#date-format"><span class="std std-ref">Date Format</span></a>. Note:
+Messages can be scheduled for a maximum of 3 days in the
+future.</td>
+</tr>
+<tr class="row-odd"><td>o:dkim</td>
+<td>Enables/disabled DKIM signatures on per-message basis.
+Pass <code class="docutils literal"><span class="pre">yes</span></code> or <code class="docutils literal"><span class="pre">no</span></code></td>
+</tr>
+<tr class="row-even"><td>o:testmode</td>
+<td>Enables sending in test mode. Pass <code class="docutils literal"><span class="pre">yes</span></code> if needed.
+See <a class="reference internal" href="user_manual.html#manual-testmode"><span class="std std-ref">Sending in Test Mode</span></a></td>
+</tr>
+<tr class="row-odd"><td>o:tracking</td>
+<td>Toggles tracking on a per-message basis, see
+<a class="reference internal" href="user_manual.html#tracking-messages"><span class="std std-ref">Tracking Messages</span></a> for details. Pass <code class="docutils literal"><span class="pre">yes</span></code> or <code class="docutils literal"><span class="pre">no</span></code>.</td>
+</tr>
+<tr class="row-even"><td>o:tracking-clicks</td>
+<td>Toggles clicks tracking on a per-message basis. Has higher
+priority than domain-level setting. Pass <code class="docutils literal"><span class="pre">yes</span></code>, <code class="docutils literal"><span class="pre">no</span></code>
+or <code class="docutils literal"><span class="pre">htmlonly</span></code>.</td>
+</tr>
+<tr class="row-odd"><td>o:tracking-opens</td>
+<td>Toggles opens tracking on a per-message basis. Has higher
+priority than domain-level setting. Pass <code class="docutils literal"><span class="pre">yes</span></code> or <code class="docutils literal"><span class="pre">no</span></code>.</td>
+</tr>
+<tr class="row-even"><td>h:X-My-Header</td>
+<td><code class="docutils literal"><span class="pre">h:</span></code> prefix followed by an arbitrary value allows to append
+a custom MIME header to the message (<code class="docutils literal"><span class="pre">X-My-Header</span></code>
+in this case). For example, <code class="docutils literal"><span class="pre">h:Reply-To</span></code> to specify Reply-To
+address.</td>
+</tr>
+<tr class="row-odd"><td>v:my-var</td>
+<td><code class="docutils literal"><span class="pre">v:</span></code> prefix followed by an arbitrary name allows to
+attach a custom JSON data to the message.
+See <a class="reference internal" href="user_manual.html#manual-customdata"><span class="std std-ref">Attaching Data to Messages</span></a> for more information.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="retrieving-stored-messages">
+<h2>Retrieving Stored Messages<a class="headerlink" href="#retrieving-stored-messages" title="Permalink to this headline">¶</a></h2>
+<p>To retrieve an inbound message that has been stored via the <code class="docutils literal"><span class="pre">store()</span></code> action, use the URL found in the stored event (which you can find through the Events API, or in the notify webhook set when creating the store action (<code class="docutils literal"><span class="pre">store(notify=&quot;http://mydomain.com/callback&quot;)</span></code>).</p>
+<ul class="simple">
+<li>By default the message will be returned in JSON form with parsed parts. Links to the attachments will be included.</li>
+<li>You can also retrieve the full raw mime message (attachments and all) if you make the request to the URL with the <code class="docutils literal"><span class="pre">Accept</span></code> header set to <code class="docutils literal"><span class="pre">message/rfc2822</span></code>.</li>
+</ul>
+<p>These are the parameters of the JSON returned from a GET request to a stored message url.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="4%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>recipients</td>
+<td>string</td>
+<td>recipient of the message as reported by <code class="docutils literal"><span class="pre">MAIL</span> <span class="pre">TO</span></code> during SMTP chat.</td>
+</tr>
+<tr class="row-odd"><td>sender</td>
+<td>string</td>
+<td>sender of the message as reported by <code class="docutils literal"><span class="pre">MAIL</span> <span class="pre">FROM</span></code> during SMTP chat. Note: this value may differ
+from <code class="docutils literal"><span class="pre">From</span></code> MIME header.</td>
+</tr>
+<tr class="row-even"><td>from</td>
+<td>string</td>
+<td>sender of the message as reported by <code class="docutils literal"><span class="pre">From</span></code> message header, for example &#8220;Bob Lee &lt;<a class="reference external" href="mailto:blee&#37;&#52;&#48;mailgun&#46;net">blee<span>&#64;</span>mailgun<span>&#46;</span>net</a>&gt;&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>subject</td>
+<td>string</td>
+<td>subject string.</td>
+</tr>
+<tr class="row-even"><td>body-plain</td>
+<td>string</td>
+<td>text version of the email. This field is always present.
+If the incoming message only has HTML body, Mailgun will create a text representation for you.</td>
+</tr>
+<tr class="row-odd"><td>stripped-text</td>
+<td>string</td>
+<td>text version of the message without quoted parts and signature block (if found).</td>
+</tr>
+<tr class="row-even"><td>stripped-signature</td>
+<td>string</td>
+<td>the signature block stripped from the plain text message (if found).</td>
+</tr>
+<tr class="row-odd"><td>body-html</td>
+<td>string</td>
+<td>HTML version of the message, if message was multipart. Note that all parts of the message will be posted,
+not just text/html. For instance if a message arrives with &#8220;foo&#8221; part it will be posted as &#8220;body-foo&#8221;.</td>
+</tr>
+<tr class="row-even"><td>stripped-html</td>
+<td>string</td>
+<td>HTML version of the message, without quoted parts.</td>
+</tr>
+<tr class="row-odd"><td>attachments</td>
+<td>string</td>
+<td>contains a json list of metadata objects, one for each attachment, see below.</td>
+</tr>
+<tr class="row-even"><td>message-headers</td>
+<td>string</td>
+<td>list of all MIME headers dumped to a json string (order of headers preserved).</td>
+</tr>
+<tr class="row-odd"><td>content-id-map</td>
+<td>string</td>
+<td>JSON-encoded dictionary which maps Content-ID (CID) of each attachment to the corresponding <code class="docutils literal"><span class="pre">attachment-x</span></code> parameter. This allows you to map posted attachments to tags like <code class="docutils literal"><span class="pre">&lt;img</span> <span class="pre">src='cid'&gt;</span></code> in the message body.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Do not rely on the <code class="docutils literal"><span class="pre">body-plain</span></code>, <code class="docutils literal"><span class="pre">stripped-text</span></code>, and <code class="docutils literal"><span class="pre">stripped-signature</span></code> fields for HTML sanitization. These fields
+merely provide content from the text/plain portion of an incoming message. This content may contain unescaped HTML.</p>
+</div>
+<p>The attachments JSON contains the following items.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="7%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>size</td>
+<td>integer</td>
+<td>indicates the size of the attachment in bytes.</td>
+</tr>
+<tr class="row-odd"><td>url</td>
+<td>string</td>
+<td>contains the url where the attachment can be found. This does not support DELETE.</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>string</td>
+<td>the name of the attachment</td>
+</tr>
+<tr class="row-odd"><td>content-type</td>
+<td>string</td>
+<td>the content type of the attachment</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>These are the parameters when the <code class="docutils literal"><span class="pre">Accept</span></code> header is set to <code class="docutils literal"><span class="pre">message/rfc2822</span></code></p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="5%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>recipient</td>
+<td>string</td>
+<td>recipient of the message.</td>
+</tr>
+<tr class="row-odd"><td>sender</td>
+<td>string</td>
+<td>sender of the message as reported by SMTP MAIL FROM.</td>
+</tr>
+<tr class="row-even"><td>from</td>
+<td>string</td>
+<td>sender of the message as reported by <code class="docutils literal"><span class="pre">From</span></code> message header, for example &#8220;Bob &lt;<a class="reference external" href="mailto:bob&#37;&#52;&#48;example&#46;com">bob<span>&#64;</span>example<span>&#46;</span>com</a>&gt;&#8221;.</td>
+</tr>
+<tr class="row-odd"><td>subject</td>
+<td>string</td>
+<td>subject string.</td>
+</tr>
+<tr class="row-even"><td>body-mime</td>
+<td>string</td>
+<td>full MIME envelope. You will need a MIME parsing library to process this data.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="deleting-stored-messages">
+<h2>Deleting Stored Messages<a class="headerlink" href="#deleting-stored-messages" title="Permalink to this headline">¶</a></h2>
+<p>Stored messages are retained in the system for 3 days and automatically purged
+after this retention period, therefore there is no need to delete messages
+explicitly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Mailgun reserves the right to impose a limit on the size and number
+of stored messages. In the event this is necessary, you will be
+notified in advance.</p>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Some samples are using curl utility for API examples.
+UNIX shells require that some characters must be escaped,
+for example <code class="docutils literal"><span class="pre">$</span></code> becomes <code class="docutils literal"><span class="pre">\$</span></code>.</p>
+<p class="last">If your API key contains unescaped characters you
+may receive HTTP error 401 (Unauthorized).</p>
+</div>
+<p>Sending a plain text message:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages <span class="se">\</span>
+    -F <span class="nv">from</span><span class="o">=</span><span class="s1">&#39;Excited User &lt;mailgun@YOUR_DOMAIN_NAME&gt;&#39;</span> <span class="se">\</span>
+    -F <span class="nv">to</span><span class="o">=</span>YOU@YOUR_DOMAIN_NAME <span class="se">\</span>
+    -F <span class="nv">to</span><span class="o">=</span>bar@example.com <span class="se">\</span>
+    -F <span class="nv">subject</span><span class="o">=</span><span class="s1">&#39;Hello&#39;</span> <span class="se">\</span>
+    -F <span class="nv">text</span><span class="o">=</span><span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">SendSimple</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;from&quot;</span><span class="o">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;alice@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;subject&quot;</span><span class="o">,</span> <span class="s">&quot;Hello&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;text&quot;</span><span class="o">,</span> <span class="s">&quot;Testing out some Mailgun awesomeness!&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/messages&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">;</span>
+
+<span class="c1"># Make the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">sendMessage</span><span class="p">(</span><span class="nv">$domain</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;from&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Excited User &lt;mailgun@YOUR_DOMAIN_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;to&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;Baz &lt;YOU@YOUR_DOMAIN_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;subject&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_simple_message</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="s2">&quot;Excited User &lt;mailgun@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span> <span class="s2">&quot;YOU@YOUR_DOMAIN_NAME&quot;</span><span class="p">],</span>
+              <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_simple_message</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+  <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;Excited User &lt;mailgun@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+  <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;bar@example.com, YOU@YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span>
+  <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+  <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SendSimpleMessageChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">SendSimpleMessage</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">SendSimpleMessage</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/messages&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;from&quot;</span><span class="p">,</span> <span class="s">&quot;Excited User &lt;mailgun@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;bar@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;YOU@YOUR_DOMAIN_NAME&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;subject&quot;</span><span class="p">,</span> <span class="s">&quot;Hello&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">SendSimpleMessage</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="nx">publicApiKey</span><span class="p">)</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewMessage</span><span class="p">(</span>
+    <span class="s">&quot;Excited User &lt;mailgun@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Testing some Mailgun awesomeness!&quot;</span><span class="p">,</span>
+    <span class="s">&quot;YOU@YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span>
+  <span class="p">)</span>
+  <span class="nx">_</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Sample response:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Queued. Thank you.&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;20111114174239.25659.5817@samples.mailgun.org&gt;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Sending a message with HTML and text parts. This example also attaches two files to the message:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages <span class="se">\</span>
+    -F <span class="nv">from</span><span class="o">=</span><span class="s1">&#39;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&#39;</span> <span class="se">\</span>
+    -F <span class="nv">to</span><span class="o">=</span><span class="s1">&#39;foo@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">cc</span><span class="o">=</span><span class="s1">&#39;bar@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">bcc</span><span class="o">=</span><span class="s1">&#39;baz@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">subject</span><span class="o">=</span><span class="s1">&#39;Hello&#39;</span> <span class="se">\</span>
+    -F <span class="nv">text</span><span class="o">=</span><span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span> <span class="se">\</span>
+    --form-string <span class="nv">html</span><span class="o">=</span><span class="s1">&#39;&lt;html&gt;HTML version of the body&lt;/html&gt;&#39;</span> <span class="se">\</span>
+    -F <span class="nv">attachment</span><span class="o">=</span>@files/cartman.jpg <span class="se">\</span>
+    -F <span class="nv">attachment</span><span class="o">=</span>@files/cartman.png
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.media.multipart.FormDataMultiPart</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.media.multipart.file.FileDataBodyPart</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">SendComplexMessage</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">FormDataMultiPart</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FormDataMultiPart</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;from&quot;</span><span class="o">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;alice@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;cc&quot;</span><span class="o">,</span> <span class="s">&quot;joe@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;subject&quot;</span><span class="o">,</span> <span class="s">&quot;Hello&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;text&quot;</span><span class="o">,</span> <span class="s">&quot;Testing out some Mailgun awesomeness!&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;html&quot;</span><span class="o">,</span> <span class="s">&quot;&lt;html&gt;HTML version of the body&lt;/html&gt;&quot;</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">file_separator</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&quot;file.separator&quot;</span><span class="o">);</span>
+
+        <span class="n">File</span> <span class="n">txtFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;.&quot;</span> <span class="o">+</span> <span class="n">file_separator</span> <span class="o">+</span>
+            <span class="s">&quot;files&quot;</span> <span class="o">+</span> <span class="n">file_separator</span> <span class="o">+</span> <span class="s">&quot;test.txt&quot;</span><span class="o">);</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">bodyPart</span><span class="o">(</span><span class="k">new</span> <span class="n">FileDataBodyPart</span><span class="o">(</span><span class="s">&quot;attachment&quot;</span><span class="o">,</span> <span class="n">txtFile</span><span class="o">,</span>
+            <span class="n">MediaType</span><span class="o">.</span><span class="na">TEXT_PLAIN_TYPE</span><span class="o">));</span>
+
+        <span class="n">File</span> <span class="n">jpgFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;.&quot;</span> <span class="o">+</span> <span class="n">file_separator</span> <span class="o">+</span>
+            <span class="s">&quot;files&quot;</span> <span class="o">+</span> <span class="n">file_separator</span> <span class="o">+</span> <span class="s">&quot;test.jpg&quot;</span><span class="o">);</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">bodyPart</span><span class="o">(</span><span class="k">new</span> <span class="n">FileDataBodyPart</span><span class="o">(</span><span class="s">&quot;attachment&quot;</span><span class="o">,</span> <span class="n">jpgFile</span><span class="o">,</span>
+            <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_OCTET_STREAM_TYPE</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/messages&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">MULTIPART_FORM_DATA_TYPE</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">;</span>
+
+<span class="c1"># Make the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">sendMessage</span><span class="p">(</span><span class="nv">$domain</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;from&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;to&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;cc&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;baz@example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;bcc&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;bar@example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;subject&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;html&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;&lt;html&gt;HTML version of the body&lt;/html&gt;&#39;</span>
+<span class="p">),</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;attachment&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;/path/to/file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/to/file.txt&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_complex_message</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">files</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;attachment&quot;</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;files/test.jpg&quot;</span><span class="p">)),</span>
+               <span class="p">(</span><span class="s2">&quot;attachment&quot;</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;files/test.txt&quot;</span><span class="p">))],</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;foo@example.com&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;cc&quot;</span><span class="p">:</span> <span class="s2">&quot;baz@example.com&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;bcc&quot;</span><span class="p">:</span> <span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;html&quot;</span><span class="p">:</span> <span class="s2">&quot;&lt;html&gt;HTML version of the body&lt;/html&gt;&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_complex_message</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="no">Multimap</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:from</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:to</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;foo@example.com&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:cc</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;baz@example.com&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:bcc</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;bar@example.com&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:subject</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:text</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:html</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;&lt;html&gt;HTML version of the body&lt;/html&gt;&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:attachment</span><span class="o">]</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="s2">&quot;test.jpg&quot;</span><span class="p">))</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:attachment</span><span class="o">]</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="s2">&quot;test.txt&quot;</span><span class="p">))</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span> <span class="n">data</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SendComplexMessageChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">SendComplexMessage</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">SendComplexMessage</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/messages&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;from&quot;</span><span class="p">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;foo@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;cc&quot;</span><span class="p">,</span> <span class="s">&quot;baz@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;bcc&quot;</span><span class="p">,</span> <span class="s">&quot;bar@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;subject&quot;</span><span class="p">,</span> <span class="s">&quot;Hello&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;html&quot;</span><span class="p">,</span>
+                              <span class="s">&quot;&lt;html&gt;HTML version of the body&lt;/html&gt;&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddFile</span> <span class="p">(</span><span class="s">&quot;attachment&quot;</span><span class="p">,</span> <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span> <span class="p">(</span><span class="s">&quot;files&quot;</span><span class="p">,</span> <span class="s">&quot;test.jpg&quot;</span><span class="p">));</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddFile</span> <span class="p">(</span><span class="s">&quot;attachment&quot;</span><span class="p">,</span> <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span> <span class="p">(</span><span class="s">&quot;files&quot;</span><span class="p">,</span> <span class="s">&quot;test.txt&quot;</span><span class="p">));</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">SendComplexMessage</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewMessage</span><span class="p">(</span>
+    <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Testing some Mailgun awesomeness!&quot;</span><span class="p">,</span>
+    <span class="s">&quot;foo@example.com&quot;</span><span class="p">,</span>
+  <span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">AddCC</span><span class="p">(</span><span class="s">&quot;baz@example.com&quot;</span><span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">AddBCC</span><span class="p">(</span><span class="s">&quot;bar@example.com&quot;</span><span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">SetHtml</span><span class="p">(</span><span class="s">&quot;&lt;html&gt;HTML version of the body&lt;/html&gt;&quot;</span><span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">AddAttachment</span><span class="p">(</span><span class="s">&quot;files/test.jpg&quot;</span><span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">AddAttachment</span><span class="p">(</span><span class="s">&quot;files/test.txt&quot;</span><span class="p">)</span>
+  <span class="nx">_</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Sending a MIME message which you pre-build yourself using a MIME library of your choice:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages.mime <span class="se">\</span>
+    -F <span class="nv">to</span><span class="o">=</span><span class="s1">&#39;bob@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">message</span><span class="o">=</span>@files/message.mime
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.media.multipart.FormDataMultiPart</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.media.multipart.file.FileDataBodyPart</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">SendMIMEMessage</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">FormDataMultiPart</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FormDataMultiPart</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">field</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;alice@example.com&quot;</span><span class="o">);</span>
+
+        <span class="n">String</span> <span class="n">file_separator</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&quot;file.separator&quot;</span><span class="o">);</span>
+
+        <span class="n">File</span> <span class="n">mimeFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&quot;files&quot;</span> <span class="o">+</span> <span class="n">file_separator</span> <span class="o">+</span> <span class="s">&quot;message.mime&quot;</span><span class="o">);</span>
+        <span class="n">form</span><span class="o">.</span><span class="na">bodyPart</span><span class="o">(</span><span class="k">new</span> <span class="n">FileDataBodyPart</span><span class="o">(</span><span class="s">&quot;message&quot;</span><span class="o">,</span> <span class="n">mimeFile</span><span class="o">,</span>
+            <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_OCTET_STREAM_TYPE</span><span class="o">));</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/messages&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">MULTIPART_FORM_DATA_TYPE</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">;</span>
+
+<span class="c1"># Make the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">sendMessage</span><span class="p">(</span>
+    <span class="nv">$domain</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;from&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;to&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span>
+    <span class="p">),</span>
+    <span class="s1">&#39;&lt;Pass fully formed MIME string here&gt;&#39;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_mime_message</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages.mime&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;bar@example.com&quot;</span><span class="p">},</span>
+        <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;files/message.mime&quot;</span><span class="p">)})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_mime_message</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages.mime&quot;</span><span class="p">,</span>
+  <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span>
+  <span class="ss">:message</span> <span class="o">=&gt;</span> <span class="no">File</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="s2">&quot;message.mime&quot;</span><span class="p">))</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SendMimeMessageChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">SendMimeMessage</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">SendMimeMessage</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/messages.mime&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;bar@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddFile</span> <span class="p">(</span><span class="s">&quot;message&quot;</span><span class="p">,</span> <span class="n">Path</span><span class="p">.</span><span class="n">Combine</span> <span class="p">(</span><span class="s">&quot;files&quot;</span><span class="p">,</span> <span class="s">&quot;message.mime&quot;</span><span class="p">));</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">SendMimeMessage</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="nx">mimeMsgReader</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">&quot;files/message.mime&quot;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="nx">err</span>
+  <span class="p">}</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewMIMEMessage</span><span class="p">(</span><span class="nx">mimeMsgReader</span><span class="p">,</span> <span class="s">&quot;bar@example.com&quot;</span><span class="p">)</span>
+  <span class="nx">_</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>An example of how to toggle tracking on a per-message basis. Note the <code class="docutils literal"><span class="pre">o:tracking</span></code> option. This will disable link rewriting for this message:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages <span class="se">\</span>
+    -F <span class="nv">from</span><span class="o">=</span><span class="s1">&#39;Sender Bob &lt;sbob@YOUR_DOMAIN_NAME&gt;&#39;</span> <span class="se">\</span>
+    -F <span class="nv">to</span><span class="o">=</span><span class="s1">&#39;alice@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">subject</span><span class="o">=</span><span class="s1">&#39;Hello&#39;</span> <span class="se">\</span>
+    -F <span class="nv">text</span><span class="o">=</span><span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span> <span class="se">\</span>
+    -F o:tracking<span class="o">=</span>False
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">SendNoTracking</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;from&quot;</span><span class="o">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;alice@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;bob@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;subject&quot;</span><span class="o">,</span> <span class="s">&quot;Hello&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;text&quot;</span><span class="o">,</span> <span class="s">&quot;Testing out some Mailgun awesomeness!&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;o:tracking&quot;</span><span class="o">,</span> <span class="s">&quot;false&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/messages&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">;</span>
+
+<span class="c1"># Make the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">sendMessage</span><span class="p">(</span><span class="nv">$domain</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;from&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;to&#39;</span>         <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;subject&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;o:tracking&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_message_no_tracking</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span> <span class="s2">&quot;baz@example.com&quot;</span><span class="p">],</span>
+              <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;o:tracking&quot;</span><span class="p">:</span> <span class="bp">False</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_message_no_tracking</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+  <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+  <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;bar@example.com, baz@example.com&quot;</span><span class="p">,</span>
+  <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+  <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;o:tracking&quot;</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SendMessageNoTrackingChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">SendMessageNoTracking</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">SendMessageNoTracking</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/messages&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;from&quot;</span><span class="p">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;bar@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;baz@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;subject&quot;</span><span class="p">,</span> <span class="s">&quot;Hello&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;o:tracking&quot;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">SendMessageNoTracking</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewMessage</span><span class="p">(</span>
+    <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Testing some Mailgun awesomeness!&quot;</span><span class="p">,</span>
+    <span class="s">&quot;foo@example.com&quot;</span><span class="p">,</span>
+  <span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">SetTracking</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+  <span class="nx">_</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>An example of how to set message delivery time using the <code class="docutils literal"><span class="pre">o:deliverytime</span></code> option:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages <span class="se">\</span>
+    -F <span class="nv">from</span><span class="o">=</span><span class="s1">&#39;Sender Bob &lt;sbob@YOUR_DOMAIN_NAME&gt;&#39;</span> <span class="se">\</span>
+    -F <span class="nv">to</span><span class="o">=</span><span class="s1">&#39;alice@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">subject</span><span class="o">=</span><span class="s1">&#39;Hello&#39;</span> <span class="se">\</span>
+    -F <span class="nv">text</span><span class="o">=</span><span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span> <span class="se">\</span>
+    -F o:deliverytime<span class="o">=</span><span class="s1">&#39;Fri, 14 Oct 2011 23:10:10 -0000&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">SendScheduled</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;from&quot;</span><span class="o">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;alice@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;subject&quot;</span><span class="o">,</span> <span class="s">&quot;Hello&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;text&quot;</span><span class="o">,</span> <span class="s">&quot;Testing out some Mailgun awesomeness!&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;o:deliverytime&quot;</span><span class="o">,</span> <span class="s">&quot;Fri, 14 Oct 2011 23:10:10 -0000&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/messages&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">;</span>
+
+<span class="c1"># Make the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">sendMessage</span><span class="p">(</span><span class="nv">$domain</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;from&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;to&#39;</span>             <span class="o">=&gt;</span> <span class="s1">&#39;Baz &lt;baz@example.com&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;subject&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span>           <span class="o">=&gt;</span> <span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;o:deliverytime&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fri, 25 Oct 2013 23:10:10 -0000&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_scheduled_message</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;o:deliverytime&quot;</span><span class="p">:</span> <span class="s2">&quot;Fri, 25 Oct 2011 23:10:10 -0000&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_scheduled_message</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+  <span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+  <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span>
+  <span class="ss">:subject</span> <span class="o">=&gt;</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+  <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">&quot;Testing some Mailgun awesomeness!&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;o:deliverytime&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Fri, 25 Oct 2011 23:10:10 -0000&quot;</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SendScheduledMessageChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">SendScheduledMessage</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">SendScheduledMessage</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/messages&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;from&quot;</span><span class="p">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;bar@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;subject&quot;</span><span class="p">,</span> <span class="s">&quot;Hello&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;o:deliverytime&quot;</span><span class="p">,</span>
+                              <span class="s">&quot;Fri, 14 Oct 2011 23:10:10 -0000&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">SendScheduledMessage</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="nx">publicApiKey</span><span class="p">)</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewMessage</span><span class="p">(</span>
+    <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Testing some Mailgun awesomeness!&quot;</span><span class="p">,</span>
+    <span class="s">&quot;bar@example.com&quot;</span><span class="p">,</span>
+  <span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">SetDeliveryTime</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">))</span>
+  <span class="nx">_</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>An example of how to tag a message with the <code class="docutils literal"><span class="pre">o:tag</span></code> option:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> <span class="se">\</span>
+    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages <span class="se">\</span>
+    -F <span class="nv">from</span><span class="o">=</span><span class="s1">&#39;Sender Bob &lt;sbob@YOUR_DOMAIN_NAME&gt;&#39;</span> <span class="se">\</span>
+    -F <span class="nv">to</span><span class="o">=</span><span class="s1">&#39;alice@example.com&#39;</span> <span class="se">\</span>
+    -F <span class="nv">subject</span><span class="o">=</span><span class="s1">&#39;Hello&#39;</span> <span class="se">\</span>
+    -F <span class="nv">text</span><span class="o">=</span><span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span> <span class="se">\</span>
+    -F o:tag<span class="o">=</span><span class="s1">&#39;September newsletter&#39;</span> <span class="se">\</span>
+    -F o:tag<span class="o">=</span><span class="s1">&#39;newsletters&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">SendTagged</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
+            <span class="s">&quot;api&quot;</span><span class="o">,</span>
+            <span class="s">&quot;YOUR_API_KEY&quot;</span>
+        <span class="o">));</span>
+
+        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
+
+        <span class="n">Form</span> <span class="n">reqData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Form</span><span class="o">();</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;from&quot;</span><span class="o">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;to&quot;</span><span class="o">,</span> <span class="s">&quot;alice@example.com&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;subject&quot;</span><span class="o">,</span> <span class="s">&quot;Hello&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;text&quot;</span><span class="o">,</span> <span class="s">&quot;Testing out some Mailgun awesomeness!&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;o:tag&quot;</span><span class="o">,</span> <span class="s">&quot;September newsletter&quot;</span><span class="o">);</span>
+        <span class="n">reqData</span><span class="o">.</span><span class="na">param</span><span class="o">(</span><span class="s">&quot;o:tag&quot;</span><span class="o">,</span> <span class="s">&quot;newsletters&quot;</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">mgRoot</span>
+            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/messages&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">request</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">buildPost</span><span class="o">(</span><span class="n">Entity</span><span class="o">.</span><span class="na">entity</span><span class="o">(</span><span class="n">reqData</span><span class="o">,</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_FORM_URLENCODED</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+
+<span class="c1"># Instantiate the client.</span>
+<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="s2">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">;</span>
+
+<span class="c1"># Make the call to the client.</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">sendMessage</span><span class="p">(</span><span class="nv">$domain</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;from&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;to&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;Baz &lt;baz@example.com&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;subject&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;text&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;Testing some Mailgun awesomness!&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;o:tag&#39;</span>   <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Tag1&#39;</span><span class="p">,</span> <span class="s1">&#39;Tag2&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_tagged_message</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span>
+        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;subject&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;o:tag&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;September newsletter&quot;</span><span class="p">,</span> <span class="s2">&quot;newsletters&quot;</span><span class="p">]})</span>
+</pre></div>
+</div>
+<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">send_tagged_message</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="no">Multimap</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:from</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:to</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;bar@example.com&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:subject</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="ss">:text</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;Testing some Mailgun awesomness!&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="s2">&quot;o:tag&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;September newsletter&quot;</span>
+  <span class="n">data</span><span class="o">[</span><span class="s2">&quot;o:tag&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;newsletters&quot;</span>
+  <span class="no">RestClient</span><span class="o">.</span><span class="n">post</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
+  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages&quot;</span><span class="p">,</span> <span class="n">data</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SendTaggedMessageChunk</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">SendTaggedMessage</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">SendTaggedMessage</span> <span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
+        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
+            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
+                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
+        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/messages&quot;</span><span class="p">;</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;from&quot;</span><span class="p">,</span> <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;bar@example.com&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;subject&quot;</span><span class="p">,</span> <span class="s">&quot;Hello&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="s">&quot;Testing some Mailgun awesomness!&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;o:tag&quot;</span><span class="p">,</span> <span class="s">&quot;September newsletter&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;o:tag&quot;</span><span class="p">,</span> <span class="s">&quot;newsletters&quot;</span><span class="p">);</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Method</span> <span class="p">=</span> <span class="n">Method</span><span class="p">.</span><span class="n">POST</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">SendTaggedMessage</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewMessage</span><span class="p">(</span>
+    <span class="s">&quot;Excited User &lt;YOU@YOUR_DOMAIN_NAME&gt;&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Hello&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Testing some Mailgun awesomeness!&quot;</span><span class="p">,</span>
+    <span class="s">&quot;bar@example.com&quot;</span><span class="p">,</span>
+  <span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">AddTag</span><span class="p">(</span><span class="s">&quot;FooTag&quot;</span><span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">AddTag</span><span class="p">(</span><span class="s">&quot;BarTag&quot;</span><span class="p">)</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">AddTag</span><span class="p">(</span><span class="s">&quot;BlortTag&quot;</span><span class="p">)</span>
+  <span class="nx">_</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">Send</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">err</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/api-sending.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+</html>

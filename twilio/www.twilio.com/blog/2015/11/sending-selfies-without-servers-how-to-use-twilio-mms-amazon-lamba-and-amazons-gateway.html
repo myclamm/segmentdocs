@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Sending Selfies Without Servers: How To Use Twilio MMS, Amazon Lamba, and Amazon’s API Gateway &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Using Twilio MMS and Amazon Lambda To Send Selfies"/>
+<link rel="canonical" href="https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Sending Selfies Without Servers: How To Use Twilio MMS, Amazon Lamba, and Amazon’s API Gateway Comments Feed" href="https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Kyle Kelly-Yahner');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Amazon Lambda,Python,Selfie,Twilio MMS');
+	__gaTracker('set', 'dimension8', '2015-11-10T12:26:16+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=16402' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F11%2Fsending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F11%2Fsending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-16402 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-16402" class="row post-16402 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-amazon-lambda tag-python tag-selfie tag-twilio-mms">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Sending Selfies Without Servers: How To Use Twilio MMS, Amazon Lamba, and Amazon’s API Gateway</h2>
+						<div class="entry-image col-md-12">
+        <img width="620" height="400" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/toystoryselfie.jpg" class="img-responsive wp-post-image" alt="toystoryselfie" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/toystoryselfie.jpg 620w, https://www.twilio.com/blog/wp-content/uploads/2015/11/toystoryselfie-300x194.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2015/11/toystoryselfie-200x129.jpg 200w" sizes="(max-width: 620px) 100vw, 620px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/kyleky">Kyle Kelly-Yahner</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html" rel="bookmark"><time class="entry-date published" datetime="2015-11-10T12:26:16+00:00">November 10, 2015</time><time class="updated" datetime="2015-11-30T10:16:13+00:00">November 30, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html" data-text="Sending Selfies Without Servers: How To Use Twilio MMS, Amazon Lamba, and Amazon’s API Gateway ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>We’d be in a much different world if setting up backend servers was as easy as taking a selfie. In that world, you’d be watching your favorite band play as someone hoists their computer in the air, blocks the band, and configures the backend of their app. Of course, that world is fantasy. But, serverless MMS apps are a reality thanks to some slick work from Matt Auerbach.</p>
+<p>With the newly announced <a href="https://aws.amazon.com/lambda/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://aws.amazon.com/lambda/', 'Amazon Lambda');">Amazon Lambda</a>, you can let your code run free without setting up servers. Using his newly found freedom, Matt set up a Twilio MMS app that writes to an S3 bucket, and then triggers a response from Twilio to the selfie sender.</p>
+<p>Without further adieu let’s get to building. You can view Matt’s post originally published on GitHub <a href="https://github.com/mauerbac/lambda-gateway-twilio-demo" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/mauerbac/lambda-gateway-twilio-demo', 'here');">here</a>.</p>
+<p>Here&#8217;s what the architecture looks like.<br />
+<img class="aligncenter size-large wp-image-16408" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-1024x426.png" alt="Architecture" width="640" height="266" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-1024x426.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-300x125.png 300w, https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-200x83.png 200w" sizes="(max-width: 640px) 100vw, 640px" /></p>
+<h3>Lambda + API Gateway Example</h3>
+<p>This example uses <a href="https://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/', 'Twilio');">Twilio</a> to save an image from your mobile phone to the AWS cloud. A user sends an image using MMS to a Twilio phone number which sends a request to an Amazon API Gateway endpoint that triggers a Lambda function. The app then returns a publicly accessible link to the image in AWS S3. This app uses AWS Lambda, API Gateway, DynamoDB &amp; S3. It is also 100% serverless!</p>
+<h3>AWS Lambda</h3>
+<p><a href="https://aws.amazon.com/lambda/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://aws.amazon.com/lambda/', 'Lambda');">Lambda</a> is a compute service that runs your code in response to events. Events are triggered or invoked by resources in your AWS environment or via API Gateway. Here our Lambda function is triggered by an API Gateway endpoint that Twilio hits after an MMS is received. The Lambda function is responsible for writing user info to DynamoDB, writing the image to S3 with meta data and returning a response to Twilio.</p>
+<h3>Amazon API Gateway</h3>
+<p><a href="https://aws.amazon.com/api-gateway/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://aws.amazon.com/api-gateway/', 'API Gateway');">API Gateway</a> is a fully managed API as a service where you can create, publish, maintain, monitor, and secure APIs at any scale. In this app, we use API Gateway to create an endpoint for Twilio to make a GET request. API Gateway transforms Twilio&#8217;s URL encoded request into a JSON object, so that Lambda can process it. Lastly, API Gateway takes Lambda&#8217;s response and builds an XML object for Twilio.</p>
+<h3>Amazon DynamoDB &amp; Amazon S3</h3>
+<p><a href="https://aws.amazon.com/dynamodb/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://aws.amazon.com/dynamodb/', 'DynamoDB');">DynamoDB</a> is Amazon&#8217;s non-relational database service. This app leverages DynamoDB to store user data. <a href="https://aws.amazon.com/s3/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://aws.amazon.com/s3/', 'S3');">S3</a> provides developers with object level storage that is endlessly scalable. We use S3 to store images received via MMS.</p>
+<h3>Usage</h3>
+<p><img class="size-full wp-image-16403 alignright" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/MattA.png" alt="MattA" width="320" height="568" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/MattA.png 320w, https://www.twilio.com/blog/wp-content/uploads/2015/11/MattA-169x300.png 169w, https://www.twilio.com/blog/wp-content/uploads/2015/11/MattA-113x200.png 113w" sizes="(max-width: 320px) 100vw, 320px" />Try it by sending an MMS to (650) 200-1944.</p>
+<p><a href="http://s3 link: https://s3-us-west-2.amazonaws.com/mauerbac-selfie/ingest-images/19145824224/795221908928951.png" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://s3 link: https://s3-us-west-2.amazonaws.com/mauerbac-selfie/ingest-images/19145824224/795221908928951.png', 'S3 Link');">S3 Link</a></p>
+<h3>Building the App</h3>
+<p>Step-by-step on how to configure, develop &amp; deploy this app on AWS.</p>
+<h3>Housekeeping</h3>
+<ol>
+<li>Sign-in to AWS or <a href="https://us-west-2.console.aws.amazon.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://us-west-2.console.aws.amazon.com/', 'Create an Account');">Create an Account</a>.</li>
+<li>Pick a region in the console and be consistent throughout this app. Use either 
+			<span id="crayon-58795006b1e8e699311221" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">us</span><span class="crayon-o">-</span><span class="crayon-i">east</span><span class="crayon-o">-</span><span class="crayon-cn">1</span></span></span>, 
+			<span id="crayon-58795006b1ea0043696644" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">us</span><span class="crayon-o">-</span><span class="crayon-i">west</span><span class="crayon-o">-</span><span class="crayon-cn">2</span></span></span> &amp; 
+			<span id="crayon-58795006b1eab839673986" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">eu</span><span class="crayon-o">-</span><span class="crayon-i">west</span><span class="crayon-o">-</span><span class="crayon-cn">1</span></span></span>.</li>
+<li>Create a table in DynamoDB with a single Hash for primary key of type String. We don&#8217;t need any additional indexes and you can keep the read/write capacity at 1 for this example. <a href="https://s3-us-west-2.amazonaws.com/mauerbac-hosting/dynamoDB.png" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://s3-us-west-2.amazonaws.com/mauerbac-hosting/dynamoDB.png', 'Screenshot');">Screenshot</a></li>
+<li>Create an S3 bucket to ingest MMS images. Ex. mauerbac-ingest</li>
+<li>Create an IAM role with access to the S3 bucket &amp; the DynamoDB table.</li>
+<li>Create/login to a Twilio account &amp; create a phone number with MMS capability.</li>
+</ol>
+<p>&nbsp;</p>
+<h3>Lambda</h3>
+<ol>
+<li>Create a new Lambda function. I&#8217;ve provided the function, so we can skip a blueprint.</li>
+<li>Give it a name and description. Use Python 2.7 for runtime.</li>
+<li>Use the given Lambda function, 
+			<span id="crayon-58795006b1eb6649964692" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">lambda_function</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span>. Read through the module and provide a few variables: Twilio credentials, DynamoDB table name &amp; region and S3 ingest bucket. We will upload as a .zip because our function requires a few external libraries, such as Twilio Python SDK. Compress httplib2, pytz, twilio &amp; lambda_function.py and upload as a .zip file.</li>
+<li>The Lambda function handler tells Lambda what .py module to use and corresponding method. Ex. 
+			<span id="crayon-58795006b1ec0102281782" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">main_function</span><span class="crayon-sy">.</span><span class="crayon-i">lambda_handler</span></span></span> would call the method 
+			<span id="crayon-58795006b1eca458827105" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-e">def </span><span class="crayon-e">lambda_handler</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span> inside 
+			<span id="crayon-58795006b1ed4075305028" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">main_function</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span>. Let&#8217;s call it 
+			<span id="crayon-58795006b1ede062588353" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">lambda_function</span><span class="crayon-sy">.</span><span class="crayon-i">lambda_handler</span></span></span> to match 
+			<span id="crayon-58795006b1ee8996041278" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-v">lambda_function</span><span class="crayon-sy">.</span><span class="crayon-i">py</span></span></span>.</li>
+<li>Select the role we created earlier in the housekeeping steps.</li>
+<li>In advanced settings, I recommend changing Timeout to 10 seconds (httplib2 is a bit needy). Currently, max timeout is 60 seconds.</li>
+<li>Review &amp; create function.</li>
+</ol>
+<p>&nbsp;</p>
+<h3>API Gateway</h3>
+<ol>
+<li>Create a new API. Give it a name and description. This will be our RESTful endpoint.</li>
+<li>Create a resource. The path should be 
+			<span id="crayon-58795006b1f02755868608" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-o">/</span><span class="crayon-i">addphoto</span></span></span> , for example.</li>
+<li>We need to add a method to this resource. Create a GET method with Lambda integration and select the function we created earlier. API Gateway isn&#8217;t able to process POST requests that are URL encoded, so we are using GET as a workaround.</li>
+<li>Now let&#8217;s setup the Integration Request. Twilio&#8217;s GET request will be of type 
+			<span id="crayon-58795006b1f0e741761991" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">application</span><span class="crayon-o">-</span><span class="crayon-i">x</span><span class="crayon-o">-</span><span class="crayon-i">www</span><span class="crayon-o">-</span><span class="crayon-i">form</span><span class="crayon-o">-</span><span class="crayon-i">urlencoded</span></span></span>. This Integration step will map this type to a JSON object, which Lambda requires. In the Integration Requests page create a mapping template. Content-type is 
+			<span id="crayon-58795006b1f19211237074" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">application</span><span class="crayon-o">/</span><span class="crayon-i">json</span></span></span> and template:</li>
+</ol>
+<p>&nbsp;</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58795006b1f23935208315" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+{
+    "body" : "$input.params('Body')",
+    "fromNumber" :  "$input.params('From')",
+    "image" : "$input.params('MediaUrl0')",
+    "numMedia" : "$input.params('NumMedia')"
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58795006b1f23935208315-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f23935208315-2">2</div><div class="crayon-num" data-line="crayon-58795006b1f23935208315-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f23935208315-4">4</div><div class="crayon-num" data-line="crayon-58795006b1f23935208315-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f23935208315-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58795006b1f23935208315-1"><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f23935208315-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"body"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"$input.params('Body')"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58795006b1f23935208315-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"fromNumber"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"$input.params('From')"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f23935208315-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"image"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"$input.params('MediaUrl0')"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58795006b1f23935208315-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-s">"numMedia"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"$input.params('NumMedia')"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f23935208315-6"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0022 seconds] -->
+<p>More on <a href="http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html', 'Intergration Requests');">Intergration Requests</a>. 
+			<span id="crayon-58795006b1f2d909252424" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">$</span><span class="crayon-v">input</span><span class="crayon-sy">.</span><span class="crayon-e">params</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></span></span> parse the request object for the corresponding variable and allows the mapping template to build a JSON object. <a href="https://s3-us-west-2.amazonaws.com/mauerbac-hosting/intergration.png" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://s3-us-west-2.amazonaws.com/mauerbac-hosting/intergration.png', 'Screenshot');">Screenshot</a><br />
+5. Let&#8217;s ensure the response is correct. Twilio requires valid XML. Change the response model for 200 to Content-type: 
+			<span id="crayon-58795006b1f38865815188" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">application</span><span class="crayon-o">/</span><span class="crayon-i">xml</span></span></span>. Leave models empty. <a href="https://s3-us-west-2.amazonaws.com/mauerbac-hosting/response.png" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://s3-us-west-2.amazonaws.com/mauerbac-hosting/response.png', 'Screenshot');">Screenshot</a><br />
+6. Lambda cannot return proper XML, so API Gateway needs to build this. This is done in Integration response as another mapping template. This time we want to create Content-type: application/xml and template:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58795006b1f42130653725" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-mixed-highlight" title="Contains Mixed Languages"></span><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+#set($inputRoot = $input.path('$'))
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Response&gt;
+    &lt;Message&gt;
+        &lt;Body&gt;
+            $inputRoot
+        &lt;/Body&gt;
+    &lt;/Message&gt;
+&lt;/Response&gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58795006b1f42130653725-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f42130653725-2">2</div><div class="crayon-num" data-line="crayon-58795006b1f42130653725-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f42130653725-4">4</div><div class="crayon-num" data-line="crayon-58795006b1f42130653725-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f42130653725-6">6</div><div class="crayon-num" data-line="crayon-58795006b1f42130653725-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f42130653725-8">8</div><div class="crayon-num" data-line="crayon-58795006b1f42130653725-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58795006b1f42130653725-1"><span class="crayon-p">#set($inputRoot = $input.path('$'))</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f42130653725-2"><span class="crayon-ta">&lt;?</span><span class="crayon-e">xml </span><span class="crayon-i">version</span><span class="crayon-o">=</span><span class="crayon-s">"1.0"</span><span class="crayon-h"> </span><span class="crayon-i">encoding</span><span class="crayon-o">=</span><span class="crayon-s">"UTF-8"</span><span class="crayon-ta">?&gt;</span></div><div class="crayon-line" id="crayon-58795006b1f42130653725-3"><span class="crayon-o">&lt;</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f42130653725-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">Message</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58795006b1f42130653725-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-i">Body</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f42130653725-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-sy">$</span><span class="crayon-i">inputRoot</span></div><div class="crayon-line" id="crayon-58795006b1f42130653725-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Body</span><span class="crayon-o">&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f42130653725-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Message</span><span class="crayon-o">&gt;</span></div><div class="crayon-line" id="crayon-58795006b1f42130653725-9"><span class="crayon-o">&lt;</span><span class="crayon-o">/</span><span class="crayon-i">Response</span><span class="crayon-o">&gt;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0084 seconds] -->
+<p>Our Lambda function solely returns a string of the SMS body. Here we build the XML object and use 
+			<span id="crayon-58795006b1f4c776293586" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">$</span><span class="crayon-i">inputRoot</span></span></span> as the string. Here&#8217;s what that looks like.<br />
+<img class="aligncenter size-large wp-image-16406" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/responseModel-1024x750.png" alt="responseModel" width="640" height="469" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/responseModel-1024x750.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2015/11/responseModel-300x220.png 300w, https://www.twilio.com/blog/wp-content/uploads/2015/11/responseModel-200x147.png 200w" sizes="(max-width: 640px) 100vw, 640px" /></p>
+<p>7. Now let&#8217;s deploy this API, so we can test it! Click the Deploy API button.</p>
+<h3>Connecting The Dots &amp; Testing</h3>
+<ol>
+<ol>
+<li>We should now have a publicly accessible GET endpoint. Ex: 
+			<span id="crayon-58795006b1f56100418477" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">https</span><span class="crayon-o">:</span><span class="crayon-c">//xxxx.execute-api.us-west-2.amazonaws.com/prod/addphoto</span></span></span></li>
+<li>Point your Twilio number to this endpoint. <img class="aligncenter size-large wp-image-16407" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/twilioselfie-1024x231.png" alt="twilioselfie" width="640" height="144" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/twilioselfie-1024x231.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2015/11/twilioselfie-300x68.png 300w, https://www.twilio.com/blog/wp-content/uploads/2015/11/twilioselfie-200x45.png 200w" sizes="(max-width: 640px) 100vw, 640px" /></li>
+<li>Our app should now be connected. Let&#8217;s review: Twilio sends a GET request with MMS image, fromNumber and body to API Gateway. API Gateway transforms the GET request into a JSON object, which is passed to a Lambda function. Lambda processes the object and writes the user to DynamoDB and writes the image to S3. Lambda returns a string which API Gateway uses to create an XML object for Twilio&#8217;s response to the user.</li>
+<li>First, let&#8217;s test the Lambda function. Click the Actions dropdown and Configure sample event. We need to simulate the JSON object passed by API Gateway. Example:</li>
+</ol>
+</ol>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58795006b1f61707239916" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+{ 
+  "body" : "hello",
+  "fromNumber" : "+19145554224" ,
+  "image" : "https://api.twilio.com/2010-04-01/Accounts/AC361180d5a1fc4530bdeefb7fbba22338/Messages/MM7ab00379ec67dd1391a2b13388dfd2c0/Media/ME7a70cb396964e377bab09ef6c09eda2a",
+  "numMedia" : "1"
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58795006b1f61707239916-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f61707239916-2">2</div><div class="crayon-num" data-line="crayon-58795006b1f61707239916-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f61707239916-4">4</div><div class="crayon-num" data-line="crayon-58795006b1f61707239916-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795006b1f61707239916-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58795006b1f61707239916-1"><span class="crayon-sy">{</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f61707239916-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"body"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"hello"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58795006b1f61707239916-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"fromNumber"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"+19145554224"</span><span class="crayon-h"> </span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f61707239916-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"image"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"https://api.twilio.com/2010-04-01/Accounts/AC361180d5a1fc4530bdeefb7fbba22338/Messages/MM7ab00379ec67dd1391a2b13388dfd2c0/Media/ME7a70cb396964e377bab09ef6c09eda2a"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58795006b1f61707239916-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"numMedia"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"1"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795006b1f61707239916-6"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0026 seconds] -->
+<p>Click Test. At the bottom of the page you view Execution result and the log output in Cloudwatch logs. This is very helpful for debugging.</p>
+<ol>
+<li>Testing API Gateway requires a client that sends requests to the endpoint. I personally like the Chrome Extension Advanced Rest Client Send the endpoint a GET request and view its response. Ensure the S3 link works. You can also test by sending an MMS to phone number and checking the Twilio logs.</li>
+</ol>
+<h3>Troubleshooting</h3>
+<ol>
+<li>Ensure your Lambda function is using the correct IAM role. The role must have the ability to write/read to DynamoDB and S3.</li>
+<li>All Lambda interactions are logged in Cloudwatch logs. View the logs for debugging.</li>
+<li>Lambda/API Gateway Forums</li>
+</ol>
+<h3>Architecture</h3>
+<p><img class="aligncenter size-large wp-image-16408" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-1024x426.png" alt="Architecture" width="640" height="266" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-1024x426.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-300x125.png 300w, https://www.twilio.com/blog/wp-content/uploads/2015/11/Architecture-200x83.png 200w" sizes="(max-width: 640px) 100vw, 640px" /></p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html" data-text="Sending Selfies Without Servers: How To Use Twilio MMS, Amazon Lamba, and Amazon’s API Gateway ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/35d0461f982918bae9e86964822f058d?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/35d0461f982918bae9e86964822f058d?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/kyleky">Kyle Kelly-Yahner</a></span></span> <span class="author-meta author-email"><a href="mailto:kyleky@twilio.com">kyleky@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/kylekellyyahner">@kylekellyyahner<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Python</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/python/django" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/python/django', '');">
+          <h5>SMS and MMS Notifications with Python</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/net-promoter-score-python-sms.html" rel="bookmark" title="Permanent Link to Calculating Net Promoter Score with Python and SMS" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/net-promoter-score-python-sms.html', '');">
+          <h5>Calculating Net Promoter Score with Python and SMS<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html" rel="bookmark" title="Permanent Link to Build a Photobooth with an Arduino Yun, a Webcam and Dropbox" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/arduino-powered-photobooth-arduino-yun-a-webcam-and-dropbox.html', '');">
+          <h5>Build a Photobooth with an Arduino Yun, a Webcam and Dropbox<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html" rel="bookmark" title="Permanent Link to Building A Multi Channel Support Desk with TaskRouter" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/multi-channel-support-desk-taskrouter.html', '');">
+          <h5>Building A Multi Channel Support Desk with TaskRouter<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-3891">
+        <div id="dsq-comment-header-3891" class="dsq-comment-header">
+            <cite id="dsq-cite-3891">
+                <span id="dsq-author-user-3891">Nir Shney-dor</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3891" class="dsq-comment-body">
+            <div id="dsq-comment-message-3891" class="dsq-comment-message"><p>Great post. What bothers me though is the API gateway pricing, 3.5$ per million requests means that at high scale you would pay significantly more than an ec2 cluster. Not sure how it&#8217;s affordable. </p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-3935">
+        <div id="dsq-comment-header-3935" class="dsq-comment-header">
+            <cite id="dsq-cite-3935">
+http://oksoft.blogspot.com                <span id="dsq-author-user-3935">shantanuo</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3935" class="dsq-comment-body">
+            <div id="dsq-comment-message-3935" class="dsq-comment-message"><p>Awesome post. The only issue that I faced was at number 6 where XML tags like &#8220;Response&#8221;, &#8220;Message&#8221; are not copied correctly. Only &#8220;$inputRoot&#8221; is visible. May be a browser glitch.</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-3940">
+        <div id="dsq-comment-header-3940" class="dsq-comment-header">
+            <cite id="dsq-cite-3940">
+                <span id="dsq-author-user-3940">rickyrobinett</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3940" class="dsq-comment-body">
+            <div id="dsq-comment-message-3940" class="dsq-comment-message"><p>Thanks for catching that! Does it look better now?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2015/11/16402 http://twilioinc.wpengine.com/?p=16402';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Sending Selfies Without Servers: How To Use Twilio MMS, Amazon Lamba, and Amazon’s API Gateway";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html?cf_action=sync_comments&amp;post_id=16402';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2015\/11\/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2015/11/sending-selfies-without-servers-how-to-use-twilio-mms-amazon-lamba-and-amazons-gateway.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+</html>

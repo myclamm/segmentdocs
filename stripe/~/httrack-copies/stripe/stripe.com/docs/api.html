@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/api by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:43:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <title>Stripe API Reference</title>
+      <link rel="stylesheet" href="http://cloud.typography.com/711858/764882/css/fonts.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="../assets/api-23ef98c72e0e3551f90d676964045495.css">
+    <link rel="shortcut icon" href="../favicon.ico">
+
+  </head>
+
+  <body id="api-reference">
+
+
+    <!-- loading bar -->
+    <div id="loading-bar"></div>
+
+    <!-- header -->
+    <div id="header">
+      <div class="header-section header-section-sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html"></a>
+          <a class="docs" href="api.html">api</a>
+        </div>
+      </div>
+      <div class="header-section header-section-copy">
+
+        <!-- sidebar replacement for smaller screens -->
+        <div class="select-field jump-menu">
+          <select>
+              <optgroup label="Introduction">
+                  <option value="intro">Introduction</option>
+              </optgroup>
+              <optgroup label="Topics">
+                  <option value="authentication">Authentication</option>
+                  <option value="errors">Errors</option>
+                  <option value="expanding_objects">Expanding Objects</option>
+                  <option value="idempotent_requests">Idempotent Requests</option>
+                  <option value="metadata">Metadata</option>
+                  <option value="pagination">Pagination</option>
+                  <option value="request_ids">Request IDs</option>
+                  <option value="versioning">Versioning</option>
+              </optgroup>
+              <optgroup label="Core Resources">
+                  <option value="balance">Balance</option>
+                  <option value="charges">Charges</option>
+                  <option value="customers">Customers</option>
+                  <option value="disputes">Disputes</option>
+                  <option value="events">Events</option>
+                  <option value="file_uploads">File Uploads</option>
+                  <option value="refunds">Refunds</option>
+                  <option value="tokens">Tokens</option>
+                  <option value="transfers">Transfers</option>
+                  <option value="transfer_reversals">Transfer Reversals</option>
+              </optgroup>
+              <optgroup label="Connect">
+                  <option value="account">Account</option>
+                  <option value="fee_refunds">Application Fee Refunds</option>
+                  <option value="application_fees">Application Fees</option>
+                  <option value="recipients">Recipients</option>
+                  <option value="country_specs">Country Specs</option>
+                  <option value="external_accounts">External Accounts</option>
+              </optgroup>
+              <optgroup label="Payment Methods">
+                  <option value="alipay_accounts">Alipay Accounts</option>
+                  <option value="bank_accounts">Bank Accounts</option>
+                  <option value="cards">Cards</option>
+                  <option value="sources">Sources</option>
+              </optgroup>
+              <optgroup label="Relay">
+                  <option value="orders">Orders</option>
+                  <option value="order_items">Order Items</option>
+                  <option value="order_returns">Returns</option>
+                  <option value="products">Products</option>
+                  <option value="skus">SKUs</option>
+              </optgroup>
+              <optgroup label="Subscriptions">
+                  <option value="coupons">Coupons</option>
+                  <option value="discounts">Discounts</option>
+                  <option value="invoices">Invoices</option>
+                  <option value="invoiceitems">Invoice Items</option>
+                  <option value="plans">Plans</option>
+                  <option value="subscriptions">Subscriptions</option>
+              </optgroup>
+              <optgroup label="Radar">
+                  <option value="reviews">Reviews</option>
+              </optgroup>
+          </select>
+        </div>
+
+      </div>
+      <div class="header-section header-section-example">
+        <div id="language">
+          <ul class="language-toggle">
+            <li>
+              <input type="radio" class="language-toggle-source" name="language-toggle" id="toggle-lang-curl" data-language="curl" checked="checked" />
+              <label for="toggle-lang-curl" class="language-toggle-button language-toggle-button--curl">curl</label>
+            </li><li>
+              <input type="radio" class="language-toggle-source" name="language-toggle" id="toggle-lang-ruby" data-language="ruby" />
+              <label for="toggle-lang-ruby" class="language-toggle-button language-toggle-button--ruby">Ruby</label>
+            </li><li>
+              <input type="radio" class="language-toggle-source" name="language-toggle" id="toggle-lang-python" data-language="python" />
+              <label for="toggle-lang-python" class="language-toggle-button language-toggle-button--python">Python</label>
+            </li><li>
+              <input type="radio" class="language-toggle-source" name="language-toggle" id="toggle-lang-php" data-language="php" />
+              <label for="toggle-lang-php" class="language-toggle-button language-toggle-button--php">PHP</label>
+            </li><li>
+              <input type="radio" class="language-toggle-source" name="language-toggle" id="toggle-lang-java" data-language="java" />
+              <label for="toggle-lang-java" class="language-toggle-button language-toggle-button--java">Java</label>
+            </li><li>
+              <input type="radio" class="language-toggle-source" name="language-toggle" id="toggle-lang-node" data-language="node" />
+              <label for="toggle-lang-node" class="language-toggle-button language-toggle-button--node">Node</label>
+            </li><li>
+              <input type="radio" class="language-toggle-source" name="language-toggle" id="toggle-lang-go" data-language="go" />
+              <label for="toggle-lang-go" class="language-toggle-button language-toggle-button--go">Go</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /header -->
+
+    <!-- sidebar -->
+    <div id="sidebar">
+      <nav role="navigation" class="sidebar-nav">
+          <h5 class="sidebar-nav-heading">Introduction</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#intro">Introduction</a>
+              </li>
+          </ul>
+          <h5 class="sidebar-nav-heading">Topics</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#authentication">Authentication</a>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#errors">Errors</a>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#expanding_objects">Expanding Objects</a>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#idempotent_requests">Idempotent Requests</a>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#metadata">Metadata</a>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#pagination">Pagination</a>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#request_ids">Request IDs</a>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item disabled" href="#versioning">Versioning</a>
+              </li>
+          </ul>
+          <h5 class="sidebar-nav-heading">Core Resources</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#balance">Balance</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#balance_object">The balance object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#balance_transaction_object">The balance transaction object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_balance">Retrieve balance</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#balance_transaction_retrieve">Retrieve a balance transaction</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#balance_history">List all balance history</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#charges">Charges</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#charge_object">The charge object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_charge">Create a charge</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_charge">Retrieve a charge</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_charge">Update a charge</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#capture_charge">Capture a charge</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_charges">List all charges</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#customers">Customers</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#customer_object">The customer object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_customer">Create a customer</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_customer">Retrieve a customer</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_customer">Update a customer</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_customer">Delete a customer</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_customers">List all customers</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#disputes">Disputes</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#dispute_object">The dispute object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#dispute_evidence_object">The dispute evidence object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_dispute">Retrieve a dispute</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_dispute">Update a dispute</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#close_dispute">Close a dispute</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_disputes">List all disputes</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#events">Events</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#event_object">The event object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_event">Retrieve an event</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_events">List all events</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#event_types">Types of events</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#file_uploads">File Uploads</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#file_upload_object">The file upload object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_file_upload">Create a file upload</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_file_upload">Retrieve a file upload</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_file_uploads">List all file uploads</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#refunds">Refunds</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#refund_object">The refund object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_refund">Create a refund</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_refund">Retrieve a refund</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_refund">Update a refund</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_refunds">List all refunds</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#tokens">Tokens</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#token_object">The token object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_card_token">Create a card token</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_bank_account_token">Create a bank account token</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_pii_token">Create a PII token</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_token">Retrieve a token</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#transfers">Transfers</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#transfer_object">The transfer object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_transfer">Create a transfer</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_transfer">Retrieve a transfer</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_transfer">Update a transfer</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_transfers">List all transfers</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#transfer_failures">Types of transfer failures</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#transfer_reversals">Transfer Reversals</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#transfer_reversal_object">The transfer reversal object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_transfer_reversal">Create a transfer reversal</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_transfer_reversal">Retrieve a reversal</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_transfer_reversal">Update a reversal</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_transfer_reversals">List all reversals</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <h5 class="sidebar-nav-heading">Connect</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#account">Account</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#account_object">The account object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_account">Create an account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_account">Retrieve account details</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_account">Update an account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_account">Delete an account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#reject_account">Reject an account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_accounts">List all connected accounts</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#fee_refunds">Application Fee Refunds</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#fee_refund_object">The application fee refund object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_fee_refund">Create an application fee refund</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_fee_refund">Retrieve an application fee refund</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_fee_refund">Update an application fee refund</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_fee_refunds">List all application fee refunds</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#application_fees">Application Fees</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#application_fee_object">The application fee object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_application_fee">Retrieve an application fee</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_application_fees">List all application fees</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#recipients">Recipients</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#recipient_object">The recipient object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_recipient">Create a recipient</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_recipient">Retrieve a recipient</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_recipient">Update a recipient</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_recipient">Delete a recipient</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_recipients">List all recipients</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#country_specs">Country Specs</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#country_spec_object">The country spec object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_country_specs">List Country Specs</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_country_spec">Retrieve a Country Spec</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#external_accounts">External Accounts</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#account_bank_account_object">The (account) bank account object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_create_bank_account">Create a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_retrieve_bank_account">Retrieve a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_update_bank_account">Update a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_delete_bank_account">Delete a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_list_bank_accounts">List all bank accounts</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_card_object">The (account) card object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_create_card">Create a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_retrieve_card">Retrieve a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_update_card">Update a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_delete_card">Delete a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#account_list_cards">List all cards</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <h5 class="sidebar-nav-heading">Payment Methods</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#alipay_accounts">Alipay Accounts</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#alipay_account_object">The Alipay account object</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#bank_accounts">Bank Accounts</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#customer_bank_account_object">The bank account object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#customer_create_bank_account">Create a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#customer_retrieve_bank_account">Retrieve a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#customer_update_bank_account">Update a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#customer_verify_bank_account">Verify a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#customer_delete_bank_account">Delete a bank account</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#customer_list_bank_accounts">List all bank accounts</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#cards">Cards</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#card_object">The card object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_card">Create a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_card">Retrieve a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_card">Update a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_card">Delete a card</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_cards">List all cards</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#sources">Sources</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#source_object">The source object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_source">Create a source</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_source">Retrieve a source</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <h5 class="sidebar-nav-heading">Relay</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#orders">Orders</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#order_object">The order object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_order">Create an order</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_order">Retrieve an order</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_order">Update an order</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#pay_order">Pay an order</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_orders">List all orders</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#return_order">Return an order</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#order_items">Order Items</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#order_item_object">The order item object</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#order_returns">Returns</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#order_return_object">The return object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_order_return">Retrieve an order return</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_order_returns">List all order returns</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#products">Products</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#product_object">The product object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_product">Create a product</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_product">Retrieve a product</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_product">Update a product</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_products">List all products</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_product">Delete a product</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#skus">SKUs</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#sku_object">The SKU object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_sku">Create a SKU</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_sku">Retrieve a SKU</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_sku">Update a SKU</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_skus">List all SKUs</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_sku">Delete a SKU</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <h5 class="sidebar-nav-heading">Subscriptions</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#coupons">Coupons</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#coupon_object">The coupon object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_coupon">Create a coupon</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_coupon">Retrieve a coupon</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_coupon">Update a coupon</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_coupon">Delete a coupon</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_coupons">List all coupons</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#discounts">Discounts</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#discount_object">The discount object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_discount">Delete a customer discount</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_subscription_discount">Delete a subscription discount</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#invoices">Invoices</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#invoice_object">The invoice object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#invoice_line_item_object">The (invoice) line item object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_invoice">Create an invoice</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_invoice">Retrieve an invoice</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#invoice_lines">Retrieve an invoice's line items</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#upcoming_invoice">Retrieve an upcoming invoice</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_invoice">Update an invoice</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#pay_invoice">Pay an invoice</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_invoices">List all invoices</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#invoiceitems">Invoice Items</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#invoiceitem_object">The invoiceitem object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_invoiceitem">Create an invoice item</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_invoiceitem">Retrieve an invoice item</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_invoiceitem">Update an invoice item</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_invoiceitem">Delete an invoice item</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_invoiceitems">List all invoice items</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#plans">Plans</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#plan_object">The plan object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_plan">Create a plan</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_plan">Retrieve a plan</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_plan">Update a plan</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#delete_plan">Delete a plan</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_plans">List all plans</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#subscriptions">Subscriptions</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#subscription_object">The subscription object</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#create_subscription">Create a subscription</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#retrieve_subscription">Retrieve a subscription</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#update_subscription">Update a subscription</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#cancel_subscription">Cancel a subscription</a></li>
+                      <li><a class="sidebar-nav-item disabled" href="#list_subscriptions">List subscriptions</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <h5 class="sidebar-nav-heading">Radar</h5>
+          <ul class="sidebar-nav-items">
+              <li>
+                  <a class="sidebar-nav-item expandable disabled" href="#reviews">Reviews</a>
+                  <ul class="sidebar-nav-items">
+                      <li><a class="sidebar-nav-item disabled" href="#review_object">The review object</a></li>
+                  </ul>
+              </li>
+          </ul>
+      </nav>
+    </div>
+
+    <!-- example background -->
+    <div id="background">
+      <div class="background-actual"></div>
+    </div>
+
+    <!-- api docs -->
+    <div id="content">
+        <section class="method first-of-group" id="intro">
+            <div class="method-area">
+  <div class="method-copy">
+    <div class="method-copy-padding">
+      <h1>API Reference</h1>
+      <p>
+        The Stripe API is organized around <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a>. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. We support <a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">cross-origin resource sharing</a>, allowing you to interact securely with our API from a client-side web application (though you should never expose your secret API key in any public website's client-side code). <a href="http://www.json.org/">JSON</a> is returned by all API responses, including errors, although our <a href="libraries.html">API libraries</a> convert responses to appropriate language-specific objects.
+      </p>
+      <p>
+        To make the API as explorable as possible, accounts have test mode and live mode API keys. There is no "switch" for changing between modes, just use the appropriate key to perform a live or test transaction. Requests made with test mode credentials never hit the banking networks and incur no cost.
+      </p>
+    </div>
+  </div>
+  <div class="method-example" id="api-summary-example">
+    <div class="method-example-part">
+      <h3>API libraries</h3>
+      <p>Official libraries for the Stripe API are <a href="libraries.html">available in several languages</a>. Community-supported libraries are also available for <a href="libraries.html#third-party">additional languages</a>.</p>
+    </div>
+    <div class="method-example-part">
+      <div class="method-example-endpoint"><pre class="language-none"><code class="language-none">https://api.stripe.com</code></pre></div>
+    </div>
+  </div>
+</div>
+
+        </section>
+        <section class="method first-of-group" id="authentication">
+            <div class="method-area">
+  <div class="method-copy">
+    <div class="method-copy-padding">
+      <h1>Authentication</h1>
+      <p>
+        Authenticate your account when using the API by including your secret API key in the request. You can manage your API keys in the <a href="https://dashboard.stripe.com/account/apikeys">Dashboard</a>. Your API keys carry many privileges, so be sure to keep them secret! Do not share your secret API keys in publicly accessible areas such GitHub, client-side code, and so forth.
+      </p>
+      <p>
+        Authentication to the API is performed via <a href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Auth</a>. Provide your API key as the basic auth username value. You do not need to provide a password.
+      </p>
+      <p>
+        If you need to authenticate via bearer auth (e.g., for a cross-origin request), use <code>-H "Authorization: Bearer sk_test_BQokikJOvBiI2HlWgH4olfQ2"</code> instead of <code>-u sk_test_BQokikJOvBiI2HlWgH4olfQ2:</code>.
+      </p>
+      <p>
+        All API requests must be made over <a href="http://en.wikipedia.org/wiki/HTTP_Secure">HTTPS</a>. Calls made over plain HTTP will fail. API requests without authentication will also fail.
+      </p>
+    </div>
+  </div>
+  <div class="method-example">
+    <div class="method-example-part">
+      <div class="method-example-request include-prompt"><pre class="language-bash"><code class="language-bash">curl <span class='token string'>https://api.stripe.com/v1/charges</span> \
+   -u <span class='token string'>sk_test_BQokikJOvBiI2HlWgH4olfQ2</span>:
+</code></pre></div>
+        <p>
+          curl uses the <code>-u</code> flag to pass basic auth credentials (adding a colon after your API key prevents cURL from asking for a password).
+        </p>
+        <p>
+          A sample test API key is included in all the examples on this page, so you can test any example right away. To test requests using your account, replace the sample API key with your actual API key.
+        </p>
+    </div>
+  </div>
+</div>
+
+        </section>
+        <section class="method first-of-group" id="errors">
+        </section>
+        <section class="method first-of-group" id="expanding_objects">
+        </section>
+        <section class="method first-of-group" id="idempotent_requests">
+        </section>
+        <section class="method first-of-group" id="metadata">
+        </section>
+        <section class="method first-of-group" id="pagination">
+        </section>
+        <section class="method first-of-group" id="request_ids">
+        </section>
+        <section class="method first-of-group" id="versioning">
+        </section>
+        <section class="method first-of-group" id="balance">
+        </section>
+        <section class="method" id="balance_object">
+        </section>
+        <section class="method" id="balance_transaction_object">
+        </section>
+        <section class="method" id="retrieve_balance">
+        </section>
+        <section class="method" id="balance_transaction_retrieve">
+        </section>
+        <section class="method" id="balance_history">
+        </section>
+        <section class="method first-of-group" id="charges">
+        </section>
+        <section class="method" id="charge_object">
+        </section>
+        <section class="method" id="create_charge">
+        </section>
+        <section class="method" id="retrieve_charge">
+        </section>
+        <section class="method" id="update_charge">
+        </section>
+        <section class="method" id="capture_charge">
+        </section>
+        <section class="method" id="list_charges">
+        </section>
+        <section class="method first-of-group" id="customers">
+        </section>
+        <section class="method" id="customer_object">
+        </section>
+        <section class="method" id="create_customer">
+        </section>
+        <section class="method" id="retrieve_customer">
+        </section>
+        <section class="method" id="update_customer">
+        </section>
+        <section class="method" id="delete_customer">
+        </section>
+        <section class="method" id="list_customers">
+        </section>
+        <section class="method first-of-group" id="disputes">
+        </section>
+        <section class="method" id="dispute_object">
+        </section>
+        <section class="method" id="dispute_evidence_object">
+        </section>
+        <section class="method" id="retrieve_dispute">
+        </section>
+        <section class="method" id="update_dispute">
+        </section>
+        <section class="method" id="close_dispute">
+        </section>
+        <section class="method" id="list_disputes">
+        </section>
+        <section class="method first-of-group" id="events">
+        </section>
+        <section class="method" id="event_object">
+        </section>
+        <section class="method" id="retrieve_event">
+        </section>
+        <section class="method" id="list_events">
+        </section>
+        <section class="method" id="event_types">
+        </section>
+        <section class="method first-of-group" id="file_uploads">
+        </section>
+        <section class="method" id="file_upload_object">
+        </section>
+        <section class="method" id="create_file_upload">
+        </section>
+        <section class="method" id="retrieve_file_upload">
+        </section>
+        <section class="method" id="list_file_uploads">
+        </section>
+        <section class="method first-of-group" id="refunds">
+        </section>
+        <section class="method" id="refund_object">
+        </section>
+        <section class="method" id="create_refund">
+        </section>
+        <section class="method" id="retrieve_refund">
+        </section>
+        <section class="method" id="update_refund">
+        </section>
+        <section class="method" id="list_refunds">
+        </section>
+        <section class="method first-of-group" id="tokens">
+        </section>
+        <section class="method" id="token_object">
+        </section>
+        <section class="method" id="create_card_token">
+        </section>
+        <section class="method" id="create_bank_account_token">
+        </section>
+        <section class="method" id="create_pii_token">
+        </section>
+        <section class="method" id="retrieve_token">
+        </section>
+        <section class="method first-of-group" id="transfers">
+        </section>
+        <section class="method" id="transfer_object">
+        </section>
+        <section class="method" id="create_transfer">
+        </section>
+        <section class="method" id="retrieve_transfer">
+        </section>
+        <section class="method" id="update_transfer">
+        </section>
+        <section class="method" id="list_transfers">
+        </section>
+        <section class="method" id="transfer_failures">
+        </section>
+        <section class="method first-of-group" id="transfer_reversals">
+        </section>
+        <section class="method" id="transfer_reversal_object">
+        </section>
+        <section class="method" id="create_transfer_reversal">
+        </section>
+        <section class="method" id="retrieve_transfer_reversal">
+        </section>
+        <section class="method" id="update_transfer_reversal">
+        </section>
+        <section class="method" id="list_transfer_reversals">
+        </section>
+        <section class="method first-of-group" id="account">
+        </section>
+        <section class="method" id="account_object">
+        </section>
+        <section class="method" id="create_account">
+        </section>
+        <section class="method" id="retrieve_account">
+        </section>
+        <section class="method" id="update_account">
+        </section>
+        <section class="method" id="delete_account">
+        </section>
+        <section class="method" id="reject_account">
+        </section>
+        <section class="method" id="list_accounts">
+        </section>
+        <section class="method first-of-group" id="fee_refunds">
+        </section>
+        <section class="method" id="fee_refund_object">
+        </section>
+        <section class="method" id="create_fee_refund">
+        </section>
+        <section class="method" id="retrieve_fee_refund">
+        </section>
+        <section class="method" id="update_fee_refund">
+        </section>
+        <section class="method" id="list_fee_refunds">
+        </section>
+        <section class="method first-of-group" id="application_fees">
+        </section>
+        <section class="method" id="application_fee_object">
+        </section>
+        <section class="method" id="retrieve_application_fee">
+        </section>
+        <section class="method" id="list_application_fees">
+        </section>
+        <section class="method first-of-group" id="recipients">
+        </section>
+        <section class="method" id="recipient_object">
+        </section>
+        <section class="method" id="create_recipient">
+        </section>
+        <section class="method" id="retrieve_recipient">
+        </section>
+        <section class="method" id="update_recipient">
+        </section>
+        <section class="method" id="delete_recipient">
+        </section>
+        <section class="method" id="list_recipients">
+        </section>
+        <section class="method first-of-group" id="country_specs">
+        </section>
+        <section class="method" id="country_spec_object">
+        </section>
+        <section class="method" id="list_country_specs">
+        </section>
+        <section class="method" id="retrieve_country_spec">
+        </section>
+        <section class="method first-of-group" id="external_accounts">
+        </section>
+        <section class="method" id="account_bank_account_object">
+        </section>
+        <section class="method" id="account_create_bank_account">
+        </section>
+        <section class="method" id="account_retrieve_bank_account">
+        </section>
+        <section class="method" id="account_update_bank_account">
+        </section>
+        <section class="method" id="account_delete_bank_account">
+        </section>
+        <section class="method" id="account_list_bank_accounts">
+        </section>
+        <section class="method" id="account_card_object">
+        </section>
+        <section class="method" id="account_create_card">
+        </section>
+        <section class="method" id="account_retrieve_card">
+        </section>
+        <section class="method" id="account_update_card">
+        </section>
+        <section class="method" id="account_delete_card">
+        </section>
+        <section class="method" id="account_list_cards">
+        </section>
+        <section class="method first-of-group" id="alipay_accounts">
+        </section>
+        <section class="method" id="alipay_account_object">
+        </section>
+        <section class="method first-of-group" id="bank_accounts">
+        </section>
+        <section class="method" id="customer_bank_account_object">
+        </section>
+        <section class="method" id="customer_create_bank_account">
+        </section>
+        <section class="method" id="customer_retrieve_bank_account">
+        </section>
+        <section class="method" id="customer_update_bank_account">
+        </section>
+        <section class="method" id="customer_verify_bank_account">
+        </section>
+        <section class="method" id="customer_delete_bank_account">
+        </section>
+        <section class="method" id="customer_list_bank_accounts">
+        </section>
+        <section class="method first-of-group" id="cards">
+        </section>
+        <section class="method" id="card_object">
+        </section>
+        <section class="method" id="create_card">
+        </section>
+        <section class="method" id="retrieve_card">
+        </section>
+        <section class="method" id="update_card">
+        </section>
+        <section class="method" id="delete_card">
+        </section>
+        <section class="method" id="list_cards">
+        </section>
+        <section class="method first-of-group" id="sources">
+        </section>
+        <section class="method" id="source_object">
+        </section>
+        <section class="method" id="create_source">
+        </section>
+        <section class="method" id="retrieve_source">
+        </section>
+        <section class="method first-of-group" id="orders">
+        </section>
+        <section class="method" id="order_object">
+        </section>
+        <section class="method" id="create_order">
+        </section>
+        <section class="method" id="retrieve_order">
+        </section>
+        <section class="method" id="update_order">
+        </section>
+        <section class="method" id="pay_order">
+        </section>
+        <section class="method" id="list_orders">
+        </section>
+        <section class="method" id="return_order">
+        </section>
+        <section class="method first-of-group" id="order_items">
+        </section>
+        <section class="method" id="order_item_object">
+        </section>
+        <section class="method first-of-group" id="order_returns">
+        </section>
+        <section class="method" id="order_return_object">
+        </section>
+        <section class="method" id="retrieve_order_return">
+        </section>
+        <section class="method" id="list_order_returns">
+        </section>
+        <section class="method first-of-group" id="products">
+        </section>
+        <section class="method" id="product_object">
+        </section>
+        <section class="method" id="create_product">
+        </section>
+        <section class="method" id="retrieve_product">
+        </section>
+        <section class="method" id="update_product">
+        </section>
+        <section class="method" id="list_products">
+        </section>
+        <section class="method" id="delete_product">
+        </section>
+        <section class="method first-of-group" id="skus">
+        </section>
+        <section class="method" id="sku_object">
+        </section>
+        <section class="method" id="create_sku">
+        </section>
+        <section class="method" id="retrieve_sku">
+        </section>
+        <section class="method" id="update_sku">
+        </section>
+        <section class="method" id="list_skus">
+        </section>
+        <section class="method" id="delete_sku">
+        </section>
+        <section class="method first-of-group" id="coupons">
+        </section>
+        <section class="method" id="coupon_object">
+        </section>
+        <section class="method" id="create_coupon">
+        </section>
+        <section class="method" id="retrieve_coupon">
+        </section>
+        <section class="method" id="update_coupon">
+        </section>
+        <section class="method" id="delete_coupon">
+        </section>
+        <section class="method" id="list_coupons">
+        </section>
+        <section class="method first-of-group" id="discounts">
+        </section>
+        <section class="method" id="discount_object">
+        </section>
+        <section class="method" id="delete_discount">
+        </section>
+        <section class="method" id="delete_subscription_discount">
+        </section>
+        <section class="method first-of-group" id="invoices">
+        </section>
+        <section class="method" id="invoice_object">
+        </section>
+        <section class="method" id="invoice_line_item_object">
+        </section>
+        <section class="method" id="create_invoice">
+        </section>
+        <section class="method" id="retrieve_invoice">
+        </section>
+        <section class="method" id="invoice_lines">
+        </section>
+        <section class="method" id="upcoming_invoice">
+        </section>
+        <section class="method" id="update_invoice">
+        </section>
+        <section class="method" id="pay_invoice">
+        </section>
+        <section class="method" id="list_invoices">
+        </section>
+        <section class="method first-of-group" id="invoiceitems">
+        </section>
+        <section class="method" id="invoiceitem_object">
+        </section>
+        <section class="method" id="create_invoiceitem">
+        </section>
+        <section class="method" id="retrieve_invoiceitem">
+        </section>
+        <section class="method" id="update_invoiceitem">
+        </section>
+        <section class="method" id="delete_invoiceitem">
+        </section>
+        <section class="method" id="list_invoiceitems">
+        </section>
+        <section class="method first-of-group" id="plans">
+        </section>
+        <section class="method" id="plan_object">
+        </section>
+        <section class="method" id="create_plan">
+        </section>
+        <section class="method" id="retrieve_plan">
+        </section>
+        <section class="method" id="update_plan">
+        </section>
+        <section class="method" id="delete_plan">
+        </section>
+        <section class="method" id="list_plans">
+        </section>
+        <section class="method first-of-group" id="subscriptions">
+        </section>
+        <section class="method" id="subscription_object">
+        </section>
+        <section class="method" id="create_subscription">
+        </section>
+        <section class="method" id="retrieve_subscription">
+        </section>
+        <section class="method" id="update_subscription">
+        </section>
+        <section class="method" id="cancel_subscription">
+        </section>
+        <section class="method" id="list_subscriptions">
+        </section>
+        <section class="method first-of-group" id="reviews">
+        </section>
+        <section class="method" id="review_object">
+        </section>
+
+    </div>
+
+    <div class="footer">
+    </div>
+
+    <span class="changes-tooltip" style="display: none;">
+      Changes since your API version ():
+      <ul></ul>
+    </span>
+
+    <script src="../assets/fontloader-e5e2d929787cad2f83794062dba1590e.js"></script>
+    <script src="../assets/jquery-47d53801b9f61ca8a21dcc2571aeb3ec.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/waypoints.4.0.0-75029601f2389b88ec65c914a3da947d.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/api-452ce3ec0087d774c1cc3739ef60be3b.js"></script>
+    <script type="text/javascript">
+      APIDocs.load({
+        lang: "curl",
+        loadedSections: ["intro","authentication"],
+      });
+    </script>
+
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    Analytics.viewed("docs_api");
+    $(document).keydown( function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.which == 70) {
+        Analytics.action("docs_api_find");
+      }
+    });
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/api by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:43:23 GMT -->
+</html>

@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/ach by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:46 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="y5accBhvHQI47Vf0BJxbe-xBUwTGPez0JgDqFsDC-rRSDIgNHqrZR_Wpc-vIlG4AxT_dg5qRLVRnteA-ZRUwxQ==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ACH Guide</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="ACH Guide">
+    <meta property="og:url" content="ach.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="ACH Guide">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a class='selected' href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>ACH Guide</h1>
+  <p>Stripe supports accepting ACH payments—direct from bank accounts—alongside credit cards. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=ach">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+    <aside class="important">
+      <p>Before making livemode ACH charges, you need to <a href="https://dashboard.stripe.com/login?redirect=https://stripe.com/docs/ach">sign into</a> your account and enable ACH. Use of ACH is subject to our <a href="../us/legal.html">Services Agreement</a>.</p>
+    </aside>
+
+<p>With Stripe, you can accept ACH payments in nearly the same way as you accept credit card payments, merely providing a verified bank account as the <code>source</code> argument for a charge request. However, accepting bank accounts requires a slightly different initial workflow than accepting credit cards:</p>
+
+<ol>
+  <li>Bank accounts must first be <a href="#verifying">verified</a>.</li>
+  <li>Bank accounts must be <a href="#authorization">authorized</a> for your use by the customer.</li>
+</ol>
+
+<p>Once both steps have been taken for a bank account, it can mostly be used just like any other payment source, including for recurring charges and <a href="#connect">Connect</a> applications. The two key differences between using bank accounts and credit cards are:</p>
+
+<ul>
+  <li>ACH payments take up to 5 business days to receive acknowledgment of their success or failure. Because of this, ACH payments take up to 7 business days to be reflected in your available Stripe balance.</li>
+  <li>You can only accept funds in USD and only from US bank accounts. In addition, your account must have a US/USD bank account to accept ACH payments.</li>
+</ul></section>
+
+<section>
+<h2 id="verifying">Collecting and verifying bank accounts</h2>
+
+<p>Before you can create an ACH charge, you must first collect and verify your customer’s bank account and routing number. In order to properly identify the bank account, you will also need to collect the name of the person or business who owns the account, and if the account is owned by an individual or a company. Stripe provides two methods for doing so: instant collection and verification via <a href="https://plaid.com/integrations/stripe">Plaid</a> or collection via <a href="stripe.html">Stripe.js</a> with delayed-verification using micro-deposits.</p>
+
+<p>As charging a bank account requires both verification of the account and customer authorization to use it, the best practice is to store the bank account on a <code>Customer</code> object in Stripe for easy reuse.</p></section>
+
+<section>
+  <h2 id="using-plaid">Using Plaid</h2>
+
+  <aside class="note">
+    <h3>Setup instant verification</h3>
+
+    <p>To get started using <a href="https://dashboard.plaid.com/signup/stripe/">Plaid</a>, you  first need to setup a Plaid account and connect it to your Stripe account.</p>
+
+    <a class="button" href="https://dashboard.plaid.com/signup/stripe/" target="_blank">Setup Plaid</a>
+  </aside>
+
+<p>Plaid provides the quickest way to collect and verify your customer’s banking information. Using the Stripe + Plaid integration, you’re able to instantly receive a verified bank account, allowing for immediate charging. This is done by using <a href="https://plaid.com/integrations/stripe">Plaid Link</a>, receiving the Stripe bank account token directly from Plaid.</p>
+
+<h3 id="integrating-plaid">Integrating Plaid</h3>
+
+<p>Once your Plaid account is setup and connected to your Stripe account, add Plaid Link to your site.</p>
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;button id=&#39;linkButton&#39;&gt;Open Plaid Link&lt;/button&gt;
+&lt;script src=&quot;https://cdn.plaid.com/link/stable/link-initialize.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var linkHandler = Plaid.create({
+  env: &#39;tartan&#39;,
+  clientName: &#39;Stripe / Plaid Test&#39;,
+  key: &#39;[Plaid key]&#39;,
+  product: &#39;auth&#39;,
+  selectAccount: true,
+  onSuccess: function(public_token, metadata) {
+    // Send the public_token and account ID to your app server.
+    console.log(&#39;public_token: &#39; + public_token);
+    console.log(&#39;account ID: &#39; + metadata.account_id);
+  },
+});
+
+// Trigger the Link UI
+document.getElementById(&#39;linkButton&#39;).onclick = function() {
+  linkHandler.open();
+};
+&lt;/script&gt;</code></pre>
+</div>
+
+<p>The above code uses a custom Plaid Link integration. You’ll need to replace the <code>clientName</code> with something meaningful to your business and the <code>key</code> value with your <a href="https://dashboard.plaid.com/login/">public Plaid key</a>. An <code>env</code> value of <strong>tartan</strong> is for testing purposes; use <strong>production</strong> when it’s time to go live.</p>
+
+<p>Once your server has the <code>public_token</code>, you will need to make one additional call to the Plaid server to get the Stripe bank account token along with the Plaid access token that can be used for other Plaid API requests.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="go"
+           >Go</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://tartan.plaid.com/exchange_token \
+   -d client_id=&quot;[Plaid client ID]&quot; \
+   -d secret=&quot;[Plaid secret]&quot; \
+   -d public_token=&quot;[Plaid Link public_token]&quot; \
+   -d account_id=&quot;[Plaid Link account_id]&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Using Plaid&#39;s Ruby bindings (https://github.com/plaid/plaid-ruby)
+require &#39;plaid&#39;
+
+Plaid.config do |p|
+  p.client_id = &#39;[Plaid client ID]&#39;
+  p.secret = &#39;[Plaid secret]&#39;
+  p.env = :tartan
+end
+user = Plaid::User.exchange_token(
+  &#39;[Plaid Link public_token]&#39;,
+  &#39;[Plaid Link account_id]&#39;,
+)
+bank_account_token = user.stripe_bank_account_token
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Using Plaid&#39;s Python bindings (https://github.com/plaid/plaid-python)
+import plaid
+
+plaid.Client.config({&#39;url&#39;: &#39;https://tartan.plaid.com&#39;})
+plaid_client = plaid.Client(
+  client_id=&#39;[Plaid client ID]&#39;,
+  secret=&#39;[Plaid secret]&#39;,
+)
+plaid_response = plaid_client.exchange_token(
+  public_token=&#39;[Plaid Link public_token]&#39;,
+  account_id=&#39;[Plaid Link account_id]&#39;,
+)
+bank_account_token = plaid_response.json()[&#39;stripe_bank_account_token&#39;]
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>$ch = curl_init();
+curl_setopt_array($ch, array(
+    CURLOPT_RETURNTRANSFER =&gt; true,
+    CURLOPT_URL =&gt; &#39;https://tartan.plaid.com/exchange_token&#39;,
+    CURLOPT_POST =&gt; true,
+    CURLOPT_HTTPHEADER, array(
+        &#39;Content-Type: application/x-www-form-urlencoded&#39;,
+    ),
+    CURLOPT_POSTFIELDS =&gt; http_build_query(array(
+        &#39;client_id&#39; =&gt; &#39;[Plaid client ID]&#39;,
+        &#39;secret&#39; =&gt; &#39;[Plaid secret]&#39;,
+        &#39;public_token&#39; =&gt; &#39;[Plaid Link public_token]&#39;,
+        &#39;account_id&#39; =&gt; &#39;[Plaid Link account_id]&#39;,
+    )),
+));
+$response = curl_exec($ch);
+curl_close($ch);
+$bankAccountToken = json_decode($response)[&#39;stripe_bank_account_token&#39;];
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Using Plaid&#39;s Java bindings (https://github.com/plaid/plaid-java)
+import com.plaid.client.PlaidClients;
+import com.plaid.client.response.PlaidUserResponse;
+
+PlaidUserClient plaidUserClient
+    = PlaidClients.testUserClient(&quot;[Plaid client ID]&quot;,
+                                  &quot;[Plaid secret]&quot;);
+PlaidUserResponse response
+    = plaidUserClient.exchangeToken(&quot;[Plaid Link public_token]&quot;,
+                                    &quot;[Plaid Link account_id]&quot;);
+String bankAccountToken = response.getStripeBankAccountToken();
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Using Plaid&#39;s Node.js bindings (https://github.com/plaid/plaid-node)
+var plaid = require(&#39;plaid&#39;);
+
+var plaidClient = new plaid.Client(&#39;[Plaid client ID]&#39;,
+                                   &#39;[Plaid secret]&#39;,
+                                   plaid.environments.tartan);
+plaidClient.exchangeToken(&#39;[Plaid Link public_token]&#39;,
+                          &#39;[Plaid Link account_id]&#39;,
+                          function(err, res) {
+  var bankAccountToken = res.stripe_bank_account_token;
+});
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-go numbered" ><code>// Using Plaid&#39;s Go bindings (https://github.com/plaid/plaid-go)
+client := plaid.NewClient(&quot;[Plaid client ID]&quot;, &quot;[Plaid secret]&quot;, plaid.Tartan)
+
+postRes, err := client.ExchangeTokenAccount(&quot;[Plaid Link public_token]&quot;,
+    &quot;[Plaid Link account_id]&quot;,
+)
+if err != nil {
+    // handle error
+} else {
+    bankAccountToken := postRes.BankAccountToken
+}
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Plaid uses different API endpoints for test and production requests. The above request uses Plaid’s testing environment (“Tartan”). When it’s time to go live, you’ll need to use Plaid’s production environment:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="go"
+           >Go</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.plaid.com/exchange_token \
+   -d client_id=&quot;[Plaid client ID]&quot; \
+   -d secret=&quot;[Plaid secret]&quot; \
+   -d public_token=&quot;[Plaid Link public_token]&quot; \
+   -d account_id=&quot;[Plaid Link account_id]&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Using Plaid&#39;s Ruby bindings (https://github.com/plaid/plaid-ruby)
+require &#39;plaid&#39;
+
+Plaid.config do |p|
+  p.client_id = &#39;[Plaid client ID]&#39;
+  p.secret = &#39;[Plaid secret]&#39;
+  p.env = :production
+end
+user = Plaid::User.exchange_token(
+  &#39;[Plaid Link public_token]&#39;,
+  &#39;[Plaid Link account_id]&#39;,
+)
+bank_account_token = user.stripe_bank_account_token
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Using Plaid&#39;s Python bindings (https://github.com/plaid/plaid-python)
+import plaid
+
+plaid_client = plaid.Client(
+  client_id=&#39;[Plaid client ID]&#39;,
+  secret=&#39;[Plaid secret]&#39;,
+)
+plaid_response = plaid_client.exchange_token(
+  public_token=&#39;[Plaid Link public_token]&#39;,
+  account_id=&#39;[Plaid Link account_id]&#39;,
+)
+bank_account_token = plaid_response.json()[&#39;stripe_bank_account_token&#39;]
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>$ch = curl_init();
+curl_setopt_array($ch, array(
+    CURLOPT_RETURNTRANSFER =&gt; true,
+    CURLOPT_URL =&gt; &#39;https://api.plaid.com/exchange_token&#39;,
+    CURLOPT_POST =&gt; true,
+    CURLOPT_HTTPHEADER, array(
+        &#39;Content-Type: application/x-www-form-urlencoded&#39;,
+    ),
+    CURLOPT_POSTFIELDS =&gt; http_build_query(array(
+        &#39;client_id&#39; =&gt; &#39;[Plaid client ID]&#39;,
+        &#39;secret&#39; =&gt; &#39;[Plaid secret]&#39;,
+        &#39;public_token&#39; =&gt; &#39;[Plaid Link public_token]&#39;,
+        &#39;account_id&#39; =&gt; &#39;[Plaid Link account_id]&#39;,
+    )),
+));
+$response = curl_exec($ch);
+curl_close($ch);
+$bankAccountToken = json_decode($response)[&#39;stripe_bank_account_token&#39;];
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Using Plaid&#39;s Java bindings (https://github.com/plaid/plaid-java)
+import com.plaid.client.PlaidClients;
+import com.plaid.client.response.PlaidUserResponse;
+
+PlaidUserClient plaidUserClient
+    = PlaidClients.productionUserClient(&quot;[Plaid client ID]&quot;,
+                                        &quot;[Plaid secret]&quot;);
+PlaidUserResponse response
+    = plaidUserClient.exchangeToken(&quot;[Plaid Link public_token]&quot;,
+                                    &quot;[Plaid Link account_id]&quot;);
+String bankAccountToken = response.getStripeBankAccountToken();
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Using Plaid&#39;s Node.js bindings (https://github.com/plaid/plaid-node)
+var plaid = require(&#39;plaid&#39;);
+
+var plaidClient = new plaid.Client(&#39;[Plaid client ID]&#39;,
+                                   &#39;[Plaid secret]&#39;,
+                                   plaid.environments.production);
+plaidClient.exchangeToken(&#39;[Plaid Link public_token]&#39;,
+                          &#39;[Plaid Link account_id]&#39;,
+                          function(err, res) {
+  var bankAccountToken = res.stripe_bank_account_token;
+});
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-go numbered" ><code>// Using Plaid&#39;s Go bindings (https://github.com/plaid/plaid-go)
+client := plaid.NewClient(&quot;[Plaid client ID]&quot;, &quot;[Plaid secret]&quot;, plaid.Production)
+
+postRes, err := client.ExchangeTokenAccount(&quot;[Plaid Link public_token]&quot;,
+    &quot;[Plaid Link account_id]&quot;,
+)
+if err != nil {
+    // handle error
+} else {
+    bankAccountToken := postRes.BankAccountToken
+}
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>The response will contain a verified Stripe bank account token ID. You can attach this token to a Stripe <code>Customer</code> object, or create a charge directly on it.</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;sandbox&quot;: false,
+  &quot;access_token&quot;: &quot;[Plaid API access token]&quot;,
+  &quot;stripe_bank_account_token&quot;: &quot;btok_j3Djdzw4C3ItnqY78QzO&quot;,
+  &quot;account_id&quot;: &quot;[Plaid Account ID]&quot;
+}</code></pre>
+</div>
+</section>
+
+<section>
+<h2 id="manually-collecting-and-verifying-bank-accounts">Manually collecting and verifying bank accounts</h2>
+
+<p>Plaid supports instant verification for many of the most popular banks. However, if your customer’s bank is not supported or you do not wish to integrate with Plaid, collect and verify the customer’s bank using Stripe alone.</p>
+
+<p>First, use <a href="stripe.html#collecting-bank-account-details">Stripe.js</a> to securely collect your customer’s bank account information, receiving a representative token in return. Once you have that, attach it to a Stripe customer in your account.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/customers \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d source=tok_4XNshPRgmDRCVi \
+   -d description=&quot;Example customer&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Get the bank token submitted by the form
+token_id = params[:stripeToken]
+
+# Create a Customer
+customer = Stripe::Customer.create(
+  :source =&gt; token_id,
+  :description =&gt; &quot;Example customer&quot;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# Get the bank token submitted by the form
+token_id = request.POST[&#39;stripeToken&#39;]
+
+# Create a Customer
+customer = stripe.Customer.create(
+    source=token_id,
+    description=&quot;Example customer&quot;
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\Customer::create(array(
+  &quot;source&quot; =&gt; $token_id,
+  &quot;description&quot; =&gt; &quot;Example customer&quot;
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+// Get the bank token submitted by the form
+String tokenID = request.getParameter(&quot;stripeToken&quot;);
+
+// Create a Customer
+Map&lt;String, Object&gt; customerParams = new HashMap&lt;String, Object&gt;();
+customerParams.put(&quot;source&quot;, tokenID);
+customerParams.put(&quot;description&quot;, &quot;Example customer&quot;);
+
+Customer customer = Customer.create(customerParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// Get the bank token submitted by the form
+var tokenID = request.body.stripeToken;
+
+// Create a Customer
+stripe.customers.create({
+  source: tokenID,
+  description: &quot;Example customer&quot;
+}, function(err, customer) {
+
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>After adding the bank account to a customer, it needs to be verified. When using Stripe without Plaid, verification is done via two small deposits into the bank account that Stripe will automatically send. These deposits will take 1-2 business days to appear on the customer’s online statement. The statement description for these deposits will be <code>VERIFICATION</code>. Your customer will need to relay the value of the two deposits to you.</p>
+
+<p>When accepting these values, be sure to note that there is a limit of 10 failed verification attempts. Once this limit has been crossed, the bank account will be unable to be verified. Careful messaging about what these microdeposits are and how they are used can help your end customers avoid this issue. Once you have these values, you can verify the bank account:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/customers/cus_7iLOlPKxhQJ75a/sources/ba_17SHwa2eZvKYlo2CUx7nphbZ/verify \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d amounts[]=32 \
+   -d amounts[]=45
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# get the existing bank account
+customer = Stripe::Customer.retrieve(&quot;cus_7iLOlPKxhQJ75a&quot;)
+bank_account = customer.sources.retrieve(&quot;ba_17SHwa2eZvKYlo2CUx7nphbZ&quot;)
+
+# verify the account
+bank_account.verify(amounts: [32, 45])
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+# get the existing bank account
+customer = stripe.Customer.retrieve(&quot;cus_7iLOlPKxhQJ75a&quot;)
+bank_account = customer.sources.retrieve(&quot;ba_17SHwa2eZvKYlo2CUx7nphbZ&quot;)
+
+# verify the account
+bank_account.verify(amounts= [32, 45])
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+// get the existing bank account
+$customer = \Stripe\Customer::retrieve(&quot;cus_7iLOlPKxhQJ75a&quot;);
+$bank_account = $customer-&gt;sources-&gt;retrieve(&quot;ba_17SHwa2eZvKYlo2CUx7nphbZ&quot;);
+
+// verify the account
+$bank_account-&gt;verify(array(&#39;amounts&#39; =&gt; array(32, 45)));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+// get the existing bank account
+Customer customer = Customer.retrieve(&quot;cus_7iLOlPKxhQJ75a&quot;);
+ExternalAccount source = customer.getSources().retrieve(&quot;ba_17SHwa2eZvKYlo2CUx7nphbZ&quot;);
+
+// verify the account
+Map params = new HashMap&lt;String, Object&gt;();
+ArrayList amounts = new ArrayList();
+amounts.add(32);
+amounts.add(45);
+params.put(&quot;amounts&quot;, amounts);
+source.verify(params);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+var data = {amounts: [32,45]}
+stripe.customers.verifySource(
+  &#39;cus_7iLOlPKxhQJ75a&#39;,
+  &#39;ba_17SHwa2eZvKYlo2CUx7nphbZ&#39;,
+  {
+    amounts: [32, 45]
+  },
+  function(err, bankAccount) {
+
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Once the bank account is verified, you can make charges against it.</p></section>
+
+<section>
+<h2 id="authorization">Payment authorization</h2>
+
+<p>Before creating an ACH charge, it is important that you’ve received authorization from your customer to debit their account. Doing so ensures compliance with the ACH network and helps protect you from disputes, additional fees, and reversed payments. See our <a href="https://support.stripe.com/questions/accepting-ach-payments-with-stripe#ach-authorization">support page</a> for more information on authorization requirements.</p></section>
+
+<section>
+<h2 id="creating-an-ach-charge">Creating an ACH charge</h2>
+
+<p>To create a charge on a verified bank account, simply use the stored <code>Customer</code> object the same way you would when using a card.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/charges \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d amount=1500 \
+   -d currency=usd \
+   -d customer=cus_7iLOlPKxhQJ75a
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+Stripe::Charge.create(
+  :amount   =&gt; 1500,
+  :currency =&gt; &quot;usd&quot;,
+  :customer =&gt; customer_id # Previously stored, then retrieved
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+stripe.Charge.create(
+    amount=1500,
+    currency=&quot;usd&quot;,
+    customer=customer_id # Previously stored, then retrieved
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\Charge::create(array(
+  &quot;amount&quot; =&gt; 1500,
+  &quot;currency&quot; =&gt; &quot;usd&quot;,
+  &quot;customer&quot; =&gt; $customer_id // Previously stored, then retrieved
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; otherChargeParams = new HashMap&lt;String, Object&gt;();
+otherChargeParams.put(&quot;amount&quot;, 1500);
+otherChargeParams.put(&quot;currency&quot;, &quot;usd&quot;);
+otherChargeParams.put(&quot;customer&quot;, customerId); // Previously stored, then retrieved
+
+Charge.create(otherChargeParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.charges.create({
+  amount: 1500,
+  currency: &quot;usd&quot;,
+  customer: customerId // Previously stored, then retrieved
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Attempting to charge an unverified bank account results in an error with the message “The customer’s bank account must be verified in order to create an ACH payment.”</p>
+
+<p>If the customer has multiple stored sources (of any type), specify which bank account to use by passing its ID in as the <a href="api.html#create_charge-source">source</a> parameter.</p></section>
+
+<section>
+<h2 id="testing-ach">Testing ACH</h2>
+
+<p>You can mimic successful and failed ACH charges using the following bank account and routing numbers:</p>
+
+<ul>
+  <li>Routing number: <code>110000000</code></li>
+  <li>Account number: <code>000123456789</code> (success), <code>000111111116</code> (failure upon use)</li>
+</ul>
+
+<p>To mimic successful and failed bank account verifications, use these meaningful amounts:</p>
+
+<ul>
+  <li><code>[32, 45]</code> (success)</li>
+  <li><code>[any other number combinations]</code> (failure)</li>
+</ul></section>
+
+<section>
+<h2 id="ach-payments-workflow">ACH payments workflow</h2>
+
+<p>ACH payments take up to 5 business days to receive acknowledgment of their success or failure:</p>
+
+<ul>
+  <li>When created, ACH charges will have the initial status of <code>pending</code>.</li>
+  <li>A <em>pending</em> balance transaction will immediately be created reflecting the payment amount, less our fee.</li>
+  <li>During the next 4 business days, the payment will either transition to <code>succeeded</code> or <code>failed</code> depending on the customer’s bank.</li>
+  <li>Successful ACH payments will be reflected in your Stripe available balance after 7 business days, at which point the funds are available for automatic or manual transfer to your bank account.</li>
+  <li>Failed ACH payments will reverse the <em>pending</em> balance transaction created.</li>
+  <li>Your customer will see the payment reflected on their bank statement 1-2 days after creating the charge. (Your customer will know the payment succeeded before the bank notifies Stripe.)</li>
+</ul>
+
+<p>Failures can happen for a number of reasons such as: insufficient funds, a bad account number, or the customer disabled debits from their bank account.</p></section>
+
+<section>
+<h2 id="ach-disputes">ACH disputes</h2>
+
+<p>Disputes on ACH payments are fundamentally different than those on the credit card payments. If a customer disputes a charge and the customer’s bank accepts the request to return the funds, Stripe immediately removes the funds for the charge from your Stripe account. Unlike credit card disputes, you are not able to contest ACH reversals. You will need to directly reach out to your customer to resolve the situation.</p>
+
+<p>The ACH network allows 60 days for consumers to contest a debit on their account. Business accounts only have 2 business days, but since there is no way to be sure that the end account is a business account or personal account, you should never rely on this as a way to reduce risk.</p></section>
+
+<section>
+<h2 id="ach-refunds">ACH refunds</h2>
+
+<p>Like other payment methods, ACH charges can be refunded using the <a href="api.html#refunds">Refund endpoint</a>. However, the timing and risks associated with ACH refunds are different than card refunds. To learn more about those differences, please refer to our <a href="https://support.stripe.com/questions/accepting-ach-payments-with-stripe#ach-refunds">support guide</a>.</p>
+
+<p>If a refund for an ACH charge fails, you will receive a <code>charge.refund.updated</code> notification. This means that we have been unable to process the refund, and you must return the funds to your customer outside of Stripe. This is rare; normally occurring when an account is frozen between the original charge and the refund request</p></section>
+
+<section>
+<h2 id="ach-specific-webhook-notifications">ACH-specific webhook notifications</h2>
+
+<p>When using ACH, you will receive many of the standard charge webhook notifications, with a couple of notable differences:</p>
+
+<ul>
+  <li>After creating the charge, you will receive a <code>charge.pending</code> notification. You will not receive <code>charge.succeeded</code> or <code>charge.failed</code> notification until up to 5 business days later.</li>
+  <li>You will receive a <code>charge.succeeded</code> notification once the charge has transitioned to <code>succeeded</code> and the funds are available in your balance.</li>
+  <li>You will receive a <code>charge.failed</code> notification if the ACH transfer fails for any reason. The charge’s <code>failure_code</code> and <code>failure_message</code> will be set, and the funds will be reversed from your Stripe pending balance at this point.</li>
+  <li>You will receive a <code>customer.source.updated</code> notification when the bank account is properly verified. The bank account’s <code>status</code> will be set to <code>verified</code>.</li>
+  <li>If the bank account could not be verified because either of the two small deposits failed, you will receive a <code>customer.source.updated</code> notification. The bank account’s <code>status</code> will be set to <code>verification_failed</code>.</li>
+</ul></section>
+
+<section>
+<h2 id="connect">Connect support</h2>
+
+<p>Applications can create ACH payments on behalf of connected accounts and collect an <code>application_fee</code>. As with <a href="connect/payments-fees.html">credit card payments</a>, you can either:</p>
+
+<ul>
+  <li>Create the customer in the platform account and use the <code>destination</code> parameter to create the charge for the connected user (as in the code below)</li>
+  <li>Create the customer in a connected account and create the charge directly on that account</li>
+</ul>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/charges \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d amount=1500 \
+   -d currency=usd \
+   -d customer=cus_7iLOlPKxhQJ75a \
+   -d destination=&quot;{CONNECTED_STRIPE_ACCOUNT_ID}&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+Stripe::Charge.create(
+  :amount   =&gt; 1500,
+  :currency =&gt; &quot;usd&quot;,
+  :customer =&gt; customer_id, # Previously stored, then retrieved
+  :destination =&gt; {CONNECTED_STRIPE_ACCOUNT_ID}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+stripe.Charge.create(
+    amount=1500,
+    currency=&quot;usd&quot;,
+    customer=customer_id, # Previously stored, then retrieved
+    destination={CONNECTED_STRIPE_ACCOUNT_ID}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\Charge::create(array(
+  &quot;amount&quot; =&gt; 1500,
+  &quot;currency&quot; =&gt; &quot;usd&quot;,
+  &quot;customer&quot; =&gt; $customer_id, // Previously stored, then retrieved
+  &quot;destination&quot; =&gt; {CONNECTED_STRIPE_ACCOUNT_ID}
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Map&lt;String, Object&gt; otherChargeParams = new HashMap&lt;String, Object&gt;();
+otherChargeParams.put(&quot;amount&quot;, 1500);
+otherChargeParams.put(&quot;currency&quot;, &quot;usd&quot;);
+otherChargeParams.put(&quot;customer&quot;, customerId); // Previously stored, then retrieved
+otherChargeParams.put(&quot;destination&quot;, {CONNECTED_STRIPE_ACCOUNT_ID});
+
+Charge.create(otherChargeParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.charges.create({
+  amount: 1500,
+  currency: &quot;usd&quot;,
+  customer: customerId, // Previously stored, then retrieved
+  destination: {CONNECTED_STRIPE_ACCOUNT_ID}
+});
+</code></pre>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Services Agreement</h2>
+  <p>
+    Use of the live mode API is subject to the Stripe <a href="../us/legal.html">Services Agreement</a>. Let us know if you have any questions on that agreement.
+  </p>
+</section>
+
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <script>
+  $(function() {
+    var button = $('#tos-acceptance-button');
+    var csrf = $('tos-acceptance-csrf').val();
+
+    button.click(function (e) {
+      e.preventDefault();
+      button.prop('disabled', true);
+
+      if (button.hasClass('success')) {
+        return;
+      }
+
+      $.post('/ach-tos-acceptance', {csrf_token: csrf}, function (_, status) {
+        if (status == 'success') {
+          button.addClass('success');
+          button.text('ACH Activated');
+        }
+      });
+    });
+  });
+</script>
+
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/ach by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:46 GMT -->
+</html>

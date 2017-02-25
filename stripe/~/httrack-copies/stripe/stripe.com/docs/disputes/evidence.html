@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/disputes/evidence by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:45:30 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="CqWl-nXGrlRRxD73tKARPE-ZO84VxlHR6_xN_7VuN0mTP7GHcwNqEZyAGuh4qCRHZue1SUlqkHGqSUfXELn9OA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Dispute Evidence Guide</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Dispute Evidence Guide">
+    <meta property="og:url" content="evidence.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Dispute Evidence Guide">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul>
+    <li>
+      <a class='selected' href="evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="types.html">Types</a>
+    </li>
+    <li>
+      <a href="faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Submitting Dispute Evidence</h1>
+  <p>To help resolve disputes in your favor, submit evidence about the legitimacy of a charge to your customer's bank or card issuer through Stripe. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=dispute+evidence">common questions</a>.
+</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3>Dispute information</h3>
+    <p>For more information on how the dispute process works, check out our <a href="../disputes.html">Disputes overview</a>.</p>
+  </aside>
+
+<p>A dispute occurs when a customer initiates a chargeback with their bank or credit card issuer. However, a dispute can be overturned by the customer’s bank if they receive enough information showing that the chargeback isn’t justified. When the bank or issuer finds the dispute in your favor, you are refunded the disputed amount that had been withdrawn, including the chargeback fee.</p>
+
+<p>What evidence to provide depends upon the <a href="types.html">type of dispute</a>. While it’s not required that you include every piece of information to submit your evidence, providing as much evidence as you can greatly improves your chances of overturning a dispute.</p>
+
+<p>There are two ways you can submit evidence to Stripe:</p>
+
+<ul>
+  <li><a href="#using-the-dashboard">Using the Dashboard</a></li>
+  <li><a href="#using-the-api">Using the API</a></li>
+</ul></section>
+
+<section>
+<h2 id="using-the-dashboard">Using the Dashboard</h2>
+
+<p>You can manage <a href="https://dashboard.stripe.com/disputes">disputes</a> in the Dashboard and it’s the recommended route for most users. The Dashboard guides you through the submission process, step-by-step—automatically formatting the information you provide. You’re asked to provide different pieces of evidence and upload any necessary files, depending on the dispute type. All this works to increase the likelihood of a dispute being found in your favor.</p>
+<div class="image full">
+  <img src="../../img/documentation/disputes/disputes-overview.png" width="100%" />
+</div>
+
+</section>
+
+<section>
+<h2 id="using-the-api">Using the API</h2>
+
+<p>While we do recommend handling disputes through the Dashboard, you may prefer to use the Stripe API to submit dispute evidence directly from your integration. Structured evidence is submitted using an API request to update the <code>Dispute</code> object, with the necessary information provided as fields within the <code>evidence</code> parameter.</p>
+  <aside class="note">
+    <h3>File evidence</h3>
+    <p>You can provide documents or images, like a contract or screenshot, as part of dispute evidence using the <a href="../file-upload.html">File Upload API</a>.</p>
+  </aside>
+
+<h3 id="api-evidence-fields">Evidence fields</h3>
+
+<p>All available fields for the <code>evidence</code> parameter are found in the <a href="../api.html#dispute_evidence_object">API reference</a>. There are two types of evidence you can provide, depending on the field being updated:</p>
+
+<ul>
+  <li><em>Text evidence</em>, such as <code>customer_email</code> and <code>service_date</code>, take a string of text</li>
+  <li><em>File evidence</em>, such as <code>service_documentation</code> and <code>customer_communication</code>, take a <em>file token</em></li>
+</ul>
+
+<p>A file token is a unique ID that represents a document or image uploaded with the <a href="../file-upload.html">File Upload API</a>. A document is first uploaded with the purpose of <code>dispute_evidence</code>, which generates a file token that you can use in the appropriate field.</p>
+
+<p>If you’re only interested in submitting a single file or a large amount of plaintext as evidence, use the <code>uncategorized_text</code> or <code>uncategorized_file</code> fields. However, we strongly recommend filling in as many fields as possible so you have the best chance at overturning a dispute.</p>
+
+<h3 id="submitting-evidence">Submitting evidence</h3>
+
+<p>This example updates the dispute evidence with the following evidence fields:</p>
+
+<ul>
+  <li><code>customer_email</code></li>
+  <li><code>shipping_date</code></li>
+  <li><code>shipping_documentation</code> (a file token)</li>
+</ul>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="go"
+           >Go</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/disputes/dp_17sGETLpSdVJN1iVw8BHvseP \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -d evidence[customer_email_address]=&quot;email@example.com&quot; \
+   -d evidence[shipping_date]=2016-12-14 \
+   -d evidence[shipping_documentation]=file_17sapWLpSdVJN1iV0X1yRT8Z
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+dispute = Stripe::Dispute.retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;)
+dispute.evidence = {
+  :customer_email_address =&gt; &quot;email@example.com&quot;,
+  :shipping_date =&gt; &quot;2016-12-14&quot;,
+  :shipping_documentation =&gt; &quot;file_17sapWLpSdVJN1iV0X1yRT8Z&quot;
+}
+dispute.save
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+dispute = stripe.Dispute.retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;)
+dispute.evidence = {
+  &quot;customer_email_address&quot;: &#39;email@example.com&#39;,
+  &quot;shipping_date&quot;: &#39;2016-12-14&#39;,
+  &quot;shipping_documentation&quot;: &#39;file_17sapWLpSdVJN1iV0X1yRT8Z&#39;
+}
+dispute.save()
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+$dp = \Stripe\Dispute::retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;);
+$dp-&gt;evidence = array(
+  &quot;customer_email_address&quot; =&gt; &quot;email@example.com&quot;,
+  &quot;shipping_date&quot; =&gt; &quot;2016-12-14&quot;,
+  &quot;shipping_documentation&quot; =&gt; &quot;file_17sapWLpSdVJN1iV0X1yRT8Z&quot;
+);
+$dp-&gt;save();
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Dispute dp = Dispute.retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;);
+Map&lt;String, Object&gt; params = new HashMap&lt;String, Object&gt;();
+Map&lt;String, Object&gt; evidence = new HashMap&lt;String, Object&gt;();
+evidence.put(&quot;customer_email_address&quot;, &quot;email@example.com&quot;);
+evidence.put(&quot;shipping_date&quot;, &quot;2016-12-14&quot;);
+evidence.put(&quot;shipping_documentation&quot;, &quot;file_17sapWLpSdVJN1iV0X1yRT8Z&quot;);
+params.put(&quot;evidence&quot;, evidence);
+dp.update(params);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.disputes.update(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;,
+  {
+    evidence: {
+      customer_email_address: &#39;email@example.com&#39;,
+      shipping_date: &#39;2016-12-14&#39;,
+      shipping_documentation: &#39;file_17sapWLpSdVJN1iV0X1yRT8Z&#39;
+    }
+  },
+  function(err, dispute) {
+    // asynchronously called
+  }
+);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-go numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.Key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+d, err := dispute.Update(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;,
+  &amp;stripe.DisputeParams{
+    Evidence: &amp;stripe.DisputeEvidenceParams{
+      CustomerEmail: &quot;email@example.com&quot;,
+      ShippingDate: &quot;2016-02-24&quot;,
+      ShippingDoc: &quot;file_17sapWLpSdVJN1iV0X1yRT8Z&quot;
+    },
+  },
+)
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<h3 id="fetching-evidence">Fetching evidence</h3>
+
+<p>The <code>Dispute</code> object contains information about its evidence, when it’s due, and how many submissions have been attempted. Fetch the evidence status of a disputed charge using an API request:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="go"
+           >Go</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/disputes/dp_17sGETLpSdVJN1iVw8BHvseP \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2:
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+Stripe::Dispute.retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code># Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+stripe.Dispute.retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+\Stripe\Dispute::retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+Stripe.apiKey = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;;
+
+Dispute.retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = require(&quot;stripe&quot;)(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+stripe.disputes.retrieve(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;,
+  function(err, dispute) {
+    // asynchronously called
+  }
+);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-go numbered" ><code>// Set your secret key: remember to change this to your live secret key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.Key = &quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;
+
+d, err := dispute.Get(&quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;, nil)
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>The above returns the following in response:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  object: &quot;dispute&quot;
+  id: &quot;dp_17sGETLpSdVJN1iVw8BHvseP&quot;,
+  charge: &quot;ch_5Q4BjL06oPWwho&quot;,
+  evidence: {
+    customer_name: &quot;Jane Austen&quot;,
+    customer_email_address: &quot;email@example.com&quot;,
+    customer_purchase_ip: &quot;127.0.0.1&quot;,
+    product_description: &quot;Widget ABC, color: red&quot;,
+    shipping_date: &quot;2016-12-14&quot;,
+    shipping_tracking_number: &quot;Z01234567890&quot;,
+    uncategorized_text: &quot;Additional notes and comments&quot;,
+    uncategorized_file: &quot;file_17sapWLpSdVJN1iV0X1yRT8Z&quot;
+  },
+  evidence_details: {
+    due_by: 1403047735,
+    submission_count: 1
+  }
+  ...
+}</code></pre>
+</div>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/disputes/evidence by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:45:31 GMT -->
+</html>

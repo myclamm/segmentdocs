@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/stripe.js by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="3IUfkjhgCN9hkko8gh3qQ50qBjCGowbw-57KctCDkDBFHwvvPqXMmqzWbiNOFd84tFSIt9oPx1C6K8BadVRaQQ==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Stripe.js Reference</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="Stripe.js Reference">
+    <meta property="og:url" content="stripe.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Stripe.js Reference">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="custom-form.html">Stripe.js</a>
+      <ul>
+    <li>
+      <a class='selected' href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Stripe.js Reference</h1>
+  <p>Stripe.js makes it easy to collect credit card&mdash;and other similarly sensitive&mdash;details without having the information touch your server. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=stripe.js">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <p>Stripe.js is Stripe's foundational JavaScript library for securely sending sensitive information to Stripe directly from the customer's browser. Stripe.js can be used for collecting:</p>
+
+  <ul>
+    <li><a href="#collecting-card-details">Credit card details</a></li>
+    <li><a href="#collecting-bank-account-details">Bank account details</a></li>
+    <li><a href="#collecting-pii-data">Personally identifiable information</a></li>
+    <li><a href="#collecting-apple-pay-details">Apple Pay payments</a></li>
+  </ul>
+
+
+  <p>Stripe.js also has built-in <a href="stripe.html#bank-account-validation-helpers">validators</a> to check the format of credit card, CVC, bank account, and routing numbers, as well as a credit card's type and expiration.
+</section>
+
+<section>
+  <h2 id="including-stripejs">Including Stripe.js</h2>
+
+  <p>However you're using Stripe.js, you always begin by including the library and setting your API key. Add this script tag to your page to get started with Stripe.js:</p>
+
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;script type=&quot;text/javascript&quot; src=&quot;https://js.stripe.com/v2/&quot;&gt;&lt;/script&gt;</code></pre>
+</div>
+
+  <aside class="important">
+    <p><strong>Note</strong>: Stripe.js should be loaded directly from <strong>https://js.stripe.com/v2/</strong>.</p>
+  </aside>
+</section>
+
+<section>
+  <h2 id="setting-publishable-key">Setting your publishable key</h2>
+
+  <p>Your publishable API key identifies your website to Stripe during communications. Set your publishable key with <code>setPublishableKey</code>, after including Stripe.js and before making any requests to Stripe.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.setPublishableKey(&#39;pk_test_6pRNASCoBOKtIshFeQd4XMUh&#39;);</code></pre>
+</div>
+
+  <p>We've placed a random API key in the code. Replace it with your <a href="https://dashboard.stripe.com/account/apikeys">actual publishable API key</a> to test this code through your Stripe account.</p>
+
+  <p>You will need to replace the test key with your live key for production uses. When you're ready, learn more about how the keys play into <a href="dashboard.html#livemode-and-testing">test and live modes</a>.</p>
+</section>
+
+
+<section>
+  <h2 id="collecting-card-details">Collecting card details</h2>
+
+  <p>You can use these methods to validate and collect credit card details for when you want to <a href="charges.html">process charges</a>, <a href="subscriptions/quickstart.html">create subscriptions</a>, or send transfers to <a href="connect/bank-transfers.html">debit cards</a> attached to connected Stripe accounts.</p>
+
+  <p>All of these methods are within the <code>Stripe.card</code> object.</p>
+
+  <h3 id="card-createToken"><code>card.createToken</code></h3>
+
+  <p>Converts sensitive card data to a single-use token that you can safely pass to your server to charge the user. The <a href="custom-form.html">tutorial</a> explains this flow in more detail.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.card.createToken({
+  number: $(&#39;.card-number&#39;).val(),
+  cvc: $(&#39;.card-cvc&#39;).val(),
+  exp_month: $(&#39;.card-expiry-month&#39;).val(),
+  exp_year: $(&#39;.card-expiry-year&#39;).val(),
+  address_zip: $(&#39;.address_zip&#39;).val() 
+}, stripeResponseHandler);</code></pre>
+</div>
+
+  <aside class="note">
+    <h3>Library agnostic</h3>
+    <p>This example uses jQuery's <a href="http://api.jquery.com/val/">val()</a> method to retrieve values entered in the credit card form. jQuery isn't required; you can also use vanilla JavaScript to retrieve the card data from your payment form instead.</p>
+  </aside>
+
+  <p>The first argument to <code>createToken</code> is a JavaScript object containing credit card data entered by the user. It should contain the following required members:</p>
+
+
+  <ul>
+    <li><code class="paramname">number</code>: card number as a string without any separators (e.g., <strong>"4242424242424242"</strong>)</li>
+    <li><code class="paramname">exp_month</code>: two digit number representing the card's expiration month (e.g., <strong>12</strong>)</li>
+    <li><code class="paramname">exp_year</code>: two or four digit number representing the card's expiration year (e.g., <strong>2018</strong>)</li>
+  </ul>
+
+  <p>(The expiration date can <a href="#passing-exp-dates">also be passed as a single string</a>.)</p>
+
+    <p>The <code class="paramname">cvc</code> field represents the card's security code (e.g., <strong>123</strong>). While this is an optional field, we highly recommend you always pass the CVC number. Banks and card issuers often decline charges if the CVC number is either incorrect or has not been provided. Additionally, passing the CVC number also helps prevent fraud as it means your customer is more likely in possession of the card, rather than potentially just a card number. You can then make use of the <a href="docs/fraud/guide/strategies.html#card-verification-code-check-cvc">CVC verification check</a> available in <a href="radar.html">Radar</a> that blocks payments where the CVC does not match what the card issuer has on file.</p>
+
+  <p>The following fields are entirely optional and cannot result in a token creation failure:</p>
+
+  <ul>
+    <li><code class="paramname">name</code>: cardholder name</li>
+    <li><code class="paramname">address_line1</code>: billing address line 1</li>
+    <li><code class="paramname">address_line2</code>: billing address line 2</li>
+    <li><code class="paramname">address_city</code>: billing address city</li>
+    <li><code class="paramname">address_state</code>: billing address state</li>
+    <li><code class="paramname">address_zip</code>: billing ZIP code as a string (e.g., <strong>"94301"</strong>)</li>
+    <li><code class="paramname">address_country</code>: billing address country</li>
+  </ul>
+
+    <p>Although these fields are optional, we highly recommend collecting them. The customer's ZIP code can be used to perform <a href="fraud/guide/strategies.html#address-verification-avs"> address and ZIP code verifications</a> that help reduce fraud. Similar to CVC verification, Radar includes a built-in rule to block payments where the ZIP code verification with the issuer failed.
+    </p>
+
+  <p>You may also pass a form element as the first argument to <code>createToken</code>. The relevant information will be pulled from inputs marked up with the <code>data-stripe</code> attribute, which should be set to one of the values specified above.</p>
+
+  <p>The second argument to <code>card.createToken</code>&mdash;<code>stripeResponseHandler</code>&mdash;is a callback you provide to handle the response from Stripe. It should do the following:</p>
+
+  <ul>
+    <li>If the card information entered by the user returned an error, display it on the page</li>
+    <li>If no errors were returned&mdash;a single-use token was created successfully, add the returned token to the payment form and submit the form to your server</li>
+  </ul>
+
+  <p>Here's a sample implementation of <code>stripeResponseHandler</code> from the <a href="custom-form.html">custom form tutorial</a>:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>function stripeResponseHandler(status, response) {
+
+  // Grab the form:
+  var $form = $(&#39;#payment-form&#39;);
+
+  if (response.error) { // Problem!
+
+    // Show the errors on the form
+    $form.find(&#39;.payment-errors&#39;).text(response.error.message);
+    $form.find(&#39;button&#39;).prop(&#39;disabled&#39;, false); // Re-enable submission
+
+  } else { // Token was created!
+
+    // Get the token ID:
+    var token = response.id;
+
+    // Insert the token into the form so it gets submitted to the server:
+    $form.append($(&#39;&lt;input type=&quot;hidden&quot; name=&quot;stripeToken&quot; /&gt;&#39;).val(token));
+
+    // Submit the form:
+    $form.get(0).submit();
+
+  }
+}</code></pre>
+</div>
+
+  <p>The handler is written to accept two arguments:</p>
+
+  <ul>
+    <li><code>status</code> is one of the status codes described in the <a href="api.html#errors">API docs</a></li>
+    <li><code>response</code> is of the following form:</li>
+  </ul>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  id: &quot;tok_8DPg4qjJ20F1aM&quot;, // Token identifier
+  card: { // Dictionary of the card used to create the token
+    name: null,
+    address_line1: &quot;12 Main Street&quot;,
+    address_line2: &quot;Apt 42&quot;,
+    address_city: &quot;Palo Alto&quot;,
+    address_state: &quot;CA&quot;,
+    address_zip: &quot;94301&quot;,
+    address_country: &quot;US&quot;,
+    country: &quot;US&quot;,
+    exp_month: 2,
+    exp_year: 2018,
+    last4: &quot;4242&quot;,
+    object: &quot;card&quot;,
+    brand: &quot;Visa&quot;,
+    funding: &quot;credit&quot;
+  },
+  created: 1484350973, // Timestamp of when token was created
+  livemode: true, // Whether this token was created with a live API key
+  type: &quot;card&quot;,
+  object: &quot;token&quot;, // Type of object, always &quot;token&quot;
+  used: false // Whether this token has been used
+}</code></pre>
+</div>
+
+  <p>If the request to Stripe fails, <code>response</code> will instead be of following form:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  error: {
+    type: &quot;card_error&quot;, // Type of error
+    code: &quot;invalid_expiry_year&quot;, // Optional identifier of specific error
+    message: &quot;Your card&#39;s expiration year is invalid.&quot;, // Description of the error
+    param: &quot;exp_year&quot; // Optional identifier of the offending parameter
+  }
+}</code></pre>
+</div>
+
+  <p><code>createToken</code> is an asynchronous call. It returns immediately and invokes <code>stripeResponseHandler</code> when it receives a response from Stripe's servers.</p>
+</section>
+
+<section>
+  <h2 id="card-validation-helpers">Client-side validation helpers</h2>
+
+  <p>You can use the following methods to perform client-side validation before making a tokenization request.</p>
+
+  <h3 id="card-validateCardNumber"><code>card.validateCardNumber</code></h3>
+
+  <p><code>validateCardNumber</code> checks that the number is formatted correctly and passes the <a href="http://en.wikipedia.org/wiki/Luhn_algorithm">Luhn check</a>.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// These will all return true, indicating a potentially valid card
+// number (letters, spaces, and other punctuation are ignored):
+
+Stripe.card.validateCardNumber(&#39;4242424242424242&#39;)
+Stripe.card.validateCardNumber(&#39;4242-42424242-4242&#39;)
+Stripe.card.validateCardNumber(&#39;4242 4242 4242 4242&#39;)
+
+// These invalid card numbers will all return false:
+
+Stripe.card.validateCardNumber(&#39;4242-1111-1111-1111&#39;)
+// (Doesn&#39;t pass the Luhn check.)
+Stripe.card.validateCardNumber(&#39;12345678&#39;)
+Stripe.card.validateCardNumber(&#39;mistake&#39;)</code></pre>
+</div>
+
+  <h3 id="card-validateExpiry"><code>card.validateExpiry</code></h3>
+
+  <p>Checks whether or not the expiration date represents an actual month in the future.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.card.validateExpiry(&#39;02&#39;, &#39;2015&#39;)      // false
+Stripe.card.validateExpiry(&#39;02&#39;, &#39;2015&#39;)      // false
+Stripe.card.validateExpiry(&#39;02&#39;, &#39;2022&#39;)      // true
+Stripe.card.validateExpiry(2, 2017)           // true</code></pre>
+</div>
+
+  <h3 id="card-validateCVC"><code>card.validateCVC</code></h3>
+
+  <p>Checks whether or not the supplied number could be a valid verification code.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.card.validateCVC(&#39;123&#39;)              // true
+Stripe.card.validateCVC(&#39;&#39;)                 // false</code></pre>
+</div>
+
+  <h3 id="card-cardType"><code>card.cardType</code></h3>
+
+  <p>Returns the type of the card as a string. The possible types are: <strong>Visa</strong>, <strong>Mastercard</strong>, <strong>American Express</strong>, <strong>Discover</strong>, <strong>Diners Club</strong>, and <strong>JCB</strong>. If a card isn't recognized, the return value is <strong>Unknown</strong>.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.card.cardType(&#39;4242-4242-4242-4242&#39;) // &quot;Visa&quot;
+Stripe.card.cardType(&#39;378282246310005&#39;)     // &quot;American Express&quot;
+Stripe.card.cardType(&#39;1234&#39;)                // &quot;Unknown&quot;</code></pre>
+</div>
+</section>
+
+<section>
+  <h2 id="passing-exp-dates">Passing expiration dates</h2>
+
+  <p>Stripe.js allows you to flexibly pass expiration dates as either separate <code>exp_month</code> and <code>exp_year</code> values or as a single <code>exp</code> string. As a single string, the expiration can be a two- or four-digit year, and a one- or two-digit month, in either order, so long as the two are separated by a hyphen, slash, or space.</p>
+
+  <p>You can use the single expiration date in both validation methods and tokenization requests:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.card.validateExpiry(&#39;09 2017&#39;)  // true
+Stripe.card.validateExpiry(&#39;2021/09&#39;)  // true
+Stripe.card.validateExpiry(&#39;2021/09&#39;)  // true
+Stripe.card.validateExpiry(&#39;2021-09&#39;)  // true
+Stripe.card.createToken({
+  number: $(&#39;.card-number&#39;).val(),
+  cvc: $(&#39;.card-cvc&#39;).val(),
+  exp: $(&#39;.card-expiry&#39;).val() // Assumes you&#39;ve added this element to your form
+}, stripeResponseHandler);</code></pre>
+</div>
+</section>
+
+<section>
+  <h2 id="collecting-bank-account-details">Collecting bank account details</h2>
+
+  <p>You can use these methods to validate and collect bank account details for when you want to <a href="ach.html"> make ACH payments</a> or send transfers to <a href="connect/bank-transfers.html">bank accounts</a> attached to connected Stripe accounts.</p>
+
+  <p>All of these methods are within the <code>Stripe.bankAccount</code> object.</p>
+
+  <h3 id="bank-account-createToken"><code>bankAccount.createToken</code></h3>
+
+  <p>Converts sensitive bank account data to a single-use token which you can safely pass to your server to use in an API call.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.bankAccount.createToken({
+  country: $(&#39;.country&#39;).val(),
+  currency: $(&#39;.currency&#39;).val(),
+  routing_number: $(&#39;.routing-number&#39;).val(),
+  account_number: $(&#39;.account-number&#39;).val(),
+  account_holder_name: $(&#39;.name&#39;).val(),
+  account_holder_type: $(&#39;.account_holder_type&#39;).val()
+}, stripeResponseHandler);</code></pre>
+</div>
+
+  <p>Analogous to the <a href="#card-createToken">card.createToken</a> method, the first argument to <code>bank.createToken</code> is a JavaScript object containing bank account data entered by the user. It should contain the following fields:</p>
+
+  <ul>
+    <li><code class="paramname">country</code>: two character country code (e.g., <strong>"US"</strong>)</li>
+    <li><code class="paramname">currency</code>: three character currency code (e.g., <strong>"USD"
+    </strong>)</li>
+    <li><code class="paramname">routing_number</code>: number representing the bank routing number (e.g., <strong>111000025</strong>). Optional if the currency is EUR, as the account number will be an IBAN.</li>
+    <li><code class="paramname">account_number</code>: number representing the bank account number (e.g., <strong>000123456789</strong>)</li>
+    <li><code class="paramname">account_holder_name</code>: name of the person or business that owns the bank account (e.g., <strong>"Jane Austen"</strong>)</li>
+    <li><code class="paramname">account_holder_type</code>: the type of entity that holds the account. Can be <code>"individual"</code> or <code>"company"</code>.</li>
+  </ul>
+
+  <p>When creating a bank account to be attached to a customer, the <code>account_holder_name</code> and <code>account_holder_type</code> fields are mandatory. Otherwise, they are optional.</p>
+
+  <p>You may also pass a form element as the first argument to <code>createToken</code>. The relevant information will be pulled from inputs marked up with the <code>data-stripe</code> attribute, which should be set to one of the values specified above.</p>
+
+  <p>The second argument to <code>bank.createToken</code>&mdash;<code>stripeResponseHandler</code>&mdash;is a callback you provide to handle the response from Stripe. It should do the following:</p>
+
+  <ul>
+    <li>If the bank account information entered by the user returned an error, display it on the page</li>
+    <li>If no errors were returned&mdash;a single-use token was created successfully, add the returned token to the form and submit the form to your server</li>
+  </ul>
+
+  <p>Here's a sample implementation of <code>stripeResponseHandler</code>:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>function stripeResponseHandler(status, response) {
+
+  // Grab the form:
+  var $form = $(&#39;#payment-form&#39;);
+
+  if (response.error) { // Problem!
+
+    // Show the errors on the form:
+    $form.find(&#39;.bank-errors&#39;).text(response.error.message);
+    $form.find(&#39;button&#39;).prop(&#39;disabled&#39;, false); // Re-enable submission
+
+  } else { // Token created!
+
+    // Get the token ID:
+    var token = response.id;
+
+    // Insert the token into the form so it gets submitted to the server:
+    $form.append($(&#39;&lt;input type=&quot;hidden&quot; name=&quot;stripeToken&quot; /&gt;&#39;).val(token));
+
+    // Submit the form:
+    $form.get(0).submit();
+
+  }
+}</code></pre>
+</div>
+
+  <p>The handler is written to accept two arguments:</p>
+
+  <ul>
+    <li><code>status</code> is one of the status codes described in the <a href="api.html#errors">API docs</a></li>
+    <li><code>response</code> is of the following form:</li>
+  </ul>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  id: &quot;btok_u5dg20Gra&quot;, // Token identifier
+  bank_account: { // Dictionary of the bank account used to create the token
+    country: &quot;US&quot;,
+    bank_name: &quot;BANK OF AMERICA, N.A&quot;,
+    last4: &quot;6789&quot;,
+    validated: false,
+    object: &quot;bank_account&quot;,
+  },
+  created: 1484350973, // Timestamp of when token was created
+  livemode: true, // Whether this token was created with a live API key
+  type: &quot;bank_account&quot;,
+  object: &quot;token&quot;, // Type of object, always &quot;token&quot;
+  used: false // Whether this token has been used
+}</code></pre>
+</div>
+
+  <p>If the request to Stripe fails, <code>response</code> will instead be of following form:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  error: {
+    type: &quot;invalid_request_error&quot;, // String identifier of the type of error
+    message: &quot;Invalid routing number&quot;, // String description of the error
+    param: &quot;bank_account&quot; // Optional string identifier of the offending parameter.
+  }
+}</code></pre>
+</div>
+
+  <p><code>createToken</code> is an asynchronous call. It returns immediately and invokes <code>stripeResponseHandler</code> when it receives a response from Stripe's servers.</p>
+</section>
+
+<section>
+  <h2 id="bank-account-validation-helpers">Client-side validation helpers</h2>
+
+  <p>Bank account validation with Stripe.js currently supports US bank account and routing numbers.<p>
+  <h3 id="bank-account-validateRoutingNumber"><code>bankAccount.validateRoutingNumber</code></h3>
+
+  <p>Checks that the routing number is formatted correctly for the given country and that the number passes any appropriate checksums (e.g., <a href="http://en.wikipedia.org/wiki/Routing_transit_number#Check_digit">for US routing numbers</a>).</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// This will return true, indicating a
+// potentially valid bank routing number:
+
+Stripe.bankAccount.validateRoutingNumber(&#39;111000025&#39;, &#39;US&#39;) // US routing number
+
+// These invalid bank routing numbers will all return false:
+
+Stripe.bankAccount.validateRoutingNumber(&#39;990000001&#39;, &#39;US&#39;)
+// (Doesn&#39;t pass the checksum check.)
+Stripe.bankAccount.validateRoutingNumber(&#39;12345&#39;, &#39;US&#39;)</code></pre>
+</div>
+
+  <h3 id="bank-account-validateAcountNumber"><code>bankAccount.validateAccountNumber</code></h3>
+
+  <p>Checks that the account number is formatted correctly for the given country and enforces any length restrictions.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// This will return true, indicating a
+// potentially valid bank account number:
+
+Stripe.bankAccount.validateAccountNumber(&#39;000123456789&#39;, &#39;US&#39;)
+
+// This invalid bank account number will return false:
+
+Stripe.bankAccount.validateAccountNumber(&#39;mistake&#39;, &#39;US&#39;)</code></pre>
+</div>
+</section>
+
+<section>
+  <h2 id="collecting-pii-data">Collecting personally identifiable information (PII)</h2>
+
+  <p>You can use these methods to collect PII data for <a href="connect/identity-verification.html">managed account identity verification</a>.</p>
+
+  <p>All of these methods are within the <code>Stripe.piiData</code> object.</p>
+
+  <h3 id="pii-data-createToken"><code>piiData.createToken</code></h3>
+
+  <p>Converts sensitive PII data to a single-use token which you can safely pass to your server to verify a managed account.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.piiData.createToken({
+  personal_id_number: $(&#39;.personal_id_number&#39;).val()
+}, stripeResponseHandler);</code></pre>
+</div>
+
+  <p>Analogous to the <a href="#card-createToken">card.createToken</a> method, the first argument to <code>piiData.createToken</code> is a JavaScript object containing the PII data entered by the user. It should contain one field: <code class="paramname">personal_id_number</code>, which is the personal ID number (e.g., <strong>000000000</strong>).</p>
+
+  <p>The second argument to <code>piiData.createToken</code>&mdash;<code>stripeResponseHandler</code>&mdash;is a callback you provide to handle the response from Stripe. It should do the following:</p>
+
+  <ul>
+    <li>If the PII information entered by the user returned an error, display it on the page</li>
+    <li>If no errors were returned (i.e., a single-use token was created successfully), add the returned token to the form and submit the form to your server</li>
+  </ul>
+
+  <p>Here's a sample implementation of <code>stripeResponseHandler</code>:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>function stripeResponseHandler(status, response) {
+
+  // Grab the form:
+  var $form = $(&#39;#payment-form&#39;);
+
+  if (response.error) { // Problem!
+
+    // Show the errors on the form:
+    $form.find(&#39;.bank-errors&#39;).text(response.error.message);
+    $form.find(&#39;button&#39;).prop(&#39;disabled&#39;, false); // Re-enable submission
+
+  } else { // Token created!
+
+    // Get the token ID:
+    var token = response.id;
+
+    // Insert the token into the form so it gets submitted to the server:
+    $form.append($(&#39;&lt;input type=&quot;hidden&quot; name=&quot;stripeToken&quot; /&gt;&#39;).val(token));
+
+    // Submit the form:
+    $form.get(0).submit();
+
+  }
+}</code></pre>
+</div>
+
+  <p>The handler is written to accept two arguments:</p>
+
+  <ul>
+    <li><code>status</code> is one of the status codes described in the <a href="api.html#errors">API docs</a></li>
+    <li><code>response</code> is of the following form:</li>
+  </ul>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  id: &quot;tok_u5dg20Gra&quot;, // Token identifier
+  created: 1484350973, // Timestamp of when token was created
+  livemode: true, // Whether this token was created with a live API key
+  type: &quot;pii&quot;,
+  object: &quot;token&quot;, // Type of object, always &quot;token&quot;
+  used: false // Whether this token has been used
+}</code></pre>
+</div>
+
+  <p>If the request to Stripe fails, <code>response</code> will instead be of following form:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  error: {
+    type: &quot;invalid_request_error&quot;, // Type of error
+    message: &quot;Invalid PII&quot;, // Description of the error
+    param: &quot;pii&quot; // Optional identifier of the offending parameter
+  }
+}</code></pre>
+</div>
+</section>
+
+<section>
+  <h2 id="collecting-apple-pay-details">Collecting Apple Pay details</h2>
+
+  <p>Stripe.js supports Apple Pay payments. The full details are available in our <a href="apple-pay/web.html">integration guide]</a>.</p>
+
+  <h3 id="applepay-checkavailability"><code>applePay.checkAvailability</code></h3>
+  <p>Enables you to check whether your customer can use Apple Pay.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.applePay.checkAvailability(stripeResponseHandler);</code></pre>
+</div>
+
+  <p>The only argument to <code>checkAvailability</code> &mdash;<code>stripeResponseHandler</code>&mdash;is a callback you provide to handle the response from Stripe. If Apple Pay is available, it should display an Apple Pay button to the customer.</p>
+
+  <p>Here's a sample implementation of <code>stripeResponseHandler</code>:
+<div class="code">
+  <pre class="language-javascript numbered" ><code>function stripeResponseHandler(available) {
+  // If Apple Pay is available, display the button on your checkout page
+  if (available) {
+    document.getElementById(&#39;apple-pay-button&#39;).style.display = &#39;block&#39;;
+  }
+}</code></pre>
+</div>
+
+  <p><code>checkAvailability</code> is an asynchronous call. It returns immediately and invokes <code>stripeResponseHandler</code> when it has determined if Apple Pay is available.</p>
+
+
+  <h3 id="applepay-buildsession"><code>applePay.buildSession</code></h3>
+  <p>Builds an <code>ApplePaySession</code> object, which manages the Apple Pay experience for your user.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.applePay.buildSession({
+  countryCode: &#39;US&#39;,
+  currencyCode: &#39;USD&#39;,
+  total: {
+    label: &#39;Rocketship Inc&#39;,
+    amount: &#39;19.99&#39;
+  }
+}, onSuccessHandler, onErrorHandler);</code></pre>
+</div>
+
+  <p>The first argument to <code>applePay.buildSession</code> is a JavaScript object containing the elements of the payment sheet that you want to customize. It should contain the following fields:
+  <ul>
+    <li><code class="paramname">countryCode</code>: two character <a href="https://en.wikipedia.org/wiki/ISO_3166-1#Officially_assigned_code_elements">ISO 3166 country code</a> (e.g. "US")</li>
+    <li><code class="paramname">currencyCode</code>: three character <a href="https://en.wikipedia.org/wiki/ISO_4217#Active_codes">ISO 4217 currency code</a> (e.g. "USD")</li>
+    <li><code class="paramname">total.label</code>: name of the business (e.g. "Rocketship Inc")</li>
+    <li><code class="paramname">total.amount</code>: the total amount for the payment. This is a string representing the formatted amount, e.g. "5.00". Note that Apple's format for this is slightly different than other instances in the Stripe API, where you would instead specify an integer amount in cents.</li>
+  </ul>
+
+  <p>The following fields allow you to further customize the payment sheet but are optional:</p>
+  <ul>
+    <li><code class="paramname">lineItems</code>: a set of line items that explain the total in additional detail</li>
+    <li><code class="paramname">requiredBillingContactFields</code>: collect customer's billing contact information. To do so, set this value to <code>['postalAddress']</code>.</li>
+    <li><code class="paramname">requiredShippingContactFields</code>: collect customer's shipping contact information. It can be one or more of <code>postalAddress</code>, <code>phone</code>, <code>email</code>, or <code>name</code></li>
+    <li><code class="paramname">shippingMethods</code>: an array of shipping methods available to the customer. Each object in this array must contain the keys:
+    <ul>
+      <li><code class="paramname">label</code>: A user-visible title for the shipping method, e.g. "Ground Shipping"</li>
+      <li><code class="paramname">detail</code>: A user-visible subtitle for the shipping method that explains the duration, e.g. "Arrives in 5-7 business days"</li>
+      <li><code class="paramname">amount</code>: The cost of the shipping method, e.g. "5.00"</li>
+      <li><code class="paramname">identifier</code>: An internal identifier for the shipping method (not user-visible; you can use whatever you want), e.g. "ground"</li>
+    </ul>
+    <li><code class="paramname">shippingType</code>: provide the customer with available shipping options. It must be <code>shipping</code>, <code>delivery</code>, <code>storePickup</code>, or <code>servicePickup</code></li>
+  </ul>
+
+  <p>The second argument to <code>applePay.buildSession</code> &mdash; onSuccessHandler &mdash; is a callback you provide to handle the response from Stripe. It provides you with a Stripe token that you should send to your server and use to create a charge.</p>
+
+  <p>Here's a sample implementation of <code>onSuccessHandler</code>, using jQuery:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>function onSuccessHandler(result, completion) {
+  $.post( &quot;/charges&quot;, { token: result.token.id }).done(function() {
+    completion(true);
+  }).fail(function() {
+    completion(false);
+  });
+}</code></pre>
+</div>
+
+  <p>This function is written to accept two arguments:</p>
+  <ul>
+    <li><code class="paramname">result</code> is of the following form:</li>
+  </ul>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  token: { // Stripe token
+    id: &quot;pii_u5dg20Gra&quot;, // Token identifier
+    card: { // Dictionary of the card used to create the token
+      name: &quot;Jenny Rosen&quot;,
+      address_line1: &quot;12 Main Street&quot;,
+      address_line2: &quot;Apt 42&quot;,
+      address_city: &quot;Palo Alto&quot;,
+      address_state: &quot;CA&quot;,
+      address_zip: &quot;94301&quot;,
+      address_country: &quot;US&quot;,
+      country: &quot;US&quot;,
+      exp_month: 2,
+      exp_year: 2018,
+      last4: &quot;4242&quot;,
+      object: &quot;card&quot;,
+      brand: &quot;Visa&quot;,
+      funding: &quot;credit&quot;
+    },
+    created: 1484350973, // Timestamp of when token was created
+    livemode: true, // Whether this token was created with a live API key
+    type: &quot;card&quot;,
+    object: &quot;token&quot;, // Type of object, always &quot;token&quot;
+  },
+  shippingContact: { // This will be present if you specified requiredShippingContactFields above
+    emailAddress: &#39;jrosen@apple.com&#39;,
+    phoneNumber: &#39;8885551212&#39;,
+    givenName: &#39;Jenny&#39;,
+    familyName: &#39;Rosen&#39;,
+    addressLines: [&#39;1 Infinite Loop&#39;],
+    locality: &#39;Cupertino&#39;,
+    administrativeArea: &#39;CA&#39;,
+    postalCode: &#39;95014&#39;,
+    countryCode: &#39;US&#39;
+  },
+  shippingMethod: { // This will be present if you specified shippingMethods above
+    label: &#39;Ground Shipping&#39;,
+    detail: &#39;Arrives 5-7 business days&#39;,
+    amount: &#39;5.00&#39;,
+    identifier: &#39;ground&#39;
+  }
+}</code></pre>
+</div>
+
+  <ul>
+    <li><code class="paramname">completion</code> is a function that you must call with either <code>ApplePaySession.STATUS_SUCCESS</code> or <code>ApplePaySession.STATUS_FAILURE</code> when you're done making your charge. When this is done, the Apple Pay sheet will display a success/failure animation and dismiss. You may also, instead of making a charge, call the function with <code>ApplePaySession.STATUS_INVALID_BILLING_POSTAL_ADDRESS</code>, <code>ApplePaySession.STATUS_INVALID_SHIPPING_POSTAL_ADDRESS</code>, or <code>ApplePaySession.STATUS_INVALID_SHIPPING_CONTACT</code>. In this case, the user will see an error and have the chance to pick a different address without the sheet dismissing.</li>
+  </ul>
+
+  <p>The third, optional, argument to <code>applePay.buildSession</code> &mdash; onErrorHandler &mdash; is a callback you provide to handle any errors in your Apple Pay configuration.</p>
+
+  <p>It should do the following:</p>
+  <ul>
+    <li>Log the error so that you can debug your integration.</li>
+  </ul>
+
+  <p>Here's a sample implementation of <code>onErrorHandler</code>:</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>function onErrorHandler(error) {
+  console.error(error.message);
+}</code></pre>
+</div>
+</section>
+
+<section>
+  <h2 id="supported-browsers">Supported browsers</h2>
+  <p>Stripe.js strives to support all recent versions of major browsers. For the sake of security and providing the best experience to the majority of customers, we do not support browsers that are no longer receiving security updates and represent a small minority of traffic.</p>
+<ul>
+  <li>We support Internet Explorer per <a href="https://support.microsoft.com/en-us/gp/microsoft-internet-explorer">Microsoft's lifecycle policy</a>. As of January 12, 2016, we support Internet Explorer 9 and above.</li>
+  <li>We support Chrome and Safari on all platforms and Firefox on desktop platforms for three years from version release</li>
+  <li>We respond to bug reports but do not proactively test the latest version of Firefox on Android and iOS, Silk on Fire OS, and Opera for Windows.</li>
+</ul> 
+<p>If you have an issue with Stripe.js on a specific browser, please <a href="https://support.stripe.com/email">contact us</a> so we can improve its support.</p>
+</section>
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/stripe.js by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons Comments Feed" href="https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Phil Nash');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'IBM Bluemix,IBM Watson,Ruby,Sentiment Analysis,SMS,Twilio AddOns');
+	__gaTracker('set', 'dimension8', '2016-08-09T09:00:15+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=18513' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F08%2Fits-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F08%2Fits-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-18513 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-18513" class="row post-18513 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-ibm-bluemix tag-ibm-watson tag-ruby tag-sentiment-analysis tag-sms tag-twilio-addons">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="265" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/ruok.png" class="img-responsive wp-post-image" alt="" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/ruok.png 640w, https://www.twilio.com/blog/wp-content/uploads/2015/11/ruok-300x124.png 300w, https://www.twilio.com/blog/wp-content/uploads/2015/11/ruok-200x83.png 200w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/phil">Phil Nash</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html" rel="bookmark"><time class="entry-date published" datetime="2016-08-09T09:00:15+00:00">August 9, 2016</time><time class="updated" datetime="2016-08-09T05:10:16+00:00">August 9, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html" data-text="It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p><a href="https://www.twilio.com/docs/api/add-ons" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/add-ons', 'Twilio Add-ons');">Twilio Add-ons</a> is a marketplace for 3rd party services that you can use to add superpowers to your Twilio applications. I&#8217;m a huge fan of Add-ons because they handle tasks we would otherwise need custom code for in our applications. We can also streamline existing applications by replacing our code with an Add-on. </p>
+<p>Last year I wrote about <a href="https://www.twilio.com/blog/2015/11/get-sentimental-about-sms-with-twilio-bluemix-and-alchemyapi.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2015/11/get-sentimental-about-sms-with-twilio-bluemix-and-alchemyapi.html', 'sentiment analysis of SMS messages using Twilio, Bluemix and AlchemyAPI');">sentiment analysis of SMS messages using Twilio, Bluemix and AlchemyAPI</a>. It didn&#8217;t take a lot of code to create the beginnings of a powerful service based on sentiment analysis of incoming SMS messages. But with code I often find <em>less is more</em>. At least, less code that I have to maintain is better in my mind. One of my favourite things is deleting code, so let&#8217;s see what happens if we take <a href="https://github.com/philnash/bluemix-twilio-alchemy/tree/tidied-up-original-code" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/philnash/bluemix-twilio-alchemy/tree/tidied-up-original-code', 'that original code');">that original code</a> and replace the explicit call to the AlchemyAPI with the <a href="https://www.twilio.com/marketplace/add-ons/ibm-watson-sentiment" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/marketplace/add-ons/ibm-watson-sentiment', 'IBM Watson Message Sentiment Add-on');">IBM Watson Message Sentiment Add-on</a>.</p>
+<h3 id="h.4l8r3fo3gado">Tools</h3>
+<p>We&#8217;re going to be building on top of the original Ruby application that I wrote.</p>
+<ul>
+<li>
+It runs on <a href="http://www.ibm.com/cloud-computing/bluemix/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.ibm.com/cloud-computing/bluemix/', 'IBM&#8217;s Bluemix platform');">IBM&#8217;s Bluemix platform</a> which you can use with a <a href="http://www.ibm.com/cloud-computing/bluemix/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.ibm.com/cloud-computing/bluemix/', 'free trial');">free trial</a>
+</li>
+<li>
+You will also need a Twilio account, you can <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'sign up for a free Twilio account');">sign up for a free Twilio account</a> too
+</li>
+<li>
+To get the application deployed and running, I recommend reading through the <a href="https://www.twilio.com/blog/2015/11/get-sentimental-about-sms-with-twilio-bluemix-and-alchemyapi.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2015/11/get-sentimental-about-sms-with-twilio-bluemix-and-alchemyapi.html', 'previous post');">previous post</a>.
+</li>
+</ul>
+<p>If you&#8217;ve got all that, then let&#8217;s see how we can improve this project.</p>
+<h3 id="h.kkyer3djf9a">Switch on the Add-on</h3>
+<p>First we need to switch on the Add-on for our account. Open up the <a href="https://www.twilio.com/console/add-ons" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/add-ons', 'Add-ons section of the Twilio console');">Add-ons section of the Twilio console</a> and find the IBM Watson Message Sentiment Add-on (or <a href="https://www.twilio.com/console/add-ons/XB28c1cef739ee28431d743fa2794132d4" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/add-ons/XB28c1cef739ee28431d743fa2794132d4', 'click here to go straight to it');">click here to go straight to it</a>). Click the big red install button, read and agree to IBM&#8217;s terms of service and you&#8217;re nearly done. Just check the box that enables the Add-on for incoming SMS messages, save the form and you will start receiving sentiment analysis with every text.</p>
+<p><img alt="In the Twilio console, once you have installed the Add-on, make sure you check the box to use the Add-on in incoming SMS messages." src="https://www.twilio.com/blog/wp-content/uploads/2016/08/LZWcCpOq_ccSp8IKNhjobc86stkzt-TGypdi7O9E1GyLK1vCu08OmmJvfRBCCBi02hTmLTjuVqR6sxUgcyOBrFeHT6WVh80KGaZYmIF77yNLBU8QLDTqLFDyRg-kOwJAqexnfJg.png" class="aligncenter"></p>
+<p>Please note that this will pass all incoming messages to your account through this service and charge you $0.0015 per request. If you don&#8217;t plan to use this after this blog post remember to turn off the Add-on.</p>
+<h3 id="h.2bjcu3yxiwfp">Time to remove some code</h3>
+<p>Now that the work to gather the sentiment analysis from Watson is being done by Twilio we&#8217;re not going to need the AlchemyAPI gem any more. Remove it from the <code>Gemfile</code>.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794ffc9c395935330512" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">diff</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+source 'https://rubygems.org'
+ruby "2.3.1"
+gem 'sinatra', '&gt;= 0'
+gem 'json', '&gt;=0'
+-gem 'alchemy-api-rb', :require =&gt; 'alchemy_api'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794ffc9c395935330512-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c395935330512-2">2</div><div class="crayon-num" data-line="crayon-58794ffc9c395935330512-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c395935330512-4">4</div><div class="crayon-num" data-line="crayon-58794ffc9c395935330512-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794ffc9c395935330512-1">source<span class="crayon-h"> </span>'https://rubygems.org'</div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c395935330512-2">ruby<span class="crayon-h"> </span>"2.3.1"</div><div class="crayon-line" id="crayon-58794ffc9c395935330512-3">gem<span class="crayon-h"> </span>'sinatra',<span class="crayon-h"> </span>'<span class="crayon-h">&gt;</span>=<span class="crayon-h"> </span>0'</div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c395935330512-4">gem<span class="crayon-h"> </span>'json',<span class="crayon-h"> </span>'<span class="crayon-h">&gt;</span>=0'</div><div class="crayon-line" id="crayon-58794ffc9c395935330512-5"><span class="crayon-cn ">-gem 'alchemy-api-rb', :require =&gt; 'alchemy_api'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0012 seconds] -->
+<p></p>
+<p>And stop requiring it in <code>helloWorld.rb</code>.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794ffc9c3b0027094550" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">diff</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+# helloWorld.rb
+require 'sinatra'
+require 'json'
+-require 'alchemy_api'</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794ffc9c3b0027094550-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3b0027094550-2">2</div><div class="crayon-num" data-line="crayon-58794ffc9c3b0027094550-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3b0027094550-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794ffc9c3b0027094550-1">#<span class="crayon-h"> </span>helloWorld.rb</div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3b0027094550-2">require<span class="crayon-h"> </span>'sinatra'</div><div class="crayon-line" id="crayon-58794ffc9c3b0027094550-3">require<span class="crayon-h"> </span>'json'</div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3b0027094550-4"><span class="crayon-cn ">-require 'alchemy_api'</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p></p>
+<p>We no longer need to pick up our AlchemyAPI credentials from Bluemix&#8217;s <code>VCAP_SERVICES</code>. Nor do we need to initialise the AlchemyAPI wrapper with an API key.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794ffc9c3bb152686813" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">diff</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+-def vcap_services
+-  JSON.parse(ENV['VCAP_SERVICES'])
+-end
+-
+-AlchemyAPI.key = vcap_services['user-provided'][1]['credentials']['apikey']</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794ffc9c3bb152686813-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3bb152686813-2">2</div><div class="crayon-num" data-line="crayon-58794ffc9c3bb152686813-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3bb152686813-4">4</div><div class="crayon-num" data-line="crayon-58794ffc9c3bb152686813-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794ffc9c3bb152686813-1"><span class="crayon-cn ">-def vcap_services</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3bb152686813-2"><span class="crayon-cn ">-  JSON.parse(ENV['VCAP_SERVICES'])</span></div><div class="crayon-line" id="crayon-58794ffc9c3bb152686813-3"><span class="crayon-cn ">-end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3bb152686813-4"><span class="crayon-cn ">-</span></div><div class="crayon-line" id="crayon-58794ffc9c3bb152686813-5"><span class="crayon-cn ">-AlchemyAPI.key = vcap_services['user-provided'][1]['credentials']['apikey']</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p></p>
+<p>Now we get to our <code>/messages</code> endpoint. This is the path that Twilio will use to POST SMS messages to as they arrive. Instead of receiving the message and sending the body off to the AlchemyAPI we will be getting the sentiment analysis along with the message.</p>
+<p>Using Twilio Add-ons we get an extra parameter delivered with our message, <code>AddOns</code>. It contains a JSON string which contains all the information Twilio has gathered based on the Add-ons you have activated in your account. We need to parse the JSON, <a href="https://www.twilio.com/docs/api/add-ons#add-on-results" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/add-ons#add-on-results', 'find out if Twilio was successful in retrieving the results from the Add-ons');">find out if Twilio was successful in retrieving the results from the Add-ons</a> and then reach into the results and extract the data we are interested in.</p>
+<p>When using the IBM Watson sentiment analysis Add-on the results live under the <code>ibm_watson_sentiment</code> key. You can see more about this in <a href="https://www.twilio.com/console/add-ons/XB28c1cef739ee28431d743fa2794132d4#documentation" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/add-ons/XB28c1cef739ee28431d743fa2794132d4#documentation', 'the Add-on documentation');">the Add-on documentation</a>, but the format is:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794ffc9c3c7856817728" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+{
+  "status": "REQUEST_STATUS",
+  "language": "DOCUMENT_LANGUAGE",
+  "docSentiment": {
+    "type": "SENTIMENT_LABEL",
+    "score": "DOCUMENT_SENTIMENT",
+    "mixed": "SENTIMENT_MIXED"
+  }
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794ffc9c3c7856817728-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3c7856817728-2">2</div><div class="crayon-num" data-line="crayon-58794ffc9c3c7856817728-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3c7856817728-4">4</div><div class="crayon-num" data-line="crayon-58794ffc9c3c7856817728-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3c7856817728-6">6</div><div class="crayon-num" data-line="crayon-58794ffc9c3c7856817728-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3c7856817728-8">8</div><div class="crayon-num" data-line="crayon-58794ffc9c3c7856817728-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794ffc9c3c7856817728-1"><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3c7856817728-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">"status"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"REQUEST_STATUS"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794ffc9c3c7856817728-3"><span class="crayon-h"> </span> <span class="crayon-s">"language"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"DOCUMENT_LANGUAGE"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3c7856817728-4"><span class="crayon-h"> </span> <span class="crayon-s">"docSentiment"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794ffc9c3c7856817728-5"><span class="crayon-h">&nbsp;&nbsp; </span> <span class="crayon-s">"type"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"SENTIMENT_LABEL"</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3c7856817728-6"><span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-s">"score"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"DOCUMENT_SENTIMENT"</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794ffc9c3c7856817728-7"><span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-s">"mixed"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"SENTIMENT_MIXED"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3c7856817728-8"><span class="crayon-h"> </span> <span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794ffc9c3c7856817728-9"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0031 seconds] -->
+<p></p>
+<p>To replicate our previous feature, we need to retrieve the <code>type</code> from within the <code>docSentiment</code> field.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794ffc9c3d1156041655" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">diff</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ post '/messages' do
+   content_type "text/xml"
+ 
+-  sentiment = AlchemyAPI.search(:sentiment_analysis, text: params["Body"])
++  add_ons = JSON.parse(params["AddOns"])
++  if add_ons["status"] == "successful"
++    sentiment = add_ons["results"]["ibm_watson_sentiment"]["result"]["docSentiment"]
+     case sentiment['type']
+     when "positive"
+       message = "Glad you're having a good day! Is there anything I can help with?"
+     when "negative"
+       message = "Sorry things aren't going so well, how can I help?"
+     else
+       message = "What can I help with?"
+     end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3d1156041655-2">2</div><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3d1156041655-4">4</div><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3d1156041655-6">6</div><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3d1156041655-8">8</div><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3d1156041655-10">10</div><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3d1156041655-12">12</div><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3d1156041655-14">14</div><div class="crayon-num" data-line="crayon-58794ffc9c3d1156041655-15">15</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-1"> post<span class="crayon-h"> </span>'/messages'<span class="crayon-h"> </span>do</div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3d1156041655-2"> <span class="crayon-h"> </span> content_type<span class="crayon-h"> </span>"text/xml"</div><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-3"> </div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3d1156041655-4"><span class="crayon-cn ">-  sentiment = AlchemyAPI.search(:sentiment_analysis, text: params["Body"])</span></div><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-5"><span class="crayon-s ">+  add_ons = JSON.parse(params["AddOns"])</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3d1156041655-6"><span class="crayon-s ">+  if add_ons["status"] == "successful"</span></div><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-7"><span class="crayon-s ">+    sentiment = add_ons["results"]["ibm_watson_sentiment"]["result"]["docSentiment"]</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3d1156041655-8"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp; case sentiment['type']</span></div><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-9"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp; when "positive"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3d1156041655-10"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; message = "Glad you're having a good day! Is there anything I can help with?"</span></div><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-11"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp; when "negative"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3d1156041655-12"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; message = "Sorry things aren't going so well, how can I help?"</span></div><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-13"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp; else</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3d1156041655-14"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; message = "What can I help with?"</span></div><div class="crayon-line" id="crayon-58794ffc9c3d1156041655-15"><span class="crayon-sy">&nbsp;&nbsp;&nbsp;&nbsp; end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0019 seconds] -->
+<p></p>
+<p>The rest of the request is the same. Well, there&#8217;s actually some error handling here that I missed the first time around. We check if the Add-on returned successfully by ensuring the status is &#8220;successful&#8221;, in the case that we didn&#8217;t have a successful result we want to return the generic response that isn&#8217;t based on sentiment. So we add the <code>else</code> to that conditional like so:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794ffc9c3dc679825170" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">diff</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
++  else
++    message = "What can I help with?"
++  end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794ffc9c3dc679825170-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794ffc9c3dc679825170-2">2</div><div class="crayon-num" data-line="crayon-58794ffc9c3dc679825170-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794ffc9c3dc679825170-1"><span class="crayon-s ">+  else</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794ffc9c3dc679825170-2"><span class="crayon-s ">+    message = "What can I help with?"</span></div><div class="crayon-line" id="crayon-58794ffc9c3dc679825170-3"><span class="crayon-s ">+  end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p></p>
+<p>And that&#8217;s it! Push your work up to Bluemix, wait for the deploy to complete and send yourself a positive or negative SMS.</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794ffc9c3e7999847633" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ cf push</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794ffc9c3e7999847633-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794ffc9c3e7999847633-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">cf </span><span class="crayon-i">push</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p></p>
+<p><img alt="When you send a message you get different responses based on the sentiment of your message." src="https://www.twilio.com/blog/wp-content/uploads/2016/08/pCnBrHS7TKQT1ctfTaQdJnDwYcVyquKCS6O8pCmIHFZ8_A9w0ewQ4jjhnjLC4rYTyBz0GAz_3D1MbxHb9C1Vr8O6VcEgSHppZzQsVniGGLQGneh6xbK_JNIsRsewZol6CcGC4b0.png" class="aligncenter"></p>
+<p>You&#8217;ll see you have the same results, but with one less gem dependency, one fewer HTTP request in our code and 3 less lines of code total.</p>
+<p><img alt="The git diff --stat command shows 2 files changed with 6 insertions and 9 deletions." src="https://www.twilio.com/blog/wp-content/uploads/2016/08/GnbO9UdMaxvPhAU0kkI1mYbopgr1yW5mSfjXSTXNrC67MJocUYZG1CW8h3FXcmgCjEBJJagM2NaODFb6gsYsaptj35KANN7LxmNHKU-N6cg6PJEElkolIcfXXtx5HMkmNlFDRuc.png" class="aligncenter"></p>
+<h3 id="h.ki9ms7556lxe">Twilio Add-ons do the work so that you don&#8217;t have to</h3>
+<p>We&#8217;ve seen today that including an Add-on can save you time, effort and code. Using Twilio Add-ons for a feature like sentiment analysis means your application can be more powerful and more intelligent without you having to write a whole bunch of code or learn a new API or platform. In our simple example we removed a dependency and an HTTP request and required less lines of code to achieve the same result. <a href="https://github.com/philnash/bluemix-twilio-alchemy" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/philnash/bluemix-twilio-alchemy', 'Check out the code now');">Check out the code now</a>.</p>
+<p>There&#8217;s more to Add-ons than just sentiment analysis too.</p>
+<ul>
+<li>
+If you wanted to go deeper into the analysis, check out the <a href="https://www.twilio.com/console/add-ons/XB2701032f66435fabccfc06e78bef8c88" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/add-ons/XB2701032f66435fabccfc06e78bef8c88', 'IBM Watson Message Insights Add-on');">IBM Watson Message Insights Add-on</a> which extracts semantic metadata from content so that you can understand what your users are saying.
+</li>
+<li>
+You can also analyse the phone number itself with Add-ons like the <a href="https://www.twilio.com/console/add-ons/XB8f0b802b9fbddb541161678e24ea2306" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/add-ons/XB8f0b802b9fbddb541161678e24ea2306', 'Whitepages Pro Phone Intelligence Add-on');">Whitepages Pro Phone Intelligence Add-on</a> that can help you identify fake sign ups, find out what type of line a phone number is connected to and whether it is pre-paid or not.
+</li>
+<li>
+Or find out your caller&#8217;s name and other details with <a href="https://www.twilio.com/console/add-ons/XB73cdb5ac3395a439800f298fa8a43f02" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/add-ons/XB73cdb5ac3395a439800f298fa8a43f02', 'Next Caller&#8217;s Advanced Caller ID Add-on');">Next Caller&#8217;s Advanced Caller ID Add-on</a>
+</li>
+</ul>
+<p>Check out all the <a href="https://www.twilio.com/console/add-ons" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console/add-ons', 'available Add-ons');">available Add-ons</a> and find out the super-powers your application could gain. Maybe you&#8217;ll get to delete some code too!</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html" data-text="It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/79fac5826d02217e841fd2354db2ae37?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/79fac5826d02217e841fd2354db2ae37?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/phil">Phil Nash</a></span></span> <span class="author-meta author-email"><a href="mailto:pnash@twilio.com">pnash@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/philnash">@philnash<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Ruby</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails', '');">
+          <h5>SMS and MMS Notifications with Ruby</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" rel="bookmark" title="Permanent Link to Managing Development Environment Variables Across Multiple Ruby Applications" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html', '');">
+          <h5>Managing Development Environment Variables Across Multiple Ruby Applications<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" rel="bookmark" title="Permanent Link to Note Taking On the Go With Evernote and Twilio &#8211; Part One" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html', '');">
+          <h5>Note Taking On the Go With Evernote and Twilio &#8211; Part One<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2016/08/18513 https://www.twilio.com/blog/?p=18513';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html?cf_action=sync_comments&amp;post_id=18513';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2016\/08\/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+</html>

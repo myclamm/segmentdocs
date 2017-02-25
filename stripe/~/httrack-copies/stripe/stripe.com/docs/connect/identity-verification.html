@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/connect/identity-verification by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:45:03 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="T_Kw6MOBcTiHIv5G4F_tWAnUCp1ypBSMPW3-RPvOd57WaKSVxUS1fUpm2lksV9gjIKqEGi4I1Sx82PRsXhm97w==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Identity Verification for Managed Accounts</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Identity Verification for Managed Accounts">
+    <meta property="og:url" content="identity-verification.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Identity Verification for Managed Accounts">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a class='selected' href="identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Identity Verification for Managed Accounts </h1>
+  <p>Identity verification of Stripe accounts you manage is an important (and required) step toward reducing risk on your platform. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=connect">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<aside class="note">
+  <h3>Managed vs. Standalone Accounts</h3>
+  <p>This section deals solely with creating <em>managed</em> accounts, where you are responsible for all communication and interaction with the account holder.</p>
+  <p>If you’d like to connect to an existing Stripe account, or have Stripe handle details like identity document collection, take a look at <a href="standalone-accounts.html">Standalone Accounts</a>.</p>
+</aside>
+
+<p>Every country has its own set of rules about paying out funds to individuals and businesses. These are typically known as “<a href="http://en.wikipedia.org/wiki/Know_your_customer">Know Your Customer</a>” (KYC) regulations. These regulations broadly require two things: collecting information, and verifying the information is accurate. Stripe is able to perform the verification of Managed Accounts when the required information is provided by the platform.</p>
+
+<p>Managed Accounts can be created and begin accepting payments with as little as the country of the account. Stripe will ask for some additional information as the managed account begins to process payments so it can start receiving bank transfers. Once the managed account has begun to receive transfers, the platform needs to provide any remaining  information that is required. The verification process is then completed and the managed account can operate on an ongoing basis.</p></section>
+
+<section>
+<h2 id="verification-flow-and-requirements">Verification flow and requirements</h2>
+
+<p>Connect platforms need to collect the required information from managed account owners and provide it to Stripe for verification. In terms of exactly when and how to ask for information, this is decided by the platform.</p>
+
+<p>The minimum information needed to send transfers must be provided to Stripe by the platform within seven days of the first charge created for that account or after processing a couple of thousand US dollars (or equivalent) in charges—whichever comes first. This information includes:</p>
+
+<ul>
+  <li>The business type (individual or company)</li>
+  <li>Full name of the individual or company representative</li>
+  <li>Date of birth of the individual or company representative</li>
+  <li>Address of the individual or business (not required for Australian and U.S. Managed Accounts at this stage)</li>
+</ul>
+
+<p>If this isn’t completed, Stripe temporarily pauses charge creation until the information has been provided. Stripe refunds any charges on the account 21 days after the first charge.</p>
+
+<p>Once the managed account has received transfers totaling more than couple of thousand US dollars (or equivalent), Stripe requests any additional <a href="required-verification-information.html">verification information</a> that is still required. If Stripe cannot verify the account with the information provided after transferring another few thousand US dollars (or equivalent), transfers for that managed account are temporarily paused until the issue is resolved.</p>
+
+<h3 id="collect-all-required-information-up-front">Collect all required information up-front</h3>
+
+<p>Some platforms would rather not have to ask their users for information more than once and, instead, gather as much information as possible from the start. You can pass to us any of the required information as you collect it.</p>
+
+<p>Should all the required information be provided during the creation of a managed account, the verification process can be completed automatically. You might choose this option if you want to verify from the outset that a managed account is fully set up to process and receive payments and transfers on an ongoing basis.</p></section>
+
+<section>
+<h2 id="individual-vs-business-information">Individual vs. business information</h2>
+
+<p>For individuals, this involves collecting information about that person. For businesses, you’ll need to also collect information about the business, in addition to that of one or more persons (company representatives) who are authorized to set up a Stripe account.</p>
+
+<p>The company representative can be anyone who has authorization from their business to set up a managed account on its behalf. These individuals are not responsible or liable for any activity that happens on the businesses’ account.</p></section>
+
+<section>
+<h2 id="determining-if-identity-verification-is-needed">Determining if identity verification is needed</h2>
+<p>The <code>Account</code> object has a <a href="updating-accounts.html#account-verification">verification property</a> representing the requirements needed to verify the account. The <code>verification</code> hash contains a list of fields in the <code>fields_needed</code> array. You can test if verification of a connected account is required by seeing if the <code>fields_needed</code> array includes <code>legal_entity.verification.document</code> or <code>legal_entity.additional_owners.#.verification.document</code> (where <code>#</code> can be 0, 1, 2, or 3).</p>
+
+<p>The easiest way to catch a needed identity verification is to watch for the <code>account.updated</code> webhook, which will be sent whenever the <code>verification[fields_needed]</code> list changes (as well as for other account changes).</p></section>
+
+<section>
+<h2 id="legal-entity-verification-hash">Legal entity verification hash</h2>
+
+<p>Whereas the top-level <code>verification</code> property contains information about verifying the Stripe account, the <code>legal_entity</code> property also has its own verification subhash. This hash contains information about verifying the <em>identity of the associated legal entity</em>. The <code>legal_entity</code> hash looks like:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;verification&quot;: {
+    &quot;status&quot;: &quot;pending&quot;,
+    &quot;document&quot;: {
+      &quot;id&quot;: &quot;file_1234&quot;,
+      &quot;created&quot;: 1414480885,
+      &quot;size&quot;: 10240
+    },
+    &quot;details&quot;: null,
+    &quot;details_code&quot;: null
+  },
+  ...
+}</code></pre>
+</div>
+
+<p>This hash contains everything you need to handle identity verification:</p>
+
+<ul>
+  <li><code>status</code>: has one of 3 values–
+    <ul>
+      <li><code>unverified</code>: Stripe is not able to verify this entity right now, either because verification has failed or we do not have enough information to attempt verification</li>
+      <li><code>pending</code>: Stripe is currently trying to verify this entity</li>
+      <li><code>verified</code>: Stripe has successfully verified this entity</li>
+    </ul>
+  </li>
+  <li><code>document</code>: reflects the most recently uploaded identity document</li>
+  <li><code>details</code>: a read-only string containing any information about the identification</li>
+  <li><code>details_code</code> : a read-only string containing a code for why verification failed. It will have one of 10 values–
+    <ul>
+      <li><code>scan_corrupt</code>: The ID image uploaded is corrupt.</li>
+      <li><code>scan_not_readable</code>: The image supplied was not readable. It may have been too blurry or not well lit.</li>
+      <li><code>scan_failed_greyscale</code>: The image supplied was not readable because it was grayscale. Please upload a color copy instead.</li>
+      <li><code>scan_not_uploaded</code>: No ID scan was uploaded.</li>
+      <li><code>scan_id_type_not_supported</code>: The ID type submitted is not supported.</li>
+      <li><code>scan_id_country_not_supported</code>: The ID country is not supported.</li>
+      <li><code>scan_name_mismatch</code>: The name on the ID does not match the name on the account.</li>
+      <li><code>scan_failed_other</code>: Scan failed for other reason.</li>
+      <li><code>failed_keyed_identity</code>: The provided identity information could not be verified.</li>
+      <li><code>failed_other</code>: Verification failed for other reason.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Note that an <code>unverified</code> status is not an urgent issue, but likely means Stripe will request additional information about the entity in the future.</p>
+
+<p>Information presented in <code>details</code> for any verification status will be suitable for display to the account holder (for example, why an identity verification may have failed).</p></section>
+
+<section>
+<h2 id="handling-identity-verification">Handling identity verification</h2>
+
+<p>There are two ways to respond to an identity verification request. The first is to correct one of the legal entity’s <code>first_name</code>, <code>last_name</code>, <code>dob</code> hash, <code>personal_id_number</code>, or <code>ssn_last_4</code> attributes. It’s possible that the account holder misentered this information, so Stripe allows you to change it.</p>
+
+<p>The second option is to upload a scan of an identifying document, such as a passport or driver’s license. This is a two-step process:</p>
+
+<ol>
+  <li>Upload the file to Stripe</li>
+  <li>Attach the file to the account</li>
+</ol></section>
+
+<section>
+<h2 id="uploading-a-file">Uploading a file</h2>
+
+<p>To upload a file (either a JPEG or PNG), POST it as part of a multipart/form-data request to <code>https://uploads.stripe.com/v1/files</code>. The file is passed in the <code>file</code> parameter, and there must be another field named <code>purpose</code>, which always contains the string <code>identity_document</code>:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://uploads.stripe.com/v1/files \
+   -u {PLATFORM_SECRET_KEY}: \
+   -H &quot;Stripe-Account: {CONNECTED_STRIPE_ACCOUNT_ID}&quot; \
+   -F purpose=identity_document \
+   -F file=&quot;@/path/to/a/file&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+Stripe::FileUpload.create(
+  {
+    :purpose =&gt; &#39;identity_document&#39;,
+    :file =&gt; File.new(&#39;/path/to/a/file.jpg&#39;)
+  },
+  {:stripe_account =&gt; CONNECTED_STRIPE_ACCOUNT_ID}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+with open(&quot;/path/to/a/file.jpg&quot;, &quot;r&quot;) as fp:
+  stripe.FileUpload.create(
+    purpose=&quot;identity_document&quot;,
+    file=fp,
+    stripe_account=CONNECTED_STRIPE_ACCOUNT_ID
+  )
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+\Stripe\FileUpload::create(
+  array(
+    &quot;purpose&quot; =&gt; &quot;identity_document&quot;,
+    &quot;file&quot; =&gt; fopen(&#39;/path/to/a/file.jpg&#39;, &#39;r&#39;)
+  ),
+  array(&quot;stripe_account&quot; =&gt; CONNECTED_STRIPE_ACCOUNT_ID)
+);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(CONNECTED_STRIPE_ACCOUNT_ID).build();
+
+Map&lt;String, Object&gt; fileUploadParams = new HashMap&lt;String, Object&gt;();
+fileUploadParams.put(&quot;purpose&quot;, &quot;identity_document&quot;);
+fileUploadParams.put(&quot;file&quot;, new File(&quot;/path/to/a/file.jpg&quot;));
+
+FileUpload.create(fileUploadParams, requestOptions);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var fs = require(&#39;fs&#39;);
+var stripe = require(&#39;stripe&#39;)(PLATFORM_SECRET_KEY);
+stripe.fileUploads.create(
+  {
+    purpose: &#39;identity_document&#39;,
+    file: {
+      data: fs.readFileSync(&#39;/path/to/a/file.jpg&#39;),
+      name: &#39;file_name.jpg&#39;,
+      type: &#39;application/octet-stream&#39;
+    }
+  },
+  {stripe_account: CONNECTED_STRIPE_ACCOUNT_ID}
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>This request will upload the file and return a token:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;id&quot;: &quot;file_5dtoJkOhAxrMWb&quot;,
+  &quot;created&quot;: 1403047735,
+  &quot;size&quot;: 4908
+}</code></pre>
+</div>
+
+<p>You may then use the token’s <code>id</code> value to attach the file to a connected account for identity verification. (See also the <a href="../file-upload.html">file upload guide</a>.)</p></section>
+
+<section>
+<h2 id="attaching-the-file">Attaching the file</h2>
+
+<p>Once the file has been uploaded and a representative token returned, simply provide the file ID as the value of the <code>document</code> field in an account update call:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/accounts/{CONNECTED_STRIPE_ACCOUNT_ID} \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d legal_entity[verification][document]=file_5dtoJkOhAxrMWb
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+account = Stripe::Account.retrieve({CONNECTED_STRIPE_ACCOUNT_ID})
+account.legal_entity.verification.document = &#39;file_5dtoJkOhAxrMWb&#39;
+account.save
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+account = stripe.Account.retrieve({
+  key: })
+account.legal_entity.verification.document = &quot;file_5dtoJkOhAxrMWb&quot;
+account.save()
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+$account = \Stripe\Account::retrieve({CONNECTED_STRIPE_ACCOUNT_ID});
+$account-&gt;legal_entity-&gt;verification-&gt;document = &#39;file_5dtoJkOhAxrMWb&#39;;
+$account-&gt;save();
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+Account account = Account.retrieve({CONNECTED_STRIPE_ACCOUNT_ID}, (RequestOptions) null);
+
+Map&lt;String, String&gt; verificationParams = new HashMap&lt;String, String&gt;();
+verificationParams.put(&quot;document&quot;, &quot;file_5dtoJkOhAxrMWb&quot;);
+
+Map&lt;String, Object&gt; legalEntityParams = new HashMap&lt;String, Object&gt;();
+legalEntityParams.put(&quot;verification&quot;, verificationParams);
+
+Map&lt;String, Object&gt; accountParams = new HashMap&lt;String, Object&gt;();
+accountParams.put(&quot;legal_entity&quot;, legalEntityParams);
+
+account.update(accountParams);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&#39;stripe&#39;)(PLATFORM_SECRET_KEY);
+stripe.accounts.update(
+  {CONNECTED_STRIPE_ACCOUNT_ID},
+  {legal_entity: {verification: {document: &#39;file_5dtoJkOhAxrMWb&#39;}}}
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>This step will change the <code>legal_entity[verification][status]</code> to <code>pending</code>. If an additional owner needs to be verified, instead use <code>legal_entity[additional_owners][#][verification][document]</code>, where # is the index of the owner within the <code>legal_entity[additional_owners]</code> array.</p>
+
+<h3 id="confirming-id-verification">Confirming ID verification</h3>
+
+<p>Assuming the photo of the ID passes Stripe’s checks, the <code>status</code> field will change to <code>verified</code>. You will also receive an <code>account.updated</code> webhook notification upon completion of the verification process. Note that verification could take anywhere from a few minutes to a day, depending upon how readable the provided item is.</p>
+
+<p>Stripe treats verified identities as immutable entities. You cannot change the information on verified individuals. For verified businesses, you’ll need to <a href="https://support.stripe.com/email">contact us</a> to change, for example, the name or EIN on file.</p>
+
+<p>If the verification attempt fails, the status will be <code>unverified</code> and the <code>details</code> field will contain a message stating the cause. The message will be safe to present to your user, such as “The image supplied was not readable”. In addition, the response will contain a <code>details_code</code> value, such as <code>scan_not_readable</code>. Upon failure, <code>verification[fields_needed]</code> will indicate that a new ID upload is required. If the deadline for verification is near, <code>verification[due_by]</code> may also be populated with a date. Again, an <code>account.updated</code> webhook notification will be sent as well.</p>
+
+<p>You can also know that an uploaded ID failed verification on an account if <code>legal_entity[verification][document]</code> has a value, but <code>verification[fields_needed]</code> indicates an ID is still required.</p></section>
+
+<section>
+  <h2>Further reading</h2>
+  <p>Check out the rest of the guide for help with your integration.</p>
+<ul class="next-steps">
+    <li><a href="managed-accounts.html"><span>Managed Accounts</a></li>
+    <li><a href="updating-accounts.html"><span>Updating accounts</a></li>
+    <li><a href="required-verification-information.html"><span>Required verification information</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/connect/identity-verification by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:45:03 GMT -->
+</html>

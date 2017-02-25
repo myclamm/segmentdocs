@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/declines by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="UqoT4TOqeZTmM9Gke7_aCeJtLLNNKK5vrVANFCswsOfLMAecNW-90St39bu3t-9yyxOiNBGEb8_s5Qc8jud6lg==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+
+    <title>Understanding Declines and Failed Payments</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="https://stripe.com/favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="https://stripe.com/img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="https://stripe.com/img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="https://stripe.com/img/v3/home/social.png">
+
+    <meta property="og:title" content="Understanding Declines and Failed Payments">
+    <meta property="og:url" content="https://stripe.com/docs/declines">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="https://stripe.com/img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="https://stripe.com/img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Understanding Declines and Failed Payments">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="https://stripe.com/assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="https://stripe.com/" title="Stripe"></a>
+          <a class="extension" href="https://stripe.com/docs">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="https://stripe.com/docs">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="https://stripe.com/docs/quickstart">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/checkout/tutorial">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/checkout">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/custom-form">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/stripe.js">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/mobile/ios">iOS</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/mobile/android">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/charges">Creating Charges</a>
+    </li>
+    <li>
+      <a class='selected' href="https://stripe.com/docs/declines">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/disputes/evidence">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes/types">Types</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/disputes/faq">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/orders/guide">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders/tax-integration">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/orders/shipping-integration">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources">Getting Started</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/payment-methods">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/sources/cards">Cards</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/3d-secure">3D Secure</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/bancontact">Bancontact</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/giropay">Giropay</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/ideal">iDEAL</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/sepa-direct-debit">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/sources/sofort">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/ach">ACH</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay/apps">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/apple-pay/web">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/alipay">Alipay</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/bitcoin">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/quickstart">Quickstart</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/creating">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/discounts">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/trials">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/quantities">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/taxes">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/multiple">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/lifecycle">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/webhooks">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/changing">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/upgrading-downgrading">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/billing-cycle">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/canceling-pausing">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/invoices">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/plans">Managing Plans</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/subscriptions/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/connect">Overview</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/connecting-to-accounts">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/authentication">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/standalone-accounts">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/reference">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/managed-accounts">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/connect/updating-accounts">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/identity-verification">Identity Verification</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/required-verification-information">Verification Fields</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/testing-verification">Testing Verification</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/bank-transfers">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/migrating">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/best-practices">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/payments-fees">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/connect/special-case-transfers">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/connect/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/relay">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/relay/apps-guide">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/relay/apps-error-guide">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/radar">Overview</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/risk-evaluation">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/review">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/radar/review/auth-and-capture">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/radar/rules">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="https://stripe.com/docs/radar/rules/reference">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="https://stripe.com/docs/radar/testing">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/dashboard">Your Account</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/checklist">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/transfers">Getting Paid</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/reporting">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="https://stripe.com/docs/libraries">API Libraries</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/upgrades">API Upgrades</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/webhooks">Webhooks</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/building-integrations">Integrations</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/recipes">Recipes</a>
+    </li>
+    <li>
+      <a href="https://stripe.com/docs/security">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="https://stripe.com/docs/api" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Understanding Declines and Failed Payments</h1>
+  <p>
+    Learn why some payments fail and what you can do to decrease your decline rate.
+    If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=declines+blocked+errors+fraud">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+
+  </p>
+</header>
+
+<section>
+
+<p>Payments can fail for a variety of reasons and it’s frustrating whenever they represent a loss of legitimate business. Certain failures are actually preventative measures–working to minimize the possibility of a fraudulent payment that otherwise may have resulted in a dispute.</p>
+
+<p>There are three possible reasons why a payment might fail, and there is a different way of handling each failure. The reason for a payment’s failure is provided within the payment’s details in the Dashboard and through the API as part of the Charge object’s <a href="https://stripe.com/docs/api#charge_object-outcome"><code>outcome</code></a>. This parameter includes the type of payment failure, along with additional information about the reason for it.</p></section>
+
+<section>
+  <h2 id="bank-declines">Bank-declined payments</h2>
+<p>When a charge is submitted to the bank or card issuer of your customer’s card, they have automated systems that determine whether or not to authorize it. These systems take various signals into account, such as your customer’s spending habits, account balance, and card information like the expiration date and CVC.</p>
+
+<p>If your customer’s bank or card issuer declines a payment, Stripe shares with you as much information explaining the decline as we receive, both within the Dashboard and through the API. In some cases, banks also provide helpful explanations, such as the card number or expiration date being incorrect, or that the customer does not have enough funds available to make the payment. The bank may provide one of these more specific reasons to Stripe through the use of a <a href="#decline-codes">decline code</a>.</p>
+
+<div class="image full">
+  <p><a href="https://stripe.com/img/documentation/declines/declined-payment-with-code.png" class="zoomable" data-width="1024" data-height="624"><img src="https://stripe.com/img/documentation/declines/declined-payment-with-code.png" width="100%" /></a></p>
+</div>
+
+<p>Unfortunately, most declines are categorized as “generic” so it’s not always possible to know exactly why a payment was declined. If all of the card information seems correct, it is best to have your customer contact their bank and ask for more information. For privacy and security, banks and card issuers can only discuss the specifics of a declined payment with their cardholders–they cannot discuss this with the merchant.</p>
+
+<p>Through the API, the <code>outcome</code> of a bank-declined charge contains the type of payment failure that’s occurred and provides the reason using the decline code received by the bank:</p><div class="code">
+  <pre class="language-javascript numbered"  data-highlight-lines="5,8"><code>...
+outcome:
+{
+  network_status: &quot;declined_by_network&quot;
+  reason: &quot;expired_card&quot;
+  risk_level: &quot;normal&quot;
+  seller_message: &quot;The bank returned the decline code `expired_card`.&quot;
+  type: &quot;issuer_declined&quot;
+},
+...
+</code></pre>
+</div>
+<h3 id="reducing-bank-declines">Reducing bank declines</h3>
+<p>Bank declines arising from incorrect card information (e.g., incorrect card number or expiration date) are best handled by guiding your customer to correct the error or even using another card or payment method. For instance, <a href="https://stripe.com/docs/checkout">Checkout</a> can provide feedback to the customer if the card they’re attempting to use is declined, allowing them to try again or use an alternative payment method.</p>
+
+<p>Banks’ suspicions of fraudulent activity are more challenging to manage, but having customers provide the CVC and ZIP code when checking out can significantly decrease the number of declines you’re experiencing. The influence of other data that you collect, like the full address, varies by card brand and country. If you are still experiencing a higher-than-expected number of declined payments, consider collecting this additional data.</p></section>
+
+<section>
+  <h2 id="blocked-payments">Blocked payments</h2>
+<p>Stripe’s automated fraud prevention toolset, <a href="https://stripe.com/docs/radar">Radar</a>, blocks any payments that we identify as being high-risk. Radar can help you most effectively combat fraud, with features such as rules that <a href="https://support.stripe.com/questions/avoiding-fraud-and-disputes">block payments if the CVC or ZIP code doesn’t match</a> the information on file with your customer’s bank.</p>
+
+<div class="image full">
+  <p><a href="https://stripe.com/img/documentation/radar/payment-high-risk.png" class="zoomable" data-width="1024" data-height="624"><img src="https://stripe.com/img/documentation/radar/payment-high-risk.png" width="100%" /></a></p>
+</div>
+
+<p>Using the API, the <code>outcome</code> of a blocked payment reflects the type of payment failure and the reason for it, along with the risk level that was evaluated.</p><div class="code">
+  <pre class="language-javascript numbered"  data-highlight-lines="5,6,8"><code>...
+outcome:
+{
+  network_status: &quot;not_sent_to_network&quot;
+  reason: &quot;highest_risk_level&quot;
+  risk_level: &quot;highest&quot;
+  seller_message: &quot;Stripe blocked this charge as too risky.&quot;
+  type: &quot;blocked&quot;
+},
+...
+</code></pre>
+</div>
+</section>
+
+<section>
+  <h2 id="invalid-api-calls">Invalid API calls</h2>
+<p>As you develop your Stripe integration, good testing should identify any potential bugs that would lead to invalid API calls.  Consequently these failures should be rare in production. Invalid API call typically don’t result in a payment appearing in your Dashboard. However, in a few edge cases you may see the payment appear.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" data-highlight-lines="5"><code>...
+outcome:
+{
+  network_status: &quot;not_sent_to_network&quot;
+  type: &quot;invalid&quot;
+},
+...
+</code></pre>
+</div>
+</section>
+
+<section>
+  <h2 id="responding-to-failures-api">Managing payment failures programmatically</h2>
+<p>If you would like your integration to respond to payment failures automatically, you can access a charge’s <code>outcome</code> in two ways.</p>
+
+<ul>
+  <li>
+    <p><a href="https://stripe.com/docs/api#handling-errors">Handle the API error</a> returned when a payment fails. For blocked and bank-declined payments, the error includes the charge’s ID, which you can then use to <a href="https://stripe.com/docs/api#retrieve_charge">retrieve</a> the charge</p>
+  </li>
+  <li>
+    <p>Make use of <a href="https://stripe.com/docs/webhooks">webhooks</a> to listen for event notifications. When a payment fails, the <code>charge.failed</code> event is triggered, containing the Charge object</p>
+  </li>
+</ul>
+
+<p>When developing your integration, we recommend writing code that gracefully handles all possible API exceptions, including unanticipated errors.</p>
+</section>
+
+<section>
+
+  <h2 id="decline-codes">Bank decline codes</h2>
+  <p>If a payment is declined by the bank or card issuer, the bank may provide a decline code with a more detailed reason. Below is a list of possible decline codes that can be returned.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Decline Code</th>
+        <th>Explanation</th>
+        <th>Next Steps</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>approve_with_id</code></td>
+        <td>The payment cannot be authorized</td>
+        <td>The payment should be attempted again. If it still cannot be processed, the customer needs to contact their bank.</td>
+      </tr>
+      <tr>
+        <td><code>call_issuer</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>card_not_supported</code></td>
+        <td>The card does not support this type of purchase</td>
+        <td>The customer needs to contact their bank to make sure their card can be used to make this type of purchase.</td>
+      </tr>
+      <tr>
+        <td><code>card_velocity_exceeded</code></td>
+        <td>The customer has exceeded the balance or credit limit available on their card. </td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>currency_not_supported</code></td>
+        <td>The card does not support the specified currency.</td>
+        <td>The customer needs check with the issuer that the card can be used for the type of currency specified.</td>
+      </tr>
+      <tr>
+        <td><code>do_not_honor</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>do_not_try_again</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>fraudulent</code></td>
+        <td>The payment has been declined as the issuer suspects it is fraudulent</td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>generic_decline</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>insufficient_funds</code></td>
+        <td>The card has insufficient funds to complete the purchase</td>
+        <td>The customer should use an alternative payment method.</td>
+      </tr>
+      <tr>
+        <td><code>invalid_account</code></td>
+        <td>The card, or account the card is connected to, is invalid</td>
+        <td>The customer needs to contact their bank to check that the card is working correctly.</td>
+      </tr>
+      <tr>
+        <td><code>invalid_amount</code></td>
+        <td>The payment amount is invalid, or exceeds the amount that is allowed</td>
+        <td>If the amount appears to be correct, the customer needs to check with their bank that they can make purchases of that amount.</td>
+      </tr>
+      <tr>
+        <td><code>invalid_pin</code></td>
+        <td>The PIN entered is incorrect. This decline code only applies to payments made with a card reader. </td>
+        <td>The customer should try again using the correct PIN.</td>
+      </tr>
+      <tr>
+        <td><code>issuer_not_available</code></td>
+        <td>The card issuer could not be reached, so the payment could not be authorized</td>
+        <td>The payment should be attempted again. If it still cannot be processed, the customer needs to contact their bank.</td>
+      </tr>
+      <tr>
+        <td><code>lost_card</code></td>
+        <td>The payment has been declined because the card is reported lost</td>
+        <td>The specific reason for the decline should not be reported to the customer. Instead, it needs to be presented as a generic decline.</td>
+      </tr>
+      <tr>
+        <td><code>new_account_information_available</code></td>
+        <td>The card, or account the card is connected to, is invalid</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>no_action_taken</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>not_permitted</code></td>
+        <td>The payment is not permitted</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>pickup_card</code></td>
+        <td>The card cannot be used to make this payment (it is possible it has been reported lost or stolen)</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>reenter_transaction</code></td>
+        <td>The payment could not be processed by the issuer for an unknown reason. </td>
+        <td>The payment should be attempted again. If it still cannot be processed, the customer needs to contact their bank.</td>
+      </tr>
+      <tr>
+        <td><code>restricted_card</code></td>
+        <td>The card cannot be used to make this payment (it is possible it has been reported lost or stolen)</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>revocation_of_all_authorizations</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>revocation_of_authorization</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>security_violation</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>service_not_allowed</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>stolen_card</code></td>
+        <td>The payment has been declined because the card is reported stolen</td>
+        <td>The specific reason for the decline should not be reported to the customer. Instead, it needs to be presented as a generic decline.</td>
+      </tr>
+      <tr>
+        <td><code>stop_payment_order</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>testmode_decline</code></td>
+        <td>A Stripe test card number was used</td>
+        <td>A genuine card must be used to make a payment.</td>
+      </tr>
+      <tr>
+        <td><code>transaction_not_allowed</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>The customer needs to contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>try_again_later</code></td>
+        <td>The card has been declined for an unknown reason</td>
+        <td>Ask the customer to attempt the payment again. If subsequent payments are declined, the customer should contact their bank for more information.</td>
+      </tr>
+      <tr>
+        <td><code>withdrawal_count_limit_exceeded</code></td>
+        <td>The customer has exceeded the balance or credit limit available on their card. </td>
+        <td>The customer should use an alternative payment method.</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</section>
+
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="https://stripe.com/contact/sales">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="https://stripe.com/assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="https://stripe.com/assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="https://stripe.com/assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="https://stripe.com/assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="https://stripe.com/assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="https://stripe.com/assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="https://stripe.com/assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="https://stripe.com/assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/declines by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+</html>

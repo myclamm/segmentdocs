@@ -1,0 +1,2497 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/api/chat/webhooks by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:03 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    
+    
+
+    <title>
+      Webhook Events - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/api/chat/webhooks" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    <meta property="og:title" content="Webhook Events">
+    
+    
+    
+    <meta property="og:url" content="https://www.twilio.com/docs/api/chat/webhooks?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    <meta name="twitter:title" content="Webhook Events">
+    
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["enable-video-rooms", "marketplace"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      apireference
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/api" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">API Reference</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+      
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+      <div class="uk-width-3-4 uk-hidden-small">
+      
+      
+        <div class="breadcrumbs">
+          
+            
+          
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api">API Reference</a> &gt;
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api/chat">Programmable Chat</a> &gt;
+            
+          
+          <span>Webhook Events</span>
+        </div>
+      
+      </div>
+
+      
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+  <div class="search">
+    <form action="https://www.twilio.com/docs/search" method="GET">
+      <div class="wrapper">
+        <input id="search-box" name="q" type="text" value=""/>
+      </div>
+      <button type="submit">
+        <i class="fa fa-fw fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+    
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+  <div class="coderail-container">
+
+    <div class="sidenav-column">
+      <div class="theme-switcher uk-hidden-small">
+  <div class="theme-wrapper">
+    <a data-theme="light" class="selected">
+      <i class="fa fa-fw fa-sun-o"></i>
+    </a>
+    <a data-theme="dark" >
+      <i class="fa fa-fw fa-moon-o"></i>
+    </a>
+  </div>
+</div>
+      
+        <div class="sidenav" data-uk-sticky="{boundary: true}">
+          
+
+<ul id="doc_menu" class="sidenav__section" data-swiftype-index="false">
+
+  <!-- Page entries -->
+  
+    <li id="dynamic-menu">
+      <ul>
+        
+          
+          
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat">
+          Programmable Chat
+      </a>
+  </li>
+
+
+
+        
+          
+            
+<li class="menu-title expanded" role="menu-title" id="doc-navigation-parent">
+  Webhook Events
+</li>
+<ul class="menu-accordion expanded" role="menu-accordion" id="doc-navigation"></ul>
+
+          
+          
+<li class="menu-title expanded" role="menu-title">
+
+    <span class="heading">Usage</span>
+</li>
+
+
+<ul class="menu-accordion expanded" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/sdks">
+          SDK Download and Install
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/chat-fundamentals">
+          Chat Fundamentals
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/initializing-sdk-clients">
+          Initializing SDK Clients
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/create-tokens">
+          Creating Access Tokens
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/channels">
+          Channels and Messages
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/permissions">
+          Roles and Permissions
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/typing-indicator">
+          Typing Indicator
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/consumption-horizon">
+          Message Consumption Horizon
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/reachability-indicator">
+          Reachability Indicator
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/push-notification-configuration">
+          Push Notification Configuration
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/push-notifications-ios">
+          Notifications on iOS
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/guides/push-notifications-android">
+          Notifications on Android
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li class="active"
+    >
+      <a href="https://www.twilio.com/docs/api/chat/webhooks">
+          Webhook Events
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">JavaScript SDK</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/changelogs/javascript">
+          Changelog
+      </a>
+  </li>
+
+
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/js/chat/v0.11/docs/" target="_blank">
+        API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/js/common/v0.1/docs" target="_blank">
+        Twilio Common API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">iOS SDK</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/changelogs/ios">
+          Changelog
+      </a>
+  </li>
+
+
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/ios/chat/v0.16/docs/" target="_blank">
+        API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">Android SDK</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/changelogs/android">
+          Changelog
+      </a>
+  </li>
+
+
+
+    
+        <li>
+    <a href="https://media.twiliocdn.com/sdk/android/chat/v0.11/docs/" target="_blank">
+        API Docs
+
+        
+            <i class="fa fa-external-link"></i>
+        
+    </a>
+</li>
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">REST API</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest">
+          Overview
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/channels">
+          Channels
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/credentials">
+          Credentials
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/members">
+          Members
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/messages">
+          Messages
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/roles">
+          Roles
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/services">
+          Services
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/chat/rest/users">
+          Users
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+        
+      </ul>
+    </li>
+  
+</ul>
+
+        </div>
+      
+    </div>
+
+    <div class="primary-column 
+        ">
+      <div class="docs-prose">
+        
+  
+    
+    <h1 class="page-title ">
+      Webhook Events
+    </h1>
+    
+  
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>Programmable Chat event callbacks allow you to monitor and intercept specific events in your backend service.  Two categories of events exist namely "Pre-Event" (synchronous) and "Post-Event" (asynchronous). When a callback is specified Twilio will make an HTTP request to the specified webhook URL with relevant variable data sent as part of the request.</p>
+<p>"Pre-Event" webhooks allow you to decide whether to allow, modify or disallow the action. In these types of events, the request Twilio sends will not include the resource SID in the event of pre-creation events as this does not yet exist. These event callbacks are blocking/synchronous calls, which means that Chat will wait for a response (or timeout) before processing the operation.</p>
+<p>"Post-Event" webhooks are "notify only" and inform of the action after it has completed.  These events require no response in terms of execution, however non-200 OK responses will be logged as errors for information purposes. These event callbacks will include all the relevant variable data, include the resource sid for create operations.  These are not blocking callbacks as they are informational.</p>
+<p>Event callbacks are configured per <a href="https://www.twilio.com/docs/api/chat/rest/services">Service</a> instance - and can be different per instance.</p>
+<p><strong>Note:</strong> Only commands and events triggered from <strong>clients or endpoints</strong> will trigger the event callback (if configured).  REST API calls will currently <em>not</em> trigger these.</p>
+<p><strong>Table of contents:</strong></p>
+<ul>
+<li><a href="#pre-callbacks">Pre-Event Callbacks</a></li>
+<li><a href="#pre-processing">Pre-Event Processing callbacks from your server</a></li>
+<li><a href="#post-callbacks">Post-Event Callbacks</a></li>
+<li><a href="#configuring">Configuring callback webhooks</a></li>
+<li><a href="#parameters">Webhook Parameters</a></li>
+<li><a href="#response-modifications">Synchronous Modification Responses</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+</ul>
+<h3 id="pre-callbacks"><a class="toclink" href="#pre-callbacks">Pre-Event Callbacks</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Event fired</th>
+<th align="left">Action that triggered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">onMessageSend</td>
+<td align="left">Send Message</td>
+</tr>
+<tr>
+<td align="left">onMessageRemove</td>
+<td align="left">Remove/delete a Message</td>
+</tr>
+<tr>
+<td align="left">onMessageUpdate</td>
+<td align="left">Edit a Message</td>
+</tr>
+<tr>
+<td align="left">onChannelAdd</td>
+<td align="left">Create Channel</td>
+</tr>
+<tr>
+<td align="left">onChannelUpdate</td>
+<td align="left">Edit Channel FriendlyName or Attributes</td>
+</tr>
+<tr>
+<td align="left">onChannelDestroy</td>
+<td align="left">Delete/Destroy Channel</td>
+</tr>
+<tr>
+<td align="left">onMemberAdd</td>
+<td align="left">Channel Member Join or Add</td>
+</tr>
+<tr>
+<td align="left">onMemberRemove</td>
+<td align="left">Channel Member Remove or Leave</td>
+</tr>
+<tr>
+<td align="left">onUserUpdate</td>
+<td align="left">A property of a User is being updated.  Note this <em>will not</em> be fired in response to a Reachability state change for the User</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pre-processing"><a class="toclink" href="#pre-processing">Pre-Event processing callbacks from your server</a></h4>
+<ol>
+<li>Process the callback POST</li>
+<li>Determine if the action that triggered the callback should be allowed</li>
+<li>If yes, return a HTTP 200 OK response - this tells the Chat service to continue processing</li>
+<li>If yes, but you wish to modify some part of the entity the action relates to, return the modification details in a JSON response body</li>
+<li>If not, return a HTTP 403 FORBIDDEN response - this tells the Chat service to not continue and fail the operation</li>
+</ol>
+<p><strong>Note:</strong> If an event callback is configured, but the URL specified returns a <em>404 NOT FOUND</em> response, Chat will continue processing the action as normal.</p>
+<h3 id="post-callbacks"><a class="toclink" href="#post-callbacks">Post-Event Callbacks</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Event fired</th>
+<th align="left">Action that triggered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">onMessageSent</td>
+<td align="left">Message sent</td>
+</tr>
+<tr>
+<td align="left">onMessageRemoved</td>
+<td align="left">Message removed/deleted</td>
+</tr>
+<tr>
+<td align="left">onMessageUpdated</td>
+<td align="left">Message edited</td>
+</tr>
+<tr>
+<td align="left">onChannelAdded</td>
+<td align="left">Channel created</td>
+</tr>
+<tr>
+<td align="left">onChannelUpdated</td>
+<td align="left">Channel FriendlyName or Attributes updated</td>
+</tr>
+<tr>
+<td align="left">onChannelDestroyed</td>
+<td align="left">Channel Deleted/Destroyed</td>
+</tr>
+<tr>
+<td align="left">onMemberAdded</td>
+<td align="left">Channel Member Joined or Added</td>
+</tr>
+<tr>
+<td align="left">onMemberRemoved</td>
+<td align="left">Channel Member Removed or Left</td>
+</tr>
+<tr>
+<td align="left">onUserUpdated</td>
+<td align="left">A User attribute or property was updated or changed.  Note this <em>will</em> be fired in response to a Reachability state change for the User</td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuring"><a class="toclink" href="#configuring">Configuring callback webhooks</a></h3>
+<p>Chat WebHooks are configured per Service instance.  The top level configuration items are:</p>
+<table>
+<thead>
+<tr>
+<th align="left">attribute name</th>
+<th align="left">type</th>
+<th align="left">required</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">PreWebhookUrl</td>
+<td align="left">string</td>
+<td align="left">required</td>
+<td align="left">The absolute URL where the callback should make an HTTP request to  for PRE events</td>
+</tr>
+<tr>
+<td align="left">PostWebhookUrl</td>
+<td align="left">string</td>
+<td align="left">required</td>
+<td align="left">The absolute URL where the callback should make an HTTP request to  for POST events</td>
+</tr>
+<tr>
+<td align="left">WebhookMethod</td>
+<td align="left">string</td>
+<td align="left">required</td>
+<td align="left">The method for issuing the HTTP request - this can be GET or POST</td>
+</tr>
+<tr>
+<td align="left">WebhookFilters</td>
+<td align="left">string</td>
+<td align="left">required</td>
+<td align="left">List of Webhooks to enable for this Service instance. The entire list must always be sent.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>WebhookFilters</code> parameter should be passed in the standard request format, with multiple values passed as individual request parameters for the same name - please see the examples below.</p>
+<p>To remove a Webhook, simply omit the relevant Webhook from the <code>WebhookFilters</code> request parameter list and it will be removed/disabled.</p>
+<p><strong>Examples</strong></p>
+<p>A CURL example of configuring the top level WebHook settings for a Service instance (excluding the actual events): </p>
+<div class="codehilite"><pre><span class="code-line">curl <span class="err">-</span>X POST <span class="l">https://chat.twilio.com/v1/Services/</span><span class="p">{</span>service sid<span class="p">}</span> <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">PreWebhookUrl=</span><span class="l">https://hooks.yoursite.com/pre-webhooks&#39;</span> <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">PostWebhookUrl=</span><span class="l">https://hooks.yoursite.com/post-webhooks&#39;</span> <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookMethod=</span>POST&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>u <span class="err">&#39;</span><span class="p">{</span>twilio account sid<span class="p">}:{</span>twilio auth token<span class="p">}</span><span class="err">&#39;</span>
+</span></pre></div>
+
+<p>A CURL example of enabling <em>only</em> the <code>onMessageSent</code> event callback for a Service instance (note this will remove/disable any other events that were configured prior to this call):</p>
+<div class="codehilite"><pre><span class="code-line">curl <span class="err">-</span>X POST <span class="l">https://chat.twilio.com/v1/Services/</span><span class="p">{</span>service sid<span class="p">}</span> <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMessageSent&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>u <span class="err">&#39;</span><span class="p">{</span>twilio account sid<span class="p">}:{</span>twilio auth token<span class="p">}</span><span class="err">&#39;</span>
+</span></pre></div>
+
+<p>A CURL example of enabling <em>all</em> the available PRE and POST event callbacks for a Service instance: </p>
+<div class="codehilite"><pre><span class="code-line">curl <span class="err">-</span>X POST <span class="l">https://chat.twilio.com/v1/Services/</span><span class="p">{</span>service sid<span class="p">}</span> <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMessageSend&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMessageSent&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMessageUpdate&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMessageUpdated&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMessageRemove&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMessageRemoved&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onChannelAdd&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onChannelAdded&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onChannelDestroy&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onChannelDestroyed&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onChannelUpdate&#39; <span class="err">\</span> 
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onChannelUpdated&#39; <span class="err">\</span> 
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMemberAdd&#39; <span class="err">\</span> 
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMemberAdded&#39; <span class="err">\</span> 
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMemberRemove&#39; <span class="err">\</span> 
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onMemberRemoved&#39; <span class="err">\</span> 
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onUserUpdate&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>d <span class="err">&#39;</span><span class="ss">WebhookFilters=</span>onUserUpdated&#39; <span class="err">\</span>
+</span><span class="code-line"><span class="err">-</span>u <span class="err">&#39;</span><span class="p">{</span>twilio account sid<span class="p">}:{</span>twilio auth token<span class="p">}</span><span class="err">&#39;</span>
+</span></pre></div>
+
+<h3 id="parameters"><a class="toclink" href="#parameters">Webhook request parameters</a></h3>
+<p>When Twilio makes an HTTP request to your server this will include contextual information related to the action that triggered the WebHook call to your backend.  </p>
+<p>In addition to the event specific parameters, each request will also contain the following parameters and information:</p>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">AccountSid</td>
+<td align="left">string, SID</td>
+<td align="left">The Twilio Account SID which the Service instance belongs to</td>
+</tr>
+<tr>
+<td align="left">InstanceSid</td>
+<td align="left">string, sid</td>
+<td align="left">The Programmable Chat Service instance SID which the action relates to</td>
+</tr>
+<tr>
+<td align="left">Identity</td>
+<td align="left">string</td>
+<td align="left">The <code>identity</code> string of the SDK client endpoint which triggered the event callback - as taken from the Access Token for the client endpoint.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Each HTTP request is issued with "Content-Type" header being “application/x-www-urlencoded”. </p>
+<h4 id="pre-events-request-parameters"><a class="toclink" href="#pre-events-request-parameters">PRE events request parameters</a></h4>
+<h5 id="onmessagesend"><a class="toclink" href="#onmessagesend">OnMessageSend</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always:  "onMessageSend"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel Sid identifier of the Channel the Message is being sent to</td>
+</tr>
+<tr>
+<td align="left">Body</td>
+<td align="left">string</td>
+<td align="left">The body of message</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in message entity</td>
+</tr>
+<tr>
+<td align="left">From</td>
+<td align="left">string</td>
+<td align="left">The author of the message</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of creation of the message</td>
+</tr>
+<tr>
+<td align="left"><em>To</em></td>
+<td align="left"><em>string</em></td>
+<td align="left"><em>Channel String Identifier of the Channel the Message is being sent to</em> <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmessageremove"><a class="toclink" href="#onmessageremove">OnMessageRemove</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always:  "onMessageRemove"</td>
+</tr>
+<tr>
+<td align="left">MessageSid</td>
+<td align="left">string</td>
+<td align="left">The Message Sid</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel Sid identifier of the Channel the Message is being sent to</td>
+</tr>
+<tr>
+<td align="left">Body</td>
+<td align="left">string</td>
+<td align="left">The body of message</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in message entity</td>
+</tr>
+<tr>
+<td align="left">From</td>
+<td align="left">string</td>
+<td align="left">The author of the message</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of creation of the message</td>
+</tr>
+<tr>
+<td align="left">RemovedBy</td>
+<td align="left">string</td>
+<td align="left">The remover of the message</td>
+</tr>
+<tr>
+<td align="left"><em>To</em></td>
+<td align="left"><em>string</em></td>
+<td align="left"><em>Channel String Identifier of the Channel the Message is being sent to</em> <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmessageupdate"><a class="toclink" href="#onmessageupdate">OnMessageUpdate</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always:  "onMessageUpdate"</td>
+</tr>
+<tr>
+<td align="left">MessageSid</td>
+<td align="left">string</td>
+<td align="left">The Message Sid</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel Sid identifier of the Channel the Message is being sent to</td>
+</tr>
+<tr>
+<td align="left">Body</td>
+<td align="left">string</td>
+<td align="left">The body of message</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in message entity</td>
+</tr>
+<tr>
+<td align="left">From</td>
+<td align="left">string</td>
+<td align="left">The author of the message</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of creation of the message</td>
+</tr>
+<tr>
+<td align="left">ModifiedBy</td>
+<td align="left">string</td>
+<td align="left">The updater/modifier of the message</td>
+</tr>
+<tr>
+<td align="left"><em>To</em></td>
+<td align="left"><em>string</em></td>
+<td align="left"><em>Channel String Identifier of the Channel the Message is being sent to</em>  <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onchanneladd"><a class="toclink" href="#onchanneladd">OnChannelAdd</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onChannelAdd"</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in channel entity</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The date of creation of the channel</td>
+</tr>
+<tr>
+<td align="left">CreatedBy</td>
+<td align="left">string</td>
+<td align="left">The identity of the user that created a channel</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The friendly name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">UniqueName</td>
+<td align="left">string, optional</td>
+<td align="left">The unique name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">ChannelType</td>
+<td align="left">string</td>
+<td align="left">The Channel type.  Either 'private' or 'public'</td>
+</tr>
+<tr>
+<td align="left"><em>Name</em></td>
+<td align="left"><em>string, optional</em></td>
+<td align="left"><em>The friendly name of the channel, if set</em> <strong>(DEPRECATED)</strong></td>
+</tr>
+<tr>
+<td align="left"><em>ChannelSid</em></td>
+<td align="left"><em>string</em></td>
+<td align="left"><em>Channel String Identifier</em>  <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onchanneldestroy"><a class="toclink" href="#onchanneldestroy">OnChannelDestroy</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onChannelDestroy"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in channel entity</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string, optional,</td>
+<td align="left">The date of creation of the channel</td>
+</tr>
+<tr>
+<td align="left">CreatedBy</td>
+<td align="left">string</td>
+<td align="left">The identity of the user that created a channel</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The friendly name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">UniqueName</td>
+<td align="left">string, optional</td>
+<td align="left">The unique name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">ChannelType</td>
+<td align="left">string</td>
+<td align="left">The Channel type.  Either 'private' or 'public'</td>
+</tr>
+<tr>
+<td align="left"><em>Name</em></td>
+<td align="left"><em>string, optional</em></td>
+<td align="left"><em>The friendly name of the channel, if set</em> <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onchannelupdate"><a class="toclink" href="#onchannelupdate">OnChannelUpdate</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onChannelUpdate"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in channel entity</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string, optional,</td>
+<td align="left">The date of creation of the channel</td>
+</tr>
+<tr>
+<td align="left">CreatedBy</td>
+<td align="left">string</td>
+<td align="left">The identity of the user that created a channel</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The friendly name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">UniqueName</td>
+<td align="left">string, optional</td>
+<td align="left">The unique name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left"><em>Name</em></td>
+<td align="left"><em>string, optional</em></td>
+<td align="left"><em>The friendly name of the channel, if set</em> <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmemberadd"><a class="toclink" href="#onmemberadd">OnMemberAdd</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onMemberAdd"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Identity</td>
+<td align="left">string</td>
+<td align="left">The Identity of the User that is being added to the channel as a Member</td>
+</tr>
+<tr>
+<td align="left">RoleSid</td>
+<td align="left">string, optional</td>
+<td align="left">The role sid of added member</td>
+</tr>
+<tr>
+<td align="left">Reason</td>
+<td align="left">string</td>
+<td align="left">The reason of the addition of the member. Could be: ADDED, JOINED</td>
+</tr>
+<tr>
+<td align="left"><em>Role</em></td>
+<td align="left"><em>string, optional</em></td>
+<td align="left"><em>The role of added member</em> <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmemberremove"><a class="toclink" href="#onmemberremove">OnMemberRemove</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onMemberRemove"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Identity</td>
+<td align="left">string</td>
+<td align="left">The Identity of the User that is being removed from the channel</td>
+</tr>
+<tr>
+<td align="left">MemberSid</td>
+<td align="left">string</td>
+<td align="left">The member sid of member being removed</td>
+</tr>
+<tr>
+<td align="left">RoleSid</td>
+<td align="left">string, optional</td>
+<td align="left">The role of removed member</td>
+</tr>
+<tr>
+<td align="left">Reason</td>
+<td align="left">string</td>
+<td align="left">The reason of the removal of the member. Could be: REMOVED, LEFT</td>
+</tr>
+<tr>
+<td align="left"><em>Role</em></td>
+<td align="left"><em>string, optional</em></td>
+<td align="left"><em>The role of removed member</em> <strong>(DEPRECATED)</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="onuserupdate"><a class="toclink" href="#onuserupdate">OnUserUpdate</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">UserSid</td>
+<td align="left">string, SID</td>
+<td align="left">The SID of the User about to be updated</td>
+</tr>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onUserUpdate"</td>
+</tr>
+<tr>
+<td align="left">Identity</td>
+<td align="left">string</td>
+<td align="left">The Identity of the User that is being updated</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The optional (if set) FriendlyName of the User being updated</td>
+</tr>
+<tr>
+<td align="left">RoleSid</td>
+<td align="left">string</td>
+<td align="left">The Role SID the user being updated</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">string, ISO8601 time</td>
+<td align="left">The date and time the User was first created</td>
+</tr>
+<tr>
+<td align="left">DateUpdated</td>
+<td align="left">string, ISO8601 time</td>
+<td align="left">The date and time the user was last updated</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">JSON, string, optional</td>
+<td align="left">The optional (if set) Attributes JSON structure in string format of the User being updated</td>
+</tr>
+<tr>
+<td align="left">IsOnline</td>
+<td align="left">boolean, optional</td>
+<td align="left"><code>true</code> if user has active session and is able to create and receive real-time events. This field is present only if Reachability Indicator feature is enabled for the Service instance.</td>
+</tr>
+<tr>
+<td align="left">IsNotifiable</td>
+<td align="left">boolean, optional</td>
+<td align="left"><code>true</code> if user has active session and is able to create and receive push notifications. This field is present only if Reachability Indicator and Push Notifications features are enabled for the Service instance - and if the User has at least one Push Notification registration for Chat.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="post-events-request-parameters"><a class="toclink" href="#post-events-request-parameters">POST events request parameters</a></h4>
+<h5 id="onmessagesent"><a class="toclink" href="#onmessagesent">OnMessageSent</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always:  "onMessageSent"</td>
+</tr>
+<tr>
+<td align="left">MessageSid</td>
+<td align="left">string</td>
+<td align="left">The Message Sid of the new Message</td>
+</tr>
+<tr>
+<td align="left">Index</td>
+<td align="left">int</td>
+<td align="left">The index of the Message within the Channel Message list</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel Sid identifier of the Channel the Message is being sent to</td>
+</tr>
+<tr>
+<td align="left">Body</td>
+<td align="left">string</td>
+<td align="left">The body of message</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in message entity</td>
+</tr>
+<tr>
+<td align="left">From</td>
+<td align="left">string</td>
+<td align="left">The author of the message</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of creation of the message</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmessageremoved"><a class="toclink" href="#onmessageremoved">OnMessageRemoved</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always:  "onMessageRemoved"</td>
+</tr>
+<tr>
+<td align="left">MessageSid</td>
+<td align="left">string</td>
+<td align="left">The Message Sid of the removed Message</td>
+</tr>
+<tr>
+<td align="left">Index</td>
+<td align="left">int</td>
+<td align="left">The index of the removed Message within the Channel Message list</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel Sid identifier of the Channel the Message is being sent to</td>
+</tr>
+<tr>
+<td align="left">Body</td>
+<td align="left">string</td>
+<td align="left">The body of message</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in message entity</td>
+</tr>
+<tr>
+<td align="left">From</td>
+<td align="left">string</td>
+<td align="left">The author of the message</td>
+</tr>
+<tr>
+<td align="left">RemovedBy</td>
+<td align="left">string</td>
+<td align="left">The remover of the message</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of creation of the message</td>
+</tr>
+<tr>
+<td align="left">DateRemoved</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of removal of the message</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmessageupdated"><a class="toclink" href="#onmessageupdated">OnMessageUpdated</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always:  "onMessageUpdated"</td>
+</tr>
+<tr>
+<td align="left">MessageSid</td>
+<td align="left">string</td>
+<td align="left">The Message Sid of the updated Message</td>
+</tr>
+<tr>
+<td align="left">Index</td>
+<td align="left">int</td>
+<td align="left">The index of the updated Message within the Channel Message list</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel Sid identifier of the Channel the Message is being sent to</td>
+</tr>
+<tr>
+<td align="left">Body</td>
+<td align="left">string</td>
+<td align="left">The body of message</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, valid JSON structure or null</td>
+<td align="left">stringified JSON structure, can be null if attributes are not present in message entity</td>
+</tr>
+<tr>
+<td align="left">From</td>
+<td align="left">string</td>
+<td align="left">The author of the message</td>
+</tr>
+<tr>
+<td align="left">ModifiedBy</td>
+<td align="left">string</td>
+<td align="left">The updater of the message</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of creation of the message</td>
+</tr>
+<tr>
+<td align="left">DateUpdated</td>
+<td align="left">date string</td>
+<td align="left">The timestamp of update of the message</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onchanneladded"><a class="toclink" href="#onchanneladded">OnChannelAdded</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onChannelAdded"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">The Channel Sid of the newly added Channel</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, JSON structure</td>
+<td align="left">The arbitrary JSON structure of the channel</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The date of creation of the channel</td>
+</tr>
+<tr>
+<td align="left">CreatedBy</td>
+<td align="left">string</td>
+<td align="left">The identity of the user that created a channel</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The friendly name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">UniqueName</td>
+<td align="left">string, optional</td>
+<td align="left">The unique name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">ChannelType</td>
+<td align="left">string</td>
+<td align="left">The Channel type.  Either 'private' or 'public'</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onchanneldestroyed"><a class="toclink" href="#onchanneldestroyed">OnChannelDestroyed</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onChannelDestroyed"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, JSON structure</td>
+<td align="left">The arbitrary JSON structure of the channel</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string,</td>
+<td align="left">The date of creation of the channel</td>
+</tr>
+<tr>
+<td align="left">DateDestroyed</td>
+<td align="left">date string,</td>
+<td align="left">The date of destruction of the channel</td>
+</tr>
+<tr>
+<td align="left">CreatedBy</td>
+<td align="left">string</td>
+<td align="left">The identity of the user that created a channel</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The friendly name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">UniqueName</td>
+<td align="left">string, optional</td>
+<td align="left">The unique name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">ChannelType</td>
+<td align="left">string</td>
+<td align="left">The Channel type.  Either 'private' or 'public'</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onchannelupdated"><a class="toclink" href="#onchannelupdated">OnChannelUpdated</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onChannelUpdated"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">string, optional, JSON structure</td>
+<td align="left">The arbitrary JSON structure of the channel</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string,</td>
+<td align="left">The date of creation of the channel</td>
+</tr>
+<tr>
+<td align="left">DateUpdated</td>
+<td align="left">date string</td>
+<td align="left">The date of update of the channel</td>
+</tr>
+<tr>
+<td align="left">CreatedBy</td>
+<td align="left">string</td>
+<td align="left">The identity of the user that created a channel</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The friendly name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">UniqueName</td>
+<td align="left">string, optional</td>
+<td align="left">The unique name of the channel, if set</td>
+</tr>
+<tr>
+<td align="left">ChannelType</td>
+<td align="left">string</td>
+<td align="left">The Channel type.  Either 'private' or 'public'</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmemberadded"><a class="toclink" href="#onmemberadded">OnMemberAdded</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onMemberAdded"</td>
+</tr>
+<tr>
+<td align="left">MemberSid</td>
+<td align="left">string</td>
+<td align="left">The Member Sid of the newly added Member</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Identity</td>
+<td align="left">string</td>
+<td align="left">The Identity of the User that is being added to the channel as a Member</td>
+</tr>
+<tr>
+<td align="left">RoleSid</td>
+<td align="left">string, optional</td>
+<td align="left">The role sid of added member</td>
+</tr>
+<tr>
+<td align="left">Reason</td>
+<td align="left">string</td>
+<td align="left">The reason of the addition of the member. Could be: ADDED, JOINED</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The date of Member addition</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onmemberremoved"><a class="toclink" href="#onmemberremoved">OnMemberRemoved</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onMemberRemoved"</td>
+</tr>
+<tr>
+<td align="left">ChannelSid</td>
+<td align="left">string</td>
+<td align="left">Channel String Identifier</td>
+</tr>
+<tr>
+<td align="left">Identity</td>
+<td align="left">string</td>
+<td align="left">The Identity of the User that is being removed from the channel</td>
+</tr>
+<tr>
+<td align="left">MemberSid</td>
+<td align="left">string</td>
+<td align="left">The member sid of member being removed</td>
+</tr>
+<tr>
+<td align="left">RoleSid</td>
+<td align="left">string, optional</td>
+<td align="left">The role of removed member</td>
+</tr>
+<tr>
+<td align="left">Reason</td>
+<td align="left">string</td>
+<td align="left">The reason of the removal of the member. Could be: REMOVED, LEFT</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">date string</td>
+<td align="left">The date of Member addition</td>
+</tr>
+<tr>
+<td align="left">DateRemoved</td>
+<td align="left">date string</td>
+<td align="left">The date of Member removal</td>
+</tr>
+</tbody>
+</table>
+<h5 id="onuserupdated"><a class="toclink" href="#onuserupdated">OnUserUpdated</a></h5>
+<table>
+<thead>
+<tr>
+<th align="left">parameter name</th>
+<th align="left">type</th>
+<th align="left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">UserSid</td>
+<td align="left">string, SID</td>
+<td align="left">The SID of the User that was updated.</td>
+</tr>
+<tr>
+<td align="left">EventType</td>
+<td align="left">string</td>
+<td align="left">always: "onUserUpdated"</td>
+</tr>
+<tr>
+<td align="left">Identity</td>
+<td align="left">string</td>
+<td align="left">The Identity of the User that was updated</td>
+</tr>
+<tr>
+<td align="left">FriendlyName</td>
+<td align="left">string, optional</td>
+<td align="left">The optional (if set) FriendlyName of the User that was updated</td>
+</tr>
+<tr>
+<td align="left">RoleSid</td>
+<td align="left">string</td>
+<td align="left">The Role SID the User that was updated</td>
+</tr>
+<tr>
+<td align="left">DateCreated</td>
+<td align="left">string, ISO8601 time</td>
+<td align="left">The date and time the User was first created</td>
+</tr>
+<tr>
+<td align="left">DateUpdated</td>
+<td align="left">string, ISO8601 time</td>
+<td align="left">The date and time the User was updated</td>
+</tr>
+<tr>
+<td align="left">Attributes</td>
+<td align="left">JSON, string, optional</td>
+<td align="left">The optional (if set) Attributes JSON structure in string format of the User that was updated</td>
+</tr>
+<tr>
+<td align="left">IsOnline</td>
+<td align="left">boolean, optional</td>
+<td align="left"><code>true</code> if user has active session and is able to create and receive real-time events. This field is present only if Reachability Indicator feature is enabled for the Service instance.</td>
+</tr>
+<tr>
+<td align="left">IsNotifiable</td>
+<td align="left">boolean, optional</td>
+<td align="left"><code>true</code> if user has active session and is able to create and receive push notifications. This field is present only if Reachability Indicator and Push Notifications features are enabled for the Service instance - and if the User has at least one Push Notification registration for Chat.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="response-modifications"><a class="toclink" href="#response-modifications">Synchronous action modification in response</a></h3>
+<p>For synchronous (PRE event) webhook calls, you are able to respond with a JSON body to modify the action. For example, to change message body you can send the following JSON set as the response body:</p>
+<div class="codehilite"><pre><span class="code-line">{
+</span><span class="code-line">    “body” : “modified message body” 
+</span><span class="code-line">}
+</span></pre></div>
+
+<p>All values are optional, missing fields won’t be replaced with null. To provide null value, you must set the field to <code>JSON.NULL</code> in the response.</p>
+<p>All values must be validated. If validation fails then Chat will send an error code to the client that initiated the action.</p>
+<p>You are able to modify any attribute related to the event entity.  For example, when a <code>onChannelUpdate</code> WebHook is triggered for the <code>editChannelFriendlyName</code> command, you can choose to also modify the <code>UniqueName</code> of the Channel, all as part of the same action.</p>
+<p><strong>Note:</strong> Modifications made using this method are only valid for PRE event (synchronous)  WebHook calls, and also only for <code>create</code> and <code>update</code> events (i.e. not for <code>deletes</code>).</p>
+<p><strong>Note:</strong> The parameter/field variable names in the JSON response must be in the <code>snake_case</code> format.</p>
+<p>Valid events and entity fields available for in-response action modification are listed below:</p>
+<h4 id="channel"><a class="toclink" href="#channel">Channel</a></h4>
+<p>Applicable event types:</p>
+<ul>
+<li>OnChannelAdd</li>
+<li>OnChannelUpdate</li>
+</ul>
+<p>Updatable fields:</p>
+<ul>
+<li>FriendlyName</li>
+<li>UniqueName</li>
+<li>Attributes</li>
+</ul>
+<p>Example response body JSON:</p>
+<div class="codehilite"><pre><span class="code-line">    “friendly_name”: “friendly name of channel”,
+</span><span class="code-line">    “unique_name”: “very unique name”,
+</span><span class="code-line">    “attributes” : “{\“key\” : \“value\”}”
+</span><span class="code-line">}
+</span></pre></div>
+
+<h4 id="message"><a class="toclink" href="#message">Message</a></h4>
+<p>Applicable event types:</p>
+<ul>
+<li>OnMessageSend</li>
+<li>OnMessageUpdate</li>
+</ul>
+<p>Updatable fields:</p>
+<ul>
+<li>Body</li>
+<li>From</li>
+<li>Attributes</li>
+</ul>
+<p>Example JSON:</p>
+<div class="codehilite"><pre><span class="code-line">    “body”: “modified message text”,
+</span><span class="code-line">    “from”: “modified from value”,
+</span><span class="code-line">    “attributes” : “{\“key\” : \“value\”}”
+</span><span class="code-line">}
+</span></pre></div>
+
+<h4 id="user"><a class="toclink" href="#user">User</a></h4>
+<p>Applicable event types:</p>
+<ul>
+<li>OnUserUpdate</li>
+</ul>
+<p>Updatable fields:</p>
+<ul>
+<li>FriendlyName</li>
+<li>Attributes</li>
+</ul>
+<p>Example JSON:</p>
+<div class="codehilite"><pre><span class="code-line">{
+</span><span class="code-line">    “friendly_name”: “modified friendly name”,
+</span><span class="code-line">    “attributes”: “{\“key\” : \“value\”}”
+</span><span class="code-line">}
+</span></pre></div>
+
+<h3 id="error-handling"><a class="toclink" href="#error-handling">Error Handling</a></h3>
+<p>If the webhook client throws any exception, this error gets logged and the result of webhook is considered as "Continue".</p>
+</div>
+
+      
+    </div>
+  
+
+    
+
+        
+          
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+// Unique identifiers
+PAGE_URL = "https://www.twilio.com/docs/api/chat/webhooks";
+
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'http://twiliodocumentation.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+        
+      </div>
+    </div>
+
+    <div class="code-column">
+      
+  <div id="coderail" class="code-rail" data-uk-sticky="{boundary: true}">
+
+  <div class="rail-placeholder"></div>
+
+  <div class="rail-header uk-hidden">
+
+    <div class="rail-header-wrapper">
+
+      <div class="rail-navigation">
+        <div class="inner">
+          <a href="#previous" class="inactive" data-previous>
+            <i class="fa fa-fw fa-arrow-left left"></i>
+          </a>
+        </div>
+        <div class="inner">
+          <span>
+            <span class="current-index">1</span>
+            <span>/</span>
+            <span class="snippet-total">1</span>
+          </span>
+        </div>
+        <div class="inner">
+          <a href="#next" data-next>
+            <i class="fa fa-fw fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="rail-title">
+        <div class="title-content inner">
+          <span>Loading Code Samples...</span>
+          <i class="fa fa-fw fa-chevron-down"></i>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rail-toolbar uk-hidden">
+
+    <div class="rail-current-language">
+      <div class="inner">
+        <span>Language</span>
+        <i class="fa fa-fw fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <a href="#code" class="uk-hidden tab" data-code>Code</a>
+      <a href="#output" class="uk-hidden inactive" data-output>Output</a>
+
+      <span class="separator"></span>
+
+      <a id="download" class="uk-hidden">
+        <i class="fa fa-fw fa-download"></i>
+        <span>Download Project</span>
+      </a>
+
+      <a id="github" class="uk-hidden" target="_blank">
+        <i class="fa fa-fw fa-github-square"></i>
+        <span>View on GitHub</span>
+      </a>
+
+      <a id="defrosty" class="fr-on" href="#defrosty">
+        <i class="fa fa-fw fa-eye"></i>
+        <span class="wider-tooltip">Toggle Highlighted Lines</span>
+      </a>
+
+      <a id="clippy" href="#copy">
+        <i class="fa fa-fw fa-copy"></i>
+        <span>Copy to Clipboard</span>
+      </a>
+
+      <a id="linkcode" href="#linkcode">
+        <i class="fa fa-fw fa-link"></i>
+        <span>Link to this Code</span>
+      </a>
+
+      <a href="#expand" data-expand>
+        <i class="fa fa-fw fa-arrows-alt"></i>
+        <span>Full Screen</span>
+      </a>
+      <a href="#collapse" class="uk-hidden" data-collapse>
+        <i class="fa fa-fw fa-compress"></i>
+        <span>Normal Size</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="rail-samples">
+    <ul>
+      
+    </ul>
+  </div>
+
+  <div class="rail-languages"></div>
+
+  <div class="rail-content">
+    <div class="rail-content-inner">
+      
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
+  </div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/api/chat/webhooks by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:03 GMT -->
+</html>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>How to Send an SMS from iOS in Swift &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; How to Send an SMS from iOS in Swift Comments Feed" href="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Megan Speir');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'developers-drawing-the-owl');
+	__gaTracker('set', 'dimension7', 'untagged');
+	__gaTracker('set', 'dimension8', '2016-11-02T11:15:12+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=19070' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F11%2Fhow-to-send-an-sms-from-ios-in-swift.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F11%2Fhow-to-send-an-sms-from-ios-in-swift.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-19070 single-format-image group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-19070" class="row post-19070 post type-post status-publish format-image has-post-thumbnail hentry category-developers-drawing-the-owl post_format-post-format-image">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">How to Send an SMS from iOS in Swift</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="253" src="https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-1024x405.png" class="img-responsive wp-post-image" alt="tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-1024x405.png 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-300x119.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-768x304.png 768w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz-200x79.png 200w, https://www.twilio.com/blog/wp-content/uploads/2016/11/tJS8Rkosi8UoWVPQEW6gP0sV-BqAlTztUseWJNg-4h9oyFminiaq4HAYeJx21u5xo-ulf_w8N1VvP7jSJNoT-wj4rALUZwswRoHxJlRKo079_5dk7Dh6MLlG2ZTX_hMIaZVqclqz.png 1410w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/mspeir">Megan Speir</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" rel="bookmark"><time class="entry-date published" datetime="2016-11-02T11:15:12+00:00">November 2, 2016</time><time class="updated" datetime="2016-11-03T09:44:57+00:00">November 3, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" data-text="How to Send an SMS from iOS in Swift ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p><a href="https://www.twilio.com/docs/api/rest/sending-messages" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest/sending-messages', 'Sending text messages');">Sending text messages</a> from your iOS app might be something you need or want to do and we&#8217;ve seen this problem solved for our friends on <a href="https://www.twilio.com/blog/2016/05/how-to-send-an-sms-from-android.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2016/05/how-to-send-an-sms-from-android.html', 'Android');">Android</a>. It&#8217;s time to solve it with Swift.</p>
+<h3 id="h.j0wu627z13tz" class="c2 c6">Why Shouldn&#8217;t I Send SMS from the REST API in Swift?</h3>
+<p>While Twilio is a REST API and you could make an HTTP request to it directly, you would need to store your Twilio credentials inside your app which poses a serious security issue. An attacker could decompile the application, extract your credentials and use your Twilio account for anything they liked.</p>
+<p>I bet <a href="https://twitter.com/SwiftOnSecurity" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/SwiftOnSecurity', '@SwiftOnSecurity');">@SwiftOnSecurity</a> would have a few things to say about that.</p>
+<p>To avoid this we will create a backend application that implements the Twilio REST API, wraps up your credentials and sends SMS messages for you. Then you can call your backend application from your Swift application and send SMS messages without compromising your credentials.<br />
+Using the <a href="https://www.twilio.com/docs/api/rest" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/rest', 'Twilio REST API');">Twilio REST API</a> we will also need the following tools to send a message:</p>
+<ul style="padding-left: 36px;">
+<li>Xcode 8 and Swift 3</li>
+<li>A Twilio Account and Twilio phone number &#8211; <a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/try-twilio', 'Get yours free');">Get yours free</a>.</li>
+<li>Your favorite language to create the backend. I will create a server using the <a href="https://www.twilio.com/docs/libraries/python" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/libraries/python', 'twilio-python helper library');">twilio-python helper library</a>. But you can choose your preference from the other <a href="https://www.twilio.com/docs/libraries" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/libraries', 'server-side libraries');">server-side libraries</a> as well.</li>
+<li>If you&#8217;re sticking with Python, you will also need <a href="http://flask.pocoo.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://flask.pocoo.org/', 'Flask');">Flask</a>, the microframework to build your backend.</li>
+<li>A tool to handle webhooks. We&#8217;ll use <a href="https://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/', 'ngrok');">ngrok</a>. Learn more about it <a href="https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html', 'from Phil Nash');">from Phil Nash</a>. Alternatively, you might have a server deployed on Heroku or something similar.</li>
+</ul>
+<h3 id="h.j0wu627z13tz" class="c2 c6">Setting Up Your Python Server</h3>
+<p>Since we&#8217;re using Python on the backend running a small Flask application, open your favorite text editor to create your <code>app.py</code> file.<br />
+Let&#8217;s test that it&#8217;s working with a quick Hello World:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58795012239e9790080460" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/hello', methods=['GET'])
+def say_hello():
+    res = 'Hello World'
+    return str(res)
+
+if __name__ == '__main__':
+        app.run()</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58795012239e9790080460-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795012239e9790080460-2">2</div><div class="crayon-num" data-line="crayon-58795012239e9790080460-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795012239e9790080460-4">4</div><div class="crayon-num" data-line="crayon-58795012239e9790080460-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795012239e9790080460-6">6</div><div class="crayon-num" data-line="crayon-58795012239e9790080460-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795012239e9790080460-8">8</div><div class="crayon-num" data-line="crayon-58795012239e9790080460-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58795012239e9790080460-10">10</div><div class="crayon-num" data-line="crayon-58795012239e9790080460-11">11</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58795012239e9790080460-1"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">flask </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">Flask</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795012239e9790080460-2">&nbsp;</div><div class="crayon-line" id="crayon-58795012239e9790080460-3"><span class="crayon-v">app</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Flask</span><span class="crayon-sy">(</span><span class="crayon-i">__name__</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795012239e9790080460-4">&nbsp;</div><div class="crayon-line" id="crayon-58795012239e9790080460-5"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/hello'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'GET'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795012239e9790080460-6"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">say_hello</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-58795012239e9790080460-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'Hello World'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58795012239e9790080460-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-k ">str</span><span class="crayon-sy">(</span><span class="crayon-i">res</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58795012239e9790080460-9">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58795012239e9790080460-10"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">__name__</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'__main__'</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-58795012239e9790080460-11">        <span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">run</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0046 seconds] -->
+<p>Run the application from terminal in your app.py project directory:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58795012239fc095637658" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+python app.py</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58795012239fc095637658-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58795012239fc095637658-1"><span class="crayon-e">python </span><span class="crayon-v">app</span><span class="crayon-e">.py</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>Check out <a href="http://127.0.0.1:5000/hello" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://127.0.0.1:5000/hello', 'http://127.0.0.1:/');">http://127.0.0.1:</a><a href="http://127.0.0.1:5000/hello" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://127.0.0.1:5000/hello', '5000/hello');">5000/hello</a> or whatever port your app is running on from your browser and you should see that special little &#8220;Hello World&#8221; message.<br />
+Now, we&#8217;ll make sure that we can reach the application outside of localhost by running on ngrok. In your terminal run:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a08014477421" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+ngrok http 5000</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a08014477421-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a08014477421-1"><span class="crayon-e">ngrok </span><span class="crayon-i">http</span><span class="crayon-h"> </span><span class="crayon-cn">5000</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>We can use the generated URL to give our mobile application access to this backend. You should see something like this:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 341.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/11/BeGKpcaWoJ-d2opEqwO8ylL33Qjej96GFZ614HZuMl0f2P0xTm1qhnxQwHYGVxXffWVEWzGXv8ME7jlLXxgLoEo5Gn_R1TC3iCP6eOMzHFAM_NyCmM_NGuSlgeu_8d0mRK90yGRK.png" alt="" /></p>
+<h3 class="c2 c6"></h3>
+<h3 id="h.j0wu627z13tz" class="c2 c6">Sending SMS with Snakes</h3>
+<p>With the basics working as expected we can replace our hello world code with a new endpoint to our Flask application to handle sending SMS messages. The iOS application can then send requests to it and we will be in business.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a13810781117" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Python</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+from flask import Flask, request
+
+from twilio.rest import TwilioRestClient
+
+app = Flask(__name__)
+ 
+# put your own credentials here 
+ACCOUNT_SID = 'YOUR_ACCOUNT_SID' 
+AUTH_TOKEN = 'YOUR_AUTH_TOKEN' 
+ 
+client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+ 
+@app.route('/sms', methods=['POST'])
+def send_sms():
+    message = client.messages.create(
+        to=request.form['To'], 
+        from_='YOUR_TWILIO_PHONE_NUMBER', 
+        body=request.form['Body'],
+    )
+
+    return message.sid
+
+if __name__ == '__main__':
+        app.run()</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a13810781117-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-2">2</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-4">4</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-6">6</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-8">8</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-10">10</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-12">12</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-14">14</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-16">16</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-18">18</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-20">20</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-22">22</div><div class="crayon-num" data-line="crayon-5879501223a13810781117-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a13810781117-24">24</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a13810781117-1"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">flask </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-i">Flask</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-e">request</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-2">&nbsp;</div><div class="crayon-line" id="crayon-5879501223a13810781117-3"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-v">twilio</span><span class="crayon-sy">.</span><span class="crayon-e">rest </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">TwilioRestClient</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-4">&nbsp;</div><div class="crayon-line" id="crayon-5879501223a13810781117-5"><span class="crayon-v">app</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Flask</span><span class="crayon-sy">(</span><span class="crayon-i">__name__</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-6"> </div><div class="crayon-line" id="crayon-5879501223a13810781117-7"><span class="crayon-c"># put your own credentials here </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-8"><span class="crayon-v">ACCOUNT_SID</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'YOUR_ACCOUNT_SID'</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-5879501223a13810781117-9"><span class="crayon-v">AUTH_TOKEN</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">'YOUR_AUTH_TOKEN'</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-10"> </div><div class="crayon-line" id="crayon-5879501223a13810781117-11"><span class="crayon-v">client</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">TwilioRestClient</span><span class="crayon-sy">(</span><span class="crayon-i">ACCOUNT_SID</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">AUTH_TOKEN</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-12"> </div><div class="crayon-line" id="crayon-5879501223a13810781117-13"><span class="crayon-sy">@</span><span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">route</span><span class="crayon-sy">(</span><span class="crayon-s">'/sms'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">methods</span><span class="crayon-o">=</span><span class="crayon-sy">[</span><span class="crayon-s">'POST'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-14"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">send_sms</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-o">:</span></div><div class="crayon-line" id="crayon-5879501223a13810781117-15"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">message</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-v">messages</span><span class="crayon-sy">.</span><span class="crayon-e">create</span><span class="crayon-sy">(</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-16"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">to</span><span class="crayon-o">=</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'To'</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span><span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-5879501223a13810781117-17"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">from_</span><span class="crayon-o">=</span><span class="crayon-s">'YOUR_TWILIO_PHONE_NUMBER'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-18"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">body</span><span class="crayon-o">=</span><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-v">form</span><span class="crayon-sy">[</span><span class="crayon-s">'Body'</span><span class="crayon-sy">]</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-5879501223a13810781117-19"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-20">&nbsp;</div><div class="crayon-line" id="crayon-5879501223a13810781117-21"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">message</span><span class="crayon-sy">.</span><span class="crayon-e">sid</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-22">&nbsp;</div><div class="crayon-line" id="crayon-5879501223a13810781117-23"><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">__name__</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-s">'__main__'</span><span class="crayon-o">:</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a13810781117-24">        <span class="crayon-v">app</span><span class="crayon-sy">.</span><span class="crayon-e">run</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0089 seconds] -->
+<p>Be sure to replace Account Sid, Auth Token, and Twilio phone number with your own from <a href="https://www.twilio.com/console" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/console', 'the Twilio Console');">the Twilio Console</a>. Then you can restart the app: <code>python run app.py</code>.</p>
+<p>You can be sure that it&#8217;s working by making a quick curl request using your phone number and ngrok URL.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a1e290986856" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+curl -XPOST —data "To= YOUR_PHONE_NUMBER&amp;Body=Test message" http://YOUR_NGROK_URL/sms</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a1e290986856-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a1e290986856-1"><span class="crayon-i">curl</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-i">XPOST</span><span class="crayon-h"> </span>—<span class="crayon-i">data</span><span class="crayon-h"> </span><span class="crayon-s">"To= YOUR_PHONE_NUMBER&amp;Body=Test message"</span><span class="crayon-h"> </span><span class="crayon-i">http</span><span class="crayon-o">:</span><span class="crayon-c">//YOUR_NGROK_URL/sms</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p></p>
+<h3 class="c2 c6"></h3>
+<h3 id="h.j0wu627z13tz" class="c2 c6">There&#8217;s an App for That</h3>
+<p>With our Python application running we can start building our iOS app.</p>
+<p>Clone <a href="https://github.com/meganspeir/TwilioSms" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/meganspeir/TwilioSms', 'this repository');">this repository</a> which contains a storyboard setup applying <a href="https://www.twilio.com/blog/2016/10/getting-started-with-auto-layout-for-ios-in-xcode-8.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2016/10/getting-started-with-auto-layout-for-ios-in-xcode-8.html', 'Auto Layout');">Auto Layout</a> with the appropriate <code>UILabel</code>s, <code>UITextField</code>s, and <code>UIAction</code> for this application. I am using Xcode 8 and Swift version 3.</p>
+<p>Open your terminal and navigate to where you want this project to live. Enter the following command to clone it, you can also download a <a href="https://github.com/meganspeir/TwilioSms/archive/master.zip" onclick="__gaTracker('send', 'event', 'download', 'https://github.com/meganspeir/TwilioSms/archive/master.zip');">zip file</a> of the project:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a29963697955" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+git clone https://github.com/meganspeir/TwilioSms.git</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a29963697955-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a29963697955-1"><span class="crayon-e">git </span><span class="crayon-r">clone</span><span class="crayon-h"> </span><span class="crayon-i">https</span><span class="crayon-o">:</span><span class="crayon-c">//github.com/meganspeir/TwilioSms.git</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>We are going to use <a href="https://www.twilio.com/blog/2016/05/getting-started-with-cocoapods-to-manage-dependencies-in-swift-and-ios.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2016/05/getting-started-with-cocoapods-to-manage-dependencies-in-swift-and-ios.html', 'CocoaPods');">CocoaPods</a> to install the dependency we’ll need for this project. Install CocoaPods if you don’t have it:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a33530435820" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+sudo gem install cocoapods</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a33530435820-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a33530435820-1"><span class="crayon-e">sudo </span><span class="crayon-e">gem </span><span class="crayon-e">install </span><span class="crayon-i">cocoapods</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>In the repository that you cloned, there is a <code>Podfile</code> listing the dependencies that need to be installed. We&#8217;re just using <a href="https://github.com/Alamofire/Alamofire" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/Alamofire/Alamofire', 'Alamofire');">Alamofire</a> for making HTTP requests, so that&#8217;s the only thing in the list. Install with the following command:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a3e256955080" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+pod install</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a3e256955080-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a3e256955080-1"><span class="crayon-e">pod </span><span class="crayon-i">install</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>You may get an error message saying you need to run <code>pod repo update</code> as it is no longer run on <code>pod install</code> in Cocoapods 1.0. Do this and then you should be able to <code>pod install</code> again without error.<br />
+CocoaPods takes care of linking all of the frameworks for you by creating a new <a href="https://developer.apple.com/library/ios/featuredarticles/XcodeConcepts/Concept-Workspace.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.apple.com/library/ios/featuredarticles/XcodeConcepts/Concept-Workspace.html', 'Xcode Workspace');">Xcode Workspace</a>. From now on when opening the project in Xcode, you’ll have to use <code>TwilioSms.xcworkspace</code> instead of your normal Xcode project:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a48965579132" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+open TwilioSms.xcworkspace</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a48965579132-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a48965579132-1"><span class="crayon-e">open </span><span class="crayon-v">TwilioSms</span><span class="crayon-e">.xcworkspace</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>Navigate to <code>ViewController.swift</code> where the following code already exists:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a52927999042" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Swift</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+class ViewController: UIViewController {
+    
+    @IBOutlet var phoneNumberField: UITextField!
+    @IBOutlet var messageField: UITextField!
+    
+    @IBAction func sendData(sender: AnyObject) {
+        
+    }
+    
+    //
+
+}</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a52927999042-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a52927999042-2">2</div><div class="crayon-num" data-line="crayon-5879501223a52927999042-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a52927999042-4">4</div><div class="crayon-num" data-line="crayon-5879501223a52927999042-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a52927999042-6">6</div><div class="crayon-num" data-line="crayon-5879501223a52927999042-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a52927999042-8">8</div><div class="crayon-num" data-line="crayon-5879501223a52927999042-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a52927999042-10">10</div><div class="crayon-num" data-line="crayon-5879501223a52927999042-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a52927999042-12">12</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a52927999042-1"><span class="crayon-r">class</span><span class="crayon-h"> </span><span class="crayon-i">ViewController</span><span class="crayon-o">:</span><span class="crayon-t"> UIViewController</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a52927999042-2"> <span class="crayon-h"> </span> <span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-5879501223a52927999042-3"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">@</span><span class="crayon-e">IBOutlet </span><span class="crayon-r">var</span><span class="crayon-h"> </span><span class="crayon-i">phoneNumberField</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">UITextField</span><span class="crayon-o">!</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a52927999042-4"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">@</span><span class="crayon-e">IBOutlet </span><span class="crayon-r">var</span><span class="crayon-h"> </span><span class="crayon-i">messageField</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">UITextField</span><span class="crayon-o">!</span></div><div class="crayon-line" id="crayon-5879501223a52927999042-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a52927999042-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">@</span><span class="crayon-e">IBAction </span><span class="crayon-r">func</span><span class="crayon-h"> </span><span class="crayon-e">sendData</span><span class="crayon-sy">(</span><span class="crayon-i">sender</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">AnyObject</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-5879501223a52927999042-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a52927999042-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-5879501223a52927999042-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a52927999042-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-c">//</span></div><div class="crayon-line" id="crayon-5879501223a52927999042-11">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a52927999042-12"><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0043 seconds] -->
+<p>This snippet sets our variables for a phone number, <code>phoneNumberField</code> and a message, <code>messageField</code> using <code>UITextField</code> outlets to capture user input. We have also connected an <code>@IBAction</code> target to the <code>ViewController</code> and set the action as the <code>sendData(_:)</code> method which will be called when the &#8220;Send&#8221; button is tapped.</p>
+<p>You can check that Alamofire was installed correctly by adding this line to <code>ViewController.swift</code> below the default <code></code><code>import UIKit</code><code></code>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a5d002017047" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+import Alamofire</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a5d002017047-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a5d002017047-1"><span class="crayon-e">import </span><span class="crayon-i">Alamofire</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0005 seconds] -->
+<p>Press “Command-B.” to verify the project builds with our dependency.<br />
+<img class="&quot; aligncenter" style="width: 622.50px; height: 383.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/11/41U0DOOBbYPUQcmHs654fxPkjct55g95o3k0bGWsKcEa5Dw7RVgTfazesBy_mCRIax43e8VnxMbnmqzDyirBh9xlFnmloxCu5e5ca4OFLrfIBAUjmB5_SYQ-CP2NRx_ILg9kdaOX.png" alt="" /></p>
+<p>If you build and run the project you can play around by typing in the <code>UITextField</code> boxes but they don&#8217;t currently do anything. We&#8217;ll fix it in a minute.</p>
+<h3 id="h.j0wu627z13tz" class="c2 c6">Sending POST Requests with HTTP in Swift using Alamofire</h3>
+<p>Open <code>ViewController.swift</code> and add the following code to the <code>ViewController</code> class inside the <code>sendData(_:)</code> method:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879501223a68871610290" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Swift</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+    @IBAction func sendData(sender: AnyObject) { 
+        let headers = [
+            "Content-Type": "application/x-www-form-urlencoded"
+        ]
+        
+        let parameters: Parameters = [
+            "To": phoneNumberField.text ?? "",
+            "Body": messageField.text ?? ""
+        ]
+        
+        Alamofire.request("YOUR_NGROK_URL/sms", method: .post, parameters: parameters, headers: headers).response { response in
+                print(response)
+            
+        }
+    }</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879501223a68871610290-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a68871610290-2">2</div><div class="crayon-num" data-line="crayon-5879501223a68871610290-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a68871610290-4">4</div><div class="crayon-num" data-line="crayon-5879501223a68871610290-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a68871610290-6">6</div><div class="crayon-num" data-line="crayon-5879501223a68871610290-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a68871610290-8">8</div><div class="crayon-num" data-line="crayon-5879501223a68871610290-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a68871610290-10">10</div><div class="crayon-num" data-line="crayon-5879501223a68871610290-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a68871610290-12">12</div><div class="crayon-num" data-line="crayon-5879501223a68871610290-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879501223a68871610290-14">14</div><div class="crayon-num" data-line="crayon-5879501223a68871610290-15">15</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879501223a68871610290-1"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">@</span><span class="crayon-e">IBAction </span><span class="crayon-r">func</span><span class="crayon-h"> </span><span class="crayon-e">sendData</span><span class="crayon-sy">(</span><span class="crayon-i">sender</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">AnyObject</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a68871610290-2"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-r">let</span> <span class="crayon-v">headers</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span></div><div class="crayon-line" id="crayon-5879501223a68871610290-3"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-s">"Content-Type"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"application/x-www-form-urlencoded"</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a68871610290-4"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5879501223a68871610290-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a68871610290-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-r">let</span><span class="crayon-h"> </span><span class="crayon-i">parameters</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">Parameters</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span></div><div class="crayon-line" id="crayon-5879501223a68871610290-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-s">"To"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">phoneNumberField</span><span class="crayon-sy">.</span><span class="crayon-v ">text</span><span class="crayon-h"> </span><span class="crayon-sy">?</span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-s">""</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a68871610290-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-s">"Body"</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-v">messageField</span><span class="crayon-sy">.</span><span class="crayon-v ">text</span><span class="crayon-h"> </span><span class="crayon-sy">?</span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-s">""</span></div><div class="crayon-line" id="crayon-5879501223a68871610290-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">]</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a68871610290-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span></div><div class="crayon-line" id="crayon-5879501223a68871610290-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span>  <span class="crayon-v">Alamofire</span><span class="crayon-sy">.</span><span class="crayon-v ">request</span><span class="crayon-sy">(</span><span class="crayon-s">"YOUR_NGROK_URL/sms"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">method</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-v ">post</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">parameters</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">parameters</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">headers</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">headers</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-v ">response</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-e">response </span><span class="crayon-st">in</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a68871610290-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">print</span><span class="crayon-sy">(</span><span class="crayon-i">response</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879501223a68871610290-13"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span></div><div class="crayon-line crayon-striped-line" id="crayon-5879501223a68871610290-14"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-5879501223a68871610290-15"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0120 seconds] -->
+<p>We&#8217;ve set the parameters for a POST request to our Flask server using values from our <code>UITextField</code> outlets as the <code>To</code> and <code>Body</code> parameters. Then, we specify our request&#8217;s header as a form encoded url header so that Twilio can accept the data as it did earlier when we made a request with curl.</p>
+<p>Voilà! We&#8217;ve just received a text message from T. Swift. That&#8217;s right&#8230;Twilio Swift!</p>
+<p><img class="aligncenter wp-image-19088 size-full" src="https://www.twilio.com/blog/wp-content/uploads/2016/11/TSwift.gif" alt="tswift" width="1152" height="720" /></p>
+<p>&nbsp;</p>
+<h3 id="h.j0wu627z13tz" class="c2 c6">Stay Safe, Stay Swift</h3>
+<p>Obliterating a potential vulnerability from your application is always cause for a celebration.</p>
+<p><img class="&quot; aligncenter" style="width: 560.00px; height: 300.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/11/N-1kVOWV8-QQsTMGk_rtfl1_SwQKa05GVTRKvEUkGTCGaeB2L5FLeJMN4B23KU2Rkd4Jonyf9oNLrI1aaqZryxErinndfzHuzyaZiYi12lfx3QhggIn0LKpul54gQUAxnOPsyvXS.png" alt="" /></p>
+<p>You&#8217;ve also created a chunk of Python code you can reuse on other platforms and continue to make HTTP requests directly to it.</p>
+<p>With a similar design, you could add phone number lookups or generate phone calls right from your app. If you want to use <a href="https://www.twilio.com/docs/api/ip-messaging/guides/quickstart-ios" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/ip-messaging/guides/quickstart-ios', 'IP Messaging');">IP Messaging</a>, <a href="https://www.twilio.com/docs/api/video/guide/quickstart-ios" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/video/guide/quickstart-ios', 'Video');">Video</a> or <a href="https://www.twilio.com/docs/api/client/ios" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/client/ios', 'Client');">Client</a>, you’ll want a server to generate access tokens for those services too. Whatever communication challenge it may be, you&#8217;re well on your way to tackling it.</p>
+<p>I&#8217;d love to hear about anything you&#8217;re building. Find me on Twitter <a href="http://twitter.com/meganspeir" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://twitter.com/meganspeir', '@meganspeir');">@meganspeir</a> or send an email my way via <a class="c8" href="mailto:mspeir@twilio.com">mspeir@twilio.com</a>.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html" data-text="How to Send an SMS from iOS in Swift ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/5d5f1db13fd8eb5fa55340b2e7d12ad3?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/5d5f1db13fd8eb5fa55340b2e7d12ad3?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/mspeir">Megan Speir</a></span></span> <span class="author-meta author-email"><a href="mailto:mspeir@twilio.com">mspeir@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+  
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2016/11/19070 https://www.twilio.com/blog/?p=19070';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "How to Send an SMS from iOS in Swift";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html?cf_action=sync_comments&amp;post_id=19070';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2016\/11\/how-to-send-an-sms-from-ios-in-swift.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2016/11/how-to-send-an-sms-from-ios-in-swift.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:06 GMT -->
+</html>

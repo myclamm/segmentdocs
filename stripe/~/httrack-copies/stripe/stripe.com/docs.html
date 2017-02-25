@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:42:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="OIM3JBtAp-Uyf5-k3y9BrFo7Io9DOEXwVDEZkYShrPuhGSNZHYVjoP87u7sTJ3TXc0WsCB-UhFAVhBO5IXZmig==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Documentation</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="img/v3/home/social.png">
+
+    <meta property="og:title" content="Documentation">
+    <meta property="og:url" content="docs.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Documentation">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+      <link rel="stylesheet" href="assets/v3/documentation/index-284c82bd068eb23c82dcf067b2c28b7b.css">
+
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="index.html" title="Stripe"></a>
+          <a class="extension" href="docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="docs.html" class="selected">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="docs/checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="docs/mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="docs/charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="docs/declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="docs/disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="docs/disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="docs/disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="docs/orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="docs/orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="docs/sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="docs/sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="docs/sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="docs/sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="docs/sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="docs/sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="docs/sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="docs/sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="docs/ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="docs/apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="docs/apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="docs/bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="docs/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="docs/subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="docs/connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="docs/connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="docs/connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="docs/connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="docs/connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="docs/connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="docs/connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="docs/connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="docs/connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="docs/relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="docs/radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="docs/radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="docs/radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="docs/radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="docs/radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="docs/checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="docs/transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="docs/reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="docs/libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="docs/upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="docs/webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="docs/building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="docs/recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="docs/security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="docs/api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          
+<header>
+  <h1>Documentation</h1>
+  <p><strong>Welcome to Stripe!</strong> Get familiar with the Stripe products and explore their features:</p>
+
+  <ul class="products">
+    <li>
+      <a class="product-payments" href="docs/quickstart.html">
+        <h3 data-no-anchor>Payments</h3>
+        <p>A complete set of APIs to accept online payments.</p>
+      </a>
+    </li>
+    <li>
+      <a class="product-subscriptions" href="docs/subscriptions/quickstart.html">
+        <h3 data-no-anchor>Subscriptions</h3>
+        <p>Manage every aspect of your recurring billing.</p>
+      </a>
+    </li>
+    <li>
+      <a class="product-connect" href="docs/connect.html">
+        <h3 data-no-anchor>Connect</h3>
+        <p>Build a marketplace and get people paid.</p>
+      </a>
+    </li>
+    <li>
+      <a class="product-orders" href="docs/relay.html">
+        <h3 data-no-anchor>Relay</h3>
+        <p>Let customers buy your products directly within other mobile apps.</p>
+      </a>
+    </li>
+  </ul>
+</header>
+
+<section>
+  <h2>Try Now</h2>
+  <p>Try the Stripe API in seconds. Create your first customer, charge, and more by following the steps below.</p>
+  <div class="try-now">
+    <nav>
+      <ol>
+        <li data-step="card" class="active">Card</li>
+        <li data-step="customer">Customer</li>
+        <li data-step="charge">Charge</li>
+        <li data-step="plan">Plan</li>
+        <li data-step="subscription">Subscription</li>
+        <li data-step="finish">Success!</li>
+      </ol>
+    </nav>
+    <div class="try-now-demo">
+      <div class="try-now-header">
+        <p data-step="card" class="active">As a first step, credit card information is sent directly to Stripe, ensuring sensitive data never hits your servers. The code below creates a <em>token</em> with Stripe.js for the test card <strong>4242 4242 4242 4242.</strong></p>
+        <p data-step="customer">You can immediately perform a one-time charge, but by storing it on a customer, the payment method can be used for repeat charges. Let's create the customer <strong data-description="customer"></strong> using your token.</p>
+        <p data-step="charge">Now that you have a customer and securely stored their credit card information, you can easily charge this customer anytime. Try creating a <strong data-description="amount"></strong> charge for <strong data-description="customer"></strong>.</p>
+        <p data-step="plan">If your business uses subscriptions, Stripe makes it simple to bill customers on a recurring basis. Let's start by creating a plan named <strong data-description="plan"></strong> for <strong data-description="amount"></strong>.</p>
+        <p data-step="subscription">You can now easily link your customer <strong data-description="customer"></strong> to this new plan <strong data-description="plan"></strong> to create a subscription. Stripe will handle the recurring billing automatically for you.</p>
+        <p data-step="finish">That's it! You've created your first customer, your first charge, as well as your first plan and subscription. Happy coding!</p>
+      </div>
+      <div class="tabs tabs-code animated">
+        <div class="tabs-content">
+          <div data-step="card" class="tabs-tab">
+            <form class="card-form">
+              <div class="row">
+                <label>Number</label>
+                <input type="text" size="20" class="card-number" placeholder="•••• •••• •••• ••••" disabled>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <label>Expiry</label>
+                  <input type="text" size="2" class="card-exp" placeholder="MM / YY" disabled>
+                </div>
+                <div class="column cvc">
+                  <label>CVC</label>
+                  <input type="text" size="4" class="card-cvc" placeholder="•••" disabled>
+                </div>
+              </div>
+              <div class="row">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>Stripe.card.createToken({
+  number: &#39;&#39;,
+  exp_month: 0,
+  exp_year: 0,
+  cvc: &#39;&#39;
+}, function(status, response) {
+  // response.id is the card token.
+});</code></pre>
+</div>
+          </div>
+          <div data-step="customer" class="tabs-tab"><div class="code">
+  <pre class="language-curl numbered" ><code></code></pre>
+</div>
+</div>
+          <div data-step="charge" class="tabs-tab"><div class="code">
+  <pre class="language-curl numbered" ><code></code></pre>
+</div>
+</div>
+          <div data-step="plan" class="tabs-tab"><div class="code">
+  <pre class="language-curl numbered" ><code></code></pre>
+</div>
+</div>
+          <div data-step="subscription" class="tabs-tab"><div class="code">
+  <pre class="language-curl numbered" ><code></code></pre>
+</div>
+</div>
+          <div data-step="finish" class="tabs-tab">
+<ul class="next-steps">
+    <li><a href="docs/custom-form1c95.html?ref=quickstart"><span>Integrate Stripe.js to easily and securely collect credit card information.</a></li>
+    <li><a href="docs/charges1c95.html?ref=quickstart"><span>Create your first charge on your server using one of our client libraries.</a></li>
+    <li><a href="docs/subscriptions/quickstart1c95.html?ref=quickstart"><span>Create your first subscription to handle recurring billing for your customers.</a></li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      <div class="try-now-footer">
+        <p data-step="card" class="success"><strong>Token created!</strong><code class="object"></code></p>
+        <p data-step="customer" class="success"><strong>Customer created!</strong><code class="object"></code></p>
+        <p data-step="charge" class="success"><strong>Charge created!</strong><code class="object"></code></p>
+        <p data-step="plan" class="success"><strong>Plan created!</strong><code class="object"></code></p>
+        <p data-step="subscription" class="success"><strong>Subscription created!</strong><code class="object"></code></p>
+        <p class="restart">Restart</p>
+        <p class="usage">
+          <strong>Usage:</strong>
+          <span class="info">Click "Submit" to create a token with Stripe.js.</span>
+        </p>
+        <p class="tip">
+          <strong>Tip:</strong>
+          <span class="info">
+            If you follow this demo while signed in, you'll see the objects in your <a href="https://dashboard.stripe.com/?ref=quickstart">Dashboard</a> in test mode.
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Getting started</h2>
+  <p>Stripe helps you create any type of payments flow—from e-commerce to recurring billing and everything in between.</p>
+
+  <h3>Accept payments</h3>
+  <p>
+    Stripe enables you to accept payments in minutes. Collect your customers' payment information easily and securely on web or mobile, and create charges server-side. Stripe supports 100+ currencies out of the box. In addition to <a href="docs/charges.html">credit and debit cards</a>, <a href="docs/mobile/ios.html">Apple Pay</a>, <a href="docs/mobile/android.html">Android Pay</a>, you can also easily support <a href="docs/bitcoin.html">Bitcoin</a>, <a href="docs/alipay.html">Alipay</a>, or <a href="docs/amex-express-checkout.html">Amex Express Checkout</a>.
+  </p>
+
+  <div class="columns payments">
+    <a class="column payments-web" href="docs/checkout/tutorial.html">
+      <h4 data-no-anchor>On your website</h4>
+      <p>
+        Start accepting payments on your website with our JavaScript libraries.
+      </p>
+    </a>
+    <a class="column payments-mobile" href="docs/mobile.html">
+      <h4 data-no-anchor>In your mobile app</h4>
+      <p>
+        Integrate our iOS &amp; Android SDKs, which support Apple Pay and Android Pay.
+      </p>
+    </a>
+  </div>
+
+  <h3>Manage recurring payments</h3>
+  <p>
+    Stripe makes recurring and subscription-based billing easy. <a href="docs/subscriptions/quickstart.html">Explore the quickstart</a> to get going quickly and subscribe your first customer to a plan.
+  </p>
+
+  <h3>Build a marketplace</h3>
+  <p>
+    Whether you're building a platform that needs to get sellers paid or building applications to do more with Stripe data, you can use <a href="docs/connect.html">Connect</a>. Learn how to <a href="docs/connect/connecting-to-accounts.html">connect to accounts</a> and <a href="docs/connect/standalone-accounts.html">let Stripe handle the sign up process</a>, or choose to customize your users' experience by <a href="docs/connect/managed-accounts.html">creating Managed Accounts</a> via the API.
+  </p>
+
+  <h3>Sell your products on other apps</h3>
+  <p>
+    Expand your reach by selling your products directly within your customers' favorite apps like <a href="docs/recipes/selling-on-twitter.html">Twitter</a> or ShopStyle. <a href="docs/relay.html">Read the guide</a> to add products to your Stripe account and connect to any number of apps.
+  </p>
+</section>
+
+<section>
+  <h2>Not a developer?</h2>
+  <p>A custom Stripe integration requires you to either be or hire a developer. But you can use Stripe through any number of third-parties.</p>
+
+  <div class="columns non-developer">
+    <a class="column non-developer-plugins" href="docs/libraries.html#third-party-plugins">
+      <h4 data-no-anchor>Plugins for third-party software</h4>
+      <p>
+        There are a number of third-party plugins and libraries built by our community, such as for WordPress and Drupal.
+      </p>
+    </a>
+    <a class="column non-developer-integrations" href="works-with.html">
+      <h4 data-no-anchor>Use Stripe from other services</h4>
+      <p>
+        Stripe has lots of third-party integrations which require no programming, hosting, or complicated setup on your behalf, such as Shopify and Wufoo.
+      </p>
+    </a>
+  </div>
+</section>
+
+<section>
+  <h2>We're here to help!</h2>
+  <ul class="large-items">
+    <li>
+      <a href="https://support.stripe.com/">
+        <h3 data-no-anchor>Support</h3>
+        <p>We're always happy to help with code or any questions you have.</p>
+      </a>
+    </li>
+    <li>
+      <a href="https://groups.google.com/a/lists.stripe.com/forum/#!forum/api-discuss">
+        <h3 data-no-anchor>API Mailing List</h3>
+        <p>Join our mailing list to be notified of API changes and stay up to date.</p>
+      </a>
+    </li>
+    <li>
+      <a href="docs/examples.html">
+        <h3 data-no-anchor>Examples</h3>
+        <p>Explore some sample projects built by the Stripe community.</p>
+      </a>
+    </li>
+  </ul>
+</section>
+
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <script src="assets/documentation-try-now-5df3221bb8ea34d1b0a0503fe7dadf9f.js"></script>
+<script type="text/javascript">
+Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+Stripe.endpoint = 'https://api.stripe.com/v1';
+tryItNow();
+</script>
+
+    <script src="assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:43:10 GMT -->
+</html>

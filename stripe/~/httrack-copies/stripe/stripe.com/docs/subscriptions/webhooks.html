@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/subscriptions/webhooks by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:48 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="FfGbo6DOfPWRi38RMP_SQN9L-CT4IS-VnheiCbT8o1mMa4_epgu4sFzPWw789-c79jV2o6SN7jXfoqghEStpKA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Using Webhooks with Subscriptions</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Using Webhooks with Subscriptions">
+    <meta property="og:url" content="webhooks.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Using Webhooks with Subscriptions">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a class='selected' href="webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Using Webhooks with Subscriptions</h1>
+  <p>Learn to use webhooks to receive notifications of subscription activity. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=subscriptions">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <p>Webhooks are a tool Stripe uses to notify your site of account events. Although webhooks can be used for many purposes, they are especially important when using subscriptions, where most activity occurs asynchronously and behind the scenes.</p>
+
+  <p>To use webhooks with your subscriptions:</p>
+
+  <ol>
+    <li>Follow the <a href="../webhooks.html">general webhooks guide</a> to create your webhook endpoint and configure it in your Stripe account.</li>
+    <li><a href="../testing.html#webhooks">Test your webhook endpoint</a> to confirm it's working.</li>
+  </ol>
+
+  <p>After taking those basic steps, read about <a href="#common-uses">common uses</a> for webhooks with subscriptions. You should also note how webhooks affect <a href="#understand">when invoices are paid</a>.</p>
+</section>
+
+<section>
+  <h2 id="common-uses">Common uses of webhooks with subscriptions</h2>
+
+<p>As subscriptions are an automatically recurring process, most subscription activity is triggered by Stripe: the generation of invoices, attempted payment on invoices, and cancellation of subscriptions due to failed payment. For each of these events–and more–you’ll likely want to take steps on your site.</p>
+
+<p>Three common uses of webhooks with subscriptions include:</p>
+
+<ul>
+  <li><a href="#payment-failures">Handling invoice payment failures</a></li>
+  <li><a href="#tracking">Tracking active subscriptions</a></li>
+  <li><a href="#state-changes">Catching subscription state changes</a></li>
+</ul>
+  <h3 id="payment-failures">Handling payment failures</h3>
+<p>Webhook notifications provide a reliable way to be notified of payment failures on subscription invoices. A payment failure can be a temporary problem–the bank declined this charge but may allow the automatic retry–or indicative of a permanent blocker, such as not having a usable payment source.</p>
+
+<p>We’ve written up a recipe that walks through accepting and processing payment failure notifications so you can <a href="../recipes/sending-emails-for-failed-payments.html">automatically email your customer</a> when it happens.</p>
+  <h3 id="tracking">Tracking active subscriptions</h3>
+
+<p>Subscriptions require more coordination between your site and Stripe than one-time payments do. In the subscription model, a customer’s continued access to your product or service is determined by the success or failure of automatic, recurring payments. Take, for example, a site where a subscription provides access to the site’s content.</p>
+
+<p>On the site, you’d store each user’s login credentials (e.g., email address and password, in an appropriately secure, encrypted format). You’d also store a value representing the customer’s access expiration date (i.e., the customer has paid for access until this point).</p>
+
+<p>If a customer subscribes to a monthly plan, you would initially set this timestamp value (it may be called <code>active_until</code>) to one month from now, plus perhaps a day or two for leeway. When the customer logs in, you’d verify the login credentials and check the <code>active_until</code> timestamp to confirm that it’s still in the future, and therefore an active account.</p>
+
+<p>When the subscription is <a href="lifecycle.html">renewed</a> (i.e., when Stripe bills the customer and they are charged again) your site is notified via webhooks of the additional payment:</p>
+
+<ol>
+  <li>Your site receives an <code>invoice.payment_succeeded</code> event at the webhook endpoint.</li>
+  <li>Your webhook endpoint finds the customer for whom payment was just made.</li>
+  <li>Your webhook endpoint updates the customer’s <code>active_until</code> timestamp in the database to another month in the future (plus a day or two for leeway).</li>
+</ol>
+  <h3 id="state-changes">Catching subscription state changes</h3>
+<p>Although most subscriptions exist in an <strong>active</strong> <a href="lifecycle.html#states">state</a>, state changes are common and are something you’ll want to be prepared to address. Just a few examples of changes and potential reactions include:</p>
+
+<ul>
+  <li>When a subscription is about to move from <strong>trialing</strong> to <strong>active</strong>, you’ll receive a <code>customer.subscription.trial_will_end</code> event. Upon receiving this event notification, your webhook script might ensure there’s a payment source on the customer so they can be billed, and optionally notify the customer that a charge is forthcoming.</li>
+  <li>When a subscription changes to <strong>past_due</strong>, your webhook script could email you about the problem so you can reach out to the customer, or the script could email the customer directly, asking them to update their payment details.</li>
+  <li>When a subscription changes to <strong>canceled</strong> or <strong>unpaid</strong>, your webhook script should ensure the customer is no longer receiving your products or services.</li>
+</ul></section>
+
+<section>
+  <h2 id="understand">Webhooks and payment attempts</h2>
+
+<p>Registering a webhook endpoint has an important effect on your subscriptions. Without webhooks, Stripe automatically attempts to pay an <a href="invoices.html">invoice</a> approximately one hour after it’s generated. If you’re using webhooks, Stripe waits to receive a successful response to the <code>invoice.created</code> event before attempting payment.</p>
+
+<p>If your webhook endpoint does not <a href="../webhooks.html#responding-to-a-webhook">respond properly</a>, Stripe continues retrying the webhook notification every hour for up to 72 hours. During that time, no payment will be attempted unless a successful response is received. We’ll also notify you via email that the webhook is failing.</p>
+
+<p>If the webhook notification hasn’t succeeded after 72 hours, Stripe attempts to pay the invoice anyway.</p>
+
+<p>This behavior applies to all webhook endpoints defined on your account. This includes if a <a href="../../works-with.html">Connect application</a> is having problems with its webhooks handling.</p>
+  <aside class="important alternate amber"><p><strong>If you have configured your account for webhooks and your webhooks are not working properly, payment on your invoices will be delayed up to 72 hours.</strong></p></aside>
+
+</section>
+
+<section>
+  <h2>Next steps</h2>
+<p>Congrats! You’ve learned how to use webhooks with subscriptions. Some documentation you might want to read next:</p>
+<ul class="next-steps">
+    <li><a href="lifecycle.html"><span>Lifecycle &amp; Events</a></li>
+    <li><a href="../webhooks.html"><span>Webhooks (general guide)</a></li>
+    <li><a href="../recipes/sending-emails-for-failed-payments.html"><span>Sending Emails for Failed Payments</a></li>
+    <li><a href="testing.html"><span>Testing Subscriptions</a></li>
+    <li><a href="../api.html#events"><span>Events API</a></li>
+</ul>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/subscriptions/webhooks by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:48 GMT -->
+</html>

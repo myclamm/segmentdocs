@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments on: Send Daily SMS Reminders Using Firebase, Node.js and Twilio</title>
+	<atom:link href="https://twilioinc.wpengine.com/2014/09/send-daily-sms-reminders-using-firebase-node-js-and-twilio.html/feed" rel="self" type="application/rss+xml" />
+	<link>https://twilioinc.wpengine.com/2014/09/send-daily-sms-reminders-using-firebase-node-js-and-twilio.html</link>
+	<description></description>
+	<lastBuildDate>Thu, 12 Jan 2017 13:19:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.2</generator>
+	<item>
+		<title>By: obliviga</title>
+		<link>https://twilioinc.wpengine.com/2014/09/send-daily-sms-reminders-using-firebase-node-js-and-twilio.html#comment-3618</link>
+		<dc:creator><![CDATA[obliviga]]></dc:creator>
+		<pubDate>Fri, 10 Jul 2015 16:01:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13908#comment-3618</guid>
+		<description><![CDATA[What a great tutorial. Thanks!]]></description>
+		<content:encoded><![CDATA[<p>What a great tutorial. Thanks!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Mick Stevens</title>
+		<link>https://twilioinc.wpengine.com/2014/09/send-daily-sms-reminders-using-firebase-node-js-and-twilio.html#comment-3169</link>
+		<dc:creator><![CDATA[Mick Stevens]]></dc:creator>
+		<pubDate>Tue, 30 Sep 2014 13:00:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=13908#comment-3169</guid>
+		<description><![CDATA[Oh man this is so much slicker than my existing PHP/MySQL reminder App, thanks Ricky!
+
+Apologies if being stupid, but I couldn&#039;t actually see, either in the repo or the tutorial, the code snippet that shows the interaction with (presumably) http://www.esbnyc.com/explore/tower-light etc though? Have you just used cron wget? Any chance you could share an example for completeness?]]></description>
+		<content:encoded><![CDATA[<p>Oh man this is so much slicker than my existing PHP/MySQL reminder App, thanks Ricky!</p>
+<p>Apologies if being stupid, but I couldn&#8217;t actually see, either in the repo or the tutorial, the code snippet that shows the interaction with (presumably) <a href="http://www.esbnyc.com/explore/tower-light" rel="nofollow">http://www.esbnyc.com/explore/tower-light</a> etc though? Have you just used cron wget? Any chance you could share an example for completeness?</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

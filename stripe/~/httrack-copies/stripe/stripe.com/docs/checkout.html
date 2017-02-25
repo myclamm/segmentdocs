@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/checkout by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="Dn5Lj1HJfE5POKq0cFi2alhR7c4ZtcR6WLNPU2UYQfOX5F_yVwy4C4J8jqu8UIMRcS9jSUUZBdoZBkV7wM-Lgg==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Checkout Reference</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="Checkout Reference">
+    <meta property="og:url" content="checkout.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Checkout Reference">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul>
+    <li>
+      <a class='selected' href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Detailed Checkout Guide</h1>
+  <p><a href="../checkout.html">Checkout</a> is the best payment flow, on web and mobile. Checkout builds on top of <a href="stripe.html">Stripe.js</a> to provide your users with a streamlined, mobile-ready payment experience that is constantly improving. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=checkout">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3 id="features">Features</h3>
+    <ul>
+      <li>Custom <a href="#integration-options-image">logo</a> and <a href="#integration-options-name">text</a></li>
+      <li>One-click payment through <a href="../checkout.html#onetap">Remember Me</a></li>
+      <li>Optional <a href="#integration-options-billing-address">billing</a> and <a href="#integration-options-shipping-address">shipping</a> address</li>
+      <li>Desktop, tablet, and mobile support</li>
+    </ul>
+  </aside>
+
+  <p>Try out Checkout right now by clicking the button below! Use our <a href="testing.html#cards">test card number</a>&mdash;<strong>4242 4242 4242 4242</strong>, any future month and year for the expiration, any three-digit number for the CVC, and any random ZIP code.</p>
+
+
+  <div class="stripe-button-container">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+      data-amount="2000"
+      data-name="Stripe.com"
+      data-description="2 widgets"
+      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+      data-locale="auto"
+      data-zip-code="true"
+      data-notrack>
+    </script>
+  </div>
+
+  <p>Checkout securely accepts your customer's payment details and directly passes them to Stripe's servers. Stripe returns a <em>token</em> representation of those payment details, which can then be submitted to your server for use. Checkout doesn't actually create charges&mdash;it only creates tokens. You can use those tokens to create the actual <a href="charges.html">charge on your server</a>. Or you can <a href="charges.html#saving-credit-card-details-for-later">save the card</a> for charging later, or sign the user up for <a href="subscriptions/quickstart.html">recurring charges</a>.</p>
+</section>
+
+<section>
+  <h2 id="integration">Integration</h2>
+
+  <aside class="note">
+    <h3>Example integrations</h3>
+    <p>We have Checkout integration guides for several platforms and languages to get you up and running as quickly as possible:
+    </p>
+
+    <ul>
+      <li><a href="checkout/sinatra.html" class="arrow">Sinatra</a></li>
+      <li><a href="checkout/rails.html" class="arrow">Rails</a></li>
+      <li><a href="checkout/flask.html" class="arrow">Flask</a></li>
+      <li><a href="checkout/express.html" class="arrow">Express</a></li>
+      <li><a href="checkout/php.html" class="arrow">PHP</a></li>
+    </ul>
+  </aside>
+
+  <p>You can integrate Checkout in as little as a single line of client-side code. As we release new Stripe features, we'll automatically roll them out to your existing Checkout integration, so that you will always be using our latest technology without needing to change a thing.</p>
+
+  <p>Checkout supports two different integrations:</p>
+  <ul>
+    <li><strong>Simple</strong>: The simple integration provides a blue <strong>Pay with Card</strong> button as shown above. Upon completion of the payment form and receipt of the <a href="api.html#tokens">token</a>, Checkout stores the token within a hidden input in your payment form and automatically submits the form for server-side use.</li>
+    <li><strong>Custom</strong>: The custom integration lets you create a custom button and passes a Stripe <a href="api.html#tokens">token</a> to a JavaScript callback. Your JavaScript callback will need to send the token to your server for use.</li>
+  </ul>
+
+  <span id="integration-simple"></span>
+  <span id="integration-custom"></span>
+<div class="tabs tabs-regular animated"  data-callback='integrationChanged' data-save-url=true data-save-url-prefix='integration-'>
+  <nav class="nav-tabs">
+    
+        <a>Simple</a>
+        <a>Custom</a>
+  </nav>
+  <div class="tabs-content">
+    <div class="tabs-tab" id='simple'>      <p>The simple integration uses a script tag inside your payment form to render the blue Checkout button. Upon completion of the Checkout process, Checkout submits your form to your server, passing along a <code>stripeToken</code> and any elements your form contains. When adding the following code to your page, make sure that the form submits to your own <a href="checkout/tutorial.html#tokens">server-side code</a> within the <strong>action</strong> attribute:</p>
+
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;form action=&quot;/your-server-side-code&quot; method=&quot;POST&quot;&gt;
+&lt;script
+  src=&quot;https://checkout.stripe.com/checkout.js&quot; class=&quot;stripe-button&quot;
+  data-key=&quot;pk_test_6pRNASCoBOKtIshFeQd4XMUh&quot;
+  data-amount=&quot;2000&quot;
+  data-name=&quot;Stripe.com&quot;
+  data-description=&quot;2 widgets&quot;
+  data-image=&quot;https://stripe.com/img/documentation/checkout/marketplace.png&quot;
+  data-locale=&quot;auto&quot;
+  data-zip-code=&quot;true&quot;&gt;
+&lt;/script&gt;
+&lt;/form&gt;</code></pre>
+</div>
+
+        <p>We've placed a random API key in the code. Replace it with your <a href="https://dashboard.stripe.com/account/apikeys">actual publishable API key</a> to test this code through your Stripe account.</p>
+
+        <p>The above configuration also accepts the user's ZIP code, when applicable, and passes this to Stripe. Although optional, using <a href="https://support.stripe.com/questions/what-is-avs">address and ZIP code verifications</a> is highly recommended as they'll help reduce fraud.</p>
+
+      <aside class="notification">
+        <p><strong>Note</strong>: Checkout must be loaded directly from <strong>https://checkout.stripe.com/checkout.js</strong>. Using a local copy of Checkout is unsupported, and may result in user-visible errors.</p>
+      </aside>
+
+      <h2 id="integration-simple-parameters">Received parameters</h2>
+      <p>The following parameters are submitted to your form's action endpoint, along with any other elements in your form, once Checkout completes.</p>
+      <table class="reference">
+        <thead>
+          <th>Parameter</th>
+          <th>Description</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="attr" style="width:35%;">stripeToken</td>
+            <td>The ID of the token representing the payment details</td>
+          </tr>
+          <tr>
+            <td class="attr">stripeEmail</td>
+            <td>The email address the user entered during the Checkout process</td>
+          </tr>
+          <tr>
+            <td class="attr">stripeBillingName<br>stripeBillingAddressLine1<br>stripeBillingAddressZip<br>stripeBillingAddressState<br>stripeBillingAddressCity<br>stripeBillingAddressCountry</td>
+            <td>Billing address details (if <a href="#integration-options-billing-address">enabled</a>)</td>
+          </tr>
+          <tr>
+            <td class="attr">stripeShippingName<br>stripeShippingAddressLine1<br>stripeShippingAddressZip<br>stripeShippingAddressState<br>stripeShippingAddressCity<br>stripeShippingAddressCountry</td>
+            <td>Shipping address details (if <a href="#integration-options-shipping-address">enabled</a>)</td>
+          </tr>
+        </tbody>
+      </table>
+</div><div class="tabs-tab" id='custom'>      <p>The custom integration allows you to use any HTML element or JavaScript event to trigger Checkout. The custom integration requires solid JavaScript skills, and you'll have to perform all of the requisite steps that a simple integration does for you.</p>
+
+      <p>When your page loads, you should create a handler object using <code>StripeCheckout.configure()</code>. You can then call <code>open()</code> on the handler in response to any event. If you need to abort the Checkout process&mdash;for example, when navigation occurs in a single-page application, call <code>close()</code> on the handler. The <code>key</code> parameter must be passed to <code>configure()</code>. Any other options can be passed to either <code>configure()</code> or <code>open()</code>.</p>
+
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;script src=&quot;https://checkout.stripe.com/checkout.js&quot;&gt;&lt;/script&gt;
+
+&lt;button id=&quot;customButton&quot;&gt;Purchase&lt;/button&gt;
+
+&lt;script&gt;
+var handler = StripeCheckout.configure({
+  key: &#39;pk_test_6pRNASCoBOKtIshFeQd4XMUh&#39;,
+  image: &#39;https://stripe.com/img/documentation/checkout/marketplace.png&#39;,
+  locale: &#39;auto&#39;,
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    // Get the token ID to your server-side code for use.
+  }
+});
+
+document.getElementById(&#39;customButton&#39;).addEventListener(&#39;click&#39;, function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: &#39;Stripe.com&#39;,
+    description: &#39;2 widgets&#39;,
+    zipCode: true,
+    amount: 2000
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener(&#39;popstate&#39;, function() {
+  handler.close();
+});
+&lt;/script&gt;</code></pre>
+</div>
+
+        <p>The above configuration also accepts the user's ZIP code, when applicable, and passes this to Stripe. Although optional, using <a href="https://support.stripe.com/questions/what-is-avs">address and ZIP code verifications</a> is highly recommended as they'll help reduce fraud.</p>
+
+      <aside class="important">
+        <p><strong>Note</strong>: Checkout must be loaded directly from <strong>https://checkout.stripe.com/checkout.js</strong>. Using a local copy of Checkout is unsupported, and may result in user-visible errors.</p>
+      </aside>
+</div>
+  </div>
+</div>
+
+  <div id="integration-custom-options"></div>
+  <h2 id="integration-simple-options" class="configuration-options-label">Configuration options</h2>
+
+  <p>Change how Checkout looks and behaves using the following configuration options.</p>
+
+  <h3>Required</h3>
+  <table class="reference">
+    <tbody>
+      <tr>
+        <td class="attr" style="width:35%;"><span class="integration-simple">data-</span>key</td>
+        <td>Your publishable key (test or live)</td>
+      </tr>
+      <tr id="integration-custom-callback-token" class="integration-only-custom">
+        <td><div class="attr">token</div><span class="integration-simple">(Only available with the custom integration)</span></td>
+        <td>The callback to invoke when the Checkout process is complete
+          <br><code>function(token, args)</code>
+          <ul>
+            <li><code>token</code> is the <a href='api.html#tokens'>Token object</a> created</li>
+            <li><code>token.id</code> can be used to create a charge or can be attached to a customer</li>
+            <li><code>token.email</code> contains the email address entered by the user</li>
+            <li><code>args</code> is an object containing the <a href="#integration-options-billing-address">billing</a> and <a href="#integration-options-shipping-address">shipping</a> addresses, if enabled <a id="token-args-show-example" href="#">(see example)</a></li>
+          </ul>
+          <span class="example" style="display:none;">
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+// Billing name and address
+&quot;billing_name&quot;: &quot;Stripe&quot;,
+&quot;billing_address_country&quot;: &quot;United States&quot;,
+&quot;billing_address_zip&quot;: &quot;94111&quot;,
+&quot;billing_address_state&quot;: &quot;CA&quot;,
+&quot;billing_address_line1&quot;: &quot;1234 Main Street&quot;,
+&quot;billing_address_city&quot;: &quot;San Francisco&quot;,
+&quot;billing_address_country_code&quot;: &quot;US&quot;,
+
+// Shipping name and address
+&quot;shipping_name&quot;: &quot;Stripe&quot;,
+&quot;shipping_address_country&quot;: &quot;United States&quot;,
+&quot;shipping_address_zip&quot;: &quot;94111&quot;,
+&quot;shipping_address_state&quot;: &quot;CA&quot;,
+&quot;shipping_address_line1&quot;: &quot;1234 Main Street&quot;,
+&quot;shipping_address_city&quot;: &quot;San Francisco&quot;,
+&quot;shipping_address_country_code&quot;: &quot;US&quot;
+}</code></pre>
+</div>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Highly recommended</h3>
+  <table class="reference">
+    <tbody>
+      <tr id="integration-options-image">
+        <td class="attr" style="width:35%;"><span class="integration-simple">data-</span>image</td>
+        <td>A relative or absolute URL pointing to a square image of your brand or product. The recommended minimum size is 128x128px. The supported image types are: <strong>.gif</strong>, <strong>.jpeg</strong>, and <strong>.png</strong>.</td>
+      </tr>
+      <tr id="integration-options-name">
+        <td class="attr"><span class="integration-simple">data-</span>name</td>
+        <td>The name of your company or website</td>
+      </tr>
+      <tr id="integration-options-description">
+        <td class="attr"><span class="integration-simple">data-</span>description</td>
+        <td>A description of the product or service being purchased</td>
+      </tr>
+      <tr id="integration-options-amount">
+        <td class="attr"><span class="integration-simple">data-</span>amount</td>
+        <td>The amount (in cents) that's shown to the user. Note that you will still have to explicitly include the amount when you create a charge using the API.</td>
+      </tr>
+      <tr id="integration-options-locale">
+        <td class="attr"><span class="integration-simple">data-</span>locale</td>
+        <td>Specify <strong>auto</strong> to display Checkout in the <a href="https://support.stripe.com/questions/what-languages-does-stripe-checkout-support">user's preferred language</a>, if available. English will be used by default.</td>
+      </tr>
+      <tr id="integration-options-zip-code">
+        <td class="attr"><span class="integration-simple">data-zip-code</span><span class="integration-custom">zipCode</span></td>
+        <td>Specify whether Checkout should validate the billing ZIP code (true or false). The default is false, but we highly recommend setting to true.</td>
+      </tr>
+      <tr id="integration-options-billing-address">
+        <td class="attr"><span class="integration-simple">data-billing-address</span><span class="integration-custom">billingAddress</span></td>
+        <td>Specify whether Checkout should collect the user's billing address (true or false). The default is false.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Optional</h3>
+  <table class="reference">
+    <tbody>
+      <tr id="integration-options-currency">
+        <td class="attr" style="width:35%;"><span class="integration-simple">data-</span>currency</td>
+        <td>The currency of the <a href="#integration-options-amount">amount</a> (3-letter <a href="https://support.stripe.com/questions/which-currencies-does-stripe-support">ISO code</a>). The default is USD.</td>
+      </tr>
+      <tr id="integration-options-panel-label">
+        <td class="attr"><span class="integration-simple">data-panel-label</span><span class="integration-custom">panelLabel</span></td>
+        <td>
+          The label of the payment button in the Checkout form (e.g. <strong>Subscribe</strong>, <strong>Pay {{amount}}</strong>, etc.). If you include <code>{{amount}}</code> in the label value, it will be replaced by a localized version of <code>data-amount</code>. Otherwise, a localized <code>data-amount</code> will be appended to the end of your label. Checkout does not translate custom labels to the user's preferred language.
+        </td>
+      </tr>
+      <tr id="integration-options-shipping-address">
+        <td class="attr"><span class="integration-simple">data-shipping-address</span><span class="integration-custom">shippingAddress</span></td>
+        <td>Specify whether Checkout should collect the user's shipping address (true or false). The default is false.</td>
+      </tr>
+      <tr id="integration-options-email">
+        <td class="attr"><span class="integration-simple">data-</span>email</td>
+        <td>If you already know the email address of your user, you can provide it to Checkout to be prefilled.</td>
+      </tr>
+      <tr id="integration-options-label" class="integration-only-simple">
+        <td><div class="attr"><span class="integration-simple">data-</span>label</div><span class="integration-custom">(Only available with the simple integration)</span></td>
+        <td>The text to be shown on the blue button. Default is <strong>Pay with Card</strong>. Checkout does not currently translate this label.</td>
+      </tr>
+      <tr id="integration-options-allow-remember-me">
+        <td class="attr"><span class="integration-simple">data-allow-remember-me</span><span class="integration-custom">allowRememberMe</span></td>
+        <td>Specify whether to include the option to "Remember Me" for future purchases (true or false). The default is true.</td>
+      </tr>
+      <tr id="integration-options-bitcoin">
+        <td class="attr"><span class="integration-simple">data-</span>bitcoin</td>
+        <td>Specify whether to accept <a href="bitcoin.html">Bitcoin</a> (true or false). The default is false.</td>
+      </tr>
+      <tr id="integration-options-alipay">
+        <td class="attr"><span class="integration-simple">data-</span>alipay</td>
+        <td>Specify whether to accept <a href="alipay.html">Alipay</a> ("auto", true, or false). The default is false.</td>
+      </tr>
+      <tr id="integration-options-alipay-reusable">
+        <td class="attr"><span class="integration-simple">data-alipay-reusable</span><span class="integration-custom">alipayReusable</span></td>
+        <td>Specify if you need <a href="alipay.html#reusable-and-non-reusable-account-access">reusable access to the customer's Alipay account</a> (true or false). The default is false.</td>
+      </tr>
+      <tr id="integration-custom-callback-opened" class="integration-only-custom">
+        <td><div class="attr">opened</div><span class="integration-simple">(Only available with the custom integration)</span></td>
+        <td><code>function()</code>
+          <br>The callback to invoke when Checkout is opened (not supported in IE6 and IE7)
+        </td>
+      </tr>
+      <tr id="integration-custom-callback-closed" class="integration-only-custom">
+        <td><div class="attr">closed</div><span class="integration-simple">(Only available with the custom integration)</span></td>
+        <td><code>function()</code>
+          <br>The callback to invoke when Checkout is closed (not supported in IE6 and IE7). Called after the <a href="#integration-custom-callback-token">token</a> callback (for successful tokenizations).
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2 id="supported-languages">Supported languages</h2>
+  <p>In addition to English, Checkout supports the following languages:</p>
+
+  <ul>
+    <li>Simplified Chinese (zh)</li>
+    <li>Danish (da)</li>
+    <li>Dutch (nl)</li>
+    <li>English (en)</li>
+    <li>Finnish (fi)</li>
+    <li>French (fr)</li>
+    <li>German (de)</li>
+    <li>Italian (it)</li>
+    <li>Japanese (ja)</li>
+    <li>Norwegian (no)</li>
+    <li>Spanish (es)</li>
+    <li>Swedish (sv)</li>
+  </ul>
+
+  <p>Custom strings passed to Checkout (e.g., <code>name</code>, <code>description</code>, <code>panelLabel</code> and <code>label</code>) are not automatically translated.</p>
+
+  <p>Checkout also uses the locale to formats numbers and currencies. For example, when loading Checkout with currency set to <strong>EUR</strong> and locale set to <strong>auto</strong>, a browser configured to use English (en) could see <strong>€25.00</strong> while one configured for Hungarian (hu) would see <strong>25,00 €</strong>. If you provide a specific locale, Checkout will use that locale for number and currency formatting.</p>
+
+  <p><a href="alipay.html">Alipay</a> is only supported in English and Chinese. Users of other languages will see Alipay in Chinese but will still see the option to complete a card payment in their native language.</p>
+
+  <h2 id="does-checkout-require-https">HTTPS requirements</h2>
+    <p>All submissions of payment info using Checkout are made via a secure HTTPS connection. However, in order to protect yourself from certain forms of man-in-the-middle attacks, you must serve the page containing the payment form over HTTPS as well. In short, the address of the page containing Checkout must start with <strong>https://</strong> rather than just <strong>http://</strong>.</p>
+
+    <p>If you are not familiar with the process of buying SSL certificates and integrating them with your server to enable a secure HTTPS connection, check out our <a href="security.html">security</a> documentation for more information.</p>
+
+  <h2 id="does-checkout-verify-that-credit-cards-are-valid">Card validation</h2>
+    <p>Checkout verifies card details with the credit card networks to ensure they are valid. For additional protection, you can opt to have Checkout collect the <a href="#integration-options-zip-code">billing ZIP code</a>, and make sure that <a href="https://dashboard.stripe.com/account">ZIP code validation</a> is turned on for your account.</p>
+  <h2 id="what-browsers-does-checkout-support">Browser support</h2>
+
+    <p>Checkout strives to support all recent versions of major browsers. For the sake of security and providing the best experience to the majority of customers, we do not support browsers that are no longer receiving security updates and represent a small minority of traffic.</p>
+<ul>
+  <li>We support Internet Explorer per <a href="https://support.microsoft.com/en-us/gp/microsoft-internet-explorer">Microsoft's lifecycle policy</a>. As of January 12, 2016, we support Internet Explorer 9 and above.</li>
+  <li>We support Chrome and Safari on all platforms and Firefox on desktop platforms for three years from version release</li>
+  <li>We respond to bug reports but do not proactively test the latest version of Firefox on Android and iOS, Silk on Fire OS, and Opera for Windows.</li>
+</ul> 
+<p>If you have an issue with Checkout on a specific browser, please <a href="https://support.stripe.com/email">contact us</a> so we can improve its support.</p>
+  <a name="integration-more-runloop"></a>
+  <h2 id="how-do-i-prevent-the-checkout-popup-from-being-blocked">Prevent Checkout from being blocked</h2>
+    <p>You can prevent Checkout's popup from being blocked by calling <code>handler.open</code> when the user clicks on an element on the page. Do not call <code>handler.open</code>  in a callback. This design indicates to the browser that the user is explicitly requesting the popup. Otherwise, mobile devices and some versions of Internet Explorer will block the popup and prevent users from checking out. This only applies to custom integrations.</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// This will work:
+document.getElementById(&quot;button&quot;).addEventListener(&quot;click&quot;, function() {
+  handler.open({
+    image: &#39;/square-image.png&#39;,
+    name: &#39;Demo Site&#39;,
+    description: &#39;2 widgets&#39;,
+    amount: 2000
+  });
+});
+
+// This will not work:
+document.getElementById(&quot;failbutton&quot;).addEventListener(&quot;click&quot;, function() {
+  fetch(&quot;/&quot;).then(function() {
+    handler.open({
+      image: &#39;/square-image.png&#39;,
+      name: &#39;Demo Site&#39;,
+      description: &#39;2 widgets&#39;,
+      amount: 2000
+    });
+  });
+});</code></pre>
+</div>
+</section>
+
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+        <script>
+      jQuery(function($){
+        $('.stripe-button').on('token', function(e, token){
+          var id = $('<span/>');
+          id.text(token.id);
+          $('.stripe-button-container').replaceWith('<p>Your Stripe token is: <strong>' + id.html() + '</strong>.</p>');
+        });
+      });
+    </script>
+          <script>
+          $(function() {
+            $('#token-args-show-example').on('click', function(e) {
+              $(e.currentTarget).hide();
+              $('#integration-custom-callback-token .example').show();
+              e.stopPropagation();
+              return false;
+            });
+          });
+          </script>
+<script>
+  function integrationChanged(integration) {
+    $('.integration-simple').hide();
+    $('.integration-custom').hide();
+    $('.integration-'+integration).show();
+  }
+
+  integrationChanged('simple');
+</script>
+
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/checkout by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+</html>

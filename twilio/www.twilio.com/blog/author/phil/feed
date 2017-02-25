@@ -1,0 +1,1485 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Phil Nash &#8211; Twilio Cloud Communications Blog</title>
+	<atom:link href="https://twilioinc.wpengine.com/author/phil/feed" rel="self" type="application/rss+xml" />
+	<link>https://twilioinc.wpengine.com</link>
+	<description></description>
+	<lastBuildDate>Fri, 13 Jan 2017 19:24:02 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.2</generator>
+
+<image>
+	<url>https://twilioinc.wpengine.com/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png</url>
+	<title>Phil Nash &#8211; Twilio Cloud Communications Blog</title>
+	<link>https://twilioinc.wpengine.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Redact or Delete SMS Messages as They Arrive with Node.js</title>
+		<link>https://twilioinc.wpengine.com/2017/01/redact-delete-sms-messages-node-js.html</link>
+		<comments>https://twilioinc.wpengine.com/2017/01/redact-delete-sms-messages-node-js.html#respond</comments>
+		<pubDate>Wed, 04 Jan 2017 17:46:01 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[delete]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[Node.js]]></category>
+		<category><![CDATA[REST API]]></category>
+		<category><![CDATA[SMS]]></category>
+		<category><![CDATA[text message]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19375</guid>
+		<description><![CDATA[<p>Keeping tabs on who has access to data in your application is hard when they exist in multiple places, like SMS messages in your app and within Twilio. Here&#8217;s how to redact or delete messages as soon you receive them with Node.js. What you&#8217;ll need To build this application to redact or delete SMS messages, you&#8217;ll need: A Twilio account (you can sign up for a... <a class="read-more" href="https://twilioinc.wpengine.com/2017/01/redact-delete-sms-messages-node-js.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2017/01/redact-delete-sms-messages-node-js.html">Redact or Delete SMS Messages as They Arrive with Node.js</a></p>]]></description>
+				<content:encoded><![CDATA[<p>Keeping tabs on who has access to data in your application is hard when they exist in multiple places, like SMS messages in your app and within Twilio. Here&#8217;s how to redact or delete messages as soon you receive them with Node.js.</p>
+<h3 id="h.hwiavc4npex">What you&#8217;ll need</h3>
+<p>To build this application to redact or delete SMS messages, you&#8217;ll need:</p>
+<ul>
+<li>
+A Twilio account (you can <a href="https://www.twilio.com/try-twilio">sign up for a free account</a> if you don&#8217;t have one)
+</li>
+<li>
+<a href="https://www.twilio.com/console/phone-numbers/incoming">A Twilio phone number</a> that can send and receive SMS messages
+</li>
+<li>
+<a href="https://nodejs.org/en/">Node.js</a> to build the app (I&#8217;m using the latest in the long term support series, version 6.9.2)
+</li>
+<li>
+<a href="https://ngrok.com">ngrok</a> so we can <a href="https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html">expose our development server to Twilio&#8217;s webhooks</a>
+</li>
+</ul>
+<p>Got all that ready? Let&#8217;s see how to delete some messages.</p>
+<h3 id="h.l30wrlx4lveq">Building a webhook endpoint</h3>
+<p>In order to delete or redact our messages as they arrive we need to get notified by Twilio that we have received a message. To receive these notifications we use a webhook. When our Twilio number receives a message Twilio will make an HTTP request to a URL we supply with all the details about the message.</p>
+<p>On the command line, create a new folder for our application, change into that folder and initialise a new Node.js application.</p>
+<p></p><pre class="crayon-plain-tag">$ mkdir self-destructing-messages
+$ cd self-destructing-messages
+$ npm init -y</pre><p></p>
+<p>We need to install a few libraries to get our application started.</p>
+<ul>
+<li>
+<a href="http://expressjs.com/">express</a> for creating the web application
+</li>
+<li>
+<a href="https://github.com/expressjs/body-parser">body-parser</a> to read the body of the requests sent to the app from Twilio
+</li>
+<li>
+the <a href="https://www.twilio.com/docs/libraries/node">Node.js Twilio helper</a> for making requests to the <a href="https://www.twilio.com/docs/api/rest">Twilio REST API</a>
+</li>
+</ul>
+<p></p><pre class="crayon-plain-tag">$ npm install express body-parser twilio &mdash;save</pre><p></p>
+<p>Now create a file called <code>index.js</code> and open it in your favourite editor. Enter the following application boilerplate:</p>
+<p></p><pre class="crayon-plain-tag">// index.js
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = new express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// app goes here
+
+app.listen(3000, () =&gt; {
+  console.log('Your application has started on http://localhost:3000')
+});</pre><p></p>
+<p>We need an endpoint that can receive POST requests from Twilio whenever our Twilio number receives a message. We&#8217;ll start simple and create one that logs out the incoming message. The message body is sent as the <code>Body</code> parameter in <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request">Twilio&#8217;s request to the application</a>. Add a route for a POST request to <code>/messages</code> with the following code to log the message.</p>
+<p></p><pre class="crayon-plain-tag">// index.js
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.post('/messages', (request, response) =&gt; {
+  console.log(request.body.Body);
+  response.send('&lt;Response/&gt;');
+});</pre><p></p>
+<p>Start up the server:</p>
+<p></p><pre class="crayon-plain-tag">$ node index.js</pre><p></p>
+<p>In another terminal get ngrok started as well:</p>
+<p></p><pre class="crayon-plain-tag">$ ngrok http 3000</pre><p></p>
+<p>Copy your ngrok URL and open the Twilio console to edit your <a href="https://www.twilio.com/console/phone-numbers/incoming">phone number</a>. Enter the ngrok URL with a path to <code>/messages</code> in the Messaging config.</p>
+<p><img alt="When editing the phone number in the Twilio console, find the messaging section and enter your ngrok URL into the field with the label 'A message comes in'" src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/jb-6tPINqx47OpEAnXUlE4WwOKew8cMr7R4QqqBetVLj7lBfFQ1RvAbH1JmdJ5wbL2Sm6SED2oiUt-cP9700WdxGElRuYK5skdo1vp26gnIAuxmG15KZByRFzc9LHau-NsxJJek.png" class="aligncenter"></p>
+<p>Now send your number a message and watch as the message is logged to the console! I sent myself a message that I knew wouldn&#8217;t be deleted.</p>
+<p><img alt="The terminal shows the application starts and then prints out the message 'Hello, this message won't be deleted.'" src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/EUcF-uiZDlQEC_BoFJxHPIIN9-fyMms65NXurRFtou0yq9Wigad2So7MKaA9rsN9ZmmUsBrxoHz2zx7ohl0TkIGr2l-6rDlEu00zuhjQ_ZkY-d9EWoUcRHWJBzKNUruTJa74aow.png" class="aligncenter"></p>
+<p>And there&#8217;s the message in the Twilio console log.</p>
+<p><img alt="In the Twilio log you can also see the message 'Hello, this message won't be deleted.'" src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/ZrSRVali8mbsU-jxEH6nqc_9Ea51QVzdR45G-slbqfRFjEJLG478CmYo_6uJOUnUOaYF2H_8jwDxodY8Ug_26HPlv1mVC5CfudvLtoVaTVuG60FbJdorPyLSnIe9d-xnfWU48_k.png" class="aligncenter"></p>
+<p>Let&#8217;s get down to redacting that message body or deleting the message entirely.</p>
+<h3 id="h.ddcf3q6xo3vx">Setting up the Twilio REST Client</h3>
+<p>To redact the text in a message or delete it completely we&#8217;re going to use the <a href="https://www.twilio.com/docs/libraries/node">Twilio Node.js helper library</a> to access the <a href="https://www.twilio.com/docs/api/rest">REST API</a>. The library will need to use your Account SID and Auth Token so set them as the environment variables <code>TWILIO_ACCOUNT_SID</code> and <code>TWILIO_AUTH_TOKEN</code>. If you&#8217;re not sure how to set environment variables, take a look at this <a href="https://github.com/twilio/starter-node/blob/master/README.md#setting-up">setup guide</a>.</p>
+<p>Now we need to require the Twilio module and set up a REST client to use to access the API.</p>
+<p></p><pre class="crayon-plain-tag">// index.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const twilio = require('twilio');
+
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+const app = new express();</pre><p></p>
+<h3 id="h.ou1a7qqhv1k9">Redacting message bodies</h3>
+<p>To delete the text from a message we need to update the message resource by POSTing to it with a blank body. In your <code>/messages</code> route add the following code:</p>
+<p></p><pre class="crayon-plain-tag">// index.js
+app.post('/messages', (request, response) =&gt; {
+  console.log(request.body.Body);
+  client.messages(request.body.MessageSid).post({ body: '' })
+    .then((message) =&gt; response.send('&lt;Response/&gt;'))
+    .catch((err) =&gt; {
+      console.error(err);
+      response.send('&lt;Response/&gt;');
+    });
+});</pre><p></p>
+<p>Restart your server and send another message. You&#8217;ll see the body logged in the terminal, but when we inspect the Twilio console the message body will be gone.</p>
+<p><img alt="This time in the Twilio log the message body appears empty, it has been redacted." src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/JnasJWBU27LBarAqN2A9MWuU6gjJckEbw2gKNAlpqyCZ8eF5tbI-GTAzQmYIdlNBFnHM9Qlxzc-bKVwZZ_Fg2MEp9y97xN7mj5Ec30Xdjqev15yMKIRSvlU44DTB9jBGMVQbaIw.png" class="aligncenter"></p>
+<h3 id="h.lkdht4yydnfc">Deleting messages</h3>
+<p>We&#8217;ve managed to redact the body of the message, but what if we want to delete the message completely? We can perform a DELETE through the REST API. There is a slight problem here though. When the message arrives at our webhook, it may not have been marked as &#8220;received&#8221; within Twilio. We can&#8217;t delete the message until it is &#8220;received&#8221; so we keep checking the message until its status changes to &#8220;received&#8221;. Then we can delete it.</p>
+<p>We first add a function to index.js which checks the message and its status and if it is &#8220;received&#8221; then deletes it, otherwise the application waits for 1 second and tries again.</p>
+<p></p><pre class="crayon-plain-tag">// index.js
+function tryDelete(messageSid) {
+  client.messages(messageSid).get()
+    .then((message) =&gt; {
+      if (message.status === "received") {
+        client.messages(messageSid).delete()
+          .then(() =&gt; console.log("Message deleted"))
+          .catch((err) =&gt; console.error(err));
+      } else {
+        setTimeout(() =&gt; tryDelete(messageSid), 1000);
+      }
+    })
+    .catch((err) =&gt; console.error(err));
+}</pre><p></p>
+<p>We don&#8217;t want the web request to be waiting around for the message to get deleted, so we return some empty TwiML first, then call on our <code>tryDelete</code> function.</p>
+<p></p><pre class="crayon-plain-tag">// index.js
+app.post('/messages', (request, response) =&gt; {
+  console.log(request.body.Body);
+  response.send('&lt;Response/&gt;')
+  tryDelete(request.body.MessageSid);
+});</pre><p></p>
+<p>Restart your server again and send in a message. It will get printed to the console, then you will see &#8220;Message deleted&#8221; printed and when you check the Twilio console it will be gone.</p>
+<p><img alt="In the terminal the message is logged, shortly after the log 'Message deleted' is seen too." src="https://twilioinc.wpengine.com/wp-content/uploads/2017/01/Q4atBIXBKoq0D5T4r_h45Y2xrNTGappQYNPMHTMM4em5QoaNjJ2CwvLJbYBSosmiXXBdfzV_FZp9XXpXGvIS3QEP3fUS3JvU_nKRBxlmhjVmFLKuVMCJgLSuRmFWU8Odp3U4XEM.png" class="aligncenter></p>
+<h3 id="h.vflyqyl2wour">Message privacy restored</h3>
+<p>So that&#8217;s all you need to do to redact or delete your received messages in Twilio using Node.js. I recommend that rather than just logging the received message, you store it in your own database so that you can control who can and can&#8217;t read it.</p>
+<p>If you&#8217;ve got excited about deleting things from Twilio, there&#8217;s more!</p>
+<ul>
+<li>
+If you also receive media messages, then watch out, you need to <a href="https://www.twilio.com/docs/api/rest/media#instance-delete">delete the media</a> separate from the message text
+</li>
+<li>
+If you have call logs, recordings or transcriptions you want to delete <a href="https://support.twilio.com/hc/en-us/articles/223133047-Delete-calls-recordings-and-transcriptions-">you can do that too</a>
+</li>
+</ul>
+<p>Do you use other techniques to keep your messages under the sole control of your system? Let me know in the comments or drop me an email at <a href="mailto:philnash@twilio.com">philnash@twilio.com</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2017/01/redact-delete-sms-messages-node-js.html">Redact or Delete SMS Messages as They Arrive with Node.js</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2017/01/redact-delete-sms-messages-node-js.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Create an SMS bot on AWS Lambda with Claudia.js</title>
+		<link>https://twilioinc.wpengine.com/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html#respond</comments>
+		<pubDate>Mon, 19 Dec 2016 19:22:34 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[Amazon Lambda]]></category>
+		<category><![CDATA[bots]]></category>
+		<category><![CDATA[Claudia.js]]></category>
+		<category><![CDATA[Node.js]]></category>
+		<category><![CDATA[SMS]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19332</guid>
+		<description><![CDATA[<p>SMS chat bots and AWS Lambda go well together if you want to build a bot that can reach people all over the world without worrying about your underlying infrastructure. In just a few steps we&#8217;re going to see how easy it is to deploy a Node.js chat bot on Lambda using Claudia.js. What is Claudia.js? I&#8217;ve always liked the idea of Amazon&#8217;s Lambda service, but the first time... <a class="read-more" href="https://twilioinc.wpengine.com/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html">Create an SMS bot on AWS Lambda with Claudia.js</a></p>]]></description>
+				<content:encoded><![CDATA[<p><a href="https://www.twilio.com/docs/api/rest/sending-messages">SMS</a> chat bots and <a href="https://aws.amazon.com/lambda/details/">AWS Lambda</a> go well together if you want to build a bot that can reach people all over the world without worrying about your underlying infrastructure. In just a few steps we&#8217;re going to see how easy it is to deploy a Node.js chat bot on Lambda using <a href="https://claudiajs.com/">Claudia.js</a>.</p>
+<h3 id="h.vc3lmadkpd3a">What is Claudia.js?</h3>
+<p>I&#8217;ve always liked the idea of Amazon&#8217;s Lambda service, but the first time I tried to use it I found the deployment process troubling. As I uploaded the zip file of my project to the AWS dashboard, <em>yes that is how you deploy to Lambda</em>, to test my work I thought to myself, &#8220;There must be a better way.&#8221;</p>
+<p>Thankfully I wasn&#8217;t the only one, so tools like <a href="https://claudiajs.com/">Claudia.js</a>, <a href="https://serverless.com/">Serverless</a> and <a href="http://senecajs.org/">Seneca</a> were born. Each of them offer various features and different methods of deploying apps to Lambda. I was recently drawn to Claudia.js not only because it makes deploying applications to Lambda easier, but because it comes with Claudia Bot Builder, a framework that abstracts away the differences between a host of bot platforms. Together they make it really easy to write and deploy bots to Lambda, so let&#8217;s build an SMS bot to see how it all works.</p>
+<h3 id="h.w58tep42dcdy">Before we start</h3>
+<p>There are a few things we&#8217;re going to need to get this project off the ground</p>
+<ul>
+<li>
+A <a href="https://www.twilio.com/try-twilio">Twilio account</a> and a <a href="https://www.twilio.com/console/phone-numbers/incoming">Twilio phone number</a> that can receive SMS messages
+</li>
+<li>
+An <a href="https://aws.amazon.com/">AWS account</a>
+</li>
+<li>
+Node.js v4.3.2, the version that runs on Lambda (you can install multiple versions of Node.js using <a href="https://github.com/creationix/nvm/blob/master/README.markdown">nvm</a>)
+</li>
+</ul>
+<p>Don&#8217;t worry if you&#8217;re just trying this out, both Twilio and AWS have free tiers that you can use to build this bot.</p>
+<p>Now we need to prepare AWS for use with Claudia.js.</p>
+<h3 id="h.4qux07plq4nk">Setting up AWS</h3>
+<p>Claudia.js will need access to your AWS account, so it&#8217;s best to create a profile that only contains the permissions that Claudia.js needs to deploy our bot. To do so, go to the <a href="https://console.aws.amazon.com/iam/home?region=us-east-1#users">Users section</a> of the <a href="https://console.aws.amazon.com/iam/home?region=us-east-1#home">Identity &#038; Access Management service</a>. Create a new user and give it a recognisable name.</p>
+<p><img alt="Fill in a user name in the User name field and check the box for Programmatic Access." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/adiPpSZuf_HcqLGgaD0IVnVk5slYXXtc2CeX2MnNHY6r_boqGzhOUEQSy471q-ACW8Ci9GjSqiUUTLDu1dt39dPLyMEOus3FWirdzuSBgdp9Xn5YJQk1OKPG0gVGTdoADre5IOc.png" class="aligncenter"></p>
+<p>Make sure &#8220;Programmatic Access&#8221; is checked. Click &#8220;Next: Permissions&#8221;. On the next screen you will be able to select the permissions the user has. We need three permissions for this user: AWSLambdaFullAccess, IAMFullAccess and AmazonAPIGatewayAdministrator.</p>
+<p><img alt="Choose 'Attach existing policies directly' and use the search box to find the three permissions we need to add to the user." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/nylN-HHm1D8oAqROAPXJsl6BxIFu1Gs3i8uLIyDcJy6wekEhu8m2zdjcgTBHgwVzMqner3SOn4NVHZ_AvRRpFHP6wr__YVKybr0zdS7FDfeDKF3FNXxmiaJ1OhzvtblZnCJCtw.png" class="aligncenter"> </p>
+<p>Click &#8220;Next: Review&#8221; to review your user and ensure they have the correct permissions, click &#8220;Create User&#8221;. You should see the success screen and your new user&#8217;s Access Key ID and Secret Access Key. Don&#8217;t move on from this screen yet, these credentials will only be shown to you once!</p>
+<p><img alt="The success screen shows the user credentials for your new user." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/dmT87Nne1RSCEqqb582JkkKRm148BZjFv_6b2c6DgqsmJxMXYG7YNtEQQDnTfu-4ImVcSPECXjrvfNFhhBGoAU4EcxP4WgwB0bmvDmH14yStAjg_YUmG-hc2HDAC46Au5SHLe1s.png" class="aligncenter"></p>
+<p>Claudia.js uses the AWS Node.js module so we need to store the credentials in the conventional location; either <code>~/.aws/credentials</code> on Mac or Linux and <code>C:\Users\USER_NAME\.awscredentials</code> on Windows. If you don&#8217;t already have a credentials file, create one and add the following:</p>
+<p></p><pre class="crayon-plain-tag">[claudia]
+aws_access_key_id = YOUR_ACCESS_KEY_ID
+aws_secret_access_key = YOUR_SECRET_ACCESS_KEY</pre><p></p>
+<p>We&#8217;ve now setup a profile called &#8220;claudia&#8221; that we can use with Claudia.js.</p>
+<p>If you&#8217;d like to learn more, there is an in depth <a href="http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/configuring-the-jssdk.html">tutorial on setting permissions up for the AWS Node.js SDK in the AWS documentation</a>.</p>
+<h3 id="h.9glhh0b6g1a6">Creating our bot</h3>
+<p>Now that we&#8217;ve set up the permissions for Claudia.js we can start our bot. First up jump into the command line, create a directory to keep the bot&#8217;s code in and and start a new Node.js project:</p>
+<p></p><pre class="crayon-plain-tag">$ mkdir quote-bot
+$ cd quote-bot
+$ npm init --yes</pre><p></p>
+<p>Not seen <code>--yes</code> before? It accepts all the defaults from <code>npm init</code> without you have to tap enter the whole way through!</p>
+<p>Install Claudia.js as a development dependency.</p>
+<p></p><pre class="crayon-plain-tag">$ npm install claudia --save-dev</pre><p></p>
+<p>We&#8217;ll also need the Claudia Bot Builder as a dependency.</p>
+<p></p><pre class="crayon-plain-tag">$ npm install claudia-bot-builder --save</pre><p></p>
+<p>Create a file called <code>bot.js</code> and open the project in your favourite editor.</p>
+<h4 id="h.a60q81gz48p2">Some helpful npm scripts</h4>
+<p>Before we write our bot, we&#8217;re going to put a couple of helpful npm scripts in place. We have installed Claudia.js as a development dependency and we need to run the executable, so npm scripts is the easiest place to do that. Open <code>package.json</code> and add the following to the <code>scripts</code> section:</p>
+<p></p><pre class="crayon-plain-tag">  "scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "create": "claudia create --region us-east-1 --api-module bot --profile claudia",
+    "update": "claudia update --profile claudia"
+  },</pre><p></p>
+<p>The create script will do all our initial setup, adding the Lambda function and configuring AWS API Gateway so that we have URLs for the bot platforms&#8217; webhooks. If you named your AWS profile differently in <code>~/.aws/credentials</code> use that as the <code>--profile</code> argument.</p>
+<p>The update script will deploy updates to your bot. Enough of this config, let&#8217;s write a bot!</p>
+<h3 id="h.q40tjl2id6n">Writing the bot</h3>
+<p>Open up <code>bot.js</code> and start by requiring the Claudia Bot Builder.</p>
+<p></p><pre class="crayon-plain-tag">// bot.js
+var botBuilder = require('claudia-bot-builder');</pre><p></p>
+<p>Then we pass a handler function to the <code>botBuilder</code> which will deal with incoming messages.</p>
+<p></p><pre class="crayon-plain-tag">// bot.js
+var botBuilder = require('claudia-bot-builder');
+
+var bot = botBuilder(function(message) {
+  return 'Hello world!';
+});</pre><p></p>
+<p>Then export the <code>bot</code>.</p>
+<p></p><pre class="crayon-plain-tag">// bot.js
+var botBuilder = require('claudia-bot-builder');
+
+var bot = botBuilder(function(message) {
+  return 'Hello world!';
+});
+
+module.exports = bot;</pre><p></p>
+<p>And that&#8217;s it! We&#8217;ve created a bot that will respond to every incoming message with &#8220;Hello world!&#8221;.</p>
+<p>Ok, that&#8217;s a pretty boring bot. Let&#8217;s have it do something a bit more interesting. I found the simplicity of building my first bot with Claudia so inspirational I wanted to share some more inspiration with you. I called this bot quote-bot, so we&#8217;re going to have it return inspirational quotes when you ask for one, otherwise it will return a greeting.</p>
+<p>We&#8217;ll first install a couple more dependencies:</p>
+<p></p><pre class="crayon-plain-tag">$ npm install greeting node-fetch --save</pre><p></p>
+<p>Let&#8217;s do a simple test to check if the incoming message wants a quote. For this we&#8217;re going to look for the string &#8220;quote&#8221; in the incoming text. For more complicated use cases, I&#8217;d start looking at natural language processing or a cognitive service like the <a href="https://www.ibm.com/watson/developercloud/conversation.html">Watson Conversation API</a>, <a href="https://www.luis.ai/">Luis</a> or <a href="https://wit.ai/">wit.ai</a>.</p>
+<p>If we do need a quote, we&#8217;ll use the <a href="https://www.npmjs.com/package/node-fetch">node-fetch module</a> to look up a random quote from the <a href="http://forismatic.com/en/api/">Forismatic API</a>. For asynchronous tasks like this, Claudia Bot Builder requires us to return a Promise which later resolves to the message to respond with. If you want to learn more about Promises, including more node-fetch examples, check out this <a href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html">guide to Promises</a> by Dominik.</p>
+<p>If we don&#8217;t ask for a quote, we&#8217;ll generate a random greeting with the <a href="https://www.npmjs.com/package/greeting">greeting module</a>.</p>
+<p></p><pre class="crayon-plain-tag">// bot.js
+var botBuilder = require('claudia-bot-builder');
+var greeting = require('greeting');
+var fetch = require('node-fetch');
+
+var bot = botBuilder(function(message) {
+  if (message.text.match(/quote/i)) {
+    return fetch('http://api.forismatic.com/api/1.0/?method=getQuote&amp;format=text&amp;lang=en').then(function(res) {
+      return res.text();
+    });
+  } else {
+    return greeting.random();
+  }
+});
+
+module.exports = bot;</pre><p></p>
+<p>As you can see, the <code>message</code> object that is passed to our handler contains the text of the message sent to our bot. You can also get the original request sent to the endpoint with <code>message.originalRequest</code>.</p>
+<h3 id="h.ow5cg764owpw">Deploying the bot</h3>
+<p>We are now ready to deploy our bot. On the command line run our create script:</p>
+<p></p><pre class="crayon-plain-tag">$ npm run create</pre><p></p>
+<p>This is where Claudia.js is doing all the magic. It creates the Lambda function and configures the AWS API Gateway for all our potential bots. In the output at the end you can see the URLs you can use for webhooks for all the supported services.</p>
+<p>We&#8217;re not quite done yet as we need to configure our bot for receiving Twilio webhooks. Run:</p>
+<p></p><pre class="crayon-plain-tag">$ npm run update -- --configure-twilio-sms-bot</pre><p></p>
+<p>This will update your bot, though we haven&#8217;t changed anything just yet, and finally ask for your Twilio account details. Enter your Account SID, your Auth Token (which you can find in your <a href="https://www.twilio.com/console">Twilio console</a>) and the <a href="https://www.twilio.com/console/phone-numbers/incoming">phone number</a> you want to use.</p>
+<p><img alt="At the end of the script a number of URLs are produced, make sure to copy the one for Twilio." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/dHhu1tqaAnnwdGQ8o1OLg15okEWXr2TmSMh0i0muyCvAQfusyI-7dQfRliVHxuSpdv4b2d0GSWArNMM4N1661SLLLeNfF21dbzAlTbspwkSE6Ew95i6MDtGRdBstjB2m7QWFldc.png" class="aligncenter"></p>
+<p>Take the webhook URL that the script outputs and enter it into the webhook field for the messaging settings of your Twilio phone number:<br />
+ <br />
+<img alt="In the Twilio console, edit your phone number and enter the Twilio URL from Claudia into the webhook field for messaging." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/bJ7YJJgAXfkJHSp5B8ckR8f2JLiWYtH319RJ1tyEZ7XMmFJ8px2xavxyVaxHD5_mhjUnqbwB2GIljO_JXHA8G4NADE9G5lgkZSSk6zP-I6VX-tIr02Pk4rIWlBk5wWvMZ8XXJQ4.png" class="aligncenter"></p>
+<p>Everything is in place to send your first message to your bot. Grab your phone, enter your number and ask for a quote.</p>
+<p><img alt="Now when you send an SMS to your number it will respond with a greeting. If you ask for a quote you will receive back an inspirational quote." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/saWqSx4ESV5y-kvXB1wvVqx3mNBtmmDY-YIE-lAfXTemfQ-JzC-2zHo_de2dvnZH2VF5omWrQyTp_MZIvC8gyAMawoAfELcEvtwKTcFPAwTUwh2nPrH1-6bXO5VKESr5cci-Uw.png" class="aligncenter"></p>
+<p>Want to give this a go yourself? Send an SMS message to my bot at +447481345328 if you&#8217;re in the UK or  +12016903488 if you&#8217;re in the US.</p>
+<h3 id="h.37e3p0bi1xf1">Bots, bots, bots</h3>
+<p>That is all you need to do to get a bot running on AWS Lambda with Claudia.js. If you want to check out the complete code for this, take a look at the <a href="https://github.com/philnash/quote-bot">GitHub repo</a> for this project.</p>
+<p>Now you can create any bot you fancy, run it on AWS Lambda and have the power of Node.js and a world of APIs and AI at your fingertips.</p>
+<p>Why not try hooking your bot up to another service as well? Claudia Bot Builder supports Twilio as well as Facebook Messenger, Slack, Telegram, Skype, Kik and GroupMe.</p>
+<p>What do you think about Claudia.js and AWS Lambda? Have you built a bot of your own yet and what did you use? Drop me a note in the comments or hit me up on <a href="mailto:philnash@twilio.com">email</a> or <a href="https://twitter.com/philnash">Twitter</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html">Create an SMS bot on AWS Lambda with Claudia.js</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/12/create-an-sms-bot-on-aws-lambda-with-claudia-js.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Make Phone Calls with Crystal and Twilio</title>
+		<link>https://twilioinc.wpengine.com/2016/12/make-phone-calls-crystal-twilio.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/12/make-phone-calls-crystal-twilio.html#comments</comments>
+		<pubDate>Fri, 02 Dec 2016 19:19:04 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Developers Drawing The Owl]]></category>
+		<category><![CDATA[crystal]]></category>
+		<category><![CDATA[crystal-lang]]></category>
+		<category><![CDATA[Phone Call]]></category>
+		<category><![CDATA[shards]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19224</guid>
+		<description><![CDATA[<p>We&#8217;ve already learned how to send SMS messages with Crystal, a new language that looks like Ruby but runs like C. Doing that required making a simple HTTP request from our Crystal application to the Twilio API. Now it&#8217;s time to dig a little deeper and see how to make phone calls with Crystal.  Making a call is going to require not only an HTTP request but also receiving... <a class="read-more" href="https://twilioinc.wpengine.com/2016/12/make-phone-calls-crystal-twilio.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/12/make-phone-calls-crystal-twilio.html">Make Phone Calls with Crystal and Twilio</a></p>]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;ve already learned how to send <a href="https://www.twilio.com/blog/2016/11/send-sms-messages-crystal.html">SMS messages with Crystal</a>, a new language that looks like Ruby but runs like C. Doing that required making a simple <a href="https://www.twilio.com/blog/2016/11/send-sms-messages-crystal.html">HTTP request</a> from our Crystal application to the Twilio API.</p>
+<p>Now it&#8217;s time to dig a little deeper and see how to <a href="https://www.twilio.com/docs/api/rest/making-calls">make phone calls</a> with Crystal.  Making a call is going to require not only an HTTP request but also <a href="https://www.twilio.com/docs/api/twiml/twilio_request">receiving a webhook</a> which we will need to respond to with <a href="https://www.twilio.com/docs/api/twiml">TwiML</a>.</p>
+<h3 id="h.um4ysw1s5v3r">Getting started</h3>
+<p>If you want to join in, you&#8217;ll need to install Crystal, there are <a href="https://crystal-lang.org/docs/installation/index.html">installation instructions in the documentation</a>. You will also need <a href="https://www.twilio.com/try-twilio">a Twilio account, which you can get for free</a> if you don&#8217;t have one yet, and a <a href="https://www.twilio.com/console/phone-numbers/incoming">Twilio number</a> that is capable of making phone calls.</p>
+<p>We&#8217;ll use the code from <a href="https://www.twilio.com/blog/2016/11/send-sms-messages-crystal.html">the previous post</a> as the starting point for this project. You can run through that post and learn <a href="https://www.twilio.com/blog/2016/11/send-sms-messages-crystal.html">how to send a text message with Crystal</a> then come back here to make a call, or just <a href="https://github.com/philnash/crystal-experiments/blob/master/src/sms.cr">grab that post&#8217;s completed code from GitHub</a>.</p>
+<h3 id="h.hzzmho3xreeg">Making a phone call with Crystal</h3>
+<p>Let&#8217;s start by creating a new Crystal file to write the code that will make phone calls.</p>
+<p></p><pre class="crayon-plain-tag">$ touch phone.cr</pre><p></p>
+<p>We&#8217;ll use the code we wrote in the <a href="https://github.com/philnash/crystal-experiments/blob/master/src/sms.cr"><code>sms.cr</code></a> file as the starting point for making phone calls so open that file and copy and paste the code from it into <code>phone.cr</code>.</p>
+<p>Now we can make a few modifications so we&#8217;re making calls instead of sending messages.</p>
+<p>First, make a simple JSON mapping for our call object. </p>
+<p>Next, rename the function from <code>send_sms</code> to <code>make_calls</code> and change the last parameter from <code>body</code> to <code>url</code>.  The <code>url</code> will need to point to an application that can handle incoming HTTP requests. When the call connects, Twilio will make a request, known as a webhook, to the <code>url</code> to find out what to do next. We&#8217;ll see how that is implemented later.</p>
+<p>Change the <code>post_form</code> URL so that we&#8217;re calling the <a href="https://www.twilio.com/docs/api/rest/making-calls">Calls resource</a>.</p>
+<p>Finally parse the response from Twilio into a Call object. Here&#8217;s the completed code:</p>
+<p></p><pre class="crayon-plain-tag">require "http/client"
+require "json"
+
+class Call
+  JSON.mapping(
+    sid: String
+  )
+end
+
+class Error
+  JSON.mapping(
+    message: String,
+    status: Int32
+  )
+end
+
+def make_call(to, from, url)
+  client = HTTP::Client.new("api.twilio.com", 443, true) do |client|
+    client.basic_auth(ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"])
+    response = client.post_form("/2010-04-01/Accounts/#{ENV["TWILIO_ACCOUNT_SID"]}/Calls.json", {
+      "To"   =&gt; to,
+      "From" =&gt; from,
+      "Url" =&gt; url,
+    })
+    if response.success?
+      call = Call.from_json(response.body)
+      puts call.sid
+    else
+      error = Error.from_json(response.body)
+      puts error.status, error.message
+    end
+  end
+end</pre><p></p>
+<p>Add one final line to this file that calls <code>make_call</code> with your own phone number, your Twilio number and the URL set to <code>"https://dl.dropboxusercontent.com/u/2554/crystal-call.xml"</code>.</p>
+<p></p><pre class="crayon-plain-tag">make_call(YOUR_NUMBER, YOUR_TWILIO_NUMBER, "https://dl.dropboxusercontent.com/u/2554/crystal-call.xml")</pre><p></p>
+<p>Save the file, compile and run it.</p>
+<p></p><pre class="crayon-plain-tag">$ crystal phone.cr</pre><p></p>
+<p>You should receive a phone call which then tells you what to do next.</p>
+<p>Hint: it tells you to read on.</p>
+<p>We&#8217;ve made a call and responded to the incoming webhook using static TwiML. To make more interactive applications it would be better to create dynamic TwiML in Crystal. Let&#8217;s investigate how to do that, first with Crystal&#8217;s <code>HTTP::Server</code> class.</p>
+<h3 id="h.9uqn9upy58ia">Building HTTP Servers in Crystal</h3>
+<p>Create a new Crystal file for our server.</p>
+<p></p><pre class="crayon-plain-tag">$ touch server.cr</pre><p></p>
+<p>Open that file and start by requiring the <code>http/server</code> module from the standard library.</p>
+<p></p><pre class="crayon-plain-tag">require "http/server"</pre><p></p>
+<p>The <code>HTTP::Server</code> is quite straightforward to get started with. Create an instance of <code>HTTP::Server</code> passing the port you want it to listen on. We also pass a block that will handle incoming requests.</p>
+<p></p><pre class="crayon-plain-tag">require "http/server"
+
+server = HTTP::Server.new(3000) do |context|
+
+end</pre><p></p>
+<p>The <code>context</code> is an <a href="https://crystal-lang.org/api/0.20.0/HTTP/Server/Context.html"><code>HTTP::Server::Context</code></a> that is passed to our handler when the server receives a request. It has references to request and response objects. We can use the response to set the content type to <code>text/xml</code> as we&#8217;ll be returning TwiML.</p>
+<p></p><pre class="crayon-plain-tag">require "http/server"
+
+server = HTTP::Server.new(3000) do |context|
+  context.response.content_type = "text/xml" 
+end</pre><p></p>
+<p>Then, for the purposes of this post, we can print our TwiML straight to the response too. To show that this is creating the TwiML dynamically we&#8217;ll print a message that will change over time.</p>
+<p></p><pre class="crayon-plain-tag">require "http/server"
+
+server = HTTP::Server.new(3000) do |context|
+  context.response.content_type = "text/xml" 
+  time = Time.now
+  message = if time.hour &lt; 12
+              "Good morning"
+            elsif time.hour &lt; 18
+              "Good afternoon"
+            else
+              "Good night"
+            end
+  context.response.print "&lt;Response&gt;&lt;Say&gt;#{message} from Crystal!&lt;/Say&gt;&lt;/Response&gt;"
+end</pre><p></p>
+<p>To finish up with this very simple server we need to tell the server to start listening for incoming connections. We also print a message to the terminal so that we can see the server has started.</p>
+<p></p><pre class="crayon-plain-tag">require "http/server"
+
+server = HTTP::Server.new(3000) do |context|
+  context.response.content_type = "text/xml"
+  time = Time.now
+  message = if time.hour &lt; 12
+              "Good morning"
+            elsif time.hour &lt; 18
+              "Good afternoon"
+            else
+              "Good night"
+            end
+  context.response.print "&lt;Response&gt;&lt;Say&gt;#{message} from Crystal!&lt;/Say&gt;&lt;/Response&gt;"
+end
+
+puts "Listening on http://0.0.0.0:3000"
+server.listen</pre><p></p>
+<p>Compile and run the server:</p>
+<p></p><pre class="crayon-plain-tag">$ crystal server.cr</pre><p></p>
+<p>Open your browser to <a href="http://localhost:3000">http://localhost:3000</a> and you&#8217;ll see your TwiML. We can now use this server to drive our call. To do so, we need to open up our development server to external requests. <a href="https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html">I like to do this with ngrok, you can find out how to install and use it here</a>. If you have ngrok setup open up a tunnel to port 3000.</p>
+<p></p><pre class="crayon-plain-tag">$ ngrok http 3000</pre><p></p>
+<p>Copy your ngrok URL and open up <code>phone.cr</code> again. Replace the DropBox link in the call to <code>make_call</code> with your ngrok URL and compile and run <code>phone.cr</code> again.</p>
+<p></p><pre class="crayon-plain-tag">$ crystal phone.cr</pre><p></p>
+<p>This time when your phone rings you&#8217;ll hear the message you wrote in <code>server.cr</code>.</p>
+<h3 id="h.8omcni46b3yl">Better servers</h3>
+<p>We&#8217;ve built a very primitive server so far using the standard library. We could do the work to build in support for dynamic paths, body parsing, HTTP verbs, etc, but as in any language, it&#8217;s good to see what the community has provided. Crystal comes with an integrated package manager and there are already <a href="http://crystalshards.xyz/">a number of packages, known as shards, available</a>. </p>
+<p>To improve our server offering, we&#8217;re going to replace our basic HTTP server with <a href="http://kemalcr.com/">Kemal</a>, the Crystal equivalent of Ruby&#8217;s <a href="http://www.sinatrarb.com/">Sinatra</a>.</p>
+<p>This time, we&#8217;re going to generate our project with Crystal&#8217;s <code>init</code> tool. You can initialise an app or a library, we want an app for now.</p>
+<p></p><pre class="crayon-plain-tag">$ crystal init app phone_server
+$ cd phone_server
+$ ls
+LICENSE        README.md         shard.yml        spec        src</pre><p></p>
+<p><code>init</code> gives us a basic project structure including a <code>shard.yml</code> file. Open that up and add the dependency on Kemal.</p>
+<p></p><pre class="crayon-plain-tag">name: phone_server
+version: 0.1.0
+
+license: MIT
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+    branch: master</pre><p></p>
+<p>On the command line install the dependencies:</p>
+<p></p><pre class="crayon-plain-tag">$ shards install</pre><p></p>
+<p>Open up <code>src/phone_server.cr</code>. and replace everything in the file with:</p>
+<p></p><pre class="crayon-plain-tag">require "kemal"</pre><p></p>
+<p>By default Twilio makes webhooks via POST request. In Kemal we define routes by the HTTP verb that we want to handle, our simple <code>HTTP::Server</code> responded to everything. To handle the webhook create an endpoint for a POST request at &#8220;/voice&#8221;. Handlers in Kemal get a similar context object to the <code>HTTP::Server</code>.</p>
+<p></p><pre class="crayon-plain-tag">require "kemal"
+
+post "/voice" do |context|
+
+end</pre><p></p>
+<p>We can use the response property of the context to set headers.</p>
+<p></p><pre class="crayon-plain-tag">require "kemal"
+
+post "/voice" do |context|
+  context.response.content_type = "text/xml"
+end</pre><p></p>
+<p>Then we just need to return our TwiML as we did in the plain <code>HTTP::Server</code> example.</p>
+<p></p><pre class="crayon-plain-tag">require "kemal"
+
+post "/voice" do |context|
+  context.response.content_type = "text/xml"
+  time = Time.now
+  message = if time.hour &lt; 12
+              "Good morning"
+            elsif time.hour &lt; 18
+              "Good afternoon"
+            else
+              "Good night"
+            end
+  "&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;Response&gt;
+    &lt;Say&gt;#{message} from Kemal and Crystal!&lt;/Say&gt;
+  &lt;/Response&gt;"
+end</pre><p></p>
+<p>And finally run Kemal.</p>
+<p></p><pre class="crayon-plain-tag">require "kemal"
+
+post "/voice" do |context|
+  context.response.content_type = "text/xml"
+  time = Time.now
+  message = if time.hour &lt; 12
+              "Good morning"
+            elsif time.hour &lt; 18
+              "Good afternoon"
+            else
+              "Good night"
+            end
+  "&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;Response&gt;
+    &lt;Say&gt;#{message} from Kemal and Crystal!&lt;/Say&gt;
+  &lt;/Response&gt;"
+end
+
+Kemal.run</pre><p></p>
+<p>If you haven&#8217;t already, stop your old server with Ctrl C. Now compile and run the new, Kemal based server:</p>
+<p></p><pre class="crayon-plain-tag">$ crystal src/phone_server.cr
+[development] Kemal is ready to lead at http://0.0.0.0:3000</pre><p></p>
+<p>Hopefully you still have ngrok running, otherwise start it again and copy the ngrok URL to your <code>make_call</code> function in <code>phone.cr</code>. Make sure to add the &#8220;/voice&#8221; path this time. Your URL should look like, &#8220;<a href="http://random.ngrok.io/voice">http://RANDOM.ngrok.io/voice</a>&#8220;.</p>
+<p>Compile and run <code>phone.cr</code> once more. This time when you answer your ringing phone you will hear the message you wrote in your Kemal server.</p>
+<h3 id="h.neki224ju6ek">I told you it was fast</h3>
+<p>I mentioned in my first post on Crystal that it is blazingly fast. Before you kill your Kemal server I want you to take a note of the response time it reported. Here&#8217;s what I saw:</p>
+<p><img alt="The server logs show that the request was served in 54 micro seconds." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/MoNIbOHfYSM8J7vB1ERXGeiMifhjbFyM9tkyBwDlfs3pUyQgY9bF_5FW4UUyekgg10S-6h7e9WAqv5nb0aQOEgxtZcayjWTjKA3jPpoV4jcu0OJA3bao_EQtSzlGg7QUGagoojc.png" class="aligncenter"></p>
+<p>Yes, that says 54 micro seconds. I realise this endpoint is very simple, but that sort of raw performance from a framework does impress me. That&#8217;s not all though. This was compiled in debug mode. Compile the application for release with:</p>
+<p></p><pre class="crayon-plain-tag">$ crystal build src/phone_server.cr &mdash;release</pre><p></p>
+<p>And then run the executable and things can get even quicker.</p>
+<p><img alt="A few runs of the server compiled in release mode show response times of between 22 and 48 micro seconds." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/12/9vAmf8IVXpxqzEyVJw9_dMR3iJoC9UuHX28flUH-DBpvjowP7HPqYkg9BcylctIV0Tt8DHsJ11VmmeHh9K_KRZ0NU81Q8ze_qruXXKkMhQvf7bk0WhazS3PaO1_fKBPTeHGtCfk.png" class="aligncenter"></p>
+<h3 id="h.7uobnqlb0mj5">Take Crystal for a spin</h3>
+<p>So there we have it, we&#8217;ve sent <a href="https://www.twilio.com/blog/2016/11/send-sms-messages-crystal.html">SMS messages</a> and made phone calls with Crystal. We&#8217;ve seen a bit on how to use the <code>HTTP::Client</code>, JSON mappings, the <code>HTTP::Server</code>, shards and Kemal. You can check out all the code we wrote in both blog posts in <a href="https://github.com/philnash/crystal-experiments">this GitHub repo</a>.</p>
+<p>If you want to explore Crystal more then take a look through <a href="https://crystal-lang.org/docs/">the documentation</a>, the <a href="https://crystal-lang.org/api/0.19.4/">standard library</a>, <a href="http://kemalcr.com/docs/getting_started/">Kemal&#8217;s documentation</a>, the list of available <a href="http://crystalshards.xyz/">CrystalShards</a>, or even the <a href="https://github.com/crystal-lang/crystal">source code for Crystal</a> (it&#8217;s all written in Crystal!).</p>
+<p>Like the look of Crystal? Let me know in the comments below or drop me an <a href="mailto:philnash@twilio.com">email</a> or a note on Twitter at <a href="https://twitter.com/philnash">@philnash</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2016/12/make-phone-calls-crystal-twilio.html">Make Phone Calls with Crystal and Twilio</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/12/make-phone-calls-crystal-twilio.html/feed</wfw:commentRss>
+		<slash:comments>4</slash:comments>
+		</item>
+		<item>
+		<title>Send SMS messages with Crystal</title>
+		<link>https://twilioinc.wpengine.com/2016/11/send-sms-messages-crystal.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/11/send-sms-messages-crystal.html#respond</comments>
+		<pubDate>Thu, 03 Nov 2016 18:31:35 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[crystal]]></category>
+		<category><![CDATA[crystal-lang]]></category>
+		<category><![CDATA[SMS]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19083</guid>
+		<description><![CDATA[<p>Crystal is a young programming language with a whole load of potential and it&#8217;s been a lot of fun playing around with it over the past few weeks. I want to share with you how easy it is to send SMS messages with Twilio using Crystal. The Crystal project started in September 2012 and is still going strong. The language hasn&#8217;t reached version 1 yet, but there are... <a class="read-more" href="https://twilioinc.wpengine.com/2016/11/send-sms-messages-crystal.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/11/send-sms-messages-crystal.html">Send SMS messages with Crystal</a></p>]]></description>
+				<content:encoded><![CDATA[<p><a href="https://crystal-lang.org/">Crystal</a> is a young programming language with a whole load of potential and it&#8217;s been a lot of fun playing around with it over the past few weeks. I want to share with you how easy it is to <a href="https://www.twilio.com/docs/api/rest/sending-messages">send SMS messages</a> with Twilio using Crystal.</p>
+<p>The Crystal project started in September 2012 and is still going strong. The language hasn&#8217;t reached version 1 yet, but there are many things about it to get excited about. <a href="https://crystal-lang.org/">The goals of the language are listed front and centre on the Crystal site</a>, but briefly, it is a type-inferred, compiled language with Ruby-like syntax that is blazingly fast. To get started, let&#8217;s take a look at a simple Crystal program:</p>
+<p></p><pre class="crayon-plain-tag">def fib(n)
+  if n &lt;= 1
+    1
+  else
+    fib(n - 1)   fib(n - 2)
+  end
+end
+
+time = Time.now
+puts fib(42)
+puts Time.now - time</pre><p></p>
+<p>If you&#8217;ve used Ruby before, then this will be instantly recognisable as a function to calculate the nth Fibonacci number. It&#8217;s so recognisable that if you were to run this with Ruby the program would run correctly. Of course you can run it with Crystal too.</p>
+<p><img alt="Running the program with Ruby produces the answer in 32 seconds, running with Crystal took 1.7 seconds" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/11/SuNpEnzR8dABrzGkPDJ8ovwrd1OJoLg6XlS65qo27hlcCFR1CN89T4Ge6-8TRt3G6hDjvhQGOARjz5G5S-qe1K22vvFagyfIPL6hSzyJhsHFmoCQW-YovaTDlOg9Es2ZJmN38mI.png" class="aligncenter"></p>
+<p>Pretty amazing, right? And Crystal is orders of magnitude quicker than Ruby in this test. Of course, the Fibonacci sequence is a terrible benchmark and <a href="https://crystal-lang.org/2016/07/15/fibonacci-benchmark.html">this isn&#8217;t exactly a fair test either</a>, but it&#8217;s interesting to see the similarities. As you start to dig into Crystal, however, the differences between this language and Ruby start to emerge.</p>
+<p>Let&#8217;s do that now and make some calls to the Twilio API using Crystal.</p>
+<h3 id="h.wq0dkwb6e1pg">Getting started with Crystal</h3>
+<p>To use Crystal, you&#8217;ll first need to install the compiler. For Linux, follow the <a href="https://crystal-lang.org/docs/installation/index.html">installation instructions in the Crystal docs</a>. If you&#8217;re on a Mac you can install Crystal with <a href="http://brew.sh/">homebrew</a> with the following:</p>
+<p></p><pre class="crayon-plain-tag">$ brew update
+$ brew install crystal-lang</pre><p></p>
+<p>Sadly, Crystal doesn&#8217;t currently compile on Windows operating systems. </p>
+<p>You can check that Crystal is successfully installed by running:</p>
+<p></p><pre class="crayon-plain-tag">$ crystal --version
+Crystal 0.19.4 (2016-10-21)</pre><p></p>
+<p>We need a Twilio account for the next part, so if you haven&#8217;t got an account, <a href="https://www.twilio.com/try-twilio">sign up for free here</a>. We will also need a <a href="https://www.twilio.com/console/phone-numbers/incoming">Twilio number</a> that can send SMS messages.</p>
+<p>Time to make some API calls with Crystal!</p>
+<h3 id="h.ji9v986iloqt">Sending an SMS message with Crystal</h3>
+<p>Normally when I write about sending an SMS I would point you towards our <a href="https://www.twilio.com/docs/libraries">official helper libraries</a>. As Crystal is still relatively new, there is no such library, so we&#8217;re going to have to roll up our sleeves and investigate the HTTP module.</p>
+<p>Create a new Crystal file named <code>sms.cr</code>:</p>
+<p></p><pre class="crayon-plain-tag">$ touch sms.cr</pre><p></p>
+<p>Open the file and start by requiring the <a href="https://crystal-lang.org/api/0.19.4/HTTP/Client.html"><code>http/client</code> class</a> from the standard library. Start a new function for sending SMS messages using Ruby&#8217;s familiar <code>def</code> syntax. We&#8217;ll need three arguments; a number to send the message to, the number we&#8217;re sending from and the body of the message.</p>
+<p></p><pre class="crayon-plain-tag">require "http/client"
+def send_sms(to, from, body)
+
+end</pre><p></p>
+<h4 id="h.x12uvrk0mbcj">Setting up the HTTP Client</h4>
+<p>Initialise an <code>HTTP::Client</code> with the base URL of the API the port number and whether the application uses TLS. We can then pass a block to this initialiser and the client will be closed once we are done with it.</p>
+<p></p><pre class="crayon-plain-tag">require "http/client"
+def send_sms(to, from, body)
+  HTTP::Client.new("api.twilio.com", 443, true) do |client|
+
+  end
+end</pre><p></p>
+<p>Now that we have our client, we need to add our authentication header using our Twilio Account SID and Auth Token as the username and password. I&#8217;m keeping my credentials as environment variables so that I don&#8217;t accidentally share them publicly. You can set environment variables on the command line with the <code>export</code> command.</p>
+<p></p><pre class="crayon-plain-tag">$ export TWILIO_ACCOUNT_SID=AC123456789abcdef
+$ export TWILIO_AUTH_TOKEN=1q2w3e4r5t6y7u8i9op0</pre><p></p>
+<p>Use the <code>basic_auth</code> method on the <code>HTTP::Client</code> instance to authenticate the client.</p>
+<p></p><pre class="crayon-plain-tag">require "http/client"
+def send_sms(to, from, body)
+  HTTP::Client.new("api.twilio.com", 443, true) do |client|
+    client.basic_auth(ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"])
+  end
+end</pre><p></p>
+<h4 id="h.1ultzt40pwgj">Making the HTTP request</h4>
+<p>Now we can make our request. To <a href="https://www.twilio.com/docs/api/rest/sending-messages">send an SMS message we need to make a POST request to the Messages resource</a>. We build the URL using our Account SID. We need to send the properties of our message as <code>application/x-www-form-urlencoded</code> parameters, and we can use Crystal&#8217;s built in <code>post_form</code> method for this:</p>
+<p></p><pre class="crayon-plain-tag">require "http/client"
+def send_sms(to, from, body)
+  HTTP::Client.new("api.twilio.com", 443, true) do |client|
+    client.basic_auth(ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"])
+    response = client.post_form("/2010-04-01/Accounts/#{ENV["TWILIO_ACCOUNT_SID"]}/Messages.json", {
+      "To"   =&gt; to,
+      "From" =&gt; from,
+      "Body" =&gt; body,
+    })
+  end
+end</pre><p></p>
+<p>We could now call this function and send our first SMS message from Crystal. But we would only know whether it was a success once we received the message. Let&#8217;s do a little more work to check whether the API call was successful and if so print out the message SID otherwise print out the error message.</p>
+<h4 id="h.fomqfrjq8k7e">Handling the response</h4>
+<p>Include the JSON module from the standard library and parse the response body. If it&#8217;s a success we can look for the SID otherwise the <a href="https://www.twilio.com/docs/api/rest/response#response-formats-exceptions">error response</a> will have a message field to tell us what went wrong.</p>
+<p></p><pre class="crayon-plain-tag">require "http/client"
+require "json"
+def send_sms(to, from, body)
+  HTTP::Client.new("api.twilio.com", 443, true) do |client|
+    client.basic_auth(ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"])
+    response = client.post_form("/2010-04-01/Accounts/#{ENV["TWILIO_ACCOUNT_SID"]}/Messages.json", {
+      "To"   =&gt; to,
+      "From" =&gt; from,
+      "Body" =&gt; body,
+    })
+    result = JSON.parse(response.body)
+    if response.success?
+      puts result["sid"]
+    else
+      puts result["message"]
+    end
+  end
+end</pre><p></p>
+<p>Now add one final line to <code>sms.cr</code> to call the method with your own phone number in the <code>to</code> position, a Twilio number in the <code>from</code> position and your SMS message.</p>
+<p></p><pre class="crayon-plain-tag"># sms.cr
+def send_sms(to, from, body)
+  # function code
+end
+
+send_sms(ENV["MY_NUMBER"], ENV["MY_TWILIO_NUMBER"], "Hello from Crystal!")</pre><p></p>
+<h4 class="c3 c8" id="h.6j6glsxltjoz">Compiling and running</h4>
+<p>Compile and run the function and celebrate your first SMS sent from Crystal!</p>
+<p></p><pre class="crayon-plain-tag">$ crystal sms.cr
+SMadca071a5bab4848892d9f24863e99e6</pre><p></p>
+<p>The crystal command compiles and runs the file you pass to it. You can also build a fully optimised executable that&#8217;s ready for production with the <code>build</code> command.</p>
+<p></p><pre class="crayon-plain-tag">$ crystal build sms.cr --release
+$ ./sms
+SMadca071a5bab4848892d9f24863e99e6</pre><p></p>
+<p>We&#8217;ve sent our first message, but there&#8217;s more to learn before we finish this chapter. JSON parsing using the <code>JSON.parse</code> method is fine, but you&#8217;ll remember that I described Crystal as type-inferred at the start of the post. Parsing arbitrary data structures like JSON in a typed language can be awkward and require you to cast your properties to the expected type before using them. As it happens, the type of each property parsed using <code>JSON.parse</code> is <a href="https://crystal-lang.org/api/0.19.4/JSON/Any.html"><code>JSON::Any</code></a> and when we call <code>puts</code> with the object it is cast under the hood to a string with <code>to_s</code>.</p>
+<h4 class="c3 c8" id="h.lzj9rts7otxd">Improved JSON parsing</h4>
+<p>Instead of using this <code>JSON::Any</code> type, we can actually tell Crystal&#8217;s JSON parser what to look for with a <a href="https://crystal-lang.org/api/0.19.4/JSON.html#mapping-macro">JSON mapping</a>. This will have the effect of being &#8220;easy, type-safe and efficient&#8221; according to <a href="https://crystal-lang.org/api/0.19.4/JSON.html">the documentation</a>.</p>
+<p>Open up <code>sms.cr</code> again and add simple mappings for our message and error objects.</p>
+<p></p><pre class="crayon-plain-tag"># sms.cr
+class Message
+  JSON.mapping(
+    sid: String,
+    body: String
+  )
+end
+
+class Error
+  JSON.mapping(
+    message: String,
+    status: Int32
+  )
+end</pre><p></p>
+<p>There are more fields available on each of those objects, but we are only interested in those for now. Now, instead of using <code>JSON.parse</code> we can use the <code>from_json</code> constructor for each of our <code>Message</code> and <code>Error</code> classes. The mapping creates instance variables, getters and setters for the fields we define so we can use dot notation to access them.</p>
+<p></p><pre class="crayon-plain-tag">def send_message(to, from, body)
+  client = HTTP::Client.new("api.twilio.com", 443, true) do |client|
+    client.basic_auth(ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"])
+    response = client.post_form("/2010-04-01/Accounts/#{ENV["TWILIO_ACCOUNT_SID"]}/Messages.json", {
+      "To"   =&gt; to,
+      "From" =&gt; from,
+      "Body" =&gt; body,
+    })
+    if response.success?
+      message = Message.from_json(response.body)
+      puts message.sid, message.body
+    else
+      error = Error.from_json(response.body)
+      puts error.status, error.message
+    end
+  end
+end</pre><p></p>
+<p>If you run the file with <code>crystal sms.cr</code> again you will receive your message and be safe in the knowledge that your <code>Message</code> object is now correctly typed and efficiently parsed from the JSON response.</p>
+<h3 id="h.yx5nm3u7dlu7">Crystal is pretty cool</h3>
+<p>In my early explorations with Crystal I found it as pleasurable to write as Ruby with the addition of type safety and speed. In this post we&#8217;ve seen how easy it is to use Crystal to make HTTP requests against the Twilio API and <a href="https://www.twilio.com/docs/api/rest/sending-messages#post">send SMS messages</a>. If you want to see the full code, check out this repository on <a href="https://github.com/philnash/crystal-experiments">GitHub</a>. </p>
+<p>If you like the look of Crystal you can learn more about it at the <a href="https://crystal-lang.org/">official site</a> and by checking out the <a href="https://crystal-lang.org/api/0.19.4/">documentation</a>. There are a bunch of interesting projects listed on the <a href="https://github.com/veelenga/awesome-crystal">awesome-crystal</a> repo and if you&#8217;re coming at this from Ruby, like me, take a read through the <a href="http://www.crystalforrubyists.com/">Crystal for Rubyists book</a>.</p>
+<p>What do you think about Crystal? Does it look like a promising language to you? Let me know your thoughts in the comments below or drop me an <a href="mailto:philnash@twilio.com">email</a> or message on <a href="https://twitter.com/philnash">Twitter</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2016/11/send-sms-messages-crystal.html">Send SMS messages with Crystal</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/11/send-sms-messages-crystal.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Send SMS messages like emails in Rails with Textris</title>
+		<link>https://twilioinc.wpengine.com/2016/09/send-sms-messages-like-emails-in-rails-with-textris.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/09/send-sms-messages-like-emails-in-rails-with-textris.html#respond</comments>
+		<pubDate>Mon, 12 Sep 2016 17:24:52 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[Messaging]]></category>
+		<category><![CDATA[rails]]></category>
+		<category><![CDATA[Ruby]]></category>
+		<category><![CDATA[SMS]]></category>
+		<category><![CDATA[textris]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18743</guid>
+		<description><![CDATA[<p>The Twilio Ruby helper library makes sending SMS messages with Ruby really easy. In fact, it&#8217;s as simple as: [crayon-58794ff2c80dc479180300/] But in the context of a web application this just isn&#8217;t very &#8220;Rails&#8221; is it? Are we mixing views and controllers? Where&#8217;s the separation of concerns? What about localisation? If you&#8217;ve thought this, or even if you&#8217;re just interested in better ways to send SMS messages in your... <a class="read-more" href="https://twilioinc.wpengine.com/2016/09/send-sms-messages-like-emails-in-rails-with-textris.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/09/send-sms-messages-like-emails-in-rails-with-textris.html">Send SMS messages like emails in Rails with Textris</a></p>]]></description>
+				<content:encoded><![CDATA[<p>The <a href="https://www.twilio.com/docs/libraries/ruby">Twilio Ruby helper library</a> makes <a href="https://www.twilio.com/docs/api/rest/sending-messages">sending SMS messages with Ruby</a> really easy. In fact, it&#8217;s as simple as:</p><pre class="crayon-plain-tag">require "twilio-ruby"
+client = Twilio::REST::Client.new(ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"])
+client.messages.create(:from =&gt; A_TWILIO_NUMBER, :to =&gt; A_PHONE_NUMBER, :body =&gt; "Howdy")</pre><p>But in the context of a web application this just isn&#8217;t very &#8220;Rails&#8221; is it? Are we mixing views and controllers? Where&#8217;s the separation of concerns? What about localisation?</p>
+<p>If you&#8217;ve thought this, or even if you&#8217;re just interested in better ways to send SMS messages in your Rails application, then the <a href="https://github.com/visualitypl/textris">Textris gem</a> may be for you. It makes working with SMS messages as easy as working with emails using <a href="http://guides.rubyonrails.org/action_mailer_basics.html">Action Mailer</a>.</p>
+<p>Let&#8217;s take a look at what it can do.</p>
+<h3 id="h.ozym7he43k4r">Working with Textris</h3>
+<p>We&#8217;re going to take an example Rails application and replace the existing message sending code with Textris to see how it can tidy up our application. For this blog post, we&#8217;ll use a <a href="https://www.twilio.com/docs/tutorials/walkthrough/lead-alerts/ruby/rails">tutorial on sending instant lead alerts</a> as our base. The application is a landing page for real estate. When a user expresses interest in a house, the real estate agent is instantly alerted about it via SMS. This application is written using Rails 4, but Textris works just as well with the latest Rails 5 too.</p>
+<p>To hack on the app along with this post, you&#8217;ll need a few things:</p>
+<ul>
+<li><a href="http://ruby-lang.org/">Ruby</a> and <a href="http://bundler.io/">Bundler</a> installed</li>
+<li>A Twilio account (<a href="https://www.twilio.com/try-twilio">sign up for a free Twilio account</a> if you don&#8217;t already have one) and a Twilio number that can send SMS messages</li>
+</ul>
+<p>Now, <a href="https://github.com/TwilioDevEd/lead-alerts-rails">clone or download the application repo from GitHub</a> and <a href="https://github.com/TwilioDevEd/lead-alerts-rails/blob/master/README.md">follow the instructions in the README</a> to get the app set up. Use your own mobile number as the <code>AGENT_NUMBER</code> so you will get the alerts. Once it&#8217;s setup you will see a page like this:</p>
+<p><img class="aligncenter" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/Ebemw-A47BuJY80pwMI6eVZLPKn3vqsoAVQ5gpofEErpKRkE4Wa1nyjMRmGWea0CCPGgC3Hp6KBmkznpiSWb-6c9dNFUDl9NTN19Gzzr1QR1_zCrkdmnai0BlcjO2qmev5Yz6Gk.png" alt="A screenshot of the application. It shows a house, a description and a form to fill in for more information." /></p>
+<p>Fill in some details in the form and submit. You will receive a message alerting you about the request with all the details you entered. Pretty sweet right.</p>
+<p><img class="aligncenter" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/09/s7xSv386ZGX0_dLqzb4ZWKWT5A9wlw54IpS0kQgDbvpY4NxTW5Yesiw4gczveD1XKO1LTDkuYdLvVpSjgOY_dgRfmCA0jufC9O-gRClbuXW_-F6nH94T1gWpB6QaBFTt0yzBMUE.png" alt="When you fill in the form from the last image, you will receive a text message with the details from the form." /></p>
+<p>Let&#8217;s take this app and see what it would look like using Textris.</p>
+<h3 id="h.nsd7gznrf6pk">Setting up Textris</h3>
+<p>If you take a look around the application you&#8217;ll see that the <code>NotificationsController</code> (<a href="https://github.com/TwilioDevEd/lead-alerts-rails/blob/master/app/controllers/notifications_controller.rb"><code>app/controllers/notifications_controller.rb</code></a>) is where interested parties submit their details and where we send the SMS to the real estate agent. That uses a class called <code>MessageSender</code> (<a href="https://github.com/TwilioDevEd/lead-alerts-rails/blob/master/lib/message_sender.rb"><code>lib/message_sender.rb</code></a>) which <a href="https://github.com/TwilioDevEd/lead-alerts-rails/blob/master/lib/message_sender.rb#L11">creates a <code>Twilio::REST::Client</code></a> and <a href="https://github.com/TwilioDevEd/lead-alerts-rails/blob/master/lib/message_sender.rb#L14-L20">sends the message</a>.</p>
+<p>To change this, we first need to install Textris. Open up the <code>Gemfile</code> and add this line:</p><pre class="crayon-plain-tag"># Gemfile
+gem 'twilio-ruby'
+gem 'textris'</pre><p>Install this by running <code>bundle install</code> on the command line in the project.</p>
+<p>For Textris we need to configure Twilio ahead of time. Create a file at <code>config/initializers/twilio.rb</code> and add the following code:</p><pre class="crayon-plain-tag"># config/initializers/twilio.rb
+Twilio.configure do |config|
+  config.account_sid = ENV["TWILIO_ACCOUNT_SID"]
+  config.auth_token  = ENV["TWILIO_AUTH_TOKEN"]
+end</pre><p>The final part of setting up Textris is to configure it to use Twilio for sending messages. Open up <code>config/environments/development.rb</code> and at the bottom of the block add:</p><pre class="crayon-plain-tag"># config/environments/development.rb
+  # Raises error for missing translations
+  # config.action_view.raise_on_missing_translations = true
+
+  config.textris_delivery_method = :twilio
+end</pre><p>Textris has a number of delivery methods. Once you have this working in development with Twilio, you might want to switch this to <code>:log</code> so that you can see SMS messages in your Rails log instead of sending them whilst you are developing the app. Don&#8217;t forget to set the delivery method to <code>:twilio</code> in <code>config/environments/production.rb</code> before you deploy.</p>
+<h3 id="h.kift54530jzj">Creating a Texter class</h3>
+<p>Now that we have Textris set up in our app we can start to work with it. Textris behaves like Action Mailer. Just like how we create a  Mailer class to send emails with Action Mailer we need to create a Texter class to send SMS messages with Textris.</p>
+<p>Create the folder <code>app/texters</code> and the file <code>app/texters/agent_texter.rb</code>. Enter the following code in your new file.</p><pre class="crayon-plain-tag"># app/texters/agent_texter.rb
+class AgentTexter &lt; Textris::Base
+  default :from =&gt; ENV["TWILIO_NUMBER"]
+
+  def alert(params)
+    @params = params
+    text :to =&gt; ENV["AGENT_NUMBER"]
+  end
+end</pre><p>Like in Action Mailer, we can set default options for our SMS messages. In this case we set a default from number, our Twilio number.</p>
+<p>Then we create a method that builds a message to be sent. The method returns a <code>Textris::Message</code> object that we create with the method <code>text</code> and the remaining options, in this case the number we are sending the message to.</p>
+<p>Now we need a view to render when we send this message. Like other views in Rails, the template will have access to instance variables defined in the <code>alert</code> method. Create a directory for our <code>AgentTexter</code>&#8216;s views at <code>app/views/agent_texter</code> and then create the file <code>app/views/agent_texter/alert.text.erb</code>. We can take the message template from the <code>NotificationsController</code> class and convert it to ERB.</p><pre class="crayon-plain-tag">&lt;%# app/views/agent_texter/alert.text.erb %&gt;
+New lead received for &lt;%= @params[:house_title] %&gt;. Call &lt;%= @params[:name] %&gt; at &lt;%= @params[:phone] %&gt;. Message: &lt;%= @params[:message] %&gt;</pre><p>Now that we have our Texter class and view in place we can remove the <code>MessageSender</code> and use our <code>AgentTexter</code> instead.</p>
+<h3 id="h.g3id2rqalfyn">Using the AgentTexter</h3>
+<p>Open up the <code>NotificationsController</code> and start by removing the private method <code>message</code>. Now we can replace the line that uses the <code>MessageSender</code> class with our <code>AgentTexter</code> like so:</p><pre class="crayon-plain-tag"># app/controllers/notifications_controller.rb
+ class NotificationsController &lt; ApplicationController
+   def create
+-    MessageSender.send_message(message)
++    AgentTexter.alert(params).deliver
+     redirect_to root_url,
+       success: 'Thanks! An agent will be contacting you shortly.'
+   rescue Twilio::REST::RequestError =&gt; error
+     redirect_to root_url,
+       error: 'Oops! There was an error. Please try again.'
+   end
+-
+-  private
+-
+-  def message
+-    "New lead received for #{params[:house_title]}. " 
+-    "Call #{params[:name]} at #{params[:phone]}. " 
+-    "Message: #{params[:message]}"
+-  end
+ end</pre><p>We can delete the entire <code>MessageSender</code> class as well as its test file.</p><pre class="crayon-plain-tag">$ rm lib/message_sender.rb spec/lib/message_sender_spec.rb</pre><p>Speaking of tests, we need to fix one up. The test for the <code>NotificationsController</code> expects the <code>MessageSender</code> class to receive a call to <code>send_message</code>. Instead, we can use Textris in test mode to test that we make one delivery when we submit the form. We clear the list of deliveries before each test so that deliveries in other tests won&#8217;t affect this one.</p><pre class="crayon-plain-tag"> # spec/controllers/notifications_controller_spec.rb
+ require 'rails_helper'
+ 
+ RSpec.describe NotificationsController do
+   before(:each) do
+     Textris::Base.deliveries.clear
+   end
+ 
+   describe '#index' do
+     it 'send a notification' do
+-      expect(MessageSender).to receive(:send_message).once
+       post :create, message: 'message'
+ 
++      expect(Textris::Base.deliveries.count).to be(1)
+       expect(response).to redirect_to(root_url)
+     end
+   end</pre><p>Start up the application with <code>rails server</code> and navigate to <a href="http://localhost:3000">localhost:3000</a>. Enter a request to talk to an agent, hit the &#8220;Request info&#8221; button and celebrate as everything falls into place and you receive the text message. You can celebrate again when you realise that sending messages this way took 25 less lines of code!</p>
+<p>You can check out <a href="https://github.com/philnash/lead-alerts-rails/tree/textris">my version of the newly Textris powered application on GitHub</a>.</p>
+<h3 id="h.rwcth8ph144y">What&#8217;s next?</h3>
+<p>Now you&#8217;ve sent your first SMS message with Twilio using Textris there&#8217;s more features available to you that give you even more power.</p>
+<ul>
+<li>You can take advantage of Active Job and process the API requests off the main thread by replacing the call to <code>AgentTexter.alert(params).deliver</code> to <code>AgentTexter.alert(params).deliver_later</code>. Check out how to <a href="https://www.twilio.com/blog/2015/10/delay-api-calls-to-twilio-with-rails-active-job-and-sidekiq.html">setup Active Job in Rails with Sidekiq</a> here.</li>
+<li>If you hired more salespeople to sell your real estate, you could send lead alerts to all of them by providing an array of numbers to the <code>AgentTexter</code>&#8216;s <code>text</code> method</li>
+<li>Localise your SMS messages by adding templates for different languages, <a href="http://guides.rubyonrails.org/i18n.html#localized-views">just like with other Rails templates</a>. Textris renders to the locale set in <code>I18n.locale</code></li>
+</ul>
+<p>To see what else is available, check out the <a href="https://github.com/visualitypl/textris">Textris documentation on GitHub</a>.</p>
+<p>I think Textris makes sending SMS messages in Rails feel natural and separates out views from controllers in a sensible way. What do you think? Let me know if you like the look of Textris or think you might use it in your next project. Or, do you know a better way of sending SMS messages in Rails? Drop me a line in the comments, by <a href="https://twitter.com/philnash">Twitter</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2016/09/send-sms-messages-like-emails-in-rails-with-textris.html">Send SMS messages like emails in Rails with Textris</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/09/send-sms-messages-like-emails-in-rails-with-textris.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Why I&#8217;m excited about SIGNAL London</title>
+		<link>https://twilioinc.wpengine.com/2016/08/why-im-excited-about-signal-london.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/08/why-im-excited-about-signal-london.html#respond</comments>
+		<pubDate>Tue, 16 Aug 2016 10:00:11 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[News]]></category>
+		<category><![CDATA[Signal]]></category>
+		<category><![CDATA[Signal Conf]]></category>
+		<category><![CDATA[SIGNAL London]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18593</guid>
+		<description><![CDATA[<p>SIGNAL London is bringing the best of SIGNAL San Francisco to this side of the Atlantic. In just one day, on the 20th of September 2016, we are packing two tracks of talks with as much knowledge and experience that we can to help you change communications with the power of code. If that&#8217;s enough to get you excited, then go grab yourself a ticket now and I&#8217;ll see you... <a class="read-more" href="https://twilioinc.wpengine.com/2016/08/why-im-excited-about-signal-london.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/08/why-im-excited-about-signal-london.html">Why I&#8217;m excited about SIGNAL London</a></p>]]></description>
+				<content:encoded><![CDATA[<p><a href="https://www.twilio.com/signal/london">SIGNAL London</a> is bringing the best of SIGNAL San Francisco to this side of the Atlantic. In just one day, on the 20th of September 2016, we are packing <a href="https://www.twilio.com/signal/london/schedule">two tracks of talks</a> with as much knowledge and experience that we can to help you change communications with the power of code.</p>
+<p>If that&#8217;s enough to get you excited, then go <a href="https://eegeventsite.secure.force.com/twiliosignallondon">grab yourself a ticket now</a> and I&#8217;ll see you in September. Oh, and if you use the code BLOG50 you&#8217;ll get £50 off the price.</p>
+<p>If you&#8217;re looking to be convinced, then let me share a few reasons why I&#8217;m excited for SIGNAL London.</p>
+<h3 id="h.p75m586tink3">We will learn amazing things</h3>
+<p>We&#8217;ve got speakers from both inside and outside of Twilio sharing their experiences. This is the best place outside of SIGNAL San Francisco to learn from both the people building Twilio as well as those using it day to day.</p>
+<p>On the Twilio side of things I&#8217;m looking forward to:</p>
+<ul>
+<li>Carter Rabasa revealing all the <a href="https://www.twilio.com/signal/london/schedule/1FQBzVmQZquSeqIES2WI0i/best-practices-for-debugging-your-twilio-integration">debugging tools, tricks and tips</a> that will keep your Twilio applications running smoothly</li>
+<li>Ameer Badri and Matthias Damm taking us through a fully functional <a href="https://www.twilio.com/signal/london/schedule/vNN1AqYljiwSi6iYes8yi/building-a-twilio-powered-contact-center">Twilio powered contact centre</a> that they built, including a bit of extra flair with a voice assistant</li>
+<li>Jarod Reyes <a href="https://www.twilio.com/signal/london/schedule/oISC4pOXDwOwCSYukwSeM/how-twilio-writes-documentation">throwing out the rulebook on documentation</a> in order to create a better experience for all developers using Twilio</li>
+</ul>
+<p>How about those developers who are building the future of communications every day? I&#8217;m excited to hear from:</p>
+<ul>
+<li>Lukas Oberhuber from <a href="http://www.simplybusiness.co.uk/">Simply Business</a>, who will be sharing techniques for integration testing voice applications</li>
+<li>Warren Colbert of <a href="https://www.twitch.tv/">Twitch</a> who will be talking through security and gaming as he describes how Twitch implemented Authy for their users. <a href="https://www.authy.com/blog/were-coming-to-london-via-twilios-signal-conference">The Authy team are pretty excited to be coming to SIGNAL London too</a>.</li>
+</ul>
+<p>On a side note, if you&#8217;re a fan of Twitch, check out <a href="https://www.twitch.tv/twilio">Twilio&#8217;s Twitch channel</a> where you can regularly find myself and other members of the developer evangelism team live streaming our coding sessions.</p>
+<p>We&#8217;ve also got a real taste of the future from:</p>
+<ul>
+<li>Julia Farraioli from Google who will be using <a href="https://cloud.google.com/vision/">Google Cloud Vision</a> to explore the world</li>
+<li>Katy Moe from <a href="https://improbable.io/">Improbable</a> who will be <a href="https://www.twilio.com/signal/london/schedule/5odrCPvE1qGk4gIQiMYgUE/apis-for-cyborgs">hacking on the NFC transponder implanted in her hand</a></li>
+</ul>
+<p>And that&#8217;s not all, there are <a href="https://www.twilio.com/signal/london/speakers">many more speakers</a> to keep you informed and entertained over the whole day.</p>
+<p><img class="aligncenter" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/McSUx9u9nxXBldCDhzzJ7JRtpkoVRM4XGx2k-D5YhGMfhpuq5Z7o3EaYDC_fGSNPQZDLUsH5c_T7zNgeGtar2oFszJ3s6zilUcO9oABs4XOR1teXlHnppCTgzbq6Vyo-hln64yyJ.png" alt="A selection of the speakers coming to SIGNAL London, including Chris Pope, Joseph Seal-Driver, Julia Farraioli, Katy Moe, Lukas Oberhuber, Peter Gasston, Ryan Leslie and Warren Colbert" /></p>
+<h3 id="h.ww2s42esmwg">We will meet amazing people</h3>
+<p>Of course, conferences aren&#8217;t just about sitting and listening. There&#8217;s going to be a strong hallway track too.</p>
+<p>There&#8217;ll be plenty of Twilions there to answer questions about your applications and find out what you&#8217;re building. And there will be many other developers to meet, share experiences with and learn from. I&#8217;m most looking forward to meeting as many of you there that I can!</p>
+<h3 id="h.tznsgx8y57d2">We will be the first to know</h3>
+<p>This year at SIGNAL San Francisco, Twilio announced <a href="https://www.twilio.com/blog/2016/05/introducing-twilio-programmable-wireless.html">Programmable Wireless</a>, <a href="https://www.twilio.com/blog/2016/05/introducing-twilio-notify.html">Notify</a>, <a href="https://www.twilio.com/blog/2016/05/introducing-twilio-add-ons.html">Add-ons</a> and a <a href="https://www.twilio.com/blog/2016/05/introducing-the-new-developer-experience-from-twilio.html">whole new developer experience throughout the Console, Documentation and Debugger</a>. Who knows what we&#8217;ll hear about in London? All I know is, if you&#8217;re there at SIGNAL London, you&#8217;ll be the first to hear.</p>
+<h3 id="h.7xa6z4vjp364">I&#8217;m excited to see you there</h3>
+<p>So don&#8217;t hang about! Ticket prices go up on the 20th August, so <a href="https://eegeventsite.secure.force.com/twiliosignallondon">grab your ticket now</a> <em>and</em> get a £50 discount using the promo code BLOG50. Check out the <a href="https://www.twilio.com/signal/london/schedule">schedule</a> and the rest of the <a href="https://www.twilio.com/signal/london/speakers">speakers</a> and I&#8217;ll see you in September!</p>
+<p><a href="https://twilioinc.wpengine.com/2016/08/why-im-excited-about-signal-london.html">Why I&#8217;m excited about SIGNAL London</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/08/why-im-excited-about-signal-london.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons</title>
+		<link>https://twilioinc.wpengine.com/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html#respond</comments>
+		<pubDate>Tue, 09 Aug 2016 16:00:15 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[IBM Bluemix]]></category>
+		<category><![CDATA[IBM Watson]]></category>
+		<category><![CDATA[Ruby]]></category>
+		<category><![CDATA[Sentiment Analysis]]></category>
+		<category><![CDATA[SMS]]></category>
+		<category><![CDATA[Twilio AddOns]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18513</guid>
+		<description><![CDATA[<p>Twilio Add-ons is a marketplace for 3rd party services that you can use to add superpowers to your Twilio applications. I&#8217;m a huge fan of Add-ons because they handle tasks we would otherwise need custom code for in our applications. We can also streamline existing applications by replacing our code with an Add-on. Last year I wrote about sentiment analysis of SMS messages using Twilio, Bluemix and... <a class="read-more" href="https://twilioinc.wpengine.com/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html">It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons</a></p>]]></description>
+				<content:encoded><![CDATA[<p><a href="https://www.twilio.com/docs/api/add-ons">Twilio Add-ons</a> is a marketplace for 3rd party services that you can use to add superpowers to your Twilio applications. I&#8217;m a huge fan of Add-ons because they handle tasks we would otherwise need custom code for in our applications. We can also streamline existing applications by replacing our code with an Add-on. </p>
+<p>Last year I wrote about <a href="https://www.twilio.com/blog/2015/11/get-sentimental-about-sms-with-twilio-bluemix-and-alchemyapi.html">sentiment analysis of SMS messages using Twilio, Bluemix and AlchemyAPI</a>. It didn&#8217;t take a lot of code to create the beginnings of a powerful service based on sentiment analysis of incoming SMS messages. But with code I often find <em>less is more</em>. At least, less code that I have to maintain is better in my mind. One of my favourite things is deleting code, so let&#8217;s see what happens if we take <a href="https://github.com/philnash/bluemix-twilio-alchemy/tree/tidied-up-original-code">that original code</a> and replace the explicit call to the AlchemyAPI with the <a href="https://www.twilio.com/marketplace/add-ons/ibm-watson-sentiment">IBM Watson Message Sentiment Add-on</a>.</p>
+<h3 id="h.4l8r3fo3gado">Tools</h3>
+<p>We&#8217;re going to be building on top of the original Ruby application that I wrote.</p>
+<ul>
+<li>
+It runs on <a href="http://www.ibm.com/cloud-computing/bluemix/">IBM&#8217;s Bluemix platform</a> which you can use with a <a href="http://www.ibm.com/cloud-computing/bluemix/">free trial</a>
+</li>
+<li>
+You will also need a Twilio account, you can <a href="https://www.twilio.com/try-twilio">sign up for a free Twilio account</a> too
+</li>
+<li>
+To get the application deployed and running, I recommend reading through the <a href="https://www.twilio.com/blog/2015/11/get-sentimental-about-sms-with-twilio-bluemix-and-alchemyapi.html">previous post</a>.
+</li>
+</ul>
+<p>If you&#8217;ve got all that, then let&#8217;s see how we can improve this project.</p>
+<h3 id="h.kkyer3djf9a">Switch on the Add-on</h3>
+<p>First we need to switch on the Add-on for our account. Open up the <a href="https://www.twilio.com/console/add-ons">Add-ons section of the Twilio console</a> and find the IBM Watson Message Sentiment Add-on (or <a href="https://www.twilio.com/console/add-ons/XB28c1cef739ee28431d743fa2794132d4">click here to go straight to it</a>). Click the big red install button, read and agree to IBM&#8217;s terms of service and you&#8217;re nearly done. Just check the box that enables the Add-on for incoming SMS messages, save the form and you will start receiving sentiment analysis with every text.</p>
+<p><img alt="In the Twilio console, once you have installed the Add-on, make sure you check the box to use the Add-on in incoming SMS messages." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/LZWcCpOq_ccSp8IKNhjobc86stkzt-TGypdi7O9E1GyLK1vCu08OmmJvfRBCCBi02hTmLTjuVqR6sxUgcyOBrFeHT6WVh80KGaZYmIF77yNLBU8QLDTqLFDyRg-kOwJAqexnfJg.png" class="aligncenter"></p>
+<p>Please note that this will pass all incoming messages to your account through this service and charge you $0.0015 per request. If you don&#8217;t plan to use this after this blog post remember to turn off the Add-on.</p>
+<h3 id="h.2bjcu3yxiwfp">Time to remove some code</h3>
+<p>Now that the work to gather the sentiment analysis from Watson is being done by Twilio we&#8217;re not going to need the AlchemyAPI gem any more. Remove it from the <code>Gemfile</code>.</p>
+<p></p><pre class="crayon-plain-tag">source 'https://rubygems.org'
+ruby "2.3.1"
+gem 'sinatra', '&gt;= 0'
+gem 'json', '&gt;=0'
+-gem 'alchemy-api-rb', :require =&gt; 'alchemy_api'</pre><p></p>
+<p>And stop requiring it in <code>helloWorld.rb</code>.</p>
+<p></p><pre class="crayon-plain-tag"># helloWorld.rb
+require 'sinatra'
+require 'json'
+-require 'alchemy_api'</pre><p></p>
+<p>We no longer need to pick up our AlchemyAPI credentials from Bluemix&#8217;s <code>VCAP_SERVICES</code>. Nor do we need to initialise the AlchemyAPI wrapper with an API key.</p>
+<p></p><pre class="crayon-plain-tag">-def vcap_services
+-  JSON.parse(ENV['VCAP_SERVICES'])
+-end
+-
+-AlchemyAPI.key = vcap_services['user-provided'][1]['credentials']['apikey']</pre><p></p>
+<p>Now we get to our <code>/messages</code> endpoint. This is the path that Twilio will use to POST SMS messages to as they arrive. Instead of receiving the message and sending the body off to the AlchemyAPI we will be getting the sentiment analysis along with the message.</p>
+<p>Using Twilio Add-ons we get an extra parameter delivered with our message, <code>AddOns</code>. It contains a JSON string which contains all the information Twilio has gathered based on the Add-ons you have activated in your account. We need to parse the JSON, <a href="https://www.twilio.com/docs/api/add-ons#add-on-results">find out if Twilio was successful in retrieving the results from the Add-ons</a> and then reach into the results and extract the data we are interested in.</p>
+<p>When using the IBM Watson sentiment analysis Add-on the results live under the <code>ibm_watson_sentiment</code> key. You can see more about this in <a href="https://www.twilio.com/console/add-ons/XB28c1cef739ee28431d743fa2794132d4#documentation">the Add-on documentation</a>, but the format is:</p>
+<p></p><pre class="crayon-plain-tag">{
+  "status": "REQUEST_STATUS",
+  "language": "DOCUMENT_LANGUAGE",
+  "docSentiment": {
+    "type": "SENTIMENT_LABEL",
+    "score": "DOCUMENT_SENTIMENT",
+    "mixed": "SENTIMENT_MIXED"
+  }
+}</pre><p></p>
+<p>To replicate our previous feature, we need to retrieve the <code>type</code> from within the <code>docSentiment</code> field.</p>
+<p></p><pre class="crayon-plain-tag"> post '/messages' do
+   content_type "text/xml"
+ 
+-  sentiment = AlchemyAPI.search(:sentiment_analysis, text: params["Body"])
++  add_ons = JSON.parse(params["AddOns"])
++  if add_ons["status"] == "successful"
++    sentiment = add_ons["results"]["ibm_watson_sentiment"]["result"]["docSentiment"]
+     case sentiment['type']
+     when "positive"
+       message = "Glad you're having a good day! Is there anything I can help with?"
+     when "negative"
+       message = "Sorry things aren't going so well, how can I help?"
+     else
+       message = "What can I help with?"
+     end</pre><p></p>
+<p>The rest of the request is the same. Well, there&#8217;s actually some error handling here that I missed the first time around. We check if the Add-on returned successfully by ensuring the status is &#8220;successful&#8221;, in the case that we didn&#8217;t have a successful result we want to return the generic response that isn&#8217;t based on sentiment. So we add the <code>else</code> to that conditional like so:</p>
+<p></p><pre class="crayon-plain-tag">+  else
++    message = "What can I help with?"
++  end</pre><p></p>
+<p>And that&#8217;s it! Push your work up to Bluemix, wait for the deploy to complete and send yourself a positive or negative SMS.</p>
+<p></p><pre class="crayon-plain-tag">$ cf push</pre><p></p>
+<p><img alt="When you send a message you get different responses based on the sentiment of your message." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/pCnBrHS7TKQT1ctfTaQdJnDwYcVyquKCS6O8pCmIHFZ8_A9w0ewQ4jjhnjLC4rYTyBz0GAz_3D1MbxHb9C1Vr8O6VcEgSHppZzQsVniGGLQGneh6xbK_JNIsRsewZol6CcGC4b0.png" class="aligncenter"></p>
+<p>You&#8217;ll see you have the same results, but with one less gem dependency, one fewer HTTP request in our code and 3 less lines of code total.</p>
+<p><img alt="The git diff --stat command shows 2 files changed with 6 insertions and 9 deletions." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/08/GnbO9UdMaxvPhAU0kkI1mYbopgr1yW5mSfjXSTXNrC67MJocUYZG1CW8h3FXcmgCjEBJJagM2NaODFb6gsYsaptj35KANN7LxmNHKU-N6cg6PJEElkolIcfXXtx5HMkmNlFDRuc.png" class="aligncenter"></p>
+<h3 id="h.ki9ms7556lxe">Twilio Add-ons do the work so that you don&#8217;t have to</h3>
+<p>We&#8217;ve seen today that including an Add-on can save you time, effort and code. Using Twilio Add-ons for a feature like sentiment analysis means your application can be more powerful and more intelligent without you having to write a whole bunch of code or learn a new API or platform. In our simple example we removed a dependency and an HTTP request and required less lines of code to achieve the same result. <a href="https://github.com/philnash/bluemix-twilio-alchemy">Check out the code now</a>.</p>
+<p>There&#8217;s more to Add-ons than just sentiment analysis too.</p>
+<ul>
+<li>
+If you wanted to go deeper into the analysis, check out the <a href="https://www.twilio.com/console/add-ons/XB2701032f66435fabccfc06e78bef8c88">IBM Watson Message Insights Add-on</a> which extracts semantic metadata from content so that you can understand what your users are saying.
+</li>
+<li>
+You can also analyse the phone number itself with Add-ons like the <a href="https://www.twilio.com/console/add-ons/XB8f0b802b9fbddb541161678e24ea2306">Whitepages Pro Phone Intelligence Add-on</a> that can help you identify fake sign ups, find out what type of line a phone number is connected to and whether it is pre-paid or not.
+</li>
+<li>
+Or find out your caller&#8217;s name and other details with <a href="https://www.twilio.com/console/add-ons/XB73cdb5ac3395a439800f298fa8a43f02">Next Caller&#8217;s Advanced Caller ID Add-on</a>
+</li>
+</ul>
+<p>Check out all the <a href="https://www.twilio.com/console/add-ons">available Add-ons</a> and find out the super-powers your application could gain. Maybe you&#8217;ll get to delete some code too!</p>
+<p><a href="https://twilioinc.wpengine.com/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html">It&#8217;s getting easier to get sentimental about SMS with Twilio Add-ons</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/08/its-getting-easier-to-get-sentimental-about-sms-with-twilio-add-ons.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Real Time Rails 4: Using Server-Sent Events with Authy OneTouch</title>
+		<link>https://twilioinc.wpengine.com/2016/06/real-time-rails-4-using-server-sent-events-with-authy-onetouch.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/06/real-time-rails-4-using-server-sent-events-with-authy-onetouch.html#respond</comments>
+		<pubDate>Mon, 13 Jun 2016 16:49:58 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[2FA]]></category>
+		<category><![CDATA[Authy]]></category>
+		<category><![CDATA[Authy OneTouch]]></category>
+		<category><![CDATA[OneTouch]]></category>
+		<category><![CDATA[rails]]></category>
+		<category><![CDATA[Rails 4]]></category>
+		<category><![CDATA[real-time]]></category>
+		<category><![CDATA[Ruby]]></category>
+		<category><![CDATA[Ruby on Rails]]></category>
+		<category><![CDATA[two factor authentication]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18082</guid>
+		<description><![CDATA[<p>Server-Sent Events (SSE) are real-time events sent from a server and received by a browser, perfect for updating the front end when a server receives a webhook. We&#8217;re going to look at how to use SSE to implement Authy OneTouch using Rails 4. Our end result should look a bit like this: Authy OneTouch Two factor authentication usually means copying a bunch of numbers from your phone to... <a class="read-more" href="https://twilioinc.wpengine.com/2016/06/real-time-rails-4-using-server-sent-events-with-authy-onetouch.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/06/real-time-rails-4-using-server-sent-events-with-authy-onetouch.html">Real Time Rails 4: Using Server-Sent Events with Authy OneTouch</a></p>]]></description>
+				<content:encoded><![CDATA[<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">Server-Sent Events</a> (SSE) are real-time events sent from a server and received by a browser, perfect for updating the front end when a server receives a webhook. We&#8217;re going to look at how to use SSE to implement <a href="https://www.authy.com/product/options/#onetouch">Authy OneTouch</a> using Rails 4. </p>
+<p>Our end result should look a bit like this:</p>
+<p><img alt="When logging in the site pops up a modal window that says it is waiting for OneTouch approval. The phone receives a push notification which opens up the approval. Selecting approve then causes the login screen to complete and the user to be logged in." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/hBJ07CTnXjWD7nmmUbLwfV03cgRkIz1lzhXku6qihi-itKTlhIWFr7PnPJAURR27wjz8gIAZ7p-W_H4a6SrsmTS5nAm6mZEdubVW7MyM-3RRudASKtKjak7PJqqs_y3EZeQ8Krs.png" class="aligncenter"></p>
+<h3 id="h.2gzopm3pde1z">Authy OneTouch</h3>
+<p>Two factor authentication usually means copying a bunch of numbers from your phone to the place you&#8217;re trying to log in. <a href="https://www.authy.com/product/options/#onetouch">Authy OneTouch</a> is a more user friendly version of two factor authentication. As you can see above, the user just needs to accept the authentication attempt and they are logged in.</p>
+<p>On the back end Authy sends a webhook to the application with the result of the authentication request. The application can then log the user in and choose how it updates the front end. Check out our <a href="https://www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/ruby/rails">tutorial on how to get started with Authy OneTouch and Rails</a> for more detail on how it all works.</p>
+<h3 id="h.z60aq8bzkiyo">Real-Time Rails 4?</h3>
+<p>You might be thinking that Rails 5 is <em>finally</em> bringing real-time action to the Ruby world with <a href="https://github.com/rails/rails/tree/master/actioncable">Action Cable</a>. If you are then you probably missed that Rails 4 included <code>ActionController::Live</code>, a means of streaming data from a Rails in real-time. Connect this up to the <code>EventSource</code> API in browsers and we have a full implementation of Server-Sent Events that we can use to send data from the server to the browser in real-time.</p>
+<p>The tutorial for Authy that I mentioned earlier actually implements the OneTouch flow by polling the server for updates. As polling can be inefficient and result in many unnecessary requests to our server let&#8217;s replace it with SSE.</p>
+<h3 id="h.f7dfm6equl5u">Tools</h3>
+<p>To follow this post and implement SSE in Rails you&#8217;re going to need a few things:</p>
+<ul>
+<li>
+<a href="https://www.ruby-lang.org/en/">Ruby</a> and <a href="http://bundler.io/">Bundler</a> installed
+</li>
+<li>
+<a href="https://www.postgresql.org/">PostgreSQL</a>, we&#8217;re going to be using the publish-subscribe feature to trigger events
+</li>
+<li>
+<a href="https://ngrok.com/">ngrok</a>, to help us <a href="https://www.twilio.com/blog/2015/09/6-awesome-reasons-to-use-ngrok-when-testing-webhooks.html">test webhooks to our locally running application</a>
+</li>
+<li>
+A Twilio account so that you can get an Authy API key, <a href="https://www.twilio.com/try-twilio">sign up for free here</a>
+</li>
+<li>
+A smartphone with the Authy app so that you can use OneTouch, you can download it for <a href="https://itunes.apple.com/en/app/authy/id494168017?mt=8">iOS</a> or <a href="https://play.google.com/store/apps/details?id=com.authy.authy&#038;hl=en">Android</a>
+</li>
+<li>
+A browser other than Internet Explorer/Edge, which doesn&#8217;t yet support SSE but <a href="https://github.com/remy/polyfills/blob/master/EventSource.js">can be polyfilled</a>
+</li>
+</ul>
+<p>Once you&#8217;ve got all that we&#8217;ll get the tutorial application set up.</p>
+<h3 id="h.7s0q0xtyyev0">Getting started</h3>
+<p>The best instructions for running the tutorial are available in the <a href="https://github.com/TwilioDevEd/authy2fa-rails/blob/master/README.md">project README</a>. Follow the instructions all the way through until the application is running locally, you have enabled OneTouch on your Authy application and set the webhook endpoint to your ngrok URL.</p>
+<p>Once you&#8217;ve followed the instructions you should be able to visit your application at <a href="http://localhost:3000">http://localhost:3000</a> and sign up as a new user. Logout and log back in again and you will be presented with the following two factor authentication flow.</p>
+<p><img alt="When logging in the site pops up a modal window that says it is waiting for OneTouch approval. The phone receives a push notification which opens up the approval. Selecting approve then causes the login screen to complete and the user to be logged in." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/hBJ07CTnXjWD7nmmUbLwfV03cgRkIz1lzhXku6qihi-itKTlhIWFr7PnPJAURR27wjz8gIAZ7p-W_H4a6SrsmTS5nAm6mZEdubVW7MyM-3RRudASKtKjak7PJqqs_y3EZeQ8Krs.png" class="aligncenter"></p>
+<p>You can see in the console that the JavaScript is constantly polling our backend to see if the user is authenticated yet.</p>
+<p><img alt="While the application waits for the user to approve the authentication request it polls the server once every 2 seconds which we see in the logs." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/tpjInmeYCTveqZR0rA3aUIQzoshDlnETspq8RaU22OOu9AlsY_DYly6cviOoKhb-spvvLyCcR62flnel97jhkUGGEBeJfdUYvCwM6maGnhT5iXzGnHg-mBYYwd67zS9OUQbzztk.png" class="aligncenter"></p>
+<p>Let&#8217;s replace that polling mechanism with Server-Sent Events.</p>
+<h3 id="h.nw53g23scrp3">Adding Server-Sent Events</h3>
+<p>In order to run real-time features like SSE (and Action Cable when Rails 5 is released) it is recommended to use a threaded server, like <a href="http://puma.io/">Puma</a>. The project currently uses <a href="https://unicorn.bogomips.org/">Unicorn</a> so we need to update that.</p>
+<p>Open up the <code>Gemfile</code> and change</p>
+<p></p><pre class="crayon-plain-tag">gem 'unicorn'</pre><p></p>
+<p>to </p>
+<p></p><pre class="crayon-plain-tag">gem 'puma'</pre><p></p>
+<p>Stop your server and install the new dependency.</p>
+<p></p><pre class="crayon-plain-tag">$ bundle install</pre><p></p>
+<p>We also need to make one change to <code>config/environments/development.rb</code>. At the bottom of the <code>configure</code> block, add:</p>
+<p></p><pre class="crayon-plain-tag">  config.allow_concurrency = true</pre><p></p>
+<p>This allows concurrency in the development environment so that we can run our streaming endpoint and still respond to other incoming requests.</p>
+<p>Start the server up again and you will see it is now running on Puma and has access to a number of threads. You can configure the minimum and maximum available threads if you want to, but for the purposes of this project, the default will do.</p>
+<p><img alt="Now when you start the server it boots Puma and records the current thread configuration." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/llCRqeCgIh63-nbICTqFGPK8PsdPlBadix2biNoOFi_wmq79WlKoKHu2w9pI133syirCGoLOw1CCXiZWGNZEzH642egCYfQdzBE0uxOROUDtcINDFciWeOWSVrkITclzW0MxYJ4.png" class="aligncenter"></p>
+<h4 id="h.e8yl3b7mgff">Updating the controller</h4>
+<p>Next, we need to set up a streaming endpoint on our Rails server. Enable streaming capabilities for the existing controller by opening <code>app/controllers/authy_controller.rb</code> and including the <code>ActionController::Live</code> module.</p>
+<p></p><pre class="crayon-plain-tag"># app/controllers/authy_controller.rb
+
+class AuthyController &lt; ApplicationController
+  include ActionController::Live
+
+  # the rest of the controller
+end</pre><p></p>
+<p>Now let&#8217;s create a test endpoint to see how it works.</p>
+<p>Under the <code>one_touch_status</code> action, create a <code>one_touch_status_live</code> action:</p>
+<p></p><pre class="crayon-plain-tag"># app/controllers/authy_controller.rb
+
+class AuthyController &lt; ApplicationController
+  def one_touch_status_live
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = SSE.new(response.stream, event: 'time')
+    # stream stuff here
+  end
+end</pre><p></p>
+<p>We start by setting the <code>Content-Type</code> header to <code>text/event-stream</code>. Then we use the <code><a href="http://api.rubyonrails.org/classes/ActionController/Live/SSE.html">ActionController::Live::SSE</a></code> class to wrap the response stream to make it easy to write events to.</p>
+<p>For our test endpoint let&#8217;s loop and emit the current time once a second.</p>
+<p></p><pre class="crayon-plain-tag"># app/controllers/authy_controller.rb
+
+class AuthyController &lt; ApplicationController
+  def one_touch_status_live
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = SSE.new(response.stream, event: 'time')
+    loop do
+      sse.write({ :time =&gt; Time.now })
+      sleep 1
+    end
+  end
+end</pre><p></p>
+<p>When the client disconnects the action will continue to try to send data to the client resulting in a <code>ActionController::Live::ClientDisconnected</code> error. We should catch that and close the stream in order to keep the error from being raised and prevent connections from leaking. We&#8217;ll put this inside an ensure block to make sure that whatever happens we close the stream.</p>
+<p></p><pre class="crayon-plain-tag"># app/controllers/authy_controller.rb
+
+class AuthyController &lt; ApplicationController
+  def one_touch_status_live
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = SSE.new(response.stream, event: 'time')
+    begin
+      loop do
+        sse.write({ :time =&gt; Time.now })
+        sleep 1
+      end
+    rescue ClientDisconnected
+    ensure
+      sse.close
+    end
+  end
+end</pre><p></p>
+<p>Let&#8217;s add a route for this endpoint. Open up <code>config/routes.rb</code> and add the following route:</p>
+<p></p><pre class="crayon-plain-tag"># config/routes.rb
+
+Rails.application.routes.draw do
+  # other routes
+
+  get "authy/status" =&gt; 'authy#one_touch_status'
+  get "authy/live_status" =&gt; 'authy#one_touch_status_live'
+  post "authy/send_token"
+
+  # other routes
+end</pre><p></p>
+<p>Head back to the application at <a href="http://localhost:3000">http://localhost:3000</a>, open up the dev tools console in your browser and paste in the following:</p>
+<p></p><pre class="crayon-plain-tag">var source = new EventSource('/authy/live_status');
+source.addEventListener('time', function(event) {
+  console.log(event.data);
+});</pre><p></p>
+<p>You will start to see JSON objects printed to the console once per second. Stop the stream by closing it in the console with:</p>
+<p></p><pre class="crayon-plain-tag">source.close();</pre><p></p>
+<p><img alt="When you run the JavaScript in the dev tools console you see time objects printing out once per second." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/ydPRSM2N77oSAVeXP5DGEx5y4ICfi8edM2PYFlu4WidhEPiCJEc5rL4E-7kSZN0w_uNtkhQ0vGpDWQ6SVG8e-PGJunxSZP4QjIkknX4PWTt_Q-dwfoRTNun4swg5NBwj27bwbv0.png" class="aligncenter"></p>
+<p>Let&#8217;s update this now to push real data from the server to the front end.</p>
+<h4 id="h.eq3gdags1v94">Pushing real data with PostgreSQL pub-sub</h4>
+<p>In the tutorial application when a user approves or denies the authentication request, the Authy webhook hits the <code>/authy/callback</code> endpoint which runs the <code>callback</code> action in the <code>AuthyController</code>. This then updates the user with the status from the parameter of the webhook. </p>
+<p>In order to push that status to the client we&#8217;d like to listen for that update whilst we have a live connection open to our streaming endpoint. Because we are using PostgreSQL in this example we can use its publish-subscribe feature. If you are using a different database without pub-sub you could achieve the same result by using something else like Redis to fill the gap.</p>
+<p>PostgreSQL uses the keywords <code><a href="https://www.postgresql.org/docs/9.1/static/sql-notify.html">NOTIFY</a></code> and <code><a href="https://www.postgresql.org/docs/9.1/static/sql-listen.html">LISTEN</a></code> to publish and subscribe to events respectively. Active Record doesn&#8217;t directly support these keywords, but we can execute them using the database connection anyway.</p>
+<p>We&#8217;ll add the notification code to the <code>User</code> model so open up <code>app/models/user.rb</code>. First, we want to send a notification when the user is saved and their <code>authy_status</code> has changed.</p>
+<p></p><pre class="crayon-plain-tag"># app/models/user.rb
+
+class User &lt; ActiveRecord::Base
+  def notify_authy_status_change
+    if authy_status_changed?
+      ActiveRecord::Base.connection_pool.with_connection do |connection|
+        execute_query(connection, ["NOTIFY user_?, ?", id, authy_status])
+      end
+    end
+  end
+end</pre><p></p>
+<p><code>NOTIFY</code> takes two arguments, a channel to notify and some text to send to that channel. We use the user id in the channel name to only send the notification to listeners subscribed to this particular user. We then send the updated status, which will come through as either &#8220;approved&#8221; or &#8220;denied&#8221;.</p>
+<p>Because we&#8217;re using a raw connection to the database and executing SQL, I&#8217;ve actually added a couple of methods to sanitise and execute the SQL. Active Record has a <code>santize_sql</code> method, however it is a protected class method. I&#8217;ve made that available to instances via the <code>clean_sql</code> method. The private method <code>execute_query</code> handles sanitising and executing the SQL to reduce repetition.</p>
+<p></p><pre class="crayon-plain-tag"># app/models/user.rb
+
+class User &lt; ActiveRecord::Base
+  def self.clean_sql(query)
+    sanitize_sql(query)
+  end
+
+  private
+
+  def execute_query(connection, query)
+    sql = self.class.clean_sql(query)
+    connection.execute(sql)
+  end
+end</pre><p></p>
+<p>We can run the notification method every time the user model is saved using an Active Record callback.</p>
+<p></p><pre class="crayon-plain-tag"># app/models/user.rb
+
+class User &lt; ActiveRecord::Base
+  after_save :notify_authy_status_change
+end</pre><p></p>
+<p>Now we need a method to subscribe to the user channel and listen for these notifications.</p>
+<p></p><pre class="crayon-plain-tag"># app/models/user.rb
+
+class User &lt; ActiveRecord::Base
+  def on_authy_status_change
+    ActiveRecord::Base.connection_pool.with_connection do |connection|
+      begin
+        execute_query(connection, ["LISTEN user_?", id])
+        connection.raw_connection.wait_for_notify do |event, pid, status|
+          yield status
+        end
+      ensure
+        execute_query(connection, ["UNLISTEN user_?", id])
+      end
+    end
+  end
+end</pre><p></p>
+<p>In this case, <code>LISTEN</code> only takes one argument, the channel name. We execute the SQL and then wait for the notification to arrive. When it does we yield the status. You&#8217;ll see how this works in the updated controller action below. We also ensure that we stop listening for the notification once it has arrived. Let&#8217;s see what the updated <code>AuthyController</code> looks like now:</p>
+<p></p><pre class="crayon-plain-tag"># app/controllers/authy_controller.rb
+
+class AuthyController &lt; ApplicationController
+  def one_touch_status_live
+    response.headers['Content-Type'] = 'text/event-stream'
+    @user = User.find(session[:pre_2fa_auth_user_id])
+    sse = SSE.new(response.stream, event: "authy_status")
+    begin
+      @user.on_authy_status_change do |status|
+        if status == "approved"
+          session[:user_id] = @user.id
+          session[:pre_2fa_auth_user_id] = nil
+        end
+        sse.write({status: status})
+      end
+    rescue ClientDisconnected
+    ensure
+      sse.close
+    end
+  end
+end</pre><p></p>
+<p>This time, we select the user using the temporary session store of their ID. We then subscribe to changes to their <code>authy_status</code> and when we receive a change, push it to the front end. If the status is &#8220;approved&#8221; we also log the user in finally. As you can see here, we use a block with <code>on_authy_status_change</code> and when the status is <code>yield</code>ed in the user method, it is passed into the block.</p>
+<p>All we need to do now is update our JavaScript to stop polling and start listening for updates.</p>
+<h4 id="h.1dqbo3qrjh3z">Updating the JavaScript</h4>
+<p>Open up <code>app/assets/javascripts/sessions.js</code> and replace the code within the <code>checkForOneTouch</code> function with the following:</p>
+<p></p><pre class="crayon-plain-tag">// app/assets/javascripts/sessions.js
+
+  var checkForOneTouch = function() {
+    var source = new EventSource("/authy/live_status")
+    source.addEventListener("authy_status", function(event) {
+      var data = JSON.parse(event.data);
+      if (data.status === "approved") {
+        source.close();
+        window.location.href = "/account";
+      } else if (data.status === "denied") {
+        showTokenForm();
+        triggerSMSToken();
+      }
+    })
+  };</pre><p>
+<p>
+We&#8217;re listening to our SSE for the &#8220;authy_status&#8221; event. When it arrives we parse the JSON and if the event is approved we close the stream and redirect the user to their account page. Otherwise we use the existing behaviour, show the token form and trigger an SMS.</p>
+<p>Restart the server and go through the login process again (make sure ngrok is still running otherwise you won&#8217;t get your webhook).</p>
+<p><img alt="We run the same authentication flow as before, however this time we see that there are no polling events in the log. We have successfully implemented Server-Sent Events." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/8V6GG-piZZ8trlundlUCpbfwaxMyGh9Qf2xP6fpNpCUg9zqFNhtFeEoH4urBnM1AygchUd5836g6KSQfkWt2jiyfP_Wg9UFJTslq8h0Cm8SO9Yeqt01zoTgPy_AhUcw4uZpBQrw.png" class="aligncenter"></p>
+<p>Hooray! Real-time updates to the front end, no polling required. Check out <a href="https://github.com/philnash/authy2fa-rails/tree/server-sent-events">my fork</a><a href="https://github.com/philnash/authy2fa-rails/tree/server-sent-events"> of the original tutorial</a> to see the <a href="https://github.com/TwilioDevEd/authy2fa-rails/compare/master...philnash:server-sent-events?expand=1">complete changes</a>.</p>
+<h3 id="h.9ltq00yvjk8a">Rails 4 does Real-Time</h3>
+<p>Rails 5 and Action Cable might not be released just yet, but Rails 4 can still perform some pretty sweet real-time manoeuvres. This works really well for server based updates as we&#8217;ve seen with Authy OneTouch. It would also work for <a href="https://www.twilio.com/blog/2015/11/reactjs-tutorial-call-monitoring-with-react-express-and-socket-io.html">live updating call statuses on a dashboard like Sam showed using Socket.io and React</a> or <a href="https://www.twilio.com/blog/2016/05/conference-call-monitoring-twilio.html">creating a dashboard for conference events like Dominik did using Socket.io and Angular</a>.</p>
+<p>Server-Sent Events just provide one-way real-time events though. Action Cable will bring two-way real-time streams to Rails for more complicated interactions, like a chat room. Of course, you don&#8217;t have to build all that complexity yourself if you use <a href="https://www.twilio.com/docs/api/ip-messaging">IP Messaging</a> ;)</p>
+<p>Do you like the look of SSE in Rails or are you going to be holding out for Action Cable? Let me know in the comments below, give me a shout on Twitter at <a href="https://twitter.com/philnash">@philnash</a> or drop me an email at <a href="mailto:philnash@twilio.com">philnash@twilio.com</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2016/06/real-time-rails-4-using-server-sent-events-with-authy-onetouch.html">Real Time Rails 4: Using Server-Sent Events with Authy OneTouch</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/06/real-time-rails-4-using-server-sent-events-with-authy-onetouch.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Getting started with Web Components building a Video Chat widget</title>
+		<link>https://twilioinc.wpengine.com/2016/06/getting-started-with-web-components-building-a-video-chat-widget.html</link>
+		<comments>https://twilioinc.wpengine.com/2016/06/getting-started-with-web-components-building-a-video-chat-widget.html#respond</comments>
+		<pubDate>Mon, 06 Jun 2016 20:14:43 +0000</pubDate>
+		<dc:creator><![CDATA[Phil Nash]]></dc:creator>
+				<category><![CDATA[Code, Tutorials and Hacks]]></category>
+		<category><![CDATA[JavaScript]]></category>
+		<category><![CDATA[Twilio Video]]></category>
+		<category><![CDATA[web components]]></category>
+		<category><![CDATA[WebRTC]]></category>
+
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18072</guid>
+		<description><![CDATA[<p>Component based UI libraries are a popular way of building modern applications. Angular and React are the heavyweights at the moment, but the humble browser and its native APIs are never far behind. Web Components were first introduced in 2011 and are the browsers&#8217; attempt to bring componentisation to the web platform. There are a few libraries available for writing Web Components, most notably Google&#8217;s Polymer, but also X-Tag and Bosonic. To... <a class="read-more" href="https://twilioinc.wpengine.com/2016/06/getting-started-with-web-components-building-a-video-chat-widget.html">Read More</a></p><p><a href="https://twilioinc.wpengine.com/2016/06/getting-started-with-web-components-building-a-video-chat-widget.html">Getting started with Web Components building a Video Chat widget</a></p>]]></description>
+				<content:encoded><![CDATA[<p>Component based UI libraries are a popular way of building modern applications. <a href="https://www.twilio.com/blog/2016/05/build-video-chat-using-angularjs-1-x.html">Angular</a> and <a href="https://www.twilio.com/blog/2016/03/building-a-react-powered-video-chat.html">React</a> are the heavyweights at the moment, but the humble browser and its native APIs are never far behind. <a href="http://webcomponents.org/">Web Components</a> were first introduced in 2011 and are the browsers&#8217; attempt to bring componentisation to the web platform.</p>
+<p>There are a few libraries available for writing Web Components, most notably Google&#8217;s <a href="https://www.polymer-project.org/1.0/">Polymer</a>, but also <a href="http://x-tag.github.io/">X-Tag</a> and <a href="http://bosonic.github.io/">Bosonic</a>. To really get a grip on what the platform can achieve on it&#8217;s own, I&#8217;m going to show you how to build a Web Component using the APIs available in browsers today. There are many <a href="https://github.com/webcomponents/hello-world-element">&#8220;hello world&#8221; examples of Web Components</a>, so we&#8217;re going to build something a bit trickier today, a video chat widget using <a href="https://www.twilio.com/video">Twilio Video</a>. By the end of the post it will look a bit like this:</p>
+<p><img alt="A video chat between Phil and Marcos" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/DP6wJ8HPVGUm3KYipXignu-RSuusa0BIrIJ-Vldprsoo4oEUmQTxK9xsuQRZtrTnifdXdmQiCIKcxPWxrCiBzYBUKPE3qbJF_K5Y-gCpmiYScrEHdDNsHI4uY0xz4Qe-dIVqyVI.png" class="aligncenter"></p>
+<p>More importantly, once we&#8217;ve written our component, using it will only need the following HTML:</p>
+<p></p><pre class="crayon-plain-tag">&lt;link rel="import" href="/twilio-video.html"&gt;
+
+&lt;twilio-video identity="phil"&gt;&lt;/twilio-video&gt;</pre><p></p>
+<h3 id="h.2cdh0xk0icfu">So what are Web Components anyway?</h3>
+<p>Web Components are made up of four complementary browser capabilities, <a href="http://webcomponents.org/articles/introduction-to-custom-elements/">Custom Elements</a>, <a href="http://webcomponents.org/articles/introduction-to-html-imports/">HTML Imports</a>, <a href="http://webcomponents.org/articles/introduction-to-shadow-dom/">Shadow DOM</a> and <a href="http://webcomponents.org/articles/introduction-to-template-element/">Templates</a>. Together, they can create reusable user interface widgets that encapsulate a behaviour and can be used, as displayed above, by importing the component and placing a custom element in an HTML page. We&#8217;ll see how these technologies fit together as we build up our video chat component.</p>
+<p>If you just want to see the completed component and how to use it, check out the <a href="https://github.com/philnash/twilio-video-chat-web-component/tree/web-component-complete">repo on GitHub</a>. Otherwise, let&#8217;s get building.</p>
+<h3 id="h.g1438l4f7fcf">Tools for the job</h3>
+<p>To build our video chat component, we&#8217;re going to need the following:</p>
+<ul>
+<li>
+A Twilio account – you can sign up for a <a href="https://www.twilio.com/try-twilio">free Twilio account here</a>
+</li>
+<li>
+<a href="https://nodejs.org/en/download/">Node.js</a> – we&#8217;ll be running a server to create tokens to authenticate with the Twilio platform
+</li>
+<li>
+<a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome</a> – different browsers support different elements of the various Web Component features, but <a href="http://caniuse.com/#search=web%20components">Chrome currently supports them all</a>
+</li>
+</ul>
+<p>Got all that? Let&#8217;s get started then.</p>
+<h3 id="h.4z2e545l7x6d">Setting up our server</h3>
+<p>To get this project going, I&#8217;ve built up a basic server which you&#8217;ll need to get running. First of all, clone or <a href="https://github.com/philnash/twilio-video-chat-web-component/archive/master.zip">download the repo</a>.</p>
+<p></p><pre class="crayon-plain-tag">$ git clone https://github.com/philnash/twilio-video-chat-web-component.git
+$ cd twilio-video-chat-web-component</pre><p></p>
+<p>Once you&#8217;ve done that, you&#8217;re going to need some Twilio credentials so that the application works. Grab your Twilio Account SID from your <a href="https://www.twilio.com/user/account">account dashboard</a>, generate a <a href="https://www.twilio.com/user/account/video/profiles">Video Configuration Profile</a> and take note of the SID and finally <a href="https://www.twilio.com/user/account/messaging/dev-tools/api-keys">generate an API Key and Secret</a>. Once you have all of those we can add them to the project.</p>
+<p>Make a copy of the <code>.env.example</code> file and call it <code>.env</code>. You can do this in the terminal like this:</p>
+<p></p><pre class="crayon-plain-tag">$ cp .env.example .env</pre><p></p>
+<p>Open up <code>.env</code> and fill in all those credentials.</p>
+<p>Now, install the dependencies for the project and start the server.</p>
+<p></p><pre class="crayon-plain-tag">$ npm install
+$ node index.js</pre><p></p>
+<p>The app is now running on <a href="http://localhost:3000">localhost:3000</a>. Open it in Chrome and check out the page we have to work with.</p>
+<p><img alt="A blank page is shown. It may be blank, but it's a start." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/cnB_x8-SpqlbycY0Xg908lBBaz8BnlQnX1DzfneogAADoZLCBMnDi9mQmxCxH9EoHGHSLtcR6kTILT2Dl6cNr9SXUk1SEk8oHJVDdOIXgeiDG6EOXgbVhohg-PgKkylcdoKzgp4.png" class="aligncenter"></p>
+<p>Not much going on at the moment, right? Let&#8217;s change that; let&#8217;s build a Web Component.</p>
+<h3 id="h.p667t8qiev14">HTML Imports</h3>
+<p>When you build a component, it lives in its own file and can be imported. This keeps all the code encapsulated nicely. Let&#8217;s start our component by creating the HTML import for it.</p>
+<p>In the public directory, create a file called <code>twilio-video.html</code>. It doesn&#8217;t need anything in it just yet.</p>
+<p>Now, in <code>public/index.html</code> add the following at the bottom of the <code>&lt;head&gt;</code> element:</p>
+<p></p><pre class="crayon-plain-tag">  &lt;link href="/css/app.css" rel="stylesheet"&gt;
+  &lt;link rel="import" href="/twilio-video.html"&gt;
+&lt;/head&gt;</pre><p></p>
+<p>Refresh the page and nothing new happens! Well, that&#8217;s not strictly true. Open up the dev tools console on the Network tab (Cmd + Opt + I on a Mac or Ctrl + Shift + I on Windows) and you&#8217;ll see that we loaded our new HTML document.</p>
+<p><img alt="" src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/jzL-c58DrEKZPEmySpBwDk-VtO7UnxubtGlR1XgJ9kxKyxeoXNbb76gB1FUpv8rUZbZd6JXzEk5ipvpD3q9LAciDee5F9kO1D7BbUpcUXggIyOLjF3tErOgyGDAFDrnV2Y8M7Ik.png" style="width: 601.70px; height: 448.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" class='" aligncenter'></p>
+<p>To really get the most out of our HTML import let&#8217;s build our component in it.</p>
+<h3 id="h.uordrqbttqh4">Custom Elements</h3>
+<p>Our aim is to make creating a video chat as easy as dropping an HTML element onto the page, the <code>&lt;twilio-video&gt;</code> element. Let&#8217;s add it to <code>index.html</code> now. Replace the <code>&lt;h1&gt;</code> on the page with:</p>
+<p></p><pre class="crayon-plain-tag">&lt;twilio-video identity="phil"&gt;&lt;/twilio-video&gt;</pre><p></p>
+<p>Refresh the page and the title has disappeared, replaced with our custom element. Except that element doesn&#8217;t do anything&hellip; yet. Let&#8217;s go into our HTML import and start building our custom element.</p>
+<p>The first thing we need to do here is to register our element. To do this we need to write some JavaScript. In the <code>twilio-video.html</code> file write:</p>
+<p></p><pre class="crayon-plain-tag">&lt;script&gt;
+  var TwilioVideoPrototype = Object.create(HTMLElement.prototype);
+  document.registerElement("twilio-video", {
+    prototype: TwilioVideoPrototype
+  });
+&lt;/script&gt;</pre><p></p>
+<p><code>document.registerElement</code> takes the name of the element we want to register, in this case &#8220;twilio-video&#8221;. Note, we need to use a name with a hyphen in, this separates custom elements from browser defined elements.</p>
+<p>It also takes an optional object of options. This object defines what our custom element is based on. We&#8217;re using <code>prototype</code> and we supply a new prototype based on the <code>HTMLElement</code> prototype, the base object for all HTML elements. We&#8217;ll be extending this prototype as we go on with this project.</p>
+<p>Reload the page and&hellip; nothing else happens. All we&#8217;ve done so far is create a blank element. By default it is an inline element with no content and no behaviour. Using the prototype we defined earlier, we can add both content and behaviour. But first we need to learn about custom element lifecycles.</p>
+<h4 id="h.lh22q9ifa603">The lifecycle of a custom element</h4>
+<p>Custom elements have a number of functions that get called throughout their lifecycle. These callbacks are useful for adding and removing behaviour, markup and content. They are:</p>
+<ul>
+<li>
+<code>createdCallback</code> for when an instance of the element is created
+</li>
+<li>
+ <code>attachedCallback</code> for when the instance is inserted into the document
+</li>
+<li>
+<code>detachedCallback</code> for when the instance is removed from the document
+</li>
+<li>
+<code>attributeChangedCallback</code> for when an attribute on the element is updated
+</li>
+</ul>
+<p>We&#8217;re going to use the <code>createdCallback</code> to define the contents and behaviour of the element and the <code>detachedCallback</code> to tear things down again.</p>
+<p>To get into the contents of our element, we need to learn about the last two facets of Web Components.</p>
+<h3 id="h.ume8khf0tq4o">Templates</h3>
+<p>It might be tempting to generate the HTML contents of our custom element in JavaScript, but in reality that&#8217;s unwieldy and there is a better way. HTML Templates are inert pieces of HTML that can be included onto a page and then instantiated in JavaScript. They are inert because inside of a template <code>&lt;script&gt;</code>s won&#8217;t execute, <code>&lt;link&gt;</code>s and resources, like <code>&lt;img&gt;</code>s, won&#8217;t be fetched until the template is instantiated.</p>
+<p>We&#8217;ll set up the content that we need in our element with a template. Then, when we receive the <code>createdCallback</code> lifecycle function, we pour in the content. We start with a <code>&lt;template&gt;</code> element at the top of our <code>twilio-video.html</code> file.</p>
+<p></p><pre class="crayon-plain-tag">&lt;template id="twilio-video-template"&gt;
+  &lt;style type="text/css"&gt;
+  :host {
+    display: block;
+  }
+  #picture-in-picture {
+    position: relative;
+    width: 400px;
+    height: 300px;
+  }
+  #caller {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  #caller video,
+  #me video {
+    width: 100%;
+  }
+  #me {
+    position: absolute;
+    width: 25%;
+    bottom: 5%;
+    right: 5%;
+  }
+  #hangup {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+  }
+  &lt;/style&gt;
+
+  &lt;div id="picture-in-picture"&gt;
+    &lt;div id="caller"&gt;&lt;/div&gt;
+    &lt;div id="me"&gt;&lt;/div&gt;
+    &lt;button id="hangup"&gt;Hangup&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</pre><p></p>
+<p>The styles within the template will all be scoped to the element itself. Now we have our HTML, let&#8217;s add it to our custom element.</p>
+<p></p><pre class="crayon-plain-tag">&lt;script&gt;
+  var TwilioVideoPrototype = Object.create(HTMLElement.prototype);
+  var importDoc = document.currentScript.ownerDocument;
+
+  TwilioVideoPrototype.createdCallback = function() {
+    var template = importDoc.getElementById('twilio-video-template');
+    var clone = importDoc.importNode(template.content, true);
+    this.appendChild(clone);
+  }
+
+  document.registerElement("twilio-video", {
+    prototype: TwilioVideoPrototype
+  });
+&lt;/script&gt;</pre><p>
+<p>
+We&#8217;ve used a couple of new things here.</p>
+<p><code>document.currentScript.ownerDocument</code> refers to the HTML file we&#8217;re writing this all in, rather than the document that imports it. This way we can refer to elements within our file, such as the template.</p>
+<p>Then, using that document, we get a reference to our template and clone it using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/importNode"><code>importNode</code></a> which creates a clone of the HTML in the template. We clone so that the original HTML remains in the template. We then append that clone to our custom element.</p>
+<p>Refresh the application and check the inspector.</p>
+<p><img alt="When you inspect the custom element, you can see all its internals. Not what we want." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/ApZWxV1L5p13xQ97sGtIhP_braQsZSdhhD-W21x4boWyufTfH1s1ufAJAGs8NrmxK5A0xFoLtFZsCAhwrQn_jahJ-t3P9t420ZmnJR65aDyUXaYz7vUUfZfCDN3UbEMs2te1wE.png" class="aligncenter"></p>
+<p>Our custom element now has some contents. This is a bit messy though, those contents are accessible from the rest of the page. We don&#8217;t really want that to happen, the beauty of Web Components is that we can encapsulate all the behaviour. So we turn to our final feature of Web Components, the Shadow DOM.</p>
+<h3 id="h.938l2z9ncfjp">Shadow DOM</h3>
+<p>The best way to explain the Shadow DOM is to see it in action. Open up a page with an HTML5 video element on it, <a href="http://www.quirksmode.org/html5/tests/video.html">if you can&#8217;t think of one, this should do</a>. Inspect the video element, all you see is the <code>&lt;video&gt;</code> tag and the <code>&lt;source&gt;</code> elements inside.</p>
+<p><img alt="Inspecting an HTML5 Video element only shows the HTML you'd expect, a source element and a fallback paragraph element." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/A2hau6TXbSYGDBbUhf-5aRzQAljQoAS8mXgMOFXp8QIoNPxHwt8WtdXKg51-Bldwjixy6zEzta62qhLAebxvsG3Fwr_OVH_zx-XSpFuK1CelJ81Odto8XgF5VopHrzl5LYY6iJk.png"  class="aligncenter"></p>
+<p>Now, as we&#8217;re using Chrome, open up dev tools settings and find the &#8220;Show user agent shadow DOM&#8221; checkbox and tick it.</p>
+<p><img alt="When you open dev tools settings there is an option to show user agent shadow DOM under the heading 'Elements'. Check that." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/A9igoyuO_CGXKmm8iL0BCm89FwYfaWGnIyM-ybzDjKsSOlK2ZW8qN_75_zufepeR2WyJD9RkeZEBgHH2Q0t_PRn52tDntMcTrRbmibdJq22Rsjn74b3DlYpDUrg57iPcYTOrOUg.png" class="aligncenter"></p>
+<p>Inspect that video again and you will see a <code>#shadow-root</code> element which you can open and inspect all the HTML inside.</p>
+<p><img alt="Now when you inspect the Video element there is a shadow-root and a whole load of divs, inputs and other HTML within." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/PJWm9yI7zyWa00cMZz7bnmbs4emjjcPzaOonPaI4XMW9XJyj6RrK-VX3_FQC1HFAefPGMONkxg1Pd5EAuWxrcZyhJ22MGSUzaKnzNzzb5FuGsVbgcx-n9UqcrMwW44Vhi-yVsFQ.png" class="aligncenter"></p>
+<p>That is the <a href="http://webcomponents.org/articles/introduction-to-shadow-dom/">shadow DOM</a>. It keeps the internal structure of our custom element private and we&#8217;re going to update our custom element to use it. To do so, make  the following change to our JavaScript.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.createdCallback = function() {
+    var template = importDoc.getElementById('twilio-video-template');
+    var clone = importDoc.importNode(template.content, true);
+    var shadowRoot = this.createShadowRoot();
+    shadowRoot.appendChild(clone);
+  }</pre><p></p>
+<p>Instead of appending our template clone to the element itself we create a shadow root for the element. Then we append our template clone to that. Refresh the page and check out our new shadow root.</p>
+<p><img alt="With the update to the JavaScript we now see a shadow-root for our custom element in the inspector." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/dmeHThpHiIlUd2L15bnspyOBp5OhKEGvCn46gcA_krAGurNqHFIIwCVXvbpHfFEofFVgsc8cdkpWd02BVTgBo8swDM-4CDssQtk1NcstGJOZZ7vI6trxBeszGT7q-YZC-aYqy4Y.png" class="aligncenter"></p>
+<h3 id="h.x25ttirhjopi">The video chat</h3>
+<p>We&#8217;ve done a lot of setup to get our Web Component together. All that&#8217;s left to do is implement our video chat. If you have read Sam&#8217;s post on <a href="https://www.twilio.com/blog/2016/03/getting-started-with-the-twilio-video-javascript-sdk.html">getting started with the JavaScript Video SDK</a> or gone through the <a href="https://www.twilio.com/docs/api/video/guide/quickstart-js">JavaScript Video quickstart</a> then you will recognise most of this. Let&#8217;s add the Twilio Video scripts to the top of our component:</p>
+<p></p><pre class="crayon-plain-tag">&lt;script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://media.twiliocdn.com/sdk/js/conversations/v0.13/twilio-conversations.min.js"&gt;&lt;/script&gt;</pre><p></p>
+<p>Then, within the <code>&lt;script&gt;</code> element we&#8217;ve been working in, we&#8217;ll need the following functions.</p>
+<p><code>fetchToken</code> which uses the <a href="https://developer.mozilla.org/en/docs/Web/API/Fetch_API">Fetch API</a> to generate an access token from our Node.js server, parse the json and return a Promise.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.fetchToken = function(identity) {
+    return fetch("/token?identity="   identity).then(function(data){
+      return data.json();
+    });
+  }</pre><p></p>
+<p><code>createClient</code> sets up an <a href="https://media.twiliocdn.com/sdk/js/common/releases/0.1.5/docs/AccessManager.html"><code></a><a href="https://media.twiliocdn.com/sdk/js/common/releases/0.1.5/docs/AccessManager.html">AccessManager</a><a href="https://media.twiliocdn.com/sdk/js/common/releases/0.1.5/docs/AccessManager.html"></code></a> with the token we retrieve from the server, then instantiates a <a href="https://media.twiliocdn.com/sdk/js/conversations/releases/0.13.5/docs/Client.html"><code></a><a href="https://media.twiliocdn.com/sdk/js/conversations/releases/0.13.5/docs/Client.html">Conversations.Client</a><a href="https://media.twiliocdn.com/sdk/js/conversations/releases/0.13.5/docs/Client.html"></code></a> and starts to listen for incoming connections.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.createClient = function(obj) {
+    var accessManager = new Twilio.AccessManager(obj.token);
+    this.conversationsClient = new Twilio.Conversations.Client(accessManager);
+    return this.conversationsClient.listen();
+  }</pre><p></p>
+<p><code>setupClient</code> runs once the conversation client is listening for incoming connections. It starts listening for incoming invites.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.setupClient = function() {
+    this.conversationsClient.on("invite", this.inviteReceived.bind(this));
+  }</pre><p></p>
+<p>When an invite is received, <code>inviteReceived</code> is called we accept it, which returns a promise.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.inviteReceived = function(invite){
+    invite.accept().then(this.setupConversation.bind(this));
+  }</pre><p></p>
+<p>When the promise resolves, we call <code>setupConversation</code> which shows the elements within our custom element, displays our local media stream, listens for clicks on the hangup button and handles connections and disconnections from other participants.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.setupConversation = function(conversation) {
+    this.currentConversation = conversation;
+    conversation.localMedia.attach(this.me);
+    this.chat.classList.remove("hidden");
+    this.hangup.addEventListener("click", this.disconnect.bind(this));
+    conversation.on("participantConnected", this.participantConnected.bind(this));
+    conversation.on("disconnected", this.disconnected.bind(this));
+  }</pre><p></p>
+<p>On receiving the <code>participantConnected</code> event we show the new participant&#8217;s media stream too.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.participantConnected = function(participant) {
+    participant.media.attach(this.caller);
+  }</pre><p></p>
+<p>When a participant disconnects we hide the whole chat, remove our local media stream and stop listening to events on the hangup button.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.disconnected = function() {
+    this.chat.classList.add("hidden");
+    this.currentConversation.localMedia.detach();
+    this.hangup.removeEventListener("click", this.disconnect.bind(this));
+  }</pre><p></p>
+<p>If the hangup button is pressed, we disconnect the call ourselves. This function is also used when the element is removed from the page, so we check to see if there is a live conversation at the moment.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.disconnect = function() {
+    if(this.currentConversation){
+      this.currentConversation.disconnect();
+      this.currentConversation = null;
+    }
+  }</pre><p></p>
+<p>Our <code>createdCallback</code> that we started earlier now handles setting up the template, adding it to the shadow root and querying the shadow root for the elements we&#8217;ve been using in the functions above. It also checks for the identity attribute on the component using <code>this.getAttribute("identity")</code>. As we saw earlier, I defined the element as <code>&lt;twilio-video identity="phil"&gt;&lt;/twilio-video&gt;</code>, so this will get the identity &#8220;phil&#8221; and send it to the server to generate an access token for that identity using <code>fetchToken</code>.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.createdCallback = function() {
+    var template = importDoc.getElementById("twilio-video-template");
+    var clone = importDoc.importNode(template.content, true);
+    var shadowRoot = this.createShadowRoot();
+    shadowRoot.appendChild(clone);
+
+    var identity = this.getAttribute("identity") || "example";
+
+    this.me = shadowRoot.getElementById("me");
+    this.caller = shadowRoot.getElementById("caller");
+    this.chat = shadowRoot.getElementById("picture-in-picture");
+    this.hangup = shadowRoot.getElementById("hangup");
+
+    this.fetchToken(identity).
+      then(this.createClient.bind(this)).
+      then(this.setupClient.bind(this)).
+      catch(function(err) {
+        console.log(err);
+      });
+  }</pre><p></p>
+<p>Finally we have the <code>detachedCallback</code> which disconnects from any live conversations and stops the conversation client from listening to more incoming connections.</p>
+<p></p><pre class="crayon-plain-tag">  TwilioVideoPrototype.detachedCallback = function() {
+    this.disconnect();
+    this.conversationsClient.unlisten();
+  }</pre><p></p>
+<p>Add all that to the <code>&lt;script&gt;</code> element in our component, refresh the page and wait for an incoming call. I&#8217;ve made that nice and easy for you, just open up <a href="http://localhost/caller.html">http://localhost/caller.html</a>. There&#8217;s no UI on this page, but it does generate a call to your component (as long as you kept the identity as &#8220;phil&#8221;, if you changed it, you can change the line <code>conversationsClient.inviteToConversation("phil");</code> in <code>caller.html</code> to use the identity you chose).</p>
+<p>When the page loads you will receive a permissions request for access to your video and microphone on each page. Granting the request will connect the call and you&#8217;ll see you Video Chat Web Component come to life.</p>
+<p><img alt="It's the same chat as before. Phil and Marcos wave happily to one another over the internet." src="https://twilioinc.wpengine.com/wp-content/uploads/2016/06/fg-ciZLU1_Z55PNQtGZ0aQpWolI4cJVJJ3TcAb16EDb6yCdDACNhqFWWWoVdeplkkkFSNywYYZKSpyb0KIqN7t3AWvlUC-_XuT97z8n7B8b4_7cboY9rAw98udqizk-GSfOedII.png" class="aligncenter"></p>
+<p>Check out all the code for this <a href="https://github.com/philnash/twilio-video-chat-web-component/tree/web-component-complete">Web Component on GitHub</a>.</p>
+<h3 id="h.rlkhrtotffcf">Reduce, reuse, recycle</h3>
+<p>With just under 130 lines of HTML, CSS and JavaScript we have created, without using a framework, a reusable Web Component that can receive incoming video calls. Now, with just these two lines of code (and a <code>/token</code> endpoint to generate access tokens) we can use this anywhere.</p>
+<p></p><pre class="crayon-plain-tag">&lt;link rel="import" href="/twilio-video.html"&gt;
+
+&lt;twilio-video identity="phil"&gt;&lt;/twilio-video&gt;</pre><p></p>
+<p>Well, OK, it will only work in Chrome today. But there are <a href="http://webcomponents.org/polyfills/">polyfills available</a> that we can use to make it work in every browser (though do watch out for the slight differences in the API).</p>
+<p>I&#8217;d love to hear about your uses of Web Components. Have you built your own or used someone else&#8217;s? Get in touch in the comments below or drop me a line on <a href="https://twitter.com/philnash">Twitter</a> or <a class="c4" href="mailto:philnash@twilio.com">email</a>.</p>
+<p><a href="https://twilioinc.wpengine.com/2016/06/getting-started-with-web-components-building-a-video-chat-widget.html">Getting started with Web Components building a Video Chat widget</a></p>]]></content:encoded>
+			<wfw:commentRss>https://twilioinc.wpengine.com/2016/06/getting-started-with-web-components-building-a-video-chat-widget.html/feed</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

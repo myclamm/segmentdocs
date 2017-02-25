@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/mobile/ios/custom by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:20 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="Pv-_2wvL8O2QhQ1Due7BOteyaM1CoMZiaUqXzA6S9aenZaumDQ40qF3BKVx15vRB_szmSh4MB8Io_53kq0U_1g==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Custom iOS Integration</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Custom iOS Integration">
+    <meta property="og:url" content="custom.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Custom iOS Integration">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+      <link rel="stylesheet" href="../../../assets/v3/documentation/mobile-6afe38fc608cae9c8665143172bf6884.css">
+
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          
+<header>
+  <h1>Custom iOS Integration Guide</h1>
+  <p>
+    Accept payments in iPhone and iPad apps, with built-in support for Apple Pay. This guide covers how to use the individual components of our SDK. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=apple+pay">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+
+  </p>
+  <aside class="important">
+    <p>Note, this article assumes you've already followed the <a href="../ios.html#getting-started">Getting Started</a> section of our main tutorial to install and configure our SDK.</p>
+  </aside>
+</header>
+
+<section>
+  <aside class="content note">
+    <h3>API Reference</h3>
+    <p>We also publish a <a href="http://stripe.github.io/stripe-ios">full SDK reference</a> that documents every single method and property of the classes described here.</p>
+  </aside>
+  <p>
+    Accepting payments in your app involves 3 steps:
+  </p>
+  <ol>
+    <li>Collecting your user's payment details</li>
+    <li>Converting the credit card information to a Stripe single-use token</li>
+    <li>Sending this token to your server to create a charge</li>
+  </ol>
+
+  <p>
+    The Stripe iOS SDK has lots of tools to help you with steps 1 and 2. For step 3, we recommend using a networking client like <code>AFNetworking</code> or <code>Alamofire</code> to talk to your own API.
+  </p>
+</section>
+
+<section>
+  <h2><code>STPAddCardViewController</code></h2>
+  <p>
+    This is a <code>UIViewController</code> subclass that you can present modally or push onto a <code>UINavigationController</code> stack. You can also fully customize its appearance via the <code>theme</code> property – for more information, see our <a href="../ios.html#theming">main iOS tutorial</a>. It automatically handles both collecting and tokenizing your user's payment information, and will notify its <code>delegate</code> when it's done.
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>func buyButtonTapped() {
+    let addCardViewController = STPAddCardViewController()
+    addCardViewController.delegate = self
+    // STPAddCardViewController must be shown inside a UINavigationController.
+    let navigationController = UINavigationController(rootViewController: addCardViewController)
+    self.present(navigationController, animated: true, completion: nil)
+}
+
+// MARK: STPAddCardViewControllerDelegate
+
+func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+    self.dismiss(animated: true, completion: nil)
+}
+
+func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: STPErrorBlock) {
+    self.submitTokenToBackend(token, completion: { (error: Error?) in
+        if let error = error {
+            completion(error)
+        } else {
+            self.dismiss(animated: true, completion: {
+                self.showReceiptPage()
+                completion(nil)
+            })
+        }
+    })
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (void)payButtonTapped {
+    STPAddCardViewController *addCardViewController = [[STPAddCardViewController alloc] init];
+    addCardViewController.delegate = self;
+    // STPAddCardViewController must be shown inside a UINavigationController.
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:addCardViewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark STPAddCardViewControllerDelegate
+
+- (void)addCardViewControllerDidCancel:(STPAddCardViewController *)addCardViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)addCardViewController:(STPAddCardViewController *)addCardViewController
+               didCreateToken:(STPToken *)token
+                   completion:(STPErrorBlock)completion {
+    [self submitTokenToBackend:token completion:^(NSError *error) {
+        if (error) {
+            completion(error);
+        } else {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self showReceiptPage];
+            }];
+        }
+    }];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+
+  <p id="sms-autofill">
+    <code>STPAddCardViewController</code> will also allow users to securely autofill their card details if they've ever made a purchase from another app that uses <code>STPAddCardViewController</code> or from <a href="../../../checkout.html#onetap">Stripe Checkout</a> on the web (and opted in, of course). Upon typing their email address, they'll be sent an SMS with a code and prompted to enter it into a form that appears. We've found this to have a significant positive impact on conversion rates, but if you'd like to disable it, just add the following code to your app delegate:
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-swift numbered" ><code>STPPaymentConfiguration.shared().smsAutofillDisabled = true</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>[[STPPaymentConfiguration sharedConfiguration] setSmsAutofillDisabled:YES];</code></pre>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><code>STPPaymentCardTextField</code></h2>
+  <p>
+    This is a smaller and more flexible piece of UI than <code>STPAddCardViewController</code> (in fact, <code>STPAddCardViewController</code> uses it under the hood). It's a single-line text field that can be used to collect a credit card number, expiration, and CVC. It performs on-the-fly validation and formatting of card numbers.
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>override func viewDidLoad() {
+    super.viewDidLoad()
+    let paymentField = STPPaymentCardTextField(frame: CGRect(x: 10, y: 10, width:300, height: 44))
+    paymentField.delegate = self
+    self.view.addSubview(paymentField)
+}
+
+// MARK: STPPaymentCardTextFieldDelegate
+
+func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
+    print(&quot;Card number: \(textField.cardParams.number) Exp Month: \(textField.cardParams.expMonth) Exp Year: \(textField.cardParams.expYear) CVC: \(textField.cardParams.cvc)&quot;)
+    self.buyButton.enabled = textField.isValid
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+    STPPaymentCardTextField *paymentField = [[STPPaymentCardTextField alloc] initWithFrame:CGRectMake(10, 10, 300, 44)];
+    paymentField.delegate = self;
+    [self.view addSubview:paymentField];
+}
+
+#pragma mark STPPaymentCardTextFieldDelegate
+
+- (void)paymentCardTextFieldDidChange:(STPPaymentCardTextField *)textField {
+    NSLog(@&quot;Card number: %@ Exp Month: %@ Exp Year: %@ CVC: %@&quot;, textField.cardParams.number, @(textField.cardParams.expMonth), @(textField.cardParams.expYear), textField.cardParams.cvc);
+    self.buyButton.enabled = textField.isValid;
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><code>STPShippingAddressViewController</code></h2>
+
+  <p>
+    This is a <code>UIViewController</code> subclass that you can present modally or push onto a <code>UINavigationController</code> stack. You can also fully customize its appearance via the <code>theme</code> property – for more information, see our <a href="../ios.html#theming">main iOS tutorial</a>. It automatically handles collecting your user's shipping address and shipping method, and will notify its <code>delegate</code> when it's done.
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-swift numbered" ><code>func shippingButtonTapped() {
+    let shippingViewController = STPShippingAddressViewController()
+    shippingViewController.delegate = self
+    // STPShippingAddressViewController must be shown inside a UINavigationController.
+    let navigationController = UINavigationController(rootViewController: shippingViewController)
+    self.present(navigationController, animated: true, completion: nil)
+}
+
+// MARK: STPAddCardViewControllerDelegate
+
+func shippingAddressViewControllerDidCancel(_ addressViewController: STPShippingAddressViewController) {
+    addressViewController.dismiss(completion: nil)
+}
+
+func shippingAddressViewController(_ addressViewController: STPShippingAddressViewController, didEnter address: STPAddress, completion: STPShippingMethodsCompletionBlock) {
+    let upsGround = PKShippingMethod()
+    upsGround.amount = 0
+    upsGround.label = &quot;UPS Ground&quot;
+    upsGround.detail = &quot;Arrives in 3-5 days&quot;
+    upsGround.identifier = &quot;ups_ground&quot;
+    let fedEx = PKShippingMethod()
+    fedEx.amount = 5.99
+    fedEx.label = &quot;FedEx&quot;
+    fedEx.detail = &quot;Arrives tomorrow&quot;
+    fedEx.identifier = &quot;fedex&quot;
+
+    if address.country == &quot;US&quot; {
+        completion(.valid, nil, [upsGround, fedEx], upsGround)
+    }
+    else {
+        completion(.invalid, nil, nil, nil)
+    }
+}
+
+func shippingAddressViewController(_ addressViewController: STPShippingAddressViewController, didFinishWith address: STPAddress, shippingMethod method: PKShippingMethod?) {
+    // Dismiss the view controller after updating your app with the user&#39;s shipping info
+    addressViewController.dismiss(completion: nil)
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-objc numbered" ><code>- (void)shippingButtonTapped {
+    STPShippingAddressViewController *shippingViewController = [STPShippingAddressViewController new];
+    shippingViewController.delegate = self;
+    // STPShippingAddressViewController must be shown inside a UINavigationController.
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:shippingViewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark STPShippingAddressViewControllerDelegate
+
+- (void)shippingAddressViewControllerDidCancel:(STPShippingAddressViewController *)addressViewController {
+    [addressViewController dismissWithCompletion:nil];
+}
+
+- (void)shippingAddressViewController:(STPShippingAddressViewController *)addressViewController didEnterAddress:(STPAddress *)address completion:(STPShippingMethodsCompletionBlock)completion {
+    PKShippingMethod *upsGround = [PKShippingMethod new];
+    upsGround.amount = [NSDecimalNumber decimalNumberWithString:@&quot;0&quot;];
+    upsGround.label = @&quot;UPS Ground&quot;;
+    upsGround.detail = @&quot;Arrives in 3-5 days&quot;;
+    upsGround.identifier = @&quot;ups_ground&quot;;
+    PKShippingMethod *fedEx = [PKShippingMethod new];
+    fedEx.amount = [NSDecimalNumber decimalNumberWithString:@&quot;5.99&quot;];
+    fedEx.label = @&quot;FedEx&quot;;
+    fedEx.detail = @&quot;Arrives tomorrow&quot;;
+    fedEx.identifier = @&quot;fedex&quot;;
+    if ([address.country isEqualToString:@&quot;US&quot;]) {
+        completion(STPShippingStatusValid, nil, @[upsGround, fedEx], upsGround);
+    }
+    else {
+        completion(STPShippingStatusInvalid, nil, nil, nil);
+    }
+}
+
+- (void)shippingAddressViewController:(STPShippingAddressViewController *)addressViewController didFinishWithAddress:(STPAddress *)address shippingMethod:(PKShippingMethod *)method {
+    // Dismiss the view controller after updating your app with the user&#39;s shipping info
+    [addressViewController dismissWithCompletion:nil];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>Note that if you're pushing <code>STPShippingAddressViewController</code> onto a <code>UINavigationController</code> stack, you should dismiss it using <code>dismissWithCompletion:</code>, since it may have pushed an additional shipping method view controller onto the navigation controller's stack.</p>
+
+</section>
+
+<section>
+  <h2><code>STPAPIClient</code> + <code>STPCardParams</code></h2>
+  <p>
+    If you're collecting your users' card details by using <code>STPPaymentCardTextField</code> or building your own credit card form, you can use the <code>STPAPIClient</code> class to handle tokenizing those details. First, assemble an <code>STPCardParams</code> object with the information you've collected. Then, use <code>STPAPIClient</code> to convert that into an <code>STPToken</code> which you can then pass to your server. (Note: the examples in this guide assume you've written a function called <code>submitTokenToBackend:completion:</code> which sends your <code>STPToken</code> to your server).
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-swift numbered" ><code>let cardParams = STPCardParams()
+cardParams.number = &quot;4242424242424242&quot;
+cardParams.expMonth = 10
+cardParams.expYear = 2018
+cardParams.cvc = &quot;123&quot;
+STPAPIClient.shared().createTokenWithCard(cardParams) { (token, error) in
+    if let error = error {
+        // show the error to the user
+    } else if let token = token {
+        self.submitTokenToBackend(token, completion: { (error: Error?) in
+            if let error = error {
+                // show the error to the user
+            } else {
+                // show a receipt page
+        })
+    }
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-objc numbered" ><code>STPCardParams *cardParams = [[STPCardParams alloc] init];
+cardParams.number = @&quot;4242424242424242&quot;;
+cardParams.expMonth = 10;
+cardParams.expYear = 2018;
+cardParams.cvc = @&quot;123&quot;;
+[[STPAPIClient sharedClient] createTokenWithCard:cardParams completion:^(STPToken *token, NSError *error) {
+    if (error) {
+        // show the error, maybe by presenting an alert to the user
+    } else {
+        [self submitTokenToBackend:token completion:^(NSError *error) {
+            if (error) {
+                // show the error
+            } else {
+                [self showReceiptPage];
+            }
+        }];
+    }
+}];</code></pre>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 id="apple-pay">Apple Pay Utilities</h2>
+  <p>
+    Accepting Apple Pay on Stripe has a lot of similarities to working with cards. When the user approves a payment, your application will receive a <code>PKPayment</code> object that contains their encrypted card details. You can use <code>STPAPIClient</code> to turn a <code>PKPayment</code> into an <code>STPToken</code>, just as you would with an <code>STPCardParams</code> object. From there, the token behaves exactly the same way. Let's walk through the full Apple Pay flow.
+  </p>
+  <p>
+    First, you can use Stripe to determine if the user's device supports Apple Pay and they have a card added to their wallet.
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-swift numbered" ><code>override func viewDidLoad() {
+    super.viewDidLoad()
+    self.applePayButton.enabled = Stripe.deviceSupportsApplePay()
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-objc numbered" ><code>- (void)viewDidLoad {
+  [super viewDidLoad];
+  self.applePayButton.enabled = [Stripe deviceSupportsApplePay];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>
+    Next, when the user taps "buy", create a <code>PKPaymentRequest</code> object that describes the payment you want to make. Stripe provides a helper function that does much of the configuration for you. Note: to obtain an Apple Merchant ID, read our <a href="../../apple-pay/apps.html">Apple Pay setup guide</a>.
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-swift numbered" ><code>func applePayTapped() {
+    let paymentRequest = Stripe.paymentRequestWithMerchantIdentifier(&quot;com.merchant.your_application&quot;)
+    // Configure the line items on the payment sheet
+    paymentRequest?.paymentSummaryItems = [
+        PKPaymentSummaryItem(label: &quot;Fancy hat&quot;, amount: NSDecimalNumber(string: &quot;50.00&quot;)),
+        // the final line should represent your company; it&#39;ll be prepended with the word &quot;Pay&quot; (i.e. &quot;Pay iHats, Inc $50&quot;)
+        PKPaymentSummaryItem(label: &quot;iHats, Inc&quot;, amount: NSDecimalNumber(string: &quot;50.00&quot;)),
+    ]
+    // To be continued
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-objc numbered" ><code>- (void)applePayTapped {
+  PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:@&quot;com.merchant.your_application&quot;];
+  paymentRequest.paymentSummaryItems = @[
+    [PKPaymentSummaryItem summaryItemWithLabel:@&quot;Fancy Hat&quot; amount:[NSDecimalNumber decimalNumberWithString:@&quot;50.00&quot;]],
+    // the final line should represent your company; it&#39;ll be prepended with the word &quot;Pay&quot; (i.e. &quot;Pay iHats, Inc $50&quot;)
+    [PKPaymentSummaryItem summaryItemWithLabel:@&quot;iHats, Inc&quot; amount:[NSDecimalNumber decimalNumberWithString:@&quot;50.00&quot;]],
+  ];
+  // To be continued
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>
+    Next, create and present a <code>PKPaymentAuthorizationViewController</code> with your payment request.
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-swift numbered" ><code>func applePayTapped() {
+    let paymentRequest = ... // see above
+    if let paymentRequest = paymentRequest where Stripe.canSubmitPaymentRequest(paymentRequest) {
+        let paymentAuthorizationVC = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
+        paymentAuthorizationVC.delegate = self
+        self.present(paymentAuthorizationVC, animated: true, completion: nil)
+    } else {
+        // there is a problem with your Apple Pay configuration.
+    }
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-objc numbered" ><code>- (void)applePayTapped {
+  PKPaymentRequest *paymentRequest = ...; // see above
+  if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
+    PKPaymentAuthorizationViewController *paymentAuthorizationVC = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
+    paymentAuthorizationVC.delegate = self
+    [self presentViewController:paymentAuthorizationVC animated:YES completion:nil];
+    } else {
+        // there is a problem with your Apple Pay configuration.
+    }
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>
+    Finally, implement the necessary <code>PKPaymentAuthorizationViewControllerDelegate</code> methods using Stripe:
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-swift numbered" ><code>// MARK: PKPaymentAuthorizationViewControllerDelegate
+
+var paymentSucceeded: Bool = false
+
+func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController,
+    didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -&gt; Void) {
+
+    STPAPIClient.sharedClient().createTokenWithPayment(payment) { (token, error) in
+        self.submitTokenToBackend(token, completion: { (error: Error?) in
+            if let error = error {
+                completion(.Failure)
+            } else {
+                self.paymentSucceeded = true
+                completion(.Success)
+            }
+        })
+    }
+}
+
+func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+    self.dismiss(animated: true, completion: {
+        if (self.paymentSucceeded) {
+            // show a receipt page
+        }
+    })
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-objc numbered" ><code>#pragma mark PKPaymentAuthorizationViewControllerDelegate
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller didAuthorizePayment:(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+    [[STPAPIClient sharedClient] createTokenWithPayment:payment completion:^(STPToken * _Nullable token, NSError * _Nullable error) {
+        [self submitTokenToBackend:token completion:^(NSError *error) {
+            if (error) {
+                completion(PKPaymentAuthorizationStatusFailure);
+            } else {
+                completion(PKPaymentAuthorizationStatusSuccess);
+                self.paymentSuceeded = YES; // define this property in your header
+            }
+        }];
+    }];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:^{
+      if (self.paymentSucceeded) {
+        [self showReceiptPage];
+      }
+    }];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>
+    If you'd like to read more about Apple Pay and the other configuration options it has, we recommend the NSHipster <a href="https://nshipster.com/apple-pay" class="external" target="_blank">article on Apple Pay</a> and the <a href="https://developer.apple.com/videos/play/wwdc2015/702/" class="external" target="_blank">Apple Pay Within Apps</a> presentation from WWDC 2015.
+  </p>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/mobile/ios/custom by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:20 GMT -->
+</html>

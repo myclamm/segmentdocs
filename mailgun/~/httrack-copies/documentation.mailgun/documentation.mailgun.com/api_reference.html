@@ -1,0 +1,499 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/api_reference.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Reference &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="next" title="Introduction" href="api-intro.html" />
+    <link rel="prev" title="Libraries" href="libraries.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+    <!-- CUSTOM CSS -->
+    <style type="text/css">
+
+    header {
+      background-image: none !important;
+    }
+
+    .header-nav a {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #49B882;
+        display: block;
+        float: left;
+        font-family: 'Titillium Web', Lato, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
+        font-weight: 100 !important;
+        font-size: 14px;
+        line-height: 50px;
+        padding: 10px 10px;
+        text-decoration: none;
+        text-transform: none;
+    }
+    .header-nav {
+        float: left;
+    }
+
+    .segment-logo {
+      float: left;
+      background: url("https://cdn.brandisty.com/img?id=57852bda6b49441340000023&format=png&w=600&h=557");
+      background-size: 50px 50px;
+      background-repeat: no-repeat;
+      display: block;
+      margin-right:20px;
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+    }
+    .documentation .subnav {
+      background-image: none;
+      background-color: #00386c;
+    }
+    .documentation .subnav li.active a {
+      background-image: none;
+      background-color: #49b882;
+    }
+    body {
+      font-family:none;
+    }
+
+    </style>
+    <!-- CUSTOM CSS -->
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <div href="http://www.mailgun.com/" class="segment-logo"></div>
+      <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
+          <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
+          <a href="http://www.mailgun.com/customers" class="customers-link"><b style="font-weight:100">Quickstarts</b></a>
+          <div class="dropdown">
+                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b >API Reference 
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b style="font-weight:100">SDKs 
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+                <a href="http://www.mailgun.com/managed" class="managed-link"><b style="font-weight:100">Integration Catalog</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b style="font-weight:100">Source Catalog</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b style="font-weight:100">Connect Warehouse</b></a>
+
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Language preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <!-- <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus /> -->
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api-intro.html" title="Introduction" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="libraries.html" title="Libraries" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+   <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<!-- <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li> -->
+<li class="toctree-l1 current"><a class="reference internal" href="api_reference.html">API Reference</a><ul class="current">
+
+
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><b>Introduction</b></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#base-url">Base URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#date-format">Date Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#errors">Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#webhooks">Webhooks</a></li>
+</ul>
+</li>
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li> -->
+
+<li class="toctree-l2"><a class="reference internal" href="api-events.html"><b>Events</b></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-stats.html"><b>Common Fields</b></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-tags.html"><b>Ecommerce Spec</b></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-suppressions.html"><b>Industry Specific Specs</b></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-webhooks.html"><b>Webhooks</b></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQ</a></li>
+
+
+ 
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Getting started with Segment takes just a few minutes once you’ve signed up for an account.
+
+You’ll use one of our library sources to record customer data from your website, mobile app or servers. We transform and route this data to all the integrations you have enabled. You can also gather data from your 3rd party cloud app sources into one warehouse that stores all of your source data and makes it easily accessible.<a class="reference external" href="http://en.wikipedia.org/wiki/Representational_State_Transfer">RESTful</a> and it:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Jsonobjects">Client-side Libraries</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Jsonobjects">Server-side Libraries</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Jsonobjects">Http API</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Jsonobjects">Pixel API</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Jsonobjects">Webhooks</a></li>
+
+</ul>
+<p>Segment has published <a class="reference internal" href="wrappers.html#libraries"><span class="std std-ref">Libraries</span></a> for various languages. You may use our
+libraries, or your favorite HTTP/REST library available for your programming
+language, to make HTTP calls to Segment. Visit our <a class="reference internal" href="wrappers.html#libraries"><span class="std std-ref">SDK's</span></a> page to see
+HTTP REST libraries we recommend.</p>
+<p>To give you an idea of how to use the API, we have annotated our documentation
+with code samples written in several popular programming languages. Use the language
+selector at the top to switch between them.</p>
+<p>Our samples from <span class="xref std std-ref">quickstart</span>, <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a>, and <a class="reference internal" href="api_reference.html#api-reference"><span class="std std-ref">API Reference</span></a> provide
+examples that will function. You&#8217;re welcome to copy/paste and run the script to see the API in action.</p>
+<div class="section" id="base-url">
+<h2>Base URL<a class="headerlink" href="#base-url" title="Permalink to this headline">¶</a></h2>
+<p>All API URLs referenced in this documentation start with the following
+base part:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">v3</span>
+</pre></div>
+</div>
+<p>Your Mailgun account may contain several email domains. To avoid passing
+the domain name as a query parameter, most API URLs must include the name of
+the domain you&#8217;re interested in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">v3</span><span class="o">/</span><span class="n">mydomain</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="authentication">
+<span id="index-0"></span><h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>When you sign up for an account, you are given an API key.  You authenticate to the Mailgun API by providing your API key in the request. You can manage your API key in the &#8216;My Account&#8217; tab of the Control Panel.</p>
+<p>Authentication to the API occurs via <a class="reference external" href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Auth</a>. Use <code class="docutils literal"><span class="pre">api</span></code> as the user
+name and your API key is the password. Here is how you use basic HTTP auth with curl:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">user</span> <span class="s1">&#39;api:key-3ax6xnjp29jd6fds4gc373sgvjxteol0&#39;</span>
+</pre></div>
+</div>
+<p>Or you can try the following API call right from your browser:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="p">:</span><span class="n">key</span><span class="o">-</span><span class="mi">3</span><span class="n">ax6xnjp29jd6fds4gc373sgvjxteol0</span><span class="nd">@api</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">v3</span><span class="o">/</span><span class="n">samples</span><span class="o">.</span><span class="n">mailgun</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">log</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Keep your API key secret!</p>
+</div>
+</div>
+<div class="section" id="date-format">
+<span id="id1"></span><h2>Date Format<a class="headerlink" href="#date-format" title="Permalink to this headline">¶</a></h2>
+<p>Mailgun returns JSON for all API calls. JSON does not have a built-in date type, dates are
+passed as strings encoded according to <span class="target" id="index-1"></span><a class="rfc reference external" href="https://tools.ietf.org/html/rfc2822.html#page-14"><strong>RFC 2822#page-14</strong></a>. This format is native to
+JavaScript and is also supported by most programming languages out of the
+box:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;Thu, 13 Oct 2011 18:02:00 GMT&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="errors">
+<span id="index-2"></span><h2>Errors<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h2>
+<p>Mailgun returns standard HTTP response codes.</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Code</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>200</td>
+<td>Everything worked as expected</td>
+</tr>
+<tr class="row-odd"><td>400</td>
+<td>Bad Request - Often missing a required parameter</td>
+</tr>
+<tr class="row-even"><td>401</td>
+<td>Unauthorized - No valid API key provided</td>
+</tr>
+<tr class="row-odd"><td>402</td>
+<td>Request Failed - Parameters were valid but request failed</td>
+</tr>
+<tr class="row-even"><td>404</td>
+<td>Not Found - The requested item doesn&#8217;t exist</td>
+</tr>
+<tr class="row-odd"><td>500, 502, 503, 504</td>
+<td>Server Errors - something is wrong on Mailgun&#8217;s end</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="webhooks">
+<h2>Webhooks<a class="headerlink" href="#webhooks" title="Permalink to this headline">¶</a></h2>
+<p>Mailgun can also POST data to your application when events (opens, clicks, bounces, etc.) occur or when you use Routes.  You can read more about <a class="reference internal" href="user_manual.html#webhooks"><span class="std std-ref">Webhooks</span></a> and <a class="reference internal" href="user_manual.html#um-routes"><span class="std std-ref">Routes</span></a> in the <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a>.</p>
+</div>
+</div>
+
+
+            </div>
+          </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container --> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/api_reference.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:52 GMT -->
+</html>

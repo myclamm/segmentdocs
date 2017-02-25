@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/mobile/ios/standard by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:20 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="9egWIZ8h1EM4KWjLfx1L-RQUfp7HdvGM8X36uOLYZTdscgJcmeQQBvVtTNSzFX6CPWrwGZvaMCywyPCQRw-vRg==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Standard iOS Integration</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Standard iOS Integration">
+    <meta property="og:url" content="standard.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Standard iOS Integration">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+      <link rel="stylesheet" href="../../../assets/v3/documentation/mobile-6afe38fc608cae9c8665143172bf6884.css">
+
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          
+<header>
+  <h1>Standard iOS Integration Guide</h1>
+  <p>
+    Accept payments in iPhone and iPad apps, with built-in support for Apple Pay. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=apple+pay">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+
+  </p>
+  <aside class="important">
+    <p>Note, this article assumes you've already followed the <a href="../ios.html#getting-started">Getting Started</a> section of our main tutorial to install and configure our SDK.</p>
+  </aside>
+</header>
+
+<section>
+  <p class="notification">This guide will take you through building your app's payment flow using <code>STPPaymentContext</code>, a class designed to make building your app's checkout flow as easy as possible. It handles collecting, saving, and reusing your user's payment details, and can also be used to collect shipping info. If you find that this isn't flexible enough for your needs, all of the subcomponents that <code>STPPaymentContext</code> uses under the hood are available for you to use as well. For more on these subcomponents, please read our <a href="custom.html">custom iOS integration guide</a>.</p>
+
+  <h3 id="prepare-your-api">Prepare your API</h3>
+
+  <p>Our prebuilt UI elements operate on the assumption that you have a single Customer object for each of your users. We strongly recommend you create this Customer at the same time you create your user on your own backend, so that every user is guaranteed to have an associated Customer (this is fine even if you don't collect your user's payment information when they sign up — it's totally OK to have a Customer without any attached cards).</p>
+
+  <p>In order for our prebuilt UI elements to function, you'll need to provide them with information about your user's saved payment information. To fetch this information, you should expose three APIs on your backend for your iOS app to communicate with.</p>
+
+  <h4>Endpoint 1: Retrieve the Customer object for the currently logged-in user</h4>
+
+  <p>This method is called to populate the user's list of payment methods in our UI. For this, you can just call the Stripe <a href="../../api.html#retrieve_customer">Retrieve Customer API</a> and return its unmodified response as JSON.</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="java"
+           >Java</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-ruby numbered" ><code>require &quot;json&quot;
+
+# Using Sinatra (http://www.sinatrarb.com/)
+get &quot;/customer&quot; do
+  begin
+    customer_id = &quot;...&quot; # Load the Stripe Customer ID for your logged in user
+    customer = Stripe::Customer.retrieve(customer_id)
+  rescue Stripe::StripeError =&gt; e
+    status 402
+    return &quot;Error retrieving customer: #{e.message}&quot;
+  end
+  status 200
+  content_type :json
+  customer.to_json
+end</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>import json
+from django.http import HttpResponse
+from django.http import JsonResponse
+
+# Using Django (https://www.djangoproject.com/)
+def my_customer_view(request):
+  try:
+    customer_id = &quot;...&quot; # Load the Stripe Customer ID for your logged in user
+    customer = stripe.Customer.retrieve(customer_id)
+    return JsonResponse(customer)
+  except stripe.error.StripeError as e:
+    return HttpResponse(status=402)</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>try {
+  $customer_id = &quot;...&quot;; // Load the Stripe Customer ID for your logged in user
+  $customer = \Stripe\Customer::retrieve($customer_id);
+  header(&#39;Content-Type: application/json&#39;);
+  echo $customer-&gt;jsonSerialize();
+} catch(\Stripe\Error $e) {
+  http_response_code(402);
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Using Express (http://expressjs.com/)
+app.get(&#39;/customer&#39;, function(request, response) {
+  var customerId = &#39;...&#39;; // Load the Stripe Customer ID for your logged in user
+  stripe.customers.retrieve(customerId, function(err, customer) {
+    if (err) {
+      response.status(402).send(&#39;Error retrieving customer.&#39;);
+    } else {
+      response.json(customer);
+    }
+  })
+});</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Using Spark framework (http://sparkjava.com)
+import com.google.gson.Gson;
+
+private Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+
+get(&quot;/customer&quot;, (request, response) -&gt; {
+  String customerID = &quot;...&quot;; // Load the Stripe Customer ID for your logged in user
+    try {
+      Customer customer = Customer.retrieve(customerID);
+      response.status(200);
+      return gson.toJson(customer);
+    } catch (StripeException e) {
+      response.status(402);
+      return &quot;&quot;;
+    }
+});</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h4>Endpoint 2: Attach a new payment source to the Customer for the currently-logged in user</h4>
+
+  <p>This method is called when the user adds a new payment method via our UI. For this, you should call the Stripe <a href="../../api.html#create_card">Create Card API</a> and return its unmodified response as JSON.</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="java"
+           >Java</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-ruby numbered" ><code>require &quot;json&quot;
+
+# Using Sinatra (http://www.sinatrarb.com/)
+post &quot;/customer/sources&quot; do
+  begin
+    customer_id = &quot;...&quot; # Load the Stripe Customer ID for your logged in user
+    customer = Stripe::Customer.retrieve(customer_id)
+    customer.sources.create({:source =&gt; params[:source]})
+    status 200
+  rescue Stripe::StripeError =&gt; e
+    status 402
+    return &quot;Error retrieving customer: #{e.message}&quot;
+  end
+end</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>import json
+from django.http import HttpResponse
+
+# Using Django (https://www.djangoproject.com/)
+def my_customer_source_view(request):
+  try:
+    customer_id = &quot;...&quot; # Load the Stripe Customer ID for your logged in user
+    customer = stripe.Customer.retrieve(customer_id)
+    source = request.POST[&#39;source&#39;]
+    customer.sources.create(source=source)
+    return HttpResponse(status=200)
+  except stripe.error.StripeError as e:
+    return HttpResponse(status=402)</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>$customer_id = &quot;...&quot;; // Load the Stripe Customer ID for your logged in user
+
+try {
+  $customer = \Stripe\Customer::retrieve($customer_id);
+  $customer-&gt;sources-&gt;create(array(&quot;source&quot; =&gt; $_POST[&quot;source&quot;]));
+  http_response_code(200);
+} catch(\Stripe\Error $e) {
+  http_response_code(402);
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Using Express (http://expressjs.com/)
+app.post(&#39;/customer/sources&#39;, function(request, response) {
+  var customerId = &#39;...&#39;; // Load the Stripe Customer ID for your logged in user
+  stripe.customers.createSource(customerId, {
+    source: request.body.source
+  }, function(err, source) {
+    if (err) {
+      response.status(402).send(&#39;Error attaching source.&#39;);
+    } else {
+      response.status(200).end();
+    }
+  });
+});</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Using Spark framework (http://sparkjava.com)
+post(&quot;/customer/sources&quot;, (request, response) -&gt; {
+  String customerID = &quot;...&quot;; // Load the Stripe Customer ID for your logged in user
+    try {
+      Customer customer = Customer.retrieve(customerID);
+      Map&lt;String, Object&gt; params = new HashMap&lt;String, Object&gt;();
+      params.put(&quot;source&quot;, request.params(&quot;source&quot;));
+      customer.getSources().create(params);
+      response.status(200);
+    } catch (StripeException e) {
+      response.status(402);
+    }
+    return &quot;&quot;;
+});</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h4>Endpoint 3: Select a new default payment source on the Customer for the currently logged-in user</h4>
+
+  <p>This method is called when the user changes their selected payment method in our UI. For this, you should call the Stripe <a href="../../api.html#update_customer">Customer Update API</a> and specify a new <code>default_source</code>.</p>
+
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="java"
+           >Java</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-ruby numbered" ><code>require &quot;json&quot;
+
+# Using Sinatra (http://www.sinatrarb.com/)
+post &quot;/customer/default_source&quot; do
+  begin
+    customer_id = &quot;...&quot; # Load the Stripe Customer ID for your logged in user
+    customer = Stripe::Customer.retrieve(customer_id)
+    customer.default_source = params[:default_source]
+    customer.save
+    status 200
+  rescue Stripe::StripeError =&gt; e
+    status 402
+    return &quot;Error retrieving customer: #{e.message}&quot;
+  end
+end</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>import json
+from django.http import HttpResponse
+
+# Using Django (https://www.djangoproject.com/)
+def my_customer_default_source_view(request):
+  try:
+    customer_id = &quot;...&quot; # Load the Stripe Customer ID for your logged in user
+    customer = stripe.Customer.retrieve(customer_id)
+    customer.default_source = request.POST[&#39;default_source&#39;]
+    customer.save()
+    return HttpResponse(status=200)
+  except stripe.error.StripeError as e:
+    return HttpResponse(status=402)</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>$customer_id = &quot;...&quot; // Load the Stripe Customer ID for your logged in user
+
+try {
+  $customer = \Stripe\Customer::retrieve($customer_id);
+  $customer-&gt;default_source = $_GET[&quot;default_source&quot;];
+  $customer-&gt;save();
+  http_response_code(200);
+} catch(\Stripe\Error $e) {
+  http_response_code(402);
+}</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>// Using Express (http://expressjs.com/)
+app.post(&#39;/customer/default_source&#39;, function(request, response) {
+  var customerId = &#39;...&#39;; // Load the Stripe Customer ID for your logged in user
+  stripe.customers.update(customerId, {
+    default_source: request.body.defaultSource
+  }, function(err, customer) {
+    if (err) {
+      response.status(402).send(&#39;Error setting default source.&#39;);
+    } else {
+      response.status(200).end();
+    }
+  });
+});</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>// Using Spark framework (http://sparkjava.com)
+post(&quot;/customer/sources&quot;, (request, response) -&gt; {
+  String customerID = &quot;...&quot; # Load the Stripe Customer ID for your logged in user
+    try {
+      Customer customer = Customer.retrieve(customerID);
+      Map&lt;String, Object&gt; updateParams = new HashMap&lt;String, Object&gt;();
+      updateParams.put(&quot;default_source&quot;, request.params(&quot;default_source&quot;));
+      customer.update(updateParams);
+      response.status(200);
+    } catch (StripeException e) {
+      response.status(402);
+    }
+    return &quot;&quot;;
+});</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>Next, you'll need a way for your iOS app to communicate with these endpoints. To make this easier, we've introduced the concept of an "API adapter" – a class that communicates with your backend API and returns objects that the prebuilt Stripe UI knows how to process. To create your API adapter, you should make a class that conforms to the <a href="http://stripe.github.io/stripe-ios/docs/Protocols/STPBackendAPIAdapter.html" class="external" target="_blank"><code>STPBackendAPIAdapter</code> protocol</a>, which has three required methods (note how they align with the new endpoints you've exposed on your backend API):</p>
+
+  <ul>
+    <li><code>- retrieveCustomer:completion:</code> <a href="http://stripe.github.io/stripe-ios/docs/Protocols/STPBackendAPIAdapter.html#/c:objc(pl)STPBackendAPIAdapter(im)retrieveCustomer:" class="external"><span>Read more</span></a></li>
+    <li><code>- attachSourceToCustomer:completion:</code> <a href="http://stripe.github.io/stripe-ios/docs/Protocols/STPBackendAPIAdapter.html#/c:objc(pl)STPBackendAPIAdapter(im)attachSourceToCustomer:completion:" class="external"><span>Read more</span></a></li>
+    <li><code>- selectDefaultCustomerSource:completion:</code> <a href="http://stripe.github.io/stripe-ios/docs/Protocols/STPBackendAPIAdapter.html#/c:objc(pl)STPBackendAPIAdapter(im)selectDefaultCustomerSource:completion:" class="external"><span>Read more</span></a></li>
+  </ul>
+
+  <p>You can consult the <a href="https://github.com/stripe/stripe-ios/blob/master/Example/Stripe iOS Example (Simple)/CheckoutViewController.swift" class="external" target="_blank">Example App</a> in our SDK to see this in practice.</p>
+
+  <h3>Implement your app's checkout flow using <code>STPPaymentContext</code></h3>
+
+  <p>Our SDK provides a class called <a href="http://stripe.github.io/stripe-ios/docs/Classes/STPPaymentContext.html" class="external"><code>STPPaymentContext</code></a>, which is designed to make building your app's checkout flow as easy as possible. It handles collecting, saving, and reusing your user's payment details, and can also be used to collect shipping info. Think of it as the data source for your checkout view controller – it handles asynchronously retrieving the data you need, and notifies its delegate when its UI should change. Most importantly, it lets you build a single integration to accept payments via both credit card and Apple Pay instead of having multiple code paths.</p>
+
+  <h4>Setting the delegate and host view controller</h4>
+
+  <p>To work with <code>STPPaymentContext</code>, you'll need to write a class that conforms to <code>STPPaymentContextDelegate</code>. (Note, the code samples in this section are simply examples – your own implementation may differ depending on the structure of your app). <code>STPPaymentContextDelegate</code> has 4 required methods:</p>
+
+  <h4><code>- paymentContextDidChange:</code></h4>
+
+  <p>This method is called, as you might expect, when the payment context's contents change, e.g. when the user selects a new payment method or enters shipping info. This is a good place to update your UI:</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
+    self.activityIndicator.animating = paymentContext.loading
+    self.paymentButton.enabled = paymentContext.selectedPaymentMethod != nil
+    self.paymentLabel.text = paymentContext.selectedPaymentMethod?.label
+    self.paymentIcon.image = paymentContext.selectedPaymentMethod?.image
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (void)paymentContextDidChange:(STPPaymentContext *)paymentContext {
+    self.activityIndicator.animating = paymentContext.loading;
+    self.paymentButton.enabled = paymentContext.selectedPaymentMethod != nil;
+    self.paymentLabel.text = paymentContext.selectedPaymentMethod.label;
+    self.paymentIcon.image = paymentContext.selectedPaymentMethod.image;
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h4><code>- paymentContext:didCreatePaymentResult:completion:</code></h4>
+
+  <p>This method is called when the user has successfully selected a payment method and completed their purchase. You should pass the contents of the <code>paymentResult</code> object to your backend, which should then finish charging your user using the <a href="../../api.html#create_charge">create charge API</a>. When this API request is finished, call the provided <code>completion</code> block with <code>nil</code> as its only argument if the call succeeded, or, if an error occurred, with that error as the argument instead.</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>func paymentContext(_ paymentContext: STPPaymentContext,
+  didCreatePaymentResult paymentResult: STPPaymentResult,
+  completion: @escaping STPErrorBlock) {
+
+  myAPIClient.createCharge(paymentResult.source.stripeID, completion: { (error: Error?) in
+      if let error = error {
+          completion(error)
+      } else {
+          completion(nil)
+      }
+  })
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (void)paymentContext:(STPPaymentContext *)paymentContext
+didCreatePaymentResult:(STPPaymentResult *)paymentResult
+            completion:(STPErrorBlock)completion {
+    [self.apiClient createCharge:paymentResult.source.stripeID completion:^(NSError *error) {
+        if (error) {
+            completion(error);
+        } else {
+            completion(nil);
+        }
+    }];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h4><code>- paymentContext:didFinishWithStatus:error:</code></h4>
+
+  <p>This method is called after the previous method, when any auxiliary UI that has been displayed (such as the Apple Pay dialog) has been dismissed. You should inspect the returned <code>status</code> and show an appropriate message to your user. For example:</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>func paymentContext(_ paymentContext: STPPaymentContext,
+  didFinishWithStatus status: STPPaymentStatus,
+  error: Error?) {
+
+    switch status {
+    case .error:
+        self.showError(error)
+    case .success:
+        self.showReceipt()
+    case .userCancellation:
+        return // Do nothing
+    }
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (void)paymentContext:(STPPaymentContext *)paymentContext
+   didFinishWithStatus:(STPPaymentStatus)status
+                 error:(NSError *)error {
+    switch (status) {
+        case STPPaymentStatusSuccess:
+            [self showReceipt];
+        case STPPaymentStatusError:
+            [self showError:error];
+        case STPPaymentStatusUserCancellation:
+            return; // Do nothing
+    }
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h4><code>- paymentContext:didFailToLoadWithError:</code></h4>
+
+  <p>This method is called in the rare case that the payment context's initial loading call fails, usually due to lack of internet connectivity. You should dismiss your checkout page when this occurs and invite the user to try again. You can also optionally attempt to try again by calling <code>retryLoading</code> on the payment context.</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>func paymentContext(_ paymentContext: STPPaymentContext,
+  didFailToLoadWithError error: Error) {
+    self.navigationController?.popViewController(animated: true)
+    // Show the error to your user, etc.
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (void)paymentContext:(STPPaymentContext *)paymentContext didFailToLoadWithError:(NSError *)error {
+     [self.navigationController popViewControllerAnimated:YES];
+     // Show the error to your user, etc.
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h4><code>- paymentContext:didUpdateShippingAddress:completion</code></h4>
+
+  <p>If you're using <code>STPPaymentContext</code> to collect shipping info, this method will be called after your user enters a shipping address. Here, you should validate the returned <code>address</code> and determine the shipping methods available for that address. If the address is valid, you should call the provided <code>completion</code> block with a status of <code>STPShippingStatusValid</code>, <code>nil</code> for the error argument, an array of shipping methods, and a selected shipping method. If you don't need to collect a shipping method, you should just pass <code>nil</code> for the shipping methods and selected shipping method. If the address is invalid, you should call the <code>completion</code> block with a status of <code>STPShippingStatusInvalid</code>, an error object describing the issue with the address, and <code>nil</code> for the shipping methods and selected shipping method. Note that providing an error object is optional – if you omit it, the user will simply see an alert with the message "Invalid Shipping Address".</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>func paymentContext(_ paymentContext: STPPaymentContext, didUpdateShippingAddress address: STPAddress, completion: @escaping STPShippingMethodsCompletionBlock) {
+    let upsGround = PKShippingMethod()
+    upsGround.amount = 0
+    upsGround.label = &quot;UPS Ground&quot;
+    upsGround.detail = &quot;Arrives in 3-5 days&quot;
+    upsGround.identifier = &quot;ups_ground&quot;
+    let fedEx = PKShippingMethod()
+    fedEx.amount = 5.99
+    fedEx.label = &quot;FedEx&quot;
+    fedEx.detail = &quot;Arrives tomorrow&quot;
+    fedEx.identifier = &quot;fedex&quot;
+
+    if address.country == &quot;US&quot; {
+        completion(.valid, nil, [upsGround, fedEx], upsGround)
+    }
+    else {
+        completion(.invalid, nil, nil, nil)
+    }
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (void)paymentContext:(STPPaymentContext *)paymentContext didUpdateShippingAddress:(STPAddress *)address completion:(STPShippingMethodsCompletionBlock)completion {
+    PKShippingMethod *upsGround = [PKShippingMethod new];
+    upsGround.amount = [NSDecimalNumber decimalNumberWithString:@&quot;0&quot;];
+    upsGround.label = @&quot;UPS Ground&quot;;
+    upsGround.detail = @&quot;Arrives in 3-5 days&quot;;
+    upsGround.identifier = @&quot;ups_ground&quot;;
+    PKShippingMethod *fedEx = [PKShippingMethod new];
+    fedEx.amount = [NSDecimalNumber decimalNumberWithString:@&quot;5.99&quot;];
+    fedEx.label = @&quot;FedEx&quot;;
+    fedEx.detail = @&quot;Arrives tomorrow&quot;;
+    fedEx.identifier = @&quot;fedex&quot;;
+    if ([address.country isEqualToString:@&quot;US&quot;]) {
+        completion(STPShippingStatusValid, nil, @[upsGround, fedEx], upsGround);
+    }
+    else {
+        completion(STPShippingStatusInvalid, nil, nil, nil);
+    }
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>Once you've written a class that conforms to <code>STPPaymentContextDelegate</code>, you can initialize <code>STPPaymentContext</code> with your API adapter. After you do this, set its <code>delegate</code> and <code>hostViewController</code> properties (these will usually be the same object, a <code>UIViewController</code> instance). You should also set the payment context's <code>paymentAmount</code> property, which will be displayed to your user in the Apple Pay dialog (you can change this later, if the amount of the user's purchase changes).</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>init() {
+    // Here, MyAPIAdapter is your class that implements STPBackendAPIAdapter (see above)
+    self.paymentContext = STPPaymentContext(apiAdapter: MyAPIAdapter())
+    super.init(nibName: nil, bundle: nil)
+    self.paymentContext.delegate = self
+    self.paymentContext.hostViewController = self
+    self.paymentContext.paymentAmount = 5000 // This is in cents, i.e. $50 USD
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered" ><code>- (instancetype)init {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+       // Here, MyAPIAdapter is your class that implements STPBackendAPIAdapter (see above)
+       id&lt;STPBackendAPIAdapter&gt; apiAdapter = [[MyAPIAdapter alloc] init];
+       self.paymentContext = [[STPPaymentContext alloc] initWithAPIAdapter:apiAdapter];
+       self.paymentContext.delegate = self;
+       self.paymentContext.hostViewController = self;
+       self.paymentContext.paymentAmount = 5000 // This in cents, i.e. $50 USD
+    }
+    return self;
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h3>Let your user select their payment method</h3>
+
+  <p>When you'd like to give your user the chance to enter or change their payment method (say, they tapped a button on your checkout page that lets them do this), <code>STPPaymentContext</code> can do this for you automatically. You can specify whether you'd like the payment selector view controller to be presented modally, or pushed onto a <code>UINavigationController</code> stack:</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered"  data-highlight-lines="3,8"><code>// If you prefer a modal presentation
+func choosePaymentButtonTapped() {
+    self.paymentContext.presentPaymentMethodsViewController()
+}
+
+// If you prefer a navigation transition
+func choosePaymentButtonTapped() {
+    self.paymentContext.pushPaymentMethodsViewController()
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered"  data-highlight-lines="3,8"><code>// If you prefer a modal presentation
+- (void)choosePaymentButtonTapped {
+    [self.paymentContext presentPaymentMethodsViewController];
+}
+
+// If you prefer a navigation transition
+- (void)choosePaymentButtonTapped {
+    [self.paymentContext pushPaymentMethodsViewController];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>
+    This will set up and present an <a href="http://stripe.github.io/stripe-ios/docs/Classes/STPPaymentMethodsViewController.html"><code>STPPaymentMethodsViewController</code></a> on the payment context's <code>hostViewController</code>. If the user doesn't have any stored payment methods, it'll automatically prompt them to enter one. If the user has ever made a purchase from another app that uses <code>STPPaymentContext</code> or from <a href="../../../checkout.html#onetap">Stripe Checkout</a> on the web (and opted in, of course), they'll have the option to autofill their payment details. After entering their email address, they'll be sent an SMS with a code and prompted to enter it in a form that appears. We've found this to have a significant positive impact on conversion rates, but if you'd like to disable it, just add the following code to your app delegate:
+  </p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-swift numbered" ><code>STPPaymentConfiguration.shared().smsAutofillDisabled = true</code></pre>
+</div>
+<div class="code">
+  <pre class="language-objc numbered" ><code>[[STPPaymentConfiguration sharedConfiguration] setSmsAutofillDisabled:YES];</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <h3>Let your user enter their shipping info</h3>
+
+  <p>When you'd like to give your user the chance to enter or change their shipping address and shipping method, <code>STPPaymentContext</code> can do this for you automatically. You can specify whether you'd like the shipping view controller to be presented modally, or pushed onto a <code>UINavigationController</code> stack:</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered"  data-highlight-lines="3,8"><code>// If you prefer a modal presentation
+func shippingButtonTapped() {
+    self.paymentContext.presentShippingViewController()
+}
+
+// If you prefer a navigation transition
+func shippingButtonTapped() {
+    self.paymentContext.presentShippingViewController()
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered"  data-highlight-lines="3,8"><code>// If you prefer a modal presentation
+- (void)choosePaymentButtonTapped {
+    [self.paymentContext presentPaymentMethodsViewController];
+}
+
+// If you prefer a navigation transition
+- (void)choosePaymentButtonTapped {
+    [self.paymentContext pushPaymentMethodsViewController];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>
+    This will set up and present an <a href="http://stripe.github.io/stripe-ios/docs/Classes/STPShippingAddressViewController.html"><code>STPShippingAddressViewController</code></a> on the payment context's <code>hostViewController</code>. Once the user enters a valid shipping address, they'll be taken to an <a href="http://stripe.github.io/stripe-ios/docs/Classes/STPShippingMethodsViewController.html"><code>STPShippingMethodsViewController</code></a>. After they select a shipping method, both view controllers will be dismissed or popped off the <code>hostViewController</code>'s stack.
+  </p>
+
+  <h3>Finishing a payment</h3>
+
+  <p>Finally, when your user taps "Buy", just call <code>requestPayment</code> on your payment context. It'll display any required UI (such as the Apple Pay dialog) and call the appropriate methods on its delegate as your user finishes their payment.</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.swift
+  </nav>
+  <pre class="language-swift numbered"  data-highlight-lines="2"><code>func payButtonTapped() {
+    self.paymentContext.requestPayment()
+}</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    ViewController.m
+  </nav>
+  <pre class="language-objc numbered"  data-highlight-lines="2"><code>- (void)payButtonTapped {
+    [self.paymentContext requestPayment];
+}</code></pre>
+</div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 id="theming">Customizing the look-and-feel of Stripe UI elements</h2>
+
+  <p>We built the payment selector so that you can define your own appearance and apply the attributes you want to customize from the default theme that we provide.</p>
+
+  <div class="illustration">
+    <img src="../../../img/documentation/mobile/ios/stripe-ios-ui-theming.png" width="512" height="517" alt="Stripe iOS UI Theming" />
+  </div>
+
+  <p>You can override any of the properties from the default theme, typically in your <code>AppDelegate</code>:</p>
+
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="swift"
+           >Swift</a>
+        <a data-language="objc"
+           >Objective-C</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <nav class="nav-filename icon-file">
+    AppDelegate.swift
+  </nav>
+  <pre class="language-swift numbered" ><code>STPTheme.default().accentColor = UIColor.blue</code></pre>
+</div>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    AppDelegate.m
+  </nav>
+  <pre class="language-objc numbered" ><code>[[STPTheme defaultTheme] setAccentColor:[UIColor blueColor]];</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <p>Here is a list of properties you can customize and their respective usage inside the payment selector UI:</p>
+
+  <table class="alternate">
+    <thead>
+      <th>Property Name</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>primaryBackgroundColor</code></td>
+        <td>Background color for any views in this theme</td>
+      </tr>
+      <tr>
+        <td><code>secondaryBackgroundColor</code></td>
+        <td>Background color for any supplemental views inside a view (for example the cells of a table view)</td>
+      </tr>
+      <tr>
+        <td><code>primaryForegroundColor</code></td>
+        <td>Text color for any important labels in a view</td>
+      </tr>
+      <tr>
+        <td><code>secondaryForegroundColor</code></td>
+        <td>Text color for any supplementary labels in a view</td>
+      </tr>
+      <tr>
+        <td><code>accentColor</code></td>
+        <td>Color for any buttons and other elements on a view that are important to highlight</td>
+      </tr>
+      <tr>
+        <td><code>errorColor</code></td>
+        <td>Color for rendering any error messages or views</td>
+      </tr>
+      <tr>
+        <td><code>font</code></td>
+        <td>Font to be used for all views</td>
+      </tr>
+      <tr>
+        <td><code>emphasisFont</code></td>
+        <td>Medium-weight font to be used for all bold text in views</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>We also let you customize all the fonts used in this payment selector flow. By default, the SDK will use the system font at different weight and sizes. To override the defaults, set the font and emphasisFont properties and the SDK will automatically use your choice instead and infer the rest.</p>
+
+</section>
+
+<section>
+  <h2>More information</h2>
+
+  <p>If you'd like more help, we provide an <a href="https://github.com/stripe/stripe-ios/blob/master/Example/Stripe iOS Example (Simple)/CheckoutViewController.swift">example app</a> that implements all of the code in this tutorial.</p>
+
+  <p>In addition, if you'd like to implement a custom payment flow, all of the sub-components of <code>STPPaymentContext</code> are usable individually. You can read more about them in our <a href="custom.html">custom iOS integration guide</a>.</p>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/mobile/ios/standard by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:49:20 GMT -->
+</html>

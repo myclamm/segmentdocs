@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2016/10/guide-to-javascript-promises.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>A quick guide to JavaScript Promises &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Learn how to work with JavaScript Promises, how to chain them, execute them in parallel and in series and free yourself from &quot;callback hell&quot;."/>
+<link rel="canonical" href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; A quick guide to JavaScript Promises Comments Feed" href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Dominik Kundel');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'JavaScript,js');
+	__gaTracker('set', 'dimension8', '2016-10-03T11:00:57+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=18926' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F10%2Fguide-to-javascript-promises.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2016%2F10%2Fguide-to-javascript-promises.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-18926 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-18926" class="row post-18926 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-javascript tag-js">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">A quick guide to JavaScript Promises</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="274" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/OrXRdtlYz4AU01MZ3tm1n83BYw2ZHa6XpkhmH2mMrVPtBy-vDi4wFlSet-sG36ayfeM_Q33BYr1Q1_ZtWjynNfZNJqmhghCYZ_8gDdSP71mqiMdiktYsyLIncqG0y33X-tn_1ONA-4.png" class="img-responsive wp-post-image" alt="OrXRdtlYz4AU01MZ3tm1n83BYw2ZHa6XpkhmH2mMrVPtBy-vDi4wFlSet-sG36ayfeM_Q33BYr1Q1_ZtWjynNfZNJqmhghCYZ_8gDdSP71mqiMdiktYsyLIncqG0y33X-tn_1ONA-4" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/09/OrXRdtlYz4AU01MZ3tm1n83BYw2ZHa6XpkhmH2mMrVPtBy-vDi4wFlSet-sG36ayfeM_Q33BYr1Q1_ZtWjynNfZNJqmhghCYZ_8gDdSP71mqiMdiktYsyLIncqG0y33X-tn_1ONA-4.png 700w, https://www.twilio.com/blog/wp-content/uploads/2016/09/OrXRdtlYz4AU01MZ3tm1n83BYw2ZHa6XpkhmH2mMrVPtBy-vDi4wFlSet-sG36ayfeM_Q33BYr1Q1_ZtWjynNfZNJqmhghCYZ_8gDdSP71mqiMdiktYsyLIncqG0y33X-tn_1ONA-4-300x129.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/09/OrXRdtlYz4AU01MZ3tm1n83BYw2ZHa6XpkhmH2mMrVPtBy-vDi4wFlSet-sG36ayfeM_Q33BYr1Q1_ZtWjynNfZNJqmhghCYZ_8gDdSP71mqiMdiktYsyLIncqG0y33X-tn_1ONA-4-200x86.png 200w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/dominik">Dominik Kundel</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" rel="bookmark"><time class="entry-date published" datetime="2016-10-03T11:00:57+00:00">October 3, 2016</time><time class="updated" datetime="2016-10-06T10:29:07+00:00">October 6, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" data-text="A quick guide to JavaScript Promises ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p><img class="&quot; alignright" style="width: 319.33px; height: 232.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/31orCejQRkSvmchYeZC2GKswNtst-d_xEoSPoP3X-bAm9RRe8hxz59vVZrrRm78VvJgVbuUo5R7dAikR2gY1rxtqQ14yMJP8K4CS3Siiir_wRpB6IYgoWGlpokE51vV4eYAI2lpP-1.png" alt="icompile.eladkarako.com_callback_hell.gif" /></p>
+<p>When you are writing JavaScript, <a href="https://developer.mozilla.org/en-US/docs/Mozilla/js-ctypes/Using_js-ctypes/Declaring_and_Using_Callbacks#Using_Callbacks" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en-US/docs/Mozilla/js-ctypes/Using_js-ctypes/Declaring_and_Using_Callbacks#Using_Callbacks', 'callbacks');">callbacks</a> are one of the most confusing concepts. <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise', 'Promises');">Promises</a> are the new approach to improve working with async code.</p>
+<p>One of the biggest problems of callbacks is the chaining of different asynchronous activities. You end up calling anonymous function after function to pass around values. The result is an unmaintainable “callback hell”. Promises try to solve this problem but can be a bit confusing in the beginning.</p>
+<p>Let’s define what Promises are, why they are incredibly useful and how to do things like executing calls in parallel or in series. For this we will look at different examples of doing HTTP requests using two different Node.js libraries.</p>
+<h3 id="h.mxzlthhm8c5t" class="c2 c8">Setup</h3>
+<p>Before we get started you need the following things to try our code examples:</p>
+<ul style="padding-left: 36px;">
+<li><a href="https://nodejs.org/en/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://nodejs.org/en/', 'https://www.twilio.com/blog/2016/10/Node.js');">Node.js</a> version 6.0 or higher. You can check your version by running <code>node -v</code> in your command line. You can upgrade by downloading the latest binary from <a href="https://nodejs.org/en/download/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://nodejs.org/en/download/', 'their website');">their website</a> or by using a tool like <a href="https://github.com/creationix/nvm" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/creationix/nvm', 'nvm');">nvm</a>.</li>
+</ul>
+<p>Once you have this, you need to create a new folder. I’ll create a <code>promises</code> folder in my home directory. Install the <a href="https://www.npmjs.com/package/node-fetch" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.npmjs.com/package/node-fetch', 'fetch');"><code>fetch</code></a> and <a href="https://www.npmjs.com/package/request" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.npmjs.com/package/request', 'request');"><code>request</code></a> libraries by running the following command in that folder:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca1ea398906097" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+npm install node-fetch request --save</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca1ea398906097-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca1ea398906097-1"><span class="crayon-e">npm </span><span class="crayon-e">install </span><span class="crayon-i">node</span><span class="crayon-o">-</span><span class="crayon-e">fetch </span><span class="crayon-i">request</span><span class="crayon-h"> </span><span class="crayon-o">--</span><span class="crayon-i">save</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0011 seconds] -->
+<p>Create a new file called <code>promises.js</code> and place the following lines in there to load the library:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca1fc727067753" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+'use strict';
+
+const fetch = require('node-fetch');
+const request = require('request');</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca1fc727067753-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca1fc727067753-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca1fc727067753-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca1fc727067753-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca1fc727067753-1"><span class="crayon-s">'use strict'</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca1fc727067753-2">&nbsp;</div><div class="crayon-line" id="crayon-58794dc0ca1fc727067753-3"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">fetch</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'node-fetch'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca1fc727067753-4"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">request</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'request'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0018 seconds] -->
+<p>We will be working out of the same <code>promise.js</code> file throughout the whole post.</p>
+<h3 id="h.jj1oi5rjnfgm" class="c2 c8">Quick Promise Overview</h3>
+<p>To understand the benefits of Promises let’s first look at how to do an asynchronous call without promises. For this we will do an HTTP GET request using the <code>request</code> library.</p>
+<p>Add the following lines to <code>promises.js</code>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca207944679697" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+request.get('http://httpbin.org/get', (error, response, body) =&gt; {
+  if (error) {
+    console.error('Oh shoot. Something went wrong:');
+    console.error(error.message);
+    return;
+  }
+
+  console.log('Request done. Response status code: %d', response.statusCode);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca207944679697-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca207944679697-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca207944679697-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca207944679697-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca207944679697-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca207944679697-6">6</div><div class="crayon-num" data-line="crayon-58794dc0ca207944679697-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca207944679697-8">8</div><div class="crayon-num" data-line="crayon-58794dc0ca207944679697-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca207944679697-1"><span class="crayon-v">request</span><span class="crayon-sy">.</span><span class="crayon-e">get</span><span class="crayon-sy">(</span><span class="crayon-s">'http://httpbin.org/get'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">error</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">response</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">body</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca207944679697-2"> <span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">error</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca207944679697-3"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'Oh shoot. Something went wrong:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca207944679697-4"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca207944679697-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca207944679697-6"> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794dc0ca207944679697-7">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca207944679697-8"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Request done. Response status code: %d'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">statusCode</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca207944679697-9"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0050 seconds] -->
+<p>Now run this code by executing the following command:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca211148900087" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Shell</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+node promises.js</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca211148900087-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca211148900087-1"><span class="crayon-e">node </span><span class="crayon-v">promises</span><span class="crayon-e">.js</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0007 seconds] -->
+<p>As you can see, we pass in the callback function as a second argument to <code>request.get</code> call. The library will automatically execute this function when the response for the HTTP request comes in. It will pass three arguments. The first argument is the potential error or <code>null</code> if it was successful. The second argument is the HTTP response and the third argument is the response body.</p>
+<p>If we use <code>fetch</code> instead of the <code>request.get</code> we can leverage Promises as fetch will return a <code>Promise</code> instead of accepting a callback as a second argument. A <code>Promise</code> is an object that has two important methods: <code>then()</code> and <code>catch()</code>. <code>then()</code> can receive 1 or 2 arguments and <code>catch()</code> can be used to handle errors.</p>
+<p>For <code>then()</code>, the first function argument is called if the result of the call was successful. The second function will be called if there was an error resolving the Promise. We’ll look into the difference between that error handler and <code>catch()</code> later.</p>
+<p>Replace the previous code with the following to start using Promises:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca21c065669886" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+fetch('http://httpbin.org/get')
+.then(response =&gt; {
+  console.log('Request using Promises done. Response status code: %d', response.status);
+})
+.catch(error =&gt; {
+  console.error('Oh shoot. Something went wrong with the promise code:');
+  console.error(error.message);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca21c065669886-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca21c065669886-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca21c065669886-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca21c065669886-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca21c065669886-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca21c065669886-6">6</div><div class="crayon-num" data-line="crayon-58794dc0ca21c065669886-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca21c065669886-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca21c065669886-1"><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-s">'http://httpbin.org/get'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca21c065669886-2"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca21c065669886-3"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Request using Promises done. Response status code: %d'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">status</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca21c065669886-4"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca21c065669886-5"><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca21c065669886-6"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'Oh shoot. Something went wrong with the promise code:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca21c065669886-7"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca21c065669886-8"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0039 seconds] -->
+<p>Re-run the code by executing again <code>node promises.js</code>.</p>
+<p>So far there is no big difference from the callback code aside from it being a bit cleaner. The real magic comes when we want to do some data manipulation or make multiple calls. For this the general rule is that if the handler function that we pass to <code>then</code> or <code>catch</code> returns a value or another Promise, the Promise-chain will continue.</p>
+<p>As an example add a function that extracts the status code and returns it:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca227844584131" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+function extractStatusCode(response) {
+  return response.status;
+}
+
+fetch('http://httpbin.org/get')
+.then(extractStatusCode)
+.then(statusCode =&gt; {
+  console.log('Request using Promises, part II. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('Oh shoot. Something went wrong with the promise code:');
+  console.error(error.message);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794dc0ca227844584131-1">1</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794dc0ca227844584131-2">2</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794dc0ca227844584131-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca227844584131-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca227844584131-5">5</div><div class="crayon-num crayon-marked-num crayon-top crayon-striped-num" data-line="crayon-58794dc0ca227844584131-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794dc0ca227844584131-7">7</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca227844584131-8">8</div><div class="crayon-num" data-line="crayon-58794dc0ca227844584131-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca227844584131-10">10</div><div class="crayon-num" data-line="crayon-58794dc0ca227844584131-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca227844584131-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca227844584131-13">13</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794dc0ca227844584131-1"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">extractStatusCode</span><span class="crayon-sy">(</span><span class="crayon-i">response</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794dc0ca227844584131-2"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">status</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794dc0ca227844584131-3"><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca227844584131-4">&nbsp;</div><div class="crayon-line" id="crayon-58794dc0ca227844584131-5"><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-s">'http://httpbin.org/get'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-striped-line" id="crayon-58794dc0ca227844584131-6"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-i">extractStatusCode</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794dc0ca227844584131-7"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">statusCode</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794dc0ca227844584131-8"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Request using Promises, part II. Response status code: %s'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">statusCode</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca227844584131-9"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca227844584131-10"><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca227844584131-11"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'Oh shoot. Something went wrong with the promise code:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca227844584131-12"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca227844584131-13"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0050 seconds] -->
+<p>Run the code again. The output in the console should be the same but our code is more structured.</p>
+<p>This code will first perform the HTTP request, then call the <code>extractStatusCode</code> function and once that function returned it will execute our anonymous function that will log the response status code.</p>
+<h3 id="h.c47ayhvnyay3" class="c2 c8">Catching Errors</h3>
+<p><img class="&quot; alignright" style="width: 327.40px; height: 238.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/YS8PLVpcyhjaXzBZwzJ93O93W5blxqXQg-qqTIFEBXG0EG-OLRlgERwItSphhZ9imcpJQ35f0I7-s2FAZcQUHktJjU3-iMOTYuK2eFTQcctukZoxW9TzIvNAtrTNnR5YVtd7S5tX-4.png" alt="13ywPzPJdfhmBG.gif" /></p>
+<p>Now that we are using Promises we might hit an issue. All of our code will fail silently if we don’t catch errors properly.</p>
+<p>Imagine using Promises like wrapping your whole code into a <code>try {}</code> block. Your code will just silently fail unless you catch them explicitly. Catching errors is hugely important and not just ‘common courtesy’.</p>
+<p>In order to properly catch errors we have two options. The first way is to pass a second function into our <code>then()</code> call.</p>
+<p>Make the following changes to your code to test this:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca233506110509" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+function extractStatusCode(response) {
+  return response.status;
+}
+
+fetch('invalid URL')
+.then(extractStatusCode, errorInFetch =&gt; {
+  console.error('An error occurred in the fetch call.');
+  console.error(errorInFetch.message);
+  // return null as response code since no request has been performed
+  return null;
+})
+.then(statusCode =&gt; {
+  console.log('Request using Promises. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('This will never be executed');
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca233506110509-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca233506110509-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca233506110509-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca233506110509-4">4</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794dc0ca233506110509-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794dc0ca233506110509-6">6</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794dc0ca233506110509-7">7</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794dc0ca233506110509-8">8</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794dc0ca233506110509-9">9</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794dc0ca233506110509-10">10</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794dc0ca233506110509-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca233506110509-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca233506110509-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca233506110509-14">14</div><div class="crayon-num" data-line="crayon-58794dc0ca233506110509-15">15</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca233506110509-16">16</div><div class="crayon-num" data-line="crayon-58794dc0ca233506110509-17">17</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca233506110509-1"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">extractStatusCode</span><span class="crayon-sy">(</span><span class="crayon-i">response</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca233506110509-2"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">status</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca233506110509-3"><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca233506110509-4">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794dc0ca233506110509-5"><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-s">'invalid URL'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794dc0ca233506110509-6"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-i">extractStatusCode</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">errorInFetch</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794dc0ca233506110509-7"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'An error occurred in the fetch call.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794dc0ca233506110509-8"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">errorInFetch</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794dc0ca233506110509-9"> <span class="crayon-h"> </span><span class="crayon-c">// return null as response code since no request has been performed</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794dc0ca233506110509-10"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-t">null</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794dc0ca233506110509-11"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca233506110509-12"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">statusCode</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca233506110509-13"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Request using Promises. Response status code: %s'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">statusCode</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca233506110509-14"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca233506110509-15"><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca233506110509-16"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'This will never be executed'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca233506110509-17"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0067 seconds] -->
+<p>When you run this code you’ll see that it will hit the error handler we added and print the respective messages to the screen:</p>
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 129.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/MDMEk6tcP9UztGgMMeYhTJVy9vSDPNxF-TE5gkr5HHGeoFimdsz1v985Uu0kAVwqQvzdRE25IXavzCaSJKhJqi5iDV0OX0I6kipDWE8vvOMlwbnbMC_0f2sGdTIGTWN42qRWG4ek-4.png" alt="Screen Shot 2016-09-29 at 3.13.27 PM.png" /></p>
+<p>However it is not executing the <code>catch</code> handler because we are returning a value of <code>null</code> in the handler. From that point on the Promise chain is considered to be on the happy path again since the error has been handled.</p>
+<p>We can make sure that it continues treating this as an error by <code>throw</code>ing the error or returning by returning a new Promise using <code>Promise.reject(error)</code>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca23e658858882" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+function extractStatusCode(response) {
+  return response.status;
+}
+
+fetch('invalid URL')
+.then(extractStatusCode, errorInFetch =&gt; {
+  console.error('An error occurred in the fetch call.');
+  console.error(errorInFetch.message);
+  // forward the error
+  return Promise.reject(errorInFetch);
+})
+.then(statusCode =&gt; {
+  console.log('Request using Promises. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('This will now be executed as another exception handler.');
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-6">6</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-8">8</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-9">9</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-10">10</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-14">14</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-15">15</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca23e658858882-16">16</div><div class="crayon-num" data-line="crayon-58794dc0ca23e658858882-17">17</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca23e658858882-1"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">extractStatusCode</span><span class="crayon-sy">(</span><span class="crayon-i">response</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca23e658858882-2"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">status</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-3"><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca23e658858882-4">&nbsp;</div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-5"><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-s">'invalid URL'</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca23e658858882-6"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-i">extractStatusCode</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">errorInFetch</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-7"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'An error occurred in the fetch call.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca23e658858882-8"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">errorInFetch</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-9"> <span class="crayon-h"> </span><span class="crayon-c">// forward the error</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca23e658858882-10"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">Promise</span><span class="crayon-sy">.</span><span class="crayon-e">reject</span><span class="crayon-sy">(</span><span class="crayon-i">errorInFetch</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-11"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca23e658858882-12"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">statusCode</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-13"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Request using Promises. Response status code: %s'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">statusCode</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca23e658858882-14"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-15"><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca23e658858882-16"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'This will now be executed as another exception handler.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca23e658858882-17"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0067 seconds] -->
+<p>Now that we know how to handle an error with <code>then()</code> what’s the difference between this and <code>catch()</code>?</p>
+<p>To understand this let’s fix our <code>fetch</code> snippet again to use a valid url and instead break the <code>extractStatusCode</code> function by overriding <code>response</code> with <code>undefined</code> before accessing the <code>status</code> property:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca249173795033" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+function extractStatusCode(response) {
+  response = undefined;
+  return response.status;
+}
+
+fetch('http://httpbin.org/get')
+.then(extractStatusCode, errorInFetch =&gt; {
+  console.error('This will not be executed.');
+  console.error(errorInFetch.message);
+  // forward the error
+  return Promise.reject(errorInFetch);
+})
+.then(statusCode =&gt; {
+  console.log('Request using Promises. Response status code: %s', statusCode);
+})
+.catch(error =&gt; {
+  console.error('There was an error somewhere in the chain.');
+  console.error(error.message);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-1">1</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca249173795033-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca249173795033-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca249173795033-6">6</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-7">7</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca249173795033-8">8</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca249173795033-10">10</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca249173795033-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca249173795033-14">14</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca249173795033-16">16</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794dc0ca249173795033-17">17</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca249173795033-18">18</div><div class="crayon-num" data-line="crayon-58794dc0ca249173795033-19">19</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca249173795033-1"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">extractStatusCode</span><span class="crayon-sy">(</span><span class="crayon-i">response</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca249173795033-2"> <span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">undefined</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-3"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">status</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca249173795033-4"><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca249173795033-6"><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-s">'http://httpbin.org/get'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-7"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-i">extractStatusCode</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">errorInFetch</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca249173795033-8"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'This will not be executed.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-9"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">errorInFetch</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca249173795033-10"> <span class="crayon-h"> </span><span class="crayon-c">// forward the error</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-11"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">Promise</span><span class="crayon-sy">.</span><span class="crayon-e">reject</span><span class="crayon-sy">(</span><span class="crayon-i">errorInFetch</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca249173795033-12"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-13"><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">statusCode</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca249173795033-14"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Request using Promises. Response status code: %s'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">statusCode</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-15"><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca249173795033-16"><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794dc0ca249173795033-17"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'There was an error somewhere in the chain.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794dc0ca249173795033-18"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca249173795033-19"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0076 seconds] -->
+<p><img class="&quot; aligncenter" style="width: 624.00px; height: 121.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/6i33oKjzuVOypuMfZrOrLoDwwpQZNnqg1Bj6A96ggBi1f1jykx51RNVvHUoZity2m8ssF7dTdA0GHF8lkZVXnfJUiK0BPOnLwTT3ywctJhZpkJ_-BrYyOnDbUi_KJjy1OE4A8xOT-4.png" alt="Screen Shot 2016-09-29 at 3.17.10 PM.png" /></p>
+<p>The error handler in the <code>then()</code> part isn’t executed because this handler is only for the previous Promise and not the handler. However our <code>catch()</code> handler will be executed since it catches any errors that happen in the chain.</p>
+<h3 id="h.oionnge8vivt" class="c2 c8">Executing in Parallel</h3>
+<p><img class="&quot; alignright" style="width: 292.50px; height: 219.38px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/gkYYQjOd3_hIFskG7pg6MBnP8uvvZFAL2j7xUHL-nPB7OvM835olCSo0594rCSnmvMl63Zyms_vZqHz1aKzPmY4wN6FpnQEhVYy-jWUw68YuPPrz6ieaW4VPxAXdYGWza_TdZBsc-4.png" alt="obAMTQ7SeWqPK.gif" /></p>
+<p>This is where the magic of Promises comes in. Consider the case in which we want to send multiple HTTP requests or do multiple asynchronous calls and want to know when they’re done.</p>
+<p>The endpoints we want to request are held in an array. Using callbacks this can be quite a mess. To accomplish it we have to use counters in the callbacks to check if we are done and other similar hacks.</p>
+<p>With Promises we can simply <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map', 'map');">map</a> over the array of messages, return the Promise in the map function and pass the resulting array into the built-in function <code>Promise.all()</code>. This will return a new Promise that resolves as soon as all calls succeed, or rejects once one of them fails.</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca255186208657" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const queryParameters = ['ahoy', 'hello', 'hallo'];
+
+const fetchPromises = queryParameters.map(queryParam =&gt; {
+  return fetch(`http://httpbin.org/get?${queryParam}`)
+    .then(response =&gt; {
+      // parse response body as JSON
+      return response.json()
+    })
+    .then(response =&gt; {
+      // extract the URL property from the response object
+      let url = response.url;
+      console.log('Response from: %s', url);
+      return url;
+    });
+});
+
+Promise.all(fetchPromises).then(allUrls =&gt; {
+  console.log('The return values of all requests are passed as an array:');
+  console.log(allUrls);
+}).catch(error =&gt; {
+  console.error('A call failed:');
+  console.error(error.message);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-6">6</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-8">8</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-10">10</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-14">14</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-16">16</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-18">18</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-20">20</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca255186208657-22">22</div><div class="crayon-num" data-line="crayon-58794dc0ca255186208657-23">23</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca255186208657-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">queryParameters</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-s">'ahoy'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'hello'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'hallo'</span><span class="crayon-sy">]</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-2">&nbsp;</div><div class="crayon-line" id="crayon-58794dc0ca255186208657-3"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">fetchPromises</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">queryParameters</span><span class="crayon-sy">.</span><span class="crayon-e">map</span><span class="crayon-sy">(</span><span class="crayon-v">queryParam</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-4"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-v">http:</span><span class="crayon-c">//httpbin.org/get?${queryParam}`)</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-c">// parse response body as JSON</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">json</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-c">// extract the URL property from the response object</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">url</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">url</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Response from: %s'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">url</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-13"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-i">url</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-14"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-15"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-16">&nbsp;</div><div class="crayon-line" id="crayon-58794dc0ca255186208657-17"><span class="crayon-v">Promise</span><span class="crayon-sy">.</span><span class="crayon-e">all</span><span class="crayon-sy">(</span><span class="crayon-i">fetchPromises</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">allUrls</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-18"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'The return values of all requests are passed as an array:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-19"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-i">allUrls</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-20"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-21"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'A call failed:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca255186208657-22"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca255186208657-23"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0112 seconds] -->
+<p>If you run this code you should multiple requests being made. However there is no guarantee in which order the calls are run and finished as they are executed in parallel.</p>
+<h3 id="h.f5i3smjodbfy" class="c2 c8">Executing in Series</h3>
+<p><img class="&quot; alignright" style="width: 300.00px; height: 225.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/5vTdWZEcbtgpgO-Wg4a7P_BPjeCG0DWjeK4uMsPlUvYgoAx0fASq-NJHwN9n_hjtkzly4zc2D0d3h-Az7PwrN1CiQm0DUCsII2j38mXtewOoYCKMaWGnNjsOPpIIGaiPWbhd4QRR-1.png" alt="26AHRsTEXSMgl3rXi.gif" /></p>
+<p>While executing in parallel is cool and performant we sometimes have to make several calls in series due to restrictions or dependencies. We can also use Promises for this.</p>
+<p>Chaining Promises when you know all necessary calls is super easy to do. However, it’s more complicated if we dynamically generate the asynchronous functions we need to execute.</p>
+<p>There is a way we can get this done:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca260066806505" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const queryParameters = ['ahoy', 'hello', 'hallo'];
+
+let mostRecentPromise = Promise.resolve([]); // start with an immediately resolving promise and an empty list
+queryParameters.forEach(queryParam =&gt; {
+  // chain the promise to the previous one
+  mostRecentPromise = mostRecentPromise.then(requestedUrlsSoFar =&gt; {
+    return fetch(`http://httpbin.org/get?${queryParam}`)
+      .then(response =&gt; {
+        // parse response body as JSON
+        return response.json()
+      })
+      .then(response =&gt; {
+        // extract the URL property from the response object
+        let url = response.url;
+        console.log('Response from: %s', url);
+        requestedUrlsSoFar.push(url);
+        return requestedUrlsSoFar;
+      });
+  });
+});
+
+mostRecentPromise.then(allUrls =&gt; {
+  console.log('The return values of all requests are passed as an array:');
+  console.log(allUrls);
+}).catch(error =&gt; {
+  console.error('A call failed:');
+  console.error(error.message);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794dc0ca260066806505-3">3</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-4">4</div><div class="crayon-num crayon-marked-num" data-line="crayon-58794dc0ca260066806505-5">5</div><div class="crayon-num crayon-marked-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-6">6</div><div class="crayon-num crayon-marked-num crayon-bottom" data-line="crayon-58794dc0ca260066806505-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-8">8</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-10">10</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-14">14</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-15">15</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca260066806505-16">16</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-18">18</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-20">20</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-21">21</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca260066806505-22">22</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-24">24</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-26">26</div><div class="crayon-num" data-line="crayon-58794dc0ca260066806505-27">27</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca260066806505-28">28</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca260066806505-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">queryParameters</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-s">'ahoy'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'hello'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'hallo'</span><span class="crayon-sy">]</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-2">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794dc0ca260066806505-3"><span class="crayon-e">let </span><span class="crayon-v">mostRecentPromise</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Promise</span><span class="crayon-sy">.</span><span class="crayon-e">resolve</span><span class="crayon-sy">(</span><span class="crayon-sy">[</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-c">// start with an immediately resolving promise and an empty list</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794dc0ca260066806505-4"><span class="crayon-v">queryParameters</span><span class="crayon-sy">.</span><span class="crayon-st">forEach</span><span class="crayon-sy">(</span><span class="crayon-v">queryParam</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line" id="crayon-58794dc0ca260066806505-5"> <span class="crayon-h"> </span><span class="crayon-c">// chain the promise to the previous one</span></div><div class="crayon-line crayon-marked-line crayon-striped-line" id="crayon-58794dc0ca260066806505-6"> <span class="crayon-h"> </span><span class="crayon-v">mostRecentPromise</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">mostRecentPromise</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">requestedUrlsSoFar</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-bottom" id="crayon-58794dc0ca260066806505-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-v">http:</span><span class="crayon-c">//httpbin.org/get?${queryParam}`)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-c">// parse response body as JSON</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">json</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-13"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-c">// extract the URL property from the response object</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-14"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">url</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">url</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-15"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Response from: %s'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">url</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca260066806505-16"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">requestedUrlsSoFar</span><span class="crayon-sy">.</span><span class="crayon-e">push</span><span class="crayon-sy">(</span><span class="crayon-i">url</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-17"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-i">requestedUrlsSoFar</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-18"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-19"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-20"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-21">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca260066806505-22"><span class="crayon-v">mostRecentPromise</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">allUrls</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-23"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'The return values of all requests are passed as an array:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-24"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-i">allUrls</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-25"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-26"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'A call failed:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca260066806505-27"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca260066806505-28"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0163 seconds] -->
+<p>The concept here is to chain the calls and execute the next one once the previous one resolves by wrapping it into a <code>then()</code> handler. This is the same approach we would do manually if we knew the amount of calls.</p>
+<p>Right now we are using a <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach', 'forEach');">forEach</a></code> loop for this. This works but it isn’t really the most readable solution. To improve this we can use the <code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce', 'reduce');">reduce</a></code> method of our array.</p>
+<p>Modify the code accordingly:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca26c584420910" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const queryParameters = ['ahoy', 'hello', 'hallo'];
+
+let mostRecentPromise = queryParameters.reduce((previousPromise, queryParam) =&gt; {
+  return previousPromise.then(requestedUrlsSoFar =&gt; {
+    return fetch(`http://httpbin.org/get?${queryParam}`)
+      .then(response =&gt; {
+        // parse response body as JSON
+        return response.json()
+      })
+      .then(response =&gt; {
+        // extract the URL property from the response object
+        let url = response.url;
+        console.log('Response from: %s', url);
+        requestedUrlsSoFar.push(url);
+        return requestedUrlsSoFar;
+      });
+  });
+}, Promise.resolve([]));
+
+mostRecentPromise.then(allUrls =&gt; {
+  console.log('The return values of all requests are passed as an array:');
+  console.log(allUrls);
+}).catch(error =&gt; {
+  console.error('A call failed:');
+  console.error(error.message);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-2">2</div><div class="crayon-num crayon-marked-num crayon-top" data-line="crayon-58794dc0ca26c584420910-3">3</div><div class="crayon-num crayon-marked-num crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-6">6</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-7">7</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-8">8</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-10">10</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-14">14</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-16">16</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-18">18</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-20">20</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-21">21</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-22">22</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-23">23</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-24">24</div><div class="crayon-num" data-line="crayon-58794dc0ca26c584420910-25">25</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca26c584420910-26">26</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca26c584420910-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">queryParameters</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-s">'ahoy'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'hello'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'hallo'</span><span class="crayon-sy">]</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-2">&nbsp;</div><div class="crayon-line crayon-marked-line crayon-top" id="crayon-58794dc0ca26c584420910-3"><span class="crayon-e">let </span><span class="crayon-v">mostRecentPromise</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">queryParameters</span><span class="crayon-sy">.</span><span class="crayon-e">reduce</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-i">previousPromise</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">queryParam</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-bottom crayon-striped-line" id="crayon-58794dc0ca26c584420910-4"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">previousPromise</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">requestedUrlsSoFar</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">fetch</span><span class="crayon-sy">(</span><span class="crayon-sy">`</span><span class="crayon-v">http:</span><span class="crayon-c">//httpbin.org/get?${queryParam}`)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-c">// parse response body as JSON</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca26c584420910-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-e">json</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">response</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-11"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-c">// extract the URL property from the response object</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-12"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-e">let </span><span class="crayon-v">url</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">response</span><span class="crayon-sy">.</span><span class="crayon-i">url</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-13"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'Response from: %s'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">url</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-14"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">requestedUrlsSoFar</span><span class="crayon-sy">.</span><span class="crayon-e">push</span><span class="crayon-sy">(</span><span class="crayon-i">url</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-15"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-i">requestedUrlsSoFar</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-16"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-17"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-18"><span class="crayon-sy">}</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">Promise</span><span class="crayon-sy">.</span><span class="crayon-e">resolve</span><span class="crayon-sy">(</span><span class="crayon-sy">[</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-19">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-20"><span class="crayon-v">mostRecentPromise</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">allUrls</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-21"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'The return values of all requests are passed as an array:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-22"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-i">allUrls</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-23"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-24"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'A call failed:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca26c584420910-25"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">error</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca26c584420910-26"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0143 seconds] -->
+<p>The overall approach here is the same as with the <code>forEach</code> loop. We specify a starting value of <code>Promise.resolve([])</code> and call the <code><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce', 'reduce');">reduce</a></code> method on the <code>messages</code> array with a function that receives two arguments. One is the previous return value and the other is the current value of the array that we are accessing. This way we can <code>reduce</code> the array to a single value. In our case this will be the most recent Promise that we can then use to know when everything is done.</p>
+<h3 id="h.d764kwkierp" class="c2 c8">Turning Callback Code Into a Promise</h3>
+<p><img class="&quot; alignright" style="width: 323.38px; height: 182.50px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="" src="https://www.twilio.com/blog/wp-content/uploads/2016/09/Q0xjaIUmUq2RHKEB4HRutU3d4duoEWWzJWk9r04eZVHsXPpTahkErszFU9CxUd3yPC16EM_gzR4pHNaNj10TJ5MG0EjlvuHg1QrzCNuSObxLHisW_ODeByxZ5xDmf_iQoQqg9ru2-1.png" alt="" /></p>
+<p>Now that we know how to use Promises we have a problem to solve. What do we do with asynchronous code that doesn’t support Promises? For this we can wrap the function into a new function and use the <code>new Promise()</code> constructor. This constructor receives a function with two arguments:  <code>resolve</code> and <code>reject</code>. These arguments are functions we call when we want to resolve or reject a promise.</p>
+<p>Here’s an example function that reads a file from disk and returns the content in a Promise:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dc0ca279192500046" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">JavaScript</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+const fs = require('fs');
+
+function readFileWithPromise(path) {
+  return new Promise((resolve, reject) =&gt; {
+    fs.readFile(path, 'utf8', (err, content) =&gt; {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(content);
+    });
+  });
+}
+
+readFileWithPromise('/etc/hosts').then(content =&gt; {
+  console.log('File content:');
+  console.log(content);
+}).catch(err =&gt; {
+  console.error('An error occurred reading this file.');
+  console.error(err.message);
+});</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-2">2</div><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-3">3</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom crayon-striped-num" data-line="crayon-58794dc0ca279192500046-4">4</div><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-6">6</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom" data-line="crayon-58794dc0ca279192500046-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-8">8</div><div class="crayon-num crayon-marked-num crayon-top crayon-bottom" data-line="crayon-58794dc0ca279192500046-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-10">10</div><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-12">12</div><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-14">14</div><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-16">16</div><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-18">18</div><div class="crayon-num" data-line="crayon-58794dc0ca279192500046-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dc0ca279192500046-20">20</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dc0ca279192500046-1"><span class="crayon-m">const</span><span class="crayon-h"> </span><span class="crayon-v">fs</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">require</span><span class="crayon-sy">(</span><span class="crayon-s">'fs'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-2">&nbsp;</div><div class="crayon-line" id="crayon-58794dc0ca279192500046-3"><span class="crayon-t">function</span><span class="crayon-h"> </span><span class="crayon-e">readFileWithPromise</span><span class="crayon-sy">(</span><span class="crayon-i">path</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom crayon-striped-line" id="crayon-58794dc0ca279192500046-4"> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">Promise</span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-i">resolve</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">reject</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca279192500046-5"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-v">fs</span><span class="crayon-sy">.</span><span class="crayon-e">readFile</span><span class="crayon-sy">(</span><span class="crayon-i">path</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'utf8'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">content</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-6"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom" id="crayon-58794dc0ca279192500046-7"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">reject</span><span class="crayon-sy">(</span><span class="crayon-i">err</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-8"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span></div><div class="crayon-line crayon-marked-line crayon-top crayon-bottom" id="crayon-58794dc0ca279192500046-9"> <span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-st">return</span><span class="crayon-h"> </span><span class="crayon-e">resolve</span><span class="crayon-sy">(</span><span class="crayon-i">content</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-10"> <span class="crayon-h"> </span> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca279192500046-11"> <span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-12"><span class="crayon-sy">}</span></div><div class="crayon-line" id="crayon-58794dc0ca279192500046-13">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-14"><span class="crayon-e">readFileWithPromise</span><span class="crayon-sy">(</span><span class="crayon-s">'/etc/hosts'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">then</span><span class="crayon-sy">(</span><span class="crayon-v">content</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line" id="crayon-58794dc0ca279192500046-15"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-s">'File content:'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-16"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-i">content</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca279192500046-17"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-st">catch</span><span class="crayon-sy">(</span><span class="crayon-v">err</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-18"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-s">'An error occurred reading this file.'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-58794dc0ca279192500046-19"> <span class="crayon-h"> </span><span class="crayon-v">console</span><span class="crayon-sy">.</span><span class="crayon-e">error</span><span class="crayon-sy">(</span><span class="crayon-v">err</span><span class="crayon-sy">.</span><span class="crayon-i">message</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dc0ca279192500046-20"><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0104 seconds] -->
+<p>When we call <code>new Promise()</code> with a function as an argument, this function will immediately get executed asynchronously. We then execute <code>fs.readFile</code> with the necessary arguments. Once the callback of the <code>readFile</code> call is executed we check whether there is an error or not. If there is an error we will <code>reject</code> the Promise with the respective error. If there is no error we <code>resolve</code> the Promise.</p>
+<h3 id="h.bdfipzvi2sm4" class="c2 c8">Conclusion</h3>
+<p>Now you hopefully have a better idea of Promises and are ready to ditch the times of the old <em>callback hell</em> for some cleaner and more maintainable code. And if you are hooked you should check out what the future of JavaScript is going to bring with <a href="https://www.twilio.com/blog/2015/10/asyncawait-the-hero-javascript-deserved.html" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/blog/2015/10/asyncawait-the-hero-javascript-deserved.html', 'async/await');">async/await</a> to further improve asynchronous programming in JavaScript.</p>
+<p>Also make sure to let me know what your experience with Promises is and why you love it (or hate it). Maybe you even have a crazy hack using Promises you want to show off? Just drop me a line:</p>
+<ul style="padding-left: 36px;">
+<li>Email: <a class="c0" href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></li>
+<li>Twitter: <a href="https://twitter.com/dkundel" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/dkundel', '@dkundel');">@dkundel</a></li>
+<li>GitHub: <a href="https://github.com/dkundel" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/dkundel', 'dkundel');">dkundel</a></li>
+<li>Twitch (streaming live code): <a href="https://twitch.tv/twilio" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitch.tv/twilio', 'twilio');">twilio</a></li>
+</ul>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" data-text="A quick guide to JavaScript Promises ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/8492cae550ace194748f18e81d1f488d?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8492cae550ace194748f18e81d1f488d?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/dominik">Dominik Kundel</a></span></span> <span class="author-meta author-email"><a href="mailto:dkundel@twilio.com">dkundel@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With JavaScript</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/node/express', '');">
+          <h5>SMS and MMS Notifications with Node.js</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html" rel="bookmark" title="Permanent Link to Answering Health Questions via SMS with IBM Watson and Twilio" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/answering-health-questions-via-sms-with-ibm-watson-and-twilio.html', '');">
+          <h5>Answering Health Questions via SMS with IBM Watson and Twilio<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/building-your-own-personal-assistant-with-twilio-and-google-calendar.html" rel="bookmark" title="Permanent Link to Building your own personal assistant with Twilio and Google Calendar" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/building-your-own-personal-assistant-with-twilio-and-google-calendar.html', '');">
+          <h5>Building your own personal assistant with Twilio and Google Calendar<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-4492">
+        <div id="dsq-comment-header-4492" class="dsq-comment-header">
+            <cite id="dsq-cite-4492">
+http://www.wakeboarder.com                <span id="dsq-author-user-4492">Dave Beck</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4492" class="dsq-comment-body">
+            <div id="dsq-comment-message-4492" class="dsq-comment-message"><p>Good article.  I find promises much easier to read and the control flow is easier to understand.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2016/10/18926 https://www.twilio.com/blog/?p=18926';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "A quick guide to JavaScript Promises";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html?cf_action=sync_comments&amp;post_id=18926';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2016\/10\/guide-to-javascript-promises.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2016/10/guide-to-javascript-promises.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+</html>

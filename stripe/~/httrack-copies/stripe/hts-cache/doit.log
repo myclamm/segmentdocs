@@ -1,0 +1,8 @@
+https://stripe.com -stripe.com/blog/* -stripe.com/jobs/* -stripe.com/country* -stripe.com/locale* +stripe.com/*.css +stripe.com/*.js -stripe.com/documents/* -stripe.com/uploadedImages/* -O ~/httrack-copies/stripe/ -v
+File generated automatically on Fri, 13 Jan 2017 15:41:45, do NOT edit
+
+To update a mirror, just launch httrack without any parameters
+The existing cache will be used (and modified)
+To have other options, retype all parameters and launch HTTrack
+To continue an interrupted mirror, just launch httrack without any parameters
+

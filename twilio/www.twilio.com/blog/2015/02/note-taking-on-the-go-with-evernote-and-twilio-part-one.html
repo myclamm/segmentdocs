@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Note Taking On the Go With Evernote and Twilio &#8211; Part One &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Take Notes on Evernote via Twilio SMS"/>
+<link rel="canonical" href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Note Taking On the Go With Evernote and Twilio &#8211; Part One Comments Feed" href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Brent Schooley');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Evernote SMS,Ruby,Sinatra,SMS,SMS. Twilio SMS,twilio');
+	__gaTracker('set', 'dimension8', '2015-02-11T09:41:13+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=14598' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fnote-taking-on-the-go-with-evernote-and-twilio-part-one.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2015%2F02%2Fnote-taking-on-the-go-with-evernote-and-twilio-part-one.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-14598 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-14598" class="row post-14598 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-evernote-sms tag-ruby tag-sinatra tag-sms tag-sms-twilio-sms tag-twilio">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Note Taking On the Go With Evernote and Twilio &#8211; Part One</h2>
+						<div class="entry-image col-md-12">
+        <img width="640" height="197" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/twilio_plus_evernote.png" class="img-responsive wp-post-image" alt="twilio_plus_evernote" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/twilio_plus_evernote.png 650w, https://www.twilio.com/blog/wp-content/uploads/2015/02/twilio_plus_evernote-300x92.png 300w" sizes="(max-width: 640px) 100vw, 640px" />			</div>
+      <div class="clear"></div>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/brent-schooley">Brent Schooley</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" rel="bookmark"><time class="entry-date published" datetime="2015-02-11T09:41:13+00:00">February 11, 2015</time><time class="updated" datetime="2015-09-24T09:32:47+00:00">September 24, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" data-text="Note Taking On the Go With Evernote and Twilio &#8211; Part One ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p>A good note taking system is extremely valuable. There are numerous times in any given week in which there’s some piece of information I need to capture in a reliable place. The safe place for this type of information for me is <a href="https://evernote.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://evernote.com/', 'Evernote');">Evernote</a>. It is available on every device I use and it syncs effortlessly so I know my information will always be available. However, I have been in situations where my phone died during the evening and all of a sudden have no access to the system I use for capturing important data. Pondering this I wondered if there was some way I could leverage someone else’s working phone to still capture new info I might come across during the rest of the evening. An app is not a great solution in this case since it’s someone else’s phone. What would be perfect would be to allow someone to text or call my Twilio number and have that use that communication to send a note to Evernote. Using some Ruby code, the Evernote API and Twilio that’s exactly what we’ll build in this post.</p>
+<h3>What you will need</h3>
+<ul>
+<li dir="ltr">A Twilio account — you can <a href="http://www.twilio.com/try-twilio?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=brent-evernote-february" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twilio.com/try-twilio?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=brent-evernote-february', 'sign up for one here');">sign up for one here</a> for free.</li>
+<li dir="ltr">An SMS-enabled <a href="https://www.twilio.com/user/account/phone-numbers/search/results?Country=US&amp;searchType=number&amp;searchTerm=&amp;capability%5B%5D=mms&amp;type%5B%5D=any&amp;certification=any?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=brent-evernote-february" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account/phone-numbers/search/results?Country=US&amp;searchType=number&amp;searchTerm=&amp;capability%5B%5D=mms&amp;type%5B%5D=any&amp;certification=any?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=brent-evernote-february', 'Twilio phone number');">Twilio phone number</a></li>
+<li dir="ltr"><a href="https://www.ruby-lang.org/en/downloads/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.ruby-lang.org/en/downloads/', 'Ruby');">Ruby</a></li>
+<li dir="ltr"><a href="https://www.twilio.com/docs/ruby/install" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/ruby/install', 'Twilio Ruby library');">Twilio Ruby library</a></li>
+<li dir="ltr"><a href="http://www.sinatrarb.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.sinatrarb.com/', 'Sinatra');">Sinatra</a></li>
+<li dir="ltr"><a href="https://dev.evernote.com/#apikey" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://dev.evernote.com/#apikey', 'Evernote API and Developer Key');">Evernote API and Developer Key</a></li>
+<li dir="ltr"><a href="https://sandbox.evernote.com/Login.action?targetUrl=%2FHome.action%3F" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://sandbox.evernote.com/Login.action?targetUrl=%2FHome.action%3F', 'Evernote Sandbox Account');">Evernote Sandbox Account</a></li>
+<li dir="ltr"><a href="https://github.com/evernote/evernote-oauth-ruby" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/evernote/evernote-oauth-ruby', 'evernote_oauth RubyGem');">evernote_oauth RubyGem</a></li>
+</ul>
+<h3>Getting Started With the Evernote API</h3>
+<p>Before we build our note taking on the go system we need to take a look at the objects we will be working with in the Evernote API. Take a look at this data model graphic from the <a href="https://dev.evernote.com/doc/articles/core_concepts.php" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://dev.evernote.com/doc/articles/core_concepts.php', 'Evernote Developer docs');">Evernote Developer docs</a>:</p>
+<p><img alt="" src="https://lh5.googleusercontent.com/WQ0Csr5PYSQdICEOyHGoCbSvRp3FzHFRr1iYbpj7X9wI8sBYslYRyVKIuy5kHPh8CFcyGWntyPriDiE9EyVeYycNvFMZpufnoTsw-Ci6OWgcMoY_Hs2MsNnigHDr71BvnZI" width="477px;" height="407px;" /></p>
+<p dir="ltr">In our system we will be working with the Notebook, Note and Resource nodes inside of the NoteStore. Notebooks contain Notes which can contain one or more Resources. A Resource is similar to an attachment in an email and can represent things like images, audio or video. Notes must be contained in a Notebook so there will always be at least one Notebook in the NoteStore. If a Note is added without specifying a Notebook, the Note will be added to the default notebook in the user’s account. Details about the properties and methods available on each of these objects can be found in the <a href="https://dev.evernote.com/doc/reference/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://dev.evernote.com/doc/reference/', 'Evernote API Reference.');">Evernote API Reference.</a></p>
+<p dir="ltr">To use the Evernote API to access an arbitrary user’s account typically would require implementing an OAuth workflow. Thankfully (because sometimes that can be a pain) we don’t need to do this to work with our own accounts. During development we’ll work inside of the <a href="https://sandbox.evernote.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://sandbox.evernote.com/', 'Evernote Sandbox');">Evernote Sandbox</a> which is a separate server where we won’t cause any harm to our actual Evernote data. Start by creating a <a href="https://sandbox.evernote.com/Login.action?targetUrl=%2FHome.action%3F" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://sandbox.evernote.com/Login.action?targetUrl=%2FHome.action%3F', 'Sandbox account');">Sandbox account</a>. We’ll be working inside of the Sandbox a lot so keep it open.</p>
+<p dir="ltr">The next thing we need to create to work with the Evernote API is a <a href="https://dev.evernote.com/doc/articles/authentication.php#devtoken" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://dev.evernote.com/doc/articles/authentication.php#devtoken', 'developer token');">developer token</a>. We’ll use this in lieu of the auth token that would usually be obtained from the OAuth workflow. This will allow us to work with our own NoteStore objects without needing to authenticate. Any API call that takes a token can receive the developer token you create in this step. Once created there’s no way to retrieve it so make sure to put it in a safe place. The code we write later will retrieve it from an environment variable named <code>EVERNOTE_DEV_TOKEN</code> so that would be a great place to store it:</p>
+<p></p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1a2425551663" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title">Run this in terminal</span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ export EVERNOTE_DEV_TOKEN=***Your dev token***</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1a2425551663-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1a2425551663-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-e">export </span><span class="crayon-v">EVERNOTE_DEV_TOKEN</span><span class="crayon-o">=</span><span class="crayon-o">*</span><span class="crayon-o">*</span><span class="crayon-o">*</span><span class="crayon-e">Your </span><span class="crayon-e">dev </span><span class="crayon-e ">token*</span><span class="crayon-o">*</span><span class="crayon-o">*</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0013 seconds] -->
+<p></p>
+<p dir="ltr">If you lose the dev token, you can recreate a new one later.</p>
+<p>Now that we have an account to test with and a developer token we can begin to work with the Evernote API. Let’s start by creating a Gemfile for the gems we’ll be using in the project:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1b5891213615" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+source "https://rubygems.org"
+
+ruby '2.2.0'
+
+gem 'sinatra'
+gem 'rack'
+gem 'thin'
+gem 'twilio-ruby'
+gem "evernote_oauth"</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1b5891213615-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1b5891213615-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf1b5891213615-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1b5891213615-4">4</div><div class="crayon-num" data-line="crayon-58794dcbaf1b5891213615-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1b5891213615-6">6</div><div class="crayon-num" data-line="crayon-58794dcbaf1b5891213615-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1b5891213615-8">8</div><div class="crayon-num" data-line="crayon-58794dcbaf1b5891213615-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1b5891213615-1"><span class="crayon-i">source</span><span class="crayon-h"> </span><span class="crayon-s">"https://rubygems.org"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1b5891213615-2">&nbsp;</div><div class="crayon-line" id="crayon-58794dcbaf1b5891213615-3"><span class="crayon-i">ruby</span><span class="crayon-h"> </span><span class="crayon-s">'2.2.0'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1b5891213615-4">&nbsp;</div><div class="crayon-line" id="crayon-58794dcbaf1b5891213615-5"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'sinatra'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1b5891213615-6"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'rack'</span></div><div class="crayon-line" id="crayon-58794dcbaf1b5891213615-7"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'thin'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1b5891213615-8"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">'twilio-ruby'</span></div><div class="crayon-line" id="crayon-58794dcbaf1b5891213615-9"><span class="crayon-i">gem</span><span class="crayon-h"> </span><span class="crayon-s">"evernote_oauth"</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0016 seconds] -->
+<p>After creating this file, run <code>bundle install</code> to make sure you have all of the gems installed in your setup. Now that the gems are installed we are ready to create our application. Create a file called <code>app.rb</code> and open it in your favorite editor. To get started we’ll create some helper methods for objects we will be using frequently as well as requiring the gems and libraries we will need:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1c0557213619" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+require 'sinatra'
+require 'twilio-ruby'
+require 'evernote_oauth'
+require 'pp'
+
+def dev_token
+  # Pull dev token from environment
+  @dev_token ||= ENV['EVERNOTE_DEV_TOKEN']
+end
+
+def client
+  @client ||= EvernoteOAuth::Client.new(token: dev_token, sandbox: true)
+end
+
+def note_store
+  @note_store ||= client.note_store
+end
+
+def notebooks
+  @notebooks ||= note_store.listNotebooks(dev_token)
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-4">4</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-6">6</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-8">8</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-10">10</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-12">12</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-14">14</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-16">16</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-17">17</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-18">18</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-19">19</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1c0557213619-20">20</div><div class="crayon-num" data-line="crayon-58794dcbaf1c0557213619-21">21</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-1"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'sinatra'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-2"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'twilio-ruby'</span></div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-3"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'evernote_oauth'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-4"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'pp'</span></div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-6"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">dev_token</span></div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-7"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c"># Pull dev token from environment</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-8"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">@dev_token</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">ENV</span><span class="crayon-sy">[</span><span class="crayon-s">'EVERNOTE_DEV_TOKEN'</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-9"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-10">&nbsp;</div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-11"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">client</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-12"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">@client</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">EvernoteOAuth</span><span class="crayon-o">::</span><span class="crayon-v">Client</span><span class="crayon-sy">.</span><span class="crayon-e">new</span><span class="crayon-sy">(</span><span class="crayon-i">token</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">dev_token</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">sandbox</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-r">true</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-13"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-14">&nbsp;</div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-15"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">note_store</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-16"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">@note_store</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">client</span><span class="crayon-sy">.</span><span class="crayon-i">note_store</span></div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-17"><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-18">&nbsp;</div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-19"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-i">notebooks</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1c0557213619-20"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">@notebooks</span><span class="crayon-h"> </span><span class="crayon-o">||</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">note_store</span><span class="crayon-sy">.</span><span class="crayon-e">listNotebooks</span><span class="crayon-sy">(</span><span class="crayon-i">dev_token</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dcbaf1c0557213619-21"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0053 seconds] -->
+<p></p>
+<p dir="ltr"><code>dev_token</code> is the developer token we created earlier. <code>client</code> is an object we will use to get access to the objects in the Evernote API. <code>note_store</code> gives us access to our Evernote data and <code>notebooks</code> provides us a list of all of the notebooks in our account.</p>
+<p>Next, we’re going to build a method that creates a new note in a notebook specific to our app. To do this we’re going to need to do several things: find or create the notebook and retrieve its notebook GUID, create the body of the note (which is specified in a markup language describe below), and then send the request off to Evernote. Let’s tackle each part of this process with an individual method. We’ll start with the method that finds or creates a notebook with a name passed in as a parameter:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1ca441753788" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+def find_or_create_notebook(notebook_name)
+  if notebooks.any? {|notebook| notebook.name == notebook_name }
+    # Notebook exists, get the notebook GUID
+    notebook = notebooks.find { |nb| nb.name == notebook_name }
+    notebook.guid
+  else
+    # Create notebook and store GUID
+    notebook = Evernote::EDAM::Type::Notebook.new()
+    notebook.name = notebook_name
+    new_notebook = note_store.createNotebook(dev_token, notebook)
+    new_notebook.guid
+  end
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1ca441753788-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1ca441753788-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf1ca441753788-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1ca441753788-4">4</div><div class="crayon-num" data-line="crayon-58794dcbaf1ca441753788-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1ca441753788-6">6</div><div class="crayon-num" data-line="crayon-58794dcbaf1ca441753788-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1ca441753788-8">8</div><div class="crayon-num" data-line="crayon-58794dcbaf1ca441753788-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1ca441753788-10">10</div><div class="crayon-num" data-line="crayon-58794dcbaf1ca441753788-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1ca441753788-12">12</div><div class="crayon-num" data-line="crayon-58794dcbaf1ca441753788-13">13</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1ca441753788-1"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">find_or_create_notebook</span><span class="crayon-sy">(</span><span class="crayon-i">notebook_name</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1ca441753788-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">if</span><span class="crayon-h"> </span><span class="crayon-v">notebooks</span><span class="crayon-sy">.</span><span class="crayon-i">any</span><span class="crayon-sy">?</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-o">|</span><span class="crayon-i">notebook</span><span class="crayon-o">|</span><span class="crayon-h"> </span><span class="crayon-v">notebook</span><span class="crayon-sy">.</span><span class="crayon-v">name</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-i">notebook_name</span><span class="crayon-h"> </span><span class="crayon-k ">}</span></div><div class="crayon-line" id="crayon-58794dcbaf1ca441753788-3"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># Notebook exists, get the notebook GUID</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1ca441753788-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">notebook</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">notebooks</span><span class="crayon-sy">.</span><span class="crayon-e">find</span><span class="crayon-h"> </span><span class="crayon-k ">{</span><span class="crayon-h"> </span><span class="crayon-o">|</span><span class="crayon-i">nb</span><span class="crayon-o">|</span><span class="crayon-h"> </span><span class="crayon-v">nb</span><span class="crayon-sy">.</span><span class="crayon-v">name</span><span class="crayon-h"> </span><span class="crayon-o">==</span><span class="crayon-h"> </span><span class="crayon-i">notebook_name</span><span class="crayon-h"> </span><span class="crayon-k ">}</span></div><div class="crayon-line" id="crayon-58794dcbaf1ca441753788-5"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">notebook</span><span class="crayon-sy">.</span><span class="crayon-i">guid</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1ca441753788-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">else</span></div><div class="crayon-line" id="crayon-58794dcbaf1ca441753788-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c"># Create notebook and store GUID</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1ca441753788-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">notebook</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">Evernote</span><span class="crayon-o">::</span><span class="crayon-i">EDAM</span><span class="crayon-o">::</span><span class="crayon-i">Type</span><span class="crayon-o">::</span><span class="crayon-v">Notebook</span><span class="crayon-sy">.</span><span class="crayon-e">new</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dcbaf1ca441753788-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">notebook</span><span class="crayon-sy">.</span><span class="crayon-v">name</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">notebook_name</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1ca441753788-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">new_notebook</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">note_store</span><span class="crayon-sy">.</span><span class="crayon-e">createNotebook</span><span class="crayon-sy">(</span><span class="crayon-i">dev_token</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">notebook</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dcbaf1ca441753788-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">new_notebook</span><span class="crayon-sy">.</span><span class="crayon-i">guid</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1ca441753788-12"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line" id="crayon-58794dcbaf1ca441753788-13"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0074 seconds] -->
+<p></p>
+<p dir="ltr">This method checks to see if there’s a notebook in the NoteStore named <code>notebook_name</code>. If it exists, the GUID for the existing notebook is returned. If it does not exist, it is created and the GUID for the new notebook is returned. We’ll need this notebook GUID when we create the note.</p>
+<p>Next, let’s create the body for the note. Evernote notes are created using a markup language called <a href="https://dev.evernote.com/doc/articles/enml.php" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://dev.evernote.com/doc/articles/enml.php', 'ENML');">ENML</a> which is a set of XML tags that define the parts of a note such as text and resources. Add the <code>generate_note_body</code> method:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1d6073958771" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-mixed-highlight" title="Contains Mixed Languages"></span><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+def generate_note_body(note_text)
+  note_body = "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"
+  note_body += "&lt;!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"&gt;"
+  note_body += "&lt;en-note&gt;#{note_text}&lt;/en-note&gt;"
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1d6073958771-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1d6073958771-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf1d6073958771-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1d6073958771-4">4</div><div class="crayon-num" data-line="crayon-58794dcbaf1d6073958771-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1d6073958771-1"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">generate_note_body</span><span class="crayon-sy">(</span><span class="crayon-i">note_text</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1d6073958771-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">note_body</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"<span class="crayon-ta">&lt;?</span><span class="crayon-e">xml </span><span class="crayon-i">version</span><span class="crayon-o">=</span><span class="crayon-sy">\</span>"<span class="crayon-cn">1.0</span><span class="crayon-sy">\</span>"<span class="crayon-h"> </span><span class="crayon-i">encoding</span><span class="crayon-o">=</span><span class="crayon-sy">\</span>"<span class="crayon-cn">UTF</span><span class="crayon-o">-</span><span class="crayon-cn">8</span><span class="crayon-sy">\</span>"<span class="crayon-ta">?&gt;</span>"</span></div><div class="crayon-line" id="crayon-58794dcbaf1d6073958771-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">note_body</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"&lt;!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"&gt;"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1d6073958771-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">note_body</span><span class="crayon-h"> </span><span class="crayon-o">+</span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"&lt;en-note&gt;#{note_text}&lt;/en-note&gt;"</span></div><div class="crayon-line" id="crayon-58794dcbaf1d6073958771-5"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0078 seconds] -->
+<p></p>
+<p dir="ltr">First we add a fairly standard XML preamble and DOCTYPE to <code>note_body</code>. Then we create the <code>&lt;en-note&gt;</code> containing the <code>note_text</code> passed in. If we have passed in a Resource (such as an image, sound or video file) to attach to the note we would add this to the note inline after the text (more on that in Part 2!).</p>
+<p>The last component of our note making process is a method that we’ll use to create the new note on Evernote. Add the <code>create_note</code> method to <code>app.rb</code>:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1e0577579126" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+def create_note(new_note)
+  # Attempt to create note in Evernote account
+  begin
+    note = note_store.createNote(new_note)
+  rescue Evernote::EDAM::Error::EDAMUserException =&gt; edue
+    ## Something was wrong with the note data
+    ## See EDAMErrorCode enumeration for error code explanation
+    ## http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
+    pp "EDAMUserException: #{edue}"
+    pp edue.errorCode
+    pp edue.parameter
+  rescue Evernote::EDAM::Error::EDAMNotFoundException =&gt; ednfe
+    ## Parent Notebook GUID doesn't correspond to an actual notebook
+    pp "EDAMNotFoundException: Invalid parent notebook GUID"
+  end
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-4">4</div><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-6">6</div><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-8">8</div><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-10">10</div><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-12">12</div><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-14">14</div><div class="crayon-num" data-line="crayon-58794dcbaf1e0577579126-15">15</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1e0577579126-16">16</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-1"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">create_note</span><span class="crayon-sy">(</span><span class="crayon-i">new_note</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c"># Attempt to create note in Evernote account</span></div><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">begin</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-4"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">note</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">note_store</span><span class="crayon-sy">.</span><span class="crayon-e">createNote</span><span class="crayon-sy">(</span><span class="crayon-i">new_note</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">rescue</span><span class="crayon-h"> </span><span class="crayon-i">Evernote</span><span class="crayon-o">::</span><span class="crayon-i">EDAM</span><span class="crayon-o">::</span><span class="crayon-i">Error</span><span class="crayon-o">::</span><span class="crayon-v">EDAMUserException</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">edue</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-6"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">## Something was wrong with the note data</span></div><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-7"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">## See EDAMErrorCode enumeration for error code explanation</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">## http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode</span></div><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-k ">pp</span><span class="crayon-h"> </span><span class="crayon-s">"EDAMUserException: #{edue}"</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-k ">pp</span><span class="crayon-h"> </span><span class="crayon-v">edue</span><span class="crayon-sy">.</span><span class="crayon-i">errorCode</span></div><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-11"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-k ">pp</span><span class="crayon-h"> </span><span class="crayon-v">edue</span><span class="crayon-sy">.</span><span class="crayon-i">parameter</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-12"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">rescue</span><span class="crayon-h"> </span><span class="crayon-i">Evernote</span><span class="crayon-o">::</span><span class="crayon-i">EDAM</span><span class="crayon-o">::</span><span class="crayon-i">Error</span><span class="crayon-o">::</span><span class="crayon-v">EDAMNotFoundException</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">ednfe</span></div><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-13"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-c">## Parent Notebook GUID doesn't correspond to an actual notebook</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-14"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-k ">pp</span><span class="crayon-h"> </span><span class="crayon-s">"EDAMNotFoundException: Invalid parent notebook GUID"</span></div><div class="crayon-line" id="crayon-58794dcbaf1e0577579126-15"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-st">end</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1e0577579126-16"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0053 seconds] -->
+<p>Many things can go wrong in the creation of the note so we make sure to catch any exceptions that might occur. With all of the pieces in place we can finally write our <code>make_note</code> method:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1eb899782063" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+def make_note(note_store, note_title, note_text, notebook_name)
+  notebook_guid = find_or_create_notebook(notebook_name)
+
+  note_body = generate_note_body(note_text)
+
+  # Create note object
+  new_note = Evernote::EDAM::Type::Note.new(
+    title: note_title,
+    content: note_body,
+    notebookGuid: notebook_guid
+  )
+
+  create_note(new_note)
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1eb899782063-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1eb899782063-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf1eb899782063-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1eb899782063-4">4</div><div class="crayon-num" data-line="crayon-58794dcbaf1eb899782063-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1eb899782063-6">6</div><div class="crayon-num" data-line="crayon-58794dcbaf1eb899782063-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1eb899782063-8">8</div><div class="crayon-num" data-line="crayon-58794dcbaf1eb899782063-9">9</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1eb899782063-10">10</div><div class="crayon-num" data-line="crayon-58794dcbaf1eb899782063-11">11</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1eb899782063-12">12</div><div class="crayon-num" data-line="crayon-58794dcbaf1eb899782063-13">13</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1eb899782063-14">14</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1eb899782063-1"><span class="crayon-r">def</span><span class="crayon-h"> </span><span class="crayon-e">make_note</span><span class="crayon-sy">(</span><span class="crayon-i">note_store</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">note_title</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">note_text</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">notebook_name</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1eb899782063-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">notebook_guid</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">find_or_create_notebook</span><span class="crayon-sy">(</span><span class="crayon-i">notebook_name</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dcbaf1eb899782063-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1eb899782063-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">note_body</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">generate_note_body</span><span class="crayon-sy">(</span><span class="crayon-i">note_text</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-58794dcbaf1eb899782063-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1eb899782063-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-c"># Create note object</span></div><div class="crayon-line" id="crayon-58794dcbaf1eb899782063-7"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">new_note</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-i">Evernote</span><span class="crayon-o">::</span><span class="crayon-i">EDAM</span><span class="crayon-o">::</span><span class="crayon-i">Type</span><span class="crayon-o">::</span><span class="crayon-v">Note</span><span class="crayon-sy">.</span><span class="crayon-e">new</span><span class="crayon-sy">(</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1eb899782063-8"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">title</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">note_title</span><span class="crayon-sy">,</span></div><div class="crayon-line" id="crayon-58794dcbaf1eb899782063-9"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">content</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">note_body</span><span class="crayon-sy">,</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1eb899782063-10"><span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-i">notebookGuid</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">notebook_guid</span></div><div class="crayon-line" id="crayon-58794dcbaf1eb899782063-11"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1eb899782063-12">&nbsp;</div><div class="crayon-line" id="crayon-58794dcbaf1eb899782063-13"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-e">create_note</span><span class="crayon-sy">(</span><span class="crayon-i">new_note</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1eb899782063-14"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0054 seconds] -->
+<p>This method will create a new note in your Evernote Sandbox account using the methods we have built so far. Let’s try it out to make sure it’s working before moving on. Fire up a terminal window and run the following from your project directory:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf1f5869969650" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+$ irb
+&gt; require ‘./app’
+&gt; make_note note_store, "Test from irb", "Testing out the make note method to see if it creates a note in the Sandbox.", "Twilio-Evernote"</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf1f5869969650-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf1f5869969650-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf1f5869969650-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf1f5869969650-1"><span class="crayon-sy">$</span><span class="crayon-h"> </span><span class="crayon-i">irb</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf1f5869969650-2"><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-i">require</span><span class="crayon-h"> </span>‘<span class="crayon-sy">.</span><span class="crayon-o">/</span><span class="crayon-i">app</span>’</div><div class="crayon-line" id="crayon-58794dcbaf1f5869969650-3"><span class="crayon-o">&gt;</span><span class="crayon-h"> </span><span class="crayon-e">make_note </span><span class="crayon-i">note_store</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"Test from irb"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"Testing out the make note method to see if it creates a note in the Sandbox."</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"Twilio-Evernote"</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0018 seconds] -->
+<p>This will create a note titled “Test from irb” in the notebook “Twilio-Evernote” with the text “Testing out the make note method to see if it creates a note in the Sandbox.” Head over to the <a href="http://sandbox.evernote.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://sandbox.evernote.com/', 'Evernote Sandbox');">Evernote Sandbox</a> and click on the Twilio-Evernote notebook and then on the note you just created. It should look like this:</p>
+<p><img alt="" src="https://lh3.googleusercontent.com/7NWmWWwZuPIoSB60i7aETXkfzVrRjm4f1Rwx0eNipk-GBQeb3UYvifUZUy4GGPrpX-I_HARYiRtowcJH14YfLeb5yR1UZjILlH9XtNKU36Ov5TqZ0pq_rM3Ar9UPa7fVdMg" width="624px;" height="209px;" /></p>
+<p>With a working note creation mechanism we’re ready to take the next step: creating notes from text messages.</p>
+<h3>Adding Notes to Evernote With SMS</h3>
+<p>Before we can send text messages to our Evernote account as notes we need to set our app up to communicate with Twilio. When Twilio receives an incoming message at your phone number it will need to make an HTTP request to our app. If you want to test locally you will need to expose your localhost to the outside world. I recommend using <a href="https://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/', 'ngrok');">ngrok</a> for this. Once you have that up and running, configure the Messaging URL for your Twilio number in the <a href="https://www.twilio.com/user/account/phone-numbers/?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=brent-october-barcode" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account/phone-numbers/?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=brent-october-barcode', 'numbers portal');">numbers portal</a> to point at your local server’s <code>/message</code> endpoint which we will write in a moment:</p>
+<h3><img class="alignnone size-full wp-image-14600" alt="Set messaging URL" src="https://www.twilio.com/blog/wp-content/uploads/2015/02/numbers1.png" width="650" height="139" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/02/numbers1.png 650w, https://www.twilio.com/blog/wp-content/uploads/2015/02/numbers1-300x64.png 300w" sizes="(max-width: 650px) 100vw, 650px" /></h3>
+<p>Next, let’s add the <code>/message</code> method to our Sinatra app:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794dcbaf200017563165" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+post '/message' do
+  message = params[:Body]
+
+  make_note note_store, 'From SMS', message, "Twilio-Evernote"
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794dcbaf200017563165-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf200017563165-2">2</div><div class="crayon-num" data-line="crayon-58794dcbaf200017563165-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794dcbaf200017563165-4">4</div><div class="crayon-num" data-line="crayon-58794dcbaf200017563165-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794dcbaf200017563165-1"><span class="crayon-i">post</span><span class="crayon-h"> </span><span class="crayon-s">'/message'</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf200017563165-2"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">message</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">params</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-i">Body</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-58794dcbaf200017563165-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794dcbaf200017563165-4"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">make_note</span><span class="crayon-h"> </span><span class="crayon-i">note_store</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'From SMS'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-i">message</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"Twilio-Evernote"</span></div><div class="crayon-line" id="crayon-58794dcbaf200017563165-5"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0022 seconds] -->
+<p>When Twilio makes a POST request on an incoming text message we extract out the text of the message. Then we use the <code>make_note</code> method we created previously to create a new note in the Sandbox containing the body text from the SMS. Now we can add notes to Evernote without needing a smartphone app!</p>
+<h3>Next Steps</h3>
+<p>In this first part of a two part series we were introduced to the Evernote API. We then used what we learned to create a note using a text message. In the next post we’ll add a picture to our note using MMS and create voice memo notes using Twilio <a href="http://www.twilio.com/elements/call-recording" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.twilio.com/elements/call-recording', 'call recording');">call recording</a> and transcription. While you’re waiting for the next post to make its way to the blog, try a few of these things using what you’ve built in this post:</p>
+<ul>
+<li dir="ltr">Enable setting the title and notebook name in the SMS message.</li>
+<li dir="ltr">Retrieve notes from any notebook using an SMS workflow.</li>
+<li dir="ltr">Allow the user to send the note to an arbitrary notebook.</li>
+<li dir="ltr">Try this out on your actual account instead of the Sandbox.</li>
+</ul>
+<p>I’m super stoked to see what you all create with Twilio so I’d love to hear about what you’re working on. Hit me up on Twitter <a href="https://twitter.com/brentschooley" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://twitter.com/brentschooley', '@brentschooley');">@brentschooley</a> or through email at <a href="mailto:brent@twilio.com">brent@twilio.com</a> to show me all the cool stuff you’re building. See you in Part 2.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" data-text="Note Taking On the Go With Evernote and Twilio &#8211; Part One ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/aa07242c6fc1a533b81489c2393f76e6?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/aa07242c6fc1a533b81489c2393f76e6?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/brent-schooley">Brent Schooley</a></span></span> <span class="author-meta author-email"><a href="mailto:brent@twilio.com">brent@twilio.com</a></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Ruby</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails', '');">
+          <h5>SMS and MMS Notifications with Ruby</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" rel="bookmark" title="Permanent Link to Managing Development Environment Variables Across Multiple Ruby Applications" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html', '');">
+          <h5>Managing Development Environment Variables Across Multiple Ruby Applications<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/creating-a-priority-queue-for-your-call-centre-with-taskrouter.html" rel="bookmark" title="Permanent Link to Creating a Priority Queue for your Call Centre with TaskRouter" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/creating-a-priority-queue-for-your-call-centre-with-taskrouter.html', '');">
+          <h5>Creating a Priority Queue for your Call Centre with TaskRouter<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2015/02/14598 http://twilioinc.wpengine.com/?p=14598';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Note Taking On the Go With Evernote and Twilio &#8211; Part One";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html?cf_action=sync_comments&amp;post_id=14598';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2015\/02\/note-taking-on-the-go-with-evernote-and-twilio-part-one.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:00 GMT -->
+</html>

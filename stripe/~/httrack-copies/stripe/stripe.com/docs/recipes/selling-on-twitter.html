@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/recipes/selling-on-twitter by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:45:19 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="14xeTpWI4Lo8FpLLMepT3ZNpvfl3qGmbxxBXm6nGk_ROFkozk00k__FSttT94mamuhczfisEqDuGpV2zDBFZhQ==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Selling on Twitter with Relay</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Selling on Twitter with Relay">
+    <meta property="og:url" content="selling-on-twitter.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Selling on Twitter with Relay">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Selling on Twitter through Relay</h1>
+  <p>Leverage Stripe Relay to sell products directly through Twitter. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=relay">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <div id=" twitter-android-modal" alt="Buy Now in Twitter" class="caption-image right"></div>
+<p>The Orders API also lets Stripe users sell products across an expansive and expanding network of popular media. Customers can buy your goods through tweets, social media posts, in-app interfaces, ads, or even simple links.</p>
+
+<p>Just add products to your Stripe account and connect to any number of <em>apps</em>–social media platforms like Twitter or mobile shopping apps like ShopStyle. The app can be used to promote your products, will handle the ordering process, and even securely accept payment on your behalf. Once an order is created and paid for, you simply fulfill the order to complete the transaction. You can start selling on third-party applications by <a href="#connect-apps">connecting to Relay apps</a>. This guide also outlines how to <a href="#manage-orders">manage orders from Relay applications</a>.</p>
+
+<p>Stripe’s Orders API provides facilities for representing your product catalog in a structured manner, allowing seamless integration with Twitter’s “Buy now” functionality. With Relay, selling on Twitter is as easy as setting up your product catalog on Stripe. The most complicated steps–taking the customer’s information, creating an order, and accepting payment for the order–are handled for you.</p>
+
+<p>This recipe walks through the simple, basic steps:</p>
+
+<ol>
+  <li><a href="#connect">Connect your Stripe account</a> to Twitter</li>
+  <li>Set your <a href="#shipping-taxes">shipping and tax</a> policies</li>
+  <li><a href="#create-products">Create products</a></li>
+  <li><a href="#tweet">Tweet!</a></li>
+  <li><a href="#manage-orders">Manage your orders</a></li>
+</ol>
+
+<p>All of this can be done using the <a href="https://dashboard.stripe.com/">Dashboard</a> alone, which is the focus in this guide. If you’re a developer, you can use the powerful Orders API instead, and the <a href="../orders.html">Orders API overview</a> goes through that experience in detail (but not focused on Twitter alone).</p></section>
+
+<section>
+<h2 id="connect">Connect your Stripe account to Twitter</h2>
+
+<p>The heart of Relay is the ability to allow common and popular platforms, such as Twitter, to process orders on your behalf. You’ll need to grant Twitter–or any application–permission to do so by connecting your Stripe account to their app.</p>
+
+<ol>
+  <li>Start on the Relay tab of your <a href="https://dashboard.stripe.com/account/relay">account settings</a>.</li>
+  <li>Click <strong>Sign in with Twitter</strong>.</li>
+  <li>On the resulting Twitter page, click <strong>Authorize app</strong>. (This does assume you are logged into your Twitter account.)</li>
+  <li>When you are returned to the Stripe Dashboard, enter your sales terms and shipping policy in the dialog, and click <strong>Enable</strong>.</li>
+</ol>
+
+<p>Your Stripe account is now connected to Twitter! Rest assured that although Twitter can create and handle payments for your orders, they cannot access your bank account or your personal information. And, of course, you can easily disconnect the Twitter app–on the Relay tab of your account settings–at any time.</p></section>
+
+<section>
+<h2 id="shipping-taxes">Set your shipping and tax policies</h2>
+
+<p>Next, configure your shipping and tax preferences in your <a href="https://dashboard.stripe.com/account/relay/settings">Stripe account</a>. Shipping can be set as:</p>
+
+<ul>
+  <li><code>free</code> : No additional cost, the default.</li>
+  <li><code>flat_rate</code>: A flat additional cost, regardless of the items ordered, the quantity, or the customer’s geographic location. You can even opt to waive the shipping cost above a certain order total.</li>
+</ul>
+
+<p>Tax can be set as:</p>
+
+<ul>
+  <li><code>included</code>: No additional cost, the default.</li>
+  <li><code>percentage</code>: A flat additional cost, as a percent of the order total, before shipping.</li>
+</ul>
+
+<p>Once you’ve set your shipping and tax policies, Twitter will automatically factor those costs in when orders are created.</p></section>
+
+<section>
+<h2 id="create-products">Create products</h2>
+
+<p>Having connected your account to Twitter, you need products to sell! There are two core ideas involved:</p>
+
+<ul>
+  <li>A <em>product</em> is an umbrella for something you sell, such as a “Fixed-Gear Bicycle”.</li>
+  <li>A <em>SKU</em> is a particular <a href="https://en.wikipedia.org/wiki/Stock_keeping_unit">stock keeping unit</a> representing a specific version of a product, such as a “Women’s, Road Version” (of the “Fixed-Gear Bicycle”).</li>
+</ul>
+
+<p>Products should not be too generally defined, and SKUs will be the actual item purchased. This relationship will make even more sense when you create both in the Dashboard, and see that key order-related information–price, inventory, and so on–are part of the SKUs, not the products.</p>
+
+<p>As another example, “Sunglasses” would be too vague as a product, but “Knightly Sunglasses”–in theory, a specific line of sunglasses you offer, would be appropriate. The SKUs for such a product might then be:</p>
+
+<ul>
+  <li>Women’s, standard</li>
+  <li>Women’s, polarized</li>
+  <li>Men’s, standard</li>
+  <li>Men’s, polarized</li>
+</ul>
+
+<p>For more on the distinction between products and SKUs, see the Orders API <a href="../orders/guide.html#define-products-and-skus">best practices</a>.</p>
+
+<p>With a mental model of your catalog in place, start creating products and SKUs in the Dashboard. Products are created first:</p>
+
+<ol>
+  <li>On your account’s <a href="https://dashboard.stripe.com/products">Products</a> page, click  <strong>Create your first product</strong> (or <strong>New product</strong>, if you’ve already created one). Only real, live products can be sold through Twitter.</li>
+  <li>On the <strong>Create a product</strong> page, fill out the form and click <strong>Save product</strong>.
+    <ul>
+      <li><strong>Name</strong> should be descriptive but short-ish, and meant to be seen by the customer.</li>
+      <li><strong>Caption</strong> and <strong>Description</strong> will be shown to customers through Twitter.</li>
+      <li>Use the <strong>URL</strong> input to provide a link to the product on your site for even more details.</li>
+      <li><strong>Attributes</strong> will distinguish SKUs–product variations (e.g., <strong>Gender</strong>, <strong>Model</strong>, or <strong>Style</strong>).</li>
+      <li>Provide one or more images to help your products sell. To best display your product, the product image should be a square (1x1). Twitter crops the top and bottom of the image to a rectangle (2x1) when displaying it in the timeline, so the product should be within the middle 50% of the image.</li>
+      <li>Mark physical products as <strong>Shippable</strong> and then fill in the product’s size and weight.</li>
+    </ul>
+  </li>
+</ol>
+  <div class="images">
+    <div class="image">
+      <a href="../../img/documentation/relay/product-create.png" class="zoomable" data-width="711" data-height="670"><img src="../../img/documentation/relay/product-create.png" height="260"></a>
+      <p>The form for creating a product.</p>
+    </div>
+    <div class="image">
+      <a href="../../img/documentation/relay/product-example.png" class="zoomable" data-width="710" data-height="450"><img src="../../img/documentation/relay/product-example.png" height="260"></a>
+      <p>The newly created product.</p>
+    </div>
+  </div>
+
+<p>Having created a product, you can now create SKUs for it. Remember that a SKU is the actual version of the product that the customer will purchase.</p>
+
+<ol>
+  <li>On the product’s page in the Dashboard, click <strong>Add SKU</strong>.</li>
+  <li>In the resulting dialog,
+    <ul>
+      <li>Select an <strong>Image</strong> to use. Twitter will display this as a square (1x1) image, cropping it if necessary.</li>
+      <li>Enter the <strong>Price</strong>.</li>
+      <li>Fill out the attribute values for this particular SKU (e.g., <strong>Women’s</strong> for <strong>Gender</strong> and <strong>Road Version</strong> for <strong>Model</strong>).</li>
+      <li>Set the inventory available for sale. The inventory can be <em>finite</em>–a specific number on hand, <em>infinite</em>, or <em>bucket</em>, which allows you to just indicate the inventory is “In stock”, “Out of stock”, or “Limited”.</li>
+    </ul>
+  </li>
+  <li>Click <strong>Add SKU</strong>.</li>
+  <li>Repeat these steps for each product variation you’re selling.</li>
+</ol>
+  <div class="images">
+    <div class="image">
+      <a href="../../img/documentation/relay/sku-create.png" class="zoomable" data-width="402" data-height="770"><img src="../../img/documentation/relay/sku-create.png" height="260"></a>
+      <p>The form for creating a SKU.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+<h2 id="twitter-buy-now-requirements">Twitter Buy Now Requirements</h2>
+
+<p>To make your product ready for selling on Twitter, double check that it:</p>
+
+<ul>
+  <li>Is marked as <code>active</code></li>
+  <li>Has at least one SKU marked as <code>active</code></li>
+  <li>Has an image that is least 280x280 pixels</li>
+  <li>Has no more than three attributes</li>
+  <li>Has an accurate description</li>
+</ul></section>
+
+<section>
+<h2 id="tweet">Tweet!</h2>
+
+<p>The moment of truth! On your product’s page within the Stripe Dashboard, select and copy the <strong>Tweetable URL</strong> for your product. Tweet the URL as part of your message.</p>
+
+<p>And that is it! The Twitter app will show users a “Buy now” button along with the first image of your product as part of an interface similar to that shown at the top of this page. After clicking “Buy now”, users will also see the first image from each of the product’s SKUs. People will see your tweet and be able to purchase your product simply by clicking “Buy now”. The Twitter app will handle the rest of the payment directly through Twitter without the user ever going to your website.</p></section>
+
+<section>
+<h2 id="manage-orders">Manage your orders</h2>
+
+<p>When a Twitter user clicks a “Buy Now” button, generated by the URL you tweeted, they are taken to a page within Twitter that showcases the product and optionally allows them to choose a particular SKU to purchase. Once the user selects what they want to purchase, Twitter creates an order in your Stripe account.</p>
+
+<p>Stripe responds to the creation request by providing the proper amounts considering your shipping and tax policies, and returns that information to Twitter. Twitter then displays the full total to the user. During this entire flow, the user never has to leave Twitter (unless they decide to follow the product’s <strong>URL</strong> you provided to Stripe.) The user completes the checkout flow–paying for the order, and the transaction is complete.</p>
+
+<p>We’ll automatically notify you via email about all created and paid orders. When you receive notice that an email has been paid for, click the link in the email to view the order in your Dashboard (you can also browse within the <a href="https://dashboard.stripe.com/orders">Dashboard orders</a> page to find it).</p>
+
+<p>On the order page, you can view the customer’s details–such as name and shipping address, and the items purchased. After shipping the order, click <strong>Mark as fulfilled</strong> in the Dashboard to indicate you’ve done so.</p></section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/recipes/selling-on-twitter by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:45:19 GMT -->
+</html>

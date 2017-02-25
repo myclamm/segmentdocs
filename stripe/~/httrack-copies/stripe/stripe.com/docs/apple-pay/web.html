@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/apple-pay/web by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:46 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="EftJbno39W-zcihnSxwQI4LfsG7e_ApgXESvPM3RHw6IYV0TfPIxKn42DHiHFCVYq6E-6YJQy8Ad8aUUaAbVfw==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Apple Pay on the Web</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Apple Pay on the Web">
+    <meta property="og:url" content="web.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Apple Pay on the Web">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul>
+    <li>
+      <a href="apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a class='selected' href="web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Apple Pay on the Web</h1>
+  <p>
+    This guide takes you through the process of getting set up with Apple Pay on the Web, all the way through making your first charge.
+  </p>
+  <p><em>Looking to integrate Apple Pay into a native iOS app? Read our <a href="apps.html">iOS app guide</a> instead. <br>Have general Apple Pay questions? Read our <a href="https://support.stripe.com/questions/apple-pay-questions">FAQ</a></em>.</p>
+</header>
+
+<section>
+<h2 id="background">Background</h2>
+  <p>
+    Apple Pay on the Web lets you access payment details that your users have stored in their Wallet. If they're using Safari on their iPhone or iPad, when they tap "Buy with Apple Pay" on your site, they'll be shown a modal payment sheet. If they're using Safari on their Mac, and have an iOS device in range, they'll be prompted on their device to authorize the payment, which will then be sent to the browser. The underlying JavaScript is exactly the same—you can write a single integration, and it'll work in both circumstances.
+  </p>
+  <h3 style="margin-top: 0; margin-bottom: 10px;">Try it out!</h3>
+  <style type="text/css">
+    #apple-pay-button {
+      background-color: black !important;
+      background-image: url(../../img/documentation/mobile/apple-pay/apple_pay_logo_black.png);
+      background-position: center;
+      background-size: auto 44px;
+      background-origin: content-box;
+      background-repeat: no-repeat;
+      width: 320px;
+      height: 44px;
+      padding: 10px 0;
+      border-radius: 10px;
+      border: none;
+    }
+    #apple-pay-button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  </style>
+  <div id="try-it-out">
+    <p>
+      You can see what it's like right here on this page! Don't worry, your card won't be charged.
+    </p>
+    <button disabled=true id="apple-pay-button""></button>
+    <p>
+      For the demo to work, you must be visiting this page with the minimum requirements described below.
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2 id="minimum-requirements">Minimum Requirements</h2>
+  <p>
+    In order to test your integration, you'll want to have your development site open either:
+  </p>
+  <ul>
+    <li>In Safari on an iOS device running iOS 10. Make sure that you have at least one card in your Wallet (you can add one by going to Settings → Wallet &amp; Apple Pay).</li>
+    <li>In Safari on a Mac running macOS Sierra. You'll also need an iPhone (not an iPad; Safari doesn't support them yet) running iOS 10 with a card in its Wallet to be paired to your Mac via Handoff (instructions on how to do this can be found on <a href="https://support.apple.com/en-us/HT204681">Apple's Support website</a>).</li>
+  </ul>
+  <p>If you have Xcode 8 installed, you can also develop your site in Safari inside the iOS simulator.</p>
+</section>
+<section>
+  <h2 id="testmode">Step 1: Set up the Apple Pay Sandbox</h2>
+  <p>
+    To use Apple Pay while developing your site, you'll need to use the Apple Pay Sandbox. Getting it set up takes just a few minutes.
+  </p>
+  <ol>
+    <li>If you don't have one already, create an <a href="https://developer.apple.com/">Apple Developer account</a>.</li>
+    <li>Log into <a href="https://itunesconnect.apple.com/">iTunes Connect</a>.</li>
+    <li>Select <strong>Users and Roles</strong>, then select the <strong>Sandbox Testers</strong> link at the top of the page.</li>
+    <li>Next to "Testers", click <span style='font-size: 22px; line-height: 14px'>⊕</span> to create a new test user. Fill out the page, taking note of the email and password you used, and click <strong>Save</strong> in the upper right.</li>
+    <li>On your test iOS device, open the Settings app and tap <strong>iCloud</strong>. If you're signed in, tap <strong>Sign Out</strong> at the bottom.</li>
+    <li>Log in using the new test credentials you just made.</li>
+    <li>Tap Back to return to the first page in Settings, then tap <strong>Wallet &amp; Apple Pay</strong>.</li>
+    <li>Tap <strong>Add Credit or Debit Card</strong>, then when prompted to photograph your card tap <strong>Enter Card Details Manually</strong>.</li>
+    <li>Enter <strong>4761 1200 1000 0492</strong>, expiration <strong>11/2022</strong>, CVV <strong>533</strong> (this is a test Visa card; for more test cards see the <a href="https://developer.apple.com/support/apple-pay-sandbox/">Apple Pay Sandbox Guide</a>).</li>
+  </ol>
+</section>
+
+<section>
+  <h2 id="adding-a-button">Step 2: Add an Apple Pay button to your site</h2>
+  <p>
+    Start by adding a button to the HTML on your product page. Safari now ships with built-in Apple Pay images; you can use them with Safari's <code>-webkit-named-image</code> feature. This button should be hidden by default.
+  </p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    product.html
+  </nav>
+  <pre class="language-html numbered" ><code>&lt;style&gt;
+  #apple-pay-button {
+    display: none;
+    background-color: black;
+    background-image: -webkit-named-image(apple-pay-logo-white);
+    background-size: 100% 100%;
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 44px;
+    padding: 10px 0;
+    border-radius: 10px;
+  }
+&lt;/style&gt;
+&lt;button id=&quot;apple-pay-button&quot;&gt;&lt;/button&gt;</code></pre>
+</div>
+
+  <p>
+    (You can, of course, build and style this input however you like; the above snippet renders a black Apple Pay button identical to the one in the demo above.)
+  </p>
+  <p>
+    Next, ensure <a href="../stripe.html">Stripe.js</a> is included on your page.
+  </p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    product.html
+  </nav>
+  <pre class="language-javascript numbered" ><code>&lt;script type=&quot;text/javascript&quot; src=&quot;https://js.stripe.com/v2/&quot;&gt;&lt;/script&gt;</code></pre>
+</div>
+
+  <p>After you set your publishable key, you can use the <code>checkAvailability</code> function to determine whether or not to show an Apple Pay button.</p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    product.js
+  </nav>
+  <pre class="language-javascript numbered"  data-highlight-lines="1"><code>Stripe.setPublishableKey(&#39;pk_test_6pRNASCoBOKtIshFeQd4XMUh&#39;);
+
+Stripe.applePay.checkAvailability(function(available) {
+  if (available) {
+    document.getElementById(&#39;apple-pay-button&#39;).style.display = &#39;block&#39;;
+  }
+});</code></pre>
+</div>
+  <p>
+    Note that this function executes asynchronously; you must pass it a callback function. When using the Apple Pay Sandbox as described above, this will always callback with <code>true</code>. Otherwise it will callback with <code>false</code> until you verify your domain as explained in <a href="#going-live">Going Live</a> below.
+  </p>
+</section>
+
+<section>
+  <h2 id="beginning-a-session">Step 3: Start an Apple Pay Session</h2>
+  <p>
+    Assuming Apple Pay is available, when the user taps this payment button, show the Apple Pay sheet. This must be done in response to a tap or click event, so we'll do this by adding an event listener to the button's <code>click</code> event.
+  </p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    product.js
+  </nav>
+  <pre class="language-javascript numbered" ><code>document.getElementById(&#39;apple-pay-button&#39;).addEventListener(&#39;click&#39;, beginApplePay);</code></pre>
+</div>
+  <p>Within the event listener, first create a <a href="https://developer.apple.com/reference/applepayjs/paymentrequest"><code>PaymentRequest</code></a> object. The <code>total</code>, <code>countryCode</code>, and <code>currencyCode</code> properties are all required; Stripe will set sane defaults for everything else. Note that unlike with other Stripe APIs that use an integer amount in cents to represent prices (e.g., <code>1999</code>), Apple uses a formatted string for <code>total.amount</code>(e.g., <code>'19.99'</code>).
+  </p>
+<div class="code">
+  <nav class="nav-filename icon-file">
+    product.js
+  </nav>
+  <pre class="language-javascript numbered"  data-highlight-lines="2,3,4,5,6,7,8,9"><code>function beginApplePay() {
+  var paymentRequest = {
+    countryCode: &#39;US&#39;,
+    currencyCode: &#39;USD&#39;,
+    total: {
+      label: &#39;Stripe.com&#39;,
+      amount: &#39;19.99&#39;
+    }
+  };
+  var session = ...; // continued below
+}</code></pre>
+</div>
+  <p>
+    Next, use another helper function in Stripe.js, <code>buildSession</code>, to turn this <code>PaymentRequest</code> into an <a href="https://developer.apple.com/reference/applepayjs/applepaysession"><code>ApplePaySession</code></a>.
+  </p><p>
+    The second argument to <code>buildSession</code> is a function that will be called when the user has authorized the payment. This function takes two arguments. The first, <code>result</code>, will contain a Stripe token. You should pass this token to your server and <a href="../charges.html">create a charge</a> (the example below uses jQuery to POST the token to a hypothetical <code>/charges</code> API on your server). If you're looking to make a recurring payment, you can instead <a href="../charges.html#saving-credit-card-details-for-later">attach the token to a Customer</a> and then <a href="../subscriptions/quickstart.html">subscribe them to a Plan</a>. When you're done doing this work on your server, call the second parameter, <code>completion</code>, with <code>ApplePaySession.STATUS_SUCCESS</code> or <code>ApplePaySession.STATUS_FAILURE</code> depending on if your charge succeeded or failed. This will then show the user a success or failure animation in the payment sheet and dismiss it.
+  </p><p>
+    The third argument to <code>buildSession</code> is optional; it is a function that will be called if Stripe encounters an error with your configuration or has a problem with your user's payment information.
+  </p>
+
+<div class="code">
+  <nav class="nav-filename icon-file">
+    product.js
+  </nav>
+  <pre class="language-javascript numbered"  data-highlight-lines="4,5,7,8,9,10,11,12,13,19"><code>function beginApplePay() {
+  var paymentRequest = ...; // see above
+
+  var session = Stripe.applePay.buildSession(paymentRequest,
+    function(result, completion) {
+
+    $.post(&#39;/charges&#39;, { token: result.token.id }).done(function() {
+      completion(ApplePaySession.STATUS_SUCCESS);
+      // You can now redirect the user to a receipt page, etc.
+      window.location.href = &#39;/success.html&#39;;
+    }).fail(function() {
+      completion(ApplePaySession.STATUS_FAILURE);
+    });
+
+  }, function(error) {
+    console.log(error.message);
+  });
+
+  session.begin();
+}</code></pre>
+</div>
+
+  <p>
+    Finally, after building your <code>ApplePaySession</code> using the <code>buildSession</code> helper, call <code>begin()</code> on it to show the user the payment sheet!
+  </p>
+</section>
+
+<section>
+  <h2 id="going-live">Step 4: Verify your domain to go live</h2>
+  <p>
+    To use Apple Pay with your live API key, you need to register with Apple all of your web domains that will be showing an Apple Pay button. This includes both top-level domains (e.g. stripe.com) and subdomains (e.g. shop.stripe.com).
+  </p><p>
+    <strong id="merchant-validation">Important note:</strong> Apple's documentation for Apple Pay on the Web describes their process of "merchant validation", which Stripe handles for you behind the scenes. You do not need to create an Apple Merchant ID, CSR, etc., as described in their <a href="https://developer.apple.com/support/apple-pay-domain-verification/">documentation</a>, and should instead just follow these steps:<br><br>
+  </p>
+  <ol>
+    <li>
+     Download this <a href="../../files/apple-pay/apple-developer-merchantid-domain-association">domain association file</a> and host it at <code>/.well-known/apple-developer-merchantid-domain-association</code> on your site. For example, if you're registering <code>https://example.com</code>, make that file available at <code>https://example.com/.well-known/apple-developer-merchantid-domain-association</code>.
+    </li>
+    <li>
+      Next, tell Stripe to register your domain with Apple. You can do this by either going to <a href="https://dashboard.stripe.com/account/apple_pay">the Apple Pay tab</a> in the Account Settings of your Dashboard, or by directly using the API with your live secret key as shown below. Note that we've redacted your live secret key here - head to your <a href="https://dashboard.stripe.com/account/apikeys">Dashboard</a> and replace <code>sk_live_••••••••••••••••••••••••</code> below with your live secret key.
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="curl"
+           >curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="node"
+           >Node</a>
+        <a data-language="java"
+           >Java</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/apple_pay/domains \
+ -u sk_live_••••••••••••••••••••••••: \
+ -d domain_name=&quot;example.com&quot;</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = &quot;sk_live_••••••••••••••••••••••••&quot;
+Stripe::ApplePayDomain.create(domain_name: &#39;example.com&#39;)</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = &quot;sk_live_••••••••••••••••••••••••&quot;
+stripe.ApplePayDomain.create(
+  domain_name=&quot;example.com&quot;
+)</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(&quot;sk_live_••••••••••••••••••••••••&quot;);
+\Stripe\ApplePayDomain::create(array(
+  &#39;domain_name&#39; =&gt; &#39;example.com&#39;
+));</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&quot;stripe&quot;)(
+  &quot;sk_live_••••••••••••••••••••••••&quot;
+);
+stripe.applePayDomains.create({
+  domain_name: &#39;example.com&#39;
+});</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = &quot;sk_live_••••••••••••••••••••••••&quot;;
+Map&lt;String, Object&gt; domainParams = new HashMap&lt;String, Object&gt;();
+domainParams.put(&quot;domain_name&quot;, &quot;example.com&quot;);
+ApplePayDomain.create(domainParams);</code></pre>
+</div>
+
+    </div>
+  </div>
+    </li>
+    <li>Once you're registered, you'll be able to make payments on your site outside of the Apple Pay Sandbox using your live API keys.</li>
+  </ol>
+</section>
+
+<section>
+  <h2 id="connect">Set up Apple Pay with Stripe Connect (optional)</h2>
+  <p>
+    If you have a <a href='../connect.html'>Connect</a> application and would like to accept payments on behalf of your users via Apple Pay, make these two changes to your integration:
+  </p>
+  <ul>
+    <li>
+      On your frontend, before calling any Apple Pay code, you should set the <code>Stripe.applePay.stripeAccount</code> property to your connected account's Stripe ID:
+<div class="code">
+  <nav class="nav-filename icon-file">
+    product.js
+  </nav>
+  <pre class="language-javascript numbered" ><code>Stripe.applePay.stripeAccount = &#39;acct_qVOMnrEU3QtsS7&#39;;</code></pre>
+</div>
+    </li>
+    <li>
+      When registering domains, you should always use the API, not the Dashboard. You should use your platform's secret key to authenticate the request, and you should set the <code>Stripe-Account</code> header to your connected account's Stripe ID, as described in <a href='../connect/authentication.html#authentication-via-the-stripe-account-header'>Authentication with Connect</a>.
+  <div class="tabs tabs-code animated">
+    <nav class="nav-languages">
+        <a data-language="curl"
+           >curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/apple_pay/domains \
+ -u {PLATFORM_SECRET_KEY}: \
+ -H {CONNECTED_STRIPE_ACCOUNT_ID} \
+ -d domain_name=&quot;example.com&quot;</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+Stripe::ApplePayDomain.create(
+  {domain_name: &#39;example.com&#39;},
+  {stripe_account: CONNECTED_STRIPE_ACCOUNT_ID},
+)</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+stripe.ApplePayDomain.create(
+  domain_name=&quot;example.com&quot;,
+  stripe_account=CONNECTED_STRIPE_ACCOUNT_ID
+)</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+\Stripe\ApplePayDomain::create(
+  array(&#39;domain_name&#39; =&gt; &#39;example.com&#39;)
+  array(&quot;stripe_account&quot; =&gt; CONNECTED_STRIPE_ACCOUNT_ID)
+);</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(CONNECTED_STRIPE_ACCOUNT_ID).build();
+Map&lt;String, Object&gt; domainParams = new HashMap&lt;String, Object&gt;();
+domainParams.put(&quot;domain_name&quot;, &quot;example.com&quot;);
+ApplePayDomain.create(domainParams, requestOptions);</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&quot;stripe&quot;)(PLATFORM_SECRET_KEY);
+stripe.applePayDomains.create(
+  {domain_name: &#39;example.com&#39;},
+  {stripe_account: CONNECTED_STRIPE_ACCOUNT_ID}
+);</code></pre>
+</div>
+
+    </div>
+  </div>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h2 id="next-steps">Next steps</h2>
+  <p>Once you've successfully made an Apple Pay charge on your website, you can optionally start collecting your users' billing/shipping address, offering them different shipping options, and more.</p>
+<ul class="next-steps">
+    <li><a href="web/custom.html"><span>Customize your integration</a></li>
+    <li><a href="../stripe.html#collecting-apple-pay-details"><span>Read our full reference for Stripe.js &amp; Apple Pay</a></li>
+    <li><a href="best-practices.html"><span>Apple Pay Best Practices</a></li>
+</ul>
+</section>
+
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    <script type="text/javascript">
+  $(function() {
+    // This merchant has been set up for demo purposes.
+    Stripe.setPublishableKey("pk_live_7DqVkh3nML0jII3mMplZNMe8");
+    Stripe.applePay.checkAvailability(function(available) {
+      $('#apple-pay-button').prop('disabled', !available);
+    });
+    $("#apple-pay-button").on('click', function(event) {
+      function buildTotal(selectedShippingMethod) {
+        return {
+          label: "Stripe (won't be charged)",
+          amount: (parseFloat(selectedShippingMethod.amount) + 10.00).toFixed(2)
+        }
+      }
+
+      function buildLineItems(selectedShippingMethod) {
+        return [
+          {
+            type: 'final',
+            label: '1 widget',
+            amount: '10.00'
+          },
+          {
+            type: 'final',
+            label: 'Shipping',
+            amount: selectedShippingMethod.amount
+          },
+        ]
+      }
+
+      var shippingMethods = [
+        {
+          label: 'Ground Shipping',
+          detail: 'Arrives 5-7 business days',
+          amount: '5.00',
+          identifier: 'ground'
+        },
+        {
+          label: 'Express Shipping',
+          detail: 'Arrives 2-3 business days',
+          amount: '10.00',
+          identifier: 'express'
+        }
+      ];
+
+      var paymentRequest = {
+        shippingContact: {
+          addressLines: ['1 Infinite Loop'],
+          locality: 'Cupertino',
+          administrativeArea: 'CA',
+          postalCode: '95014',
+          countryCode: 'US'
+        },
+        requiredShippingContactFields: ['postalAddress'],
+        shippingMethods: shippingMethods,
+        shippingType: 'shipping',
+        countryCode: 'US',
+        currencyCode: 'USD',
+        lineItems: buildLineItems(shippingMethods[0]),
+        total: buildTotal(shippingMethods[0])
+      };
+
+      var session = Stripe.applePay.buildSession(paymentRequest,
+        function(result, completion) {
+      });
+      session._stripeSkipTokenizationForDemo = true
+
+      session.onshippingmethodselected = function(event) {
+        session.completeShippingMethodSelection(
+          ApplePaySession.STATUS_SUCCESS,
+          buildTotal(event.shippingMethod),
+          buildLineItems(event.shippingMethod)
+        )
+      }
+
+      session.begin();
+    });
+  });
+</script>
+
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/apple-pay/web by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:47 GMT -->
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/transfers by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:56 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="ara2K6SdlzgTSRMcHSS0_SXtHDJRa1wDQAlJr_ustFbzLKJWolhTfd4NNwPRLIGGDJOStQ3HnaMBvEOHXnt-Jw==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Getting Paid</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="Getting Paid">
+    <meta property="og:url" content="transfers.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Getting Paid">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a class='selected' href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <!-- todo mv: The h2 elements below have the 'text' class on them so that Mobile Safari will weight them more highly when evaluating if the page can be displayed in Safari Reader. -->
+
+<header>
+  <h1>Getting Paid</h1>
+  <p>Learn how Stripe automatically transfers your funds to you, and what the common causes are of delayed transfers. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=transfer">common questions</a>.
+</p>
+</header>
+
+<section>
+  <dl>
+    <dt><h3>When and how do I get paid?</h3></dt>
+    <dd>
+<p>Stripe will transfer funds to your bank account based on the <a href="https://dashboard.stripe.com/account/transfers">schedule listed in your Dashboard</a>.
+For example, “Daily — 7 day rolling basis” would mean that charges processed on March 1st would be grouped together and deposited in your account on March 8th, and “Weekly (Monday) — 2 business day rolling basis” would mean that charges processed before a given Thursday will be grouped together and deposited in your account on the following Monday.</p>
+
+<p>Your transfer schedule can be <a href="https://dashboard.stripe.com/account/transfers">configured</a> to simplify your accounting. We currently offer the option for funds to be transferred daily, weekly (on a custom day of the week), or monthly (on a custom day of the month).</p>
+
+<p>You can see all transfers Stripe attempts to your bank account <a href="https://dashboard.stripe.com/transfers">on your Dashboard</a>.</p>    </dd>
+    <dt><h3>Stripe says a transfer has been submitted, but I haven't received the money in my bank account yet.  What's going on?</h3></dt>
+    <dd>
+<p>Stripe submits transfers every day, but most banks will only process the transfer on business days. This means that if Stripe sent you money on a holiday or a weekend, you will probably see the money in your bank the next day your bank is open. For transfers sent on business days, you should see the money for it by the next day.</p>
+
+<p>If the transfer was submitted on a business day and you don’t see the money in your bank account within a couple of days, this probably means the transfer failed. Banks take 3-5 business days to inform Stripe about transfers that did not go through, at which time we e-mail you about the issue and how to fix it.</p>    </dd>
+    <dt><h3>I just got a notification that a transfer to my bank account failed. What does this mean and what should I do?</h3></dt>
+    <dd>
+<p>When Stripe fails to make a transfer to you, it usually means there was an issue with the bank account that you have on file with Stripe. As a result, we also hold all pending transfers to your account until the issue with your bank account is resolved. If you <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to a valid checking account, the failed transfers will be automatically retried.  If your current account is already valid and you are not sure why the transfer failed, you should get in touch with your bank to resolve the issue and then <a href="https://dashboard.stripe.com/transfers">manually retry the failed transfers from your Dashboard</a>.</p>    </dd>
+    <dt><h3>It looks like my first transfer will arrive in seven days, but I was expecting to receive funds sooner.</h3></dt>
+    <dd>
+<p>Stripe needs to treat every user’s first transfer differently from subsequent transfers. We wait seven days after your first successful charge before sending the first electronic transfer to your bank account. Delaying your first transfer for a few extra days allows Stripe to address some of the risks that are inherent in providing credit services to our users.</p>    </dd>
+    <dt><h3>My funds are transferred on a two-business-day schedule. What counts as a business day?</h3></dt>
+    <dd>
+<p>Business days are Monday to Friday, except <a href="http://en.wikipedia.org/wiki/Federal_holidays_in_the_United_States#List_of_Federal_Holidays">U.S. federal holidays</a>.
+For example, under a two-business-day transfer schedule, payments processed on a Friday would arrive in your bank account on the following Tuesday. Similarly, payments processed on a Monday, July 3rd would arrive in your bank account on Thursday, July 6th, due to Independence Day on July 4th.</p>    </dd>
+    <dt><h3>What are common reasons a transfer can fail and what should I do to fix the problem for each case?</h3></dt>
+    <dd>
+<p>Transfers can fail for a number of reasons, but a few common issues make up the majority of transfer failures.</p>
+
+<h4 id="insufficient-funds">Insufficient funds</h4>
+<ul>
+  <li><em>What it means</em>: Your bank account did not have enough money for a negative transfer we tried to make against it.</li>
+  <li><em>What to do about it</em>: In most cases, you will simply want to add more funds to your bank account and then <a href="https://dashboard.stripe.com/transfers">retry your transfer from your Dashboard</a>.  You also have the option to <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to another checking account with enough money, and that will automatically retry the transfer.</li>
+</ul>
+
+<h4 id="account-closed">Account closed</h4>
+<ul>
+  <li><em>What it means</em>: Your bank informed us that the account associated with your bank account details was closed.</li>
+  <li><em>What to do about it</em>: You will need to <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to a valid checking account.</li>
+</ul>
+
+<h4 id="no-account">No account</h4>
+<ul>
+  <li><em>What it means</em>: No bank account could be found with the details that you have on file, so you probably misentered either your routing number or account number.</li>
+  <li><em>What to do about it</em>: You will need to <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to a valid checking account.</li>
+</ul>
+
+<h4 id="invalid-account-number">Invalid account number</h4>
+<ul>
+  <li><em>What it means</em>: Your routing number seems ok, but your bank informed us that the account number is not valid.</li>
+  <li><em>What to do about it</em>: You will need to <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to a valid checking account.</li>
+</ul>
+
+<h4 id="debit-not-authorized">Debit not authorized</h4>
+<ul>
+  <li><em>What it means</em>: Your current bank account does not allow us to make negative transfers against your bank account.</li>
+  <li><em>What to do about it</em>: You can often resolve the issue by getting in touch with your bank to make sure both credit and debit transfers are allowed on your bank account. Once you do so, you can <a href="https://dashboard.stripe.com/transfers">retry your transfer from your Dashboard</a>. Alternatively, you can <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to another checking account that allows both credit and debit transfers.</li>
+</ul>
+
+<h4 id="bank-ownership-changed">Bank ownership changed</h4>
+<ul>
+  <li><em>What it means</em>: Your bank’s branch was bought by another bank, and as a result, your account information (such as your routing number) has changed.</li>
+  <li><em>What to do about it</em>: You will probably need to <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to a valid checking account.</li>
+</ul>
+
+<h4 id="account-frozen">Account frozen</h4>
+<ul>
+  <li><em>What it means</em>: Your bank notified us that the funds in your account are currently frozen.</li>
+  <li><em>What to do about it</em>: Get in touch with your bank to figure out what the issue is. Once you’ve resolved the issue, you can <a href="https://dashboard.stripe.com/transfers">retry your transfer from your Dashboard</a>. Alternatively, you can <a href="https://dashboard.stripe.com/account/transfers">change your bank account</a> to another active checking account.</li>
+</ul>
+
+<h4 id="bank-account-restricted">Bank account restricted</h4>
+<ul>
+  <li><em>What it means</em>: Your bank notified us that your account has restrictions on either the type or number of transfers allowed. This normally indicates that you are using a savings or other non-checking account with your Stripe account.</li>
+  <li><em>What to do about it</em>: You should <a href="https://dashboard.stripe.com/account/transfers">update your bank account</a> to a valid checking account. If your current account is already a checking account, get in touch with your bank to figure out why the transfer isn’t going through and then <a href="https://dashboard.stripe.com/transfers">retry your transfer from your Dashboard</a>.</li>
+</ul>
+
+<h4 id="invalid-currency">Invalid currency</h4>
+<ul>
+  <li><em>What it means</em>: Your bank is not set up to process transfers in the given currency.</li>
+  <li><em>What to do about it</em>: In most cases, you may need to <a href="https://dashboard.stripe.com/account/transfers">change your bank account</a> to another that is set up to accept transfers in the same currency that you are processing in. Alternatively, if your bank claimed that it can process transfers in this currency, you should get in touch with them and then <a href="https://dashboard.stripe.com/transfers">retry your transfer from your Dashboard</a> once the issue is resolved.</li>
+</ul>
+
+<h4 id="could-not-process">Could not process</h4>
+<ul>
+  <li><em>What it means</em>: Something unexpected went wrong and your bank was unable to process the transfer Stripe sent them.</li>
+  <li><em>What to do about it</em>: <a href="https://support.stripe.com/email">Get in touch with us</a> or your bank to resolve the issue, and then <a href="https://dashboard.stripe.com/transfers">retry your transfer from your Dashboard</a>.</li>
+</ul>    </dd>
+  </dl>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/transfers by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:56 GMT -->
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/disputes by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="R-4bnNpup3zNfDRI27S-Xq4Uw7IcgB0LHAZcw_q97ZHedA_h3KtjOQA4EFcXvIslh2pNNUAs3Ktds1brX2on4A==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Disputes Overview</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="Disputes Overview">
+    <meta property="og:url" content="disputes.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Disputes Overview">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a class='selected' href="disputes.html">Disputes</a>
+      <ul>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Disputes Overview</h1>
+  <p>Learn what disputes are, how the process works, and how to respond should a dispute occur. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=dispute">common questions</a>.
+</p>
+</header>
+
+<section>
+<aside class="note">
+  <h3>Preventing fraud with Radar</h3>
+  <p>Some chargebacks are the result of credit card fraud. Our fraud prevention toolset, <a href="radar.html">Radar</a>, uses advanced machine learning and granular controls to help you combat fraud and prevent disputes.</p>
+</aside>
+<p>A dispute occurs when one of your customers questions your charge with their bank or credit card company. Banks usually ask customers for a reason for the dispute.</p>
+
+<p>Following the customer’s complaint, most banks tend to immediately side with the customer without additional investigation, and initiate a formal dispute. This can be pretty frustrating (and is a case of somewhat misaligned incentives), but there is a dispute resolution process, and in many cases you can prove that the charge was valid. Stripe will provide you with the dispute details, and we’ll then work with you to fight any disputes that you feel are unjustified.</p>
+
+<p>Although we’ve developed tools and a knowledgebase for fighting disputes, the best way to manage disputes is to <a href="disputes/faq.html#how-can-i-prevent-disputes">prevent them</a> from occurring in the first place.</p></section>
+
+<section>
+<h2 id="dispute-process">Dispute process</h2>
+
+<p>Once you’ve been notified of a dispute, you have a few options:</p>
+
+<ul>
+  <li>
+    <p>If you have contact details for the customer, you can get in touch with them to understand the reason for the dispute. It’s possible (maybe even likely) that the customer simply did not recognize the transaction; contacting them can often help resolve the issue quickly. If the dispute is the result of a misunderstanding, the customer can ask their bank to withdraw the dispute. Even if your customer withdraws, it’s still important to <a href="https://support.stripe.com/questions/my-customer-withdrew-the-dispute-do-i-still-need-to-provide-evidence">provide evidence</a> in the case.</p>
+  </li>
+  <li>
+    <p>You can respond to the dispute. To do this, simply visit the dispute’s page (at the URL we email you) and provide evidence appropriate for the dispute category. You can also <a href="disputes/evidence.html">submit evidence via the API</a>. We will guide you through the appropriate evidence to provide depending on the <a href="disputes/types.html">type of dispute</a>. We will submit any information you can provide to your customer’s credit card company and keep you posted afterwards.</p>
+  </li>
+  <li>
+    <p>You can accept the dispute—effectively agreeing to the bank’s refund of the transaction. You should always perform this action if you do not intend to respond and submit evidence.</p>
+  </li>
+</ul></section>
+
+<section>
+<h2 id="how-to-respond">How to respond</h2>
+
+<p>Below we’ve compiled information to help you prevent disputes, and respond to them when they do occur. Please note that we will pass along the responses you provide directly to your customer’s bank as-is and you will only get one opportunity to present your case. Your goal should be to present a clear and concise argument for why the customer’s bank should resolve the dispute in your favor.</p>
+
+<p>To overturn a dispute, you’ll want to provide evidence that fits into our typed evidence fields. These fields are specific pieces of information which are most helpful for winning a dispute. For example, if you provide a physical product, then the <code>shipping_number</code> field is very important for winning a <a href="disputes/types.html#product-not-received">product not received</a> dispute. We’ve curated the list of evidence fields so that they are the most relevant for winning disputes. However, different types of dispute require different types of evidence fields. This guide will help you figure out which fields are relevant to your specific dispute. You can find the full list of evidence fields in our <a href="api.html#dispute_evidence_object">API documentation</a>.</p>
+
+<p>You can respond to a dispute either via the Dashboard or the API. To respond in the Dashboard, you’ll need to go to the disputed charge and click on the “Respond to dispute” button. You can also view all of your disputes by going to <a href="https://dashboard.stripe.com/disputes">http://dashboard.stripe.com/disputes</a>.</p>
+
+<p>Once you’ve gotten to the dispute response page, we’ll guide through providing information that is most relevant to the particular dispute, and to the products or services that you provided. The more fields you can fill out on this page, the better your chances of overturning the dispute. If you think your product or service is a special case that doesn’t fit the fields shown on the page, you can always go to settings icon and select “All fields” which will allow you to submit evidence for all possible evidence fields.</p>
+
+<p>To respond to evidence via the API, you’ll need to update a dispute and set the particular evidence fields you’d like to respond with. You can find out more about this in our API documentation for <a href="api.html#update_dispute">updating a dispute</a>.</p></section>
+
+<section>
+<h2 id="general-evidence">General evidence</h2>
+
+<p>We recommend including the following evidence fields (if available) when responding to <em>all</em> types of disputes:</p>
+
+<ul>
+  <li><code>product_description</code>: A description of the product or service which was sold.</li>
+  <li><code>customer_name</code>: The name of the customer. This field will be automatically filled when possible.</li>
+  <li><code>customer_email_address</code>: The email address of the customer. This field will be automatically filled when possible.</li>
+  <li><code>customer_purchase_ip</code>: The IP address that the customer used when making the purchase. This field will be automatically filled when possible, and will be expanded to include geographical data before we send your evidence to the customer’s credit card company.</li>
+  <li><code>billing_address</code>: The billing address provided by the customer (if the AVS check was successful). This field will be automatically filled when possible.</li>
+  <li><code>receipt</code>: Any receipt or message sent to the customer notifying them of the charge. This field will be automatically filled with a Stripe generated email receipt if any such receipt was sent.</li>
+  <li><code>customer_signature</code>: A relevant document or contract showing the customer’s signature.</li>
+  <li><code>customer_communication</code>: Any communication with the customer that you feel is relevant to your case (for example emails proving that they received the product or service, or demonstrating their use of or satisfaction with the product or service).</li>
+</ul></section>
+
+<section>
+<h2 id="type-specific-evidence">Type-specific evidence</h2>
+
+<p>Depending on the type of dispute, there are best practices for how to respond and what kinds of evidence you should be prepared to provide. You can learn about which evidence fields are most relevant to each type on our <a href="disputes/types.html">Dispute Types page</a>.</p></section>
+
+<section>
+<h2 id="uncategorized-evidence">Uncategorized evidence</h2>
+
+<p>If you have further evidence that you feel is relevant to your case but doesn’t fit into any of the fields provided by Stripe, you can include it as <code>uncategorized_text</code> or <code>uncategorized_file</code>.</p></section>
+
+<section>
+<h2 id="inquiries-and-retrievals">Inquiries and retrievals</h2>
+
+<p>Sometimes, a cardholder’s bank may initiate a investigation into a complaint before a formal chargeback. American Express calls these “inquiries”, and Mastercard, Visa, and Discover use the term “retrieval”. Most Stripe users may never see an inquiry or retrieval, but you can <a href="https://support.stripe.com/questions/what-is-the-difference-between-a-chargeback-and-an-inquiry-or-retrieval">learn more</a> about the differences between them and disputes.</p></section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/disputes by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:43 GMT -->
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/radar/rules by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:55 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="4GrA7KNjTUQOSrKuO1fLrYY_Srr26oT0FLWOS42K8AF58NSRpaaJAcMOlrH3X_7Wr0HEPapGRVRVAIRjKF06cA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Rules</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Rules">
+    <meta property="og:url" content="rules.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Rules">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a class='selected' href="rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Rules</h1>
+  <p>Simplify your fraud operations by automating your workflows in the Dashboard. If you need help after reading this, <a href="https://support.stripe.com/email">get in touch</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+
+<p>As a Stripe user, you might have unique business logic that you’d like to implement within Stripe. For instance, you may want to:</p>
+
+<ul>
+  <li><strong><span class="rules green">Allow</span></strong> all payments from your call center’s IP address</li>
+  <li><strong><span class="rules red">Block</span></strong> payments made from a location or card issued outside your country</li>
+  <li><strong><span class="rules amber">Review</span></strong> all payments greater than $1,000 that have been made with a prepaid card</li>
+</ul>
+
+<p>Rules allow you to implement this business logic as specific actions to be taken whenever a payment matches a criteria that you define. Radar comes with some built-in rules and the ability to create more in the <a href="https://dashboard.stripe.com/fraud/rules">Dashboard</a>.</p></section>
+
+<section>
+<h2 id="built-in-rules">Built-in rules</h2>
+
+<p>Radar provides a set of default rules based on the judgments of our machine learning models, which are:</p>
+
+<p><code><strong><span class="rules red">Block</span></strong> if <span class="rules attribute">Stripe evaluates the payment</span> as <span class="rules string-value">high risk</span></code></p>
+
+<p>Payments with a high risk of fraud are blocked and not processed. This rule is enabled by default.</p>
+
+<p><code><strong><span class="rules amber">Review</span></strong> if <span class="rules attribute">Stripe evaluates the payment</span> as <span class="rules string-value">elevated risk</span></code></p>
+
+<p>By default, any payments that we suspect have an elevated risk of fraud are placed into review.</p>
+
+<h3 id="traditional-bank-checks">Traditional bank checks</h3>
+
+<p>Stripe also provides CVC and ZIP code verification as built-in rules. While you can turn on and off CVC and ZIP code verification rules, you cannot use the CVC or ZIP code to build custom rules.</p>
+
+<p><code><strong><span class="rules red">Block</span></strong> if <span class="rules attribute">CVC verification fails</span></code></p>
+
+<p>Payments that fail a bank or card issuer’s CVC verification check are blocked. If the CVC number is not provided, or the customer’s bank doesn’t support its verification, the rule cannot block the payment.</p>
+
+<p><code><strong><span class="rules red">Block</span></strong> if <span class="rules attribute">ZIP code verification fails</span></code></p>
+
+<p>Payments that fail a bank or card issuer’s ZIP code verification check are blocked. If the ZIP code is not provided, or the customer’s bank doesn’t support its verification, the rule cannot block the payment.</p></section>
+
+
+<section>
+<h2 id="knowing-when-to-create-rules">Knowing when to create rules</h2>
+
+<aside class="note">
+  <h3>Team members creating rules</h3>
+  <p>Rules can only be created by the account owner and administrators. If you need <a href="https://support.stripe.com/questions/can-i-invite-other-team-members-or-my-developer-to-use-my-stripe-account">team members</a> to create rules, check your <a href="https://dashboard.stripe.com/account/team">team settings</a> to ensure they have administrative access.</p>
+</aside>
+
+<p>Stripe’s default rules can block a substantial number of fraudulent payments. For businesses that need more control over which payments should be reviewed, allowed, or blocked, rules are a powerful tool to use.</p>
+
+<p>To help you decide whether you need rules and the exact types of rules you might implement, here are some questions to consider:</p>
+
+<ul>
+  <li>Are there certain features or user behaviors that you perceive to be more risky (e.g., use of a disposable email)?</li>
+  <li>Are there payments of a certain amount you want to manually review or perceive to be very low risk and would want to allow through (e.g., review if the payment is greater than $500, allow if the payment is less than $5)?</li>
+  <li>Do your existing disputed and refunded payments share any common patterns (e.g., similar amounts, card types, or countries)?</li>
+  <li>Do you have existing rules that you want to migrate to Stripe?  Keep in mind that many of these rules may already be covered by Stripe’s machine learning models, and it is worth seeing how our system performs for your business before customizing it.</li>
+</ul></section>
+
+<section>
+<h2 id="how-to-create-effective-rules">How to create effective rules</h2>
+
+<aside class="note">
+  <h3>Rules reference</h3>
+  <p>For more information on rules syntax, criteria, and operations, see our <a href="rules/reference.html">rules reference guide</a>.</p>
+</aside>
+
+<p>While rules can help you automate your existing workflows, they can also become detrimental to your business if used incorrectly. For example, a rule can automatically allow a large number of payments that are fraudulent or block a large number of legitimate payments.</p>
+
+<p>Some helpful tips to keep in mind while setting up rules include:</p>
+
+<ul>
+  <li>Rules only apply to future payments and do not apply to any that have already been processed</li>
+  <li>Before implementing any block rule, which would block all payments that meet its criteria, consider whether you’d rather review these payments first</li>
+  <li>Allow rules should be rarely implemented, as they override Stripe’s default rules along with any other custom rules that match the same criteria</li>
+</ul>
+
+<p>Rules are created and managed within the <a href="https://dashboard.stripe.com/fraud/rules">Dashboard</a>. To create a rule, first decide upon the action it should take, then click <strong>Add rule</strong>. You can <a href="testing.html#rules">test your rule</a> using your account’s payment history from the last six months to see what effect the rule would have before saving it.</p>
+
+<h3 id="review-rules">Review rules</h3>
+
+<p>Payments that meet a review rule’s criteria are still processed normally. They’re also placed into your <a href="https://dashboard.stripe.com/fraud">review queue</a> for your team to take a closer look at. Setting up too broad a rule can result in too many payments being placed into your review queue, slowing down your customer journey and burdening your review team.</p>
+
+<p>Stripe’s rule testing interface runs a simulation on the last six months of charges to determine how many legitimate, fraudulent, and blocked payments would have been affected by the rule, had it been implemented. While testing a rule and examining the last six months, you should ensure that:</p>
+
+<ul>
+  <li><strong>Overall volume of payments are low</strong>. Reviewing these payments should not pose a burden to your team.</li>
+  <li><strong>Human reviewers add value</strong>. A human reviewer should be able to identify if the payment was fraudulent with greater confidence than the automated system.</li>
+  <li><strong>The rule results in a mix of successful and refunded or disputed payments</strong>. This means that additional inspection on these types of payments can help separate legitimate ones from those that are fraudulent.</li>
+</ul>
+
+<p>The following is an example of how a review rule created by a business that wants to review pre-paid credit cards can be improved.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bad rule</th>
+      <th> </th>
+      <th>Better rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code><strong><span class="rules amber">Review</span></strong> if <span class="rules attribute">:card_funding:</span> = <span class="rules string-value">'prepaid'</span></code></td>
+      <td> </td>
+      <td><code><strong><span class="rules amber">Review</span></strong> if <span class="rules attribute">:is_disposable_email:</span> and <span class="rules attribute">:card_funding:</span> = <span class="rules string-value">'prepaid'</span></code></td>
+    </tr>
+    <tr>
+      <td>Too broad; results in too many reviews</td>
+      <td> </td>
+      <td>More focused; results in a smaller number of reviews</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="block-rules">Block rules</h3>
+
+<p>You can use block rules to block payments you strongly believe to be fraudulent. If you’re experiencing some uncertainty, we recommend that you place payments in review using a review rule. After spending some time reviewing these payments for potential false positives, you can confirm if you’d like to create a block rule instead.</p>
+
+<p>Block rules only impact fraudulent and successful payments, as already blocked payments would be unaffected. While testing a rule, you should ensure to:</p>
+
+<ul>
+  <li><strong>Keep false positives as low as possible</strong>. During testing, Stripe surfaces the number of successful and disputed payments that would have been matched by the rule. A good block rule results in significantly more fraudulent payments blocked than legitimate payments.</li>
+  <li><strong>Minimize unnecessary rules</strong>. If your rule appears to perform very well but is already covered by an existing rule, your newer rule may not be necessary. Similarly, if the results during testing appears to be mixed, consider setting up a review rule instead so you can gather more information about those types of payments.</li>
+</ul>
+
+<p>The following is an example of how a block rule created by a business that is suffering from a high level of fraud from payments outside the US can be improved:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bad rule</th>
+      <th> </th>
+      <th>Better rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code><strong><span class="rules red">Block</span></strong> if <span class="rules attribute">:card_country:</span> != <span class="rules string-value">'US'</span></code></td>
+      <td> </td>
+      <td><code><strong><span class="rules red">Block</span></strong> if <span class="rules attribute">:card_country:</span> != <span class="rules string-value">'US'</span> and <span class="rules attribute">:risk_level:</span> = <span class="rules string-value">'elevated'</span></code></td>
+    </tr>
+    <tr>
+      <td>Too broad; high number of legitimate payments blocked</td>
+      <td> </td>
+      <td>More focused; smaller number of false positives</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="allow-rules">Allow rules</h3>
+
+<aside class="note">
+  <h3>Allow rule availability</h3>
+  <p>The ability to create allow rules is not immediately available to all users. If you would like to enable this feature, please <a href="https://support.stripe.com/email">get in touch</a>.</p>
+</aside>
+
+<p>Allow rules override all other rules, including Stripe’s machine learning models, and should be used with the most caution. Many businesses may not need to implement allow rules. If you have concerns that an allow rule could let through even a small number of fraudulent payments, you should consider adjustments to further restrict these rules before implementing them. As allow rules override all other rules, including Stripe’s machine learning judgments, we strongly recommend that any allow rule you create still continue to block any payments we believe are likely to be fraudulent.</p>
+
+<p>Allow rules apply to all new payments once the rule has been created. This includes any that are similar to previously blocked payments. While testing a rule, you should ensure to:</p>
+
+<ul>
+  <li><strong>Examine the number of previously blocked payments that would have been allowed</strong>. Allow rules override all other rules and Stripe’s risk assessment. When testing a new allow rule, all of the payments shown would have been allowed if this rule were active. This can include payments that had been blocked or disputed, impacting your future dispute rates.</li>
+  <li><strong>Continue to block any high-risk payments</strong>. You can do this by adding the following to any allow rule:
+<code>and <span class="rules attribute">:risk_level:</span> != <span class="rules  string-value">'highest'</span></code></li>
+</ul>
+
+<p>The following is an example of how an allow rule for a business that generally (but does not always) sees good payments coming from customers in the United Kingdom can be improved:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bad rule</th>
+      <th> </th>
+      <th>Better rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code><strong><span class="rules green">Allow</span></strong> if <span class="rules attribute">:ip_country:</span> = <span class="rules string-value">'GB'</span></code></td>
+      <td> </td>
+      <td><code><strong><span class="rules green">Allow</span></strong> if <span class="rules attribute">:ip_country:</span> = <span class="rules string-value">'GB'</span> and <span class="rules attribute">:risk_level:</span> != <span class="rules string-value">'highest'</span></code></td>
+    </tr>
+    <tr>
+      <td>Allows a significant number of fraudulent payments.</td>
+      <td> </td>
+      <td>Ensures that any high risk payments continue to be blocked.</td>
+    </tr>
+  </tbody>
+</table></section>
+
+<section>
+<h2 id="maintaining-your-rules">Maintaining your rules</h2>
+
+<p>As your business continues to grow, it’s important to make sure that your rules continue to reflect the types of customers that your business would like to see. Here are some best practices to keep rules working well for you.</p>
+
+<h3 id="regularly-monitor-rules-to-ensure-they-are-still-effective">Regularly monitor rules to ensure they are still effective</h3>
+
+<p>As patterns of fraud are constantly changing, you should re-evaluate your rules regularly.
+There is continuous feedback about the effectiveness of each of your rules with a running total of how many payments it has taken action against. You can click on this total to view a filtered list of every payment that a rule has been applied to. Spending some time evaluating this information to help you decide whether to make changes to a rule, keep it as-is, or remove completely.</p>
+
+<div class="image full">
+  <p><a href="../../img/documentation/radar/rule-filter-payments.png" class="zoomable" data-width="1024" data-height="624"><img src="../../img/documentation/radar/rule-filter-payments.png" width="100%" /></a></p>
+</div>
+
+<h3 id="regularly-monitor-your-manual-review-queue">Regularly monitor your manual review queue</h3>
+
+<p>If your review queue is getting too large to manage, check to see if you have the right rules in place. If most reviews end up being refunded as fraudulent, consider some additional rules to block payments. Likewise, if most payments are simply approved, consider making your review rules more focused.</p>
+
+<h3 id="analyze-your-disputed-and-refunded-payments">Analyze your disputed and refunded payments</h3>
+
+<p><a href="../disputes.html">Disputes</a> are inherently linked to fraud, so the more you do to reduce fraud, the lower your dispute rate. You should check to see if disputed payments share any similar traits or characteristics (e.g., from the same locations or of similar amounts). You can also perform this investigation looking at payments that have been refunded during a review. Once you’ve seen trends, you can test and create the appropriate rules.</p>
+
+<h3 id="anticipate-large-changes-to-your-business-that-might-impact-your-fraud-rate">Anticipate large changes to your business that might impact your fraud rate</h3>
+
+<p>If you are planning any major product releases or changes to your service (e.g., a new, high-value product or expanding your service into new countries) then you may want to pay special attention to these specific payments. For changes like these, it’s a good idea to set up some review rules so your team can take a closer look at these new transactions. After spending some time reviewing these payments, you can identify any new patterns with which to set up subsequent rules that further protect your business from new types of fraud.</p></section>
+
+<section>
+<h2>Next steps</h2>
+<ul class="next-steps">
+    <li><a href="rules/reference.html"><span>Rules Reference</a></li>
+</ul>
+</section>
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/radar/rules by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:56 GMT -->
+</html>

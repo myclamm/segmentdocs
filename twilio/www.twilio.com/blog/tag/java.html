@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/tag/java by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_e1bf36b4de50088bdd3584484458b2d1.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Java &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<link rel="canonical" href="https://www.twilio.com/blog/tag/java" />
+<link rel="next" href="https://www.twilio.com/blog/tag/java/page/2" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Java Tag Feed" href="https://www.twilio.com/blog/tag/java/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="archive tag tag-java tag-598 group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			<header class="page-header">
+				<h1 class="page-title">Tag: Java</h1>			</header><!-- .page-header -->
+
+						
+				
+<article id="post-18987" class="row post-18987 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-java">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2016/10/next-generation-java-helper-library-release.html" rel="bookmark">Next Generation Java Helper Library Release</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="200" src="https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-14-at-8.53.58-AM.png" class="img-responsive wp-post-image" alt="Java Helper Library" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-14-at-8.53.58-AM.png 698w, https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-14-at-8.53.58-AM-300x94.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/10/Screen-Shot-2016-10-14-at-8.53.58-AM-200x62.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Today, we are excited to announce the general availability of our next generation Java helper library.  Get ready to enjoy a whole new level of productivity. The approach Java is the second next generation helper library that we are releasing, after announcing the new PHP library last month. We’ve rebuilt it from the ground up based on your and your fellow Java developers’ feedback. To learn&#8230; <a class="read-more" href="https://www.twilio.com/blog/2016/10/next-generation-java-helper-library-release.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/dtheurer">Dan Theurer</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/10/next-generation-java-helper-library-release.html" rel="bookmark"><time class="entry-date published" datetime="2016-10-14T13:45:46+00:00">October 14, 2016</time><time class="updated" datetime="2016-10-18T21:08:19+00:00">October 18, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/10/next-generation-java-helper-library-release.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/10/next-generation-java-helper-library-release.html" data-text="Next Generation Java Helper Library Release ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-18540" class="row post-18540 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-android tag-android-database tag-cross-platform-database tag-java tag-realm tag-sqlite">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2016/08/exploring-the-vastness-of-the-realm-a-cross-platform-mobile-database.html" rel="bookmark">Exploring the vastness of the Realm, a cross-platform mobile database</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="320" src="https://www.twilio.com/blog/wp-content/uploads/2016/08/H_dJY48ao0Rdvt9WElZz9ej36jhUWnnkHzr51pdiDe_c-a-Htrr4ov5QgQ72KLTuhy01F92BME1BBx2Wa59MlXg0u7ty6_FSlPzVSRPLOHy82LENnkc00t4uCXTb7WUqXmJmBzt4.png" class="img-responsive wp-post-image" alt="H_dJY48ao0Rdvt9WElZz9ej36jhUWnnkHzr51pdiDe_c-a-Htrr4ov5QgQ72KLTuhy01F92BME1BBx2Wa59MlXg0u7ty6_FSlPzVSRPLOHy82LENnkc00t4uCXTb7WUqXmJmBzt4" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/08/H_dJY48ao0Rdvt9WElZz9ej36jhUWnnkHzr51pdiDe_c-a-Htrr4ov5QgQ72KLTuhy01F92BME1BBx2Wa59MlXg0u7ty6_FSlPzVSRPLOHy82LENnkc00t4uCXTb7WUqXmJmBzt4.png 640w, https://www.twilio.com/blog/wp-content/uploads/2016/08/H_dJY48ao0Rdvt9WElZz9ej36jhUWnnkHzr51pdiDe_c-a-Htrr4ov5QgQ72KLTuhy01F92BME1BBx2Wa59MlXg0u7ty6_FSlPzVSRPLOHy82LENnkc00t4uCXTb7WUqXmJmBzt4-300x150.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/08/H_dJY48ao0Rdvt9WElZz9ej36jhUWnnkHzr51pdiDe_c-a-Htrr4ov5QgQ72KLTuhy01F92BME1BBx2Wa59MlXg0u7ty6_FSlPzVSRPLOHy82LENnkc00t4uCXTb7WUqXmJmBzt4-200x100.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>If you’re an Android developer chances are you’ve used SQLite for internal storage in your mobile apps and know how painful it is to set it up. Realm is a cross-platform mobile database engine that aims to provide developers with a mobile-first engine, super powered with fluent interfaces and field annotations. Here’s an example of how easy it is to use: </p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-5879484627451993478184" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Java</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+public class Note extends RealmObject {
+    public String mText
+}
+Note note = new Note(); note.mText = "My awesome note";
+
+Realm realm = Realm.getDefaultInstance();
+realm.beginTransaction();
+realm.copyToRealm(note)
+realm.commitTransaction();</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-5879484627451993478184-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879484627451993478184-2">2</div><div class="crayon-num" data-line="crayon-5879484627451993478184-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879484627451993478184-4">4</div><div class="crayon-num" data-line="crayon-5879484627451993478184-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879484627451993478184-6">6</div><div class="crayon-num" data-line="crayon-5879484627451993478184-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5879484627451993478184-8">8</div><div class="crayon-num" data-line="crayon-5879484627451993478184-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-5879484627451993478184-1"><span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">class</span><span class="crayon-h"> </span><span class="crayon-e">Note</span><span class="crayon-h"> </span><span class="crayon-r">extends</span><span class="crayon-h"> </span><span class="crayon-e">RealmObject</span><span class="crayon-h"> </span><span class="crayon-sy">{</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879484627451993478184-2"><span class="crayon-h"> </span> <span class="crayon-h"> </span> <span class="crayon-m">public</span><span class="crayon-h"> </span><span class="crayon-t">String</span><span class="crayon-h"> </span><span class="crayon-i">mText</span></div><div class="crayon-line" id="crayon-5879484627451993478184-3"><span class="crayon-sy">}</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879484627451993478184-4"><span class="crayon-e">Note </span><span class="crayon-v">note</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-e">Note</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">note</span><span class="crayon-sy">.</span><span class="crayon-v">mText</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-s">"My awesome note"</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5879484627451993478184-5">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5879484627451993478184-6"><span class="crayon-e">Realm </span><span class="crayon-v">realm</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">Realm</span><span class="crayon-sy">.</span><span class="crayon-e">getDefaultInstance</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5879484627451993478184-7"><span class="crayon-v">realm</span><span class="crayon-sy">.</span><span class="crayon-e">beginTransaction</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5879484627451993478184-8"><span class="crayon-v">realm</span><span class="crayon-sy">.</span><span class="crayon-e">copyToRealm</span><span class="crayon-sy">(</span><span class="crayon-i">note</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5879484627451993478184-9"><span class="crayon-v">realm</span><span class="crayon-sy">.</span><span class="crayon-e">commitTransaction</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0045 seconds] -->
+<p> Let’s look at how to build an&#8230; <a class="read-more" href="https://www.twilio.com/blog/2016/08/exploring-the-vastness-of-the-realm-a-cross-platform-mobile-database.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/marcos">Marcos Placona</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/08/exploring-the-vastness-of-the-realm-a-cross-platform-mobile-database.html" rel="bookmark"><time class="entry-date published" datetime="2016-08-10T09:57:48+00:00">August 10, 2016</time><time class="updated" datetime="2016-08-11T07:39:35+00:00">August 11, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/08/exploring-the-vastness-of-the-realm-a-cross-platform-mobile-database.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/08/exploring-the-vastness-of-the-realm-a-cross-platform-mobile-database.html" data-text="Exploring the vastness of the Realm, a cross-platform mobile database ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-17698" class="row post-17698 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code category-news tag-android tag-c tag-end-to-end-encryption tag-ip-messaging tag-java tag-javascript tag-node-js tag-objective-c tag-security tag-swift tag-twilio-partner tag-virgil">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2016/05/introducing-end-to-end-encryption-for-twilio-ip-messaging-with-virgil-security.html" rel="bookmark">Introducing End-to-end Encryption for Twilio IP Messaging with Virgil Security℠</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="265" src="https://www.twilio.com/blog/wp-content/uploads/2016/05/image01-1024x424.jpg" class="img-responsive wp-post-image" alt="image01" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/05/image01.jpg 1024w, https://www.twilio.com/blog/wp-content/uploads/2016/05/image01-300x124.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/05/image01-200x83.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Software developers have a love-hate relationship with security, especially when shipping their product is concerned. All too often security is bolted on at the last minute or not at all. End-to-end encryption is particularly difficult to properly build and integrate into an application. Twilio is partnering with Virgil Security to make building end-to-end encrypted applications a breeze with Twilio IP Messaging and Virgil Crypto SDK and&#8230; <a class="read-more" href="https://www.twilio.com/blog/2016/05/introducing-end-to-end-encryption-for-twilio-ip-messaging-with-virgil-security.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/bchia">Billy Chia</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/05/introducing-end-to-end-encryption-for-twilio-ip-messaging-with-virgil-security.html" rel="bookmark"><time class="entry-date published" datetime="2016-05-03T08:00:52+00:00">May 3, 2016</time><time class="updated" datetime="2016-05-02T23:46:21+00:00">May 2, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/05/introducing-end-to-end-encryption-for-twilio-ip-messaging-with-virgil-security.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/05/introducing-end-to-end-encryption-for-twilio-ip-messaging-with-virgil-security.html" data-text="Introducing End-to-end Encryption for Twilio IP Messaging with Virgil Security℠ ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-17380" class="row post-17380 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-android-library tag-android-studio tag-gradle tag-java">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2016/03/building-native-android-libraries-with-the-latest-experimental-android-plugin.html" rel="bookmark">Building Native Android Libraries with the Latest Experimental Android Plugin</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="289" src="https://www.twilio.com/blog/wp-content/uploads/2016/03/GradleAndroidStudio.png" class="img-responsive wp-post-image" alt="GradleAndroidStudio" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/03/GradleAndroidStudio.png 791w, https://www.twilio.com/blog/wp-content/uploads/2016/03/GradleAndroidStudio-300x135.png 300w, https://www.twilio.com/blog/wp-content/uploads/2016/03/GradleAndroidStudio-200x90.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>A major challenge we have faced with NDK development on our Android Video SDK is integrating with the prescribed Android Studio Gradle-based workflow. Our primary issue is debugging native components inside of an Android library. The latest updates to Android Studio and the Android Gradle Plugin indicate that Google is investing in improving the developer experience for native development on Android and ensuring that it has&#8230; <a class="read-more" href="https://www.twilio.com/blog/2016/03/building-native-android-libraries-with-the-latest-experimental-android-plugin.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/aaron-alaniz">Aaron Alaniz</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/03/building-native-android-libraries-with-the-latest-experimental-android-plugin.html" rel="bookmark"><time class="entry-date published" datetime="2016-03-31T08:55:20+00:00">March 31, 2016</time><time class="updated" datetime="2016-03-30T16:47:52+00:00">March 30, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/03/building-native-android-libraries-with-the-latest-experimental-android-plugin.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/03/building-native-android-libraries-with-the-latest-experimental-android-plugin.html" data-text="Building Native Android Libraries with the Latest Experimental Android Plugin ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-17159" class="row post-17159 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-java tag-voice tag-yext">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2016/03/building-a-phone-verification-system-with-twilio-voice-java-and-yext.html" rel="bookmark">Building A Phone Verification System With Twilio Voice, Java, and Yext</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="473" src="https://www.twilio.com/blog/wp-content/uploads/2016/03/f1.jpg" class="img-responsive wp-post-image" alt="f1" srcset="https://www.twilio.com/blog/wp-content/uploads/2016/03/f1.jpg 650w, https://www.twilio.com/blog/wp-content/uploads/2016/03/f1-300x222.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2016/03/f1-200x148.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Pull on the thread of user verification options and it will unravel. You’ll be on page 51 of your Google Search when you realize your looking at a user verification platform that wants to you verify your account so it can verify users while you verify users. It’s an Xibit meme feedback loop. The folks at Yext kept their user verification simple. They used the Twilio&#8230; <a class="read-more" href="https://www.twilio.com/blog/2016/03/building-a-phone-verification-system-with-twilio-voice-java-and-yext.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/kyleky">Kyle Kelly-Yahner</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2016/03/building-a-phone-verification-system-with-twilio-voice-java-and-yext.html" rel="bookmark"><time class="entry-date published" datetime="2016-03-03T09:00:30+00:00">March 3, 2016</time><time class="updated" datetime="2016-03-02T18:47:46+00:00">March 2, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2016/03/building-a-phone-verification-system-with-twilio-voice-java-and-yext.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2016/03/building-a-phone-verification-system-with-twilio-voice-java-and-yext.html" data-text="Building A Phone Verification System With Twilio Voice, Java, and Yext ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-16430" class="row post-16430 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-java">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2015/11/getting-started-with-spring-mvc-and-twilio.html" rel="bookmark">Getting started with Spring MVC and Twilio</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="263" src="https://www.twilio.com/blog/wp-content/uploads/2015/11/lWxHMVwGT8XIPE25ZnmpDuX9mTlUaP1uE1yFFNBBuCF4Eqz5cylTnEVcwLte6nPMliVxDFMS9ZoXUgpMxi9pDuC-ALsz4l3vBbpVXU2xELAWYf0H8OT30Wro82kM7EZKg_Mcm1bH.png" class="img-responsive wp-post-image" alt="Getting Started with Spring MVC and Twilio" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/11/lWxHMVwGT8XIPE25ZnmpDuX9mTlUaP1uE1yFFNBBuCF4Eqz5cylTnEVcwLte6nPMliVxDFMS9ZoXUgpMxi9pDuC-ALsz4l3vBbpVXU2xELAWYf0H8OT30Wro82kM7EZKg_Mcm1bH.png 645w, https://www.twilio.com/blog/wp-content/uploads/2015/11/lWxHMVwGT8XIPE25ZnmpDuX9mTlUaP1uE1yFFNBBuCF4Eqz5cylTnEVcwLte6nPMliVxDFMS9ZoXUgpMxi9pDuC-ALsz4l3vBbpVXU2xELAWYf0H8OT30Wro82kM7EZKg_Mcm1bH-300x123.png 300w, https://www.twilio.com/blog/wp-content/uploads/2015/11/lWxHMVwGT8XIPE25ZnmpDuX9mTlUaP1uE1yFFNBBuCF4Eqz5cylTnEVcwLte6nPMliVxDFMS9ZoXUgpMxi9pDuC-ALsz4l3vBbpVXU2xELAWYf0H8OT30Wro82kM7EZKg_Mcm1bH-200x82.png 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>In this tutorial we will take a very beginner look at Spring MVC and use it build a ‘Hello World’ style application. We will then take that what we’ve built and turn it into a SMS sending and voice calling application using theTwilio REST API. Spring MVC is a framework built on top of Java servlets that provides the components needed to build web applications using the model-view-controller&#8230; <a class="read-more" href="https://www.twilio.com/blog/2015/11/getting-started-with-spring-mvc-and-twilio.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/chranj">Chris Hranj</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/11/getting-started-with-spring-mvc-and-twilio.html" rel="bookmark"><time class="entry-date published" datetime="2015-11-13T13:48:07+00:00">November 13, 2015</time><time class="updated" datetime="2016-07-25T10:06:20+00:00">July 25, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/11/getting-started-with-spring-mvc-and-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/11/getting-started-with-spring-mvc-and-twilio.html" data-text="Getting started with Spring MVC and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-16178" class="row post-16178 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-java tag-sms tag-tomcat tag-voice">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" rel="bookmark">Create a Standalone Voicemail Using Java and Twilio</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="263" src="https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java.jpg" class="img-responsive wp-post-image" alt="" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java.jpg 645w, https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java-300x123.jpg 300w, https://www.twilio.com/blog/wp-content/uploads/2015/10/twilio_java-200x82.jpg 200w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Why is receiving voicemails still such a pain in 2015? With landlines you need to deal with overpriced and outdated hardware. On mobile phones you need to call a number, enter a password, and sift through the voicemails until you reach the one you want. Wouldn’t it be easier to just receive a text message to listen to a new voicemail? Fortunately, Twilio plus a little&#8230; <a class="read-more" href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/chranj">Chris Hranj</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" rel="bookmark"><time class="entry-date published" datetime="2015-10-16T09:00:05+00:00">October 16, 2015</time><time class="updated" datetime="2015-10-16T04:49:57+00:00">October 16, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/10/create-a-standalone-voicemail-using-java-and-twilio.html" data-text="Create a Standalone Voicemail Using Java and Twilio ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-15896" class="row post-15896 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-gradle tag-java tag-spark tag-twilio tag-voice">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2015/09/getting-started-with-gradle-and-the-spark-framework-3.html" rel="bookmark">Getting Started with Gradle and the Spark Framework</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="265" src="https://www.twilio.com/blog/wp-content/uploads/2015/09/sparkheader.png" class="img-responsive wp-post-image" alt="Spark and Gradle" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/09/sparkheader.png 640w, https://www.twilio.com/blog/wp-content/uploads/2015/09/sparkheader-300x124.png 300w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>One of the worst phrases I hear at student hackathons is “I can’t build a cool web app because I only know Java”. I see two solutions to this dilemma. We can either agree to hunker down and get started learning Ruby or Python or we can embrace existing knowledge and dissolve this misconception. Even a veteran might not associate Java with quickly spinning up a&#8230; <a class="read-more" href="https://www.twilio.com/blog/2015/09/getting-started-with-gradle-and-the-spark-framework-3.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/eddiez">Eddie Zaneski</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/09/getting-started-with-gradle-and-the-spark-framework-3.html" rel="bookmark"><time class="entry-date published" datetime="2015-09-03T10:49:20+00:00">September 3, 2015</time><time class="updated" datetime="2016-07-21T15:01:39+00:00">July 21, 2016</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/09/getting-started-with-gradle-and-the-spark-framework-3.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/09/getting-started-with-gradle-and-the-spark-framework-3.html" data-text="Getting Started with Gradle and the Spark Framework ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			
+				
+<article id="post-15742" class="row post-15742 post type-post status-publish format-standard has-post-thumbnail hentry category-all-things-code tag-how-to-warm-transfer-a-call-with-java-and-twilio tag-java tag-java-twilio tag-twilio-voice tag-voice tag-warm-transfer">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title"><a href="https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html" rel="bookmark">How to Warm Transfer a Call with Java and Twilio Voice</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+				<div class="col-md-12">
+                      <div class="entry-image col-md-12">
+              <img width="640" height="263" src="https://www.twilio.com/blog/wp-content/uploads/2015/08/warm-transferes-java2.png" class="img-responsive wp-post-image" alt="warm-transferes-java2" srcset="https://www.twilio.com/blog/wp-content/uploads/2015/08/warm-transferes-java2.png 645w, https://www.twilio.com/blog/wp-content/uploads/2015/08/warm-transferes-java2-300x123.png 300w" sizes="(max-width: 640px) 100vw, 640px" />            </div>
+					
+					<p>Calling into customer support or similar support lines can lead to some not so great experiences. Often times I find myself being tossed back and forth between different agents with no context of who I am talking to and when I am being transferred. These kinds of calls feel a lot like this: A better way for agents to handle incoming callers is to use a&#8230; <a class="read-more" href="https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html">Read More</a></p>
+
+									</div>
+			</div>
+		</div><!-- .entry-content -->
+
+		<footer class="entry-footer col-md-12">
+							<div class="entry-meta">
+						<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/chranj">Chris Hranj</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html" rel="bookmark"><time class="entry-date published" datetime="2015-08-19T12:00:28+00:00">August 19, 2015</time><time class="updated" datetime="2015-10-07T08:55:44+00:00">October 7, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2015/08/how-to-warm-transfer-a-call-with-java-and-twilio-voice.html" data-text="How to Warm Transfer a Call with Java and Twilio Voice ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+				</div><!-- .entry-meta -->
+					</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+			    <script type="text/javascript">
+    // <![CDATA[
+        var disqus_shortname = 'twilioblog';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + 'disqus.com/forums/' + disqus_shortname + '/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    //]]>
+    </script>
+
+			
+	<nav class="navigation posts-navigation" role="navigation">
+		<h2 class="screen-reader-text">Posts navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://www.twilio.com/blog/tag/java/page/2" >Older posts</a></div></div>
+	</nav>
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_691d8e4f13b7c95b73244635d6d4e5fa.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/tag/java by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:53 GMT -->
+</html>

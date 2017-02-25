@@ -1,0 +1,137 @@
+@font-face {
+    font-family: twilio;
+    src: url("../fonts/twilio.aeeedd1080f62048.eot?v=1.5");
+    src: url("../fonts/twilio.aeeedd1080f6d41d.eot?#iefix&v=1.5") format('embedded-opentype'), url("../fonts/twilio.3c2268d38cb22048.html?v=1.5") format('woff'), url("../fonts/twilio.6c7ea5a0cabe2048.html?v=1.5") format('truetype'), url("../fonts/twilio.bad9ff4bf4432048.svg?v=1.5") format('svg');
+    font-weight: 400;
+    font-style: normal
+}
+[class*=icon-twilio-]:before {
+    display: inline-block;
+    font-family: twilio;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+.icon-twilio-home:before {
+    content: '\0041'
+}
+.icon-twilio-more:before {
+    content: '\0042'
+}
+.icon-twilio-authy:before {
+    content: '\0043'
+}
+.icon-twilio-dev-tools:before {
+    content: '\0044'
+}
+.icon-twilio-ip-messaging:before {
+    content: '\0045'
+}
+.icon-twilio-messaging:before {
+    content: '\0046'
+}
+.icon-twilio-sms-mms:before {
+    content: '\0046'
+}
+.icon-twilio-phone-numbers:before {
+    content: '\0047'
+}
+.icon-twilio-sip-trunking:before {
+    content: '\0048'
+}
+.icon-twilio-support:before {
+    content: '\0049'
+}
+.icon-twilio-taskrouter:before {
+    content: '\004a'
+}
+.icon-twilio-video:before {
+    content: '\004b'
+}
+.icon-twilio-voice:before {
+    content: '\004c'
+}
+.icon-twilio-logo:before {
+    content: '\004d'
+}
+.icon-twilio-add-ons:before {
+    content: '\004e'
+}
+.icon-twilio-notify:before {
+    content: '\004f'
+}
+.icon-twilio-wireless:before {
+    content: '\0050'
+}
+.icon-twilio-lookup:before {
+    content: '\0051'
+}
+.icon-twilio-debugger:before {
+    content: '\0052'
+}
+.icon-twilio-checkbox-checked:before {
+    content: '\0053'
+}
+.icon-twilio-checkbox-multi:before {
+    content: '\0054'
+}
+.icon-twilio-checkbox-unchecked:before {
+    content: '\0055'
+}
+.icon-twilio-close:before {
+    content: '\0056'
+}
+.icon-twilio-collapsed:before {
+    content: '\0057'
+}
+.icon-twilio-docs:before {
+    content: '\0058'
+}
+.icon-twilio-download:before {
+    content: '\0059'
+}
+.icon-twilio-dropdown:before {
+    content: '\005a'
+}
+.icon-twilio-voice-enabled:before {
+    content: '\0061'
+}
+.icon-twilio-external-link:before {
+    content: '\0062'
+}
+.icon-twilio-help:before {
+    content: '\0063'
+}
+.icon-twilio-hide:before {
+    content: '\0064'
+}
+.icon-twilio-view:before {
+    content: '\0065'
+}
+.icon-twilio-mms-enabled:before {
+    content: '\0066'
+}
+.icon-twilio-plus-button:before {
+    content: '\0067'
+}
+.icon-twilio-sms-enabled:before {
+    content: '\0068'
+}
+.icon-twilio-success:before {
+    content: '\0069';
+    color: #388E3C
+}
+.icon-twilio-error:before {
+    content: '\006a';
+    color: #dd2c00
+}
+.icon-twilio-information:before {
+    content: '\006a';
+    color: #008CFF
+}
+.icon-twilio-warning:before {
+    content: '\006a';
+    color: #FFD600
+}

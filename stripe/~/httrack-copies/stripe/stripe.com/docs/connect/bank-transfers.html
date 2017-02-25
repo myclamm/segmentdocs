@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/connect/bank-transfers by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="R5uUxpV_rYHsXGUBKXXLlUHJF_JkAfzFu5-36yweCObeAYC7k7ppxCEYQR7lff7uaLeZdTitPWX6Kr3DicnClw==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Controlling Bank and Debit Card Transfers</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Controlling Bank and Debit Card Transfers">
+    <meta property="og:url" content="bank-transfers.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Controlling Bank and Debit Card Transfers">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a class='selected' href="bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Controlling Bank and Debit Card Transfers</h1>
+  <p>Stripe allows platforms to entirely control the transfers for its Managed Accounts. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=connect+transfers">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+<aside class="note">
+  <h3>Managed vs. Standalone Accounts</h3>
+  <p>This guide applies solely to <em>managed</em> accounts, where you are responsible for all communication and interaction with the account holder.</p>
+  <p>If you’d like to connect to an existing Stripe account, or have Stripe handle details like identity document collection, take a look at <a href="standalone-accounts.html">Standalone Accounts</a>.</p>
+</aside>
+
+<p>By default, any charge you make on behalf of a connected account accumulates in the connected account’s Stripe balance and is paid out on a daily rolling basis. However, Stripe offers fine-grained control over this behavior for Managed Accounts.</p>
+
+<p>You can:</p>
+
+<ul>
+  <li>Set the destination <a href="#bank-accounts">bank accounts and debit cards</a></li>
+  <li>Control <a href="#payout-information">how frequently</a> funds are automatically paid out</li>
+  <li>Perform <a href="#using-manual-transfers">manual transfers</a></li>
+  <li>Send funds <a href="#instant-payouts">instantly</a></li>
+  <li>Dictate how Stripe handles accounts with <a href="#negative-balances">negative balances</a></li>
+</ul></section>
+
+<section>
+<h2 id="bank-accounts">Managing bank accounts and debit cards</h2>
+
+<p>Managed Accounts have an <code>external_accounts</code> property: a list of all bank accounts and debit cards associated with the Stripe account. Any external account is a possible destination for funds.</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  ...
+  &quot;external_accounts&quot;: {
+    &quot;object&quot;: &quot;list&quot;,
+    &quot;total_count&quot;: 3,
+    &quot;has_more&quot;: false,
+    &quot;url&quot;: &quot;/v1/accounts/acct_14qyt6Alijdnw0EA/external_accounts&quot;,
+    &quot;data&quot;: [
+      {
+        &quot;id&quot;: &quot;ba_18u1IUJ6m0aiknMBHFQaTWOj&quot;,
+        &quot;object&quot;: &quot;bank_account&quot;,
+        &quot;account&quot;: &quot;acct_18rsqhJ6m0aiknMB&quot;,
+        &quot;account_holder_name&quot;: &quot;Jane Austen&quot;,
+        &quot;account_holder_type&quot;: &quot;individual&quot;,
+        &quot;bank_name&quot;: &quot;STRIPE TEST BANK&quot;,
+        &quot;country&quot;: &quot;US&quot;,
+        &quot;currency&quot;: &quot;usd&quot;,
+        &quot;default_for_currency&quot;: false,
+        &quot;fingerprint&quot;: &quot;sSZ2yLp0EZTH17cF&quot;,
+        &quot;last4&quot;: &quot;6789&quot;,
+        &quot;metadata&quot;: {
+        },
+        &quot;routing_number&quot;: &quot;110000000&quot;,
+        &quot;status&quot;: &quot;new&quot;
+      },
+      {...},
+      {...},
+    ],
+  ...
+}</code></pre>
+</div>
+
+<p>Destination accounts are added via the <code>external_accounts</code> parameter when <a href="managed-accounts.html#creating-a-managed-account">creating</a> or <a href="updating-accounts.html">updating</a> Stripe accounts. The value should be a bank account or debit card token returned from <a href="../stripe.html#collecting-bank-account-details">Stripe.js</a>. Alternatively, you can provide a hash of the bank account details, but using Stripe.js is preferred as it prevents sensitive data from hitting your server.</p>
+
+<p>When using debit cards as a transfer destination, the following restrictions apply:</p>
+
+<ul>
+  <li>Must be a non-prepaid US Visa or Mastercard</li>
+  <li>Limited to $9,999 (USD) per transfer on <a href="#instant-payouts">Instant Payouts</a></li>
+  <li>Generally limited to $3,000 (USD) per transfer otherwise</li>
+</ul>
+</section>
+
+<section>
+<h2 id="multiple-accounts">Managing multiple bank and debit accounts</h2>
+
+<p>By default, providing a new value for <code>external_accounts</code> while updating a managed account <em>replaces</em> the existing account with the new one. To <em>add</em> additional bank accounts or debit cards to a connected account, use the <a href="../api.html#account_create_bank_account">Bank Account</a> and <a href="../api.html#account_create_card">Card</a> creation API endpoints.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/accounts/CONNECTED_STRIPE_ACCOUNT_ID/external_accounts \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d external_account=btok_9CUINZPUJnubtQ
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+account = Stripe::Account.retrieve(CONNECTED_STRIPE_ACCOUNT_ID)
+account.external_accounts.create(:external_account =&gt; &quot;btok_9CUUxVXui4TQyJ&quot;)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+account = stripe.Account.retrieve(CONNECTED_STRIPE_ACCOUNT_ID)
+account.external_accounts.create(external_account=&quot;btok_9CUY3ZiKZEHSlb&quot;)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+$account = \Stripe\Account::retrieve(CONNECTED_STRIPE_ACCOUNT_ID);
+$account-&gt;external_accounts-&gt;create(array(
+    &quot;external_account&quot; =&gt; &quot;btok_9CUINZPUJnubtQ&quot;,
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+Account account = Account.retrieve(CONNECTED_STRIPE_ACCOUNT_ID, null);
+Map&lt;String, Object&gt; params = new HashMap&lt;String, Object&gt;();
+params.put(&quot;external_account&quot;, &quot;btok_9CUaZTAdbT4G5z&quot;);
+account.getExternalAccounts().create(params);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&#39;stripe&#39;)(PLATFORM_SECRET_KEY);
+stripe.accounts.createExternalAccount(
+  CONNECTED_STRIPE_ACCOUNT_ID,
+  {external_account: &quot;btok_9CUYdoUSROb2yg&quot;}
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>When working with multiple currencies, Stripe automatically sends transfers to an associated bank account or debit card for its currency, thereby avoiding exchange fees. When there are multiple accounts available for a given currency, Stripe uses the one set as <code>default_for_currency</code>.</p>
+
+<p>Stripe maintains a list of <a href="required-verification-information.html">available country/currency combinations</a> for your reference and to help your users choose from the supported options.</p></section>
+
+<section>
+<h2 id="payout-information">Payout information</h2>
+
+<p>When using automatic transfers, the <code>transfer_schedule</code> property on an account indicates how often the Stripe account’s balance is automatically paid out:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  ...
+  &quot;transfer_schedule&quot;: {
+    &quot;delay_days&quot;: 7,
+    &quot;interval&quot;: &quot;daily&quot;
+  },
+  ...
+}</code></pre>
+</div>
+
+<p>The <code>delay_days</code> property reflects how long it takes charges (or linked transfers) to become available for payout. This field is useful for controlling automatic payouts. For example, if you want your Managed Accounts to receive their funds 2 weeks after the charge is made, set <code>interval</code> to <code>daily</code> and <code>delay_days</code> to <strong>14</strong>. The default is the lowest permitted value for the account, determined by the connected account’s country. When setting or updating this field, you may pass the string <strong>minimum</strong> to choose the lowest permitted value.</p>
+
+<p>There are four possible settings for the <code>interval</code> property:</p>
+
+<ul>
+  <li><strong>manual</strong> prevents automatic payouts. You will have to manually pay out the account’s balance using the <a href="../api.html#create_transfer">Transfers API</a> (acting as the connected account). Also set an account to <code>manual</code> to use <a href="#instant-payouts">Instant Payouts</a>.</li>
+  <li><strong>daily</strong> automatically pays out charges <code>delay_days</code> days after they’re created. The <code>delay_days</code> value cannot be less than your own transfer schedule or less than the default transfer schedule for the account.</li>
+  <li><strong>weekly</strong> automatically pays out the balance once a week, specified by the <code>weekly_anchor</code> parameter (a lower-case weekday such as <strong>monday</strong>).</li>
+  <li><strong>monthly</strong> automatically pays out the balance once a month, specified by the <code>monthly_anchor</code> parameter (a number from 1 to 31).</li>
+</ul></section>
+
+<section>
+<h2 id="using-manual-transfers">Using manual transfers</h2>
+
+<p>If you set <code>transfer_schedule[interval]</code> to <code>manual</code> using the <a href="../api.html#account_object-transfer_schedule">Accounts API</a>, Stripe will hold funds in the account holder’s balance until told to pay them out (or until a maximum of 30 days have passed). To trigger a payout of these funds, use the <a href="../api.html#create_transfer">Transfers API</a>.</p>
+
+<p>The Transfers API is only for moving funds from a connected Stripe account’s balance into their external account. To move funds between Stripe accounts, see <a href="special-case-transfers.html">special-case transfers</a> or <a href="payments-fees.html#charging-through-the-platform">charging through the platform</a>.</p>
+
+<h3 id="standard-transfers">Standard transfers</h3>
+
+<p>As a basic transfer example, to have $10 sent from a managed account’s Stripe balance to their external account:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/transfers \
+   -u {PLATFORM_SECRET_KEY}: \
+   -H &quot;Stripe-Account: {CONNECTED_STRIPE_ACCOUNT_ID}&quot; \
+   -d amount=1000 \
+   -d currency=usd \
+   -d destination=default_for_currency
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+Stripe::Transfer.create(
+  {
+    :amount =&gt; 1000,
+    :currency =&gt; &quot;usd&quot;,
+    :destination =&gt; &quot;default_for_currency&quot;
+  },
+  {:stripe_account =&gt; CONNECTED_STRIPE_ACCOUNT_ID}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+stripe.Transfer.create(
+  amount=1000,
+  currency=&quot;usd&quot;,
+  destination=&quot;default_for_currency&quot;,
+  stripe_account=CONNECTED_STRIPE_ACCOUNT_ID
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+\Stripe\Transfer::create(
+  array(
+    &quot;amount&quot; =&gt; 1000,
+    &quot;currency&quot; =&gt; &quot;usd&quot;,
+    &quot;destination&quot; =&gt; &quot;default_for_currency&quot;
+  ),
+  array(&quot;stripe_account&quot; =&gt; CONNECTED_STRIPE_ACCOUNT_ID)
+);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(CONNECTED_STRIPE_ACCOUNT_ID).build();
+
+Map&lt;String, Object&gt; transferParams = new HashMap&lt;String, Object&gt;();
+transferParams.put(&quot;amount&quot;, 1000);
+transferParams.put(&quot;currency&quot;, &quot;usd&quot;);
+transferParams.put(&quot;destination&quot;, &quot;default_for_currency&quot;);
+
+Transfer.create(transferParams, requestOptions);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&#39;stripe&#39;)(PLATFORM_SECRET_KEY);
+stripe.transfers.create(
+  {
+    amount: 1000,
+    currency: &quot;usd&quot;,
+    destination: &quot;default_for_currency&quot;
+  },
+  {stripe_account: CONNECTED_STRIPE_ACCOUNT_ID}
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+  <aside class="note">
+    <h3>Support for escrow</h3>
+
+    <p><em>Escrow</em> has a precise legal definition and Stripe does not support escrow accounts. However, we do provide escrow-like behavior through manual transfers. This gives you control over transfer timing, with the ability to delay payouts to Managed Accounts for up to 30 days.</p>
+    <p>Manual transfers can be used as an alternative to escrow when there may be a risk of a delayed delivery, or if there's the possibility of a refund being needed.</p>
+  </aside>
+
+<p>Setting <code>destination=default_for_currency</code> tells Stripe to transfer to the account’s default bank account or debit card for the given currency.</p>
+
+<p>With a standard transfer, you can payout up to the user’s available balance. To find that amount, perform a <a href="../api.html#retrieve_balance">retrieve balance</a> call on their behalf.</p>
+
+<p>Stripe tracks balance contributions from different payment sources in separate balances. The retrieve balance response breaks down the components of each balance by source type. For example, if you want to create a transfer specifically for a non credit-card balance, specify the <code>source_type</code> in your request.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/transfers \
+   -u {PLATFORM_SECRET_KEY}: \
+   -d amount=24784 \
+   -d currency=usd \
+   -d destination=default_for_currency \
+   -d source_type=bank_account
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+Stripe::Transfer.create(
+  :amount =&gt; 24784,
+  :currency =&gt; &#39;usd&#39;,
+  :destination =&gt; &#39;default_for_currency&#39;,
+  :source_type =&gt; &#39;bank_account&#39;,
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+stripe.Transfer.create(
+  amount=24784,
+  currency=&quot;usd&quot;,
+  destination=&quot;default_for_currency&quot;,
+  source_type=&quot;bank_account&quot;,
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+$tr = \Stripe\Transfer::create(array(
+  &quot;amount&quot; =&gt; 24784,
+  &quot;currency&quot; =&gt; &quot;usd&quot;,
+  &quot;destination&quot; =&gt; &quot;default_for_currency&quot;,
+  &quot;source_type&quot; =&gt; &quot;bank_account&quot;
+));
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+
+Map&lt;String, Object&gt; transferParams = new HashMap&lt;String, Object&gt;();
+transferParams.put(&quot;amount&quot;, 24784);
+transferParams.put(&quot;currency&quot;, &quot;usd&quot;);
+transferParams.put(&quot;destination&quot;, &quot;default_for_currency&quot;);
+transferParams.put(&quot;source_type&quot;, &quot;bank_account&quot;);
+
+Transfer.create(transferParams);
+
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&#39;stripe&#39;)(PLATFORM_SECRET_KEY);
+stripe.transfers.create(
+  {
+    amount: 24784,
+    currency: &#39;usd&#39;,
+    destination: &#39;default_for_currency&#39;,
+    source_type: &#39;bank_account&#39;,
+  }
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Note that it is possible for any source’s balance component to go negative (through refunds or chargebacks), and transfers can’t be created for greater than the aggregate available balance.</p>
+
+<h3 id="instant-payouts">Using Instant Payouts (US only)</h3>
+
+<p>With Instant Payouts, you can immediately send funds to a managed account’s debit card. Funds typically appear in the associated bank account within 30 minutes, making it possible to go from charge to payout in mere moments.</p>
+
+<p>To use Instant Payouts, specify <strong>instant</strong> for the <code>method</code> property when creating the transfer:</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/transfers \
+   -u {PLATFORM_SECRET_KEY}: \
+   -H &quot;Stripe-Account: {CONNECTED_STRIPE_ACCOUNT_ID}&quot; \
+   -d amount=1000 \
+   -d currency=usd \
+   -d method=instant
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = PLATFORM_SECRET_KEY
+Stripe::Transfer.create(
+  {
+    :amount =&gt; 1000,
+    :currency =&gt; &quot;usd&quot;,
+    :method =&gt; &quot;instant&quot;
+  },
+  {:stripe_account =&gt; CONNECTED_STRIPE_ACCOUNT_ID}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = PLATFORM_SECRET_KEY
+stripe.Transfer.create(
+  amount=1000,
+  currency=&quot;usd&quot;,
+  method=&quot;instant&quot;,
+  stripe_account=CONNECTED_STRIPE_ACCOUNT_ID
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(PLATFORM_SECRET_KEY);
+\Stripe\Transfer::create(
+  array(
+    &quot;amount&quot; =&gt; 1000,
+    &quot;currency&quot; =&gt; &quot;usd&quot;,
+    &quot;method&quot; =&gt; &quot;instant&quot;
+  ),
+  array(&quot;stripe_account&quot; =&gt; CONNECTED_STRIPE_ACCOUNT_ID)
+);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = PLATFORM_SECRET_KEY;
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(CONNECTED_STRIPE_ACCOUNT_ID).build();
+
+Map&lt;String, Object&gt; transferParams = new HashMap&lt;String, Object&gt;();
+transferParams.put(&quot;amount&quot;, 1000);
+transferParams.put(&quot;currency&quot;, &quot;usd&quot;);
+transferParams.put(&quot;method&quot;, &quot;instant&quot;);
+
+Transfer.create(transferParams, requestOptions);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&#39;stripe&#39;)(PLATFORM_SECRET_KEY);
+stripe.transfers.create(
+  {
+    amount: 1000,
+    currency: &quot;usd&quot;,
+    method: &quot;instant&quot;
+  },
+  {stripe_account: CONNECTED_STRIPE_ACCOUNT_ID}
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>Instant Payouts differ from other manual transfers in a couple of ways:</p>
+
+<ul>
+  <li>You can transfer an account’s available balance plus its <em>pending</em> balance</li>
+  <li>Instant Payouts can be requested on weekends and holidays</li>
+</ul>
+
+<p>Initially, platforms can transfer up to $5,000 (USD) per day–in total, across all connected accounts–through Instant Payouts. <a href="https://support.stripe.com/email">Contact us</a> if you need this threshold increased.</p>
+
+<p>Instant Payouts is available for all of the largest US banks, but a small percentage of banks do not yet support it. For those banks, you will have to fall back to standard payouts.</p>
+
+<p>When you add a card to an account, Stripe returns a property <code>available_payout_methods</code> in the response, which will be a set containing the payout methods Stripe supports for that card.  This property will be either <code>["standard"]</code> or <code>["standard", "instant"]</code>.  Only values in this set should be passed as the <code>method</code> when creating a transfer.</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;id&quot;: &quot;card_9CUH5DBY1jTgQ0&quot;,
+  &quot;object&quot;: &quot;card&quot;,
+  ...
+  &quot;account&quot;: &quot;acct_1032D82eZvKYlo2C&quot;,
+  &quot;available_payout_methods&quot;: [&quot;standard&quot;, &quot;instant&quot;],
+}
+</code></pre>
+</div>
+
+ <p>If a managed account's card does not support Instant Payouts, you should clearly communicate to the owner of that account that they will not receive their payouts instantly.</p>
+</section>
+
+<section>
+
+<h3 id="webhooks">Using webhooks with transfers</h3>
+
+<p>All transfer activity on connected accounts can be tracked using <a href="../webhooks.html">webhooks</a>. (When using Connect, you should always be using webhooks.) Specific to transfers, you’ll see these events:</p>
+
+<ul>
+  <li><code>transfer.created</code></li>
+  <li><code>transfer.updated</code></li>
+  <li><code>transfer.paid</code></li>
+  <li><code>transfer.failed</code></li>
+</ul>
+
+<p>For most transfers, these event notifications occur over a series of days. For Instant Payouts, <code>transfer.paid</code> will be sent on the next business day, although the funds should be received well beforehand.</p>
+
+<p>If a transfer cannot be completed, a <code>transfer.failed</code> event occurs. The event’s  <code>failure_reason</code> property indicates why.</p>
+</section>
+
+<section>
+<h2 id="negative-balances">Handling negative balances</h2>
+
+<p>Sometimes Managed Accounts develop negative balances, usually due
+to refunds. When that happens, Stripe tracks the negative
+balance, and reconciles it against new funds going into the
+account. While an account’s balance is negative, you cannot send bank (or debit card) transfers on their behalf. Stripe will resume sending transfers to the managed account once the account’s Stripe balance is again positive.</p>
+
+<p>In the end you–the platform–are responsible for any negative balances on your Managed Accounts (this is not the case for Standalone Accounts). To ensure funds are covered, Stripe will hold a reserve on your platform account’s <em>available</em> balance to cover any negative <em>available</em> balances across your Managed Accounts. You’ll see this reserve reflected in the <a href="https://dashboard.stripe.com/balance">Dashboard</a> and exported reports (as a “reserve transaction”).</p>
+
+<p>To check the balance of a Managed Account, perform a <a href="../api/ruby.html#retrieve_balance">retrieve balance</a> API call authenticated as the connected account. The returned <a href="../api.html#balance_object">Balance object</a> reflects the <code>pending</code> and <code>available</code> balances.</p>
+  <div class="tabs tabs-code animated" data-platform=server>
+    <nav class="nav-languages">
+        <a data-language="curl"
+            class="selected">curl</a>
+        <a data-language="ruby"
+           >Ruby</a>
+        <a data-language="python"
+           >Python</a>
+        <a data-language="php"
+           >PHP</a>
+        <a data-language="java"
+           >Java</a>
+        <a data-language="node"
+           >Node</a>
+    </nav>
+    <div class="tabs-content">
+      <div class="code">
+  <pre class="language-curl numbered selected" ><code>curl https://api.stripe.com/v1/balance \
+   -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+   -H &quot;Stripe-Account: CONNECTED_STRIPE_ACCOUNT_ID&quot;
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-ruby numbered" ><code>Stripe.api_key = {PLATFORM_SECRET_KEY}
+
+balance = Stripe::Balance.retrieve(
+  {:stripe_account =&gt; CONNECTED_STRIPE_ACCOUNT_ID}
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-python numbered" ><code>stripe.api_key = {PLATFORM_SECRET_KEY}
+
+balance = stripe.Balance.retrieve(
+  stripe_account=CONNECTED_STRIPE_ACCOUNT_ID
+)
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-php numbered" ><code>StripeStripe::setApiKey({PLATFORM_SECRET_KEY});
+
+$balance = \Stripe\Balance::retrieve(
+  array(&quot;stripe_account&quot; =&gt; CONNECTED_STRIPE_ACCOUNT_ID)
+);
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-java numbered" ><code>Stripe.apiKey = {PLATFORM_SECRET_KEY};
+RequestOptions requestOptions = RequestOptions.builder().setStripeAccount(CONNECTED_STRIPE_ACCOUNT_ID).build();
+
+Balance balance = Balance.retrieve();
+</code></pre>
+</div>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>var stripe = require(&#39;stripe&#39;)({PLATFORM_SECRET_KEY});
+
+var balance = stripe.balance.retrieve({
+  stripe_account: CONNECTED_STRIPE_ACCOUNT_ID
+}, function(err, balance) {
+  // asynchronously called
+);
+</code></pre>
+</div>
+
+    </div>
+  </div>
+
+<p>To see the current reserves on your account due to negative balance on your Managed Accounts, also perform a retrieve balance API call but for your own account (i.e., not authorized as another user as in the above).</p>
+
+<p>To clear a connected account’s negative balance–and thereby remove the reserve on your account, send a <a href="special-case-transfers.html">special-case transfer</a> to the applicable account. If a connected account has a negative balance for more than 180 days, Stripe will automatically transfer your reserves to the connected account to zero out the balance.</p></section>
+
+<section>
+  <h2>Further reading</h2>
+  <p>Check out the rest of the guide for help with your integration.</p>
+<ul class="next-steps">
+    <li><a href="managed-accounts.html"><span>Managed accounts</a></li>
+    <li><a href="updating-accounts.html"><span>Updating accounts</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/connect/bank-transfers by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:52 GMT -->
+</html>

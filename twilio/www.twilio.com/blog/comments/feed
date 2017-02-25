@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>Comments for Twilio Cloud Communications Blog</title>
+	<atom:link href="https://twilioinc.wpengine.com/comments/feed" rel="self" type="application/rss+xml" />
+	<link>https://twilioinc.wpengine.com</link>
+	<description></description>
+	<lastBuildDate>Thu, 12 Jan 2017 13:19:00 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.6.2</generator>
+	<item>
+		<title>Comment on New Phone Numbers in France, Ireland, the Netherlands. Developer Preview Numbers in 6 new European &#038; African countries. by Kostyantyn Didenko</title>
+		<link>https://twilioinc.wpengine.com/2016/09/new-phone-numbers-in-france-ireland-the-netherlands-developer-preview-numbers-in-6-new-european-african-countries.html#comment-4545</link>
+		<dc:creator><![CDATA[Kostyantyn Didenko]]></dc:creator>
+		<pubDate>Thu, 12 Jan 2017 13:19:00 +0000</pubDate>
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=18807#comment-4545</guid>
+		<description><![CDATA[Any plans to add Ukraine to this list? Even Kenya and Nigeria are available but not Ukraine!]]></description>
+		<content:encoded><![CDATA[<p>Any plans to add Ukraine to this list? Even Kenya and Nigeria are available but not Ukraine!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on How To Draw An Owl: Painting A Mural In Minutes by philnash</title>
+		<link>https://twilioinc.wpengine.com/2013/07/how-to-draw-an-owl-painting-a-mural-in-minutes.html#comment-4544</link>
+		<dc:creator><![CDATA[philnash]]></dc:creator>
+		<pubDate>Mon, 09 Jan 2017 10:21:00 +0000</pubDate>
+		<guid isPermaLink="false">http://www.twilioblog.com/?p=12192#comment-4544</guid>
+		<description><![CDATA[Hey Fred, thanks for the note, you&#039;re absolutely right! If you want to see the video it&#039;s right here: http://player.vimeo.com/video/69992021
+
+I&#039;ll see if I can get that embed fixed too.]]></description>
+		<content:encoded><![CDATA[<p>Hey Fred, thanks for the note, you&#8217;re absolutely right! If you want to see the video it&#8217;s right here: <a href="http://player.vimeo.com/video/69992021" rel="nofollow">http://player.vimeo.com/video/69992021</a></p>
+<p>I&#8217;ll see if I can get that embed fixed too.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on Send an SMS Message with C# in 30 Seconds by Marcos Placona</title>
+		<link>https://twilioinc.wpengine.com/2016/04/send-an-sms-message-with-c-in-30-seconds.html#comment-4543</link>
+		<dc:creator><![CDATA[Marcos Placona]]></dc:creator>
+		<pubDate>Mon, 09 Jan 2017 10:02:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=17517#comment-4543</guid>
+		<description><![CDATA[Hi Nadeem, unfortunately we still don&#039;t have numbers in Pakistan, but you can get any SMS enabled number (i.e. American, British, German, etc) and you will be able to send messages to Pakistan.
+
+You can also signup for notifications so we let you know when we have Pakistani numbers. You can read more about it here: https://support.twilio.com/hc/en-us/articles/226690868
+
+Hope this helps you out, and please do not hesitate in reaching back if you have any more questions.
+
+Cheers]]></description>
+		<content:encoded><![CDATA[<p>Hi Nadeem, unfortunately we still don&#8217;t have numbers in Pakistan, but you can get any SMS enabled number (i.e. American, British, German, etc) and you will be able to send messages to Pakistan.</p>
+<p>You can also signup for notifications so we let you know when we have Pakistani numbers. You can read more about it here: <a href="https://support.twilio.com/hc/en-us/articles/226690868" rel="nofollow">https://support.twilio.com/hc/en-us/articles/226690868</a></p>
+<p>Hope this helps you out, and please do not hesitate in reaching back if you have any more questions.</p>
+<p>Cheers</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on Send an SMS Message with C# in 30 Seconds by Marcos Placona</title>
+		<link>https://twilioinc.wpengine.com/2016/04/send-an-sms-message-with-c-in-30-seconds.html#comment-4542</link>
+		<dc:creator><![CDATA[Marcos Placona]]></dc:creator>
+		<pubDate>Mon, 09 Jan 2017 09:59:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=17517#comment-4542</guid>
+		<description><![CDATA[Hi Isaias,
+
+Thanks for your comment. That will be because our numbers in Peru still aren&#039;t SMS enabled. We&#039;re constantly working to bring extra functionalities to numbers around the world, but some countries take slightly longer than others. My suggestion in this case would be to get a number from a country nearby like Chile where SMS is enabled. You will then be able to send messages from that number.
+
+You can also signup for updates so you get notified when SMS is enabled in Peru. Have a look at this article: https://support.twilio.com/hc/en-us/articles/226690868
+
+Hope this helps you out, and please do not hesitate getting in touch if you need any more help.
+
+Cheers]]></description>
+		<content:encoded><![CDATA[<p>Hi Isaias,</p>
+<p>Thanks for your comment. That will be because our numbers in Peru still aren&#8217;t SMS enabled. We&#8217;re constantly working to bring extra functionalities to numbers around the world, but some countries take slightly longer than others. My suggestion in this case would be to get a number from a country nearby like Chile where SMS is enabled. You will then be able to send messages from that number.</p>
+<p>You can also signup for updates so you get notified when SMS is enabled in Peru. Have a look at this article: <a href="https://support.twilio.com/hc/en-us/articles/226690868" rel="nofollow">https://support.twilio.com/hc/en-us/articles/226690868</a></p>
+<p>Hope this helps you out, and please do not hesitate getting in touch if you need any more help.</p>
+<p>Cheers</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on How To Draw An Owl: Painting A Mural In Minutes by fred trotter</title>
+		<link>https://twilioinc.wpengine.com/2013/07/how-to-draw-an-owl-painting-a-mural-in-minutes.html#comment-4541</link>
+		<dc:creator><![CDATA[fred trotter]]></dc:creator>
+		<pubDate>Mon, 09 Jan 2017 09:27:00 +0000</pubDate>
+		<guid isPermaLink="false">http://www.twilioblog.com/?p=12192#comment-4541</guid>
+		<description><![CDATA[Hey, I think your video is broken...]]></description>
+		<content:encoded><![CDATA[<p>Hey, I think your video is broken&#8230;</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on Build a Basic Call Center in Just a Few Minutes with Twilio by Rabii Brahimi</title>
+		<link>https://twilioinc.wpengine.com/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html#comment-4540</link>
+		<dc:creator><![CDATA[Rabii Brahimi]]></dc:creator>
+		<pubDate>Fri, 06 Jan 2017 18:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19366#comment-4540</guid>
+		<description><![CDATA[how about if we would like to build a call center for prospecting so agents will be making calls when they pick an account and want to contact them ! can you do some turorial on this 
+thanks :)]]></description>
+		<content:encoded><![CDATA[<p>how about if we would like to build a call center for prospecting so agents will be making calls when they pick an account and want to contact them ! can you do some turorial on this<br />
+thanks :)</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on How to Hang Up Currently Active Twilio Phone Calls with Python by Mick Stevens</title>
+		<link>https://twilioinc.wpengine.com/2016/11/how-to-hang-up-currently-active-twilio-phone-calls-with-python.html#comment-4539</link>
+		<dc:creator><![CDATA[Mick Stevens]]></dc:creator>
+		<pubDate>Thu, 05 Jan 2017 21:03:00 +0000</pubDate>
+		<guid isPermaLink="false">https://twilioinc.wpengine.com/?p=19199#comment-4539</guid>
+		<description><![CDATA[This script saved the day today, impressed a client, saved money == happy customers, thanks Sam!]]></description>
+		<content:encoded><![CDATA[<p>This script saved the day today, impressed a client, saved money == happy customers, thanks Sam!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on Send an SMS Message with C# in 30 Seconds by  Isaias DC </title>
+		<link>https://twilioinc.wpengine.com/2016/04/send-an-sms-message-with-c-in-30-seconds.html#comment-4538</link>
+		<dc:creator><![CDATA[ Isaias DC ]]></dc:creator>
+		<pubDate>Thu, 05 Jan 2017 02:32:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=17517#comment-4538</guid>
+		<description><![CDATA[How to use in peru? I&#039;m subscribed for free test, when select peru, the web show me the message &quot;This country does not have SMS and MMS numbers. Learn more&quot;]]></description>
+		<content:encoded><![CDATA[<p>How to use in peru? I&#8217;m subscribed for free test, when select peru, the web show me the message &#8220;This country does not have SMS and MMS numbers. Learn more&#8221;</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>Comment on Build Video Chat using AngularJS 1.x by Devin Rader</title>
+		<link>https://twilioinc.wpengine.com/2016/05/build-video-chat-using-angularjs-1-x.html#comment-4537</link>
+		<dc:creator><![CDATA[Devin Rader]]></dc:creator>
+		<pubDate>Tue, 03 Jan 2017 16:47:00 +0000</pubDate>
+		<guid isPermaLink="false">http://twilioinc.wpengine.com/?p=17716#comment-4537</guid>
+		<description><![CDATA[@shivashankargraminlokur:disqus  can you share the code you are using?  Feel free to drop me an email using the address in the post.]]></description>
+		<content:encoded><![CDATA[<p>@shivashankargraminlokur:disqus  can you share the code you are using?  Feel free to drop me an email using the address in the post.</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

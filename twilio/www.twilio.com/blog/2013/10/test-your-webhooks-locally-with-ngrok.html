@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<!-- Mirrored from www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<script type="text/javascript">
+(function() {
+    var projectId = 3524915770;
+    var protocol = ('https:' == document.location.protocol ?
+    'https://' : 'http://');
+    var scriptTag = document.createElement('script');
+    scriptTag.type = 'text/javascript';
+    scriptTag.async = true;
+    scriptTag.src = protocol + 'cdn.optimizely.com/js/' +
+    projectId + '.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(scriptTag, s);
+})();
+function optimizelyTimeout() {
+    window.optimizely = window.optimizely|| [];
+    if (!window.optimizely.data) {
+    window.optimizely.push("timeout");
+    }
+}
+setTimeout(optimizelyTimeout, 1000);
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.twilio.com/blog/xmlrpc.php">
+<script type="text/javascript">
+var _elqQ = _elqQ || [];
+_elqQ.push(['elqSetSiteId', '815114181']);
+_elqQ.push(['elqTrackPageView']);
+_elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+(function () {
+  function async_load()
+  {
+    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+    s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  }
+  if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+  else if (window.attachEvent) window.attachEvent('onload', async_load);
+})();
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','http://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '467131150158811');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=467131150158811&amp;ev=PageView&amp;noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
+<style>
+@media screen and (max-width: 600px) {
+  #signal-header { display: none; }
+}
+</style>
+
+<link type="text/css" media="all" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_7a2cc50131d932d32297f43c61de37cd.css" rel="stylesheet" /><link type="text/css" media="screen" href="https://www.twilio.com/blog/wp-content/cache/autoptimize/css/autoptimize_97ca666341cd9b69002e26c8f2ca5299.css" rel="stylesheet" /><title>Test Your Webhooks Locally with ngrok &#8211; Twilio Cloud Communications Blog</title>
+
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.4.13 - http://yoast.com/wordpress/seo/ -->
+<meta name="description" content="Kevin Whinnery shows you how to Test Your Webhooks with NGrok"/>
+<link rel="canonical" href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" />
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s0.wp.com' />
+<link rel='dns-prefetch' href='https://www.twilio.com/blog//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Feed" href="https://www.twilio.com/blog/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Comments Feed" href="https://www.twilio.com/blog/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="Twilio Cloud Communications Blog &raquo; Test Your Webhooks Locally with ngrok Comments Feed" href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html/feed" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/twilioinc.wpengine.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.2"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<!-- This site uses the Google Analytics by Yoast plugin v5.4.7 - Universal enabled - https://yoast.com/wordpress/plugins/google-analytics/ -->
+<script type="text/javascript">
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','http://www.google-analytics.com/analytics.js','__gaTracker');
+
+	__gaTracker('create', 'UA-2900316-1', 'auto');
+	__gaTracker('set', 'forceSSL', true);
+	 window.optimizely = window.optimizely || [];
+ window.optimizely.push("activateUniversalAnalytics");
+	__gaTracker('set', 'dimension4', 'Kevin Whinnery');
+	__gaTracker('set', 'dimension5', 'post');
+	__gaTracker('set', 'dimension6', 'all-things-code');
+	__gaTracker('set', 'dimension7', 'Kevin Whinnery,Local Webhooks,NGrok,Ruby,twilio api');
+	__gaTracker('set', 'dimension8', '2013-10-14T18:53:27+00:00');
+	__gaTracker('send','pageview');
+
+</script>
+<!-- / Google Analytics by Yoast -->
+
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"2.4.3","is_admin":"0","ajaxurl":"https:\/\/twilioinc.wpengine.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+var swiftypeParams = {"engineKey":"UpGyyJZzgUMXHM65YENj"};
+/* ]]> */
+</script>
+
+<link rel='https://api.w.org/' href='https://www.twilio.com/blog/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.twilio.com/blog/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.twilio.com/blog/wp-includes/wlwmanifest.xml" /> 
+<link rel='shortlink' href='https://www.twilio.com/blog/?p=12622' />
+<link rel="alternate" type="application/json+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2013%2F10%2Ftest-your-webhooks-locally-with-ngrok.html" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.twilio.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.twilio.com%2Fblog%2F2013%2F10%2Ftest-your-webhooks-locally-with-ngrok.html&amp;format=xml" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.twilio.com/blog/wp-content/uploads/2015/09/cropped-favicon_1141-270x270.png" />
+</head>
+
+<body class="single single-post postid-12622 single-format-standard group-blog">
+<!-- Google Tag Manager -->
+<noscript><iframe src="https://www.twilio.com/blog//www.googletagmanager.com/ns.html?id=GTM-W4RVXH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W4RVXH');</script>
+<!-- End Google Tag Manager -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "http://connect.facebook.net/en_US/sdk.js#xfbml=1&appId=414254592083321&version=v2.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.Event.subscribe('edge.create', function(targetUrl) {
+    __gaTracker('send', 'social', 'facebook', 'like', targetUrl);
+  });
+};
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+
+function trackTwitter(intent_event) {
+  if (intent_event) {
+    var opt_pagePath;
+    if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
+          opt_target = extractParamFromUri(intent_event.target.src, 'url');
+    }
+    __gaTracker('send', 'social', 'twitter', 'tweet', opt_pagePath);
+  }
+}
+
+function extractParamFromUri(uri, paramName) {
+  if (!uri) {
+    return;
+  }
+  var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
+  var params = regex.exec(uri);
+  if (params != null) {
+    return unescape(params[1]);
+  }
+  return;
+}
+
+//Wrap event bindings - Wait for async js to load
+twttr.ready(function (twttr) {
+  //event bindings
+  twttr.events.bind('tweet', trackTwitter);
+});
+</script>
+<script type="text/javascript">
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+  heap.load("1541905715");
+</script>
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle hidden-xs" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="https://www.twilio.com/blog/">
+					<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200"> <span class="logo-blog">blog</span>
+				</a>
+			</div>
+
+			<div class="hidden-xs"><ul id="menu-site-navigation" class="nav navbar-nav pull-right"><li id="menu-item-12202" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12202"><a href="http://www.twilio.com/" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/', 'Home');" title="Home">Home</a></li>
+<li id="menu-item-12205" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12205"><a href="http://www.twilio.com/blog" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog', 'Blog');" title="Blog">Blog</a></li>
+<li id="menu-item-12204" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12204"><a href="https://www.twilio.com/docs/howto" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/howto', 'Tutorials');" title="Tutorials">Tutorials</a></li>
+<li id="menu-item-12206" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12206"><a href="https://www.twilio.com/docs/api" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/docs/api', 'Docs');" title="Docs">Docs</a></li>
+<li id="menu-item-12207" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12207"><a href="http://www.twilio.com/help" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/help', 'Help');" title="Help">Help</a></li>
+<li id="menu-item-12208" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12208"><a href="https://www.twilio.com/login" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/login', 'Login');" title="Login">Login</a></li>
+<li id="menu-item-12209" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12209"><a href="https://www.twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'https://www.twilio.com/try-twilio', 'Signup');" title="Signup">Signup</a></li>
+</ul></div>		</div>
+	</nav>
+
+	<div id="content" class="site-content container">
+		<div class="row">
+
+	<div id="primary" class="content-area col-md-9">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+<article id="post-12622" class="row post-12622 post type-post status-publish format-standard hentry category-all-things-code tag-kevin-whinnery tag-local-webhooks tag-ngrok tag-ruby tag-twilio-api">
+	<header class="entry-header col-md-12">
+		<h2 class="entry-title">Test Your Webhooks Locally with ngrok</h2>
+			
+		<footer class="entry-footer">
+			<div class="entry-meta">
+					<div class="row">
+	<div class="col-md-6">
+	<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/kevinwhinnery">Kevin Whinnery</a></span></span> on <span class="posted-on"><a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" rel="bookmark"><time class="entry-date published" datetime="2013-10-14T18:53:27+00:00">October 14, 2013</time><time class="updated" datetime="2015-07-07T08:03:54+00:00">July 7, 2015</time></a></span>	</div>
+	<div class="col-md-6">
+		<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" data-text="Test Your Webhooks Locally with ngrok ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+	</div>
+	</div>
+			</div><!-- .entry-meta -->
+		</footer><!-- .entry-footer -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content col-md-12">
+		<div class="row">
+			<div class="col-md-12">
+				<p dir="ltr" id="docs-internal-guid-29930c8a-b9ab-978f-2c66-41bb945c6789">If you’re a Twilio developer, chances are good that you’ve configured a Twilio number to <a href="https://www.twilio.com/docs/api/twiml/twilio_request" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml/twilio_request', 'send an HTTP GET or POST to your web app');">send an HTTP GET or POST to your web app</a> when you receive an incoming call or text.  If you haven’t done that yet, <a href="https://www.twilio.com/docs/quickstart/php/sms/hello-monkey" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/quickstart/php/sms/hello-monkey', 'you might want to read this first');">you might want to read this first</a>!  I’ll fire up an NES emulator and play Tecmo Bowl while you check it out.</p>
+<p dir="ltr"><a href="http://twilioinc.wpengine.com/2013/10/test-your-webhooks-locally-with-ngrok.html/touchdown" rel="attachment wp-att-12623"><img class="aligncenter size-full wp-image-12623" alt="Touchdown" src="https://www.twilio.com/blog/wp-content/uploads/2013/10/Touchdown.png" width="506" height="443" srcset="https://www.twilio.com/blog/wp-content/uploads/2013/10/Touchdown.png 506w, https://www.twilio.com/blog/wp-content/uploads/2013/10/Touchdown-300x262.png 300w" sizes="(max-width: 506px) 100vw, 506px" /></a></p>
+<p dir="ltr">Ah, back so soon!  I was just about to score my seventh touchdown with Bo Jackson on an inside zone, but I suppose we can get back to business.  As you just read (or already knew) Twilio and other web services use the <a href="http://en.wikipedia.org/wiki/Webhook" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://en.wikipedia.org/wiki/Webhook', 'webhook');">webhook</a> callback pattern for evented interaction between two systems connected over the Internet (in this case, Twilio and your incredible web application).  This is great when both systems are deployed on the public internet, but what about when you’re developing locally?  How is Twilio supposed to talk to the Ruby on Rails app running on localhost?  Developing on Twilio would be much, much faster if we could connect our phone numbers with the dev environment we run on localhost.</p>
+<p dir="ltr">There are a number of services which facilitate exposing your localhost to the internet, but one that we use a lot here at Twilio is <a href="https://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/', 'ngrok');">ngrok</a>.  ngrok is a free tool that lets you put the web app running on your local machine on the Internet.  Today, I’d like to show you how use it to facilitate local Twilio development.</p>
+<h3>Step One: Download ngrok</h3>
+<p dir="ltr">ngrok is a <a href="http://golang.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://golang.org/', 'Go');">Go</a> program, distributed as a single executable file for all major desktop platforms.  This is super rad &#8211; no additional frameworks to install or other dependencies.  <a href="https://ngrok.com/download" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/download', 'Grab the version for your development system of choice');" target="_blank">Grab the version for your development system of choice</a> and simply unzip the file somewhere on your computer.</p>
+<h3>Step Two: Write a web application that serves TwiML</h3>
+<p dir="ltr">The next step is to write a web application that can respond to inbound calls and texts to your Twilio number!  To tell Twilio how to handle an incoming call or message, you need to respond with an XML document that contains <a href="https://www.twilio.com/docs/api/twiml" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/docs/api/twiml', 'TwiML tags');">TwiML tags</a>.  Any web framework that lets you respond to HTTP requests and render XML will work.</p>
+<p dir="ltr">As an example, here’s a tiny <a href="http://www.sinatrarb.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.sinatrarb.com/', 'Sinatra');">Sinatra</a> application, written in Ruby, that will respond to a GET request to “/inbound” with a valid TwiML response:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d5943b61320456201" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">Ruby</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+require 'rubygems'
+require 'sinatra'
+
+get '/inbound' do
+  content_type 'text/xml'
+  '&lt;Response&gt;&lt;Message&gt;Touchdown, Bo Jackson!&lt;/Message&gt;&lt;/Response&gt;'
+end</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d5943b61320456201-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d5943b61320456201-2">2</div><div class="crayon-num" data-line="crayon-58794d5943b61320456201-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d5943b61320456201-4">4</div><div class="crayon-num" data-line="crayon-58794d5943b61320456201-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d5943b61320456201-6">6</div><div class="crayon-num" data-line="crayon-58794d5943b61320456201-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d5943b61320456201-1"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'rubygems'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d5943b61320456201-2"><span class="crayon-i">require</span><span class="crayon-h"> </span><span class="crayon-s">'sinatra'</span></div><div class="crayon-line" id="crayon-58794d5943b61320456201-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-58794d5943b61320456201-4"><span class="crayon-i">get</span><span class="crayon-h"> </span><span class="crayon-s">'/inbound'</span><span class="crayon-h"> </span><span class="crayon-st">do</span></div><div class="crayon-line" id="crayon-58794d5943b61320456201-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-i">content_type</span><span class="crayon-h"> </span><span class="crayon-s">'text/xml'</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d5943b61320456201-6"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-s">'&lt;Response&gt;&lt;Message&gt;Touchdown, Bo Jackson!&lt;/Message&gt;&lt;/Response&gt;'</span></div><div class="crayon-line" id="crayon-58794d5943b61320456201-7"><span class="crayon-st">end</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0018 seconds] -->
+<p></p>
+<p>To run this Ruby application, you will need to have Ruby and the <a href="http://www.sinatrarb.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://www.sinatrarb.com/', 'Sinatra');" target="_blank">Sinatra</a> gem installed.  On the Mac, you already have Ruby installed.  To install Sinatra, enter the command “gem install sinatra” in a Terminal window to install the Sinatra web framework.  <a href="http://rubyinstaller.org/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://rubyinstaller.org/', 'Windows');">Windows</a> and <a href="https://www.ruby-lang.org/en/downloads/" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.ruby-lang.org/en/downloads/', 'Linux');">Linux</a> will require a little more setup.</p>
+<p>To start a local HTTP server running this code, open up a Terminal window and create a file called “app.rb”.  Place the code above in this file and save it.  Run the code in your Terminal window with the command “ruby app.rb”.  You should now have a Ruby web server running on local port 4567 &#8211; visiting <a href="http://localhost:4567/inbound" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://localhost:4567/inbound', 'http://localhost:4567/inbound');">http://localhost:4567/inbound</a> in a web browser should produce an XML document containing the following valid TwiML:</p><!-- Crayon Syntax Highlighter v2.4.3 -->
+
+		<div id="crayon-58794d5943b75574753763" class="crayon-syntax crayon-theme-github crayon-font-consolas crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover expand" style=" margin-top: 12px; margin-bottom: 12px; float: none; clear: both; font-size: 16px !important; line-height: 24px !important;">
+		
+			<div class="crayon-toolbar" data-settings=" show" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-title"></span>
+			<div class="crayon-tools" style="font-size: 16px !important;height: 24px !important; line-height: 24px !important;"><span class="crayon-mixed-highlight" title="Contains Mixed Languages"></span><div class="crayon-button crayon-nums-button" title="Toggle Line Numbers"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-plain-button" title="Toggle Plain Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-expand-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-copy-button" title="Expand Code"><div class="crayon-button-icon"></div></div><div class="crayon-button crayon-popup-button" title="Open Code In New Window"><div class="crayon-button-icon"></div></div><span class="crayon-language">XHTML</span></div></div>
+			<div class="crayon-info" style="min-height: 22.4px !important; line-height: 22.4px !important;"></div>
+			<div class="crayon-plain-wrap"><textarea wrap="off" class="crayon-plain print-no" data-settings="dblclick" readonly style="-moz-tab-size:2; -o-tab-size:2; -webkit-tab-size:2; tab-size:2; font-size: 16px !important; line-height: 24px !important;">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Response&gt;
+    &lt;Message&gt;Touchdown, Bo Jackson!&lt;/Message&gt;
+&lt;/Response&gt;</textarea></div>
+			<div class="crayon-main" style="">
+				<table class="crayon-table">
+					<tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-num" data-line="crayon-58794d5943b75574753763-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d5943b75574753763-2">2</div><div class="crayon-num" data-line="crayon-58794d5943b75574753763-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-58794d5943b75574753763-4">4</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 16px !important; line-height: 24px !important;"><div class="crayon-line" id="crayon-58794d5943b75574753763-1"><span class="crayon-ta">&lt;?</span><span class="crayon-e">xml </span><span class="crayon-i">version</span><span class="crayon-o">=</span><span class="crayon-s">"1.0"</span><span class="crayon-h"> </span><span class="crayon-i">encoding</span><span class="crayon-o">=</span><span class="crayon-s">"utf-8"</span><span class="crayon-ta">?&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d5943b75574753763-2"><span class="crayon-r ">&lt;Response&gt;</span></div><div class="crayon-line" id="crayon-58794d5943b75574753763-3"><span class="crayon-i ">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-r ">&lt;Message&gt;</span><span class="crayon-i ">Touchdown, Bo Jackson!</span><span class="crayon-r ">&lt;/Message&gt;</span></div><div class="crayon-line crayon-striped-line" id="crayon-58794d5943b75574753763-4"><span class="crayon-r ">&lt;/Response&gt;</span></div></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0059 seconds] -->
+<p></p>
+<h3>Step Three: Put your app on the interwebs with ngrok</h3>
+<p>In a Terminal window, navigate to the directory where you unzipped ngrok. Going forward you may want to add ngrok to your <a href="https://en.wikipedia.org/wiki/PATH_(variable)" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://en.wikipedia.org/wiki/PATH_(variable)', 'system path');" target="_blank">system path</a>. That would allow you to access the 
+			<span id="crayon-58794d5943b80724575348" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">ngrok</span></span></span> command from any directory, but for now we will run the ngrok utility directly from this location.</p>
+<p>We now need to start ngrok, telling it which port we want to expose to the public Internet. In the Terminal, type 
+			<span id="crayon-58794d5943b8a257634980" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-sy">.</span><span class="crayon-o">/</span><span class="crayon-i">ngrok</span><span class="crayon-h"> </span><span class="crayon-cn">4567</span></span></span> on Linux and Mac, and just 
+			<span id="crayon-58794d5943b94521978269" class="crayon-syntax crayon-syntax-inline  crayon-theme-github crayon-theme-github-inline crayon-font-consolas" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-pre crayon-code" style="font-size: 16px !important; line-height: 24px !important;font-size: 16px !important;"><span class="crayon-i">ngrok</span><span class="crayon-h"> </span><span class="crayon-cn">4567</span></span></span> on Windows. After starting up, you should see something like the following:<br />
+&nbsp;<br />
+<a href="http://twilioinc.wpengine.com/2013/10/test-your-webhooks-locally-with-ngrok.html/second" rel="attachment wp-att-12624"><img class="aligncenter size-full wp-image-12624" alt="second" src="https://www.twilio.com/blog/wp-content/uploads/2013/10/second.png" width="624" height="183" srcset="https://www.twilio.com/blog/wp-content/uploads/2013/10/second.png 624w, https://www.twilio.com/blog/wp-content/uploads/2013/10/second-300x87.png 300w" sizes="(max-width: 624px) 100vw, 624px" /></a></p>
+<p>See that URL on the ngrok domain? That’s the brand new home of your local web app on the public Internet. In a browser window, open up https://[your generated ID].ngrok.io/inbound &#8211; this should display the same XML found at <a href="http://localhost:4567/inbound" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://localhost:4567/inbound', 'http://localhost:4567/inbound');">http://localhost:4567/inbound</a> &#8211; verify this is the case.</p>
+<p>Now, we can configure our Twilio number to hit our laptop when it receives an inbound call or text.</p>
+<h3>Step Four: Configure Twilio to work with our local machine</h3>
+<p>In your Twilio account dashboard, go to <a href="https://www.twilio.com/user/account/phone-numbers/incoming" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://www.twilio.com/user/account/phone-numbers/incoming', 'your list of incoming numbers');">your list of incoming numbers</a> and choose one to work with. Enter your ngrok URL, including the “/inbound” route, in the Messaging Request URL field as shown. Also, make sure to change the HTTP request type to a “GET” rather than a “POST”. Save your changes.<br />
+&nbsp;<br />
+<a href="http://twilioinc.wpengine.com/2013/10/test-your-webhooks-locally-with-ngrok.html/third" rel="attachment wp-att-12625"><img class="aligncenter size-full wp-image-12625" alt="third" src="https://www.twilio.com/blog/wp-content/uploads/2013/10/third.png" width="621" height="403" srcset="https://www.twilio.com/blog/wp-content/uploads/2013/10/third.png 621w, https://www.twilio.com/blog/wp-content/uploads/2013/10/third-300x194.png 300w" sizes="(max-width: 621px) 100vw, 621px" /></a></p>
+<p>Okay, now it’s time to watch the magic happen! Open up the text message app on your phone, and send a text to your Twilio number. If all went according to plan, you should receive a reply from the app running on your local machine!<br />
+&nbsp;<br />
+<a href="http://twilioinc.wpengine.com/2013/10/test-your-webhooks-locally-with-ngrok.html/fourth" rel="attachment wp-att-12626"><img class="aligncenter size-full wp-image-12626" alt="fourth" src="https://www.twilio.com/blog/wp-content/uploads/2013/10/fourth.png" width="622" height="464" srcset="https://www.twilio.com/blog/wp-content/uploads/2013/10/fourth.png 622w, https://www.twilio.com/blog/wp-content/uploads/2013/10/fourth-300x223.png 300w" sizes="(max-width: 622px) 100vw, 622px" /></a></p>
+<h3>Next Steps</h3>
+<p>We’re only scratching the surface of what’s possible with ngrok. Here are some other things you might want to check out:</p>
+<ul>
+<li>
+Go to <a href="http://localhost:4040/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://localhost:4040/', 'http://localhost:4040/');">http://localhost:4040</a> &#8211; wait, what!  That’s right my friend, you are looking at detailed request logging for all traffic going through your ngrok URL.
+</li>
+<li>
+If you sign up for an account at <a href="http://ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-article', 'http://ngrok.com/', 'ngrok.com');">ngrok.com</a>, you can reserve a custom subdomain, and configure HTTP basic authentication for access to your tunnel.  Highly recommend you do so.</p>
+</li>
+<li>
+<a href="https://ngrok.com/usage" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/usage', 'Check out the docs');">Check out the docs</a> for more uses and information.</p>
+</li>
+<li>
+<a href="https://ngrok.com/pay" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://ngrok.com/pay', 'Pay something for the project');">Pay something for the project</a>, if you can, to support the site and development on it.  Big ups to <a href="https://github.com/inconshreveable" onclick="__gaTracker('send', 'event', 'outbound-article', 'https://github.com/inconshreveable', 'Shreve');">Shreve</a> for making such an amazing product.</p>
+</li>
+</ul>
+<p>Aside from making local Twilio development a snap, ngrok is great for sharing demos of an in-development website, or maybe capturing inbound HTTP traffic to your API server.  I hope you enjoy using it as much as we do.</p>
+			</div>
+					</div>
+	</div><!-- .entry-content -->
+
+	<footer class="entry-footer col-md-12">
+		<div class="entry-meta">
+					<div class="social-buttons">
+			<div class="fb-like" data-href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twilio" data-count="none" data-url="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html" data-text="Test Your Webhooks Locally with ngrok ">Tweet</a>
+      <a href="https://twitter.com/twilio" class="twitter-follow-button" data-show-count="false">Follow @twilio</a>
+		</div>
+<span class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/4786cf28e0f5886c4b006f7487333845?s=20&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4786cf28e0f5886c4b006f7487333845?s=40&amp;d=mm&amp;r=g 2x' class='avatar avatar-20 photo' height='20' width='20' /></span><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://www.twilio.com/blog/author/kevinwhinnery">Kevin Whinnery</a></span></span> <span class="author-meta author-email"><a href="mailto:kwhinnery@twilio.com">kwhinnery@twilio.com</a></span><span class="author-meta author-twitter"><a href="http://twitter.com/kevinwhinnery">@kevinwhinnery<a/></span>		</div>
+	</footer><!-- .entry-footer -->
+
+   <div class="build-more"><h3>Build More With Ruby</h3>        <a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/ruby/rails', '');">
+          <h5>SMS and MMS Notifications with Ruby</h5>
+        </a>
+              <a href="https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html" rel="bookmark" title="Permanent Link to Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/01/twilio-on-rails-part-3-adding-contextual-voip-using-webrtc-to-your-rails-4-app.html', '');">
+          <h5>Twilio on Rails Part 3 &#8211; Adding Contextual VOIP Using WebRTC to Your Rails 4 App<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html" rel="bookmark" title="Permanent Link to Managing Development Environment Variables Across Multiple Ruby Applications" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/managing-development-environment-variables-across-multiple-ruby-applications.html', '');">
+          <h5>Managing Development Environment Variables Across Multiple Ruby Applications<h4>
+        </a>
+                <a href="https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html" rel="bookmark" title="Permanent Link to Note Taking On the Go With Evernote and Twilio &#8211; Part One" onclick="__gaTracker('send', 'event', 'buildmore-widget', 'https://www.twilio.com/blog/2015/02/note-taking-on-the-go-with-evernote-and-twilio-part-one.html', '');">
+          <h5>Note Taking On the Go With Evernote and Twilio &#8211; Part One<h4>
+        </a>
+        </div>
+</article><!-- #post-## -->
+
+			
+<div id="disqus_thread">
+                    <div id="dsq-content">
+
+
+            <ul id="dsq-comments">
+                    <li class="comment even thread-even depth-1" id="dsq-comment-2694">
+        <div id="dsq-comment-header-2694" class="dsq-comment-header">
+            <cite id="dsq-cite-2694">
+                <span id="dsq-author-user-2694">Mark Headd</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2694" class="dsq-comment-body">
+            <div id="dsq-comment-message-2694" class="dsq-comment-message"><p>Been trying to develop a Twilio app on my local machine using NGrok but apparently the Twilio platform doesn&#8217;t like the latest version (1.6/1.5). I get an error every time I call my app.</p>
+<p>&#8220;Error: 11200 HTTP retrieval failure&#8221;</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-2917">
+        <div id="dsq-comment-header-2917" class="dsq-comment-header">
+            <cite id="dsq-cite-2917">
+                <span id="dsq-author-user-2917">Anlek</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2917" class="dsq-comment-body">
+            <div id="dsq-comment-message-2917" class="dsq-comment-message"><p>Were you able to fix this issue?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-3" id="dsq-comment-2919">
+        <div id="dsq-comment-header-2919" class="dsq-comment-header">
+            <cite id="dsq-cite-2919">
+                <span id="dsq-author-user-2919">kevinwhinnery</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2919" class="dsq-comment-body">
+            <div id="dsq-comment-message-2919" class="dsq-comment-message"><p>Hey guys,</p>
+<p>Sorry for the late followup here, but can you provide a bit more information on your setup and where you are seeing this error?  I am running the latest on a Mac and am not seeing the issues you describe.  If it&#8217;s longer than what can fit into this comment thread, send a note to help @ twilio.com</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-4" id="dsq-comment-2921">
+        <div id="dsq-comment-header-2921" class="dsq-comment-header">
+            <cite id="dsq-cite-2921">
+                <span id="dsq-author-user-2921">Anlek</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-2921" class="dsq-comment-body">
+            <div id="dsq-comment-message-2921" class="dsq-comment-message"><p>I didn&#8217;t get the error, I was just preemptively asking :)<br />
+I have it working (amazingly) using 1.6 of NGrok and a Twiml setup.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3163">
+        <div id="dsq-comment-header-3163" class="dsq-comment-header">
+            <cite id="dsq-cite-3163">
+                <span id="dsq-author-user-3163">Giorgio Martini</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3163" class="dsq-comment-body">
+            <div id="dsq-comment-message-3163" class="dsq-comment-message"><p>my sinatra app is running on calhost:4567/home    , when i go to the place where i unzipped ngrok and type ngrok 4567 the console seemts to print the right settings: </p>
+<p>Version                       1.7/1.6<br />
+Forwarding                    <a href="http://6544378e.ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://6544378e.ngrok.com/', 'http://6544378e.ngrok.com/');" rel="nofollow">http://6544378e.ngrok.com</a> -&gt; 127.0.0.1:4567<br />
+Forwarding                    <a href="https://6544378e.ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://6544378e.ngrok.com/', 'https://6544378e.ngrok.com/');" rel="nofollow">https://6544378e.ngrok.com</a> -&gt; 127.0.0.1:4567</p>
+<p>Web Interface                 127.0.0.1:4040<br />
+# Conn                        2<br />
+Avg Conn Time                 20.00ms</p>
+<p>but when i go the <a href="http://6544378e.ngrok.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://6544378e.ngrok.com/', 'http://6544378e.ngrok.com/');" rel="nofollow">http://6544378e.ngrok.com</a>, i get a sinatra errror : </p>
+<p>Sinatra doesn’t know this ditty.</p>
+<p>Any ideas ?</p>
+<p>Thanks!</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-3166">
+        <div id="dsq-comment-header-3166" class="dsq-comment-header">
+            <cite id="dsq-cite-3166">
+                <span id="dsq-author-user-3166">kevinwhinnery</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3166" class="dsq-comment-body">
+            <div id="dsq-comment-message-3166" class="dsq-comment-message"><p>That error page/message indicates an HTTP 404 (page not found) error &#8211; do you have a route defined for the root url? &#8220;get &#8216;/&#8217; do &#8216;hello world&#8217; end&#8221; or some such?  If your app is at /home, you would need to go to <a href="http://blahblah.ngrok.com/home" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://blahblah.ngrok.com/home', 'http://blahblah.ngrok.com/home');" rel="nofollow">http://blahblah.ngrok.com/home</a></p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-even depth-1" id="dsq-comment-3269">
+        <div id="dsq-comment-header-3269" class="dsq-comment-header">
+            <cite id="dsq-cite-3269">
+                <span id="dsq-author-user-3269">Kevin Ng</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3269" class="dsq-comment-body">
+            <div id="dsq-comment-message-3269" class="dsq-comment-message"><p>I believe everything is working correctly, however I&#8217;m not getting the response to my mobile device.  Response says 200, with no errors.  What am I missing here?</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment odd alt depth-2" id="dsq-comment-3270">
+        <div id="dsq-comment-header-3270" class="dsq-comment-header">
+            <cite id="dsq-cite-3270">
+                <span id="dsq-author-user-3270">Kevin Ng</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3270" class="dsq-comment-body">
+            <div id="dsq-comment-message-3270" class="dsq-comment-message"><p>never mind I figured it out, I needed to verify my number.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3273">
+        <div id="dsq-comment-header-3273" class="dsq-comment-header">
+            <cite id="dsq-cite-3273">
+                <span id="dsq-author-user-3273">JS</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3273" class="dsq-comment-body">
+            <div id="dsq-comment-message-3273" class="dsq-comment-message"><p>I&#8217;m late but&#8230; any reason why when i run <a href="https://.ngrok.com/inbound" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://.ngrok.com/inbound', 'https://.ngrok.com/inbound');" rel="nofollow">https://.ngrok.com/inbound</a> in a browser it does NOT take me to anything but google search results?</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-3274">
+        <div id="dsq-comment-header-3274" class="dsq-comment-header">
+            <cite id="dsq-cite-3274">
+                <span id="dsq-author-user-3274">JS</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3274" class="dsq-comment-body">
+            <div id="dsq-comment-message-3274" class="dsq-comment-message"><p>I&#8217;m getting the same Sinatra error &#8220;doesn&#8217;t know this ditty&#8221; &#8230; my app.rb file is on the desktop  and the Ngrok is unzipped in downloads &#8230; any clue what I should do?  thanks</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-3303">
+        <div id="dsq-comment-header-3303" class="dsq-comment-header">
+            <cite id="dsq-cite-3303">
+                <span id="dsq-author-user-3303">name</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-3303" class="dsq-comment-body">
+            <div id="dsq-comment-message-3303" class="dsq-comment-message"><p>hahaha. i remember pulling all nighters with tecmo bowl and friends. bo is unstoppable.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+    <li class="comment odd alt thread-even depth-1" id="dsq-comment-4267">
+        <div id="dsq-comment-header-4267" class="dsq-comment-header">
+            <cite id="dsq-cite-4267">
+                <span id="dsq-author-user-4267">eggie5</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4267" class="dsq-comment-body">
+            <div id="dsq-comment-message-4267" class="dsq-comment-message"><p>FYI, it seems ngrok just recently become closed source, so you&#8217;ll have to signup w/ them now to use the reverse proxy</p>
+</div>
+        </div>
+
+    <ul class="children">
+    <li class="comment even depth-2" id="dsq-comment-4311">
+        <div id="dsq-comment-header-4311" class="dsq-comment-header">
+            <cite id="dsq-cite-4311">
+                <span id="dsq-author-user-4311">dontmindme777</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4311" class="dsq-comment-body">
+            <div id="dsq-comment-message-4311" class="dsq-comment-message"><p>Free plan on ngrok for up to 1 online client, &#8220;For quick demos and other simple tunneling needs.&#8221;</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+    <li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-4535">
+        <div id="dsq-comment-header-4535" class="dsq-comment-header">
+            <cite id="dsq-cite-4535">
+http://pablocantero.com/                <span id="dsq-author-user-4535">Pablo Cantero</span>
+            </cite>
+        </div>
+        <div id="dsq-comment-body-4535" class="dsq-comment-body">
+            <div id="dsq-comment-message-4535" class="dsq-comment-message"><p><a href="http://putsreq.com/" onclick="__gaTracker('send', 'event', 'outbound-comment', 'http://putsreq.com/', 'PutsReq');" rel="nofollow">PutsReq</a> can be an interesting substitute for ngrok. Instead of creating a tunnel to localhost, PutsReq will track your requests and responses (handy for inspection/debugging), and allow you to forward them to localhost using its <a href="https://github.com/phstc/putsreq#cli" onclick="__gaTracker('send', 'event', 'outbound-comment', 'https://github.com/phstc/putsreq#cli', 'CLI');" rel="nofollow">CLI</a>.</p>
+</div>
+        </div>
+
+    </li><!-- #comment-## -->
+            </ul>
+
+
+        </div>
+
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html';
+    var disqus_identifier = 'https://www.twilio.com/blog/2013/10/12622 http://twilioinc.wpengine.com/?p=12622';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'twilioblog';
+    var disqus_title = "Test Your Webhooks Locally with ngrok";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html?cf_action=sync_comments&amp;post_id=12622';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "https:\/\/www.twilio.com\/blog\/2013\/10\/test-your-webhooks-locally-with-ngrok.html\/trackback"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+<div id="secondary" class="widget-area col-md-3 hide-xs" role="complementary">
+	<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.twilio.com/blog/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="text-2" class="widget widget_text">			<div class="textwidget"><p>Power modern communications. Build the next generation of voice and SMS applications.</p>
+
+ <a href="http://twilio.com/try-twilio" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://twilio.com/try-twilio', 'Start Building For Free');" class="btn">Start Building For Free</a></div>
+		</aside><style scoped type="text/css">.utcw-8ngloje {word-wrap:break-word}.utcw-8ngloje span,.utcw-8ngloje a{border-style:solid;border-width:1px}.utcw-8ngloje span:hover,.utcw-8ngloje a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-2" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Stack</h1><div class="utcw-8ngloje tagcloud"><a class="tag-link-22 utcw-tag utcw-tag-net" href="https://www.twilio.com/blog/tag/net" style="font-size:16px" title="40 topics">.NET</a> <a class="tag-link-98 utcw-tag utcw-tag-arduino" href="https://www.twilio.com/blog/tag/arduino" style="font-size:16px" title="21 topics">Arduino</a> <a class="tag-link-598 utcw-tag utcw-tag-java" href="https://www.twilio.com/blog/tag/java" style="font-size:16px" title="14 topics">Java</a> <a class="tag-link-600 utcw-tag utcw-tag-javascript" href="https://www.twilio.com/blog/tag/javascript" style="font-size:16px" title="86 topics">JavaScript</a> <a class="tag-link-847 utcw-tag utcw-tag-php" href="https://www.twilio.com/blog/tag/php" style="font-size:16px" title="57 topics">PHP</a> <a class="tag-link-891 utcw-tag utcw-tag-python" href="https://www.twilio.com/blog/tag/python" style="font-size:16px" title="72 topics">Python</a> <a class="tag-link-969 utcw-tag utcw-tag-ruby" href="https://www.twilio.com/blog/tag/ruby" style="font-size:16px" title="69 topics">Ruby</a> <a class="tag-link-2856 utcw-tag utcw-tag-swift" href="https://www.twilio.com/blog/tag/swift" style="font-size:16px" title="22 topics">Swift</a></div></aside><style scoped type="text/css">.utcw-5dkhj5o {word-wrap:break-word}.utcw-5dkhj5o span,.utcw-5dkhj5o a{border-style:solid;border-width:1px}.utcw-5dkhj5o span:hover,.utcw-5dkhj5o a:hover{border-style:solid;border-width:1px}</style><aside id="utcw-3" class="widget widget_utcw widget_tag_cloud"><h1 class="widget-title">Posts By Product</h1><div class="utcw-5dkhj5o tagcloud"><a class="tag-link-2043 utcw-tag utcw-tag-mms" href="https://www.twilio.com/blog/tag/mms" style="font-size:16px" title="50 topics">MMS</a> <a class="tag-link-3513 utcw-tag utcw-tag-programmable-chat" href="https://www.twilio.com/blog/tag/programmable-chat" style="font-size:16px" title="9 topics">Programmable Chat</a> <a class="tag-link-1537 utcw-tag utcw-tag-sip" href="https://www.twilio.com/blog/tag/sip" style="font-size:16px" title="15 topics">SIP</a> <a class="tag-link-1031 utcw-tag utcw-tag-sms" href="https://www.twilio.com/blog/tag/sms" style="font-size:16px" title="372 topics">SMS</a> <a class="tag-link-2871 utcw-tag utcw-tag-taskrouter" href="https://www.twilio.com/blog/tag/taskrouter" style="font-size:16px" title="8 topics">Task Router</a> <a class="tag-link-1199 utcw-tag utcw-tag-twilio-client" href="https://www.twilio.com/blog/tag/twilio-client" style="font-size:16px" title="32 topics">Twilio Client</a> <a class="tag-link-3032 utcw-tag utcw-tag-twilio-video" href="https://www.twilio.com/blog/tag/twilio-video" style="font-size:16px" title="9 topics">Twilio Video</a> <a class="tag-link-1277 utcw-tag utcw-tag-voice" href="https://www.twilio.com/blog/tag/voice" style="font-size:16px" title="172 topics">Voice</a></div></aside><aside id="text-5" class="widget widget_text">			<div class="textwidget"><a href="http://www.twilio.com/docs/tutorials" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/docs/tutorials', '');"><img src="https://www.twilio.com/blog/wp-content/uploads/2016/07/tutorials.png" style="width: 255px" /></a></div>
+		</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-13"><a href="https://www.twilio.com/blog/all-things-code" >Code, Tutorials and Hacks</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.twilio.com/blog/customer-highlights" >Customer Highlights</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://www.twilio.com/blog/developers-drawing-the-owl" >Developers Drawing The Owl</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="https://www.twilio.com/blog/news" >News</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.twilio.com/blog/stories-from-the-road" >Stories From The Road</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="https://www.twilio.com/blog/inside-twilio" >The Owl’s Nest: Inside Twilio</a>
+</li>
+		</ul>
+</aside><aside id="text-4" class="widget widget_text">			<div class="textwidget"><div class="tagcloud "><a href="http://www.twilio.com/blog/feed" onclick="__gaTracker('send', 'event', 'outbound-widget', 'http://www.twilio.com/blog/feed', 'RSS Feed');">RSS Feed</a></div></div>
+		</aside></div><!-- #secondary -->
+
+		</div><!-- .row -->
+	</div><!-- #content.container -->
+
+<div class="" id="footer">
+	<div class="container">
+		<header>
+			<div class="banner"></div>
+			<div class="border"></div>
+			<div class="stitching"></div>
+		</header>
+    <div class="row sitemap">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+          <h4><a href="http://www.twilio.com/company">Company</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/company">About Twilio</a></li>
+            <li><a href="http://www.twilio.com/company/nine-values">Our Nine Values</a></li>
+            <li><a href="http://www.twilio.com/company/leadership-principles">Our Leadership Principles</a></li>
+            <li><a href="http://www.twilio.com/company/management">The Team</a></li>
+            <li><a href="http://www.twilio.com/press">Press &amp; Media</a></li>
+            <li><a href="http://www.twilio.org/">Twilio.org</a></li>
+            <li><a href="http://www.twilio.com/company/jobs">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/products">Products</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/voice">Voice</a></li>
+            <li><a href="http://www.twilio.com/video">Video</a></li>
+            <li><a href="http://www.twilio.com/sms">SMS (Text Messaging)</a></li>
+            <li><a href="http://www.twilio.com/mms">MMS (Picture Messaging)</a></li>
+            <li><a href="http://www.twilio.com/sms/toll-free">Toll-Free SMS</a></li>
+            <li><a href="http://www.twilio.com/sip-trunking">SIP Trunking</a></li>
+            <li><a href="http://www.twilio.com/client/mobile">Client Mobile</a></li>
+            <li><a href="http://www.twilio.com/webrtc">Client WebRTC</a></li>
+            <li><a href="http://www.twilio.com/stun-turn">Network Traversal Service</a></li>
+            <li><a href="http://www.twilio.com/taskrouter">TaskRouter</a></li>
+            <li><a href="http://www.twilio.com/sms/phone-numbers">Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/sms/shortcodes">Short Codes</a></li>
+            <li><a href="http://www.twilio.com/support-plans">Support Plans</a></li>
+            <li><a href="http://www.twilio.com/platform">Platform</a></li>
+            <li><a href="http://www.twilio.com/lookup">Lookup</a></li>
+            <li><a href="http://www.twilio.com/monitor">Monitor</a></li>
+            <li><a href="http://www.twilio.com/copilot">Messaging Copilot</a></li>
+            <li><a href="http://www.twilio.com/voice/conference">Global Conference</a></li>
+            <li><a href="http://www.twilio.com/authy">Authy</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+        <h4><a href="http://www.twilio.com/pricing">Pricing</a></h4>
+        <ul>
+          <li><a href="http://www.twilio.com/voice/pricing">Voice Pricing</a></li>
+          <li><a href="http://www.twilio.com/sms/pricing">Messaging Pricing</a></li>
+          <li><a href="http://www.twilio.com/sip-trunking/pricing">SIP Trunking Pricing</a></li>
+          <li><a href="http://www.twilio.com/client/pricing">Client Pricing</a></li>
+          <li><a href="http://www.twilio.com/stun-turn/pricing">Network Traversal Pricing</a></li>
+          <li><a href="http://www.twilio.com/taskrouter/pricing">TaskRouter</a></li>
+          <li><a href="http://www.twilio.com/lookup#pricing">Lookup</a></li>
+          <li><a href="http://www.twilio.com/international">International Coverage</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/use-cases">Use Cases</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/customers">Customer Stories</a></li>
+            <li><a href="http://www.twilio.com/showcase">Showcase</a></li>
+            <li><a href="http://www.twilio.com/use-cases/two-factor-authentication">Two-Factor Authentication</a></li>
+            <li><a href="http://www.twilio.com/use-cases/appointment-reminders">Appointment Reminders</a></li>
+            <li><a href="http://www.twilio.com/use-cases/dispatch-notifications">Dispatch Notifications</a></li>
+            <li><a href="http://www.twilio.com/use-cases/eta-alerts">ETA Alerts</a></li>
+            <li><a href="http://www.twilio.com/use-cases/automated-surveys">Automated Surveys</a></li>
+            <li><a href="http://www.twilio.com/use-cases/masked-phone-numbers">Masked Phone Numbers</a></li>
+            <li><a href="http://www.twilio.com/use-cases/visual-estimates">Visual Estimates</a></li>
+            <li><a href="http://www.twilio.com/doers">Developer Network</a></li>
+            <li><a href="http://www.twilio.com/webinars">Webinars</a></li>
+            <li><a href="http://www.twilio.com/white-papers">White Papers</a></li>
+          </ul>
+      </div>
+      <div class="col-md-2">
+          <h4><a href="http://www.twilio.com/api">Api &amp; Docs</a></h4>
+          <ul>
+            <li><a href="http://www.twilio.com/docs/api">API Documentation</a></li>
+            <li><a href="http://www.twilio.com/docs/quickstart">Quickstarts</a></li>
+            <li><a href="http://www.twilio.com/docs/howto">How Tos</a></li>
+            <li><a href="http://www.twilio.com/docs/libraries">Helper Libraries</a></li>
+            <li><a href="http://www.twilio.com/docs/security">Security</a></li>
+          </ul>
+      </div>
+    </div>
+		<div class="row clear">
+			<footer><span>&copy; 2017 Twilio. All rights reserved. <aside>|</aside><a href="http://www.twilio.com/legal/tos">Terms of Service</a><aside>|</aside><a href="http://www.twilio.com/legal/privacy">Privacy Policy</a></span>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div><!-- #page -->
+
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201702'></script>
+
+
+
+
+
+
+
+<script type="text/javascript" defer src="https://www.twilio.com/blog/wp-content/cache/autoptimize/js/autoptimize_30cf8936a215677503cd64ef48677239.js"></script></body>
+
+<!-- Mirrored from www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:09:59 GMT -->
+</html>

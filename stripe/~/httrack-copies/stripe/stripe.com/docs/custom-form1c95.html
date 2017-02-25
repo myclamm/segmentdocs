@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/custom-form?ref=quickstart by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="T8CGIT3KrGMfx9kj3qTcnS5IJcuBekzqf4e5HCfCBBzWWpJcOw9oJtKD_TwSrOnmBzarTN3WjUo-MrM0ghXObQ==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Creating a Custom Payment Form with Stripe.js</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../img/v3/home/social.png">
+
+    <meta property="og:title" content="Creating a Custom Payment Form with Stripe.js">
+    <meta property="og:url" content="custom-form.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Creating a Custom Payment Form with Stripe.js">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../index.html" title="Stripe"></a>
+          <a class="extension" href="../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul>
+    <li>
+      <a href="quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a class='selected' href="custom-form.html">Stripe.js</a>
+      <ul>
+    <li>
+      <a href="stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Creating a Custom Payment Form with Stripe.js</h1>
+  <p>This tutorial helps you build your first payment form with Stripe. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=Stripe.js">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3>Other options</h3>
+    <p>If you'd rather not build your own payment form, consider <a href="checkout.html">Checkout</a>, our embedded, optimized payment tool. Or avoid coding altogether with Stripe's <a href="../works-with.html">third-party integrations</a>. In addition, you may wish to add <a href="apple-pay/web.html">Apple Pay</a> to your website to provide a better experience for customers on iOS devices.</p>
+  </aside>
+
+  <p>Processing payments with Stripe has two components:</p>
+
+  <ul>
+    <li>Securely <a href="#step-1-collecting-credit-card-information">collecting</a> the payment details</li>
+    <li>Using the collected payment method in a <a href="charges.html">charge request</a></li>
+  </ul>
+  <p>This tutorial explains how to use HTML and Stripe.js, our foundational JavaScript library, to implement the first component. There are three steps:</p>
+  <ol>
+    <li><a href="#step-1-collecting-credit-card-information">Collecting credit card information</a> with Stripe.js</li>
+    <li>Converting those payment details to a <a href="#step-2-create-a-single-use-token">single-use token</a></li>
+    <li><a href="#step-3-sending-the-form-to-your-server">Submitting that token</a>, with the rest of your form, to your server</li>
+  </ol>
+  <p>The above steps assume you have a typical HTML payment form:</p>
+
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;form action=&quot;/your-charge-code&quot; method=&quot;POST&quot; id=&quot;payment-form&quot;&gt;
+  &lt;span class=&quot;payment-errors&quot;&gt;&lt;/span&gt;
+
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;Card Number&lt;/span&gt;
+      &lt;input type=&quot;text&quot; size=&quot;20&quot; data-stripe=&quot;number&quot;&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;Expiration (MM/YY)&lt;/span&gt;
+      &lt;input type=&quot;text&quot; size=&quot;2&quot; data-stripe=&quot;exp_month&quot;&gt;
+    &lt;/label&gt;
+    &lt;span&gt; / &lt;/span&gt;
+    &lt;input type=&quot;text&quot; size=&quot;2&quot; data-stripe=&quot;exp_year&quot;&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;CVC&lt;/span&gt;
+      &lt;input type=&quot;text&quot; size=&quot;4&quot; data-stripe=&quot;cvc&quot;&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;form-row&quot;&gt;
+    &lt;label&gt;
+      &lt;span&gt;Billing ZIP Code&lt;/span&gt;
+      &lt;input type=&quot;text&quot; size=&quot;6&quot; data-stripe=&quot;address_zip&quot;&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;input type=&quot;submit&quot; class=&quot;submit&quot; value=&quot;Submit Payment&quot;&gt;
+&lt;/form&gt;</code></pre>
+</div>
+
+  <p>The HTML is fairly standard, but note how every input for sensitive data&mdash;number, CVC, expiration, and ZIP code&mdash;omits the <code>name</code> attribute. By omitting a <code>name</code>, the user-supplied data in those fields won't be passed to your server when the form is submitted. Each element also includes a <code>data-stripe</code> attribute, to be discussed later.</p>
+
+  <p>With Stripe.js, you never have to handle sensitive card data. It's automatically converted to a representative <em>token</em> that you can safely send to your servers and use to charge your customers.</p>
+
+  <aside class="important">
+    <p><strong>Do not give names to the payment details form elements!</strong> This prevents that data from touching your server, which means you no longer need to worry about redacting logs, encrypting cardholder details, or other burdens of PCI compliance.</p>
+  </aside>
+</section>
+
+<section>
+  <h2 id="step-1-collecting-credit-card-information"><span class="step">Step 1:</span> Collecting credit card information</h2>
+
+  <p>To securely collect the credit card information, first include Stripe.js in your page:</p>
+
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;script type=&quot;text/javascript&quot; src=&quot;https://js.stripe.com/v2/&quot;&gt;&lt;/script&gt;</code></pre>
+</div>
+
+  <p>To prevent problems with some older browsers, put the script tag in the page <code>&lt;head&gt;</code> or as the final line in the <code>&lt;body&gt;</code> at the end of your code.</p>
+
+  <aside class="important">
+    <p><strong>Note</strong>: Stripe.js should be loaded directly from <strong>https://js.stripe.com/v2/</strong>.</p>
+  </aside>
+
+  <p>In a separate script tag, after the above, set your publishable key:</p>
+
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;script type=&quot;text/javascript&quot;&gt;
+  Stripe.setPublishableKey(&#39;pk_test_6pRNASCoBOKtIshFeQd4XMUh&#39;);
+&lt;/script&gt;</code></pre>
+</div>
+
+  <p>Your publishable API key identifies your website to Stripe during communications. We've placed a random API key in the code. Replace it with your <a href="https://dashboard.stripe.com/account/apikeys">actual publishable API key</a> to test this code through your Stripe account.</p>
+
+  <p>You will need to replace the test key with your live key for production uses. When you're ready, learn more about how the keys play into <a href="dashboard.html#livemode-and-testing">test and live modes</a>.</p>
+</section>
+
+<section>
+  <h2 id="step-2-create-a-single-use-token"><span class="step">Step 2:</span> Create a single use token</h2>
+
+  <aside class="note">
+    <h3>Library agnostic</h3>
+    <p>While this example uses <a href="http://jquery.com/">jQuery</a>, Stripe.js has no external dependencies. You can use vanilla JavaScript if you'd rather.</p>
+  </aside>
+
+  <p>The second step is to convert the payment details into a single-use representative token. This is done by interrupting the form's submission and passing the payment details directly to Stripe (from the user's browser).</p>
+
+  <p>After the code above, create an event handler that handles the <code>submit</code> event on the form. The handler should send the form data to Stripe for tokenization and prevent the form's submission. (The form will be submitted by JavaScript later.)</p>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>$(function() {
+  var $form = $(&#39;#payment-form&#39;);
+  $form.submit(function(event) {
+    // Disable the submit button to prevent repeated clicks:
+    $form.find(&#39;.submit&#39;).prop(&#39;disabled&#39;, true);
+
+    // Request a token from Stripe:
+    Stripe.card.createToken($form, stripeResponseHandler);
+
+    // Prevent the form from being submitted:
+    return false;
+  });
+});</code></pre>
+</div>
+
+  <p>The most important line is the call to <code>Stripe.card.createToken</code>. The first argument is the payment details. This can either be provided as individual members of a generic object, or by passing along a reference to the entire form. In the latter case, as in the above, the relevant values are fetched from their associated inputs using the <code>data-stripe</code> attribute specified in the HTML code example at the top of the page.</p>
+
+  <p>
+    Although optional, using <a href="https://support.stripe.com/questions/what-is-avs">address and ZIP code verifications</a> is highly recommended as they'll help reduce fraud.
+  The complete list of fields you can provide is available <a href="stripe.html#createToken">in the Stripe.js reference</a>.
+  </p>
+
+  <p>The second argument to <code>Stripe.card.createToken</code>&mdash;<code>stripeResponseHandler</code>&mdash;is a callback you provide to handle the response from Stripe. The handler is written to accept two arguments:</p>
+
+  <ul>
+    <li><code>status</code> is one of the status codes described in the <a href="api.html#errors">API docs</a></li>
+    <li><code>response</code> is of the following form:</li>
+  </ul>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  id: &quot;tok_u5dg20Gra&quot;, // Token identifier
+  card: {...}, // Dictionary of the card used to create the token
+  created: 1484350987, // Timestamp of when token was created
+  currency: &quot;usd&quot;, // Currency that the token was created in
+  livemode: false, // Whether this token was created with a live API key
+  object: &quot;token&quot;, // Type of object, always &quot;token&quot;
+  used: false // Whether this token has been used
+}</code></pre>
+</div>
+
+  <p>Understand that <code>Stripe.card.createToken</code> is an <em>asynchronous</em> call. The function returns immediately and calls <code>stripeResponseHandler</code> when it receives a response from Stripe's servers. This whole process only takes a few moments, and your customer never leaves your site or even the payment form page during that time.</p>
+</section>
+
+<section>
+  <h2 id="step-3-sending-the-form-to-your-server"><span class="step">Step 3:</span> Sending the form to your server</h2>
+
+  <aside class="note">
+    <h3>Your server</h3>
+    <p>Stripe.js and your payment form alone do not create a charge. Combined, Stripe.js and the HTML form fulfill the first half of the payment process, but server-side code is also necessary to <a href="charges.html">complete the workflow</a>.</p>
+  </aside>
+
+  <p>The third and final step to securely collect your customer's payment details is to submit the received token to your server for final use. When your script receives the response from Stripe's servers, the <code>stripeResponseHandler</code> function is called:</p>
+  <ul>
+    <li>If the card information entered by the user returned an error, the error gets displayed on the page</li>
+    <li>If no errors were returned&mdash;a single-use token was created successfully, add the returned token ID to the form and submit the form to your server</li>
+  </ul>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>function stripeResponseHandler(status, response) {
+  // Grab the form:
+  var $form = $(&#39;#payment-form&#39;);
+
+  if (response.error) { // Problem!
+
+    // Show the errors on the form:
+    $form.find(&#39;.payment-errors&#39;).text(response.error.message);
+    $form.find(&#39;.submit&#39;).prop(&#39;disabled&#39;, false); // Re-enable submission
+
+  } else { // Token was created!
+
+    // Get the token ID:
+    var token = response.id;
+
+    // Insert the token ID into the form so it gets submitted to the server:
+    $form.append($(&#39;&lt;input type=&quot;hidden&quot; name=&quot;stripeToken&quot;&gt;&#39;).val(token));
+
+    // Submit the form:
+    $form.get(0).submit();
+  }
+};</code></pre>
+</div>
+
+  <p>To get the token to your server, it's stored in a new hidden input. Its value is the received token's ID.</p>
+
+  <p>After adding the token ID, the form is submitted using JavaScript. (As a reminder, the form's submission was prevented earlier so the script could wait for Stripe to tokenize the credit card details.) All of the form's data will be sent as a POST request to the URL in the form's <code>action</code>. If you have other form elements, such as the user's email address, that will be submitted per usual.</p>
+
+</section>
+
+<section>
+  <h2 id="demo">Demo</h2>
+
+  <p>This live demonstration uses a cosmetic variation on the HTML and JavaScript explained above. It also includes basic validation before making the token request of Stripe. We've written a general purpose library called <a href="https://github.com/stripe/jquery.payment">jQuery.payment</a> to help with client-side input validation and formatting card numbers.</p>
+
+
+  <div class="columns">
+    <div class="column no-shrink">
+      <form class="card-form" id="payment-form">
+        <div class="row">
+          <label>Number</label>
+          <input type="text" size="20" id="number" value="4242 4242 4242 4242" data-stripe="number">
+        </div>
+        <div class="row">
+          <div class="column">
+            <label>Expiry</label>
+            <input type="text" size="12" placeholder="MM / YY" id="exp" value="12 / 18" data-stripe="exp">
+          </div>
+          <div class="column cvc">
+            <label>CVC</label>
+            <input type="text" size="4" id="cvc" value="123" data-stripe="cvc">
+          </div>
+        </div>
+          <div class="row">
+            <label>ZIP Code</label>
+            <input type="text" size="5" value="12345" data-stripe="address_zip">
+          </div>
+        <div class="errors"></div>
+        <div class="row">
+          <button type="submit" class="arrow">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="column">
+      <p>The form has been pre-filled with valid test values, but feel free to change any of them, using:</p>
+      <ul>
+        <li>One of Stripe's <a href="testing.html#cards">test card numbers</a>, such as <strong>4242 4242 4242 4242</strong></li>
+        <li>Any three digit CVC code</li>
+        <li>Any expiration date in the future</li>
+          <li>Any billing ZIP code, such as <strong>12345</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <p id="payment-result"></p>
+</section>
+
+<section>
+  <h2 id="next-up">Next steps</h2>
+  <p>Once you've sent your form to your server, you're going to want to do something with the payment details you just collected (in the form of a token). This is usually one of two things:</p>
+<ul class="next-steps">
+    <li><a href="charges.html"><span>Charge your user immediately</a></li>
+    <li><a href="subscriptions/quickstart.html"><span>Sign them up for a subscription</a></li>
+</ul>
+
+  <p>The token is single-use only and has a short life. Use it in an API call immediately. If you wish to charge a credit card multiple times or just at a later time, you should use your token to <a href="charges.html#saving-credit-card-details-for-later">create a Customer object</a>.</p>
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+      <script type="text/javascript">Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');</script>
+  <script>
+  var $form = $('#payment-form');
+  var $result = $('#payment-result');
+  $(function() {
+    $form.submit(function(event) {
+      $form.find('.errors').text('');
+      $form.find('.submit').prop('disabled', true);
+      if (Stripe.card.validateCardNumber($('#number').val())
+        && Stripe.card.validateExpiry($('#exp').val())
+        && Stripe.card.validateCVC($('#cvc').val())) {
+
+        Stripe.card.createToken($form, stripeResponseHandler);
+      } else {
+        $form.find('.errors').text('Please enter valid test credit card information.');
+        $form.find('.submit').prop('disabled', false);
+      }
+      return false;
+    });
+  });
+  function stripeResponseHandler(status, response) {
+    if (response.error) {
+      $form.find('.errors').text(response.error.message);
+      $form.find('.submit').prop('disabled', false);
+    } else {
+      $result.html('Your Stripe token is: <strong>' + response.id + '</strong><br>This would then automatically be submitted to your server.');
+    }
+  };
+  </script>
+
+    <script src="../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/custom-form?ref=quickstart by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:57 GMT -->
+</html>

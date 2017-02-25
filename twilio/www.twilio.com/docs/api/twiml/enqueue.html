@@ -1,0 +1,1417 @@
+﻿
+
+
+<!DOCTYPE html>
+<html class="no-js">
+  
+<!-- Mirrored from www.twilio.com/docs/api/twiml/enqueue by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+	<!-- Optimizely -->
+	<script src="https://cdn.optimizely.com/js/6082066.js"></script>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    
+    
+
+    <title>
+      TwiML™ Voice: &lt;Enqueue&gt; - Twilio
+    </title>
+
+    <link rel="canonical" href="https://www.twilio.com/docs/api/twiml/enqueue" />
+
+    
+    <link rel="shortcut icon" href="https://www.twilio.com/docs/static/img/favicons/favicon.db41f19ea294.ico"/>
+    <link rel="apple-touch-icon" href="https://www.twilio.com/docs/static/img/favicons/favicon_57.98200b6899e6.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="https://www.twilio.com/docs/static/img/favicons/favicon_72.86ae17486256.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="https://www.twilio.com/docs/static/img/favicons/favicon_114.ee1859950ad4.png"/>
+
+    
+    <link rel="stylesheet" type="text/css" href="http://cloud.typography.com/6230892/752864/css/fonts.css">
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-awesome.min.295235b28b6e.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/twilio-icons.45de73e993f2.css" />
+    <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/font-mfizz.818f36cb00cc.css" />
+
+    
+    
+    <meta property="og:title" content="TwiML™ Voice: &lt;Enqueue&gt;">
+    
+    
+    
+    <meta property="og:url" content="https://www.twilio.com/docs/api/twiml/enqueue?utm_source=docs&utm_medium=social&utm_campaign=guides_tags">
+
+    
+    
+    <meta name="twitter:title" content="TwiML™ Voice: &lt;Enqueue&gt;">
+    
+    
+    
+
+    
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://www.twilio.com/docs/static/css/docs.min.05ed18599e08.css" />
+    
+
+    
+    
+
+    
+    <script>
+  var twilio = twilio || {};
+  twilio.realm = "prod";
+  twilio.SWIFTYPE_ENGINE_KEY = "T68bXEBf7NaKzyRpvbnG";
+</script>
+
+
+<script>
+  twilio.account = twilio.account || {};
+  
+
+  twilio.user = twilio.user || {};
+  
+  
+
+</script>
+
+
+    <script>
+  
+  window.userBetaFeatures = ["marketplace", "enable-video-rooms"];
+</script>
+
+  </head>
+
+  <body class="
+    
+      apireference
+    
+    
+    
+  ">
+
+    
+
+	
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-MWRD6S"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window, document, 'script', 'dataLayer', 'GTM-MWRD6S');</script>
+	<!-- End Google Tag Manager -->
+	
+
+
+
+    
+    <div role="drawer" class="nav__drawer">
+  <div role="drawer__wrapper" class="nav__drawer-wrapper">
+    <div role="drawer__nav" class="nav__drawer-nav"><span class="nav__drawer-auth"><a href="https://www.twilio.com/login" class="nav__drawer-auth-link">Log In</a><a href="https://www.twilio.com/try-twilio" class="nav__drawer-auth-link">Sign Up</a></span><a href="#close" role="drawer__close" class="nav__drawer-close">Close</a></div>
+    <div class="nav__drawer-menu">
+      <div class="nav__drawer-container">
+        <div class="nav__drawer-grid">
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Products</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/voice-video" class="nav__drawer-link nav__drawer-link--category">Voice &amp; Video</a></li>
+                  <li><a href="https://www.twilio.com/voice" class="nav__drawer-link">Programmable Voice</a></li>
+                  <li><a href="https://www.twilio.com/video" class="nav__drawer-link">Programmable Video</a></li>
+                  <li><a href="https://www.twilio.com/sip-trunking" class="nav__drawer-link">Elastic SIP Trunking</a></li>
+                  <li><a href="https://www.twilio.com/taskrouter" class="nav__drawer-link">TaskRouter</a></li>
+                  <li><a href="https://www.twilio.com/stun-turn" class="nav__drawer-link">Network Traversal</a></li>
+                </ul>
+                <ul>
+                  <li><a href="https://www.twilio.com/messaging" class="nav__drawer-link nav__drawer-link--category">Messaging</a></li>
+                  <li><a href="https://www.twilio.com/sms" class="nav__drawer-link">Programmable SMS</a></li>
+                  <li><a href="https://www.twilio.com/chat" class="nav__drawer-link">Programmable Chat</a></li>
+                  <li><a href="https://www.twilio.com/notify" class="nav__drawer-link">Notify</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Authentication</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/authy" class="nav__drawer-link">Authy</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Connectivity</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/lookup" class="nav__drawer-link">Lookup</a></li>
+                  <li><a href="https://www.twilio.com/phone-numbers" class="nav__drawer-link">Phone Numbers</a></li>
+                  <li><a href="https://www.twilio.com/wireless" class="nav__drawer-link">Programmable Wireless</a></li>
+                  <li><a href="https://www.twilio.com/sync" class="nav__drawer-link">Sync</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Marketplace</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/marketplace/add-ons" class="nav__drawer-link">Add-ons</a></li>
+                </ul>
+                <ul>
+                  <li>
+                    <div class="nav__drawer-link nav__drawer-link--category">Platform</div>
+                  </li>
+                  <li><a href="https://www.twilio.com/enterprise" class="nav__drawer-link">Enterprise Plan</a></li>
+                  <li><a href="https://www.twilio.com/interconnect" class="nav__drawer-link">Interconnect</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="nav__drawer-section">
+            <div role="drawer__header" class="nav__drawer-header">Use Cases</div>
+            <div role="drawer__dropdown" class="nav__drawer-dropdown">
+              <ul>
+                <li><a href="https://www.twilio.com/use-cases/access-security" class="nav__drawer-link nav__drawer-link--category">Access Security</a></li>
+                <li><a href="https://www.twilio.com/use-cases/call-and-text-marketing" class="nav__drawer-link nav__drawer-link--category">Call &amp; Text Marketing</a></li>
+                <li><a href="https://www.twilio.com/use-cases/collaboration" class="nav__drawer-link nav__drawer-link--category">Collaboration</a></li>
+                <li><a href="https://www.twilio.com/use-cases/commerce-communications" class="nav__drawer-link nav__drawer-link--category">Commerce Communications</a></li>
+                <li><a href="https://www.twilio.com/use-cases/contact-center" class="nav__drawer-link nav__drawer-link--category">Contact Center</a></li>
+              </ul>
+              <hr>
+            </div>
+            <div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://customers.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Customer Stories</a></li>
+                  <li><a href="https://www.twilio.com/showcase" class="nav__drawer-link nav__drawer-link--small">Partner Showcase</a></li>
+                  <li><a href="https://www.twilio.com/what-is-cloud-communications?" class="nav__drawer-link nav__drawer-link--small">Why Twilio?</a></li>
+                  <li><a href="https://www.twilio.com/support-plans" class="nav__drawer-link nav__drawer-link--small">Support Plans</a></li>
+                  <li><a href="http://status.twilio.com/" class="nav__drawer-link nav__drawer-link--small">Status</a></li>
+                </ul>
+              </div>
+              <div class="nav__drawer-column">
+                <ul>
+                  <li><a href="https://www.twilio.com/docs" class="nav__drawer-link nav__drawer-link--small">API &amp; Docs</a></li>
+                  <li><a href="https://www.twilio.com/blog" class="nav__drawer-link nav__drawer-link--small">Blog</a></li>
+                  <li><a href="https://www.twilio.com/help" class="nav__drawer-link nav__drawer-link--small">Help</a></li>
+                  <li><a href="https://www.twilio.com/company/jobs" class="nav__drawer-link nav__drawer-link--small">Jobs at Twilio</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav__sales"><a href="https://www.twilio.com/help/sales" class="nav__sales-button">Talk to Sales</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div role="nav" class="nav nav--subnav nav--inverted nav--transparent " data-subnav-length="40">
+  <div role="nav__menu" class="nav__header">
+    <div class="nav__title"><a href="https://www.twilio.com/" class="nav__logo">Twilio</a></div>
+    <nav class="nav__menu">
+      <ul class="nav__menu-items">
+        <li class="nav__menu-item"></li>
+        
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/login" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.2" height="13.5" viewBox="0 0 10.2 13.5">
+              <circle fill="none" stroke="#F22F46" stroke-miterlimit="10" cx="5.1" cy="3" r="2.5"></circle>
+              <path fill="none" stroke="#F22F46" stroke-miterlimit="10" d="M.5 13.5c0-2.5 2.1-4.6 4.6-4.6s4.6 2.1 4.6 4.6"></path>
+            </svg>
+            Log In
+          </a>
+        </li>
+        <li class="nav__menu-item">
+          <a href="https://www.twilio.com/try-twilio" class="nav__menu-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+              <path d="M0 6.5h13M6.5 0v13" fill="none" stroke="#F22F46" stroke-miterlimit="10"></path>
+            </svg>
+            Sign Up
+          </a>
+        </li>
+        
+        <li class="nav__menu-item"><a href="#menu" role="nav__activate" class="nav__menu-link nav__menu-activate"><span></span>Menu &amp; Products</a></li>
+      </ul>
+    </nav>
+    <nav role="subnav" class="nav__subnav">
+      <header class="nav__subnav-header">
+        <a href="https://www.twilio.com/docs" class="nav__subnav-header-link">Docs</a>
+        
+          <a href="https://www.twilio.com/docs/api" role="subnav__dropdown" 
+            class="nav__subnav-link nav__subnav-current">API Reference</a>
+        
+      </header>
+      <ul role="subnav__items" class="nav__subnav-items">
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/quickstart" class="nav__subnav-link">Quickstart</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/guides" class="nav__subnav-link">Guides</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/tutorials" class="nav__subnav-link">Tutorials</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/api" class="nav__subnav-link">API Reference</a>
+        </li>
+        <li role="subnav__item" class="nav__subnav-item ">
+          <a href="https://www.twilio.com/docs/libraries" class="nav__subnav-link">SDKs</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+
+    
+    
+      
+
+<div class="docs__pagenav">
+  <div class="uk-container uk-container-center">
+    <div class="uk-grid">
+      <div class="uk-width-3-4 uk-hidden-small">
+      
+      
+        <div class="breadcrumbs">
+          
+            
+          
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api">API Reference</a> &gt;
+            
+          
+            
+              <a href="https://www.twilio.com/docs/api/twiml">TwiML: The Twilio Markup Language</a> &gt;
+            
+          
+          <span>TwiML™ Voice: &lt;Enqueue&gt;</span>
+        </div>
+      
+      </div>
+
+      
+      <div class="uk-width-1-1 uk-width-medium-1-4">
+  <div class="search">
+    <form action="https://www.twilio.com/docs/search" method="GET">
+      <div class="wrapper">
+        <input id="search-box" name="q" type="text" value=""/>
+      </div>
+      <button type="submit">
+        <i class="fa fa-fw fa-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+    
+
+    <div class="docs-container">
+      <div class="uk-container">
+        
+        
+  <div class="coderail-container">
+
+    <div class="sidenav-column">
+      <div class="theme-switcher uk-hidden-small">
+  <div class="theme-wrapper">
+    <a data-theme="light" class="selected">
+      <i class="fa fa-fw fa-sun-o"></i>
+    </a>
+    <a data-theme="dark" >
+      <i class="fa fa-fw fa-moon-o"></i>
+    </a>
+  </div>
+</div>
+      
+        <div class="sidenav" data-uk-sticky="{boundary: true}">
+          
+
+<ul id="doc_menu" class="sidenav__section" data-swiftype-index="false">
+
+  <!-- Page entries -->
+  
+    <li id="dynamic-menu">
+      <ul>
+        
+          
+          
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml">
+          TwiML Reference
+      </a>
+  </li>
+
+
+
+        
+          
+            
+<li class="menu-title expanded" role="menu-title" id="doc-navigation-parent">
+  TwiML™ Voice: &lt;Enqueue&gt;
+</li>
+<ul class="menu-accordion expanded" role="menu-accordion" id="doc-navigation"></ul>
+
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">Using TwiML</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml">
+          Overview
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title expanded" role="menu-title">
+
+    <span class="heading">Voice TwiML</span>
+</li>
+
+
+<ul class="menu-accordion expanded" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/twilio_request">
+          Twilio&#39;s Request
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/your_response">
+          Your Response
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/guides/queues">
+          Queueing Calls
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/dial">
+          &lt;Dial&gt;
+      </a>
+  </li>
+
+
+
+    
+        <ul class="menu-accordion expanded">
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/client">
+          &lt;Client&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/conference">
+          &lt;Conference&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/number">
+          &lt;Number&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/queue">
+          &lt;Queue&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sip">
+          &lt;Sip&gt;
+      </a>
+  </li>
+
+
+
+    
+</ul>
+    
+        
+
+
+
+  <li class="active"
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/enqueue">
+          &lt;Enqueue&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/gather">
+          &lt;Gather&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/hangup">
+          &lt;Hangup&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/leave">
+          &lt;Leave&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/pause">
+          &lt;Pause&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/play">
+          &lt;Play&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/record">
+          &lt;Record&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/redirect">
+          &lt;Redirect&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/reject">
+          &lt;Reject&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/say">
+          &lt;Say&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms">
+          &lt;Sms&gt;
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+          
+          
+<li class="menu-title" role="menu-title">
+
+    <span class="heading">Messaging TwiML</span>
+</li>
+
+
+<ul class="menu-accordion" role="menu-accordion">
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/twilio_request">
+          Twilio&#39;s Request
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/your_response">
+          Your Response
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/message">
+          &lt;Message&gt;
+      </a>
+  </li>
+
+
+
+    
+        
+
+
+
+  <li 
+    >
+      <a href="https://www.twilio.com/docs/api/twiml/sms/redirect">
+          &lt;Redirect&gt;
+      </a>
+  </li>
+
+
+
+    
+</ul>
+
+        
+        
+      </ul>
+    </li>
+  
+</ul>
+
+        </div>
+      
+    </div>
+
+    <div class="primary-column 
+        ">
+      <div class="docs-prose">
+        
+  
+    
+    <h1 class="page-title ">
+      TwiML™ Voice: &lt;Enqueue&gt;
+    </h1>
+    
+  
+  
+    <div class="block-markdown ">
+      
+        
+
+<div>
+    <p>The <code>&lt;Enqueue&gt;</code> verb enqueues the current call in a call queue. Enqueued calls wait in hold music
+until the call is dequeued by another caller via the <a href="https://www.twilio.com/docs/api/twiml/dial"><code>&lt;Dial&gt;</code></a> verb or transfered out of the queue via
+the <a href="https://www.twilio.com/docs/api/rest/member#instance-post">REST API</a> or the <a href="https://www.twilio.com/docs/api/twiml/leave"><code>&lt;Leave&gt;</code></a> verb.</p>
+<p>The <code>&lt;Enqueue&gt;</code> verb will create a queue on demand, if the queue does not already exist. The default maximum length of the queue is 100. This can be modified using the
+<a href="https://www.twilio.com/docs/api/rest/queue#instance-post">REST API</a>.</p>
+<h3 id="attributes"><a class="toclink" href="#attributes">Verb Attributes</a></h3>
+<p>The <code>&lt;Enqueue&gt;</code> verb supports the following attributes that modify its behavior:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute Name</th>
+<th align="left">Allowed Values</th>
+<th align="left">Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="#attributes-action">action</a></td>
+<td align="left">relative or absolute URL</td>
+<td align="left">none</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-method">method</a></td>
+<td align="left">GET, POST</td>
+<td align="left">POST</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-waitUrl">waitUrl</a></td>
+<td align="left">relative or absolute URL</td>
+<td align="left"><a href="http://s3.amazonaws.com/com.twilio.sounds.music/index.xml">default classical playlist</a></td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-waitUrlMethod">waitUrlMethod</a></td>
+<td align="left">GET, POST</td>
+<td align="left">POST</td>
+</tr>
+<tr>
+<td align="left"><a href="#attributes-workflowSid">workflowSid</a></td>
+<td align="left">TaskRouter Workflow Sid</td>
+<td align="left">none</td>
+</tr>
+</tbody>
+</table>
+<h4 id="attributes-action"><a class="toclink" href="#attributes-action">action</a></h4>
+<p>The 'action' attribute takes an absolute or relative URL as a value.
+A request is made to this URL when the call leaves the queue, describing the dequeue reason and details
+about the time spent in the queue, which are described below. In the case where a call is dequeued due to
+a <a href="https://www.twilio.com/docs/api/rest/member#instance-post">REST API request</a> or the <a href="https://www.twilio.com/docs/api/twiml/leave"><code>&lt;Leave&gt;</code></a> verb, the action URL is requested right away.  In the case where a call
+is dequeued via the <code>&lt;Dial&gt;</code> verb, the action URL is hit once when the bridged parties disconnect.
+If no 'action' is provided, Twilio will fall through to the next verb in the document, if any.</p>
+<h5 id="attributes-action-parameters"><a class="toclink" href="#attributes-action-parameters">Request Parameters</a></h5>
+<p>Twilio will pass the following parameters in addition to the <a href="https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters">standard TwiML Voice request parameters</a> with its request to the 'action' URL:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">QueueResult</td>
+<td align="left">The final result of the enqueued call. See <a href="#attributes-action-parameters-QueueResult">queue result values</a> below for details.</td>
+</tr>
+<tr>
+<td align="left">QueueSid</td>
+<td align="left">The SID of the queue. This is only available if the call was actually enqueued.</td>
+</tr>
+<tr>
+<td align="left">QueueTime</td>
+<td align="left">The time the call spent in the queue. This is only available if the call was actually enqueued.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="attributes-action-parameters-QueueResult"><a class="toclink" href="#attributes-action-parameters-QueueResult">QueueResult values</a></h5>
+<p>The following values represent the result of an attempt to enqueue a caller.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">bridged</td>
+<td align="left">The call was dequeued and bridged to the dequeuer.</td>
+</tr>
+<tr>
+<td align="left">bridging-in-process</td>
+<td align="left">Twilio has been instructed to bridge the enqueued party.</td>
+</tr>
+<tr>
+<td align="left">error</td>
+<td align="left">The TwiML contained an error, either in the <code>&lt;Enqueue&gt;</code> verb itself or in the TwiML retrieved from a <code>waitUrl</code>. Check the <a href="https://www.twilio.com/user/account/developer-tools/app-monitor">App Monitor</a>.</td>
+</tr>
+<tr>
+<td align="left">hangup</td>
+<td align="left">The enqueued caller hung up before connecting to a dequeued call.</td>
+</tr>
+<tr>
+<td align="left">leave</td>
+<td align="left">The enqueued caller exited the queue via the <a href="https://www.twilio.com/docs/api/twiml/leave"><code>&lt;Leave&gt;</code></a> verb.</td>
+</tr>
+<tr>
+<td align="left">redirected</td>
+<td align="left">While in the queue, the call was redirected out of the queue, typically by a <a href="https://www.twilio.com/docs/api/rest/member#instance-post">REST API request</a>.</td>
+</tr>
+<tr>
+<td align="left">redirected-from-bridged</td>
+<td align="left">The queued and then successfully bridged session was transferred out.</td>
+</tr>
+<tr>
+<td align="left">queue-full</td>
+<td align="left">The targeted queue was full, thus the enqueue attempt was rejected.</td>
+</tr>
+<tr>
+<td align="left">system-error</td>
+<td align="left">The Twilio system malfunctioned during the enqueue process.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="attributes-method"><a class="toclink" href="#attributes-method">method</a></h4>
+<p>The 'method' attribute takes the value 'GET' or 'POST'. This tells Twilio
+whether to request the 'action' URL via HTTP GET or POST. This attribute
+is modeled after the HTML form 'method' attribute. 'POST' is the default value.</p>
+<h4 id="attributes-waitUrl"><a class="toclink" href="#attributes-waitUrl">waitUrl</a></h4>
+<p>The 'waitUrl' attribute specifies a URL pointing to a TwiML document containing TwiML verbs that will be executed while the caller is waiting in the queue.</p>
+<p>Once the waitUrl TwiML flow runs out of verbs to execute, Twilio will re-request the waitUrl and start over, essentially
+looping hold music indefinitely. The <code>&lt;Redirect&gt;</code> verb can be used for multiple document flows, but flow will always return to the waitUrl
+once there is no TwiML left to execute.</p>
+<p>The following verbs are supported in the waitUrl TwiML document:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Verb</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/play">&lt;Play&gt;</a></td>
+<td align="left">Plays a file to the caller.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/say">&lt;Say&gt;</a></td>
+<td align="left">Say something to the caller using Twilio text-to-speech.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/pause">&lt;Pause&gt;</a></td>
+<td align="left">Pauses for a specified duration.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/hangup">&lt;Hangup&gt;</a></td>
+<td align="left">Hangs up the call and thereby leaving the queue and ending the call.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/redirect">&lt;Redirect&gt;</a></td>
+<td align="left">Redirect to another TwiML document.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/leave">&lt;Leave&gt;</a></td>
+<td align="left">Makes the current call leave the queue, but doesn't hang up the call. Execution proceeds with the next verb after the '&lt;Enqueue&gt;' verb.</td>
+</tr>
+<tr>
+<td align="left"><a href="https://www.twilio.com/docs/api/twiml/gather">&lt;Gather&gt;</a></td>
+<td align="left">Collects digits that a caller enters into his or her telephone keypad.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="attributes-waiturl-parameters"><a class="toclink" href="#attributes-waiturl-parameters">Request Parameters</a></h5>
+<p>Twilio will pass the following parameters in addition to the <a href="https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters">standard TwiML
+Voice request parameters</a> with
+its request to the 'waitUrl' URL:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">QueuePosition</td>
+<td align="left">The current queue position for the enqueued call.</td>
+</tr>
+<tr>
+<td align="left">QueueSid</td>
+<td align="left">The SID of the Queue that the caller is in.</td>
+</tr>
+<tr>
+<td align="left">QueueTime</td>
+<td align="left">The time in seconds that the caller has been in the queue.</td>
+</tr>
+<tr>
+<td align="left">AvgQueueTime</td>
+<td align="left">An average of how long the current enqueued callers have been in the queue in milliseconds.</td>
+</tr>
+<tr>
+<td align="left">CurrentQueueSize</td>
+<td align="left">The current number of enqueued calls in this queue.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="attributes-waitUrlMethod"><a class="toclink" href="#attributes-waitUrlMethod">waitUrlMethod</a></h4>
+<p>The 'waitUrlMethod' attribute takes the value 'GET' or 'POST'. This tells
+Twilio whether to request the 'waitUrl' via HTTP GET or POST. This attribute is
+modeled after the HTML form 'method' attribute. 'POST' is the default value.</p>
+<h4 id="attributes-workflowSid"><a class="toclink" href="#attributes-workflowSid">workflowSid</a></h4>
+<p>The 'workflowSid' attribute tells Twilio to create a new TaskRouter Task to represent this call and specifies the ID of the desired Workflow to handle it. </p>
+<p>If 'workflowSid' is specified, it is not necessary to specify a name for the Queue to place the call in. When a Worker is identified to handle the call it can be dequeued and connected using the <a href="https://www.twilio.com/docs/taskrouter/handling-assignment-callbacks#dequeue-call">dequeue assignment instruction</a>. </p>
+<h3 id="nouns"><a class="toclink" href="#nouns">Nouns</a></h3>
+<p>The "noun" of a TwiML verb is the nested content of the verb that's not a verb itself; it's the information the verb acts upon. These are the nouns for <code>&lt;Enqueue&gt;</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Noun</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>plain text</td>
+<td>The name of a particular queue.</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>The attributes to be set for the newly created task, formatted as JSON</td>
+</tr>
+</tbody>
+</table>
+<p>If the named queue wasn't already created, it will be created on demand. The queue name can not be longer than 64 characters.</p>
+<p>You can find more information and examples on how to use Task on the <a href="https://www.twilio.com/docs/taskrouter/twiml-integration">TaskRouter TwiML Integration</a> page.</p>
+<h3 id="examples"><a class="toclink" href="#examples">Examples</a></h3>
+<h4 id="examples-1"><a class="toclink" href="#examples-1">Example 1: Simple Enqueue</a></h4>
+<p>This TwiML document tells Twilio to fetch the wait-music.xml TwiML document and execute it while the caller is in the queue:</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Enqueue</span> <span class="na">waitUrl=</span><span class="s">&quot;wait-music.xml&quot;</span><span class="nt">&gt;</span>support<span class="nt">&lt;/Enqueue&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<p>The wait-music.xml TwiML document plays some nice hold music:</p>
+<div class="codehilite"><pre><span class="code-line"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;Response&gt;</span>
+</span><span class="code-line">    <span class="nt">&lt;Play&gt;</span>http://com.twilio.sounds.music.s3.amazonaws.com/MARKOVICHAMP-Borghestral.mp3<span class="nt">&lt;/Play&gt;</span>
+</span><span class="code-line"><span class="nt">&lt;/Response&gt;</span>
+</span></pre></div>
+
+<h3 id="hints"><a class="toclink" href="#hints">Hints and Advanced Uses</a></h3>
+<ul>
+<li>You can use the parameters on the 'waitUrl' request to <code>&lt;Say&gt;</code> back to the caller what his or her queue position is and how long he or she can expect to wait.</li>
+</ul>
+</div>
+
+      
+    </div>
+  
+
+    
+
+        
+          
+<div id="disqus_thread"></div>
+
+
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+// Unique identifiers
+PAGE_URL = "https://www.twilio.com/docs/api/twiml/enqueue";
+
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'http://twiliodocumentation.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+        
+      </div>
+    </div>
+
+    <div class="code-column">
+      
+  <div id="coderail" class="code-rail" data-uk-sticky="{boundary: true}">
+
+  <div class="rail-placeholder"></div>
+
+  <div class="rail-header uk-hidden">
+
+    <div class="rail-header-wrapper">
+
+      <div class="rail-navigation">
+        <div class="inner">
+          <a href="#previous" class="inactive" data-previous>
+            <i class="fa fa-fw fa-arrow-left left"></i>
+          </a>
+        </div>
+        <div class="inner">
+          <span>
+            <span class="current-index">1</span>
+            <span>/</span>
+            <span class="snippet-total">1</span>
+          </span>
+        </div>
+        <div class="inner">
+          <a href="#next" data-next>
+            <i class="fa fa-fw fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="rail-title">
+        <div class="title-content inner">
+          <span>Loading Code Samples...</span>
+          <i class="fa fa-fw fa-chevron-down"></i>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rail-toolbar uk-hidden">
+
+    <div class="rail-current-language">
+      <div class="inner">
+        <span>Language</span>
+        <i class="fa fa-fw fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <a href="#code" class="uk-hidden tab" data-code>Code</a>
+      <a href="#output" class="uk-hidden inactive" data-output>Output</a>
+
+      <span class="separator"></span>
+
+      <a id="download" class="uk-hidden">
+        <i class="fa fa-fw fa-download"></i>
+        <span>Download Project</span>
+      </a>
+
+      <a id="github" class="uk-hidden" target="_blank">
+        <i class="fa fa-fw fa-github-square"></i>
+        <span>View on GitHub</span>
+      </a>
+
+      <a id="defrosty" class="fr-on" href="#defrosty">
+        <i class="fa fa-fw fa-eye"></i>
+        <span class="wider-tooltip">Toggle Highlighted Lines</span>
+      </a>
+
+      <a id="clippy" href="#copy">
+        <i class="fa fa-fw fa-copy"></i>
+        <span>Copy to Clipboard</span>
+      </a>
+
+      <a id="linkcode" href="#linkcode">
+        <i class="fa fa-fw fa-link"></i>
+        <span>Link to this Code</span>
+      </a>
+
+      <a href="#expand" data-expand>
+        <i class="fa fa-fw fa-arrows-alt"></i>
+        <span>Full Screen</span>
+      </a>
+      <a href="#collapse" class="uk-hidden" data-collapse>
+        <i class="fa fa-fw fa-compress"></i>
+        <span>Normal Size</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="rail-samples">
+    <ul>
+      
+    </ul>
+  </div>
+
+  <div class="rail-languages"></div>
+
+  <div class="rail-content">
+    <div class="rail-content-inner">
+      
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
+  </div>
+
+      </div>
+    </div>
+
+    
+    
+
+
+<div class="footer" data-swiftype-index="false">
+  <div class="uk-container uk-container-center">
+    <div class="footer__statement">We can’t wait to see what you build.</div>
+    <div class="uk-grid">
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Products</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/voice-video" class="footer__link">Voice &amp; Video</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/messaging" class="footer__link">Messaging</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/authy" class="footer__link">Authentication</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/wireless" class="footer__link">Connected Devices</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">Use Cases</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/access-security" class="footer__link">Access Security</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/contextual-call-center" class="footer__link">Contextual Call Center</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/marketplace-communications" class="footer__link">Marketplace Communications</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/use-cases/mobile-messaging" class="footer__link">Mobile Messaging</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
+        <section class="footer__section">
+          <header class="footer__header">About</header>
+          <ul class="footer__list">
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/what-is-cloud-communications?" class="footer__link">What is Twilio?</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help" class="footer__link">Get Help</a>
+            </li>
+            <li class="footer__list-item">
+              <a href="https://www.twilio.com/help/sales" class="footer__link">Talk to Sales</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="uk-width-1-1 uk-width-medium-2-5">
+        <section class="footer__section">
+  <header class="footer__header">Hits From The Blog</header>
+  <ul class="footer__list footer__list">
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
+    </li>
+    
+    <li class="footer__list-item">
+      <a href="https://www.twilio.com/blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
+    </li>
+    
+  </ul>
+
+</section>
+      </div>
+    </div>
+    <footer class="footer__footer">
+      <div class="footer__logo" title="Twilio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
+          <circle cx="18.7" cy="11.3" r="3.1"/>
+          <circle cx="18.7" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="18.7" r="3.1"/>
+          <circle cx="11.3" cy="11.3" r="3.1"/>
+        </svg>
+      </div>
+      <ul class="legal__list">
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/company" class="legal__link">About Twilio</a>
+        </li>
+        <li class="legal__list-item">
+          <a href="https://www.twilio.com/legal" class="legal__link">Legal</a>
+        </li>
+        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
+          <br class="uk-visible-small">All Rights Reserved.
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>
+
+
+    
+    <script src="https://www.twilio.com/docs/static/js/vendor.min.16abf41c42de.js"></script>
+    
+
+  
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+  typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
+    e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("f71c19735fa6ecc5225ff563285e1794");
+    </script>
+  
+
+  
+    <!-- Heap -->
+    <script type="text/javascript">
+    window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(n?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+    heap.load('1541905715');
+    </script>
+  
+
+  
+    <!-- GA -->
+    <script type="text/javascript">
+    try {
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2900316-1']);
+      _gaq.push(['_setSiteSpeedSampleRate', 50]);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    } catch(err) {}
+
+    var _kmq = _kmq || [];
+    </script>
+  
+
+  
+    <!-- Eloqua -->
+    <script type="text/javascript">
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', '815114181']);
+    _elqQ.push(['elqTrackPageView']);
+    _elqQ.push(['elqUseFirstPartyCookie', 'www.twilio.com']);
+
+    (function () {
+      function async_load() {
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+        s.src = 'http://img03.en25.com/i/elqCfg.min.js';
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      }
+      if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+      else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
+    </script>
+  
+
+  
+    <!-- Transifex -->
+    <script type="text/javascript">
+    window.liveSettings = {
+      api_key: '4c06c1c5a6b341e591d969476fe2675f'
+    };
+    </script>
+    <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
+    <style>
+    .txlive-langselector { display: none; }
+    </style>
+  
+
+  
+
+
+
+    
+      <script src="https://www.twilio.com/docs/static/js/docs.min.0c5bb1abb16f.js"></script>
+    
+
+    
+    
+
+
+
+    
+
+  </body>
+
+<!-- Mirrored from www.twilio.com/docs/api/twiml/enqueue by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 22:10:05 GMT -->
+</html>

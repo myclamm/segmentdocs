@@ -1,0 +1,477 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/best_practices.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Email Best Practices &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="prev" title="FAQ" href="faqs.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+ 
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="http://www.mailgun.com/" class="logo">Mailgun - Email Automation by Rackspace</a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="http://www.mailgun.com/pricing" class="pricing-link"><b>Pricing</b></a>
+          <a href="http://www.mailgun.com/customers" class="customers-link"><b>Customers</b></a>
+          <div class="dropdown">
+                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b>Features <svg class="icon icon-dropdown" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b>Resources <svg class="icon icon-dropdown active" viewBox="0 0 128 80"><use xlink:href="#icon-dropdown"></use></svg>
+</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+                <a href="http://www.mailgun.com/managed" class="managed-link"><b>Managed</b></a>
+                <a href="http://www.mailgun.com/contact" class="contact-link"><b>Contact</b></a>
+          <a href="https://www.mailgun.com/sessions/new" class="login-link"><b>Log in</b></a>
+          <a href="https://www.mailgun.com/signup" class="signup-link"><b>Sign Up</b></a>
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus />
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="faqs.html" title="FAQ" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faqs.html">FAQ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Email Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reputation">Reputation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hosting">Hosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ip-addresses-and-sending-volume">IP Addresses and Sending Volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dns">DNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mailing-lists">Mailing Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bounce-and-esp-feedback-handling">Bounce and ESP Feedback Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feedback-loops-and-spam-complaints">Feedback Loops and Spam Complaints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unsubscribe-handling">Unsubscribe Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recipient-engagement">Recipient Engagement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#whitelists-and-other-deliverability-tools">Whitelists and other deliverability tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#email-content">Email Content</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="admonition note">You can find your API Key in your <a href="https://mailgun.com/cp" target="_blank">Control Panel</a></div>
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="email-best-practices">
+<span id="best-practices"></span><h1>Email Best Practices<a class="headerlink" href="#email-best-practices" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#reputation" id="id2">Reputation</a></li>
+<li><a class="reference internal" href="#hosting" id="id3">Hosting</a></li>
+<li><a class="reference internal" href="#ip-addresses-and-sending-volume" id="id4">IP Addresses and Sending Volume</a></li>
+<li><a class="reference internal" href="#dns" id="id5">DNS</a></li>
+<li><a class="reference internal" href="#authentication" id="id6">Authentication</a></li>
+<li><a class="reference internal" href="#mailing-lists" id="id7">Mailing Lists</a></li>
+<li><a class="reference internal" href="#bounce-and-esp-feedback-handling" id="id8">Bounce and ESP Feedback Handling</a></li>
+<li><a class="reference internal" href="#feedback-loops-and-spam-complaints" id="id9">Feedback Loops and Spam Complaints</a></li>
+<li><a class="reference internal" href="#unsubscribe-handling" id="id10">Unsubscribe Handling</a></li>
+<li><a class="reference internal" href="#recipient-engagement" id="id11">Recipient Engagement</a></li>
+<li><a class="reference internal" href="#whitelists-and-other-deliverability-tools" id="id12">Whitelists and other deliverability tools</a></li>
+<li><a class="reference internal" href="#email-content" id="id13">Email Content</a></li>
+</ul>
+</div>
+<p>This guide is a brief summary of email best practices that we have learned from managing mail servers for thousands of customers and sending (and receiving) a lot of email.   The objective is to help outline what you need to do to have your emails delivered whether or not you use Mailgun.  Of course, if after reading the guide you decide that you have better things to do than maintaining email servers and managing email deliverability, we’d love to help!</p>
+<p>In this guide, we will not focus much on the content of email messages. Content can be paraphrased with a few words: ‘send something people want’ (to paraphrase <a class="reference external" href="http://www.ycombinator.com/">Y Combinator&#8217;s</a> motto). Creating good content is probably the hardest part, so apologies for the huge caveat.  We focus on the infrastructure and monitoring of email so that if you are sending something people want, they will get it; and if you are not sending something people want, you will know about it and hopefully change that.</p>
+<div class="section" id="reputation">
+<h2>Reputation<a class="headerlink" href="#reputation" title="Permalink to this headline">¶</a></h2>
+<p>One of the most important assets you have in the email world (much like the real world) is your reputation. If you do not have a good reputation tied to your domain and your IP address (“IP” used herein for abbreviation), your email will not reach your recipients’ inboxes. Due to its popularity and its unique ability to push information to users, email has been overrun with spammers (as if you didn’t notice). Depending on your definition, approximately 90% of all email is spam (source: <a class="reference external" href="http://www.maawg.org/sites/maawg/files/news/MAAWG_2010_Q3Q4_Metrics_Report_14.pdf">MAAWG</a>). Due to this, email service providers (“ESPs”) like Gmail, AOL, Yahoo and MSN/Hotmail have declared an all-out war on spammers. This has made our inboxes a more pleasant place. This also makes it very important to manage your email reputation. If it is not impeccable, you will get caught in the ESPs’ spam filters.</p>
+<p>A good analogy for your email reputation is your personal credit score. Obviously, a bad reputation will hurt you. However, not having a reputation will also hurt you. If ESPs don’t know you (or more specifically your IP and domain) they will assume the worst and filter you, at least initially. It’s tough to blame them given all the spam out there. Due to the importance of reputation, a significant portion of our discussion on best practices revolves around building and maintaining your email reputation.</p>
+<p>Our goal with respect to your email reputation is to make sure that the infrastructure is optimized for emails reaching the inbox and doesn’t get in your way. We test all of our IPs’ reputation before we allocate them and we use the authentication methods that major ESPs require.</p>
+<p>Beyond making sure that the infrastructure is properly set up, we also provide the tools to answer some important questions:</p>
+<ul class="simple">
+<li>Are emails being delivered and if not, why?</li>
+<li>Is a recipient ESP is throttling your traffic and why?</li>
+<li>Are messages bouncing due to incorrect domains or stale addresses?</li>
+<li>Are recipients unsubscribing or complaining of spam?</li>
+<li>Are recipients engaging with your emails by opening them and/or clicking on links?</li>
+</ul>
+<p>You should use all of this data to make sure that you are complying with ESPs guidelines and adjust your email sending to stay in their good graces.</p>
+<p>We give you all the tools for establishing a good sending reputation, but it’s ultimately up to you to send emails appropriately. Some email service providers use <a class="reference external" href="http://en.wikipedia.org/wiki/Fear,_uncertainty_and_doubt">F.U.D.</a> about email deliverability to sell you a deliverability fairy that magically gets your emails to the inbox. This is most definitely not the case and your actions, as the email sender, play the biggest part in good deliverability.</p>
+<p>However, if you follow a couple rules (along with properly authenticating your email), you will most likely build up a great email sending reputation:</p>
+<ul class="simple">
+<li>Only send emails to people that have signed-up to receive them from your website/application/service and always first send a confirmation link to confirm their address is correct (aka, “double opt-in”); and</li>
+<li>Track your email and adjust your sending based on feedback from ESPs and recipients (eg., don’t send additional emails to recipients that have unsubscribed or complained of spam).</li>
+</ul>
+</div>
+<div class="section" id="hosting">
+<h2>Hosting<a class="headerlink" href="#hosting" title="Permalink to this headline">¶</a></h2>
+<p>A brief note on hosting since hosting technology is changing so quickly, it will likely be out of date in a few months. Large, virtual cloud environments are generally not the best environments for email for a few reasons:</p>
+<ul class="simple">
+<li>The IP address should be static so that your domain(s) &amp; IP address(es) build a reputation together. Also, some more strict recipients ESPs may require whitelisting your IP address. Unfortunately, these should be IPv4.</li>
+<li>The IP address and surrounding IP addresses should have a good reputation. This is rarely the case at large cloud environments due to their ease of use and lax monitoring (which is inviting to spammers).</li>
+<li>Mail Transfer Agents should ideally be on real (non-virtual) machines, optimized for I/O.</li>
+</ul>
+<p>We host Mailgun mostly on dedicated servers. We do use cloud servers for some of the infrastructure (where it makes sense), but for most of Mailgun we like large, robust, dedicated machines.</p>
+<p>We use dedicated IP addresses in large subnets and we do background checks and extensive testing on our IP addresses. Because they are in large continuous blocks, they are less likely to be affected by other, external IP addresses. ESPs and blacklists occasionally block entire subnets if any of the IPs have questionable reputations. So even if your IP is clean, it might be blocked because of surrounding IPs. Larger subnets mitigate this risk.</p>
+<p>We dream of a day when IP reputation does not matter and we can rely on domain reputation, but unfortunately we are not there yet.</p>
+</div>
+<div class="section" id="ip-addresses-and-sending-volume">
+<h2>IP Addresses and Sending Volume<a class="headerlink" href="#ip-addresses-and-sending-volume" title="Permalink to this headline">¶</a></h2>
+<p>If you are sending a lot of email (greater than 50k per week), it is a good idea to have a dedicated IP in order to isolate your reputation.  If you are sharing your IP, you are sharing your reputation with those other senders.  In addition, ESPs rate limit your emails based on the IP.  So if you are a high volume sender you should consider getting a pool of IPs.  However, your reputation can also be hurt if you are not sending enough volume consistently from an IP so it&#8217;s a tricky balance.</p>
+<p>If your email sending is volatile with large spikes of volume, ESPs may assume those large spikes are spam.  Also, if you overall volume is too low, they won&#8217;t acknowledge your reputation.  Generally, if you are sending less than 5,000 emails per day, a shared IP may be the right solution.</p>
+<p>The other thing to consider is using separate IPs for your bulk and transactional mail if you are sending high volumes of email.  There are a couple reasons for this:</p>
+<ul class="simple">
+<li>Delivery of time-sensitive transactional emails may get queued behind a large batch of bulk/marketing emails.</li>
+<li>Your transactional mail will be affected by the reputation created by your bulk/marketing mail.</li>
+</ul>
+<p>Even if you have a clean IP address, you need to warm up the IP gradually.  This means sending emails at a low rate initially and then gradually increasing that rate, taking into account ESP feedback.  If you send a ton of emails right away, they will get filtered or dropped by the ESPs.  In some cases, they won&#8217;t even tell you they are dropping them.</p>
+<p>Mailgun offers both shared and dedicated IPs.  We are constantly monitoring the traffic on these IPs. So even for shared IPs, you can be comfortable that your reputation is not being unduly influenced by others.  We also offer pools of IPs for high volume senders.  In addition, we have queuing algorithms that gradually warm up your IPs.  Our sending rates automatically increase over time as your IP warms up. Finally, we separate our sending queues for each domain you set up at Mailgun, which mitigates the need for multiple IPs for different types of traffic.</p>
+</div>
+<div class="section" id="dns">
+<h2>DNS<a class="headerlink" href="#dns" title="Permalink to this headline">¶</a></h2>
+<p>Your email reputation is not only tied to your IP, but your domain name as well.  You should keep this in mind as you set up your email infrastructure.  For the same reasons as above, It is a good idea to have separate domains or subdomains for your marketing, transactional and corporate mail.  We suggest that you use your top level domain for your corporate mail and using different domains or subdomains for your marketing and transactional mail.</p>
+<p>While it is not required to use the same domain in the From field of the message as the actual domain sending the message, it is highly recommended.  Hotmail is especially finicky about this requirement and has a higher propensity to filter your messages to junk if the two domains do not match.</p>
+<p>You should also make sure that you are using a well regarded DNS provider and that you publish all of your contact information in the WHOIS record.  If you are hiding your contact information through a proxy, ESPs may take that as a signal that you are spamming.</p>
+<p>Also, make sure you include the appropriate records at your DNS provider for authentication (see below).  While it&#8217;s not required to point mx records to the same domain as you are sending from, it is recommended.  There are email providers (albeit, a minority) that will check if mx records for the domain are valid before accepting email.</p>
+<p>Mailgun gives you the ability to create multiple domains or subdomains very easily.  You are free to create multiple domains and subdomains for each of your transactional, marketing and corporate email.  Each domain has an isolated queue, so your transactional emails won&#8217;t get held up by your bulk mailings.</p>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>It is very important that you are using the appropriate authentication methods with your email.  If you are not authenticating your email properly, ESPs will assume you are spamming and will filter or just drop your email.</p>
+<p>The common types of authentication are:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.openspf.org/">SPF</a></li>
+<li><a class="reference external" href="http://www.dkim.org/">DKIM</a></li>
+<li><a class="reference external" href="http://domainkeys.sourceforge.net/">DomainKeys</a></li>
+<li><a class="reference external" href="http://www.microsoft.com/mscorp/safety/technologies/senderid/default.mspx">SenderID</a></li>
+</ul>
+<p>Mailgun uses all of these types of authentication.  When you sign up for Mailgun, we provide the appropriate records for you to include at your DNS registrar.  We also provide a verification button you can use to make sure that your records are set up correctly.</p>
+</div>
+<div class="section" id="mailing-lists">
+<h2>Mailing Lists<a class="headerlink" href="#mailing-lists" title="Permalink to this headline">¶</a></h2>
+<p>The number one reason we see people get blocked is because they have a bad mailing list.  <strong>Don&#8217;t purchase your list or scrape websites for emails.</strong>  It&#8217;s the easy way out and you will pay the consequences.  Most of these lists have bad email addresses and include spam traps.  ESPs are very good at recognizing bad mailing lists.</p>
+<p>You should only send emails to people that have opted in to receiving your emails on YOUR website.  In addition, you should be sending a verification email with a link that confirms their subscription (double opt-in) to make sure their email address is correct and that they are the person that signed up.  If everyone did this, the world would be a better place.</p>
+<p>You should have your Privacy Policy easily accessible on your website.  In addition, you should have a place on your website where users can unsubscribe from your mailings, in addition to a link in every email you send (see <a class="reference internal" href="#unsubscribe-handling">Unsubscribe Handling</a>).</p>
+<p>While we have to rely on you to be responsible about how you procure your mailing list, we do track and give you data to easily see how your emails are being received.  We give you information for bounces, unsubscribes, complaints, opens and clicks so that you can modify your mailing lists appropriately.  In addition, we automate a lot of the work by keeping track of recipients that have unsubscribed, bounced or complained and stopping future deliveries to those recipients. We give you various levels of unsubscribe granularity so your recipients can unsubscribe to all emails from the domain, just that mailing list or just emails with that &#8220;tag&#8221; (which you define).</p>
+</div>
+<div class="section" id="bounce-and-esp-feedback-handling">
+<h2>Bounce and ESP Feedback Handling<a class="headerlink" href="#bounce-and-esp-feedback-handling" title="Permalink to this headline">¶</a></h2>
+<p>A big part of maintaining your email reputation is processing bounces properly.  While most major ESPs give bounce replies &#8220;on the wire&#8221; during the SMTP session, there are some that send bounce messages via email.  In order receive these emailed bounce messages, you must have the appropriate return path header included with your email so that recipients know where to reply with bounce information.</p>
+<p>You must also process this bounce data and act accordingly.  In addition, many ESPs will soft bounce your initial attempts at delivery.  This is also called grey-listing or throttling.  If you continue to send emails to bad addresses or you do not listen to ESPs feedback, you will get filtered and eventually your emails will just get dropped.</p>
+<p>Mailgun automatically processes bounce information and reacts accordingly.  A good portion of Mailgun&#8217;s technology is devoted to the parsing of this feedback and adjusting your sending in accordance with this feedback so that you maintain a good reputation.</p>
+<p>If we receive a hard bounce, we will stop sending to that address immediately and will not attempt future deliveries to that address.  We will stop sending to an address after multiple soft bounces, according to the ESPs&#8217; guidelines.  It is possible to remove addresses from the flagged list in your control panel or through the API, in case it was a temporary issue.</p>
+<p>Please see our <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a> for more information.</p>
+</div>
+<div class="section" id="feedback-loops-and-spam-complaints">
+<h2>Feedback Loops and Spam Complaints<a class="headerlink" href="#feedback-loops-and-spam-complaints" title="Permalink to this headline">¶</a></h2>
+<p>Most of the major ESPs (other than Gmail) provide feedback loops through which they give you information about spam complaints.  Here is a thorough <a class="reference external" href="http://wiki.wordtothewise.com/ISP_Summary_Information">list from Word to the Wise</a>.  It is important that you sign up for these feedback loops and pay attention to the feedback you are getting.  If you ignore this feedback, ESPs will throttle you and eventually block you completely.</p>
+<p>We register all of our IPs for these feedback loops.  You can access this information through the Control Panel, the API or Webhooks.  In addition, we process spam complaints automatically and will stop sending to email addresses after a recipient complains.  It is possible to remove addresses from the flagged list in your Control Panel or through the API.</p>
+<p>Please see our <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a> for more information.</p>
+</div>
+<div class="section" id="unsubscribe-handling">
+<h2>Unsubscribe Handling<a class="headerlink" href="#unsubscribe-handling" title="Permalink to this headline">¶</a></h2>
+<p>It is important to give you recipients the ability to unsubscribe from emails.  First, it is required by the <a class="reference external" href="http://business.ftc.gov/documents/bus61-can-spam-act-compliance-guide-business">CAN-Spam Act</a>.  Second, if you don&#8217;t give them this option, they are more likely to click on the spam complaint button, which will cause more harm than allowing them to unsubscribe.  Finally, many ESPs look for unsubscribe links and are more likely to filter your email if they don&#8217;t have them.</p>
+<p>Mailgun gives you the ability to include an unsubscribe link or email automatically in your email.  We give you the ability to link the unsubscribe to a certain campaign, mailing list or make the request global to your domain.  You can access this data through the Control Panel, API or via Webhooks.  In addition, we will automatically stop sending to email addresses that have unsubscribed. It is possible to remove addresses from the flagged list in your Control Panel or through the API.</p>
+<p>Please see our <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a> for more information.</p>
+</div>
+<div class="section" id="recipient-engagement">
+<h2>Recipient Engagement<a class="headerlink" href="#recipient-engagement" title="Permalink to this headline">¶</a></h2>
+<p>In addition to processing bounces, complaints and unsubscribes, ESPs measure your reputation through the engagement of your recipients.  If recipients are opening, forwarding and replying to your emails, it will improve your reputation.  This is what makes &#8216;do-not-reply&#8217; emails so offensive. At many ESPs, it is also helpful if recipients add your email address to their address books.</p>
+<p>Mailgun allows you to track opens and link clicks with our Tracking and Campaign functionality (see our <a class="reference internal" href="user_manual.html#user-manual"><span class="std std-ref">User Manual</span></a> for more information).  You are free to create as many campaigns as you want and use them simultaneously for A/B testing.  In addition, Mailgun is built to receive and parse emails efficiently.  So there is no excuse to not allow your recipients to reply to your emails.  Email is not a billboard - it is a conversant technology.</p>
+</div>
+<div class="section" id="whitelists-and-other-deliverability-tools">
+<h2>Whitelists and other deliverability tools<a class="headerlink" href="#whitelists-and-other-deliverability-tools" title="Permalink to this headline">¶</a></h2>
+<p>While not required, it is a good idea to sign up for whitelists where available.  Not all ESPs have them and they usually require some history of sending before they will allow you to sign up.  Also, most of them require that you be on a dedicated IP address.  Word to the Wise provides a <a class="reference external" href="http://wiki.wordtothewise.com/ISP_Summary_Information">list of whitelists</a> along with feedback loops.</p>
+<p>In addition to the whitelists provided by the ESPs, <a href="#id14"><span class="problematic" id="id15">`Return Path`_</span></a> has a certification program which whitelists you at many of the major ESPs.  In addition, the certification enables images to be displayed by default at many ESPs (which is not usually the case).  Return Path also provides seed lists (so you can test if your email is being spam filtered) and campaign preview (to see how your emails are being rendered across ESPs and test for spammy content).  You can read more about the benefits on <a class="reference external" href="http://www.returnpath.com/">Return Path&#8217;s website</a>.</p>
+<p>For customers with dedicated IP addresses, we can register you for whitelists. Also, you can set up a test inbox and use our spam filtering technology to provide a &#8220;spamicity&#8221; score for your outgoing emails so you can see their propensity for being filtered.  Finally, all accounts with dedicated IP addresses are qualified for Return Path certification.  Our technology has already been pre-vetted so the only remaining step is for them to monitor your sending in order to certify you.</p>
+</div>
+<div class="section" id="email-content">
+<h2>Email Content<a class="headerlink" href="#email-content" title="Permalink to this headline">¶</a></h2>
+<p>There are a few tricks to remember about content besides the mantra of &#8216;sending something people want&#8217;.  As mentioned above, you can set up a test mailbox at Mailgun and enable our spam filters to receive a &#8220;spamicity&#8221; score to test how your content is being judged by spam filters.</p>
+<ul class="simple">
+<li>Personalize your emails to each recipient. Ideally, the content should reflect recipient&#8217;s specific interests or usage patterns in your application.  At least address them by their name...don&#8217;t be rude!. Mailgun has recipient variables that you can define and use with your email templates to achieve detailed levels of personalization.</li>
+<li>It is best to send multi-part emails using both text and HTML or text only.  Sending HTML only email is not well received by ESPs.  Also, remember that ESPs generally block images by default so HTML only will not look very good unless users are proactive about enabling images.  There are a few tools available to test how your email will render across ESPs and browsers.  <a class="reference external" href="http://litmus.com/email-testing">Litmus</a> offers one, as does <a href="#id16"><span class="problematic" id="id17">`Return Path`_</span></a>.</li>
+<li>The higher the text to link and text to image ratios, the better.  Too many links and images trigger spam flags at ESPs.</li>
+<li>Misspellings, spammy words (buy now!, Free!) are big spam flags, as are ALL CAPS AND EXCLAMATION MARKS!!!!!!!!!!!!!</li>
+<li>The domains in the from field, return-path and message-id should match the domain you are sending from.</li>
+<li>Make sure you are using unsubscribe links and headers in your emails.  Many ESPs (particularly Hotmail) pay attention to this and if they are not there, you are likely to get filtered.  You can always use Mailgun&#8217;s auto unsubscribe handling if you don&#8217;t want to deal with this on your end.</li>
+<li>Gmail pays particularly close attention to Message ID and Received headers.  Message IDs that are formed incorrectly (without brackets &lt;&gt; and with wrong domain after &#64;) can make Gmail think you are a spammer.  The simplest way to create the right Message ID with Mailgun is to not include one. Then Mailgun will create a perfect Message ID for you.</li>
+<li>Links should include the domain that is sending the email.  Also, popular url shorteners can be a bad idea because they are frequently used by spammers.</li>
+<li>A/B test your emails to optimize recipient engagement. Subject lines are particularly important.  You can use Mailgun&#8217;s tagging and tracking statistics in order to measure A/B testing and improve your content.</li>
+</ul>
+<p><strong>Best of luck with your emailing...we hope we made it easier!</strong></p>
+</div>
+</div>
+
+
+            </div>
+          </div>
+    </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/best_practices.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:52 GMT -->
+</html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/relay/apps-error-guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="rTMnqcjrILXfPazSK0o0lLemjs80H4xqTuXJl1dDPRE0qTPUzi7k8BJ5iM3nQgHvntgASGizTcoPUMO_8pT3YA==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Error Handling</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Error Handling">
+    <meta property="og:url" content="apps-error-guide.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Error Handling">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+      <link rel="stylesheet" href="../../assets/v3/documentation/connect_button-32eb736084ce624a104acae94437b9e2.css">
+
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a class='selected' href="apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          
+<header>
+  <h1>Error Handling for Relay Apps</h1>
+  <p>This guide helps you test and gracefully handle errors returned by the Relay API to build a great checkout experience. If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=relay">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <p>The Relay API lets you place orders with a large numbers of merchants through a single simple API. Sometimes, however, a merchant can't fulfill an order because a given product is out of stock or because some piece of customer data is missing. The Relay API abstracts all retailer-specific error handling from you to let you worry about only a small set of errors related to SKUs and orders.</p>
+
+<h2 id="sku-level-errors">SKU-level errors</h2>
+
+<p>These errors are caused by a specific SKU. The error response will always contain a value for <code>"params"</code> of the form <code>"items[{index}]"</code> where <code>{index}</code> will be the index of the SKU that triggered the error. For example, if the SKU you tried to order from a retailer is out of stock, the Stripe API will respond with:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;out_of_inventory&quot;,
+    &quot;param&quot;: &quot;items[0]&quot;,
+    &quot;message&quot;: &quot;This SKU cannot be used to create an order: sku_80jcxrvoPNd57O is out of stock&quot;,
+    &quot;type&quot;: &quot;invalid_request_error&quot;
+  }
+}</code></pre>
+</div>
+
+<p>The following are example <code>code</code>s for SKU-level errors:</p>
+
+<ul>
+  <li><code>sku_inactive</code>: The SKU is no longer available for purchase and will not be back in stock.</li>
+  <li><code>out_of_inventory</code>: The SKU is no longer in stock.</li>
+  <li><code>product_inactive</code>: The product this SKU belongs to is no longer available for purchase.</li>
+  <li><code>maximum_sku_quantity_exceeded</code>: The merchant does not allow ordering this many of the given SKU.</li>
+  <li><code>upstream_price_mismatch</code>: The price that the retailer has does not match Stripe’s price. You should update the price displayed to the customer and let them try placing their order again.</li>
+</ul></section>
+
+<section>
+<h2 id="order-level-errors">Order-level errors</h2>
+
+<p>These errors are triggered by the shipping address, billing address, email, or phone number of the order but not a specific SKU. If the error was caused by a single parameter, the response will contain a value for the field <code>"params"</code>. For example, if the merchant failed to calculate shipping because of an issue with the customer’s ZIP code, the Stripe API will respond with:</p>
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;code&quot;: &quot;shipping_calculation_failed&quot;,
+    &quot;param&quot;: &quot;shipping.address.postal_code&quot;,
+    &quot;message&quot;: &quot;Shipping calculation failed: The zip code `123456` is not a valid.&quot;,
+    &quot;type&quot;: &quot;invalid_request_error&quot;
+  }
+}</code></pre>
+</div>
+
+<p>The possible order-level errors are:</p>
+
+<ul>
+  <li><code>order_required_parameter</code>: The merchant is missing one or more fields before they can process the order. You should prompt the user to fill out this information based on the contents of <code>"param"</code>.</li>
+  <li><code>address_verification_failed</code>: The merchant could not verify the shipping or billing address. The value of <code>"params"</code> will tell you which field (if any) caused the validation error. You should prompt the user to update those fields.</li>
+  <li><code>shipping_calculation_failed</code>: The merchant failed to calculate a set of valid shipping options. If <code>"params"</code> is specified, you should prompt the user to update that field.</li>
+  <li><code>taxes_calculation_failed</code>: The merchant failed to calculate tax for the order. If <code>"params"</code> is specified, you should prompt the user to update the field it refers to.</li>
+  <li><code>order_creation_failed</code>: Generic error code to indicate that order creation failed. It is safe to retry creating the order.</li>
+  <li><code>order_payment_failed</code>: Generic error code to indicate that order payment failed. It is safe to retry paying the order.</li>
+</ul>
+
+<p>When the error pertains to a specific request parameter, the possible values for <code>"param"</code> are:</p>
+
+<ul>
+  <li><code>email</code></li>
+  <li><code>shipping.phone</code></li>
+  <li><code>shipping.name</code></li>
+  <li><code>shipping.address</code></li>
+  <li><code>card.name</code></li>
+  <li><code>card.address</code></li>
+</ul>
+
+<p>The <code>address</code> fields above (<code>shipping.address</code> and <code>card.address</code>) can refer to a more specific component of the address. For example, an issue with the shipping address can also return the <code>"param"</code>:</p>
+
+<ul>
+  <li><code>shipping.address.line1</code></li>
+  <li><code>shipping.address.line2</code></li>
+  <li><code>shipping.address.city</code></li>
+  <li><code>shipping.address.state</code></li>
+  <li><code>shipping.address.postal_code</code></li>
+  <li><code>shipping.address.country</code></li>
+</ul></section>
+
+<section>
+<h2 id="testing-your-application">Testing your application</h2>
+
+<p>To help you test your error handling easily and deterministically, we have set up a test merchant that will send back an error response solely based on your API request. This merchant (<code>acct_17ki35KuoS4pPl69</code>) has a dummy T-shirt for sale with ID <code>stripe_shirt</code> and three different sizes (S, M, L). This merchant is set up to only accept test mode requests, so you should only use this connection for testing your Relay app.</p>
+
+<p>If you have not yet built your Relay Connect app, consider building a basic checkout experience using the <a href="../recipes/product-discovery-app.html">Relay Demo catalog</a>. To get started with advanced error handling, connect your application to our test account below:</p>
+
+    <aside class="important">
+      <p>This tutorial assumes you are logged in and have already <a href="https://dashboard.stripe.com/account/applications/settings" class="arrow">registered your platform</a>.</p>
+    </aside>
+
+<p>This merchant looks at two pieces of data when determining which error to return: SKU quantity and shipping address. The SKU quantity determines which error gets returned and the shipping address determines which value of <code>"param"</code> (if any) gets returned along with that error. Below are the quantities that will trigger an error. Note that if your order contains more than one SKU, the <em>first</em> SKU with a quantity greater than 1 will be used to determine the error returned.</p>
+
+<p>When you <a href="../api.html#create_order">create an order</a> with the given SKU quantities, the Stripe API returns one of the following error codes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>No error</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><code>sku_inactive</code></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><code>out_of_inventory</code></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><code>product_inactive</code></td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><code>maximum_sku_quantity_exceeded</code></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><code>upstream_price_mismatch</code></td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><code>upstream_coupon_code_invalid</code></td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><code>shipping_calculation_failed</code></td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><code>taxes_calculation_failed</code></td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><code>address_verification_failed</code></td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><code>order_required_parameter</code></td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><code>order_creation_failed</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When you <a href="../api.html#pay_order">pay for an order</a>, the Stripe API returns one of the following error codes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Error</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td><code>order_payment_failed</code></td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td><code>order_required_parameter</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The other component controlling the error is the first line of the shipping address on the order (<code>shipping[address][line1]</code> in your request). If the first line of the address contains <code>"XXX Main Street"</code> and <code>XXX</code> is specified in the table below, the given parameter will be returned in the <code>"param"</code> of the error response.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Param</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1600</td>
+      <td><code>"shipping.address.line1"</code></td>
+    </tr>
+    <tr>
+      <td>1601</td>
+      <td><code>"shipping.address.line2"</code></td>
+    </tr>
+    <tr>
+      <td>1602</td>
+      <td><code>"shipping.address.city"</code></td>
+    </tr>
+    <tr>
+      <td>1603</td>
+      <td><code>"shipping.address.postal_code"</code></td>
+    </tr>
+    <tr>
+      <td>1604</td>
+      <td><code>"shipping.address.state"</code></td>
+    </tr>
+    <tr>
+      <td>1605</td>
+      <td><code>"shipping.address.country"</code></td>
+    </tr>
+    <tr>
+      <td>1606</td>
+      <td><code>"shipping.address"</code></td>
+    </tr>
+    <tr>
+      <td>1607</td>
+      <td><code>"shipping.name"</code></td>
+    </tr>
+    <tr>
+      <td>1608</td>
+      <td><code>"shipping.phone"</code></td>
+    </tr>
+    <tr>
+      <td>1700</td>
+      <td><code>"card.address.line1"</code></td>
+    </tr>
+    <tr>
+      <td>1701</td>
+      <td><code>"card.address.line2"</code></td>
+    </tr>
+    <tr>
+      <td>1702</td>
+      <td><code>"card.address.city"</code></td>
+    </tr>
+    <tr>
+      <td>1703</td>
+      <td><code>"card.address.postal_code"</code></td>
+    </tr>
+    <tr>
+      <td>1704</td>
+      <td><code>"card.address.state"</code></td>
+    </tr>
+    <tr>
+      <td>1705</td>
+      <td><code>"card.address.country"</code></td>
+    </tr>
+    <tr>
+      <td>1706</td>
+      <td><code>"card.address"</code></td>
+    </tr>
+    <tr>
+      <td>1707</td>
+      <td><code>"card.name"</code></td>
+    </tr>
+    <tr>
+      <td>1800</td>
+      <td><code>"email"</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For example, the following request specifies quantity 8 and the address <code>"1604 Main Street"</code>. Based on the tables above, we know the response will have the error code <code>"shipping_calculation_failed"</code> and include the parameter <code>"shipping.address.state"</code>:</p>
+<div class="code">
+  <pre class="language-curl numbered" ><code>curl https://api.stripe.com/v1/orders \
+ -u sk_test_BQokikJOvBiI2HlWgH4olfQ2: \
+ -H &quot;Stripe-Account: acct_17ki35KuoS4pPl69&quot; \
+ -d items[][type]=sku \
+ -d items[][parent]=stripe_shirt_large \
+ -d items[][quantity]=8 \
+ -d currency=usd \
+ -d shipping[name]=&quot;Jenny Rosen&quot; \
+ -d shipping[address][line1]=&quot;1604 Main Street&quot; \
+ -d shipping[address][city]=Anytown \
+ -d shipping[address][postal_code]=123456 \
+ -d shipping[address][state]=CA \
+ -d shipping[address][country]=US</code></pre>
+</div>
+
+<div class="code">
+  <pre class="language-javascript numbered" ><code>{
+  &quot;error&quot;: {
+    &quot;type&quot;: &quot;invalid_request_error&quot;,
+    &quot;code&quot;: &quot;shipping_calculation_failed&quot;,
+    &quot;param&quot;: &quot;shipping.address.state&quot;,
+    &quot;message&quot;: &quot;Shipping calculation failed: Couldn&#39;t verify your shipping address&quot;
+  }
+}</code></pre>
+</div>
+</section>
+
+<section>
+  <h2>Get in touch</h2>
+  <p>If you notice anything surprising, or have feedback or more importantly questions, please <a href="mailto:relay@stripe.com">get in touch!</a></p>
+</section>
+
+<section>
+  <h2>More about Relay</h2>
+  <p>Looking to learn more about Relay? Check out these other guides:</p>
+<ul class="next-steps">
+    <li><a href="../orders.html"><span>Orders API Overview</a></li>
+    <li><a href="apps-guide.html"><span>Relay API for Apps</a></li>
+    <li><a href="../recipes/selling-on-twitter.html"><span>Selling on Twitter with Relay</a></li>
+</ul>
+
+</section>
+
+<script type="text/javascript">
+  function connect() {
+    $.post("/relay/relay-errors/connect", function() {
+      location.reload()
+    })
+  }
+  function disconnect() {
+    $.post("/relay/relay-errors/disconnect", function() {
+      location.reload()
+    })
+  }
+</script>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/relay/apps-error-guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:47:53 GMT -->
+</html>

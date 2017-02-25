@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from stripe.com/docs/recipes/subscription-signup by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:48:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="google-site-verification" content="f0LCrdI6z4Fo8zld4sHCgo5SiUE4EYYRUa6KVeX3Mw8" />
+    <meta name="csrf-token" content="a6SYmLVM5-s6taqR3YywXqdBnLmd2FiYwXzUux5GhsvyPozls4kjrvfxjo4RhIUljj8SPsF0mTiAyd6Tu5FMug==">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Building a Subscription Signup Form</title>
+
+    <meta name="description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <link rel="apple-touch-icon-precomposed" href="../../img/apple-touch-icon/180x180.png">
+    <link rel="icon" href="../../img/apple-touch-icon/180x180.png">
+
+
+    <link rel="image_src" type="image/png" href="../../img/v3/home/social.png">
+
+    <meta property="og:title" content="Building a Subscription Signup Form">
+    <meta property="og:url" content="subscription-signup.html">
+    <meta property="og:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+    <meta property="og:image" content="../../img/v3/home/social.png">
+
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="../../img/v3/home/twitter.png">
+    <meta name="twitter:site" content="@stripe">
+    <meta name="twitter:title" content="Building a Subscription Signup Form">
+    <meta name="twitter:description" content="Stripe is a suite of APIs that powers commerce for businesses of all sizes.">
+
+
+    <script type="application/json" id="strut_files">{&quot;v3/shared/navigation_ie10.css&quot;:&quot;/assets/v3/shared/navigation_ie10-ec238f46e7cb9867e3c1b529e2cfa37b.css&quot;}</script>
+
+    
+
+    
+
+    <link rel="stylesheet" href="../../assets/v3/default-ef2bff54073622b9e08cf24466b5668f.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/common-d0fb03fa2d48fcf29010779ca9a12b2c.css">
+    <link rel="stylesheet" href="../../assets/v3/documentation/base-47c1fd7d3d670e4e08df8f5a67b20dea.css">
+    <link rel="stylesheet" href="../../assets/v3/shared/prism_light-6d08c6ec0d72453693d775c3b96629c0.css">
+    
+    
+    <meta name="viewport" content="width=1060">
+    <meta name="robots" content="noarchive">
+  </head>
+  <body class="">
+    
+    <div id="docs">
+      <div id="sidebar">
+        <div class="logo">
+          <a class="site" href="../../index.html" title="Stripe"></a>
+          <a class="extension" href="../../docs.html">docs</a>
+        </div>
+        <div class="nav-border"></div>
+        <nav>
+          <h1 class="home"><a href="../../docs.html">Home</a></h1>
+          <h1 class="payments"><a class="toggle-content">Payments</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../quickstart.html">Quickstart</a>
+    </li>
+    <li class="category">Collecting payment details
+    </li>
+    <li>
+      <a href="../checkout/tutorial.html">Checkout</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../checkout.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../custom-form.html">Stripe.js</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../stripe.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../mobile/ios.html">iOS</a>
+    </li>
+    <li>
+      <a href="../mobile/android.html">Android</a>
+    </li>
+    <li class="category">Charges
+    </li>
+    <li>
+      <a href="../charges.html">Creating Charges</a>
+    </li>
+    <li>
+      <a href="../declines.html">Declines &amp; Failed Payments</a>
+    </li>
+    <li>
+      <a href="../disputes.html">Disputes</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../disputes/evidence.html">Submitting Evidence</a>
+    </li>
+    <li>
+      <a href="../disputes/types.html">Types</a>
+    </li>
+    <li>
+      <a href="../disputes/faq.html">FAQ</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Products &amp; Orders
+    </li>
+    <li>
+      <a href="../orders.html">Orders</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../orders/guide.html">Guide</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../orders/tax-integration.html">Tax Integrations</a>
+    </li>
+    <li>
+      <a href="../orders/shipping-integration.html">Shipping Integrations</a>
+    </li>
+    <li>
+      <a href="../sources.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../sources/payment-methods.html">Payment Methods</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../sources/cards.html">Cards</a>
+    </li>
+    <li>
+      <a href="../sources/3d-secure.html">3D Secure</a>
+    </li>
+    <li>
+      <a href="../sources/bancontact.html">Bancontact</a>
+    </li>
+    <li>
+      <a href="../sources/giropay.html">Giropay</a>
+    </li>
+    <li>
+      <a href="../sources/ideal.html">iDEAL</a>
+    </li>
+    <li>
+      <a href="../sources/sepa-direct-debit.html">SEPA Direct Debit</a>
+    </li>
+    <li>
+      <a href="../sources/sofort.html">Sofort</a>
+    </li>
+</ul>
+
+    </li>
+    <li class="category">Other Payment Methods
+    </li>
+    <li>
+      <a href="../ach.html">ACH</a>
+    </li>
+    <li>
+      <a href="../apple-pay.html">Apple Pay</a>
+      <ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../apple-pay/apps.html">Apple Pay in Apps</a>
+    </li>
+    <li>
+      <a href="../apple-pay/web.html">Apple Pay on the Web</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../alipay.html">Alipay</a>
+    </li>
+    <li>
+      <a href="../bitcoin.html">Bitcoin</a>
+    </li>
+    <li class='separator'>
+      <a href="../testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="subscriptions"><a class="toggle-content">Subscriptions</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../subscriptions/quickstart.html">Quickstart</a>
+    </li>
+    <li>
+      <a href="../subscriptions/creating.html">Creating Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/discounts.html">Applying Discounts</a>
+    </li>
+    <li>
+      <a href="../subscriptions/trials.html">Using Trial Periods</a>
+    </li>
+    <li>
+      <a href="../subscriptions/quantities.html">Setting Quantities</a>
+    </li>
+    <li>
+      <a href="../subscriptions/taxes.html">Adding Taxes</a>
+    </li>
+    <li>
+      <a href="../subscriptions/multiple.html">Multiple Subscriptions</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/lifecycle.html">Lifecycle &amp; Events</a>
+    </li>
+    <li>
+      <a href="../subscriptions/webhooks.html">Using Webhooks</a>
+    </li>
+    <li>
+      <a href="../subscriptions/changing.html">Changing Subscriptions</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../subscriptions/upgrading-downgrading.html">Upgrading &amp; Downgrading</a>
+    </li>
+    <li>
+      <a href="../subscriptions/billing-cycle.html">Billing Cycle</a>
+    </li>
+    <li>
+      <a href="../subscriptions/canceling-pausing.html">Canceling &amp; Pausing</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/invoices.html">Working with Invoices</a>
+      <ul data-collapsable=false>
+</ul>
+
+    </li>
+    <li>
+      <a href="../subscriptions/plans.html">Managing Plans</a>
+    </li>
+    <li>
+      <a href="../subscriptions/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="connect"><a class="toggle-content">Connect</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../connect.html">Overview</a>
+    </li>
+    <li>
+      <a href="../connect/connecting-to-accounts.html">Connecting to Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/authentication.html">Authentication</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/standalone-accounts.html">Standalone Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/reference.html">OAuth Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/managed-accounts.html">Managed Accounts</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../connect/updating-accounts.html">Updating Accounts</a>
+    </li>
+    <li>
+      <a href="../connect/identity-verification.html">Identity Verification</a>
+    </li>
+    <li>
+      <a href="../connect/required-verification-information.html">Verification Fields</a>
+    </li>
+    <li>
+      <a href="../connect/testing-verification.html">Testing Verification</a>
+    </li>
+    <li>
+      <a href="../connect/bank-transfers.html">Bank Transfers</a>
+    </li>
+    <li>
+      <a href="../connect/migrating.html">Migrating Recipients</a>
+    </li>
+    <li>
+      <a href="../connect/best-practices.html">Best Practices</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../connect/payments-fees.html">Payments and Fees</a>
+    </li>
+    <li>
+      <a href="../connect/special-case-transfers.html">Special-case Transfers</a>
+    </li>
+    <li class='separator'>
+      <a href="../connect/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="relay"><a class="toggle-content">Relay</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../relay.html">Selling in Other Apps</a>
+    </li>
+    <li>
+      <a href="../relay/apps-guide.html">Accepting Orders in Your App</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../relay/apps-error-guide.html">Error Handling</a>
+    </li>
+</ul>
+
+    </li>
+</ul>
+
+          <h1 class="radar"><a class="toggle-content">Radar</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../radar.html">Overview</a>
+    </li>
+    <li>
+      <a href="../radar/risk-evaluation.html">Risk Evaluation</a>
+    </li>
+    <li>
+      <a href="../radar/review.html">Review</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/review/auth-and-capture.html">Uncaptured Payments</a>
+    </li>
+</ul>
+
+    </li>
+    <li>
+      <a href="../radar/rules.html">Rules</a>
+      <ul data-collapsable=false>
+    <li>
+      <a href="../radar/rules/reference.html">Reference</a>
+    </li>
+</ul>
+
+    </li>
+    <li class='separator'>
+      <a href="../radar/testing.html">Testing</a>
+    </li>
+</ul>
+
+          <h1 class="account"><a class="toggle-content">Account</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../dashboard.html">Your Account</a>
+    </li>
+    <li>
+      <a href="../checklist.html">Going Live Checklist</a>
+    </li>
+    <li>
+      <a href="../transfers.html">Getting Paid</a>
+    </li>
+    <li>
+      <a href="../reporting.html">Reporting</a>
+    </li>
+</ul>
+
+          <h1 class="api"><a class="toggle-content">Development</a></h1>
+<ul class='hidden' data-hidden=true>
+    <li>
+      <a href="../libraries.html">API Libraries</a>
+    </li>
+    <li>
+      <a href="../upgrades.html">API Upgrades</a>
+    </li>
+    <li>
+      <a href="../webhooks.html">Webhooks</a>
+    </li>
+    <li>
+      <a href="../building-integrations.html">Integrations</a>
+    </li>
+    <li>
+      <a href="../recipes.html">Recipes</a>
+    </li>
+    <li>
+      <a href="../security.html">Security</a>
+    </li>
+</ul>
+
+
+          <h1 class="references"><a href="../api.html" class="external" target="_blank">API Reference</a></h1>
+        </nav>
+      </div>
+      <div id="content-wrapper" tabindex="0">
+        <div class="overlay"></div>
+        <header id="main-header">
+          <nav>
+            <ul class="external">
+              <li><a href="https://support.stripe.com/">Support</a></li>
+
+              <li class="button">
+                <a data-adroll-segment='submit_two' href="https://dashboard.stripe.com/login">Sign in</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <article id="content">
+          <header>
+  <h1>Building a Subscription Signup Form</h1>
+  <p>Create a subscription signup form using <a href="../../checkout.html">Checkout</a>, and use the Stripe API to complete the signup process.
+  If you need help after reading this, check out our answers to <a href="https://support.stripe.com/search?q=subscriptions">common questions</a> or chat live with other developers in <a href="irc://irc.freenode.net/stripe">#stripe</a> on freenode.
+</p>
+</header>
+
+<section>
+  <aside class="note">
+    <h3>More recipes</h3>
+    <p>Check out our <a href="../recipes.html">other recipes</a> and discover more ways to integrate Stripe.</p>
+  </aside>
+
+<p>Emma’s farm runs a successful Community Supported Agriculture (CSA) program, where customers sign up for a weekly delivery of delicious fruits and veggies. She’s decided to use Stripe to manage her customer’s subscriptions, starting with an online
+signup form. This recipe shows how Emma:</p>
+
+<ul>
+  <li>Creates a plan using the Stripe Dashboard</li>
+  <li>Builds a signup page for her website using <a href="../checkout/tutorial.html">Checkout</a> and some PHP code</li>
+  <li>Tests her work using Stripe’s test mode and test credit cards</li>
+</ul>
+
+<p>Although this example uses Checkout and PHP, you can also use <a href="../stripe.html">Stripe.js</a> with your own form, and any programming language you’d like.</p></section>
+
+<section>
+<h2 id="using-test-mode">Using test mode</h2>
+  <aside class="note">
+    <h3>Dig into subscriptions</h3>
+    <p>Be sure to check out our <a href='../subscriptions/quickstart.html'>subscriptions documentation</a> and <a href="../api.html#subscriptions">API docs</a> for more information.</p>
+  </aside>
+
+<p>Stripe accounts have both a live and a test mode. The two modes exist in parallel;  you can always try something out in test mode, even after you’ve gone live with your site. Test mode differs from live mode in that you can’t use real credit cards, only test card numbers. Every Stripe interaction can be in either live or test mode simply by using live or test API keys. Emma follows the standard development route by starting in test mode, and when she is satisfied with the work, swapping her test keys for her live keys.</p></section>
+
+<section>
+<h2 id="creating-a-plan">Creating a plan</h2>
+
+<p>The first thing Emma needs to do is create a plan in her Stripe account. A plan defines the terms of a customer’s subscription: how much they will be billed and how often. A plan can be created using either the <a href="https://dashboard.stripe.com/test/plans">Dashboard</a> or the <a href="../api.html#create_plan">API</a>.</p>
+<p>The plan dictates that Emma’s customers will be charged $20 every week, and the charge on their credit card statement will say “EMMAS FARM CSA”. The <code>name</code> of the plan is what her website will show to her customers. The <code>ID</code> will be used when a subscription to this plan is created using the API.</p></section>
+
+<section>
+<h2 id="creating-the-signup-form-using-checkout">Creating the signup form using Checkout</h2>
+
+<p>Now that Emma has created the plan within Stripe, it’s time to create the sign up form where her customers enter their payment details. She will use Checkout, an easy and elegant solution. Here’s how Checkout works within an application:</p>
+
+<ol>
+  <li>When the customer clicks the “Sign Me Up!” button on Emma’s website, Checkout shows them a form where they will enter their payment information.</li>
+  <li>The payment information will be directly and securely sent to Stripe, where the payment information is converted to a representative token and sent back to their browser. Emma’s site can use this token without ever having to see her customer’s payment information. This approach makes Emma’s site more secure for her customers and reduces her PCI compliance burden.</li>
+  <li>When the call to Stripe returns the token to the customer’s browser, Checkout automatically submits the subscription form, with the token, to Emma’s web server.</li>
+  <li>Emma’s application takes the form information, builds a request to create a subscription, and sends that request to Stripe.</li>
+  <li>Stripe creates a customer in Emma’s account with the payment information, and attempts to bill them for the first interval of the subscription. If successful, it creates a subscription for the customer and returns the information to Emma’s application.</li>
+</ol>
+
+<p>An important note is that <strong>both Checkout and the server-side code are required</strong>. Checkout securely accepts the customer’s payment information and the server-side code creates the actual subscription in Stripe.</p>
+
+<p>Emma would like to get the form up as soon as possible, so she decides to collect just the minimum amount of customer information she needs: the customer’s email address and their payment information. Checkout collects both of these for her, so she doesn’t need to do much. She creates a very simple webpage, <strong>signup.html</strong>, that includes an explanation of the CSA and a signup button that opens Checkout.</p>
+  <div class="images">
+    <div class="image">
+      <a href="../../img/documentation/recipes/sub-with-checkout/checkout-button.png" class="zoomable" data-width="757" data-height="564"><img src="../../img/documentation/recipes/sub-with-checkout/checkout-button.png" height="186"></a>
+      <p>Landing page with the signup button.</p>
+    </div>
+    <div class="image">
+      <a href="../../img/documentation/recipes/sub-with-checkout/checkout-open.png" class="zoomable" data-width="754" data-height="564"><img src="../../img/documentation/recipes/sub-with-checkout/checkout-open.png" height="186"></a>
+      <p>Landing page with the signup button.</p>
+    </div>
+  </div>
+
+<p>When the customer clicks the “Sign Me Up!” button, the Checkout window opens and the customer is prompted for their email and payment information.</p>
+
+<p>Here’s the code Emma adds to the page that creates the “Sign Me Up!” button and customizes Checkout:</p>
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;form action=&quot;/create_subscription.php&quot; method=&quot;POST&quot;&gt;
+  &lt;script
+    src=&quot;https://checkout.stripe.com/checkout.js&quot; class=&quot;stripe-button&quot;
+    data-key=&quot;pk_test_6pRNASCoBOKtIshFeQd4XMUh&quot;
+    data-image=&quot;images/marketplace.png&quot;
+    data-name=&quot;Emma&#39;s Farm CSA&quot;
+    data-description=&quot;Subscription for 1 weekly box&quot;
+    data-amount=&quot;2000&quot;
+    data-label=&quot;Sign Me Up!&quot;&gt;
+  &lt;/script&gt;
+&lt;/form&gt;</code></pre>
+</div>
+
+<p>There are two HTML elements here: a form, and inside it, a script.</p>
+
+<ul>
+  <li>Line 3 imports Checkout and styles the “Sign Me Up!” button.</li>
+  <li>Line 4 sets the <code>data-key</code> attribute, which needs to be the account’s publishable API key. We’ve placed a random API key in the code. Replace this with your <a href="https://dashboard.stripe.com/account/apikeys">actual API key</a> to test this code for yourself.</li>
+  <li>Line 5 sets the image that seen at the top of the Checkout window, <code>data-image</code>, in this case a green house or farmstand. This image is served from Emma’s website, with the other images her website uses.</li>
+  <li>Lines 6 and 7 set the Checkout title and description text via <code>data-name</code> and <code>data-description</code>.</li>
+  <li>Line 8 sets the price the customer will see in <code>data-amount</code>. This value is in cents, so $20 is set as <strong>2000</strong>.</li>
+  <li>Line 9 controls the text on the button, <code>data-label</code>, in this case “Sign Me Up!”. If you don’t set a label, the default label on the button will be “Pay With Card”.</li>
+</ul>
+
+<p>The script tag handles the Checkout configuration. The form doesn’t have any elements that are visible to the customer, but it serves a crucial function for Checkout. When Checkout receives the token from Stripe it appends two hidden fields to the form: <code>stripeToken</code> and <code>stripeEmail</code>. Checkout then submits the form to Emma’s server. Let’s look at what Emma needs to do to after the form is submitted to complete the subscription sign up.</p></section>
+
+<section>
+<h2 id="create-a-subscription-for-the-customer">Create a subscription for the customer</h2>
+
+<p>As mentioned above, Checkout appends <code>stripeToken</code> and <code>stripeEmail</code> to the signup form and submits it to the server. Emma uses those parameters to build a Stripe API call to create a subscription. She makes a PHP file named <strong>create_subscription.php</strong> (which matches the form’s <code>action</code> attribute value above), and adds the code to create the customer:</p>
+<div class="code">
+  <pre class="language-php numbered" ><code>&lt;?php // Create a customer using a Stripe token
+
+// If you&#39;re using Composer, use Composer&#39;s autoload:
+require_once(&#39;vendor/autoload.php&#39;);
+
+// Be sure to replace this with your actual test API key
+// (switch to the live key later)
+\Stripe\Stripe::setApiKey(&quot;sk_test_BQokikJOvBiI2HlWgH4olfQ2&quot;);
+
+try
+{
+  $customer = \Stripe\Customer::create(array(
+    &#39;email&#39; =&gt; $_POST[&#39;stripeEmail&#39;],
+    &#39;source&#39;  =&gt; $_POST[&#39;stripeToken&#39;],
+    &#39;plan&#39; =&gt; &#39;weekly_box&#39;
+  ));
+
+  header(&#39;Location: thankyou.html&#39;);
+  exit;
+}
+catch(Exception $e)
+{
+  header(&#39;Location:oops.html&#39;);
+  error_log(&quot;unable to sign up customer:&quot; . $_POST[&#39;stripeEmail&#39;].
+    &quot;, error:&quot; . $e-&gt;getMessage());
+}</code></pre>
+</div>
+
+<p>Again, we’ve placed a random API key in the code. Replace this with your <a href="https://dashboard.stripe.com/account/apikeys">actual API key</a> to test this code for yourself.</p>
+
+<p>Breaking the code down step-by-step:</p>
+
+<ul>
+  <li>The first bit of code loads the <a href="../libraries.html#php-library">stripe-php</a> library using <a href="https://getcomposer.org/">Composer</a>.</li>
+  <li>Next, Emma sets the API key to the test <em>secret</em> key for her Stripe account. Note: this is a different key from what she used for Checkout, when she used her test <em>public</em> key.</li>
+  <li>Now, she makes the call to Stripe to create the customer. She includes the ID of the plan, as well as the two parameters  received from Checkout: <code>stripeToken</code> and <code>stripeEmail</code>. This single call does several things:
+    <ul>
+      <li>Creates a customer</li>
+      <li>Saves the customer’s payment information</li>
+      <li>Signs the customer up for a subscription</li>
+      <li>By default, Stripe bills the customer immediately for their first week of the subscription</li>
+    </ul>
+  </li>
+  <li>Emma wants to make sure that even if something goes wrong, her customers have a good experience. So she’s wrapped her call to create the subscription in a <code>try</code>/<code>catch</code> clause. If the call succeeds, she displays a thank you page to the customer. If it fails she logs the error and displays an error page to the customer. (You’ll need to create these representative pages yourself.)</li>
+</ul>
+
+<p>Note that in the interest of keeping this example simple, the submitted form parameters are provided directly to Stripe. In a real environment, you would want to check their validity before using them.</p></section>
+
+<section>
+<h2 id="testing-the-form">Testing the form</h2>
+
+<p>It’s time for Emma to test her code. She copies her files to her webserver and navigates to the signup page in her browser. Since she’s using her test API keys, real credit card numbers won’t work. She instead makes use of Stripe’s numerous <a href="../testing.html#cards">test credit cards</a>.</p>
+
+<h3 id="testing-a-successful-signup">Testing a successful signup</h3>
+
+<p>Emma decides to first test a successful sign up. She clicks the “Sign Me Up!” button, enters her email address and one of the test numbers–<strong>4242 4242 4242 4242</strong>–into Checkout. She makes up a valid expiration date and CVC value for the card, and clicks the “Pay $20.00” button. Everything works and she sees the thank you page.</p>
+
+<p>She goes to her Dashboard to confirm the subscription. After logging in, she confirms her Dashboard is in test mode, clicks on her customers list, and sees the customer that was just created. She clicks on the customer’s email address to view the information page and can see the subscription about half way down the page. Hooray!</p>
+
+<h3 id="testing-errors">Testing errors</h3>
+
+<p>Now Emma wants to confirm that if her customer’s card doesn’t work, they will see her error page. This time she enters the number <strong>4000 0000 0000 0341</strong>. This is the number of one of Stripe’s test credit card that is designed to throw an error. Checkout will approve this card and generate a token, but she will get an error when she tries to create the subscription. She hits the “Pay  $20.00” button and this time instead of being taken to her thank you page, she is redirected to her error page.</p>
+
+<p>In a more realized application, Emma would want to show the <a href="../api.html#errors">actual error</a> returned by Stripe.</p></section>
+
+<section>
+<h2 id="going-live">Going live</h2>
+
+<p>Emma’s tested her form and she’s ready to go live with it. There are three steps she will have to take to move from test to live mode.</p>
+
+<p>First, Emma originally created her plan in test mode, and she’ll need to now create it in live mode. She visits her Dashboard and creates the plan again exactly as she did in test mode. Most importantly, <strong>she uses the same plan ID</strong>.</p>
+
+<p>Second, Emma modifies her signup form so that her call to Checkout uses her <em>live public</em> key instead of her <em>secret public</em> one:</p>
+<div class="code">
+  <pre class="language-html numbered" ><code>&lt;script
+  src=&quot;https://checkout.stripe.com/checkout.js&quot; class=&quot;stripe-button&quot;
+  data-key=&quot;pk_live_XXXXXX&quot;&gt;&lt;/script&gt;</code></pre>
+</div>
+
+<p>Third, Emma also changes her <strong>create_subscription.php</strong> file to use her <em>live secret</em> key:</p>
+<div class="code">
+  <pre class="language-php numbered" ><code>\Stripe\Stripe::setApiKey(&quot;sk_live_XXXXX&quot;);</code></pre>
+</div>
+
+<p>(No actual live secret keys are shown in the above code as secret keys must be kept secret!)</p>
+
+<p>Finally, Emma puts her updated files on her webserver and she’s ready to go!</p></section>
+
+<section>
+  <h2>Further reading</h2>
+<ul class="next-steps">
+    <li><a href="../checkout.html"><span>Learn how to customize Checkout</a></li>
+    <li><a href="sending-emails-for-failed-payments.html"><span>Add functionality that automatically sends emails for failed subscription payments</a></li>
+    <li><a href="../testing.html"><span>Check out our testing guide for more information on testing charges, transfers, disputes, and more</a></li>
+</ul>
+
+</section>
+
+
+          <footer>
+  <h2>Questions?</h2>
+  <p>We're always happy to help with code or other questions you might have! <a href="https://support.stripe.com/">Search</a> our site for more information, <a href="https://support.stripe.com/email">send us an email</a>, or <a href="../../contact/sales.html">get in touch</a> with our sales team!</p>
+</footer>
+
+        </article>
+      </div>
+    </div>
+
+    <div id="loading-bar"></div>
+
+    <script src="../../assets/external/jquery.min-94df374d2ad5d02ae136584dc008fb1c.js"></script>
+    <script src="../../assets/prism-aa9f4cb7aff3f31b5394455bcbea0d8b.js"></script>
+    <script src="../../assets/external/dynamics.min-14579f80273a61e6d0f4f45484e20dc7.js"></script>
+    <script src="../../assets/jquery.cookie-d7482a1bbfda18d981eda4398666acdd.js"></script>
+    <script src="../../assets/documentation-84c208e01668170139f2f511cfc37644.js"></script>
+    <script>
+      parseKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2", "secret-key", null);
+      parseKey("pk_test_6pRNASCoBOKtIshFeQd4XMUh", "publishable-key", null);
+    </script>
+      <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+    
+    <script src="../../assets/config-aead70c07cdca45cec67e4141bf18edc.js"></script>
+    
+<script type="application/json" id="analytics_config">{&quot;mixpanel&quot;:{&quot;identifier&quot;:&quot;eb71b6171a4f7ed97de9b7a0395b7ca5&quot;},&quot;ga&quot;:{},&quot;trackpage&quot;:true}</script>
+
+<script src="https://js.stripe.com/internal/v2/analytics.min.js"></script>
+<script src="../../assets/analytics-e800ab0ba76de2b697ea3f61c673695b.js"></script>
+<script src="https://js.stripe.com/v2/m.js"></script>
+<script src="../../assets/mirador_ping-6bba7d3d9fbb1e991b7f0f8fab43b2b1.js"></script>
+
+    <script type="text/javascript">
+    if ('Analytics' in window) {
+      Analytics.viewed("docs", {
+        docs_version: "2",
+      });
+    }
+    </script>
+  </body>
+
+<!-- Mirrored from stripe.com/docs/recipes/subscription-signup by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 23:48:31 GMT -->
+</html>
