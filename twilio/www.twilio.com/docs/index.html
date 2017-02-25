@@ -125,6 +125,52 @@
   padding-left: 20px;
 }
 
+.guide-sm {
+  display: inline-block;
+    margin: 4px 1px 10px;
+    width: 64px;
+}
+.api-inte-list {
+  list-style: none;
+    margin: 0;
+    padding: 0 10px 8px;
+    text-align: center;
+}
+.chapter {
+    display: inline-block;
+    width: 100%;
+    padding-top: 1px;
+    margin-bottom: 30px;
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    background: white;
+    text-align: center;
+    color: #182359;
+}
+.guide-sm h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    font-weight: 500;
+    color: #555555;
+    text-transform: none;
+}
+
+.api-inte-list .guide-sm img {
+    margin-bottom: 4px;
+    opacity: 1;
+    width: 40px;
+}
+
+.m-l-r-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    vertical-align: middle;
+}
 
 </style>
 <!-- CUSTOM CSS END -->
@@ -318,37 +364,7 @@
     
     
   <div class="hero infinite-darkness" style="background-color:#FBFAF9">
-    <h1 style="color:#00386C; font-family:Aleo Bold"><img class="center db" src="https://static.segment.com/site-public/2.66.0-23-g0696c90/apps/home/public/images/data-flow.svg"></h1>
-    <!-- <div class="seg-logo" style="height:200px"></div> -->
-    <!-- <div class="hero__prompt uk-width-medium-2-3 uk-container-center">
-      <span class="call_to_action prefix">I code in</span>
-      <select id="lang-selector" data-tag-filter-id="language" role="homepage-selector">
-        <option selected="selected">Language</option>
-        <option value="csharp">C#</option>
-        <option value="java">Java</option>
-        <option value="node.js">Node.js</option>
-        <option value="php">PHP</option>
-        <option value="python">Python</option>
-        <option value="ruby">Ruby</option>
-        <option value="javascript">JavaScript</option>
-        <option value="android">Java (Android)</option>
-        <option value="objective-c">Objective C</option>
-        <option value="swift">Swift</option>
-      </select> 
-      <span class="call_to_action suffix">and would like to learn about </span>
-      <select id="prod-selector" data-tag-filter-id="product" role="homepage-selector">
-        <option selected="selected">Product</option>
-        <option value="voice">Voice</option>
-        <option value="sms">SMS/MMS</option>
-        <option value="chat">Chat</option>
-        <option value="video">Video</option>
-        <option value="authy">Authy</option>
-        <option value="tools">Developer Tools</option>
-        <option value="taskrouter">TaskRouter</option>
-    </select><span class="call_to_action">.</span>
-    </div>
-    <i class="hero__tip"></i>
-  </div> -->
+    
   <ul id="homepage-urlmap" style="display: none;">
     <!-- C# -->
     <li data-language-product="csharp-authy">/docs/tutorials/walkthrough/two-factor-authentication/csharp/mvc</li>
@@ -461,23 +477,43 @@
 <div class="homepage-list__item quickstart" role="homepage-item"
      >
   <div class="homepage-list__item__content">
-    <div class="homepage-list__item__content__head">
-      <h2>Quickstarts</h2>
-      <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/quickstart.html" style="background-color:#0066B3">
-        Get Started
-      </a>
-    </div>
+    
+    <!-- START Algolia Icons-->
+<div style="border-radius:7px" class="chapter">
+  <h2>Libraries/SDKs</h2>
 
-    <div class="homepage-list__item__content__desc">
-      <p>Get started quickly with a Segment product. Install Segment on your website, connect a Source, or connect a Data Warehouse with these short guides.</p>
-    </div>
-  </div>
+  <div class="api-inte-list clearfix"> 
+    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    </article> </div>
+</div>
+<!-- END Algolia Icons-->
+
+  </div> 
+
 </div>
 
 <div class="homepage-list__item api" role="homepage-item"
      >
   <div class="homepage-list__item__content">
-    <div class="homepage-list__item__content__head">
+    <!-- <div class="homepage-list__item__content__head">
       <h2>API Reference</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-events.html" class="nav__subnav-link" style="background-color:#B9E5FA">
         Get Started
@@ -487,13 +523,41 @@
     <div class="homepage-list__item__content__desc">
       <p>Get in-depth information about how to use Segment's Tracking API and SDKs. Methods, parameters, request formats, industry-specific specs - find it all here.</p>
     </div>
-  </div>
-</div>    
+  </div> -->
+     <!-- START Algolia Icons-->
+<div style="border-radius:7px" class="chapter">
+  <h2>Libraries/SDKs</h2>
+
+  <div class="api-inte-list clearfix"> 
+    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    </article> </div>
+</div>
+</div>
+<!-- END Algolia Icons-->  
+</div>  
    
 <div class="homepage-list__item libraries" role="homepage-item"
      >
-  <div class="homepage-list__item__content">
-    <div class="homepage-list__item__content__head">
+   <div class="homepage-list__item__content">
+  <!--  <div class="homepage-list__item__content__head">
       <h2>Libraries</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html" style="background-color:#49B882">
         Get Started
@@ -503,14 +567,41 @@
     <div class="homepage-list__item__content__desc">
       <p>Easily use Segment's Tracking API in the programming language of your choice. Download and install helpers for Node.js, PHP, iOS, Android, C#, and more.</p>
     </div>
-  </div>
+  </div> -->
+     <!-- START Algolia Icons-->
+<div style="border-radius:7px" class="chapter">
+  <h2>Libraries/SDKs</h2>
+
+  <div class="api-inte-list clearfix"> 
+    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    </article> </div>
+</div>
+<!-- END Algolia Icons-->
 </div>
 
 
 <div class="homepage-list__item guides" role="homepage-item"
      >
   <div class="homepage-list__item__content">
-    <div class="homepage-list__item__content__head">
+    <!-- <div class="homepage-list__item__content__head">
       <h2>Integration Catalog</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html" style="background-color:#E365A6">
         Get Started
@@ -519,7 +610,34 @@
 
     <div class="homepage-list__item__content__desc">
       <p>Review more than 180 integrations that you can send your Segment data to, including Google Analytics, Mixpanel, Intercom, and Amplitude.</p>
-    </div>
+    </div> -->
+       <!-- START Algolia Icons-->
+<div style="border-radius:7px" class="chapter">
+  <h2>Libraries/SDKs</h2>
+
+  <div class="api-inte-list clearfix"> 
+    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    </article> </div>
+</div>
+<!-- END Algolia Icons-->
   </div>
 </div>
 
@@ -529,7 +647,7 @@
 <div class="homepage-list__item tutorials" role="homepage-item"
      >
   <div class="homepage-list__item__content">
-    <div class="homepage-list__item__content__head">
+    <!-- <div class="homepage-list__item__content__head">
       <h2>Cloud-App Sources Catalog</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html" style="background-color:#FCC79B">
         Get Started
@@ -538,14 +656,41 @@
 
     <div class="homepage-list__item__content__desc">
       <p>Review more than 20 sources that you can collect data from, including Salesforce, Facebook Ads, Google Adwords, and Mailchimp.</p>
-    </div>
+    </div> -->
+       <!-- START Algolia Icons-->
+<div style="border-radius:7px" class="chapter">
+  <h2>Libraries/SDKs</h2>
+
+  <div class="api-inte-list clearfix"> 
+    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    </article> </div>
+</div>
+<!-- END Algolia Icons-->
   </div>
 </div>
 
 <div class="homepage-list__item tutorials" role="homepage-item"
      >
   <div class="homepage-list__item__content">
-    <div class="homepage-list__item__content__head">
+    <!-- <div class="homepage-list__item__content__head">
       <h2>Connect Warehouse</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html" style="background-color:#0066B3">
         Get Started
@@ -554,7 +699,34 @@
 
     <div class="homepage-list__item__content__desc">
       <p>Getting your customer data into your Redshift, Postgres, or BigQuery data warehouse is super easy.</p>
-    </div>
+    </div> -->
+       <!-- START Algolia Icons-->
+<div style="border-radius:7px" class="chapter">
+  <h2>Libraries/SDKs</h2>
+
+  <div class="api-inte-list clearfix"> 
+    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    </article> </div>
+</div>
+<!-- END Algolia Icons-->
   </div>
 </div>
 
