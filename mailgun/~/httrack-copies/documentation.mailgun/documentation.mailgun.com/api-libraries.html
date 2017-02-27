@@ -39,6 +39,10 @@
 
     <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
     <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+
+    <!--LOAD PRISM-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css">
+
     <meta name="viewport" content="width=device-width">
     
     <!-- CUSTOM CSS -->
@@ -48,7 +52,9 @@
       background-image: none !important;
       position:fixed
     }
-
+    .documentation .document h3 {
+      padding-top: 0px;
+    }
     .header-nav a {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -114,6 +120,11 @@
 .documentation .main.main-with-subnav .sphinxsidebarwrapper {
      top: 40px; 
 }
+
+code, .pre {
+  border:none;
+}
+
     </style>
     <!-- CUSTOM CSS -->
 
@@ -162,9 +173,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="../../../../../segment.com/index.html"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
       <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
           <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
-          <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a>
+          <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
           <div class="dropdown">
-                    <a href="api-events.html" >API Reference 
+                    <a href="api-events.html" >API Overview
 </a>
                     <nav class="dropdown-menu">
                         <a href="http://www.mailgun.com/sending-email">Sending email</a>
@@ -267,11 +278,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li> -->
 <!-- <li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li> -->
-<li class="toctree-l1 current"><a class="reference internal" href="api-libraries.html">Libraries</a><ul class="current">
+<li class="toctree-l1 current"><a class="  reference internal" href="api-libraries.html">Libraries</a><ul class="current">
 <!-- <li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li> -->
 <li class="toctree-l2 current"><a class=" current reference internal" href="#events"><b>Introduction</b></a><ul>
-  <li class="toctree-l3"><a class="reference internal" href="#gettingstarted">Getting Started</a></li>
+  <!-- <li class="toctree-l3"><a class="reference internal" href="#gettingstarted">Getting Started</a></li> -->
   <li class="toctree-l3"><a class="reference internal" href="#HTTP">HTTP API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#CVS">Client-side vs Server-side</a></li>
 
@@ -282,14 +293,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </li>
 
 
-<li class="toctree-l2 "><a class=" reference internal" href="#clientside"><b>Client-side SDKs</b></a><ul>
-  <li class="toctree-l3"><a class="reference internal" href="#examples">Javascript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ios">iOS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#android">Android</a></li>
-<!-- <li class="toctree-l3"><a class="reference internal" href="#query-options">Screen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#filter-field">Group</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#filter-expression">Alias</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#event-structure">Event Structure</a></li> -->
+<li class="toctree-l1"><a class="reference internal" href="#clientside"><b>Client-side SDKs</b></a>
+  <ul>
+  <li class="toctree-l2"><a class="reference internal" href="#javascript">Javascript</a>
+    <ul>
+    <li class="toctree-l3"><a class="reference internal" style="padding-left:60px" href="#javascript-gettingstarted">Getting Started</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" style="padding-left:60px" href="#javascript-reference">Reference</a>
+    </li>
+    </ul>
+  </li>
+<li class="toctree-l2"><a class="reference internal" href="#ios">iOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#android">Android</a></li>
+
 
 </ul>
 
@@ -334,20 +350,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span id="api-events"></span><h1>Libraries<a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h1>
 <p>You’ll use one of our library sources to record customer data from your website, mobile app or servers. We transform and route this data to all the integrations you have enabled. You can also gather data from your 3rd party cloud app sources into one warehouse that stores all of your source data and makes it easily accessible.</p>
 
-<span id="gettingstarted"></span><h2 style="padding-top:0px">Getting Started<a class="headerlink" href="#gettingstarted" title="Permalink to this headline">¶</a></h2>
+
 <p>If we don’t have a library for your environment yet, you can always send your data directly to our HTTP Tracking API. All of our other sources and platforms use the HTTP API to work their magic behind the scenes.</p>
 
-<h3 style="padding-top:0px">Use one of our SDK Quickstarts:</h3>
+<h3 style="padding-top:0px">Get Started With One Of Our Libraries:</h3>
 <ul>
-<li><b>Quickstart:</b> <a href="quickstart.html#javascript">Installing the Javascript SDK</a></li> 
-<li><b>Quickstart:</b> <a href="quickstart.html#node">Installing the Node.js SDK</a></li> 
-<li><b>Quickstart:</b> <a href="quickstart.html#python">Installing the Python SDK</a></li> 
-<li><b>Quickstart:</b> <a href="quickstart.html#ruby">Installing the Ruby SDK</a></li> 
-<li><b>Quickstart:</b> <a href="quickstart.html#php">Installing the PHP SDK</a></li> 
-<li><b>Quickstart:</b> <a href="quickstart.html#iossdk">Installing the iOS SDK</a></li> 
-<li><b>Quickstart:</b> <a href="quickstart.html#android">Installing the Android SDK</a></li>
-<li><b>Quickstart:</b> <a href="quickstart.html#HTTP">Using the Http API</a></li>
-<li ><b>Full SDK Docs:</b> <a href="api-libraries.html">See all Libraries</a></li>  
+<li><b>Getting Started:</b> <a href="quickstart.html#javascript">Installing the Javascript SDK</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#node">Installing the Node.js SDK</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#python">Installing the Python SDK</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#ruby">Installing the Ruby SDK</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#php">Installing the PHP SDK</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#iossdk">Installing the iOS SDK</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#android">Installing the Android SDK</a></li>
+<li><b>Getting Started:</b> <a href="quickstart.html#HTTP">Using the Http API</a></li>
 </ul>
 
 <span id="HTTP"></span><h1>HTTP API<a class="headerlink" href="#HTTP" title="Permalink to this headline">¶</a></h1>
@@ -431,584 +446,284 @@ proceed with step (2);</li>
 </ol>
 </div>
 
-<div class="section" id="examples">
-<h2>Analytics.js<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p>Fetches the first page of log records that are older than <code class="docutils literal"><span class="pre">Fri,</span> <span class="pre">3</span> <span class="pre">May</span> <span class="pre">2013</span> <span class="pre">09:00:00</span> <span class="pre">-0000</span></code>
-and correspond to delivery to <code class="docutils literal"><span class="pre">joe&#64;example.com</span></code>:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
-      https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events <span class="se">\</span>
-      --data-urlencode <span class="nv">begin</span><span class="o">=</span><span class="s1">&#39;Fri, 3 May 2013 09:00:00 -0000&#39;</span> <span class="se">\</span>
-      --data-urlencode <span class="nv">ascending</span><span class="o">=</span>yes <span class="se">\</span>
-      --data-urlencode <span class="nv">limit</span><span class="o">=</span><span class="m">25</span> <span class="se">\</span>
-      --data-urlencode <span class="nv">pretty</span><span class="o">=</span>yes <span class="se">\</span>
-      --data-urlencode <span class="nv">recipient</span><span class="o">=</span>joe@example.com
-</pre></div>
+<div class="section" id="javascript">
+<h1 id="javascript">Javascript SDK: <b>analytics.js</b><a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h1>
+<p>Analytics.js makes it dead simple to send your data to any tool without having to learn, test or implement a new API every time.</p>
+<p>View analytics.js on Github: <a href="https://github.com/segmentio/analytics.js">https://github.com/segmentio/analytics.js</a></p>
+
+<h2 id="javascript-gettingstarted">Getting Started<a class="headerlink" href="#javascript-gettingstarted" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial will help you start sending data from your website to Segment and any of our integrations, using our Analytics.js library. As soon as you’re setup you’ll be able to turn on any new integrations with the flip of a switch!</p>
+<p>If you want to dive deeper at any point, check out the <a href="#javascriptreference">Analytics.js reference</a>.</p>
+
+<h3 style="">Step 1: Copy the Snippet</h3>
+<pre><code class="language-javascript"><script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+  analytics.load("YOUR_WRITE_KEY");
+  analytics.page();
+  }}();
+</script>
+</code></pre>
+<p>When you paste it, you’ll need to replace YOUR_WRITE_KEY with your Segment project’s Write Key, which you can find in your project setup guide or settings.</p>
+<p>That snippet will load Analytics.js onto the page asynchronously, so it won’t affect your page load speed. As soon as that snippet is running on your site, you can start turning on any integrations on your Segment integrations page and they will start loading on your site automatically!</p>
+<p>Note that you’ll want to remove other native 3rd party integration code that you have on your site since it may cause issues if you turn on those same integrations (e.g. Google Analytics, Mixpanel, Customer.io, etc.) via Segment.</p>
+<p><b>Fun fact:</b> if you only want the most basic Google Analytics setup you can stop reading right now. You’re done! Just switch on Google Analytics in our interface.</p>
+<p>However, lots of analytics and marketing tools will need to record who each user is on your site. If you’re looking to use any tool that deals with the identity of your users, read on about the identify method…</p>
+
+<h3>Step 2: Identify Users</h3>
+<p>The identify method is how you tell Segment who the current user is. It includes a unique User ID and any optional traits you know about them. You can read more about it in the <a href="">identify reference</a>.</p>
+<p><b>Note:</b> You won’t need to call identify for anonymous visitors to your site. We’ll automatically assign them an anonymousId, so just calling page and track will still work just fine without identify.</p>
+<p>Here’s what a basic call to identify might look like:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.identify('f4ca124298', {
+    name: 'Michael Bolton',
+    email: 'mbolton@initech.com'
+  });
+</code></pre>
+<p>That’s identifying Michael by his unique User ID (the one you know him by in your database) and labeling him with name and email traits.</p>
+<p><b>Hold up though!</b> When you actually put that code on your site, you’ll need to replace all those hard-coded strings with details about the currently logged-in user.</p>
+<p>To do that, we recommend using a backend template to inject an identify call straight into the footer of <b>every page</b> of your site where the user is logged in. That way, no matter what page the user first lands on, they will always be identified. You don’t need to call identify if your unique identifier (userId) is not known.</p>
+<p>Depending on your templating language, that would look something like this:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.identify('{{ user.id }}', {
+    name: '{{ user.fullname }}',
+    email: '{{ user.email }}'
+  });
+</code></pre>
+<p>With that call on your page, you’re now successfully identifying every user that visits your site.</p>
+<p><b>Second fun fact:</b> if you only want to use a basic CRM setup, you can call it a day right now. Just switch on Salesforce, Intercom, or any other CRM you’d like to use from our interface and we’ll start sending all of your user data to it!</p>
+<p>Of course, lots of analytics tools record more than just identities… they record the actions each user performs too! If you’re looking for a complete event tracking analytics setup, keep reading…</p>
+<h3>Step 3: Track Actions</h3>
+<p>The track method is how you tell Segment about which actions your users are performing on your site. Every action triggers what we call an “event”, which can also have associated properties. You can read more about track in the <a href="">track reference</a>.</p>
+<p>Here’s what a call to track might look like when a user signs up:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.track('Signed Up', {
+    plan: 'Enterprise'
+  });
+</code></pre>
+<p>That’s just telling us that your user just triggered the <b>Signed Up</b> event and chose your hypothetical 'Enterprise' plan. Properties can be anything you want to record, for example:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.track('Article Bookmarked', {
+    title: 'Snow Fall',
+    subtitle: 'The Avalanche at Tunnel Creek',
+    author: 'John Branch'
+  });
+</code></pre>
+<p>You’ll want to track events that are indicators of success for your site, like <b>Signed Up</b>, <b>Item Purchased</b> or <b>Article Bookmarked</b>.
+</p>
+<p>To get started, we recommend tracking just a few important events. You can always add more later!</p>
+<p>Once you’ve added a few track calls, <b>you’re done</b>! You successfully installed Analytics.js tracking. Now you’re ready to turn on any integration you fancy from our interface, margarita in hand.</p>
+
+<h1 id="javascript-reference">Reference<a class="headerlink" href="#javascript-reference" title="Permalink to this headline">¶</a></h1>
+
+<h2>Identify</h2>
+<p>The identify method is how you associate your users and their actions to a recognizable userId and traits. For a full guide on how/when to use Identify, see our <a>API reference</a>.</p>
+<p>Note: We recommend against using identify for anonymous visitors to your site. analytics.js automatically retrieves an anonymousId from localStorage or assigns one for new visitors. It will be attached to all page and track events both before and after an identify.</p>
+<p><b>Identify Method Parameters:</b></p>
+<pre>
+  <code class="language-javascript">
+  analytics.identify([userId], [traits], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>userId (optional)</td>
+<td> (String) The database ID for the user. If you don’t know who the user is yet, you can omit the userId and just record traits. You can read more about identities in the identify reference.</td>
+</tr>
+<tr class="row-odd"><td>traits (optional)</td>
+<td>(Object) A dictionary of traits you know about the user, like their email or name. You can read more about traits in the identify reference.</td>
+</tr>
+<tr class="row-even"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a traits object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-odd"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
 
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+<p>By default, traits are cached in the browser’s local storage and attached to each subsequent identify call. For example, you might do that when someone signs up for a newsletter but hasn’t yet created an account on your site:</p>
 
-<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
+<p><b>Example identify with hard-coded information:</b></p>
+<pre><code class="language-javascript">
+  analytics.identify({
+    nickname: 'Amazing Grace',
+    favoriteCompiler: 'A-0',
+    industry: 'Computer Science'
+  });
+</code></pre>
+<p>and when the user completes signup:</p>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
+<pre><code class="language-javascript">
+  analytics.identify('12091906-01011992', {
+    name: 'Grace Hopper',
+    email: 'grace@usnavy.gov'
+  });
+</code></pre>
+<p>The traits object for the second call will also include nickname, favoriteCompiler, and industry.</p>
+<p>You may omit both traits and options—-passing the callback as the second argument if you choose:</p>
+<pre><code class="language-javascript">
+  analytics.identify('12091906-01011992', function(){
+    // Do something after the identify request has been sent
+    // Note: site-critical functionality should not depend on your analytics provider
+  });
+</code></pre>
 
-    <span class="c1">// ...</span>
+<h2>Track</h2>
+<p>The track method lets you record any actions your users perform. You can see a track example in the guide or find details on the track method payload. For a full guide on how/when to use Track, see our <a>API reference</a>.</p>
+<p><b>Track Method Parameters:</b></p>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetLogs</span><span class="o">()</span> <span class="o">{</span>
-
-        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
-        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
-            <span class="s">&quot;api&quot;</span><span class="o">,</span>
-            <span class="s">&quot;YOUR_API_KEY&quot;</span>
-        <span class="o">));</span>
-
-        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="n">mgRoot</span>
-            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/events&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;begin&quot;</span><span class="o">,</span> <span class="mi">50</span><span class="o">);</span>
-            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;ascending&quot;</span><span class="o">,</span> <span class="s">&quot;yes&quot;</span><span class="o">);</span>
-            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;limit&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
-            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;pretty&quot;</span><span class="o">,</span> <span class="s">&quot;yes&quot;</span><span class="o">);</span>
-            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;recipient&quot;</span><span class="o">,</span> <span class="s">&quot;joe@example.com&quot;</span><span class="o">);</span>
-            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
+<pre><code class="language-javascript">
+  analytics.track(event, [properties], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>event</td>
+<td> (String) The name of the event you’re tracking. You can read more about the track method and what event names we recommend.</td>
+</tr>
+<tr class="row-odd"><td>properties (optional)</td>
+<td>(Object) A dictionary of properties for the event. If the event was 'Added to Cart', it might have properties like price and productType.</td>
+</tr>
+<tr class="row-even"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a traits object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-odd"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
-<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
+<p>The only required argument to track in analytics.js is an event name string. You can read more about how we recommend naming your events.</p>
+<p><b>Example track call:</b></p>
+<pre><code class="language-javascript">
+  analytics.track('Article Completed', {
+    title: 'How to Create a Tracking Plan',
+    course: 'Intro to Analytics',
+  });
+</code></pre>
+<p>The only required argument to track in analytics.js is an event name string. Read more about how we recommend naming your events.</p>
 
-<span class="c1"># Instantiate the client.</span>
-<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
-<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
-<span class="nv">$queryString</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;begin&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;Fri, 3 May 2013 09:00:00 -0000&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;ascending&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;limit&#39;</span>        <span class="o">=&gt;</span>  <span class="mi">25</span><span class="p">,</span>
-    <span class="s1">&#39;pretty&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;subject&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;test&#39;</span>
-<span class="p">);</span>
 
-<span class="c1"># Make the call to the client.</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/events&quot;</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">);</span>
-</pre></div>
+<h2>Page</h2>
+<p>The page method lets you record page views on your website, along with optional extra information about the page being viewed. For a full guide on how/when to use Page, see our <a>API reference</a>.</p>
+<p>Because some integrations require a page call to instantiate their libraries, you must call page at least once per page load! You may call it more than once if needed, (eg, on virtual page changes in a single page app).</p>
+<p>A page call is included by default as the final line in the analytics.js snippet. You may modify this page call within the guidelines below.</p>
+<pre><code class="language-javascript">
+  analytics.page([category], [name], [properties], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>category (optional</td>
+<td> (String) The category of the page. Useful for cases like ecommerce where many pages might live under a single category. Note: if you pass only one string to page it is assumed to be name. You must include a name to send a category.</td>
+</tr>
+<tr class="row-odd"><td>name (optional)</td>
+<td>(Sting) The name of the page.</td>
+</tr>
+<tr class="row-even"><td>properties (optional)</td>
+<td>(Object) A dictionary of properties of the page. Note: url, title, referrer and path are collected automatically! Additionally this defaults to a canonical url, if available, and falls back to document.location.href.</td>
+</tr>
+<tr class="row-odd"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a properties object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-even"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events&quot;</span><span class="p">,</span>
-        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
-        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;begin&quot;</span>       <span class="p">:</span> <span class="s2">&quot;Fri, 3 May 2013 09:00:00 -0000&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;ascending&quot;</span>   <span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;limit&quot;</span>       <span class="p">:</span>  <span class="mi">25</span><span class="p">,</span>
-                <span class="s2">&quot;pretty&quot;</span>      <span class="p">:</span> <span class="s2">&quot;yes&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;recipient&quot;</span> <span class="p">:</span> <span class="s2">&quot;joe@example.com&quot;</span><span class="p">})</span>
-</pre></div>
+<h3>Default Properties</h3>
+<p>A few properties are automatically added to each page call.</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing');
+</code></pre>
+<p>We will translate that to the following without any extra work from you:
+</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing', {
+    title: 'Segment Pricing',
+    url: 'https://segment.com/pricing',
+    path: '/pricing',
+    referrer: 'https://segment.com/warehouses'
+  });
+</code></pre>
+<p>You can override these values. For example:</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing', {
+    title: 'My Overridden Title',
+    path: '/pricing/view'
+  });
+</code></pre>
+<p>Will be translated to:</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing', {
+    title: 'My Overridden Title',
+    url: 'https://segment.com/pricing',
+    path: '/pricing/view',
+    referrer: 'https://segment.com/warehouses'
+  });
+</code></pre>
+<h3>Selecting Integrations</h3>
+<p>An integrations object may be passed in the options of alias, group, identify, page and track methods, allowing selective integration filtering. By default all integrations are enabled.</p>
+<p>An example showing how to send data only to Intercom and Google Analytics:
+</p>
+<pre><code class="language-javascript">
+  analytics.identify('025pikachu025', {
+    email: 'peekAtMe@email.poke',
+    name: 'Pikachu',
+    type: 'electric'
+  }, {
+    integrations: {
+      'All': false,
+      'Intercom': true,
+      'Google Analytics': true
+    }
+  });
+</code></pre>
+<p>'All': false flags that no integration should receive data. Integration flags are case sensitive and match the integration’s name in the docs (i.e. “AdLearn Open Platform”, “awe.sm”, “MailChimp”, etc.).</p>
+<p>Note: Available at the business plan level, filtering track calls can be done right from the Segment UI on your source schema page. We recommend using the UI if possible since it’s a much simpler way of managing your filters and can be updated with no code changes on your side.</p>
+<h2>FAQ</h2>
+<p><b>How do I know if Analytics.js is Loaded?</b></p>
+<p><b>Can I load two instances of Analytics.js?</b></p>
+<p><b>Why aren't events appearing in the debugger?</b></p>
+<p><b>How do I know if Analytics.js is working?</b></p>
+<p><b>Why am I missing events in my end-tool?</b></p>
+<p><b>Is there a size limit on API requests?</b></p>
+<p><b>Why isn't analytics.ready() firing?</b></p>
 </div>
-<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span>
-  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
-  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/events&quot;</span><span class="p">,</span>
-   <span class="ss">:params</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="ss">:&#39;begin&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;Fri, 3 May 2013 09:00:00 -0000&#39;</span><span class="p">,</span>
-    <span class="ss">:&#39;ascending&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span>
-    <span class="ss">:&#39;limit&#39;</span>       <span class="o">=&gt;</span>  <span class="mi">25</span><span class="p">,</span>
-    <span class="ss">:&#39;pretty&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;yes&#39;</span><span class="p">,</span>
-    <span class="ss">:&#39;recipient&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;joe@example.com&#39;</span>
-   <span class="p">}</span>
-<span class="k">end</span>
-</pre></div>
-</div>
-<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
-
-<span class="k">public</span> <span class="k">class</span> <span class="nc">EventsDateTimeRecipientChunk</span>
-<span class="p">{</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">EventsDateTimeRecipient</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">EventsDateTimeRecipient</span> <span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
-            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
-                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
-        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/events&quot;</span><span class="p">;</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;begin&quot;</span><span class="p">,</span> <span class="s">&quot;Fri, 3 May 2013 09:00:00 -0000&quot;</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;ascending&quot;</span><span class="p">,</span> <span class="s">&quot;yes&quot;</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;limit&quot;</span><span class="p">,</span> <span class="m">25</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;pretty&quot;</span><span class="p">,</span> <span class="s">&quot;yes&quot;</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;recipient&quot;</span><span class="p">,</span> <span class="s">&quot;joe@example.com&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetLog</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Event</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-  <span class="nx">ei</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewEventIterator</span><span class="p">()</span>
-  <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ei</span><span class="p">.</span><span class="nx">GetFirstPage</span><span class="p">(</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">GetEventsOptions</span><span class="p">{</span>
-    <span class="nx">Begin</span><span class="p">:</span>          <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span> <span class="o">*</span> <span class="nx">Time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">),</span>
-    <span class="nx">ForceAscending</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nx">Limit</span><span class="p">:</span>          <span class="mi">1</span><span class="p">,</span>
-    <span class="nx">Filter</span><span class="p">:</span>         <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-      <span class="s">&quot;recipient&quot;</span><span class="p">:</span> <span class="s">&quot;joe@example.com&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-  <span class="p">})</span>
-  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">ei</span><span class="p">.</span><span class="nx">Events</span><span class="p">(),</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Sample response:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;czsjqFATSlC3QtAK-C80nw&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1376325780.160809</span><span class="p">,</span>
-      <span class="s2">&quot;envelope&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;sender&quot;</span><span class="o">:</span> <span class="s2">&quot;me@samples.mailgun.org&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;transport&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;accepted&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-      <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-      <span class="s2">&quot;flags&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;is-authenticated&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;is-test-mode&quot;</span><span class="o">:</span> <span class="kc">false</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">&quot;to&quot;</span><span class="o">:</span> <span class="s2">&quot;foo@example.com&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130812164300.28108.52546@samples.mailgun.org&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;from&quot;</span><span class="o">:</span> <span class="s2">&quot;Excited User &lt;me@samples.mailgun.org&gt;&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;subject&quot;</span><span class="o">:</span> <span class="s2">&quot;Hello&quot;</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;attachments&quot;</span><span class="o">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;recipients&quot;</span><span class="o">:</span> <span class="p">[</span>
-          <span class="s2">&quot;foo@example.com&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;baz@example.com&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;bar@example.com&quot;</span>
-        <span class="p">],</span>
-        <span class="s2">&quot;size&quot;</span><span class="o">:</span> <span class="mi">69</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;baz@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;http&quot;</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;paging&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;next&quot;</span><span class="o">:</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/samples.mailgun.org/events/W3siY...&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;previous&quot;</span><span class="o">:</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/samples.mailgun.org/events/Lkawm...&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Fetches the first page of log records that contain different types of failure,
-starting from the most recent:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
-    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events <span class="se">\</span>
-    --data-urlencode <span class="nv">event</span><span class="o">=</span><span class="s1">&#39;rejected OR failed&#39;</span>
-</pre></div>
-</div>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
-
-    <span class="c1">// ...</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetLogs</span><span class="o">()</span> <span class="o">{</span>
-
-        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
-        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
-            <span class="s">&quot;api&quot;</span><span class="o">,</span>
-            <span class="s">&quot;YOUR_API_KEY&quot;</span>
-        <span class="o">));</span>
-
-        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="n">mgRoot</span>
-            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/events&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">queryParam</span><span class="o">(</span><span class="s">&quot;event&quot;</span><span class="o">,</span> <span class="s">&quot;rejected OR failed&quot;</span><span class="o">);</span>
-            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
-<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
-
-<span class="c1"># Instantiate the client.</span>
-<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
-<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
-<span class="nv">$queryString</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;event&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;rejected OR failed&#39;</span><span class="p">);</span>
-
-<span class="c1"># Make the call to the client.</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/events&quot;</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">);</span>
-</pre></div>
-</div>
-<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events&quot;</span><span class="p">,</span>
-        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">),</span>
-        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;event&quot;</span> <span class="p">:</span> <span class="s2">&quot;rejected OR failed&quot;</span><span class="p">})</span>
-</pre></div>
-</div>
-<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span>
-  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
-  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/events&quot;</span><span class="p">,</span>
-  <span class="ss">:params</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="ss">:&quot;event&quot;</span> <span class="o">=&gt;</span> <span class="s1">&#39;rejected OR failed&#39;</span>
-  <span class="p">}</span>
-<span class="k">end</span>
-</pre></div>
-</div>
-<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
-
-<span class="k">public</span> <span class="k">class</span> <span class="nc">EventsFailureChunk</span>
-<span class="p">{</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">EventsFailure</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">EventsFailure</span> <span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
-            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
-                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
-        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/events&quot;</span><span class="p">;</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;event&quot;</span><span class="p">,</span> <span class="s">&quot;rejected OR failed&quot;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetLog2</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Event</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-  <span class="nx">ei</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewEventIterator</span><span class="p">()</span>
-  <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ei</span><span class="p">.</span><span class="nx">GetFirstPage</span><span class="p">(</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">GetEventsOptions</span><span class="p">{</span>
-    <span class="nx">Filter</span><span class="p">:</span>         <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-      <span class="s">&quot;event&quot;</span><span class="p">:</span> <span class="s">&quot;rejected OR failed&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-  <span class="p">})</span>
-  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">ei</span><span class="p">.</span><span class="nx">Events</span><span class="p">(),</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;items&quot;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;severity&quot;</span><span class="o">:</span> <span class="s2">&quot;temporary&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-      <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;czsjqFATSlC3QtAK-C80nw&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;envelope&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;sender&quot;</span><span class="o">:</span> <span class="s2">&quot;me@samples.mailgun.org&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;transport&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;delivery-status&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">498</span><span class="p">,</span>
-        <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;No MX for [example.com]&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;retry-seconds&quot;</span><span class="o">:</span> <span class="mi">900</span><span class="p">,</span>
-        <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;No MX for [example.com]&quot;</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-      <span class="s2">&quot;reason&quot;</span><span class="o">:</span> <span class="s2">&quot;generic&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-      <span class="s2">&quot;flags&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;is-authenticated&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;is-test-mode&quot;</span><span class="o">:</span> <span class="kc">false</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1376435471.10744</span><span class="p">,</span>
-      <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-          <span class="s2">&quot;to&quot;</span><span class="o">:</span> <span class="s2">&quot;baz@example.com, bar@example.com&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130813230036.10303.40433@samples.mailgun.org&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;from&quot;</span><span class="o">:</span> <span class="s2">&quot;Excited User &lt;me@samples.mailgun.org&gt;&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;subject&quot;</span><span class="o">:</span> <span class="s2">&quot;Hello&quot;</span>
-        <span class="p">},</span>
-        <span class="s2">&quot;attachments&quot;</span><span class="o">:</span> <span class="p">[],</span>
-        <span class="s2">&quot;recipients&quot;</span><span class="o">:</span> <span class="p">[</span>
-          <span class="s2">&quot;baz@example.com&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;bar@example.com&quot;</span>
-        <span class="p">],</span>
-        <span class="s2">&quot;size&quot;</span><span class="o">:</span> <span class="mi">370</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;bar@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;failed&quot;</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;paging&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;next&quot;</span><span class="o">:</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/samples.mailgun.org/events/W3siY...&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;previous&quot;</span><span class="o">:</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/samples.mailgun.org/events/Lkawm...&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Fetches the first page of log records written so far. Traversal is performed
-starting from the most recent records to the oldest:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
-    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events
-</pre></div>
-</div>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
-
-    <span class="c1">// ...</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetLogs</span><span class="o">()</span> <span class="o">{</span>
-
-        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
-        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
-            <span class="s">&quot;api&quot;</span><span class="o">,</span>
-            <span class="s">&quot;YOUR_API_KEY&quot;</span>
-        <span class="o">));</span>
-
-        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v2&quot;</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="n">mgRoot</span>
-            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/events&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
-<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
-
-<span class="c1"># Instantiate the client.</span>
-<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
-<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
-
-<span class="c1"># Make the call to the client.</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/events&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events&quot;</span><span class="p">,</span>
-        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span>
-  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
-  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/events&quot;</span><span class="p">}</span>
-<span class="k">end</span>
-</pre></div>
-</div>
-<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
-
-<span class="k">public</span> <span class="k">class</span> <span class="nc">EventsTraversalChunk</span>
-<span class="p">{</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">EventsTraversal</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">EventsTraversal</span> <span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
-            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
-                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
-        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/events&quot;</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-go"><div class="highlight"><pre><span></span><span class="c1">// coming soon</span>
-</pre></div>
-</div>
-<p>Fetches the next page of log records, assuming that the URL was returned by the
-previous request:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
-    https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events/W3siYSI6IGZhbHNlLC
-</pre></div>
-</div>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">javax.ws.rs.client.Client</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.ClientBuilder</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.Entity</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.client.WebTarget</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.Form</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
-
-<span class="kn">import</span> <span class="nn">org.glassfish.jersey.client.authentication.HttpAuthenticationFeature</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MGSample</span> <span class="o">{</span>
-
-    <span class="c1">// ...</span>
-
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ClientResponse</span> <span class="nf">GetLogs</span><span class="o">()</span> <span class="o">{</span>
-
-        <span class="n">Client</span> <span class="n">client</span> <span class="o">=</span> <span class="n">ClientBuilder</span><span class="o">.</span><span class="na">newClient</span><span class="o">();</span>
-        <span class="n">client</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">HttpAuthenticationFeature</span><span class="o">.</span><span class="na">basic</span><span class="o">(</span>
-            <span class="s">&quot;api&quot;</span><span class="o">,</span>
-            <span class="s">&quot;YOUR_API_KEY&quot;</span>
-        <span class="o">));</span>
-
-        <span class="n">WebTarget</span> <span class="n">mgRoot</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">target</span><span class="o">(</span><span class="s">&quot;https://api.mailgun.net/v2&quot;</span><span class="o">);</span>
-
-        <span class="k">return</span> <span class="n">mgRoot</span>
-            <span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="s">&quot;/{domain}/events/{page_id}&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;domain&quot;</span><span class="o">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">resolveTemplate</span><span class="o">(</span><span class="s">&quot;page_id&quot;</span><span class="o">,</span> <span class="s">&quot;W3siYSI6IGZhbHNlLC&quot;</span><span class="o">)</span>
-            <span class="o">.</span><span class="na">request</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">buildGet</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">ClientResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-<div class="highlight-php"><div class="highlight"><pre><span></span><span class="c1"># Include the Autoloader (see &quot;Libraries&quot; for install instructions)</span>
-<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailgun\Mailgun</span><span class="p">;</span>
-
-<span class="c1"># Instantiate the client.</span>
-<span class="nv">$mgClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailgun</span><span class="p">(</span><span class="s1">&#39;YOUR_API_KEY&#39;</span><span class="p">);</span>
-<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;YOUR_DOMAIN_NAME&#39;</span><span class="p">;</span>
-<span class="nv">$nextPage</span> <span class="o">=</span> <span class="s1">&#39;W3siYSI6IGZhbHNlLC&#39;</span><span class="p">;</span>
-
-<span class="c1"># Make the call to the client.</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mgClient</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">$domain</span><span class="s2">/events/</span><span class="si">$nextPage</span><span class="s2">&quot;</span><span class="p">);</span>
-</pre></div>
-</div>
-<div class="highlight-py"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-        <span class="s2">&quot;https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events/W3siYSI6IGZhbHNlLC&quot;</span><span class="p">,</span>
-        <span class="n">auth</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;YOUR_API_KEY&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<div class="highlight-rb"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_logs</span>
-  <span class="no">RestClient</span><span class="o">.</span><span class="n">get</span> <span class="s2">&quot;https://api:YOUR_API_KEY&quot;</span><span class="p">\</span>
-  <span class="s2">&quot;@api.mailgun.net/v3/YOUR_DOMAIN_NAME/events/W3siYSI6IGZhbHNlLC&quot;</span><span class="p">}</span>
-<span class="k">end</span>
-</pre></div>
-</div>
-<div class="highlight-csharp"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp</span><span class="p">;</span>
-<span class="k">using</span> <span class="nn">RestSharp.Authenticators</span><span class="p">;</span>
-
-<span class="k">public</span> <span class="k">class</span> <span class="nc">EventsPaginationChunk</span>
-<span class="p">{</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span> <span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span> <span class="p">(</span><span class="n">EventsPagination</span> <span class="p">().</span><span class="n">Content</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">static</span> <span class="n">IRestResponse</span> <span class="nf">EventsPagination</span> <span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">RestClient</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestClient</span> <span class="p">();</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">BaseUrl</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Uri</span> <span class="p">(</span><span class="s">&quot;https://api.mailgun.net/v3&quot;</span><span class="p">);</span>
-        <span class="n">client</span><span class="p">.</span><span class="n">Authenticator</span> <span class="p">=</span>
-            <span class="k">new</span> <span class="nf">HttpBasicAuthenticator</span> <span class="p">(</span><span class="s">&quot;api&quot;</span><span class="p">,</span>
-                                        <span class="s">&quot;YOUR_API_KEY&quot;</span><span class="p">);</span>
-        <span class="n">RestRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RestRequest</span> <span class="p">();</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">AddParameter</span> <span class="p">(</span><span class="s">&quot;domain&quot;</span><span class="p">,</span> <span class="s">&quot;YOUR_DOMAIN_NAME&quot;</span><span class="p">,</span> <span class="n">ParameterType</span><span class="p">.</span><span class="n">UrlSegment</span><span class="p">);</span>
-        <span class="n">request</span><span class="p">.</span><span class="n">Resource</span> <span class="p">=</span> <span class="s">&quot;{domain}/events/W3siYSI6IGZhbHNlLC&quot;</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">request</span><span class="p">);</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-go"><div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">GetLog2</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span> <span class="kt">string</span><span class="p">)</span> <span class="p">([]</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">Event</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">mg</span> <span class="o">:=</span> <span class="nx">mailgun</span><span class="p">.</span><span class="nx">NewMailgun</span><span class="p">(</span><span class="nx">domain</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-  <span class="nx">ei</span> <span class="o">:=</span> <span class="nx">mg</span><span class="p">.</span><span class="nx">NewEventIterator</span><span class="p">()</span>
-  <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ei</span><span class="p">.</span><span class="nx">GetFirstPage</span><span class="p">(</span><span class="nx">mailgun</span><span class="p">.</span><span class="nx">GetEventsOptions</span><span class="p">{</span>
-    <span class="nx">Filter</span><span class="p">:</span>         <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
-      <span class="s">&quot;event&quot;</span><span class="p">:</span> <span class="s">&quot;rejected OR failed&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-  <span class="p">})</span>
-  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-  <span class="p">}</span>
-  <span class="c1">// ...</span>
-  <span class="nx">err</span> <span class="p">=</span> <span class="nx">ei</span><span class="p">.</span><span class="nx">GetNext</span><span class="p">()</span>
-  <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
-  <span class="p">}</span>
-  <span class="nx">events</span> <span class="o">:=</span> <span class="nx">ei</span><span class="p">.</span><span class="nx">Events</span><span class="p">()</span>
-  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">events</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;No more events&quot;</span><span class="p">)</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">events</span><span class="p">,</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="events">
+<!-- END ANALYTICS.JS-->
 
 <div class="section" id="ios">
 <h2>Analytics-ios<a class="headerlink" href="#ios" title="Permalink to this headline">¶</a></h2>
@@ -2303,6 +2018,9 @@ previous request:</p>
 <script type="text/javascript"
   src="_static/insert-api-key.js">
 </script>
+
+<!-- LOAD PRISM JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
   </body>
 
 <!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->

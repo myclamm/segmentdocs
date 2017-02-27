@@ -138,15 +138,20 @@
 }
 .chapter {
     display: inline-block;
-    width: 100%;
+    width: 900px;
     padding-top: 1px;
     margin-bottom: 30px;
     position: relative;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+    box-shadow: 0 0 0 1px rgba(0,56,108,0.3);
     border-radius: 4px;
     background: white;
     text-align: center;
     color: #182359;
+}
+
+.chapter:hover {
+  /*box-shadow: 0 0 10px #9ecaed;*/
+  box-shadow: 0 0 10px #00386C;
 }
 .guide-sm h4 {
     padding: 0;
@@ -171,7 +176,58 @@
 img {
     vertical-align: middle;
 }
+.chapter {
+  background-color: white ;
+  /*background-color:#FBFAF9;*/
+  cursor:pointer
+}
+.chapter p {
+    font-size: 12px;
+}
 
+.text-muted, .help-block {
+    color: #9d9dbd;
+}
+
+.top-level-category {
+  margin-top:10px;
+  margin-bottom:4px;
+  color:#00386C !important;
+  font-family: 'Segment Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.category-descriptor {
+  margin-bottom: 10px;
+  margin-top: 0px;
+  font-family: 'Segment Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.icon-label {
+  font-family: "CircularStd-MediumItalic";
+  color:#00386C !important;
+}
+
+.hero {
+  /*background-image: url(https://static.segment.com/site-public/2.66.3-4-gd39def1/files/top-right-white-9944421795.svg);
+    background-position: calc(100% + 100px) 0;
+    background-repeat: no-repeat;
+    background-color:#fbfaf9;*/
+    background-image: url(https://static.segment.com/site-public/2.66.3-4-gd39def1/files/top-left-c06533acf2.svg), url(https://static.segment.com/site-public/2.66.3-4-gd39def1/files/top-right-10582c21a6.svg);
+    background-position: calc(50% - 550px) 3px, calc(50% + 550px) 3px;
+    background-repeat: no-repeat, no-repeat;
+    /*background-color:#fbfaf9;*/
+    background-color:white;
+}
+
+.content-section {
+  padding-top:25px;
+}
+
+.number-title {
+  font-size: 24px;
+    padding-right: 20px;
+    /*font-weight: bold*/
+}
 </style>
 <!-- CUSTOM CSS END -->
 
@@ -303,7 +359,7 @@ img {
   <div role="nav__menu" class="nav__header" style="url:(https://cdn.brandisty.com/img?id=578529f76b49441340000008&format=png&w=600&h=129)">
     <div class="nav__title"><a href="../../../segment.com/index.html" class="nav__logo">Twilio</a></div>
     <nav class="nav__menu">
-      <ul class="nav__menu-items">
+      <ul class="nav__menu-items"> 
         <li class="nav__menu-item"></li>
         
         <li class="nav__menu-item">
@@ -336,11 +392,11 @@ img {
         
       </header>
       <ul role="subnav__items" class="nav__subnav-items">
-        <li role="subnav__item" class="nav__subnav-item ">
+        <!-- <li role="subnav__item" class="nav__subnav-item ">
           <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/quickstart.html" class="nav__subnav-link">Quickstarts</a>
-        </li>
+        </li> -->
         <li role="subnav__item" class="nav__subnav-item ">
-          <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-events.html" class="nav__subnav-link">API Reference</a>
+          <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-events.html" class="nav__subnav-link">API Overview</a>
         </li>
         <li role="subnav__item" class="nav__subnav-item ">
           <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html" class="nav__subnav-link">Libraries</a>
@@ -363,145 +419,53 @@ img {
 
     
     
-  <div class="hero infinite-darkness" style="background-color:#FBFAF9">
-    
-  <ul id="homepage-urlmap" style="display: none;">
-    <!-- C# -->
-    <li data-language-product="csharp-authy">/docs/tutorials/walkthrough/two-factor-authentication/csharp/mvc</li>
-    <li data-language-product="csharp-voice">/docs/quickstart/csharp/twiml</li>
-    <li data-language-product="csharp-sms">/docs/quickstart/csharp/sms</li>
-    <li data-language-product="csharp-chat">/docs/api/chat/guides/quickstart-js</li>
-    <li data-language-product="csharp-video">/docs/api/video/guide/quickstart-js</li>
-    <li data-language-product="csharp-tools">/docs/api</li>
-    <li data-language-product="csharp-taskrouter">/docs/quickstart/csharp/taskrouter</li>
-
-    <!-- Java -->
-    <li data-language-product="java-authy">/docs/tutorials/walkthrough/two-factor-authentication/java/servlets</li>
-    <li data-language-product="java-voice">/docs/quickstart/java/twiml</li>
-    <li data-language-product="java-sms">/docs/quickstart/java/sms</li>
-    <li data-language-product="java-chat">/docs/api/chat/guides/quickstart-js</li>
-    <li data-language-product="java-video">/docs/api/video/guide/quickstart-js</li>
-    <li data-language-product="java-tools">/docs/api</li>
-    <li data-language-product="java-taskrouter">/docs/quickstart/java/taskrouter</li>
-
-    <!-- Node.js -->
-    <li data-language-product="node.js-authy">/docs/tutorials/walkthrough/two-factor-authentication/node/express</li>
-    <li data-language-product="node.js-voice">/docs/tutorials/walkthrough/automated-survey/node/express</li>
-    <li data-language-product="node.js-sms">/docs/tutorials/walkthrough/server-notifications/node/express</li>
-    <li data-language-product="node.js-chat">/docs/api/chat/guides/quickstart-js</li>
-    <li data-language-product="node.js-video">/docs/api/video/guide/quickstart-js</li>
-    <li data-language-product="node.js-tools">/docs/api</li>
-    <li data-language-product="node.js-taskrouter">/docs/tutorials/walkthrough/dynamic-call-center/node/express</li>
-
-    <!-- PHP -->
-    <li data-language-product="php-authy">/docs/tutorials/walkthrough/two-factor-authentication/php/laravel</li>
-    <li data-language-product="php-voice">/docs/quickstart/php/twiml</li>
-    <li data-language-product="php-sms">/docs/quickstart/php/sms</li>
-    <li data-language-product="php-chat">/docs/api/chat/guides/quickstart-js</li>
-    <li data-language-product="php-video">/docs/api/video/guide/quickstart-js</li>
-    <li data-language-product="php-tools">/docs/api</li>
-    <li data-language-product="php-taskrouter">/docs/quickstart/php/taskrouter</li>
-
-    <!-- Python -->
-    <li data-language-product="python-authy">/docs/tutorials/walkthrough/two-factor-authentication/python/flask</li>
-    <li data-language-product="python-voice">/docs/quickstart/python/twiml</li>
-    <li data-language-product="python-sms">/docs/quickstart/python/sms</li>
-    <li data-language-product="python-chat">/docs/api/chat/guides/quickstart-js</li>
-    <li data-language-product="python-video">/docs/api/video/guide/quickstart-js</li>
-    <li data-language-product="python-tools">/docs/api</li>
-    <li data-language-product="python-taskrouter">/docs/quickstart/python/taskrouter</li>
-
-    <!-- Ruby -->
-    <li data-language-product="ruby-authy">/docs/tutorials/walkthrough/two-factor-authentication/ruby/rails</li>
-    <li data-language-product="ruby-voice">/docs/quickstart/ruby/twiml</li>
-    <li data-language-product="ruby-sms">/docs/quickstart/ruby/sms</li>
-    <li data-language-product="ruby-chat">/docs/api/chat/guides/quickstart-js</li>
-    <li data-language-product="ruby-video">/docs/api/video/guide/quickstart-js</li>
-    <li data-language-product="ruby-tools">/docs/api</li>
-    <li data-language-product="ruby-taskrouter">/docs/quickstart/ruby/taskrouter</li>
-
-    <!-- JavaScript -->
-    <li data-language-product="javascript-authy">/docs/api/authy/authy-quickstarts</li>
-    <li data-language-product="javascript-voice">/docs/tutorials/walkthrough/automated-survey/node/express</li>
-    <li data-language-product="javascript-sms">/docs/tutorials/walkthrough/server-notifications/node/express</li>
-    <li data-language-product="javascript-chat">/docs/api/chat/guides/quickstart-js</li>
-    <li data-language-product="javascript-video">/docs/api/video/guide/quickstart-js</li>
-    <li data-language-product="javascript-tools">/docs/api</li>
-    <li data-language-product="javascript-taskrouter">/docs/tutorials/walkthrough/dynamic-call-center/node/express</li>
-
-    <!-- Java (Android) -->
-    <li data-language-product="android-authy">/docs/api/authy</li>
-    <li data-language-product="android-voice">/docs/quickstart/php/android-client</li>
-    <li data-language-product="android-sms">/docs/quickstart/java/sms</li>
-    <li data-language-product="android-chat">/docs/api/chat/guides/quickstart-android</li>
-    <li data-language-product="android-video">/docs/api/video/guide/quickstart-android</li>
-    <li data-language-product="android-tools">/docs/api</li>
-    <li data-language-product="android-taskrouter">/docs/quickstart/java/taskrouter</li>
-
-    <!-- Objective C -->
-    <li data-language-product="objective-c-authy">/docs/api/authy</li>
-    <li data-language-product="objective-c-voice">/docs/quickstart/php/ios-client</li>
-    <li data-language-product="objective-c-sms">/docs/quickstart/php/sms</li>
-    <li data-language-product="objective-c-chat">/docs/api/chat/guides/quickstart-ios</li>
-    <li data-language-product="objective-c-video">/docs/api/video/guide/quickstart-ios</li>
-    <li data-language-product="objective-c-tools">/docs/api</li>
-    <li data-language-product="objective-c-taskrouter">/docs/quickstart/php/taskrouter</li>
-
-    <!-- Swift -->
-    <li data-language-product="swift-authy">/docs/api/authy</li>
-    <li data-language-product="swift-voice">/docs/quickstart/php/ios-client</li>
-    <li data-language-product="swift-sms">/docs/quickstart/php/sms</li>
-    <li data-language-product="swift-chat">/docs/tutorials/walkthrough/ip-chat/ios/swift</li>
-    <li data-language-product="swift-video">/docs/api/video/guide/quickstart-ios</li>
-    <li data-language-product="swift-tools">/docs/api</li>
-    <li data-language-product="swift-taskrouter">/docs/quickstart/php/taskrouter</li>
-  </ul>
+  <div class="hero" style="">
 
 
-    <div class="docs-container">
-      <div class="uk-container">
+    <div class="">
+      <div class="">
         
         
 
 
 
-<div class="docs-container">
+<div class="">
   <div class="row">
 
     <!-- Main content -->
-    <section class="primary-column docs__homepage-list">
+    <section class="content-section">
       
       
         
 
-<div class="homepage-list__item quickstart" role="homepage-item"
+<div class="" role="homepage-item"
      >
-  <div class="homepage-list__item__content">
+  <div class="">
     
     <!-- START Algolia Icons-->
-<div style="border-radius:7px" class="chapter">
-  <h2>Libraries/SDKs</h2>
-
+<div style="border-radius:7px;" class="chapter chapter-1">
+  <span style="font-weight:bold" class="number-title">1.</span><h2 style="display:inline-block" class="top-level-category"> <b>Install</b> Segment</h2>
+  <p class="text-muted category-descriptor">Set up tracking on your app/website</p>
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#javascript"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg icon-label"> JavaScript </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#ios"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg icon-label"> iOS </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#android"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg icon-label"> Android </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#php"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg icon-label"> PHP </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#ruby"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg icon-label"> Ruby </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#python"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg icon-label"> Python </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#java"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg icon-label"> Java </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#go"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg icon-label"> Go </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#node"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg icon-label"> Node </h4> </a>
     </article> </div>
 </div>
 <!-- END Algolia Icons-->
@@ -510,9 +474,9 @@ img {
 
 </div>
 
-<div class="homepage-list__item api" role="homepage-item"
+<div class="" role="homepage-item"
      >
-  <div class="homepage-list__item__content">
+  <div class="">
     <!-- <div class="homepage-list__item__content__head">
       <h2>API Reference</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-events.html" class="nav__subnav-link" style="background-color:#B9E5FA">
@@ -525,38 +489,42 @@ img {
     </div>
   </div> -->
      <!-- START Algolia Icons-->
-<div style="border-radius:7px" class="chapter">
-  <h2>Libraries/SDKs</h2>
+<div style="border-radius:7px" class="chapter chapter-2">
+  <span style="font-weight:bold" class="number-title">2.</span><h2 style="display:inline-block" class="top-level-category"> Turn on over 150 <b>Integrations</b></h2>
+  <p class="text-muted category-descriptor">Choose which integrations to send your data to</p>
 
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html#mixpanel"><img src="https://cdn.zapier.com/storage/services/0195382087c9df734921c852ccbdd5cb.128x128.png" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> Mixpanel </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html#google-analytics"><img src="https://www.en.advertisercommunity.com/html/assets/analytics_64dp.png" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> GA </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html#intercom"><img src="https://cdn.zapier.com/storage/developer/9af959b3d8d4390eaf2cc05afaa42451_2.128x128.png" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> Intercom </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://cdn.zapier.com/storage/services/e18d02bc3d9fdcf0d4bf9ad43d8a8e6d.128x128.png" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Salesforce </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://helpx.adobe.com/content/dam/help/images/Marketing_Cloud/marketingcloud_noshadow_128.png" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> Omniture </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://cdn.zapier.com/storage/developer/9e9718a425dc375a211770b63f3902fd.128x128.png" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> HubSpot </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.observepoint.com/wp-content/uploads/2016/06/amplitude128.png" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> Amplitude </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://cdn.zapier.com/storage/services/ae97e226d57c5563f481e97bb561a03b.128x128.png" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> KISSMetrics </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://pbs.twimg.com/profile_images/615929885895192577/S-FYWwlE.png" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Heap </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
-    </article> </div>
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://appinstitute.com/apptools/wp-content/uploads/2016/07/f355569bfae15731714951f7b52154c2-3.png" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Customer.io </h4> </a>
+    </article> 
+
+
+  </div>
 </div>
 </div>
 <!-- END Algolia Icons-->  
 </div>  
    
-<div class="homepage-list__item libraries" role="homepage-item"
+<div class="" role="homepage-item"
      >
-   <div class="homepage-list__item__content">
+   <div class="">
   <!--  <div class="homepage-list__item__content__head">
       <h2>Libraries</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html" style="background-color:#49B882">
@@ -569,38 +537,26 @@ img {
     </div>
   </div> -->
      <!-- START Algolia Icons-->
-<div style="border-radius:7px" class="chapter">
-  <h2>Libraries/SDKs</h2>
+<div style="border-radius:7px" class="chapter chapter-3">
+  <span style="font-weight:bold" class="number-title">3.</span><h2 style="display:inline-block" class="top-level-category"> Connect a <b>Data Warehouse</b></h2>
+  <p class="text-muted category-descriptor">Store all your data in a data warehouse</p>
 
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html#redshift"><img src="http://zappysys.com/images/tech/amazon-aws-s3-storage-logo.png" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> Redshift </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html#postgres"><img src="https://cdn.zapier.com/storage/services/3b77c88b983c09b5612c31311e34ed23.128x128.png" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> PostgresSQL </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html#bigquery"><img src="https://cloud.google.com/_static/images/cloud/cloud_64dp.png" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> BigQuery </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
-    </article> </div>
+     </div>
 </div>
 <!-- END Algolia Icons-->
 </div>
+</div>
 
-
-<div class="homepage-list__item guides" role="homepage-item"
+<div class="" role="homepage-item"
      >
-  <div class="homepage-list__item__content">
+  <div class="">
     <!-- <div class="homepage-list__item__content__head">
       <h2>Integration Catalog</h2>
       <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html" style="background-color:#E365A6">
@@ -612,29 +568,31 @@ img {
       <p>Review more than 180 integrations that you can send your Segment data to, including Google Analytics, Mixpanel, Intercom, and Amplitude.</p>
     </div> -->
        <!-- START Algolia Icons-->
-<div style="border-radius:7px" class="chapter">
-  <h2>Libraries/SDKs</h2>
+<div style="border-radius:7px" class="chapter chapter-4">
+  <span style="font-weight:bold" class="number-title">4.</span><h2 style="display:inline-block" class="top-level-category"> Collect data from more than 20 <b>Cloud-Apps</b></h2>
+  <p class="text-muted category-descriptor">Collect data out of your favorite Cloud-Apps</p>
 
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html#salesforce"><img src="https://cdn.zapier.com/storage/services/e18d02bc3d9fdcf0d4bf9ad43d8a8e6d.128x128.png" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> Salesforce </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html#stripe"><img src="https://cdn.zapier.com/storage/services/27f5433f521806493e2c38a304e1786e.128x128.png" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> Stripe </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html#zendesk"><img src="https://www.avidian.com/wp-content/uploads/2015/08/Zendesk-icon.png" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Zendesk </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
+    
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html#facebookads"><img src="https://cdn.zapier.com/storage/services/fd9fef95169fd589d6cda992c0057cf8.128x128.png" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> FB Ads </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html#adwords"><img src="https://static.woopra.com/apps/adwords/images/icon-256.png" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> AdWords </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
+    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://d1xz1o4gxlgj4t.cloudfront.net/wp-content/uploads/2016/04/Sendgrid.png" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Sendgrid </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
+    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://cdn.zapier.com/storage/services/5c727288d9c2f69a9eee136c5f5a0f72.128x128.png" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> Mailchimp </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
+    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://cdn.zapier.com/storage/developer/4aaa8b91517510e47652b127650e0e87.128x128.png" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Drip </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://cdn.zapier.com/storage/developer/9e9718a425dc375a211770b63f3902fd.128x128.png" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> HubSpot </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
+    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://cdn.zapier.com/storage/developer/9af959b3d8d4390eaf2cc05afaa42451_2.128x128.png" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Intercom </h4> </a>
     </article> </div>
 </div>
 <!-- END Algolia Icons-->
@@ -644,91 +602,8 @@ img {
       
         
 
-<div class="homepage-list__item tutorials" role="homepage-item"
-     >
-  <div class="homepage-list__item__content">
-    <!-- <div class="homepage-list__item__content__head">
-      <h2>Cloud-App Sources Catalog</h2>
-      <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html" style="background-color:#FCC79B">
-        Get Started
-      </a>
-    </div>
 
-    <div class="homepage-list__item__content__desc">
-      <p>Review more than 20 sources that you can collect data from, including Salesforce, Facebook Ads, Google Adwords, and Mailchimp.</p>
-    </div> -->
-       <!-- START Algolia Icons-->
-<div style="border-radius:7px" class="chapter">
-  <h2>Libraries/SDKs</h2>
 
-  <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
-    </article> </div>
-</div>
-<!-- END Algolia Icons-->
-  </div>
-</div>
-
-<div class="homepage-list__item tutorials" role="homepage-item"
-     >
-  <div class="homepage-list__item__content">
-    <!-- <div class="homepage-list__item__content__head">
-      <h2>Connect Warehouse</h2>
-      <a class="button" href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html" style="background-color:#0066B3">
-        Get Started
-      </a>
-    </div>
-
-    <div class="homepage-list__item__content__desc">
-      <p>Getting your customer data into your Redshift, Postgres, or BigQuery data warehouse is super easy.</p>
-    </div> -->
-       <!-- START Algolia Icons-->
-<div style="border-radius:7px" class="chapter">
-  <h2>Libraries/SDKs</h2>
-
-  <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="api-client/php/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/ruby/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/javascript/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/python/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/swift/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/android/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/csharp/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/csharp-4075daa3.svg" class="m-l-r-auto" alt="Csharp"> <h4 class="text-ellipsis visible-lg"> C# </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/java/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/go/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
-    </article> 
-    <article class="guide-sm"> <a href="api-client/scala/index.html"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Scala </h4> </a>
-    </article> </div>
-</div>
-<!-- END Algolia Icons-->
-  </div>
-</div>
 
 
       
@@ -742,125 +617,7 @@ img {
       </div>
     </div>
 
-    
-    
 
-
-<div class="footer" data-swiftype-index="false">
-  <div class="uk-container uk-container-center">
-    <div class="footer__statement">We can’t wait to see what you build.</div>
-    <div class="uk-grid">
-      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
-        <section class="footer__section">
-          <header class="footer__header">Products</header>
-          <ul class="footer__list">
-            <li class="footer__list-item">
-              <a href="../voice-video.html" class="footer__link">Voice &amp; Video</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="../messaging.html" class="footer__link">Messaging</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="../authy.html" class="footer__link">Authentication</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="../wireless.html" class="footer__link">Connected Devices</a>
-            </li>
-          </ul>
-        </section>
-      </div>
-      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
-        <section class="footer__section">
-          <header class="footer__header">Use Cases</header>
-          <ul class="footer__list">
-            <li class="footer__list-item">
-              <a href="../use-cases/access-security.html" class="footer__link">Access Security</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="../use-cases/contact-center.html" class="footer__link">Contextual Call Center</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="../use-cases/call-and-text-marketing.html" class="footer__link">Marketplace Communications</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="../sms/use-cases.html" class="footer__link">Mobile Messaging</a>
-            </li>
-          </ul>
-        </section>
-      </div>
-      <div class="uk-width-1-1 uk-width-small-1-3 uk-width-medium-1-5">
-        <section class="footer__section">
-          <header class="footer__header">About</header>
-          <ul class="footer__list">
-            <li class="footer__list-item">
-              <a href="../what-is-cloud-communicationsd41d.html?" class="footer__link">What is Twilio?</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="https://customers.twilio.com/" class="footer__link">Customers</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="https://support.twilio.com/hc/en-us" class="footer__link">Get Help</a>
-            </li>
-            <li class="footer__list-item">
-              <a href="../help/sales.html" class="footer__link">Talk to Sales</a>
-            </li>
-          </ul>
-        </section>
-      </div>
-      <div class="uk-width-1-1 uk-width-medium-2-5">
-        <section class="footer__section">
-  <header class="footer__header">Hits From The Blog</header>
-  <ul class="footer__list footer__list">
-    
-    <li class="footer__list-item">
-      <a href="../blog/2017/01/building-an-ivr-with-no-code-by-using-taskrouter-as-a-state-machine.html" class="footer__link">Building an IVR with no code by using TaskRouter as a state machine</a>
-    </li>
-    
-    <li class="footer__list-item">
-      <a href="../blog/2017/01/logrole-gives-you-permissions-based-granular-searching-for-twilio-logs.html" class="footer__link">Logrole Gives You Permissions Based, Granular Searching For Twilio Logs</a>
-    </li>
-    
-    <li class="footer__list-item">
-      <a href="../blog/2017/01/build-callbacks-with-stamplay-twilio-and-unbounce.html" class="footer__link">Build Callbacks With Stamplay, Twilio and Unbounce</a>
-    </li>
-    
-    <li class="footer__list-item">
-      <a href="../blog/2017/01/build-a-basic-call-center-in-just-a-few-minutes-with-twilio.html" class="footer__link">Build a Basic Call Center in Just a Few Minutes with Twilio</a>
-    </li>
-    
-    <li class="footer__list-item">
-      <a href="../blog/2017/01/redact-delete-sms-messages-node-js.html" class="footer__link">Redact or Delete SMS Messages as They Arrive with Node.js</a>
-    </li>
-    
-  </ul>
-
-</section>
-      </div>
-    </div>
-    <footer class="footer__footer">
-      <div class="footer__logo" title="Twilio">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-          <path d="M15 0C6.7 0 0 6.7 0 15s6.7 15 15 15 15-6.7 15-15S23.3 0 15 0zm0 26C8.9 26 4 21.1 4 15S8.9 4 15 4s11 4.9 11 11-4.9 11-11 11z"/>
-          <circle cx="18.7" cy="11.3" r="3.1"/>
-          <circle cx="18.7" cy="18.7" r="3.1"/>
-          <circle cx="11.3" cy="18.7" r="3.1"/>
-          <circle cx="11.3" cy="11.3" r="3.1"/>
-        </svg>
-      </div>
-      <ul class="legal__list">
-        <li class="legal__list-item">
-          <a href="../company.html" class="legal__link">About Twilio</a>
-        </li>
-        <li class="legal__list-item">
-          <a href="../legal/tos.html" class="legal__link">Legal</a>
-        </li>
-        <li class="legal__list-item">Copyright &copy; 2016 Twilio, Inc. 
-          <br class="uk-visible-small">All Rights Reserved.
-        </li>
-      </ul>
-    </footer>
-  </div>
-</div>
 
 
     
@@ -931,6 +688,7 @@ img {
     window.liveSettings = {
       api_key: '4c06c1c5a6b341e591d969476fe2675f'
     };
+
     </script>
     <script type="text/javascript" src="http://cdn.transifex.com/live.js"></script>
     <style>
@@ -943,7 +701,7 @@ img {
 
 
     
-      <script src="static/js/docs.min.0c5bb1abb16f.js"></script>
+      
     
 
     
@@ -954,6 +712,42 @@ img {
     
 
   </body>
+<script>
+(function() {
+   var chapters = document.getElementsByClassName('chapter')
 
+    var chapter1 = document.getElementsByClassName('chapter-1')[0];
+    chapter1.addEventListener('click', function (event) {
+      window.location.href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html"
+    })
+    var chapter2 = document.getElementsByClassName('chapter-2')[0];
+    chapter2.addEventListener('click', function (event) {
+      window.location.href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html"
+    })
+    var chapter3 = document.getElementsByClassName('chapter-3')[0];
+    chapter3.addEventListener('click', function (event) {
+      window.location.href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html"
+    })
+    var chapter4 = document.getElementsByClassName('chapter-4')[0];
+    chapter4.addEventListener('click', function (event) {
+      window.location.href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html"
+    })
+    // Change background on mouseover
+    for(var i=0; i<chapters.length; i++) {
+      var chapter = chapters[i];
+      (function(chapter){
+      chapter.addEventListener('mouseover', function (event) {
+          chapter.style.backgroundColor = "#FBFAF9"           
+      },false)
+      chapter.addEventListener('mouseout', function (event) {
+          chapter.style.backgroundColor = "white"
+      },false)
+      })(chapter)
+      
+    }
+
+})();
+  
+</script>
 <!-- Mirrored from www.twilio.com/docs/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 13 Jan 2017 21:35:20 GMT -->
 </html>
