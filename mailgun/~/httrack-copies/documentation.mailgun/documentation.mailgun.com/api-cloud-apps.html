@@ -270,7 +270,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <li class="toctree-l1 current"><a class="reference internal" href="api-cloud-apps.html">Cloud-App Sources</a><ul class="current">
 
   <li class="toctree-l2 "><a class="current reference internal" href="#introduction"><b>Introduction</b></a><ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#gettingstarted">Getting Started</a></li>
+   <!--  <li class="toctree-l3"><a class="reference internal" href="#gettingstarted">Getting Started</a></li> -->
     <li class="toctree-l3"><a class="reference internal" href="#collections">Collections</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#eventss">Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
@@ -292,7 +292,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <li class="toctree-l3"><a class="reference internal" href="#zendesk"><b>Zendesk</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#facebookads"><b>Facebook Ads</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adwords"><b>AdWords</b></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adwords"><b>AdWords</b></a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#adwords-gettingstarted"><b>Getting Started</b></a>
+<li class="toctree-l3"><a class="reference internal" href="#adwords-sync"><b>Sync</b></a>
+  <li class="toctree-l3"><a class="reference internal" href="#adwords-collections"><b>Collections</b></a>
+    <li class="toctree-l3"><a class="reference internal" href="#adwords-permissions"><b>Permissions</b></a>
+<li class="toctree-l3"><a class="reference internal" href="#adwords-faq"><b>FAQ</b></a>
+</ul>
+</li>
 <!-- <li class="toctree-l3"><a class="reference internal" href="#query-<b>options">Screen</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#filter-field"><b>Group</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#filter-<b>expression">Alias</b></a></li>
@@ -340,14 +348,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span id="introduction"></span><h1>Cloud-App Sources<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>Cloud app sources empower you to pull together data from all of your different third-party tools into one warehouse. To make use of cloud sources you need to have at least one cloud source and one warehouse enabled.</p>
 
-<h2 id="gettingstarted">Getting Started<a class="headerlink" href="#gettingstarted" title="Permalink to this headline">¶</a></h2>
-<p>Cloud app sources empower you to pull together data from all of your different third-party tools into one warehouse.</p>
-<h3 style="padding-top:0px">Use one of our Cloud-App Quickstarts:</h3>
+<p>For detailed information about each integration, select one from the list to learn how our API methods are implemented for that integration, and how you can use it through Segment.</p>
+<h3 style="padding-top:0px">Get started with one of our Cloud-App Sources</h3>
 <ul>
-<li><b>Quickstart:</b> <a href="quickstart.html#salesforcesource">Receiving data from Salesforce</a></li> 
-<li><b>Quickstart:</b> <a href="quickstart.html#mailchimp">Receiving data from Mail Chimp</a></li>
-<li><b>Quickstart:</b> <a href="quickstart.html#zendesk">Receiving data from Zendesk</a></li>  
-<li><b>Quickstart:</b> <a href="quickstart.html#googleadwords">Receiving data from Google AdWords</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#salesforcesource">Receiving data from Salesforce</a></li> 
+<li><b>Getting Started:</b> <a href="quickstart.html#mailchimp">Receiving data from Mail Chimp</a></li>
+<li><b>Getting Started:</b> <a href="quickstart.html#zendesk">Receiving data from Zendesk</a></li>  
+<li><b>Getting Started:</b> <a href="quickstart.html#googleadwords">Receiving data from Google AdWords</a></li> 
 
 </ul>
 
@@ -1318,34 +1325,78 @@ previous request:</p>
 
 <div class="section" id="adwords">
 <h1>AdWords<a class="headerlink" href="#adwords" title="Permalink to this headline">¶</a></h1>
-<p>The request time range should be given by a beginning timestamp and either an
-end timestamp or a search direction.</p>
-<p>If the range end timestamp is provided then the relation between the beginning
-and the end timestamps determines the direction in which events are going to be
-traversed. E.g. if the end timestamp is less than the beginning timestamp, then
-result pages are returned from newer to older and events on the pages are sorted
-in the descending order of their timestamps.</p>
-<p>If the end timestamp is not provided then depending on the range direction the
-result page traversal behaves differently:</p>
-<ul class="simple">
-<li>If the range is descending then the end timestamp is determined by the user
-tariff plan retention period.</li>
-<li>If the range is ascending the it is extended all the time as the time goes on.
-So after the most recent events have been retrieved and an empty result page
-has been reached, then requesting next page URL returned with the last page
-some time later will return events that occurred since then. And this can go
-on indefinitely.</li>
+<p><b>*This guide assumes*</b> you have already <a href="api-warehouse.html">connected a data warehouse</a> to your Segment account. If you haven't done so already, you must first connect either a <a href="api-warehouse.html#redshift">Redshift</a>, <a href="api-warehouse.html#postgres">Postgres</a>, or <a href="api-warehouse.html#bigquery">BigQuery</a> warehouse to Segment.
+</p>
+<h2 id="adwords-gettingstarted">Getting Started<a class="headerlink" href="#adwords-gettingstarted" title="Permalink to this headline">¶</a></h2>
+<p>1. From your workspace’s /sources page, click add source.</p>
+<p>2. Choose AdWords.</p>
+<p>3. Give the source a nickname and a schema name. The nickname will be used to designate the source in the Segment interface, and the schema name is the namespace you’ll be querying against in your warehouse. Both can be whatever you like, but we recommend sticking to something that reflects the source itself, like AdWords for nickname and adwords, google_adwords, or adwords_usa for the schema name. See pic below:</p>
+<img src="https://segment.com/docs/sources/cloud-apps/adwords/images/setup.png">
+<p>4. Finally, just click Connect on the next page to OAuth into Google.</p>
+<p>5. You're done!</p>
+
+<h2 id="adwords-sync">Sync<a class="headerlink" href="#adwords-sync" title="Permalink to this headline">¶</a></h2>
+<p>AdWords has a sync component, which means we’ll make requests to their API on your behalf on a 3 hour interval to pull the latest data into Segment. In the initial sync, we’ll grab all the Adwords objects (and their corresponding properties) according to the Collections table below. The objects will be written into a separate schema, corresponding to the source instance’s schema name you designated upon creation. For example, if you went with adwords, the ads collection will be accessible at adwords.ads in SQL.</p>
+<p>Our sync component uses an upsert API, so the data in your warehouse loaded via sync will reflect the latest state of the corresponding resource in AdWords. For example, if budget from 0 to 100 between syncs, on its next sync that tickets status will be 100.</p>
+<p>The source syncs and warehouse syncs are independent processes. Source runs pull your data into the Segment Hub, and warehouse runs flush that data to your warehouse. Sources will sync with Segment every 3 hours. Depending on your Warehouses plan, we will push the Source data to your warehouse on the interval associated with your billing plan.</p>
+
+<h2 id="adwords-collections">Collections<a class="headerlink" href="#adwords-collections" title="Permalink to this headline">¶</a></h2>
+<p>Collections are the groupings of resources we pull from your source. In your warehouse, each collection gets its own table.</p>
+<p>For a complete visual breakdown of the AdWords collections, all their properties, and ID linkages between objects, view the <a href="">visual schema here</a>.</p>
+
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd">
+  <th class="head">Collection</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ad_groups</td>
+<td>object</td>
+<td>An ad group is a set of ads that share the same daily or lifetime budget, schedule, bid type, bid info, and targeting data</td>
+</tr>
+<tr class="row-odd"><td>ads</td>
+<td>object</td>
+<td>An ad object contains the data necessary to visually display an ad and associate it with a corresponding ad set.</td>
+</tr>
+<tr class="row-even"><td>campaigns</td>
+<td>object</td>
+<td>A campaign is a grouping of ad sets which are organized by the same business objective.</td>
+</tr>
+<tr class="row-odd"><td>campaign_performance_report</td>
+<td>object</td>
+<td>Campaign performance reports include a daily snapshot of performance statistics per campaign</td>
+</tr>
+<tr class="row-odd"><td>click_performance_report</td>
+<td>object</td>
+<td>Click performance reports include stats at the click level, including both valid and invalid clicks</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="adwords-permissions">Permissions<a class="headerlink" href="#adwords-permissions" title="Permalink to this headline">¶</a></h2>
+<p>When setting up your AdWords Source, you may notice that we don’t list all AdWords accounts your Google user can view. This is because AdWords API does not expose a list of “managed” or sub-accounts to non-administrator via the API. That said, if you have read permissions to the account, you can enter your AdWords Customer ID directly. For more information about finding your AdWords Customer ID, see here.</p>
+
+<h2 id="adwords-faq">FAQ<a class="headerlink" href="#adwords-faq" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><a href="">How often does my AdWords data sync to Segment?</a></li>
+<li><a href="">Can I sync to more than one warehouse?</a></li>
+<li><a href="">Why is my custom dimension not showing up in Segment?</a></li>
+<li><a href="">Why am I seeing a "Sync Error" in the Segment app?</a></li>
+<li><a href="">Can I send data to AdWords?</a></li>
 </ul>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Even though it seems that real-time event polling can be
-implemented by traversing next URLs of an ascending time range that has no
-explicit end timestamp, it is not that simple! Please refer to <a class="reference internal" href="#event-polling">Page</a>
-for the proper way to do it.</p>
+
 </div>
-<p>If both the end range date and the direction of the search are specified then
-they should agree with each other, otherwise the request will return an error.</p>
-</div>
+<!-- END ADWORDS DOCS-->
+
 <div class="section" id="android">
 <h2>Analytics-android<a class="headerlink" href="#android" title="Permalink to this headline">¶</a></h2>
 <p>In our system events are generated by physical hosts and follow different
