@@ -30,6 +30,8 @@
 
     <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
     <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css">
+    <!--LOAD PRISM-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css">
     <meta name="viewport" content="width=device-width">
     
     <!-- CUSTOM CSS -->
@@ -113,6 +115,9 @@
     z-index: 99;
 }
 
+code, .pre {
+  border:none;
+}
     </style>
     <!-- CUSTOM CSS -->
 
@@ -281,7 +286,7 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
   <li class="toctree-l3"><a class="reference internal" href="#python"><b>Adjust</b></a></li>
   <li class="toctree-l3"><a class="reference internal" href="#php"><b>Adobe Analytics</b></a></li>
   <li class="toctree-l3"><a class="reference internal" href="#ruby"><b>AdRoll</b></a></li>
-  <li class="toctree-l3"><a class="reference internal" href="#mixpanel"><b>Mixpanel</b></a></li>
+
     <li class="toctree-l3"><a class="reference internal" href="#android"><b>Amazon Kinesis</b></a></li>
     <li class="toctree-l3"><a class="reference internal" href="#HTTP"><b>Amplitude</b></a></li>
  
@@ -295,7 +300,20 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
   <li class="toctree-l3"><a class="reference internal" href="#salesforce"><b>AppsFlyer</b></a></li>
     <li class="toctree-l3"><a class="reference internal" href="#adobeanalytics"><b>Apptimize</b></a></li>
 
-
+<li class="toctree-l3"><a class="reference internal" href="#mixpanel"><b>Mixpanel</b></a>
+    <ul>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-gettingstarted"><b>Getting Started</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-supportedmethods"><b>Supported Methods</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-track"><b>Track</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-identify"><b>Identify</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-page"><b>Page</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-alias"><b>Alias</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-collectingcontextualproperties"><b>Contextual Properties</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-autotrack"><b>Autotrack</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-people"><b>People</b></a></li>
+      <li class="toctree-l4"><a class="reference internal" href="#mixpanel-faq"><b>FAQ</b></a></li>
+    </ul>
+  </li>
   <li class="toctree-l3"><a class="reference internal" href="#redshift"><b>Autopilot HQ</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#postgres"><b>Boomtrain</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bigquery"><b>Branch Metrics</b></a></li>
@@ -307,6 +325,7 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
 
   <li class="toctree-l3"><a class="reference internal" href="#salesforcesource"><b>Customer.io</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mailchimp"><b>Evergage</b></a></li>
+
 <li class="toctree-l3"><a class="reference internal" href="#google-analytics"><b>Google Analytics</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#googleadwords"><b>Google Tag Manager</b></a></li>
   <li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html"><b>HubSpot</b></a></li>
@@ -1171,12 +1190,255 @@ and correspond to delivery to <code class="docutils literal"><span class="pre">j
 </ul>
 
 <span id="mixpanel"></span><h1> Mixpanel<a class="headerlink" href="#mixpanel" title="Permalink to this headline">¶</a></h1>
-<p>This tutorial will help you start sending data from your website to Segment and any of our integrations, using our Analytics.js library. As soon as you’re setup you’ll be able to turn on any new integrations with the flip of a switch!
-
-If you want to dive deeper at any point, check out the Analytics.js reference.</p>
-<h2>Track</h2>
-<p> One of the most common questions we receive is: “Should I use one of your client-side libraries or one of your server-side libraries?” This is such an important topic that we’ve written up an in-depth article in our Analytics Academy: When to Track on the Client vs Server. It’s worth a read!
+<p><b>*This guide assumes*</b> you have already <a href="">installed Segment on your app/website</a>. If you haven't done so already, you must first install Segment tracking using one of our official <a href="">Libraries</a> or using our <a href="">HTTP API</a>.
 </p>
+<h2 id="mixpanel-gettingstarted">Getting Started<a class="headerlink" href="#mixpanel-gettingstarted" title="Permalink to this headline">¶</a></h2>
+<p>Once you toggle on Mixpanel in the Segment App, Segment will begin sending data to Mixpanel immediately. Our Mixpanel integration is compatible with both our <a href="">server-side SDKs</a>, our <a href="">HTTP API</a>, and our <a href="">client-side SDKs</a>.</p>
+<p>After turning on Mixpanel, you <b>may</b> need to make minor modifications to some of your tracking calls, to ensure that Mixpanel receives your data properly. <b>Please review this Mixpanel documentation carefully</b>.</p>
+<h2 id="mixpanel-supportedmethods">Supported Methods<a class="headerlink" href="#mixpanel-supportedmethods" title="Permalink to this headline">¶</a></h2>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="30%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd">
+  <th class="head">Tracking Method</th>
+<th class="head">Server-side</th>
+<th class="head">Client-side</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Track</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>Identify</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>Page/Screen</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>Alias</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>Group</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="mixpanel-track">Track<a class="headerlink" href="#mixpanel-track" title="Permalink to this headline">¶</a></h2>
+<p> Because Mixpanel is an event tracking analytics tool, you’ll want to track your user’s actions. The more useful events you track, the better Mixpanel becomes.
+</p>
+<p>You should use the track method to accomplish this. The Segment track method maps events and event properties directly to Mixpanel events and event properties.</p>
+<p><b>Example track call:</b></p>
+<pre><code class="language-javascript">
+  analytics.track('Article Completed', {
+    title: 'How to Create a Tracking Plan',
+    course: 'Intro to Analytics',
+  });
+</code></pre>
+<h3>Track Charge</h3>
+<p>If Mixpanel People is enabled in your Segment settings and you include an event property called revenue, we’ll track a charge to the current user.</p>
+<p><b>Example track charge call:</b></p>
+<pre><code class="language-javascript">
+  analytics.track('Book Purchased', {
+    title: 'How to Create a Tracking Plan',
+    revenue: 50
+  });
+</code></pre>
+<h3>Reserved Properties</h3>
+<p>There are two strings to avoid when naming event properties that will be sent to Mixpanel: length and bucket. length is interpreted as the JavaScript .length method, which causes the mixpanel.track call to fail silently. bucket is a reserved property that was used in the early days of Mixpanel. If you include a property called bucket in your events, it will not show up in the UI. However, it will not cause the mixpanel.track call to fail.</p>
+
+<h2 id="mixpanel-identify">Identify<a class="headerlink" href="#mixpanel-identify" title="Permalink to this headline">¶</a></h2>
+<p>The first thing you’ll want to do is to identify your users so Mixpanel knows who they are. You’ll use the identify method to accomplish this.</p>
+<p>Identify takes the unique userId of a user and any traits you know about them.</p>
+<h3>Client Side</h3>
+<p>When you call identify from the client in either a browser via Analytics.js or one of our mobile SDKs a bunch of things happen:</p>
+<p>We start by recognizing and translating our special traits so that they fit the expectations of Mixpanel’s API. The table below shows the mappings. You’ll pass the key on the left into Segment and we will transform it to the key on the right before sending to Mixpanel.</p>
+<p><b>Special Mixpanel Trait Mappings:</b></p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Segment Trait</th>
+<th class="head">Mixpanel Mapping</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>created</td>
+<td> $created</td>
+</tr>
+<tr class="row-odd"><td>email</td>
+<td>$email</td>
+</tr>
+<tr class="row-even"><td>firstName</td>
+<td>$firstName</td>
+</tr>
+<tr class="row-odd"><td>lastName</td>
+<td>$lastName</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Example Client Side Identify Call:</p>
+<pre><code class="language-javascript">
+  analytics.identify('user123abc', {
+    created: Date.now(),
+    email: "bob@email.com",
+    firstName: "Bob",
+    lastName: "Sanders",
+    plan: "Enterprise"
+  });
+</code></pre>
+<h3>Register Super Properties</h3>
+<p>By default, each trait (i.e. properties in an identify call) is registered as a super property. This does not require passing a userId in the identify call. You can pass a traits object by itself and it will still register the traits as super properties.
+
+We also allow you to disable the default behavior and register super properties explicitly by unchecking Set All Traits as Super Properties or People Properties By Default and explicitly specifying in the traits or properties you want us to register as super properties in Segment’s Mixpanel Integration panel. Check out the documentation here
+</p>
+<h3>Set People Properties</h3>
+<p>If you’ve enabled Mixpanel People in your Segment settings, we also call Mixpanel’s people.set with the same traits object. There’s no need for an additional API call to populate Mixpanel People.</p>
+<p>We also allow you to disable the default behavior and set people properties explicitly by unchecking Set All Traits as Super Properties or People Properties By Default and explicitly specifying in the traits or properties you want us to set as people properties in the Mixpanel integration panel in Segment. We’ll automatically include any trait on an identify that matches one of Mixpanel’s special properties, which you can see in the table above. Check out the documentation here</p>
+<p>If you call identify without a userId, it may not set the People Properties inside Mixpanel, but it will cache those traits for later use with Segment’s analytics.js. It is best practice to always call identify with a userId.
+
+</p>
+<h3 id="mixpanel-serverside">Server Side<a class="headerlink" href="#mixpanel-serverside" title="Permalink to this headline">¶</a></h3>
+<p>When you call identify from any of our server-side libraries, we create or update the user in Mixpanel People with the traits you provide. Calling identify doesn’t create any users in the standard Mixpanel reporting interface since that only supports track events.</p>
+<p>You won’t see server-side traits appear as super-properties on any events you track. This is because Mixpanel has no REST API for setting super properties for a distinct_id, so identify calls only affect Mixpanel People.</p>
+<p>For Mixpanel People, it’s important to identify a user before you call track. A track without an identify won’t create a user in Mixpanel People.</p>
+
+<h2 id="mixpanel-page">Page<a class="headerlink" href="#mixpanel-page" title="Permalink to this headline">¶</a></h2>
+<p>By default Segment doesn’t send standard page calls to Mixpanel because Mixpanel doesn’t have the notion of Page seperate from a Track. We recommend using the Track all Pages to Mixpanel as a consolidated event setting in our Mixpanel integration tab. This will send all page and screen calls with a single name, Loaded a Page or Loaded a Screen respectively with the calls’ properties in the body. This gives the best experience of Page/Screen analytics with Mixpanel’s reporting. If you want to track the pageorscreen` calls to Mixpanel with the name or category in the event name, we also have the below three options for sending page/screen calls.</p>
+<p>1) Track all Pages to Mixpanel</p>
+<p>2) Track Categorized Pages to Mixpanel [default]</p>
+<p>3) Track Named Pags to Mixpanel [default]</p>
+<p>If you select Track all Pages to Mixpanel, all page calls regardless of how you have customized it will send a Loaded A Page. Even if you have the other options enabled, we will only send this call to prevent double counting your pageviews.</p>
+<p>If you select Track Categorized Pages to Mixpanel, we will send a Viewed [category] Page event.</p>
+<p>If you select Track Named Pages to Mixpanel, we will send a Viewed [name] Page event.</p>
+<p><b>Note:</b> If both option 2 and 3 are enabled, we will give precedence to category. If you pass both category and name, (e.g. analytics.page('category', 'name');), we will send a Viewed category name Page to Mixpanel.</p>
+<p>Remember, we will only send 1 event per page call.</p>
+<p><b>Example Page Call</b></p>
+<pre><code class="language-javascript">
+  analytics.page('Books', 'Comic Book Sale');
+</code></pre>
+
+<h2 id="mixpanel-alias">Alias<a class="headerlink" href="#mixpanel-alias" title="Permalink to this headline">¶</a></h2>
+<p>Calling alias is required for Mixpanel in all libraries in order to connect anonymous visitors to identified users.</p>
+<p>As soon as you have a userId for a visitor that was previously anonymous you’ll need to alias their old anonymous id to the new userId. In Mixpanel only one anonymous user history can be merged to one identified user. For that reason you should only call alias once, right after a user registered, but before the first identify.</p>
+<p>You’ll also want to track the action that caused the user to be identified or created. Read our guide on how to identify new users to learn why.</p>
+<p>Read more about how Mixpanel recommends using alias in their docs.</p>
+<p><b>Note:</b> Due to technical limitations with aliasing server-side, aliasing on the client is recommended whenever possible.
+</p>
+<h3>Aliasing From the Browser</h3>
+<p>In client-side javascript you only need to pass the new identified userId. We will automatically alias the old anonymous id to your new userId.</p>
+<p>Here’s a javascript example where the new userId is 12345:</p>
+<pre><code class="language-javascript">
+  alias('12345');
+  identify('12345');
+  track('Signed Up');
+</code></pre>
+<h3>Aliasing Server-Side</h3>
+<p>If an identify or track call arrives to Mixpanel with a new distinct_id too quickly after an alias call, there is a race condition between the event and the alias call. As long as your identify and track calls arrive ~1 second after the alias, this shouldn’t be an issue; when the alias queue is backed up, Mixpanel queues events as well, mitigating the race condition.</p>
+<p>However, in cases when events are processed too quickly, before their corresponding alias, your calls can result in split/duplicate profiles.</p>
+<p>Mixpanel’s client-side javasript library fixes this issue by continuing to send track calls to the original mixpanel distinct_id while the records update. To leverage that protection and avoid creating split profiles and broken funnels, we recommend doing all aliasing for Mixpanel on the client side through Analytics.js</p>
+<p>However, in certain circumstances, despite the risk of duplicate profiles, you may still wish to send the calls server-side. In those cases, there are two options for calling alias from your servers:</p>
+<p><b>In Conjunction with Client-Side Tracking</b></p>
+<p>If you’re tracking anonymous users on the client side either from a browser or one of our mobile SDK you’ll need to pass the Mixpanel distinct_id from the browser to your servers in order to alias it to the new userId.</p>
+<p>First, use analytics.ready to grab the Mixpanel distinct_id:</p>
+<pre><code class="language-javascript">
+  analytics.ready(function(){
+      var anonId = mixpanel.get_distinct_id();
+  });
+</code></pre>
+<p>Next, pass the anonId to your server and alias, identify, and track your new user.</p>
+<p>Here’s a Node example where the new userId is 12345:</p>
+<pre><code class="language-javascript">
+  analytics.alias({ previousId: anonId, userId: '12345' });
+  analytics.flush(); // flush the alias
+
+  analytics.identify({userId: '12345'});
+  analytics.track({
+    userId: '12345',
+    event: 'Connected Facebook'
+  });
+</code></pre>
+<p><b>Tracking Exclusively Server Side</b></p>
+<p>If you’re tracking anonymous users in one of our server-side libraries that makes things a lot easier. All you have to do is alias the anonymous id to the new userId.</p>
+<p>Here’s a Python example of the alias, identify, track sequence where the anonymous id was 92fh49fqh9849hf and the new userId is 12345:</p>
+<pre><code class="language-javascript">
+  analytics.alias('92fh49fqh9849hf', '12345')
+  analytics.flush() # flush the alias
+
+  analytics.identify('12345')
+  analytics.track('12345', 'Registered')
+</code></pre>
+<p>As you can see we recommend flushing the alias to give Mixpanel a bit of extra time to process it on their side before you identify and track.
+
+</p>
+<h2 id="mixpanel-collectingcontextualproperties">Collecting contextual properties<a class="headerlink" href="#mixpanel-collectingcontextualproperties" title="Permalink to this headline">¶</a></h2>
+</p>
+<p>If you are sending events server side, depending on your library (JS, mobile, or server), we will map as many Mixpanel supported contextual properties as we can.</p>
+<p>You can check out which context properties are being automatically collected by any Segment library. If you are using a library that does not support a certain contextual property, you can still send them manually with your events, as long as it is sent in accordance with our spec.</p>
+<p>For example, if you want to send utm parameters with your server side library, you can attach a context.campaign object like this:</p>
+<pre><code class="language-javascript">
+  analytics.track({
+    userId: '019mr8mf4r',
+    event: 'Purchased an Item',
+    properties: {
+      revenue: 39.95,
+      shippingMethod: '2-day'
+    },
+    context: {
+      campaign: {
+        name: "TPS Innovation Newsletter",
+        source: "Newsletter",
+        medium: "email",
+        term: "tps reports",
+        content: "image link"
+      }
+    }
+  });
+</code></pre>
+<p>We do not map $library_version since that is reserved for Mixpanel’s library version, not Segment’s. We do not map to $brand.</p>
+
+<h2 id="mixpanel-autotrack">Autotrack<a class="headerlink" href="#mixpanel-autotrack" title="Permalink to this headline">¶</a></h2>
+<p>Mixpanel’s Autotrack feature is supported via Segment as long as you are using one of our client-side libraries (analytics.js, iOS, Android). Additionally, if you’re using analytics for Android or iOS, make sure your Mixpanel integration is bundled - otherwise Autotrack will not work. Once Mixpanel is installed via segment, all you have to do is enable the Autotrack feature for your Mixpanel account and it will start working.
+</p>
+
+<h2 id="mixpanel-people">People<a class="headerlink" href="#mixpanel-people" title="Permalink to this headline">¶</a></h2>
+<p>By default we don’t send data to Mixpanel People since it usually requires upgrading your Mixpanel account. If you want to enable Mixpanel People simply check the box for: Use Mixpanel People from your source integrations page in the Mixpanel sheet.</p>
+<p>If you want to add people properties in Mixpanel before you know the user’s unique databse userId you can identify traits without the userId. Note: this only works in Analytics.js and our mobile SDKs.</p>
+<p>Your identify call would look like this in Analytics.js if you only want to set people properties without a userId:</p>
+<pre><code class="language-javascript">
+  analytics.identify({
+    email: 'friends@segment.com',
+    name: 'Ian Taylor'
+  })
+</code></pre>
+
+<h2 id="mixpanel-faq">FAQ<a class="headerlink" href="#mixpanel-faq" title="Permalink to this headline">¶</a></h2>
+<p><b>When do I need to call Alias?</b></p>
+<p><b>Can I load two instances of Mixpanel?</b></p>
+<p><b>Why isn't my trait showing up in Mixpanel People?</b></p>
+<p><b>Do you support Autotrack?</b></p>
+<p><b>Why am I missing events in Mixpanel?</b></p>
+<p><b>Is there a size limit on API requests?</b></p>
+<p><b>Why isn't analytics.ready() firing?</b></p>
+</div>
+<div style="margin-bottom:800px"></div>
+
+<!--END MIXPANEL DOCS-->
+
 <div class="" id="">
 <div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
       https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/events <span class="se">\</span>
@@ -5392,7 +5654,8 @@ previous request:</p>
   
 <script type="text/javascript" src="_static/insert-api-key.js">
 </script>
-  
+  <!-- LOAD PRISM JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
 
 <!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
 </body></html>
