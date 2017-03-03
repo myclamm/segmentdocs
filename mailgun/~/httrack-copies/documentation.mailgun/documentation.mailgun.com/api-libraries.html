@@ -455,6 +455,7 @@ proceed with step (2);</li>
 <p>This tutorial will help you start sending data from your website to Segment and any of our integrations, using our Analytics.js library. As soon as you’re setup you’ll be able to turn on any new integrations with the flip of a switch!</p>
 <p>If you want to dive deeper at any point, check out the <a href="#javascriptreference">Analytics.js reference</a>.</p>
 
+
 <h3 style="">Step 1: Copy the Snippet</h3>
 <pre><code class="language-javascript"><script type="text/javascript">
   !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
@@ -463,11 +464,12 @@ proceed with step (2);</li>
   }}();
 </script>
 </code></pre>
-<p>When you paste it, you’ll need to replace YOUR_WRITE_KEY with your Segment project’s Write Key, which you can find in your project setup guide or settings.</p>
-<p>That snippet will load Analytics.js onto the page asynchronously, so it won’t affect your page load speed. As soon as that snippet is running on your site, you can start turning on any integrations on your Segment integrations page and they will start loading on your site automatically!</p>
+
+<p>When you paste the snippet, you’ll need to replace YOUR_WRITE_KEY with your Segment project’s Write Key, which you can find in your project setup guide or settings. If you haven't created a Segment account yet, you should <a href="">create an account</a>, and then retrieve your Write Key and paste it into your snippet before continuing to follow this doc.</p>
+<p><b>Note:</b> Your Write Key can be found by clicking <b>Settings --> API Keys</b>, within the Segment App</p>
+
+<p>That snippet will load Analytics.js onto the page asynchronously, so it won’t affect your page load speed. As soon as that snippet is running on your site, you can start turning on any <a href="">integrations</a> on your Segment integrations page and they will start loading on your site automatically!</p>
 <p>Note that you’ll want to remove other native 3rd party integration code that you have on your site since it may cause issues if you turn on those same integrations (e.g. Google Analytics, Mixpanel, Customer.io, etc.) via Segment.</p>
-<p><b>Fun fact:</b> if you only want the most basic Google Analytics setup you can stop reading right now. You’re done! Just switch on Google Analytics in our interface.</p>
-<p>However, lots of analytics and marketing tools will need to record who each user is on your site. If you’re looking to use any tool that deals with the identity of your users, read on about the identify method…</p>
 
 <h3>Step 2: Identify Users</h3>
 <p>The identify method is how you tell Segment who the current user is. It includes a unique User ID and any optional traits you know about them. You can read more about it in the <a href="">identify reference</a>.</p>
@@ -515,7 +517,16 @@ proceed with step (2);</li>
 <p>You’ll want to track events that are indicators of success for your site, like <b>Signed Up</b>, <b>Item Purchased</b> or <b>Article Bookmarked</b>.
 </p>
 <p>To get started, we recommend tracking just a few important events. You can always add more later!</p>
-<p>Once you’ve added a few track calls, <b>you’re done</b>! You successfully installed Analytics.js tracking. Now you’re ready to turn on any integration you fancy from our interface, margarita in hand.</p>
+
+<h2>Next Steps</h2>
+<p>Congratulations! You've taken the first steps towards taking control of your customer data:</p>
+<ul>
+<li>Created a Segment Account (yes)</li>
+<li>Installed Script (yes)</li>
+<li>Implemented Track Calls (yes)</li>
+<li>Implemented Identify Calls (yes)</li>
+</ul>
+<p><b>Next up:</b> If you haven't done so yet, <a href="api-integrations.html">turn on some integrations</a> and start sending your data to the tools you use.</p>
 
 <h1 id="javascript-reference">Reference<a class="headerlink" href="#javascript-reference" title="Permalink to this headline">¶</a></h1>
 
