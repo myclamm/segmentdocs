@@ -24,7 +24,8 @@
     </title>
 
     <link rel="canonical" href="index.html" />
-
+    <!--SEGMENT FONTS-->
+    <link rel="stylesheet" type="text/css" href="https://static.segment.com/fonts/index.css">
     
     <link rel="icon" href="https://segment.com/build/public/public/images/favicon-mask.svg"/>
 <!--     <link rel="apple-touch-icon" href="static/img/favicons/favicon_57.98200b6899e6.png"/>
@@ -90,6 +91,14 @@
 
 <!-- CUSTOM CSS -->
 <style type="text/css">
+.text-ellipsis {
+  font-family: 'Segment Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.nav {
+  font-family: 'Segment Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+}
 
 .nav__subnav-link {
   color:#49B882 !important;
@@ -130,6 +139,8 @@
     margin: 4px 1px 10px;
     width: 64px;
 }
+
+
 .api-inte-list {
   list-style: none;
     margin: 0;
@@ -164,7 +175,7 @@
 
 .api-inte-list .guide-sm img {
     margin-bottom: 4px;
-    opacity: 1;
+    opacity: 0.7;
     width: 40px;
 }
 
@@ -219,6 +230,10 @@ img {
     background-color:white;
 }
 
+.hero .div {
+  opacity: 0.5;
+}
+
 .content-section {
   padding-top:25px;
 }
@@ -228,6 +243,7 @@ img {
     padding-right: 20px;
     /*font-weight: bold*/
 }
+
 </style>
 <!-- CUSTOM CSS END -->
 
@@ -385,7 +401,7 @@ img {
     </nav>
     <nav role="subnav" class="nav__subnav">
       <header class="nav__subnav-header">
-        <a href="index.html" class="nav__subnav-header-link">Docs</a>
+        <a href="index.html" class="nav__subnav-header-link"><b>Docs</b></a>
         
           <a href="quickstart.html" role="subnav__dropdown" 
             class="nav__subnav-link nav__subnav-current">Quickstart</a>
@@ -447,25 +463,25 @@ img {
   <span style="font-weight:bold" class="number-title">1.</span><h2 style="display:inline-block" class="top-level-category"> <b>Install</b> Segment</h2>
   <p class="text-muted category-descriptor">Set up tracking on your app/website</p>
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#javascript"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg icon-label"> JavaScript </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries-javascript.html#javascript"><img src="https://www.algolia.com/doc/assets/images/languages/javascript-68104683.svg" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> JavaScript </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#ios"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg icon-label"> iOS </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#ios"><img src="https://www.algolia.com/doc/assets/images/languages/swift-4cb5cf0e.svg" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> iOS </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#android"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg icon-label"> Android </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#android"><img src="https://www.algolia.com/doc/assets/images/languages/android-f03624e7.svg" class="m-l-r-auto" alt="Android"> <h4 class="text-ellipsis visible-lg"> Android </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#php"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg icon-label"> PHP </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#php"><img src="https://www.algolia.com/doc/assets/images/languages/php-53888094.svg" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> PHP </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#ruby"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg icon-label"> Ruby </h4> </a>
-    </article> 
-    
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#python"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg icon-label"> Python </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#ruby"><img src="https://www.algolia.com/doc/assets/images/languages/ruby-00bdd41f.svg" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> Ruby </h4> </a>
     </article> 
     
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#java"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg icon-label"> Java </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#python"><img src="https://www.algolia.com/doc/assets/images/languages/python-dd5a8a8d.svg" class="m-l-r-auto" alt="Python"> <h4 class="text-ellipsis visible-lg"> Python </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#go"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg icon-label"> Go </h4> </a>
+    
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#java"><img src="https://www.algolia.com/doc/assets/images/languages/java-65dd222f.svg" class="m-l-r-auto" alt="Java"> <h4 class="text-ellipsis visible-lg"> Java </h4> </a>
     </article> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#node"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg icon-label"> Node </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#go"><img src="https://www.algolia.com/doc/assets/images/languages/go-5f1359de.svg" class="m-l-r-auto" alt="Go"> <h4 class="text-ellipsis visible-lg"> Go </h4> </a>
+    </article> 
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-libraries.html#node"><img src="https://www.algolia.com/doc/assets/images/languages/scala-bce891cf.svg" class="m-l-r-auto" alt="Scala"> <h4 class="text-ellipsis visible-lg"> Node </h4> </a>
     </article> </div>
 </div>
 <!-- END Algolia Icons-->
@@ -494,7 +510,7 @@ img {
   <p class="text-muted category-descriptor">Choose which integrations to send your data to</p>
 
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html#mixpanel"><img src="https://cdn.zapier.com/storage/services/0195382087c9df734921c852ccbdd5cb.128x128.png" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> Mixpanel </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations-mixpanel.html#mixpanel"><img src="https://cdn.zapier.com/storage/services/0195382087c9df734921c852ccbdd5cb.128x128.png" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> Mixpanel </h4> </a>
     </article> 
     <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-integrations.html#google-analytics"><img src="https://www.en.advertisercommunity.com/html/assets/analytics_64dp.png" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> GA </h4> </a>
     </article> 
@@ -542,7 +558,7 @@ img {
   <p class="text-muted category-descriptor">Store all your data in a data warehouse</p>
 
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html#redshift"><img src="http://zappysys.com/images/tech/amazon-aws-s3-storage-logo.png" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> Redshift </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse-redshift.html#redshift"><img src="http://zappysys.com/images/tech/amazon-aws-s3-storage-logo.png" class="m-l-r-auto" alt="Php"> <h4 class="text-ellipsis visible-lg"> Redshift </h4> </a>
     </article> 
     <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-warehouse.html#postgres"><img src="https://cdn.zapier.com/storage/services/3b77c88b983c09b5612c31311e34ed23.128x128.png" class="m-l-r-auto" alt="Ruby"> <h4 class="text-ellipsis visible-lg"> PostgresSQL </h4> </a>
     </article> 
@@ -573,7 +589,7 @@ img {
   <p class="text-muted category-descriptor">Collect data out of your favorite Cloud-Apps</p>
 
   <div class="api-inte-list clearfix"> 
-    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html#adwords"><img src="https://static.woopra.com/apps/adwords/images/icon-256.png" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> AdWords </h4> </a>
+    <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps-adwords.html#adwords"><img src="https://static.woopra.com/apps/adwords/images/icon-256.png" class="m-l-r-auto" alt="Swift"> <h4 class="text-ellipsis visible-lg"> AdWords </h4> </a>
     </article> 
     <article class="guide-sm"> <a href="../../../mailgun/~/httrack-copies/documentation.mailgun/documentation.mailgun.com/api-cloud-apps.html#salesforce"><img src="https://cdn.zapier.com/storage/services/e18d02bc3d9fdcf0d4bf9ad43d8a8e6d.128x128.png" class="m-l-r-auto" alt="Javascript"> <h4 class="text-ellipsis visible-lg"> Salesforce </h4> </a>
     </article> 
@@ -752,10 +768,21 @@ img {
       var chapter = chapters[i];
       (function(chapter){
       chapter.addEventListener('mouseover', function (event) {
-          chapter.style.backgroundColor = "#FBFAF9"           
+          chapter.style.backgroundColor = "#FBFAF9" 
+          var imgs = chapter.getElementsByTagName('img')
+          for (var k =0; k<imgs.length; k++) {
+            var img = imgs[k];
+            img.style.opacity = 1;
+            
+          }          
       },false)
       chapter.addEventListener('mouseout', function (event) {
           chapter.style.backgroundColor = "white"
+          var imgs = chapter.getElementsByTagName('img')
+          for (var k =0; k<imgs.length; k++) {
+            var img = imgs[k];
+            img.style.opacity = 0.7;
+          } 
       },false)
       })(chapter)
       

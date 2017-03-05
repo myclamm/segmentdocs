@@ -1,0 +1,580 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Reference &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <!--FontAwesome-->
+    <script src="https://use.fontawesome.com/e1c1bce368.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="next" title="Introduction" href="api-intro.html" />
+    <link rel="prev" title="Libraries" href="libraries.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+    <!-- CUSTOM CSS -->
+    <style type="text/css">
+
+     header {
+      background-image: none !important;
+      position:fixed
+    }
+    .documentation .document h3 {
+      padding-top: 0px;
+    }
+    .header-nav a {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #49B882;
+        display: block;
+        float: left;
+        font-family: 'Titillium Web', Lato, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
+        font-weight: 100 !important;
+        font-size: 14px;
+        line-height: 50px;
+        padding: 10px 10px;
+        text-decoration: none;
+        text-transform: none;
+    }
+    .header-nav {
+        float: left;
+    }
+
+    .segment-logo {
+      float: left;
+      background: url("https://cdn.brandisty.com/img?id=57852bda6b49441340000023&format=png&w=600&h=557");
+      background-size: 50px 50px;
+      background-repeat: no-repeat;
+      display: block;
+      margin-right:20px;
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+    }
+    .documentation .subnav {
+      background-image: none;
+      background-color: #00386c;
+      display:none;
+    }
+    .documentation .subnav li.active a {
+      background-image: none;
+      background-color: #49b882;
+    }
+    body {
+      font-family:none;
+    }
+
+    .documentation .main.main-with-subnav .sphinxsidebarwrapper {
+      top: 80px;
+    }
+    .documentation .document .section h2 {
+    padding-top: 80px;
+}
+
+.documentation .document .section h1 {
+    padding-top: 80px;
+}
+    .documentation .document .section .section {
+    margin-top: 160px;
+}
+.documentation .sphinxsidebarwrapper {
+    margin: 0;
+    padding: 60px 0;
+}
+
+.documentation .main.main-with-subnav .sphinxsidebarwrapper {
+     top: 40px; 
+}
+
+code, .pre {
+  border:none;
+}
+
+.documentation .document h2 {
+    font-size: 28px;
+    font-weight: 600;
+    padding-top:80px;
+}
+
+.toctree-l4 {
+  padding-left: 20px;
+}
+    </style>
+    <!-- CUSTOM CSS -->
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="../../../../../segment.com/index.html"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
+      <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
+          <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
+          <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
+          <div class="dropdown">
+                    <a href="api-events.html" >API Overview 
+</a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+
+
+                <div class="dropdown">
+                    <a href="api-libraries.html" class="resources-link">Libraries</a>
+                    <!-- <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav> -->
+                </div>
+
+
+                <a href="api-integrations.html" class="managed-link"><b style="font-weight:100">Integration Catalog</b></a>
+                <a href="api-cloud-apps.html" class="contact-link"><b style="font-weight:100"><b>Cloud-App Sources Catalog</b></b></a>
+                <a href="api-warehouse.html" class="contact-link"><b style="font-weight:100">Connect Warehouse</b></a>
+
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <!-- <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus /> -->
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api-intro.html" title="Introduction" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="libraries.html" title="Libraries" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<!-- <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li> -->
+<!-- <li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li> -->
+<li class="toctree-l1 current"><a class="reference internal" href="api-cloud-apps.html">Cloud-App Sources</a><ul class="current">
+
+  <li class="toctree-l2 "><a class=" reference internal" href="api-cloud-apps.html#introduction"><b>Introduction</b></a><ul class="current">
+   <!--  <li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#gettingstarted">Getting Started</a></li> -->
+    <li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#collections">Collections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#eventss">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-cloud-apps.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-cloud-apps.html#syncschedule">Sync Schedules</a></li>
+
+  </ul>
+</li>
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li> -->
+
+
+  <li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#salesforce"><b>Salesforce</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#stripe"><b>Stripe</b></a></li>
+
+
+
+
+
+
+  <li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#zendesk"><b>Zendesk</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#facebookads"><b>Facebook Ads</b></a></li>
+<li class="toctree-l2"><a class="current reference internal" href="#adwords"><b>AdWords</b></a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#adwords-gettingstarted">Getting Started</a></li>
+  <li class="toctree-l3"><a class="reference internal" href="#adwords-reference">Reference</a>
+    <ul>
+      <li class="toctree-l4"><a class="reference internal" href="#adwords-sync">Sync</a>
+      <li class="toctree-l4"><a class="reference internal" href="#adwords-collections">Collections</a>
+      <li class="toctree-l4"><a class="reference internal" href="#adwords-permissions">Permissions</a>
+      <li class="toctree-l4"><a class="reference internal" href="#adwords-faq">FAQ</a>
+    </ul>
+  </li>
+</ul>
+</li>
+<!-- <li class="toctree-l3"><a class="reference internal" href="#query-<b>options">Screen</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-field"><b>Group</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-<b>expression">Alias</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#event-structure"><b>Event Structure</b></a></li> -->
+
+
+
+
+
+
+  <li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#sendgrid"><b>SendGrid</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#mailchimp"><b>Mailchimp</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#mandrill"><b>Mandrill</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#hubspot"><b>HubSpot</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#intercom"><b>Intercom</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#drip"><b>Drip</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-cloud-apps.html#iterable"><b>Iterable</b></a></li>
+
+
+</li>
+
+</li>
+
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-tags.html"><b>Ecommerce Spec</b></a></li> -->
+<!-- <li class="toctree-l2"><a class="reference internal" href="#troubleshooting"><b>Troubleshooting</b></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#syncschedule"><b>Sync Schedules</b></a></li> -->
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="">FAQ</a></li>
+
+</ul>
+
+
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+
+<div class="section" id="adwords">
+<h1>AdWords<a class="headerlink" href="#adwords" title="Permalink to this headline">¶</a></h1>
+<p>Creating an AdWords cloud app source allows you to automatically pull your AdWords data into your Segment data warehouse on a regular interval. Once you've set up your AdWords cloud app source, you'll be able to query your AdWords data alongside the rest of your Segment data, all in one place. </p>
+<h2 id="adwords-gettingstarted">Getting Started<a class="headerlink" href="#adwords-gettingstarted" title="Permalink to this headline">¶</a></h2>
+<p style="padding:20px; border:1px solid black"><b>*This guide assumes*</b> you have already <a href="api-warehouse.html">connected a data warehouse</a> to your Segment account.
+</p>
+<h3>Step 1: Create a Source</h3>
+<p>In the Segment App, from your workspace’s /sources page, click the <b>Add Source</b> button.</p>
+<h3>Step 2: Select Adwords</h3>
+<p>From the source selection page, choose <b>Cloud Apps</b> from the left hand nav, and select <b>Adwords</b>.</p>
+<h3>Step 3: Configure your Source</h3>
+<p>Give the source a nickname and a schema name. The nickname will be used to designate the source in the Segment interface, and the schema name is the namespace you’ll be querying against in your warehouse. Both can be whatever you like, but we recommend sticking to something that reflects the source itself, like AdWords for nickname and adwords, google_adwords, or adwords_usa for the schema name. See pic below:</p>
+<img src="https://segment.com/docs/sources/cloud-apps/adwords/images/setup.png">
+<h3>Step 4: Connect your Source</h3>
+<p> Just click Connect on the next page to OAuth into Google.</p>
+<h3>Step 5: You're done!</h3>
+<p>You're done! Now you can check out our guides on how to leverage Segment to get the most out of your customer data.</p>
+
+<!--START NEXT STEPS-->
+<div style="margin-top:60px; padding:20px 20px 20px 20px; border:1px solid black">
+<h2 style="padding-top:0px">Next Steps</h2>
+<p>Congratulations! You've successfully connected your Adwords account to Segment. Next up, check out our guides for expert tips on how to get the most out of your analytics data:</p>
+<ul>
+<li>Created a Segment Account <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Installed Script <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Implemented Tracking Calls <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Turn on an Integration <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Connected a Data Warehouse <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Connected a Cloud App Source <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+</ul>
+<p><b>Next up:</b> Check out our extensive <a href="api-cloud-apps.html">guides</a> to learn tips on how to get the most from your analytics data.</p>
+</div>
+<!--END NEXT STEPS-->
+
+<h1 id="adwords-reference" style="padding-top:80px">Reference<a class="headerlink" href="#adwords-reference" title="Permalink to this headline">¶</a></h1>
+
+<h2 id="adwords-sync">Sync<a class="headerlink" href="#adwords-sync" title="Permalink to this headline">¶</a></h2>
+<p>AdWords has a sync component, which means we’ll make requests to their API on your behalf on a 3 hour interval to pull the latest data into Segment. In the initial sync, we’ll grab all the Adwords objects (and their corresponding properties) according to the Collections table below. The objects will be written into a separate schema, corresponding to the source instance’s schema name you designated upon creation. For example, if you went with adwords, the ads collection will be accessible at adwords.ads in SQL.</p>
+<p>Our sync component uses an upsert API, so the data in your warehouse loaded via sync will reflect the latest state of the corresponding resource in AdWords. For example, if budget from 0 to 100 between syncs, on its next sync that tickets status will be 100.</p>
+<p>The source syncs and warehouse syncs are independent processes. Source runs pull your data into the Segment Hub, and warehouse runs flush that data to your warehouse. Sources will sync with Segment every 3 hours. Depending on your Warehouses plan, we will push the Source data to your warehouse on the interval associated with your billing plan.</p>
+
+<h2 id="adwords-collections">Collections<a class="headerlink" href="#adwords-collections" title="Permalink to this headline">¶</a></h2>
+<p>Collections are the groupings of resources we pull from your source. In your warehouse, each collection gets its own table.</p>
+<p>For a complete visual breakdown of the AdWords collections, all their properties, and ID linkages between objects, view the <a href="">visual schema here</a>.</p>
+
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd">
+  <th class="head">Collection</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ad_groups</td>
+<td>object</td>
+<td>An ad group is a set of ads that share the same daily or lifetime budget, schedule, bid type, bid info, and targeting data</td>
+</tr>
+<tr class="row-odd"><td>ads</td>
+<td>object</td>
+<td>An ad object contains the data necessary to visually display an ad and associate it with a corresponding ad set.</td>
+</tr>
+<tr class="row-even"><td>campaigns</td>
+<td>object</td>
+<td>A campaign is a grouping of ad sets which are organized by the same business objective.</td>
+</tr>
+<tr class="row-odd"><td>campaign_performance_report</td>
+<td>object</td>
+<td>Campaign performance reports include a daily snapshot of performance statistics per campaign</td>
+</tr>
+<tr class="row-odd"><td>click_performance_report</td>
+<td>object</td>
+<td>Click performance reports include stats at the click level, including both valid and invalid clicks</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="adwords-permissions">Permissions<a class="headerlink" href="#adwords-permissions" title="Permalink to this headline">¶</a></h2>
+<p>When setting up your AdWords Source, you may notice that we don’t list all AdWords accounts your Google user can view. This is because AdWords API does not expose a list of “managed” or sub-accounts to non-administrator via the API. That said, if you have read permissions to the account, you can enter your AdWords Customer ID directly. For more information about finding your AdWords Customer ID, see here.</p>
+
+<h2 id="adwords-faq">FAQ<a class="headerlink" href="#adwords-faq" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><a href="">What unit is money in?</a></li>
+<li><a href="">What AdWords MCC do you sync?</a></li>
+<li><a href="">How often does my AdWords data sync to Segment?</a></li>
+<li><a href="">Can I sync to more than one warehouse?</a></li>
+<li><a href="">Why is my custom dimension not showing up in Segment?</a></li>
+<li><a href="">Why am I seeing a "Sync Error" in the Segment app?</a></li>
+<li><a href="">Can I send data to AdWords?</a></li>
+</ul>
+
+</div>
+<!-- END ADWORDS DOCS-->
+
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+</html>

@@ -1,0 +1,1070 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Reference &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <!--FontAwesome-->
+    <script src="https://use.fontawesome.com/e1c1bce368.js"></script>
+    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="next" title="Introduction" href="api-intro.html" />
+    <link rel="prev" title="Libraries" href="libraries.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+
+    <!--LOAD PRISM-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css">
+
+    <meta name="viewport" content="width=device-width">
+    
+    <!-- CUSTOM CSS -->
+    <style type="text/css">
+
+    header {
+      background-image: none !important;
+      position:fixed
+    }
+    .documentation .document h3 {
+      padding-top: 0px;
+    }
+    .header-nav a {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #49B882;
+        display: block;
+        float: left;
+        font-family: 'Titillium Web', Lato, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
+        font-weight: 100 !important;
+        font-size: 14px;
+        line-height: 50px;
+        padding: 10px 10px;
+        text-decoration: none;
+        text-transform: none;
+    }
+    .header-nav {
+        float: left;
+    }
+
+    .segment-logo {
+      float: left;
+      background: url("https://cdn.brandisty.com/img?id=57852bda6b49441340000023&format=png&w=600&h=557");
+      background-size: 50px 50px;
+      background-repeat: no-repeat;
+      display: block;
+      margin-right:20px;
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+    }
+    .documentation .subnav {
+      background-image: none;
+      background-color: #00386c;
+      display:none;
+    }
+    .documentation .subnav li.active a {
+      background-image: none;
+      background-color: #49b882;
+    }
+    body {
+      font-family:none;
+    }
+
+    .documentation .main.main-with-subnav .sphinxsidebarwrapper {
+    	top: 80px;
+    }
+    .documentation .document .section h2 {
+    padding-top: 80px;
+}
+
+.documentation .document .section h1 {
+    padding-top: 80px;
+}
+    .documentation .document .section .section {
+    margin-top: 160px;
+}
+.documentation .sphinxsidebarwrapper {
+    margin: 0;
+    padding: 60px 0;
+}
+
+.documentation .main.main-with-subnav .sphinxsidebarwrapper {
+     top: 40px; 
+}
+
+code, .pre {
+  border:none;
+}
+
+.toctree-l4 {
+	padding-left: 20px;
+}
+
+    </style>
+    <!-- CUSTOM CSS -->
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="../../../../../segment.com/index.html"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
+      <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
+          <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
+          <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
+          <div class="dropdown">
+                    <a href="api-events.html" >API Overview
+</a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+
+
+                <div class="dropdown">
+                    <a href="http://resources.mailgun.com/index.html" class="js-dropdown-toggle resources-link"><b>Libraries</b></a>
+                    <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav>
+                </div>
+
+
+                <a href="api-integrations.html" class="managed-link"><b style="font-weight:100">Integration Catalog</b></a>
+                <a href="api-cloud-apps.html" class="contact-link"><b style="font-weight:100">Cloud-App Sources Catalog</b></a>
+                <a href="api-warehouse.html" class="contact-link"><b style="font-weight:100">Connect Warehouse</b></a>
+
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <!-- <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus /> -->
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api-intro.html" title="Introduction" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="libraries.html" title="Libraries" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<!-- <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li> -->
+<!-- <li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li> -->
+<li class="toctree-l1 current"><a class="  reference internal" href="api-libraries.html">Libraries</a><ul class="current">
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li> -->
+<li class="toctree-l2"><a class="  reference internal" href="api-libraries.html#events"><b>Introduction</b></a><ul>
+  <!-- <li class="toctree-l3"><a class="reference internal" href="api-libraries.html#gettingstarted">Getting Started</a></li> -->
+  <li class="toctree-l3"><a class="reference internal" href="api-libraries.html#HTTP">HTTP API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-libraries.html#CVS">Client-side vs Server-side</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="api-libraries.html#webhooks">Webhooks</a></li>
+</ul>
+
+
+</li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="#clientside"><b>Client-side SDKs</b></a>
+  <ul>
+  <li class="toctree-l2 current"><a class=" current reference internal" href="api-libraries-javascript.html#javascript">Javascript</a>
+    <ul>
+    <li class="toctree-l3"><a class="reference internal" style="padding-left:60px" href="#javascript-gettingstarted">Getting Started</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" style="padding-left:60px" href="#javascript-reference">Reference</a>
+    	<ul>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-identify">Identify</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-track">Track</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-page">Page</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-group">Group</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-alias">Alias</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-ready">Ready</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-query-string">Query String API</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-user-and-group">User & Group Information</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-clearing-traits">Clearing Traits</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-reset-logout">Reset/Logout</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-anonymous-id">Anonymous Id</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-debug">Debug</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-emitter">Emitter</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-track-link">Track Link</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-extending-timeout">Extending Timeout</a>
+    		</li>
+    		<li class="toctree-l4"><a class="reference internal" style="padding-left:60px" href="#javascript-selecting-integrations">Selecting Integrations</a>
+    		</li>
+    	</ul>
+    </li>
+
+    </ul>
+  </li>
+<li class="toctree-l2"><a class="reference internal" href="api-libraries.html#ios">iOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-libraries.html#android">Android</a></li>
+
+
+</ul>
+
+
+</li>
+
+<li class="toctree-l2 current"><a class="reference internal" href="api-libraries.html#serverside"><b>Server-side SDKs</b></a><ul>
+  <li class="toctree-l3"><a class="reference internal" href="api-libraries.html#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-libraries.html#php">PHP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-libraries.html#python">Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-libraries.html#ruby">Ruby</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-libraries.html#java">Java</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-libraries.html#go">Go</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api-libraries.html#xamarin">Xamarin</a></li>
+
+</ul>
+
+
+</li>
+
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-tags.html"><b>Ecommerce Spec</b></a></li> -->
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-suppressions.html"><b>Industry Specific Specs</b></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-webhooks.html"><b>Webhooks</b></a></li> -->
+</ul>
+</li>
+
+
+</ul>
+
+
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+
+<div class="section" id="javascript">
+<h1 id="javascript">Javascript SDK: <b>analytics.js</b><a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h1>
+<p>Analytics.js, our Javascript library, is the most powerful way to track customer data from your website. We recommend it over server-side libraries as the default installation for any website.</p>
+<p>View analytics.js on Github: <a href="https://github.com/segmentio/analytics.js">https://github.com/segmentio/analytics.js</a></p>
+
+<h2 id="javascript-gettingstarted">Getting Started<a class="headerlink" href="#javascript-gettingstarted" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial will help you start sending data from your website to Segment and any of our integrations, using our Analytics.js library. As soon as you’re setup you’ll be able to turn on any new integrations with the flip of a switch!</p>
+<p>If you want to dive deeper at any point, check out the <a href="#javascriptreference">Analytics.js reference</a>.</p>
+
+
+<h3 style="">Step 1: Copy the Snippet</h3>
+<pre><code class="language-javascript"><script type="text/javascript">
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+  analytics.load("YOUR_WRITE_KEY");
+  analytics.page();
+  }}();
+</script>
+</code></pre>
+
+<p><b>Note:</b> When you paste the snippet, you’ll need to replace YOUR_WRITE_KEY with your Segment project’s Write Key, which you can find in your project setup guide or settings. If you haven't created a Segment account yet, you should <a href="https://segment.com/signup">create an account</a>, and then retrieve your Write Key and paste it into your snippet before continuing to follow this doc.</p>
+<p><b>Note:</b> Your Write Key can be found by clicking <b>Settings --> API Keys</b>, within the Segment App</p>
+
+<p>That snippet will load Analytics.js onto the page asynchronously, so it won’t affect your page load speed. As soon as that snippet is running on your site, you can start turning on any <a href="">integrations</a> on your Segment integrations page and they will start loading on your site automatically!</p>
+<p>Note that you’ll want to remove other native 3rd party integration code that you have on your site since it may cause issues if you turn on those same integrations (e.g. Google Analytics, Mixpanel, Customer.io, etc.) via Segment.</p>
+
+<h3>Step 2: Identify Users</h3>
+<p>The identify method is how you tell Segment who the current user is. It includes a unique User ID and any optional traits you know about them. You can read more about it in the <a href="">identify reference</a>.</p>
+<p><b>Note:</b> You won’t need to call identify for anonymous visitors to your site. We’ll automatically assign them an anonymousId, so just calling page and track will still work just fine without identify.</p>
+<p>Here’s what a basic call to identify might look like:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.identify('f4ca124298', {
+    name: 'Michael Bolton',
+    email: 'mbolton@initech.com'
+  });
+</code></pre>
+<p>That’s identifying Michael by his unique User ID (the one you know him by in your database) and labeling him with name and email traits.</p>
+<p><b>Hold up though!</b> When you actually put that code on your site, you’ll need to replace all those hard-coded strings with details about the currently logged-in user.</p>
+<p>To do that, we recommend using a backend template to inject an identify call straight into the footer of <b>every page</b> of your site where the user is logged in. That way, no matter what page the user first lands on, they will always be identified. You don’t need to call identify if your unique identifier (userId) is not known.</p>
+<p>Depending on your templating language, that would look something like this:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.identify('{{ user.id }}', {
+    name: '{{ user.fullname }}',
+    email: '{{ user.email }}'
+  });
+</code></pre>
+<p>With that call on your page, you’re now successfully identifying every user that visits your site.</p>
+<p><b>Second fun fact:</b> if you only want to use a basic CRM setup, you can call it a day right now. Just switch on Salesforce, Intercom, or any other CRM you’d like to use from our interface and we’ll start sending all of your user data to it!</p>
+<p>Of course, lots of analytics tools record more than just identities… they record the actions each user performs too! If you’re looking for a complete event tracking analytics setup, keep reading…</p>
+<h3>Step 3: Track Actions</h3>
+<p>The track method is how you tell Segment about which actions your users are performing on your site. Every action triggers what we call an “event”, which can also have associated properties. You can read more about track in the <a href="">track reference</a>.</p>
+<p>Here’s what a call to track might look like when a user signs up:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.track('Signed Up', {
+    plan: 'Enterprise'
+  });
+</code></pre>
+<p>That’s just telling us that your user just triggered the <b>Signed Up</b> event and chose your hypothetical 'Enterprise' plan. Properties can be anything you want to record, for example:</p>
+<pre>
+  <code class="language-javascript">
+  analytics.track('Article Bookmarked', {
+    title: 'Snow Fall',
+    subtitle: 'The Avalanche at Tunnel Creek',
+    author: 'John Branch'
+  });
+</code></pre>
+<p>You’ll want to track events that are indicators of success for your site, like <b>Signed Up</b>, <b>Item Purchased</b> or <b>Article Bookmarked</b>.
+</p>
+<p>To get started, we recommend tracking just a few important events. You can always add more later!</p>
+
+<h3 style="">Step 4: You're done!</h3>
+<p>You're done! Now you can follow our next steps to turn on an integration (or three) and check out our reference guide below for more detailed information about our Javascript SDK. </p>
+<!--START NEXT STEPS-->
+<div style="margin-top:60px; padding:20px 20px 20px 20px; border:1px solid black">
+<h2 style="padding-top:0px">Next Steps</h2>
+<p>Congratulations! You've taken the first steps towards taking control of your customer data:</p>
+<ul>
+<li>Created a Segment Account <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Installed Script <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Implemented Track Calls <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Implemented Identify Calls <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Turn on an Integration <i class="fa fa-times" aria-hidden="true" style="color:red"></i></li>
+</ul>
+<p><b>Next up:</b> If you haven't done so yet, <a href="api-integrations.html">turn on some integrations</a> and start sending your data to the tools you use.</p>
+</div>
+<!--END NEXT STEPS-->
+
+<h1 id="javascript-reference">Reference<a class="headerlink" href="#javascript-reference" title="Permalink to this headline">¶</a></h1>
+
+<h2 id="javascript-identify">Identify<a class="headerlink" href="#javascript-identify" title="Permalink to this headline">¶</a></h2>
+<p>The identify method is how you associate your users and their actions to a recognizable userId and traits. For a full guide on how/when to use Identify, see our <a>API reference</a>.</p>
+<p>Note: We recommend against using identify for anonymous visitors to your site. analytics.js automatically retrieves an anonymousId from localStorage or assigns one for new visitors. It will be attached to all page and track events both before and after an identify.</p>
+<p><b>Identify Method Parameters:</b></p>
+<pre>
+  <code class="language-javascript">
+  analytics.identify([userId], [traits], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>userId (optional)</td>
+<td> (String) The database ID for the user. If you don’t know who the user is yet, you can omit the userId and just record traits. You can read more about identities in the identify reference.</td>
+</tr>
+<tr class="row-odd"><td>traits (optional)</td>
+<td>(Object) A dictionary of traits you know about the user, like their email or name. You can read more about traits in the identify reference.</td>
+</tr>
+<tr class="row-even"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a traits object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-odd"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>By default, traits are cached in the browser’s local storage and attached to each subsequent identify call. For example, you might do that when someone signs up for a newsletter but hasn’t yet created an account on your site:</p>
+
+<p><b>Example identify with hard-coded information:</b></p>
+<pre><code class="language-javascript">
+  analytics.identify({
+    nickname: 'Amazing Grace',
+    favoriteCompiler: 'A-0',
+    industry: 'Computer Science'
+  });
+</code></pre>
+<p>and when the user completes signup:</p>
+
+<pre><code class="language-javascript">
+  analytics.identify('12091906-01011992', {
+    name: 'Grace Hopper',
+    email: 'grace@usnavy.gov'
+  });
+</code></pre>
+<p>The traits object for the second call will also include nickname, favoriteCompiler, and industry.</p>
+<p>You may omit both traits and options—-passing the callback as the second argument if you choose:</p>
+<pre><code class="language-javascript">
+  analytics.identify('12091906-01011992', function(){
+    // Do something after the identify request has been sent
+    // Note: site-critical functionality should not depend on your analytics provider
+  });
+</code></pre>
+
+<h2 id="javascript-track">Track<a class="headerlink" href="#javascript-track" title="Permalink to this headline">¶</a></h2>
+<p>The track method lets you record any actions your users perform. You can see a track example in the guide or find details on the track method payload. For a full guide on how/when to use Track, see our <a>API reference</a>.</p>
+<p><b>Track Method Parameters:</b></p>
+
+<pre><code class="language-javascript">
+  analytics.track(event, [properties], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>event</td>
+<td> (String) The name of the event you’re tracking. You can read more about the track method and what event names we recommend.</td>
+</tr>
+<tr class="row-odd"><td>properties (optional)</td>
+<td>(Object) A dictionary of properties for the event. If the event was 'Added to Cart', it might have properties like price and productType.</td>
+</tr>
+<tr class="row-even"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a traits object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-odd"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The only required argument to track in analytics.js is an event name string. You can read more about how we recommend naming your events.</p>
+<p><b>Example track call:</b></p>
+<pre><code class="language-javascript">
+  analytics.track('Article Completed', {
+    title: 'How to Create a Tracking Plan',
+    course: 'Intro to Analytics',
+  });
+</code></pre>
+<p>The only required argument to track in analytics.js is an event name string. Read more about how we recommend naming your events.</p>
+
+
+<h2 id="javascript-page">Page<a class="headerlink" href="#javascript-page" title="Permalink to this headline">¶</a></h2>
+<p>The page method lets you record page views on your website, along with optional extra information about the page being viewed. For a full guide on how/when to use Page, see our <a>API reference</a>.</p>
+<p>Because some integrations require a page call to instantiate their libraries, you must call page at least once per page load! You may call it more than once if needed, (eg, on virtual page changes in a single page app).</p>
+<p>A page call is included by default as the final line in the analytics.js snippet. You may modify this page call within the guidelines below.</p>
+<pre><code class="language-javascript">
+  analytics.page([category], [name], [properties], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>category (optional</td>
+<td> (String) The category of the page. Useful for cases like ecommerce where many pages might live under a single category. Note: if you pass only one string to page it is assumed to be name. You must include a name to send a category.</td>
+</tr>
+<tr class="row-odd"><td>name (optional)</td>
+<td>(Sting) The name of the page.</td>
+</tr>
+<tr class="row-even"><td>properties (optional)</td>
+<td>(Object) A dictionary of properties of the page. Note: url, title, referrer and path are collected automatically! Additionally this defaults to a canonical url, if available, and falls back to document.location.href.</td>
+</tr>
+<tr class="row-odd"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a properties object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-even"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Default Properties</h3>
+<p>A few properties are automatically added to each page call.</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing');
+</code></pre>
+<p>We will translate that to the following without any extra work from you:
+</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing', {
+    title: 'Segment Pricing',
+    url: 'https://segment.com/pricing',
+    path: '/pricing',
+    referrer: 'https://segment.com/warehouses'
+  });
+</code></pre>
+<p>You can override these values. For example:</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing', {
+    title: 'My Overridden Title',
+    path: '/pricing/view'
+  });
+</code></pre>
+<p>Will be translated to:</p>
+<pre><code class="language-javascript">
+  analytics.page('Pricing', {
+    title: 'My Overridden Title',
+    url: 'https://segment.com/pricing',
+    path: '/pricing/view',
+    referrer: 'https://segment.com/warehouses'
+  });
+</code></pre>
+
+<h2 id="javascript-group">Group<a class="headerlink" href="#javascript-group" title="Permalink to this headline">¶</a></h2>
+<p>The group method associates an identified user with a company, organization, project, workspace, team, tribe, platoon, assemblage, cluster, troop, gang, party, society or any other name you came up with for the same concept.
+</p>
+<p>This is useful for tools like Intercom, Preact and Totango, as it ties the user to a group of other users.</p>
+<p>group method definition:</p>
+<pre><code class="language-javascript">
+  analytics.group(groupId, [traits], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>groupId (optional</td>
+<td> (String) The Group ID to associate with the current user..</td>
+</tr>
+<tr class="row-odd"><td>traits (optional)</td>
+<td>(Object) A dictionary of traits for the group. Example traits for a group include address, website and employees.</td>
+</tr>
+<tr class="row-even"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a properties object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-odd"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Example Group Call:</b>
+</p>
+<pre><code class="language-javascript">
+  analytics.group('UNIVAC Working Group', {
+    principles: ['Eckert', 'Mauchly'],
+    site: 'Eckert–Mauchly Computer Corporation',
+    statedGoals: 'Develop the first commercial computer',
+    industry: 'Technology'
+  });
+</code></pre>
+<p>By default, group traits are cached in the browser’s local storage and attached to each subsequent group call, similar to identify method behavior.
+
+Find more details about group including the group payload in our Spec.</p>
+
+<h2 id="javascript-alias">Alias<a class="headerlink" href="#javascript-alias" title="Permalink to this headline">¶</a></h2>
+<p>The alias method combines two previously unassociated user identities. Aliasing is generally handled automatically when you identify a user. However, some tools will require an explicit alias call.
+</p>
+<p>This is an advanced method, but it is required to manage user identities successfully in some of our integrations. Most notably, alias is necessary for properly implementing KISSmetrics and Mixpanel.</p>
+<p>Alias method definition:</p>
+<pre><code class="language-javascript">
+  analytics.alias(userId, [previousId], [options], [callback]);
+</code></pre>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>userId (optional</td>
+<td> (String) The new user ID you want to associate with the user.</td>
+</tr>
+<tr class="row-odd"><td>previousId (optional)</td>
+<td>(String) 	The previous ID that the user was recognized by. This defaults to the currently identified user’s ID.</td>
+</tr>
+<tr class="row-even"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a properties object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-odd"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Example Alias Call:</b>
+</p>
+<pre><code class="language-javascript">
+  analytics.alias('newUserId', 'olduserId');
+</code></pre>
+<p>For more details about alias, including the alias call payload, check out our Spec.</p>
+
+<!--start ready -->
+<h2 id="javascript-ready">Ready<a class="headerlink" href="#javascript-ready" title="Permalink to this headline">¶</a></h2>
+<p>The ready method allows you to pass in a callback that will be called as soon as all of your enabled integrations have loaded and analytics.js has completed initialization.. It’s like jQuery’s ready method, except for integrations.
+
+Code inside this function will only be executed after ready has been emitted.
+
+If you would like to access end-tool library methods that do not match any analytics.js methods, like adding an extra setting to Mixpanel, you can use a ready callback so that you’re guaranteed to have access to the Mixpanel object, like so:</p>
+<pre><code class="language-javascript">
+  analytics.ready(function() {
+    window.mixpanel.set_config({ verbose: true });
+  });
+</code></pre>
+<!--end ready-->
+
+<!--start query string -->
+<h2 id="javascript-query-string">Querystring API<a class="headerlink" href="#javascript-ready" title="Permalink to this headline">¶</a></h2>
+<p>analytics.js can trigger track and identify events based on the URL querystring. This is helpful for tracking email click throughs, social media clicks, and digital advertising as well as for cross-domain tracking.</p>
+<p>Here are the query parameters to use:</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Event Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>userId (optional</td>
+<td> (String) The new user ID you want to associate with the user.</td>
+</tr>
+<tr class="row-odd"><td>previousId (optional)</td>
+<td>(String) 	The previous ID that the user was recognized by. This defaults to the currently identified user’s ID.</td>
+</tr>
+<tr class="row-even"><td>options (optional)</td>
+<td>(Object) A dictionary of options. For example, enable or disable specific integrations for the call. Note: If you do not pass a properties object, pass an empty object (ie, ‘{}’) before options</td>
+</tr>
+<tr class="row-odd"><td>callback (optional)</td>
+<td>(Function) A function that is executed after a short timeout, giving the browser time to make outbound requests first.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--end query string-->
+
+<!-- start user and group -->
+<h2 id="javascript-user-and-group">User & Group Information<a class="headerlink" href="#javascript-user-and-group" title="Permalink to this headline">¶</a></h2>
+<p>Once analytics.js is loaded, executing the user or group method functions will return information about the currently identified user or group.</p>
+<p>Note: To ensure these methods are available, wrap any reference to user() or group() in a ready function block.</p>
+<p>Examples:</p>
+<pre><code class="language-javascript">
+  analytics.ready(function() {
+
+    var user = analytics.user();
+    var id = user.id();
+    var traits = user.traits();
+
+  });
+</code></pre>
+<pre><code class="language-javascript">
+  analytics.ready(function() {
+
+    var group = analytics.group();
+    var id = group.id();
+    var traits = group.traits();
+
+  });
+</code></pre>
+
+<!-- end user and group-->
+
+<!--Start Clearing Traits-->
+<h2 id="javascript-clearing-traits">Clearing Traits<a class="headerlink" href="#javascript-clearing-traits" title="Permalink to this headline">¶</a></h2>
+<p>Passing an empty object to the traits object will clear all cached traits for a User or Group. Remember, traits are cached by default by identify and group methods You can clear the traits object for the user or group by passing traits an empty object:</p>
+<pre><code class="language-javascript">
+  analytics.user().traits({});
+  analytics.group().traits({});
+</code></pre>
+
+<!-- End Clearing Traits-->
+
+<!--Start reset logout-->
+<h2 id="javascript-reset-logout">Reset / Logout<a class="headerlink" href="#javascript-reset-logout" title="Permalink to this headline">¶</a></h2>
+<p>Calling reset will reset the id, including anonymousId, and clear traits for the currently identified user and group.</p>
+<pre><code class="language-javascript">
+  analytics.reset();
+</code></pre>
+<p>Note: The reset method only clears the cookies/localStorage set by Segment, not the those of integrated end-tools, as their native libraries might set their own cookies to manage user tracking, sessions, and manage state. To completely clear out the user session, check the documentation provided by those tools.</p>
+<!--end reset logout-->
+
+<!--start anonymous-id-->
+<h2 id="javascript-anonymous-id">Anonymous ID<a class="headerlink" href="#javascript-anonymous-id" title="Permalink to this headline">¶</a></h2>
+<p>analytics.js generates a UUID and sets this as anonymousId for all new visitors to your site.</p>
+<p>Example</p>
+<pre><code class="language-javascript">
+  ajs_anonymous_id=%2239ee7ea5-b6d8-4174-b612-04e1ef3fa952
+</code></pre>
+
+<p>Retrieve the value of the current user anonymousId:</p>
+<pre><code class="language-javascript">
+  analytics.user().anonymousId();
+</code></pre>
+<p>Override the assigned anonymousId for the current user:</p>
+<pre><code class="language-javascript">
+  analytics.user().anonymousId('ABC-123-XYZ');
+</code></pre>
+<!--end anonymous-id-->
+
+<!--start debug-->
+<h2 id="javascript-debug">Debug<a class="headerlink" href="#javascript-debug" title="Permalink to this headline">¶</a></h2>
+<p>Calling the debug method will turn on debug mode, logging helpful messages to the console.</p>
+<p>Enable:</p>
+<pre><code class="language-javascript">
+  analytics.debug();
+</code></pre>
+
+<p>Disable:</p>
+<pre><code class="language-javascript">
+  analytics.debug(false);
+</code></pre>
+<p>Override the assigned anonymousId for the current user:</p>
+<pre><code class="language-javascript">
+  analytics.user().anonymousId('ABC-123-XYZ');
+</code></pre>
+<!--end debug-->
+
+<!--start emitter-->
+<h2 id="javascript-emitter">Emitter<a class="headerlink" href="#javascript-emitter" title="Permalink to this headline">¶</a></h2>
+<p>The global analytics object emits events whenever you call alias, group, identify, track or page. Using the on method You can set listeners for these events and run your own custom code. Useful for sending data to a service for which Segment does not have an integration.</p>
+<p>Emitter Definition:</p>
+<pre><code class="language-javascript">
+  analytics.on(method, callback);
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-javascript">
+  analytics.on('track', function(event, properties, options) {
+
+    bigdataTool.push(['recordEvent', event]);
+
+  });
+</code></pre>
+
+<!--end emitter-->
+
+<!--start trackLink-->
+<h2 id="javascript-track-link">Track Link<a class="headerlink" href="#javascript-track-link" title="Permalink to this headline">¶</a></h2>
+<p>trackLink is a helper method that attaches the track call as a handler to a link. With trackLink a small timeout (300 ms) is inserted to give the track call more time. This is useful when a page would redirect before the track method could complete all requests.</p>
+<p>TrackLink Definition:</p>
+<pre><code class="language-javascript">
+  analytics.trackLink(element, event, [properties])
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-javascript">
+  var link = document.getElementById('free-trial-link');
+
+  analytics.trackLink(link, 'Clicked Free-Trial Link', {
+    plan: 'Enterprise'
+  });
+</code></pre>
+
+<!--end trackLink-->
+
+<!--start trackLink-->
+<h2 id="javascript-extending-timeout">Extending Timeout<a class="headerlink" href="#javascript-extending-timeout" title="Permalink to this headline">¶</a></h2>
+<p>The timeout method will set the length (in milliseconds) of the callbacks and helper functions:</p>
+<p>Example:</p>
+<pre><code class="language-javascript">
+  analytics.timeout(500);
+</code></pre>
+<p>Set the timeout to 500ms. This is helpful if you have multiple scripts that need to fire in your callback or trackLink, trackForm helper function. We recommend extending to 500ms if you’re triggering ad network conversion pixels since those are often a bit slower to load.</p>
+
+<!--end trackLink-->
+
+<h2 id="javascript-selecting-integrations">Selecting Integrations<a class="headerlink" href="#javascript-selecting-integrations" title="Permalink to this headline">¶</a></h2>
+<p>An integrations object may be passed in the options of alias, group, identify, page and track methods, allowing selective integration filtering. By default all integrations are enabled.</p>
+<p>An example showing how to send data only to Intercom and Google Analytics:
+</p>
+<pre><code class="language-javascript">
+  analytics.identify('025pikachu025', {
+    email: 'peekAtMe@email.poke',
+    name: 'Pikachu',
+    type: 'electric'
+  }, {
+    integrations: {
+      'All': false,
+      'Intercom': true,
+      'Google Analytics': true
+    }
+  });
+</code></pre>
+<p>'All': false flags that no integration should receive data. Integration flags are case sensitive and match the integration’s name in the docs (i.e. “AdLearn Open Platform”, “awe.sm”, “MailChimp”, etc.).</p>
+<p>Note: Available at the business plan level, filtering track calls can be done right from the Segment UI on your source schema page. We recommend using the UI if possible since it’s a much simpler way of managing your filters and can be updated with no code changes on your side.</p>
+<h2>FAQ</h2>
+<p><b>How do I know if Analytics.js is Loaded?</b></p>
+<p><b>Can I load two instances of Analytics.js?</b></p>
+<p><b>Why aren't events appearing in the debugger?</b></p>
+<p><b>How do I know if Analytics.js is working?</b></p>
+<p><b>Why am I missing events in my end-tool?</b></p>
+<p><b>Is there a size limit on API requests?</b></p>
+<p><b>Why isn't analytics.ready() firing?</b></p>
+</div>
+<!-- END ANALYTICS.JS-->
+
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+
+<!-- LOAD PRISM JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+</html>

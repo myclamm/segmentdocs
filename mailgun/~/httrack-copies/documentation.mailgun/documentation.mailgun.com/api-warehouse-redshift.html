@@ -1,0 +1,579 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Reference &#8212; Mailgun API  documentation</title>
+    
+    <link rel="stylesheet" href="_static/adctheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <!--FontAwesome-->
+    <script src="https://use.fontawesome.com/e1c1bce368.js"></script>
+
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
+    <link rel="next" title="Introduction" href="api-intro.html" />
+    <link rel="prev" title="Libraries" href="libraries.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+    
+    <!-- CUSTOM CSS -->
+    <style type="text/css">
+
+    header {
+      background-image: none !important;
+      position:fixed
+    }
+
+    .header-nav a {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #49B882;
+        display: block;
+        float: left;
+        font-family: 'Titillium Web', Lato, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif !important;
+        font-weight: 100 !important;
+        font-size: 14px;
+        line-height: 50px;
+        padding: 10px 10px;
+        text-decoration: none;
+        text-transform: none;
+    }
+    .header-nav {
+        float: left;
+    }
+
+    .segment-logo {
+      float: left;
+      background: url("https://cdn.brandisty.com/img?id=57852bda6b49441340000023&format=png&w=600&h=557");
+      background-size: 50px 50px;
+      background-repeat: no-repeat;
+      display: block;
+      margin-right:20px;
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin-top: 10px;
+    }
+    .documentation .subnav {
+      background-image: none;
+      background-color: #00386c;
+      display:none;
+    }
+    .documentation .subnav li.active a {
+      background-image: none;
+      background-color: #49b882;
+    }
+    body {
+      font-family:none;
+    }
+
+    .documentation .main.main-with-subnav .sphinxsidebarwrapper {
+    	top: 80px;
+    }
+/*    .documentation .document .section h2 {
+    padding-top: 80px;
+}*/
+
+.documentation .document .section h1 {
+    padding-top: 80px;
+}
+    .documentation .document .section .section {
+    margin-top: 160px;
+}
+.documentation .sphinxsidebarwrapper {
+    margin: 0;
+    padding: 60px 0;
+}
+
+.documentation .main.main-with-subnav .sphinxsidebarwrapper {
+     top: 40px; 
+}
+
+.toctree-l4 {
+  padding-left: 20px;
+  font-weight: normal;
+}
+
+.documentation .document .section h2 {
+    padding-top: 80px;
+}
+    </style>
+    <!-- CUSTOM CSS -->
+
+<!-- i2a tracking code-->
+<script type="text/javascript"
+  src="_static/i2a.js">
+</script>
+
+<!-- GA pageLoadVars -->
+<script type="text/javascript">
+    var pageLoadVars = {
+      'visitor_type' : 'Customer',
+      'customer_type' : "",
+      'coupon_id' : "",
+      'signup_state' : 'Inactive',
+      'bamGAVPV' : "",
+      'customer_action': []
+    }
+</script>
+
+
+  </head>
+  <body role="document">
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WN2J6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script type="text/javascript" src="_static/google_tag_manager.js"></script>
+
+<!-- SVG Icons -->
+<svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="517" height="32" viewBox="0 0 517 32">
+<defs>
+<g id="icon-search">
+  <path class="path1" d="M0 14.857q0-2.554 0.991-4.884t2.679-4.018 4.018-2.679 4.884-0.991 4.884 0.991 4.018 2.679 2.679 4.018 0.991 4.884q0 3.929-2.214 7.125l6.125 6.125q0.661 0.661 0.661 1.607 0 0.929-0.679 1.607t-1.607 0.679q-0.964 0-1.607-0.679l-6.125-6.107q-3.196 2.214-7.125 2.214-2.554 0-4.884-0.991t-4.018-2.679-2.679-4.018-0.991-4.884zM4.571 14.857q0 3.304 2.348 5.652t5.652 2.348 5.652-2.348 2.348-5.652-2.348-5.652-5.652-2.348-5.652 2.348-2.348 5.652z"></path>
+</g>
+<g id="icon-menu">
+  <path class="path1" d="M0 26.286v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 17.143v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804zM0 8v-2.286q0-0.464 0.339-0.804t0.804-0.339h25.143q0.464 0 0.804 0.339t0.339 0.804v2.286q0 0.464-0.339 0.804t-0.804 0.339h-25.143q-0.464 0-0.804-0.339t-0.339-0.804z"></path>
+</g>
+<g id="icon-dropdown">
+  <path d="M124.452,10.121 L118.343,4.01 C116.225,2.001 113.753,0.996 110.93,0.996 C108.05,0.996 105.606,2.001 103.596,4.01 L64,43.607 L24.404,4.011 C22.394,2.002 19.95,0.997 17.071,0.997 C14.247,0.997 11.775,2.002 9.657,4.011 L3.628,10.122 C1.564,12.185 0.532,14.657 0.532,17.536 C0.532,20.469 1.565,22.913 3.628,24.868 L56.667,77.907 C58.623,79.971 61.066,81.003 64,81.003 C66.879,81.003 69.35,79.971 71.413,77.907 L124.452,24.868 C126.462,22.858 127.468,20.414 127.468,17.536 C127.468,14.711 126.462,12.24 124.452,10.121 L124.452,10.121 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+</g>
+</defs></svg>
+
+<header>
+  <div class="container">
+      <a href="../../../../../segment.com/index.html"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
+      <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
+          <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
+          <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
+          <div class="dropdown">
+                    <a href="api-events.html" >API Overview 
+</a>
+                    <nav class="dropdown-menu">
+                        <a href="http://www.mailgun.com/sending-email">Sending email</a>
+                        <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
+                        <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
+                        <a href="http://www.mailgun.com/email-validation">Email validation</a>
+                        <a href="http://www.mailgun.com/deliverability">Deliverability</a>
+                    </nav>
+                </div>
+
+
+                <div class="dropdown">
+                    <a href="api-libraries.html" class="resources-link">Libraries</a>
+                    <!-- <nav class="dropdown-menu">
+                        <a href="index.html">Docs</a>
+                        <a href="http://resources.mailgun.com/index.html">Guides</a>
+                        <a href="http://blog.mailgun.com/">Blog</a>
+                    </nav> -->
+                </div>
+
+
+                <a href="api-integrations.html" class="managed-link"><b style="font-weight:100">Integration Catalog</b></a>
+                <a href="api-cloud-apps.html" class="contact-link"><b style="font-weight:100">Cloud-App Sources Catalog</b></a>
+                <a href="api-warehouse.html" class="contact-link"><b style="font-weight:100"><b>Connect Warehouse</b></b></a>
+
+      </nav>
+      <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Code sample preference:
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_bash" >curl</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_rb" >Ruby</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_py" >Python</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_php" >PHP</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_java" >Java</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_csharp" >C#</a>
+        </li>
+        <li class="lang">
+          <a href="#" id="lang_go" >Go</a>
+        </li>
+        <div id="searchbox" style="display: none" class="search-box">
+          
+          <form>
+            <!-- <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus /> -->
+          <!--<form class="search" action="search.html" method="get">-->
+            <!--<div class="search-wrapper">
+              <span class="search-left"></span>
+              <input class="prettysearch" type="text" name="q" size="18"/>
+              <span class="search-right">&nbsp;</span>
+            </div>
+            <input type="submit" value="Search" class="searchbutton" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />-->
+          </form>
+        </div>
+        <script type="text/javascript">$('#searchbox').show(0);</script>
+
+        <!--
+        <li id="page_buttons">
+          <div class="headerButton"><a href="api-intro.html" title="Introduction" accesskey="N">next</a></div>
+          <div class="headerButton"><a href="libraries.html" title="Libraries" accesskey="P">previous</a></div>
+        </li>
+        -->
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+  <section class="main">
+
+    <div class="container">
+
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <!-- <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul> -->
+              <ul class="current">
+<!-- <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li> -->
+<!-- <li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li> -->
+<li class="toctree-l1 current"><a class="reference internal" href="api-warehouse.html">Warehouses</a><ul class="current">
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li> -->
+
+<li class="toctree-l2 "><a class=" reference internal" href="api-warehouse.html#introduction"><b>Introduction</b></a>
+
+<ul class="current">
+<!--   <li class="toctree-l3"><a class="reference internal" href="api-warehouse.html#gettingstarted">Getting Started</a></li> -->
+<li class="toctree-l3"><a class="reference internal" href="api-warehouse.html#schema">Schema</a></li>
+  <li class="toctree-l3"><a class="reference internal" href="api-warehouse.html#migration">Migration</a></li>
+  <li class="toctree-l3"><a class="reference internal" href="api-warehouse.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+  <li class="toctree-l2 current "><a class=" current reference internal" href="#redshift"><b>Redshift</b></a></li>
+  <ul>
+  	<li class="toctree-l4"><a class="reference internal" href="#redshift-gettingstarted">Getting Started</a></li>
+  	<li class="toctree-l4"><a class="reference internal" href="#redshift-reference">Reference</a></li>
+  	<ul>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-syncingdata">Syncing Data</a></li>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-syncschedule">Sync Schedule</a></li>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-distributionkey">Distribution Key</a></li>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-reservedwords">Reserved Words</a></li>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-queryspeed">Query Speed</a></li>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-security">Security</a></li>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-cpu">CPU</a></li>
+  		<li class="toctree-l5" style="padding-left:40px"><a class="reference internal" href="#redshift-faq">FAQ</a></li>
+  		
+  	</ul>
+  </ul>
+<li class="toctree-l3"><a class="reference internal" href="api-warehouse.html#postgres"><b>Postgres</b></a></li>
+
+  <li class="toctree-l3"><a class="reference internal" href="api-warehouse.html#bigquery"><b>BigQuery</b></a></li>
+
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="">FAQ</a></li>
+
+</ul>
+
+
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+
+<!--START REDSHIFT-->
+<div class="section" id="redshift">
+<h1>Redshift<a class="headerlink" href="#redshift" title="Permalink to this headline">¶</a></h1>
+<p>Creating a Segment warehouse lets you run SQL queries against your raw analytics data. You can use this to run hand-built queries, connect business intelligence tools, or refine data models that you can export to power recommendation engines and machine learning!</p>
+ 
+<h2 id="redshift-gettingstarted" style="padding-top:80px">Getting Started<a class="headerlink" href="#redshift-gettingstarted" title="Permalink to this headline">¶</a></h2>
+<p style="padding:20px; border:1px solid black"><b>*This guide assumes*</b> you have already <a href="api-libraries.html">installed Segment on your app/website</a>.
+<p>This guide will explain how to connect a Redshift cluster to your Segment account. Once you've connected your Redshift cluster, Segment will be able to save your event, and <a href="">cloud app</a>, data in a structured format so you can run SQL queries against it.</p>
+<p>The Segment warehouse connector runs a periodic ETL (Extract - Transform - Load) process to pull raw event data stored in S3 and programatically inserts the structured event data into your Redshift cluster.</p>
+
+<h3>Step 1: Pick the best instance for your needs</h3>
+<p>While the number of events (database records) are important, the storage capacity utilization of your cluster depends primarily on the number of unique tables and columns created in the cluster. Keep in mind that each unique .track() event creates a new table, and each property sent creates a new column in that table. For reason, we highly recommend starting with a detailed tracking plan before implementing Segment libraries to ensure that only necessary events are being passed to Segment in a consistent way.</p>
+<p>There are two kinds of Redshift clusters: <b>Dense Compute</b> and <b>Dense Storage</b></p>
+<p><b>Dense Compute</b> clusters are designed to maximize query speed and performance at the expense of storage capacity. This is done by using fast CPUs, large amounts of RAM and solid-state storage. While there are no hard and fast rules for sizing a cluster, we recommend that customers with fewer than 20 million monthly events start with a single DC1 node cluster and add nodes as needed. A single node cluster includes 200GB, with a max size of 2.56TB.</p>
+<p><b>Dense Storage</b> clusters are designed to maximize the amount of storage capacity for customers who have 100s of millions of events and prefer to save money on Redshift hosting costs. This is done by using slower CPUs, less RAM, and disk-based storage. A single DS2 node cluster includes 2TB of space, with a max size of 16TB.</p>
+
+<h3>Step 2: Provision a new Redshift Cluster</h3>
+<p>You can skip this step if you already have a Redshift cluster</p>
+<p>1. Open the Redshift Console:</p>
+<img src="https://dchtm6r471mui.cloudfront.net/s_9E0FAF328A50D6414F8EE93032E0A4832F38AF0538D044654A30BAD2A803B585_1442512145764_Screen+Shot+2015-09-17+at+10.25.47+AM.png">
+<p>2. Click on “Launch Cluster”:</p>
+<img src="https://dchtm6r471mui.cloudfront.net/s_9E0FAF328A50D6414F8EE93032E0A4832F38AF0538D044654A30BAD2A803B585_1442512172034_Screen+Shot+2015-09-17+at+10.26.03+AM.png">
+<p>3. Fill out the cluster details (make sure to select a secure password!):</p>
+<img src="https://cloudup.com/cVcF5ZtC51a+">
+<p>4. Choose your cluster size:</p>
+<img src="https://dchtm6r471mui.cloudfront.net/s_44CD3F5DCB47AEA207AE953843562909E61C60E02387C9750A3C430F1134FEFF_1442616281635_undefined">
+<p>5. Setup your cluster Security Group or VPC and proceed to review (see below for instructions on settings up a VPC group)</p>
+
+<h3>Step 3: Permissioning Segment to Redshift</h3>
+<p>Now that you’ve provisioned your Redshift cluster, you’ll need to configure your Redshift cluster to allow Segment to write into it. Redshift clusters can either be in a EC2 Classic subnet or VPC subnet.</p>
+<p><b>Note:</b> If your cluster has a field called Cluster Security Groups, proceed to <a href="">EC2 Classic</a></p>
+<p><b>Note:</b> Or if your cluster has a field called VPC Security Groups, proceed to <a href="">EC2 VPC</a></p>
+
+<h4>EC2-Classic</h4>
+<ol>
+<li>Navigate to your Redshift Cluster settings: Redshift Dashboard > Clusters > Select Your Cluster</li>
+<li>Click on the Cluster Security Groups</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_permissioning4.png">
+<li>Open the Cluster Security Group</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_permissioning5.png">
+<li>Click on “Add Connection Type"</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_permissioning6.png">
+<li>Choose Connection Type CIDR/IP and authorize Segment to write into your Redshift Port using 52.25.130.38/32</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_permissioning7.png">
+</ol>
+
+<h4>EC2-VPC</h4>
+<ol>
+<li>Navigate to your Redshift Dashboard > Clusters > Select Your Cluster</li>
+<li>Click on the VPC Security Groups</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_permissioning8.png">
+<li>Select the “Inbound” tab and then “Edit”</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_permissioning9.png">
+<li>Allow Segment to write into your Redshift Port using 52.25.130.38/32</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_permissioning10.png">
+<li>Navigate back to your Redshift Cluster Settings: Redshift Dashboard > Clusters > Select Your Cluster</li>
+<li>Select the “Cluster” button and then “Modify”</li>
+<img src="https://segment.com/docs/warehouses/images/redshift_cluster_modify.png">
+<li>Make sure the “Publicly Accessible” option is set to “Yes”</li>
+<img src="http://docs.aws.amazon.com/redshift/latest/mgmt/images/rs-mgmt-clusters-modify.png">
+</ol>
+
+<h3>Step 3: You're Done!</h3>
+<p>You're done! Now you can follow our next steps to connect a data warehouse, or check out our reference guide below for more detailed information about using our Mixpanel integration.</p>
+
+<!--START NEXT STEPS-->
+<div style="margin-top:60px; padding:20px 20px 20px 20px; border:1px solid black">
+<h2 style="padding-top:0px">Next Steps</h2>
+<p>Congratulations! You've successfully connected your Redshift warehouse to Segment. Next up, start pulling data from your favorite end-tools, by turning on a cloud app source:</p>
+<ul>
+<li>Created a Segment Account <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Installed Script <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Implemented Tracking Calls <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Turn on an Integration <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Connected a Data Warehouse <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
+<li>Connected a Cloud App Source <i class="fa fa-times" aria-hidden="true" style="color:red"></i></li>
+</ul>
+<p><b>Next up:</b> <a href="api-cloud-apps.html">Connect a cloud app source</a> to start collecting data from your favorite end-tools.</p>
+</div>
+<!--END NEXT STEPS-->
+
+<h1 id="redshift-reference" style="padding-top:80px">Reference<a class="headerlink" href="#redshift-reference" title="Permalink to this headline">¶</a></h1>
+
+<h2 id="redshift-syncingdata">Syncing Data<a class="headerlink" href="#redshift-syncingdata" title="Permalink to this headline">¶</a></h2>
+<p>It’s often the case that our customers want to combine 1st party transactional and operational data their Segment data to generate a 360 degree view of the customer. The challenge is that those data sets are often stored in separate data warehouses.</p>
+<p>If you’re interested in importing data into a Redshift cluster, it’s important that you follow these guidelines.</p>
+<p>Additionally, there a number of tools which provide syncing services between databases (mySQL, SQL Server, Oracle, PostgreSQL). Here is a list of some we’ve seen used by customers.</p>
+<ul>
+<li>SymmetricDS (Open Source)</li>
+<li>FlyData</li>
+<li>Attunity</li>
+<li>Informatica</li>
+</ul>
+
+
+
+<h2 id="redshift-syncschedule">Sync Schedule<a class="headerlink" href="#redshift-syncschedule" title="Permalink to this headline">¶</a></h2>
+<p>Your data will be available in Warehouses within 24-48 hours after your first sync. Your warehouse will then be on a sync schedule based on your Warehouse Plan.</p>
+<p>Segment allows you to schedule the time and frequency of loading data into your data warehouse.</p>
+<p>You can schedule your warehouse syncs by going to Warehouse > Settings > Sync Schedule. You can schedule up to the number of syncs allowed on your billing plan.</p>
+<img src="https://segment.com/docs/warehouses/images/syncsched.png">
+
+<h2 id="redshift-distributionkey">Distribution Key<a class="headerlink" href="#redshift-distributionkey" title="Permalink to this headline">¶</a></h2>
+<p>The id column is the common distribution key used across all tables. When you execute a query, the Redshift query optimizer redistributes the rows to the compute nodes as needed to perform any joins and aggregations. The goal in selecting a table distribution style is to minimize the impact of the redistribution step by locating the data where it needs to be before the query is executed.</p>
+
+
+<h2 id="redshift-reservedwords">Reserved Words<a class="headerlink" href="#redshift-reservedwords" title="Permalink to this headline">¶</a></h2>
+<p>Redshift limits the use of reserved words in schema, table, and column names. Additionally, you should not name traits or properties that conflict with top level Segment fields (e.g. userId, receivedAt, messageId, etc.). These traits and properties that conflict with Redshift or Segment fields will not be ETL-ed into your warehouse.</p>
+<p>Additionally, Redshift limits the use of integers at the start of a schema or table name. We automatically prepend a _ to any schema, table or column name that starts with an integer. So a source named ‘3doctors’ will be loaded into a Redshift schema named _3doctors.</p>
+
+<h2 id="redshift-queryspeed">Query Speed<a class="headerlink" href="#redshift-queryspeed" title="Permalink to this headline">¶</a></h2>
+<p>The speed of your queries depends on the capabilities of the hardware you have chosen as well as the size of the dataset. The amount of data utilization in the cluster will also impact query speed. For Redshift clusters if you’re above 75% utilization, you will likely experience degradation in query speed. Here’s a guide on how to improve your query speeds.</p>
+
+<h2 id="redshift-security">Security<a class="headerlink" href="#redshift-security" title="Permalink to this headline">¶</a></h2>
+<p>VPCs keep servers inaccessible to traffic from the internet. With VPC, you’re able to designate specific web servers access to your servers. In this case, you will be whitelisting the Segment IP to write to your data warehouse.</p>
+
+<h2 id="redshift-cpu">CPU<a class="headerlink" href="#redshift-cpu" title="Permalink to this headline">¶</a></h2>
+<p>In an usual workload we have seen Redshift using around 20-40% of CPU, we take advantage of the COPY command to ensure to make full use of your cluster to load your data as fast as we can.</p>
+
+<h2 id="redshift-faq">FAQ<a class="headerlink" href="#redshift-faq" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><a href="">How do I decide between Redshift, Postgres, and BigQuery?</a></li>
+<li><a href="">How do I give users permission?</a></li>
+<li><a href="">What are the limitations of Redshift clusters and our warehouses connector?</a></li>
+<li><a href="">How do I create a user, grant usage on a schema and then grant the privileges that the user will need to interact with that schema?</a></li>
+<li><a href="">Which IPs should I whitelist?</a></li>
+<li><a href="">Will Segment sync my historical data?</a></li>
+<li><a href="">Can I load in my own data into my warehouse?</a></li>
+<li><a href="">Can I control what data is sent to my warehouse?</a></li>
+<li><a href="">How fresh is the data in my warehouse?</a></li>
+
+
+
+</ul>
+</div>
+<!--END REDSHIFT-->
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body --> 
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+
+<script type="text/javascript">
+  var Swiftype = window.Swiftype || {};
+  (function() {
+    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
+    Swiftype.inputElement = '#st-search-input';
+    Swiftype.resultContainingElement = '#st-results-container';
+    Swiftype.attachElement = '#st-search-input';
+    Swiftype.renderStyle = "overlay";
+
+
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = "http://swiftype.com/embed.js";
+    var entry = document.getElementsByTagName('script')[0];
+    entry.parentNode.insertBefore(script, entry);
+  }());
+</script>
+
+<!-- Ace editor for editable code -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+  (function() {
+    var timer;
+    function waitForSwiftype() {
+      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
+        clearInterval(timer);
+        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
+          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
+          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
+          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
+        };
+      }
+    }
+    timer = setInterval(waitForSwiftype, 500);
+  })();
+
+   // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   // $('#clear-search').click(function(){
+   //  $(this).parent().find('input').val('');
+   //  $(this).parent().find('input').focus();
+   // });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+
+
+
+  // highlight nav on load
+  $(document).ready(function(){
+      $('.docs-sidebar li').removeClass('active');
+      $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+  });
+
+
+
+
+  // Make sample code snippets editable in the browser
+  $('.highlight pre').click(function(){
+    ace_activate(this);
+  });
+
+  // Ace editor activation
+  function ace_activate(container) {
+    var editor = ace.edit(container);
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sh");
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setBehavioursEnabled(false);
+    $(container).height(editor.getSession().getScreenLength() * 20);
+  }
+
+</script>
+
+<!-- User information insertion code-->
+<script type="text/javascript">
+  var cp_hostname = "";
+</script>
+  
+<script type="text/javascript"
+  src="_static/insert-api-key.js">
+</script>
+  </body>
+
+<!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
+</html>

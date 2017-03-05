@@ -29,6 +29,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <!--SEGMENT FONTS-->
+    <link rel="stylesheet" type="text/css" href="https://static.segment.com/fonts/index.css">
+    
     <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="Mailgun API  documentation" href="index-2.html" />
     <link rel="next" title="Introduction" href="api-intro.html" />
@@ -46,9 +49,11 @@
 
     header {
       background-image: none !important;
-      position:fixed;
+      position:fixed
     }
-
+    .documentation .document h3 {
+      padding-top: 0px;
+    }
     .header-nav a {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -83,8 +88,7 @@
     .documentation .subnav {
       background-image: none;
       background-color: #00386c;
-      position:fixed;
-      top:70px;
+      display:none;
     }
     .documentation .subnav li.active a {
       background-image: none;
@@ -93,33 +97,37 @@
     body {
       font-family:none;
     }
-       .documentation .main.main-with-subnav .sphinxsidebarwrapper {
+
+    .documentation .main.main-with-subnav .sphinxsidebarwrapper {
       top: 80px;
     }
     .documentation .document .section h2 {
-    padding-top: 120px;
+    padding-top: 80px;
 }
 
 .documentation .document .section h1 {
-    padding-top: 120px;
+    padding-top: 80px;
 }
     .documentation .document .section .section {
     margin-top: 160px;
 }
 .documentation .sphinxsidebarwrapper {
     margin: 0;
-    padding: 80px 0;
-    color:#00386C;
+    padding: 60px 0;
 }
 
 .documentation .main.main-with-subnav .sphinxsidebarwrapper {
-     top: 45px; 
+     top: 40px; 
 }
-.documentation .subnav.subnav-fixed {
-    position: fixed;
-    top: 70px;
-    width: 100%;
-    z-index: 99;
+
+code, .pre {
+  border:none;
+}
+
+.documentation .document h2 {
+    font-size: 28px;
+    font-weight: 600;
+    padding-top:80px;
 }
 
     </style>
@@ -172,15 +180,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
           <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
           <div class="dropdown">
-                    <a href="http://www.mailgun.com/sending-email" class="js-dropdown-toggle"><b >API Overview 
+                    <a href="" class=""><b >API Overview 
 </b></a>
-                    <nav class="dropdown-menu">
+<!--                     <nav class="dropdown-menu">
                         <a href="http://www.mailgun.com/sending-email">Sending email</a>
                         <a href="http://www.mailgun.com/inbound-routing">Inbound routing</a>
                         <a href="http://www.mailgun.com/analytics">Tracking &amp; analytics</a>
                         <a href="http://www.mailgun.com/email-validation">Email validation</a>
                         <a href="http://www.mailgun.com/deliverability">Deliverability</a>
-                    </nav>
+                    </nav> -->
                 </div>
                 <div class="dropdown">
                     <a href="api-libraries.html" ><b style="font-weight:100">Libraries 
@@ -201,61 +209,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <div id="body">
-  <section class="subnav">
-    <div class="container">
-      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
-      <ul id="headerButtons" class="nav nav-pills">
-        <li class="lang-label">
-          Code sample preference:
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_bash" >curl</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_rb" >Ruby</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_py" >Python</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_php" >PHP</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_java" >Java</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_csharp" >C#</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_go" >Go</a>
-        </li>
-        <div id="searchbox" style="display: none" class="search-box">
-          
-          <form>
-            <!-- <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
-            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus /> -->
-          <!--<form class="search" action="search.html" method="get">-->
-            <!--<div class="search-wrapper">
-              <span class="search-left"></span>
-              <input class="prettysearch" type="text" name="q" size="18"/>
-              <span class="search-right">&nbsp;</span>
-            </div>
-            <input type="submit" value="Search" class="searchbutton" />
-            <input type="hidden" name="check_keywords" value="yes" />
-            <input type="hidden" name="area" value="default" />-->
-          </form>
-        </div>
-        <script type="text/javascript">$('#searchbox').show(0);</script>
-
-        <!--
-        <li id="page_buttons">
-          <div class="headerButton"><a href="api-intro.html" title="Introduction" accesskey="N">next</a></div>
-          <div class="headerButton"><a href="libraries.html" title="Libraries" accesskey="P">previous</a></div>
-        </li>
-        -->
-      </ul>
-    </div>
-  </section>
+  
 
   <section class="main">
 

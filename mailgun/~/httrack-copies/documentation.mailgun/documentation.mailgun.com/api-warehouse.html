@@ -111,8 +111,14 @@
     padding: 60px 0;
 }
 
+
+
 .documentation .main.main-with-subnav .sphinxsidebarwrapper {
      top: 40px; 
+}
+
+.documentation .document .section h2 {
+    padding-top: 80px;
 }
     </style>
     <!-- CUSTOM CSS -->
@@ -280,7 +286,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
-  <li class="toctree-l3"><a class="reference internal" href="#redshift"><b>Redshift</b></a></li>
+  <li class="toctree-l3"><a class="reference internal" href="api-warehouse-redshift.html#redshift"><b>Redshift</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#postgres"><b>Postgres</b></a></li>
 
   <li class="toctree-l3"><a class="reference internal" href="#bigquery"><b>BigQuery</b></a></li>
@@ -311,9 +317,9 @@ Warehouses is available for all customers. Getting your customer data into your 
 </p>
 <h3 style="padding-top:0px">Get started by connecting one of our warehouses:</h3>
 <ul>
-<li><b>Getting Started:</b> <a href="quickstart.html#redshift">Connecting to Redshift</a></li> 
-<li><b>Getting Started:</b> <a href="quickstart.html#postgres">Connecting to Postgres</a></li> 
-<li><b>Getting Started:</b> <a href="quickstart.html#bigquery">Connecting to BigQuery</a></li> 
+<li><b>Getting Started:</b> <a href="api-warehouse-redshift.html#redshift">Connecting to Redshift</a></li> 
+<li><b>Getting Started:</b> <a href="">Connecting to Postgres</a></li> 
+<li><b>Getting Started:</b> <a href="">Connecting to BigQuery</a></li> 
 </ul>
 <h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h2>
 <p>When you provision a Redshift cluster, you’re renting a server from Amazon Web Services. Your cluster is comprised of nodes, each with dedicated memory, CPU, and disk storage. These nodes handle data storage, query execution, and - if your cluster contains multiple nodes - a leader node will handle coordination across the cluster.</p>

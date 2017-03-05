@@ -39,9 +39,11 @@
 
     header {
       background-image: none !important;
-      position:fixed;
+      position:fixed
     }
-
+    .documentation .document h3 {
+      padding-top: 0px;
+    }
     .header-nav a {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -76,8 +78,7 @@
     .documentation .subnav {
       background-image: none;
       background-color: #00386c;
-      position:fixed;
-      top:70px;
+      display:none;
     }
     .documentation .subnav li.active a {
       background-image: none;
@@ -86,37 +87,35 @@
     body {
       font-family:none;
     }
-       .documentation .main.main-with-subnav .sphinxsidebarwrapper {
+
+    .documentation .main.main-with-subnav .sphinxsidebarwrapper {
       top: 80px;
     }
     .documentation .document .section h2 {
-    padding-top: 0px;
+    padding-top: 80px;
 }
 
 .documentation .document .section h1 {
-    padding-top: 120px;
+    padding-top: 80px;
 }
     .documentation .document .section .section {
     margin-top: 160px;
 }
 .documentation .sphinxsidebarwrapper {
     margin: 0;
-    padding: 80px 0;
-    color:#00386C;
+    padding: 60px 0;
 }
 
 .documentation .main.main-with-subnav .sphinxsidebarwrapper {
-     top: 45px; 
-}
-.documentation .subnav.subnav-fixed {
-    position: fixed;
-    top: 70px;
-    width: 100%;
-    z-index: 99;
+     top: 40px; 
 }
 
 code, .pre {
   border:none;
+}
+
+.documentation .main.main-with-subnav h1 {
+    padding-top: 80px;
 }
     </style>
     <!-- CUSTOM CSS -->
@@ -199,61 +198,7 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
 </header>
 
 <div id="body">
-  <section class="subnav subnav-fixed">
-    <div class="container">
-      <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
-      <ul style="margin-top:5px" id="headerButtons" class="nav nav-pills">
-        <li class="lang-label">
-          Code sample preference:
-        </li>
-        <li class="lang active">
-          <a href="#" id="lang_bash" class="current">curl</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_rb">Ruby</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_py">Python</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_php">PHP</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_java">Java</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_csharp">C#</a>
-        </li>
-        <li class="lang">
-          <a href="#" id="lang_go">Go</a>
-        </li>
-        <div id="searchbox" class="search-box">
-          
-          <form>
-            <!-- <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
-            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus /> -->
-          <!--<form class="search" action="search.html" method="get">-->
-            <!--<div class="search-wrapper">
-              <span class="search-left"></span>
-              <input class="prettysearch" type="text" name="q" size="18"/>
-              <span class="search-right">&nbsp;</span>
-            </div>
-            <input type="submit" value="Search" class="searchbutton" />
-            <input type="hidden" name="check_keywords" value="yes" />
-            <input type="hidden" name="area" value="default" />-->
-          </form>
-        </div>
-        <script type="text/javascript">$('#searchbox').show(0);</script>
-
-        <!--
-        <li id="page_buttons">
-          <div class="headerButton"><a href="api-intro.html" title="Introduction" accesskey="N">next</a></div>
-          <div class="headerButton"><a href="libraries.html" title="Libraries" accesskey="P">previous</a></div>
-        </li>
-        -->
-      </ul>
-    </div>
-  </section>
+  
 
   <section class="main main-with-subnav">
 
@@ -291,17 +236,8 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
     <li class="toctree-l3"><a class="reference internal" href="#HTTP"><b>Amplitude</b></a></li>
  
 
-
-
-
-  <li class="toctree-l3 active"><a class="reference internal" href="#googleanalytics"><b>Appboy</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#appcues"><b>Appcues</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#intercom"><b>Intercom</b></a></li>
-  <li class="toctree-l3"><a class="reference internal" href="#salesforce"><b>AppsFlyer</b></a></li>
-    <li class="toctree-l3"><a class="reference internal" href="#adobeanalytics"><b>Apptimize</b></a></li>
-
-<li class="toctree-l3"><a class="reference internal" href="#mixpanel"><b>Mixpanel</b></a>
-    <ul>
+<li class="toctree-l3"><a class="reference internal" href="api-integrations-mixpanel.html#mixpanel"><b>Mixpanel</b></a>
+    <!-- <ul>
       <li class="toctree-l4"><a class="reference internal" href="#mixpanel-gettingstarted"><b>Getting Started</b></a></li>
       <li class="toctree-l4"><a class="reference internal" href="#mixpanel-supportedmethods"><b>Supported Methods</b></a></li>
       <li class="toctree-l4"><a class="reference internal" href="#mixpanel-track"><b>Track</b></a></li>
@@ -312,8 +248,17 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
       <li class="toctree-l4"><a class="reference internal" href="#mixpanel-autotrack"><b>Autotrack</b></a></li>
       <li class="toctree-l4"><a class="reference internal" href="#mixpanel-people"><b>People</b></a></li>
       <li class="toctree-l4"><a class="reference internal" href="#mixpanel-faq"><b>FAQ</b></a></li>
-    </ul>
+    </ul> -->
   </li>
+
+
+  <li class="toctree-l3 active"><a class="reference internal" href="#googleanalytics"><b>Appboy</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#appcues"><b>Appcues</b></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intercom"><b>Intercom</b></a></li>
+  <li class="toctree-l3"><a class="reference internal" href="#salesforce"><b>AppsFlyer</b></a></li>
+    <li class="toctree-l3"><a class="reference internal" href="#adobeanalytics"><b>Apptimize</b></a></li>
+
+
   <li class="toctree-l3"><a class="reference internal" href="#redshift"><b>Autopilot HQ</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#postgres"><b>Boomtrain</b></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bigquery"><b>Branch Metrics</b></a></li>
@@ -354,18 +299,28 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
 <p>For detailed information about each integration, select one from the list to learn how our API methods are implemented for that integration, and how you can use it through Segment.</p>
 <p>You’ll use one of our library sources to record customer data from your website, mobile app or servers. We transform and route this data to all the integrations you have enabled. You can also gather data from your 3rd party cloud app sources into one warehouse that stores all of your source data and makes it easily accessible.</p>
 
-<h3 id="gettingstarted" style="padding-top:0px">Client-side vs Server-side<a class="headerlink" href="#gettingstarted" title="Permalink to this headline">¶</a></h3>
+<h3 style="padding-top:0px">Get started with a popular integration:</h3>
+<ul>
+<li><b>Getting Started:</b> <a href="api-integrations-mixpanel.html#mixpanel">Turning on Mixpanel</a></li>
+<li><b>Getting Started:</b> <a href="#googleanalytics">Turning on Google Analytics</a></li>  
+<li><b>Getting Started:</b> <a href="#intercom">Turning on Intercom</a></li> 
+<li><b>Getting Started:</b> <a href="#salesforce">Turning on Salesforce</a></li> 
+<li><b>Getting Started:</b> <a href="#adobeanalytics">Turning on Adobe Analytics</a></li> 
+</ul>
+<div style="margin-bottom:40px"></div>
+
+<h2 id="gettingstarted" style="padding-top:0px">Client-side vs Server-side<a class="headerlink" href="#gettingstarted" title="Permalink to this headline">¶</a></h2>
 <p>For detailed information about each integration, select one from the list to learn how our API methods are implemented for that integration, and how you can use it through Segment.</p>
 <p>You’ll use one of our library sources to record customer data from your website, mobile app or servers. We transform and route this data to all the integrations you have enabled. You can also gather data from your 3rd party cloud app sources into one warehouse that stores all of your source data and makes it easily accessible.</p>
 
 
-<h3 id="retries">Retries<a class="headerlink" href="#retries" title="Permalink to this headline">¶</a></h3>
+<h2 id="retries">Retries<a class="headerlink" href="#retries" title="Permalink to this headline">¶</a></h2>
 <p>The integration endpoint APIs we send data to have fluctuations in availability due to any number of issues ranging from network to code to overload. Typically data sent to these APIs during small outage fluctuations would just be dropped and lost. However, Segment’s internal systems re-enqueue failed messages and retry each datapoint up to five times over 30 minutes. In many cases this substantially improves delivery rates.</p>
 
-<h3 id="replays">Replays<a class="headerlink" href="#replays" title="Permalink to this headline">¶</a></h3>
+<h2 id="replays">Replays<a class="headerlink" href="#replays" title="Permalink to this headline">¶</a></h2>
 <p>Replays allow customers to replay arbitrary historical data from our S3 logs into downstream server-side integrations. If you want to try out a new email or analytics tool, for example, we can replay your historical data for the past 6 months into that tool. This gives you a great testing environment and prevents data lock-in when vendors try to hold data hostage. Replay is available to our Business customers, and you can learn more by contacting us.</p>
 
-<h3 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h3>
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h2>
 <p>You’ll use one of our library sources to record customer data from your website, mobile app or servers. We transform and route this data to all the integrations you have enabled. You can also gather data from your 3rd party cloud app sources into one warehouse that stores all of your source data and makes it easily accessible.</p>
 
 <div style="margin-bottom:500px"></div>
@@ -1190,7 +1145,7 @@ and correspond to delivery to <code class="docutils literal"><span class="pre">j
 </ul>
 
 <span id="mixpanel"></span><h1> Mixpanel<a class="headerlink" href="#mixpanel" title="Permalink to this headline">¶</a></h1>
-<p><b>*This guide assumes*</b> you have already <a href="">installed Segment on your app/website</a>. If you haven't done so already, you must first install Segment tracking using one of our official <a href="">Libraries</a> or using our <a href="">HTTP API</a>.
+<p><b>*This guide assumes*</b> you have already <a href="">installed Segment on your app/website</a>. If you haven't done so already, you must first install Segment tracking using one of our official <a href="api-libraries.html">Libraries</a> or using our <a href="">HTTP API</a>.
 </p>
 <h2 id="mixpanel-gettingstarted">Getting Started<a class="headerlink" href="#mixpanel-gettingstarted" title="Permalink to this headline">¶</a></h2>
 <p>Once you toggle on Mixpanel in the Segment App, Segment will begin sending data to Mixpanel immediately. Our Mixpanel integration is compatible with both our <a href="">server-side SDKs</a>, our <a href="">HTTP API</a>, and our <a href="">client-side SDKs</a>.</p>
