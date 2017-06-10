@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="478" height="258" preserveAspectRatio="none" stroke-linecap="round" stroke-linejoin="round" fill="none">
-  <path vector-effect="non-scaling-stroke" d="M358 1.5v255M239 1.5v255M120 1.5v255M475.6 193H2.4m473.2-64H2.4m473.2-64H2.4" stroke="#f7f9fc" stroke-width="2"/>
-  <path vector-effect="non-scaling-stroke" d="M476.5 1.5l-475 255" stroke="#cfd7df" stroke-dasharray="10,15" stroke-width="2"/>
-  <path vector-effect="non-scaling-stroke" d="M1.5 256.8S32 187.5 166.2 111C293.5 38.3 476.5 1.8 476.5 1.8" stroke-width="3" stroke="#ffb4a1"/>
-  <path vector-effect="non-scaling-stroke" d="M1.5 256.8s11.7-46.8 51-111.1C85.6 91.3 133.1 62.1 213.2 46 351 18.1 476.5 1.7 476.5 1.8" stroke="#ffa3c3" stroke-width="3"/>
-  <path vector-effect="non-scaling-stroke" d="M1.5 256.8s-.7-44.4 19-117.1C37.6 76.3 88.7 31.1 191.2 20 339.2 3.9 476.5 1.7 476.5 1.8" stroke-width="3" stroke="#fe95de"/>
-</svg>

@@ -29,25 +29,17 @@
     <link rel="icon" type="image/png" href="_static/img/favicon.png">
 
     <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
-    <link rel="stylesheet" href="_static/main.css" />
-    <!--LOAD PRISM-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css">
-    <!--FontAwesome-->
-    <script src="https://use.fontawesome.com/e1c1bce368.js"></script>
-
-
+    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css">
     <meta name="viewport" content="width=device-width">
     
     <!-- CUSTOM CSS -->
     <style type="text/css">
 
-     header {
+    header {
       background-image: none !important;
       position:fixed
     }
-    .documentation .document h3 {
-      padding-top: 0px;
-    }
+
     .header-nav a {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -93,7 +85,7 @@
     }
 
     .documentation .main.main-with-subnav .sphinxsidebarwrapper {
-    	top: 80px;
+      top: 80px;
     }
     .documentation .document .section h2 {
     padding-top: 80px;
@@ -113,21 +105,6 @@
 .documentation .main.main-with-subnav .sphinxsidebarwrapper {
      top: 40px; 
 }
-
-code, .pre {
-  border:none;
-}
-
-.documentation .document h2 {
-    font-size: 28px;
-    font-weight: 600;
-    padding-top:80px;
-}
-
-.toctree-l4 {
-  padding-left: 20px;
-}
-
     </style>
     <!-- CUSTOM CSS -->
 
@@ -172,12 +149,11 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
 
 <header>
   <div class="container">
-      <a href="http://www.segment.com"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
+      <a href="http://www.segment.com"><div class="segment-logo"></div></a>
       <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
           <a href="../../../../../index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
-          <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
           <div class="dropdown">
-                    <a href="api-events.html">API Overview 
+                    <a href="api-events.html">API Reference 
 </a>
                     <nav class="dropdown-menu">
                         <a href="http://www.mailgun.com/sending-email">Sending email</a>
@@ -199,10 +175,10 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
                 </div>
 
 
-                <a href="api-integrations.html" class="managed-link"><b style="font-weight:100"><b>Integration Catalog</b></b></a>
+                <a href="api-integrations.html" class="managed-link"><b style="font-weight:100">Integration Catalog</b></a>
                 <a href="api-cloud-apps.html" class="contact-link"><b style="font-weight:100">Cloud-App Sources Catalog</b></a>
                 <a href="api-warehouse.html" class="contact-link"><b style="font-weight:100">Connect Warehouse</b></a>
-                <a href="guides.html" class="contact-link"><b style="font-weight:100">Guides</b></a>
+                <a href="guides.html" class="contact-link"><b style="font-weight:100"><b>Guides</b></b></a>
 
       </nav>
       <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-menu"></use></svg></button>
@@ -210,10 +186,10 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
 </header>
 
 <div id="body">
-  <!-- <section class="subnav subnav-fixed">
+  <section class="subnav subnav-fixed">
     <div class="container">
       <a href="https://github.com/mailgun/documentation" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
-      <ul style="margin-top:5px" id="headerButtons" class="nav nav-pills">
+      <ul id="headerButtons" class="nav nav-pills">
         <li class="lang-label">
           Code sample preference:
         </li>
@@ -241,8 +217,8 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
         <div id="searchbox" class="search-box">
           
           <form>
-            <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
-            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus />
+            <!-- <svg class="icon icon-search" viewBox="0 0 32 32"><use xlink:href="#icon-search"></use></svg>
+            <input type="search" id="st-search-input" class="prettysearch search-input" autofocus /> -->
           <!--<form class="search" action="search.html" method="get">-->
             <!--<div class="search-wrapper">
               <span class="search-left"></span>
@@ -264,7 +240,7 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
         -->
       </ul>
     </div>
-  </section> -->
+  </section>
 
   <section class="main main-with-subnav">
 
@@ -281,72 +257,59 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
 <!-- <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_manual.html">User Manual</a></li> -->
 <!-- <li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li> -->
-<li class="toctree-l1 current"><a class=" reference internal" href="api-integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="guides.html">Guides</a><ul class="current">
 <!-- <li class="toctree-l2"><a class="reference internal" href="api-sending.html">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api-domains.html">Domains</a></li> -->
-<li class="toctree-l2 "><a class=" reference internal" href="api-integrations.html#introduction"><b>Introduction</b></a><ul class="current">
-  <li class="toctree-l3 "><a class="  reference internal" href="api-integrations.html#gettingstarted">Client-side vs Server-side</a></li>
-  <li class="toctree-l3 "><a class="  reference internal" href="api-integrations.html#retries">Retries</a></li>
-  <li class="toctree-l3 "><a class="  reference internal" href="api-integrations.html#replays">Replays</a></li>
-  <li class="toctree-l3 "><a class="  reference internal" href="api-integrations.html#debugging">Debugging</a></li>
+<li class="toctree-l2 current "><a class="  reference internal" href="guides.html#events"><b>Marketing Engagement</b></a><ul>
+  <li class="toctree-l3 "><a class=" current reference internal" href="#how-to-think-about-analytics">How to Think About Analytics</a></li>
+
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#node">Choosing Metrics That Matter</a></li>
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#python">Making the Most of Your Customer Data</a></li>
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#php">How to Create a Tracking Plan</a></li>
+  
 </ul>
 
-  <li class="toctree-l3 "><a class="  reference internal" href="api-integrations.html#javascript"><b>Aboardly</b></a></li>
-
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#node"><b>ActiveCampaign</b></a></li>
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#python"><b>Adjust</b></a></li>
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#php"><b>Adobe Analytics</b></a></li>
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#ruby"><b>AdRoll</b></a></li>
-
-    <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#android"><b>Amazon Kinesis</b></a></li>
-    <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#HTTP"><b>Amplitude</b></a></li>
- 
-<li class="toctree-l3 current"><a class="current reference internal" href="#mixpanel"><b>Mixpanel</b></a>	
-    <ul>
-    	<li class="toctree-l3"><a class="reference internal" href="#mixpanel-gettingstarted">Getting Started</a></li>
-    <li class="toctree-l3"><a class="reference internal" href="#mixpanel-reference">Reference</a></li>
-    	<ul>
-
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-supportedmethods">Supported Methods</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-track">Track</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-identify">Identify</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-page">Page</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-alias">Alias</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-collectingcontextualproperties">Contextual Properties</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-autotrack">Autotrack</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-people">People</a></li>
-    		<li class="toctree-l4"><a class="reference internal" href="#mixpanel-faq">FAQ</a></li>
-    	</ul>
-      
-    </ul>
-  </li>
-
-
-
-  <li class="toctree-l3 active"><a class="reference internal" href="api-integrations.html#googleanalytics"><b>Appboy</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#appcues"><b>Appcues</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#intercom"><b>Intercom</b></a></li>
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#salesforce"><b>AppsFlyer</b></a></li>
-    <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#adobeanalytics"><b>Apptimize</b></a></li>
-
-
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#redshift"><b>Autopilot HQ</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#postgres"><b>Boomtrain</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#bigquery"><b>Branch Metrics</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#api-warehouses.html"><b>Clearbit</b></a></li>
-
-
-
-<!-- <li class="toctree-l2"><a class="reference internal" href="api-tags.html"><b>Ecommerce Spec</b></a></li> -->
-
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#salesforcesource"><b>Customer.io</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#mailchimp"><b>Evergage</b></a></li>
-
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#google-analytics"><b>Google Analytics</b></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api-integrations.html#googleadwords"><b>Google Tag Manager</b></a></li>
-  <li class="toctree-l3"><a class="reference internal" href="api-integrations.html#hubspot"><b>HubSpot</b></a></li>
 
 </li>
+
+
+<li class="toctree-l2"><a class=" reference internal" href="guides.html#beforegoogleanalytics"><b>Product Measurement</b></a><ul>
+  <li class="toctree-l3 active"><a class="reference internal" href="guides.html#googleanalytics">Navigating the Sea of Customer Data Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides.html#mixpanel">Why You Should Own Your Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides.html#intercom">When to Use SQL for Analysis</a></li>
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#salesforce">Growth Starts with Asking Questions</a></li>
+</ul>
+
+
+</li>
+
+<li class="toctree-l2 current"><a class="reference internal" href="guides.html#beforeredshift"><b>Engineering Data Pipelines</b></a><ul>
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#redshift">When to Track on the Client vs. Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides.html#postgres">An Introduction to Multi-Touch Attribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides.html#bigquery">How to Optimize Your Funnel</a></li>
+
+</ul>
+
+
+</li>
+
+<!-- <li class="toctree-l2"><a class="reference internal" href="api-tags.html"><b>Ecommerce Spec</b></a></li> -->
+<li class="toctree-l2"><a class="reference internal" href="guides.html#beforesalesforcesource"><b>Sales Efficiency</b></a>
+<ul>
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#salesforcesource">Receiving data from Salesforce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guides.html#adobeanalytics">Key Metrics for Popular Growth Models</a></li>
+  <li class="toctree-l3"><a class="reference internal" >Naming Conventions: One Step Towards Clean Data</a></li>
+
+</ul></li>
+
+<li class="toctree-l2"><a class="reference internal" href="guides.html#beforeruby"><b>Support Context</b></a>
+<ul>
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#ruby">Leveraging Raw Data</a></li>
+  <li class="toctree-l3"><a class="reference internal" href="guides.html#iossdk">Choosing the Right Stack</a></li>
+    <li class="toctree-l3"><a class="reference internal" href="guides.html#android">Ask Tough Questions</a></li>
+    <li class="toctree-l3"><a class="reference internal" href="guides.html#HTTP">Keep Consistent Data Sets</a></li>
+
+</ul></li>
 
 </ul>
 </li>
@@ -365,326 +328,112 @@ height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</
           <div class="bodywrapper">
             <div class="body">
               
-  
-<!--START MIXPANEL-->
-<div id="mixpanel" class="">
-<h1 style="padding-top:80px !important"> Mixpanel<a class="headerlink" href="#mixpanel" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="events">
 
-<p>Mixpanel is a business analytics tool. It tracks user interactions with web and mobile applications and provides tools for targeted communication with them. Its toolset contains in-app A/B tests and user survey forms, as well as internal dashboards to analyze your data through. To use Mixpanel with Segment, you need to create an account with Mixpanel first.</p>
-<h2 id="mixpanel-gettingstarted">Getting Started<a class="headerlink" href="#mixpanel-gettingstarted" title="Permalink to this headline">¶</a></h2>
-<p style="padding:20px; border:1px solid black"><b>*This guide assumes*</b> you have already <a href="api-libraries.html">installed Segment on your app/website</a>.
-</p>
+<!-- <span id="how-to-think-about-analytics"></span><h1>Quickstart: Installing the Javascript SDK<a class="headerlink" href="#how-to-think-about-analytics" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial will help you start sending data from your website to Segment and any of our integrations, using our Analytics.js library. As soon as you’re setup you’ll be able to turn on any new integrations with the flip of a switch!
 
-<h3>Step 1: Select your Source</h3>
-<p>In your Segment App, select the source that you'd like to connect Mixpanel to.</p> 
-<p> <b>Note:</b> Mixpanel works with the following types of sources:</p>
-<div class="ptable container" style="width:70%; margin-left:0px">
-<table border="1" class="docutils">
-<colgroup>
-<col width="20%" />
-<col width="20%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd">
-  <th class="head">Source Type</th>
-<th class="head">Compatible w/ Mixpanel</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>Client Side</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-</tr>
-<tr class="row-odd"><td>Server Side</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-</tr>
-<tr class="row-even"><td>Mobile</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-</tr>
-<tr class="row-odd"><td>HTTP API</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-</tr>
+If you want to dive deeper at any point, check out the Analytics.js reference.</p>
+<p><b>Step One:</b> One of the most common questions we receive is: “Should I use one of your client-side libraries or one of your server-side libraries?”
 
-</tr>
-</tbody>
-</table>
+This is such an important topic that we’ve written up an in-depth article in our Analytics Academy: When to Track on the Client vs Server. It’s worth a read!</p>
+
+<p><b>Step Two:</b> The Segment HTTP Tracking API lets you record analytics data from any website or application. The requests hit our servers, and we route your data to any integration you want!</p>
+
+<p><b>Step Three:</b> Note that you’ll want to remove other native 3rd party integration code that you have on your site since it may cause issues if you turn on those same integrations (e.g. Google Analytics, Mixpanel, Customer.io, etc.) via Segment.</p>
+
+<p><b>Step Four:</b> Fetches the first page of log records that are older than <code class="docutils literal"><span class="pre">Fri,</span> <span class="pre">3</span> <span class="pre">May</span> <span class="pre">2013</span> <span class="pre">09:00:00</span> <span class="pre">-0000</span></code>
+and correspond to delivery to <code class="docutils literal"><span class="pre">joe&#64;example.com</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>curl -s --user <span class="s1">&#39;api:YOUR_API_KEY&#39;</span> -G <span class="se">\</span>
+      https://api.segment.com/v3/YOUR_DOMAIN_NAME/events <span class="se">\</span>
+      --data-urlencode <span class="nv">begin</span><span class="o">=</span><span class="s1">&#39;Fri, 3 May 2013 09:00:00 -0000&#39;</span> <span class="se">\</span>
+      --data-urlencode <span class="nv">ascending</span><span class="o">=</span>yes <span class="se">\</span>
+      --data-urlencode <span class="nv">limit</span><span class="o">=</span><span class="m">25</span> <span class="se">\</span>
+      --data-urlencode <span class="nv">pretty</span><span class="o">=</span>yes <span class="se">\</span>
+      --data-urlencode <span class="nv">recipient</span><span class="o">=</span>joe@example.com
+</pre></div>
 </div>
 
-<h3>Step 2: Select Mixpanel and enter your Mixpanel API key and Token</h3>
-<p>Once you've selected your source, select <b>Integrations</b> from the top nav, and then find and select the <b>Mixpanel</b> integration.</p>
+<p style="margin-bottom: 500px"><b>Next:</b> Now, to start sending your data to your end-tool integrations, you can <a href="#integration">Turn on your Integrations</a>.</p> -->
 
-<p>Enter your Mixpanel API key and Token into your Mixpanel integration settings so that Segment can connect to your Mixpanel account.</p>
+    <h1>How to Think About Analytics</h1>
+      <article class="article-wrapper" data-swiftype-name="body" data-swiftype-type="text">
+        <p>Analytics is overwhelming. Lots of people think that tracking a bunch of different metrics means they’ve solved their analytics problem. Don’t do it! Unless you’ve got employees twiddling their thumbs, you’ll <em>never</em> be able to handle that many metrics.</p>
+<p>You need to think about analytics differently. That’s what we’re here for.</p>
+<p>Analytics is about <strong>learning</strong>.</p>
+<p>To succeed, your team needs to learn as quickly as possible. It’s the only way to make sure that every new release is better than your last one. Unfortunately, learning is almost never the priority.</p>
+<p>Most web and mobile products get made like this:</p>
+<ol>
+<li>Build the product.</li>
+<li>Throw in analytics.</li>
+<li>Pull up your analytics. Get overwhelmed. Go back to building product.</li>
+</ol>
+<p>Where did the learning happen? What was the point of looking at the analytics? Why’d you even set up any analytics in the first place?!</p>
+<p>That leaves us with a disappointing process for making web products:</p>
+<ol>
+<li>Build the product</li>
+</ol>
+<p>That’s a recipe for failure.</p>
+<h2 id="there-is-a-better-way-">There is a better way.</h2>
+<p><a href="http://theleanstartup.com/" target="_blank">The Lean Startup</a>, which you’ve probably heard about but may have never actually read, advocates a much more successful process:</p>
+<ol>
+<li>Build an <em>experimental</em> product.</li>
+<li>Measure how people respond to your <em>experiment</em>.</li>
+<li>Learn whether your experiment worked or not.</li>
+</ol>
+<p>The trick though, is that you <em>actually</em> start with step 3.</p>
+<p>First, <strong>you have to decide what you want to learn.</strong> Then, you figure out how you’re going to measure it. And only after that do you build your experiment.</p>
+<p>That is the <em>most important</em> thing about analytics! If you take nothing else away from this series, take this: Before you build anything — product, marketing campaigns, whatever, decide what you’re going to learn from building it.</p>
+<p>This process is enormously successful at companies of all sizes. We dug up some of their stories to help you understand how to do it yourself:</p>
+<hr>
+<p><img style="width:50%" src="https://segment.com/academy/intro/how-to-think-about-analytics/images/airbnb-logo.png" class="case-study"></p>
+<h3 id="case-study-airbnb">Case Study: Airbnb</h3>
+<p>Airbnb lets people rent out their houses to travelers. One day, one of the co-founders <strong>hypothesized</strong> that professional photography would help Airbnb hosts attract more renters.</p>
+<p>So they ran an experiment.</p>
+<p>Airbnb hired 20 professional photographers on a trial basis. The photographers met with a small subset of hosts and took photos of their homes and spare bedrooms.</p>
+<p>Then they measured how the new photos performed. And true to their guess, listings with professional photos got 2-3x more bookings!</p>
+<p>Airbnb’s hypothesis was validated, so they expanded the program. Now they do 5,000 photo shoots a month because they <em>know</em> they increase their bottom line.</p>
+<p>PS. This is an example from the highly recommended <a href="http://leananalyticsbook.com/" target="_blank">Lean Analytics book</a>.</p>
+<hr>
+<p><img src="https://segment.com/academy/intro/how-to-think-about-analytics/images/analyticsjs-logo.png" class="case-study"></p>
+<h3 id="case-study-analytics-js">Case Study: Analytics.js</h3>
+<p>Segment provides an analytics API. But before we built anything, we wanted to be sure it was something people wanted. What we wanted to learn:</p>
+<ol>
+<li><p>Do other people care about simplifying their analytics setup?</p>
+</li>
+<li><p>If so, do they want an open-source library or do they want a hosted solution?</p>
+</li>
+</ol>
+<p>Each question would validate a core assumption in our business model.</p>
+<p>Before this we’d built a library called <a href="https://github.com/segmentio/analytics.js" target="_blank">analytics.js</a> that simplified our own analytics. So to answer our questions, we open-sourced the analytics.js repo on Github and built a quick signup form for a hosted version. We released the open source version on HackerNews and waited to see what people would do.</p>
+<p>Here’s what happened:</p>
+<ol>
+<li><p>1,800 people starred the repo on Github, which convinced us that people really care about simplifying their analytics setup.</p>
+</li>
+<li><p>About a thousand people signed up as interested in the hosted solution. Not everyone was satisfied with just an open source library.</p>
+</li>
+</ol>
+<p>Based on this experiment, we decided to go ahead with building a hosted solution. Validating our core business model assumptions kept us from wasting time building something that nobody wants (which we did for a long time before that). You can make sure you’re learning way earlier than us!</p>
+<hr>
+<p><img src="https://segment.com/academy/intro/how-to-think-about-analytics/images/twitter-logo.png" alt="Twitter"></p>
+<h3 id="case-study-twitter">Case Study: Twitter</h3>
+<p>Like most social sites, Twitter has a huge number of registered but inactive users. Twitter used to try to push people to activate by emailing them about new friends on Twitter and popular handles they might want to follow. </p>
+<p>But recently a <a href="http://www.avc.com/a_vc/2013/02/retention.html" target="_blank">more interesting feature</a> appeared. If an inactive user clicks through one of these email campaigns, Twitter immediately nudges their most active friends to tweet at them! This is real social engineering.</p>
+<p>It’s pretty clear how the feature came about: someone at Twitter guessed that having friends tweet at you right after you’ve returned to the service would increase retention. Then, with their hypothesis in mind, they built the feature and launched it.</p>
+<p>You can bet that the growth team at Twitter is keeping close tabs on this experiment. Does it increase reactivation rates?</p>
+<p>It’s fun to see huge, established companies like Twitter using the same process as tiny startups. If this small bit of social engineering boosts reactivation by 1%, how many more millions of people will suddenly start using Twitter?</p>
+<hr>
+<p>Let’s put to practice what we just discussed. Think about your own business and figure out what do you need to <em>learn</em> right now?</p>
+<p>A good way to start is to think of your <a href="./../choosing-metrics-that-matter/" target="_blank">One Key Business Metric</a>. Anything you learn that improves that metric is gold. </p>
+<p>Your experiment will depend on what stage your business is in:</p>
+<p><strong>Just a landing page?</strong> Find an experiment that’ll help you learn if people actually want your product and what parts of it are most interesting. A/B test landing pages focusing on different features and see what performs best!</p>
+<p><strong>Early version released?</strong> Find an experiment that will test which features increase engagement. You might want to split test different versions of your product highlighting different features and see which cohorts of users keep returning.</p>
+<p><strong>Serious revenue?</strong> Find an experiment that’ll help you learn how to activate more signups. The Airbnb photography experiment was brilliant because it made listings much more appealing, driving activation and revenue.</p>
+<p>If you’d like some feedback on your experiment, <a href="mailto:academy@segment.com" target="_blank">send us an email</a> about it, and we’ll share our thoughts!</p>
 
-<h3>Step 3: Activate the Mixpanel Integration</h3>
-<p>Click the <b>Activate Integration</b> button to turn on Mixpanel. 
-
-<p><b>Note:</b> If you're using our Javascript SDK, it will take 5-10 minutes for our CDN to update, before your data starts being sent to Mixpanel. If you're using one of our server side SDKs, mobile SDKs, or our HTTP API to send data to Mixpanel, you'll see your data start showing up in Mixpanel almost immediately.</p>
-
-<h3 style="">Step 4: You're done!</h3>
-<p>You're done! Now you can follow our next steps to connect a data warehouse, or check out our reference guide below for more detailed information about using our Mixpanel integration.</p>
-
-<!--START NEXT STEPS-->
-<div style="margin-top:60px; padding:20px 20px 20px 20px; border:1px solid black">
-<h2 style="padding-top:0px">Next Steps</h2>
-<p>Congratulations! You've successfully integrated Mixpanel into your website/app. Next up, unify all your data in a single warehouse so your entire team has access to it:</p>
-<ul>
-<li>Created a Segment Account <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
-<li>Installed Script <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
-<li>Implemented Tracking Calls <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
-<li>Turn on Mixpanel <i class="fa fa-check" aria-hidden="true" style="color:green"></i></li>
-<li>Connect a Data Warehouse <i class="fa fa-times" aria-hidden="true" style="color:red"></i></li>
-</ul>
-<p><b>Next up:</b> If you haven't done so yet, <a href="api-warehouse.html">connect a data warehouse</a> and start querying your data from one place.</p>
-</div>
-<!--END NEXT STEPS-->
-
-<h1 id="mixpanel-reference" style="padding-top:80px">Reference<a class="headerlink" href="#mixpanel-reference" title="Permalink to this headline">¶</a></h1>
-
-<p id="mixpanel-reference"></p>
-<h2 id="mixpanel-supportedmethods">Supported Methods<a class="headerlink" href="#mixpanel-supportedmethods" title="Permalink to this headline">¶</a></h2>
-<p>The Mixpanel integration supports the following methods</p>
-<div class="ptable container" style="width:60%; margin-left:0px">
-<table border="1" class="docutils">
-<colgroup>
-<col width="20%" />
-<col width="30%" />
-<col width="30%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd">
-  <th class="head">Tracking Method</th>
-<th class="head">Server-side</th>
-<th class="head">Client-side</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>Track</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-</tr>
-<tr class="row-odd"><td>Identify</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-</tr>
-<tr class="row-even"><td>Page/Screen</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-</tr>
-<tr class="row-odd"><td>Alias</td>
-<td><i class="fa fa-check" aria-hidden="true" style="color:green"></i></td>
-<td><i class="fa fa-times" aria-hidden="true" style="color:red"></i></td>
-</tr>
-<tr class="row-odd"><td>Group</td>
-<td><i class="fa fa-times" aria-hidden="true" style="color:red"></i></td>
-<td><i class="fa fa-times" aria-hidden="true" style="color:red"></i></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="mixpanel-track">Track<a class="headerlink" href="#mixpanel-track" title="Permalink to this headline">¶</a></h2>
-<p> Because Mixpanel is an event tracking analytics tool, you’ll want to track your user’s actions. The more useful events you track, the better Mixpanel becomes.
-</p>
-<p>You should use the track method to accomplish this. The Segment track method maps events and event properties directly to Mixpanel events and event properties.</p>
-<p><b>Example track call:</b></p>
-<pre><code class="language-javascript">
-  analytics.track('Article Completed', {
-    title: 'How to Create a Tracking Plan',
-    course: 'Intro to Analytics',
-  });
-</code></pre>
-<h3>Track Charge</h3>
-<p>If Mixpanel People is enabled in your Segment settings and you include an event property called revenue, we’ll track a charge to the current user.</p>
-<p><b>Example track charge call:</b></p>
-<pre><code class="language-javascript">
-  analytics.track('Book Purchased', {
-    title: 'How to Create a Tracking Plan',
-    revenue: 50
-  });
-</code></pre>
-<h3>Reserved Properties</h3>
-<p>There are two strings to avoid when naming event properties that will be sent to Mixpanel: length and bucket. length is interpreted as the JavaScript .length method, which causes the mixpanel.track call to fail silently. bucket is a reserved property that was used in the early days of Mixpanel. If you include a property called bucket in your events, it will not show up in the UI. However, it will not cause the mixpanel.track call to fail.</p>
-
-<h2 id="mixpanel-identify">Identify<a class="headerlink" href="#mixpanel-identify" title="Permalink to this headline">¶</a></h2>
-<p>The first thing you’ll want to do is to identify your users so Mixpanel knows who they are. You’ll use the identify method to accomplish this.</p>
-<p>Identify takes the unique userId of a user and any traits you know about them.</p>
-<h3>Client Side</h3>
-<p>When you call identify from the client in either a browser via Analytics.js or one of our mobile SDKs a bunch of things happen:</p>
-<p>We start by recognizing and translating our special traits so that they fit the expectations of Mixpanel’s API. The table below shows the mappings. You’ll pass the key on the left into Segment and we will transform it to the key on the right before sending to Mixpanel.</p>
-<p><b>Special Mixpanel Trait Mappings:</b></p>
-<div class="ptable container">
-<table border="1" class="docutils">
-<colgroup>
-<col width="20%" />
-<col width="80%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Segment Trait</th>
-<th class="head">Mixpanel Mapping</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>created</td>
-<td> $created</td>
-</tr>
-<tr class="row-odd"><td>email</td>
-<td>$email</td>
-</tr>
-<tr class="row-even"><td>firstName</td>
-<td>$firstName</td>
-</tr>
-<tr class="row-odd"><td>lastName</td>
-<td>$lastName</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Example Client Side Identify Call:</p>
-<pre><code class="language-javascript">
-  analytics.identify('user123abc', {
-    created: Date.now(),
-    email: "bob@email.com",
-    firstName: "Bob",
-    lastName: "Sanders",
-    plan: "Enterprise"
-  });
-</code></pre>
-<h3>Register Super Properties</h3>
-<p>By default, each trait (i.e. properties in an identify call) is registered as a super property. This does not require passing a userId in the identify call. You can pass a traits object by itself and it will still register the traits as super properties.
-
-We also allow you to disable the default behavior and register super properties explicitly by unchecking Set All Traits as Super Properties or People Properties By Default and explicitly specifying in the traits or properties you want us to register as super properties in Segment’s Mixpanel Integration panel. Check out the documentation here
-</p>
-<h3>Set People Properties</h3>
-<p>If you’ve enabled Mixpanel People in your Segment settings, we also call Mixpanel’s people.set with the same traits object. There’s no need for an additional API call to populate Mixpanel People.</p>
-<p>We also allow you to disable the default behavior and set people properties explicitly by unchecking Set All Traits as Super Properties or People Properties By Default and explicitly specifying in the traits or properties you want us to set as people properties in the Mixpanel integration panel in Segment. We’ll automatically include any trait on an identify that matches one of Mixpanel’s special properties, which you can see in the table above. Check out the documentation here</p>
-<p>If you call identify without a userId, it may not set the People Properties inside Mixpanel, but it will cache those traits for later use with Segment’s analytics.js. It is best practice to always call identify with a userId.
-
-</p>
-<h3 id="mixpanel-serverside">Server Side<a class="headerlink" href="#mixpanel-serverside" title="Permalink to this headline">¶</a></h3>
-<p>When you call identify from any of our server-side libraries, we create or update the user in Mixpanel People with the traits you provide. Calling identify doesn’t create any users in the standard Mixpanel reporting interface since that only supports track events.</p>
-<p>You won’t see server-side traits appear as super-properties on any events you track. This is because Mixpanel has no REST API for setting super properties for a distinct_id, so identify calls only affect Mixpanel People.</p>
-<p>For Mixpanel People, it’s important to identify a user before you call track. A track without an identify won’t create a user in Mixpanel People.</p>
-
-<h2 id="mixpanel-page">Page<a class="headerlink" href="#mixpanel-page" title="Permalink to this headline">¶</a></h2>
-<p>By default Segment doesn’t send standard page calls to Mixpanel because Mixpanel doesn’t have the notion of Page seperate from a Track. We recommend using the Track all Pages to Mixpanel as a consolidated event setting in our Mixpanel integration tab. This will send all page and screen calls with a single name, Loaded a Page or Loaded a Screen respectively with the calls’ properties in the body. This gives the best experience of Page/Screen analytics with Mixpanel’s reporting. If you want to track the pageorscreen` calls to Mixpanel with the name or category in the event name, we also have the below three options for sending page/screen calls.</p>
-<p>1) Track all Pages to Mixpanel</p>
-<p>2) Track Categorized Pages to Mixpanel [default]</p>
-<p>3) Track Named Pags to Mixpanel [default]</p>
-<p>If you select Track all Pages to Mixpanel, all page calls regardless of how you have customized it will send a Loaded A Page. Even if you have the other options enabled, we will only send this call to prevent double counting your pageviews.</p>
-<p>If you select Track Categorized Pages to Mixpanel, we will send a Viewed [category] Page event.</p>
-<p>If you select Track Named Pages to Mixpanel, we will send a Viewed [name] Page event.</p>
-<p><b>Note:</b> If both option 2 and 3 are enabled, we will give precedence to category. If you pass both category and name, (e.g. analytics.page('category', 'name');), we will send a Viewed category name Page to Mixpanel.</p>
-<p>Remember, we will only send 1 event per page call.</p>
-<p><b>Example Page Call</b></p>
-<pre><code class="language-javascript">
-  analytics.page('Books', 'Comic Book Sale');
-</code></pre>
-
-<h2 id="mixpanel-alias">Alias<a class="headerlink" href="#mixpanel-alias" title="Permalink to this headline">¶</a></h2>
-<p>Calling alias is required for Mixpanel in all libraries in order to connect anonymous visitors to identified users.</p>
-<p>As soon as you have a userId for a visitor that was previously anonymous you’ll need to alias their old anonymous id to the new userId. In Mixpanel only one anonymous user history can be merged to one identified user. For that reason you should only call alias once, right after a user registered, but before the first identify.</p>
-<p>You’ll also want to track the action that caused the user to be identified or created. Read our guide on how to identify new users to learn why.</p>
-<p>Read more about how Mixpanel recommends using alias in their docs.</p>
-<p><b>Note:</b> Due to technical limitations with aliasing server-side, aliasing on the client is recommended whenever possible.
-</p>
-<h3>Aliasing From the Browser</h3>
-<p>In client-side javascript you only need to pass the new identified userId. We will automatically alias the old anonymous id to your new userId.</p>
-<p>Here’s a javascript example where the new userId is 12345:</p>
-<pre><code class="language-javascript">
-  alias('12345');
-  identify('12345');
-  track('Signed Up');
-</code></pre>
-<h3>Aliasing Server-Side</h3>
-<p>If an identify or track call arrives to Mixpanel with a new distinct_id too quickly after an alias call, there is a race condition between the event and the alias call. As long as your identify and track calls arrive ~1 second after the alias, this shouldn’t be an issue; when the alias queue is backed up, Mixpanel queues events as well, mitigating the race condition.</p>
-<p>However, in cases when events are processed too quickly, before their corresponding alias, your calls can result in split/duplicate profiles.</p>
-<p>Mixpanel’s client-side javasript library fixes this issue by continuing to send track calls to the original mixpanel distinct_id while the records update. To leverage that protection and avoid creating split profiles and broken funnels, we recommend doing all aliasing for Mixpanel on the client side through Analytics.js</p>
-<p>However, in certain circumstances, despite the risk of duplicate profiles, you may still wish to send the calls server-side. In those cases, there are two options for calling alias from your servers:</p>
-<p><b>In Conjunction with Client-Side Tracking</b></p>
-<p>If you’re tracking anonymous users on the client side either from a browser or one of our mobile SDK you’ll need to pass the Mixpanel distinct_id from the browser to your servers in order to alias it to the new userId.</p>
-<p>First, use analytics.ready to grab the Mixpanel distinct_id:</p>
-<pre><code class="language-javascript">
-  analytics.ready(function(){
-      var anonId = mixpanel.get_distinct_id();
-  });
-</code></pre>
-<p>Next, pass the anonId to your server and alias, identify, and track your new user.</p>
-<p>Here’s a Node example where the new userId is 12345:</p>
-<pre><code class="language-javascript">
-  analytics.alias({ previousId: anonId, userId: '12345' });
-  analytics.flush(); // flush the alias
-
-  analytics.identify({userId: '12345'});
-  analytics.track({
-    userId: '12345',
-    event: 'Connected Facebook'
-  });
-</code></pre>
-<p><b>Tracking Exclusively Server Side</b></p>
-<p>If you’re tracking anonymous users in one of our server-side libraries that makes things a lot easier. All you have to do is alias the anonymous id to the new userId.</p>
-<p>Here’s a Python example of the alias, identify, track sequence where the anonymous id was 92fh49fqh9849hf and the new userId is 12345:</p>
-<pre><code class="language-javascript">
-  analytics.alias('92fh49fqh9849hf', '12345')
-  analytics.flush() # flush the alias
-
-  analytics.identify('12345')
-  analytics.track('12345', 'Registered')
-</code></pre>
-<p>As you can see we recommend flushing the alias to give Mixpanel a bit of extra time to process it on their side before you identify and track.
-
-</p>
-<h2 id="mixpanel-collectingcontextualproperties">Collecting contextual properties<a class="headerlink" href="#mixpanel-collectingcontextualproperties" title="Permalink to this headline">¶</a></h2>
-</p>
-<p>If you are sending events server side, depending on your library (JS, mobile, or server), we will map as many Mixpanel supported contextual properties as we can.</p>
-<p>You can check out which context properties are being automatically collected by any Segment library. If you are using a library that does not support a certain contextual property, you can still send them manually with your events, as long as it is sent in accordance with our spec.</p>
-<p>For example, if you want to send utm parameters with your server side library, you can attach a context.campaign object like this:</p>
-<pre><code class="language-javascript">
-  analytics.track({
-    userId: '019mr8mf4r',
-    event: 'Purchased an Item',
-    properties: {
-      revenue: 39.95,
-      shippingMethod: '2-day'
-    },
-    context: {
-      campaign: {
-        name: "TPS Innovation Newsletter",
-        source: "Newsletter",
-        medium: "email",
-        term: "tps reports",
-        content: "image link"
-      }
-    }
-  });
-</code></pre>
-<p>We do not map $library_version since that is reserved for Mixpanel’s library version, not Segment’s. We do not map to $brand.</p>
-
-<h2 id="mixpanel-autotrack">Autotrack<a class="headerlink" href="#mixpanel-autotrack" title="Permalink to this headline">¶</a></h2>
-<p>Mixpanel’s Autotrack feature is supported via Segment as long as you are using one of our client-side libraries (analytics.js, iOS, Android). Additionally, if you’re using analytics for Android or iOS, make sure your Mixpanel integration is bundled - otherwise Autotrack will not work. Once Mixpanel is installed via segment, all you have to do is enable the Autotrack feature for your Mixpanel account and it will start working.
-</p>
-
-<h2 id="mixpanel-people">People<a class="headerlink" href="#mixpanel-people" title="Permalink to this headline">¶</a></h2>
-<p>By default we don’t send data to Mixpanel People since it usually requires upgrading your Mixpanel account. If you want to enable Mixpanel People simply check the box for: Use Mixpanel People from your source integrations page in the Mixpanel sheet.</p>
-<p>If you want to add people properties in Mixpanel before you know the user’s unique databse userId you can identify traits without the userId. Note: this only works in Analytics.js and our mobile SDKs.</p>
-<p>Your identify call would look like this in Analytics.js if you only want to set people properties without a userId:</p>
-<pre><code class="language-javascript">
-  analytics.identify({
-    email: 'friends@segment.com',
-    name: 'Ian Taylor'
-  })
-</code></pre>
-
-<h2 id="mixpanel-faq">FAQ<a class="headerlink" href="#mixpanel-faq" title="Permalink to this headline">¶</a></h2>
-<p><b>When do I need to call Alias?</b></p>
-<p><b>Can I load two instances of Mixpanel?</b></p>
-<p><b>Why isn't my trait showing up in Mixpanel People?</b></p>
-<p><b>Do you support Autotrack?</b></p>
-<p><b>Why am I missing events in Mixpanel?</b></p>
-<p><b>Is there a size limit on API requests?</b></p>
-<p><b>Why isn't analytics.ready() firing?</b></p>
-</div>
-<div style="margin-bottom:800px"></div>
-</div>
-<!--END MIXPANEL DOCS-->
-
+        <!-- <a class="Hackernews" href="#">Discuss on Hacker News.</a> -->
+      </article>
+    </div>
 
     </div> <!-- /content -->
   </section> <!-- /container -->
@@ -708,7 +457,7 @@ We also allow you to disable the default behavior and register super properties 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript">
-
+ 
 
    // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
    // $('#clear-search').click(function(){
@@ -761,8 +510,7 @@ We also allow you to disable the default behavior and register super properties 
   
 <script type="text/javascript" src="_static/insert-api-key.js">
 </script>
-  <!-- LOAD PRISM JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
+  
 
 <!-- Mirrored from documentation.mailgun.com/api-events.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Jan 2017 00:06:53 GMT -->
 </body></html>

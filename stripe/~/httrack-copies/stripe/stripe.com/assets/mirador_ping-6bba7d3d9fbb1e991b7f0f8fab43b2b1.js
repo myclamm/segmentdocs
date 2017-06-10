@@ -1,1 +1,0 @@
-typeof StripeMirador!="undefined"&&StripeMirador.p({t:!0});

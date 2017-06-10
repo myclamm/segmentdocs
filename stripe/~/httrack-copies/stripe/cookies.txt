@@ -1,9 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-stripe.com	TRUE	/	FALSE	1999999999	__stripe_orig_props	%7B%22referrer%22%3A%22%22%2C%22landing%22%3A%22https%3A%2F%2Fstripe.com%2Frobots.txt%22%7D
-stripe.com	TRUE	/	FALSE	1999999999	lang	go
-stripe.com	TRUE	/	FALSE	1999999999	ref	guide
-stripe.com	TRUE	/	FALSE	1999999999	viewedApplePay	true
-stripe.com	TRUE	/	FALSE	1999999999	country	DE
-stripe.com	TRUE	/	FALSE	1999999999	stripe.csrf	_fqzFtwYQrSxKHJwDzrok3D6gQGi_uoyNLl9J5U5_kxkYKdr2t2G8XxsVm_DMt3oWYQPhv5SK5J1DHcPMO40PQ%3D%3D
-

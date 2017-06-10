@@ -1,5 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-www.twilio.com	TRUE	/	FALSE	1999999999	X-Mapping-fjhppofk	B21F5DDD694C5CCBB2414C7795C24006
-www.twilio.com	TRUE	/	FALSE	1999999999	tw-visitor	31420100b9bc0c802912bb76498ba3ffb2d78b3026e4cc1335796908c80b595e994bb79b2695ab44731069f6af1122c81aad6e1f487e91996cc82cb3aa176db9d37aa360277cd9927013a01267349cb75d75c4bf45732d6003c0c68d6ab332414aaa7727f6e206d825ef37b2182a7a35ad2291c5b95c5f173374acfefdbc
-

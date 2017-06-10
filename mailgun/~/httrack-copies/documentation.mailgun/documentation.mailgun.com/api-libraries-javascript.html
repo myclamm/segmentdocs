@@ -41,7 +41,7 @@
     <link rel="icon" type="image/png" href="_static/img/favicon.png" />
 
     <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
-    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <link rel="stylesheet" href="_static/main.css" />
 
     <!--LOAD PRISM-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css">
@@ -177,9 +177,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header>
   <div class="container">
-      <a href="../../../../../segment.com/index.html"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
+      <a href="http://www.segment.com"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
       <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
-          <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
+          <a href="../../../../../index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
           <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
           <div class="dropdown">
                     <a href="api-events.html" >API Overview
@@ -207,6 +207,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <a href="api-integrations.html" class="managed-link"><b style="font-weight:100">Integration Catalog</b></a>
                 <a href="api-cloud-apps.html" class="contact-link"><b style="font-weight:100">Cloud-App Sources Catalog</b></a>
                 <a href="api-warehouse.html" class="contact-link"><b style="font-weight:100">Connect Warehouse</b></a>
+                <a href="guides.html" class="contact-link"><b style="font-weight:100">Guides</b></a>
 
       </nav>
       <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
@@ -971,43 +972,12 @@ If you would like to access end-tool library methods that do not match any analy
     </script>
 
 
-<script type="text/javascript">
-  var Swiftype = window.Swiftype || {};
-  (function() {
-    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
-    Swiftype.inputElement = '#st-search-input';
-    Swiftype.resultContainingElement = '#st-results-container';
-    Swiftype.attachElement = '#st-search-input';
-    Swiftype.renderStyle = "overlay";
-
-
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = "http://swiftype.com/embed.js";
-    var entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(script, entry);
-  }());
-</script>
 
 <!-- Ace editor for editable code -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript">
-  (function() {
-    var timer;
-    function waitForSwiftype() {
-      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
-        clearInterval(timer);
-        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
-          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
-          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
-          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
-        };
-      }
-    }
-    timer = setInterval(waitForSwiftype, 500);
-  })();
+
 
    // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
    // $('#clear-search').click(function(){

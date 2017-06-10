@@ -38,7 +38,7 @@
     <link rel="icon" type="image/png" href="_static/img/favicon.png" />
 
     <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
-    <link rel="stylesheet" href="https://www.mailgun.com/static/css/main.css" />
+    <link rel="stylesheet" href="_static/main.css" />
     <meta name="viewport" content="width=device-width">
     
     <!-- CUSTOM CSS -->
@@ -159,9 +159,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header>
   <div class="container">
-      <a href="../../../../../segment.com/index.html"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
+      <a href="http://www.segment.com"><div href="http://www.mailgun.com/" class="segment-logo"></div></a>
       <nav class="header-nav" id="js-header-nav" style="font-family:Aleo-regular">
-          <a href="../../../../../twilio/www.twilio.com/docs/index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
+          <a href="../../../../../index.html" class="pricing-link"><b style="font-weight:100; font-size:20px">Docs</b></a>
           <!-- <a href="quickstart.html" class="customers-link"><b style="font-weight:100">Quickstarts</b></a> -->
           <div class="dropdown">
                     <a href="api-events.html" >API Overview 
@@ -189,6 +189,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <a href="api-integrations.html" class="managed-link"><b style="font-weight:100">Integration Catalog</b></a>
                 <a href="api-cloud-apps.html" class="contact-link"><b style="font-weight:100"><b>Cloud-App Sources Catalog</b></b></a>
                 <a href="api-warehouse.html" class="contact-link"><b style="font-weight:100">Connect Warehouse</b></a>
+                <a href="guides.html" class="contact-link"><b style="font-weight:100">Guides</b></a>
 
       </nav>
       <button id="js-show-nav"><svg class="icon icon-menu" viewBox="0 0 30 32"><use xlink:href="#icon-menu"></use></svg></button>
@@ -348,7 +349,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span id="introduction"></span><h1>Cloud-App Sources<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>Cloud app sources empower you to pull together data from all of your different third-party tools into one warehouse. To make use of cloud sources you need to have at least one cloud source and one warehouse enabled.</p>
 
-<p>For detailed information about each integration, select one from the list to learn how our API methods are implemented for that integration, and how you can use it through Segment.</p>
 <h3 style="padding-top:0px">Get started with one of our Cloud-App Sources</h3>
 <ul>
 <li><b>Getting Started:</b> <a href="api-cloud-apps-adwords.html#adwords">Receiving data from AdWords</a></li> 
@@ -360,344 +360,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </ul>
 
 <h2 id="collections">Collections<a class="headerlink" href="#collections" title="Permalink to this headline">¶</a></h2>
-<p>If we don’t have a library for your environment yet, you can always send your data directly to our HTTP Tracking API. All of our other sources and platforms use the HTTP API to work their magic behind the scenes.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio lectus, vehicula ut commodo in, vehicula ut est. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ut semper nisl. Mauris in neque fringilla, tristique sapien eu, sodales orci. Vestibulum eget viverra lacus. Nullam eget lacinia nisl. Duis malesuada mi eget felis auctor, eu tempus nisi elementum. Maecenas tortor turpis, porttitor quis mi id, hendrerit lobortis libero. Nulla sapien tellus, dictum sed ornare a, blandit eu diam.
+
+Nunc magna tortor, viverra id dui sit amet, iaculis convallis risus. In hac habitasse platea dictumst. Sed feugiat nunc luctus, rutrum lorem ut, sollicitudin lectus. Nunc ligula turpis, feugiat at porta ut, lacinia ut ipsum. Duis dignissim sapien a diam iaculis posuere. Pellentesque vulputate lectus et odio viverra, in gravida eros aliquam. Quisque hendrerit cursus est ac sodales. Sed rhoncus, odio vel varius condimentum, augue felis congue sem, in vulputate justo quam vitae ipsum.</p>
 
 <h2 id="eventss">Events<a class="headerlink" href="#eventss" title="Permalink to this headline">¶</a></h2>
-<p>You’ll use one of our library sources to record customer data from your website, mobile app or servers. We transform and route this data to all the integrations you have enabled. You can also gather data from your 3rd party cloud app sources into one warehouse that stores all of your source data and makes it easily accessible.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio lectus, vehicula ut commodo in, vehicula ut est. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ut semper nisl. Mauris in neque fringilla, tristique sapien eu, sodales orci. Vestibulum eget viverra lacus. Nullam eget lacinia nisl. Duis malesuada mi eget felis auctor, eu tempus nisi elementum. Maecenas tortor turpis, porttitor quis mi id, hendrerit lobortis libero. Nulla sapien tellus, dictum sed ornare a, blandit eu diam.
+
+Nunc magna tortor, viverra id dui sit amet, iaculis convallis risus. In hac habitasse platea dictumst. Sed feugiat nunc luctus, rutrum lorem ut, sollicitudin lectus. Nunc ligula turpis, feugiat at porta ut, lacinia ut ipsum. Duis dignissim sapien a diam iaculis posuere. Pellentesque vulputate lectus et odio viverra, in gravida eros aliquam. Quisque hendrerit cursus est ac sodales. Sed rhoncus, odio vel varius condimentum, augue felis congue sem, in vulputate justo quam vitae ipsum.</p>
 
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
-<p>Events are represented as loosely structured JSON documents. The exact event
-structure depends on the event type. But there are three fields that every
-event has. They are as follows:</p>
-<div class="ptable container">
-<table border="1" class="docutils">
-<colgroup>
-<col width="22%" />
-<col width="78%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Field</th>
-<th class="head">Description</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>event</td>
-<td>The type of the event. Events of a particular type have an
-identical structure, though some fields may be optional.
-For the list of event types please refer to <a class="reference internal" href="#event-types">Event Types</a>.</td>
-</tr>
-<tr class="row-odd"><td>timestamp</td>
-<td>The time when the event was generated in the system provided
-as Unix epoch seconds.</td>
-</tr>
-<tr class="row-even"><td>id</td>
-<td>Event id. It is guaranteed to be unique within a day. It can
-be used to distinguish events that have already been
-retrieved when requests with overlapping time ranges are made.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Events can change their structure as new features are added to Mailgun, but we
-only add new fields and never modify or remove existing one.</p>
-<p>Below you can find sample events of various types:</p>
-<p><strong>Accepted:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;accepted&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ncV2XwymRUKbPek_MIM-Gw&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1377211256.096436</span><span class="p">,</span>
-  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;envelope&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;sender&quot;</span><span class="o">:</span> <span class="s2">&quot;sender@example.com&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="s2">&quot;flags&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;is-authenticated&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="s2">&quot;is-test-mode&quot;</span><span class="o">:</span> <span class="kc">false</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;routes&quot;</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="s2">&quot;expression&quot;</span><span class="o">:</span> <span class="s2">&quot;match_recipient(\&quot;.*@samples.mailgun.org\&quot;)&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample route&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;actions&quot;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&quot;stop()&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;forward(\&quot;http://host.com/messages\&quot;)&quot;</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;to&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;77AF5C3CA1416D93FC47AF8AD42A60AD@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;from&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe &lt;sender@example.com&gt;&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;subject&quot;</span><span class="o">:</span> <span class="s2">&quot;Test Subject&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;attachments&quot;</span><span class="o">:</span> <span class="p">[],</span>
-    <span class="s2">&quot;recipients&quot;</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">&quot;recipient@example.com&quot;</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;size&quot;</span><span class="o">:</span> <span class="mi">6021</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;smtp&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>Delivered:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;delivered&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;W3X4JOhFT-OZidZGKKr9iA&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1377208314.173742</span><span class="p">,</span>
-  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;envelope&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;transport&quot;</span><span class="o">:</span> <span class="s2">&quot;smtp&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sender&quot;</span><span class="o">:</span> <span class="s2">&quot;postmaster@samples.mailgun.org&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sending-ip&quot;</span><span class="o">:</span> <span class="s2">&quot;184.173.153.199&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;delivery-status&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="kc">null</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="s2">&quot;flags&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;is-authenticated&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;is-test-mode&quot;</span><span class="o">:</span> <span class="kc">false</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;to&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130822215151.29325.59996@samples.mailgun.org&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;from&quot;</span><span class="o">:</span> <span class="s2">&quot;sender@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;subject&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample Message&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;attachments&quot;</span><span class="o">:</span> <span class="p">[],</span>
-    <span class="s2">&quot;recipients&quot;</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">&quot;recipient@example.com&quot;</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;size&quot;</span><span class="o">:</span> <span class="mi">31143</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>Failed:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;failed&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;pVqXGJWhTzysS9GpwF2hlQ&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1377198389.769129</span><span class="p">,</span>
-  <span class="s2">&quot;severity&quot;</span><span class="o">:</span> <span class="s2">&quot;permanent&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;envelope&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;transport&quot;</span><span class="o">:</span> <span class="s2">&quot;smtp&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sender&quot;</span><span class="o">:</span> <span class="s2">&quot;postmaster@samples.mailgun.org&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;sending-ip&quot;</span><span class="o">:</span> <span class="s2">&quot;184.173.153.199&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;delivery-status&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="s2">&quot;Relay Not Permitted&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">550</span><span class="p">,</span>
-    <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="kc">null</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;reason&quot;</span><span class="o">:</span> <span class="s2">&quot;bounce&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="s2">&quot;flags&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;is-authenticated&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;is-test-mode&quot;</span><span class="o">:</span> <span class="kc">false</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;to&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130822185902.31528.73196@samples.mailgun.org&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;from&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe &lt;sender@example.com&gt;&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;subject&quot;</span><span class="o">:</span> <span class="s2">&quot;Test Subject&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;attachments&quot;</span><span class="o">:</span> <span class="p">[],</span>
-    <span class="s2">&quot;recipients&quot;</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">&quot;recipient@example.com&quot;</span>
-    <span class="p">],</span>
-    <span class="s2">&quot;size&quot;</span><span class="o">:</span> <span class="mi">557</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>Opened:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;opened&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;-laxIqj9QWubsjY_3pTq_g&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1377047343.042277</span><span class="p">,</span>
-  <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;geolocation&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;country&quot;</span><span class="o">:</span> <span class="s2">&quot;US&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;region&quot;</span><span class="o">:</span> <span class="s2">&quot;Texas&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;city&quot;</span><span class="o">:</span> <span class="s2">&quot;Austin&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;111.111.111.111&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;client-info&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;client-type&quot;</span><span class="o">:</span> <span class="s2">&quot;mobile browser&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;client-os&quot;</span><span class="o">:</span> <span class="s2">&quot;iOS&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;device-type&quot;</span><span class="o">:</span> <span class="s2">&quot;mobile&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;client-name&quot;</span><span class="o">:</span> <span class="s2">&quot;Mobile Safari&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;user-agent&quot;</span><span class="o">:</span> <span class="s2">&quot;Mozilla/5.0 (iPhone; CPU iPhone OS 6_1 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B143&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130821005614.19826.35976@samples.mailgun.org&quot;</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>Clicked:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;clicked&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;G5zMz2ysS6OxZ2C8xb2Tqg&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1377075564.094891</span><span class="p">,</span>
-  <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;geolocation&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;country&quot;</span><span class="o">:</span> <span class="s2">&quot;US&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;region&quot;</span><span class="o">:</span> <span class="s2">&quot;TX&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;city&quot;</span><span class="o">:</span> <span class="s2">&quot;Austin&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://google.com&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="s2">&quot;client-info&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;client-type&quot;</span><span class="o">:</span> <span class="s2">&quot;browser&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;client-os&quot;</span><span class="o">:</span> <span class="s2">&quot;Linux&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;device-type&quot;</span><span class="o">:</span> <span class="s2">&quot;desktop&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;client-name&quot;</span><span class="o">:</span> <span class="s2">&quot;Chromium&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;user-agent&quot;</span><span class="o">:</span> <span class="s2">&quot;Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/28.0.1500.71 Chrome/28.0.1500.71 Safari/537.36&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130821085807.30688.67706@samples.mailgun.org&quot;</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>Unsubscribed:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;unsubscribed&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;W3X4JOhFT-OZidZGKKr9iA&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1377213791.421473</span><span class="p">,</span>
-  <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;recipient@example.com&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;geolocation&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;country&quot;</span><span class="o">:</span> <span class="s2">&quot;US&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;region&quot;</span><span class="o">:</span> <span class="s2">&quot;TX&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;city&quot;</span><span class="o">:</span> <span class="s2">&quot;San Antonio&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="s2">&quot;ip&quot;</span><span class="o">:</span> <span class="s2">&quot;50.51.14.451&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;client-info&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;client-type&quot;</span><span class="o">:</span> <span class="s2">&quot;browser&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;client-os&quot;</span><span class="o">:</span> <span class="s2">&quot;OS X&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;device-type&quot;</span><span class="o">:</span> <span class="s2">&quot;desktop&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;client-name&quot;</span><span class="o">:</span> <span class="s2">&quot;Chrome&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;user-agent&quot;</span><span class="o">:</span> <span class="s2">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36&quot;</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130822232216.13966.79700@samples.mailgun.org&quot;</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>Complained:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;event&quot;</span><span class="o">:</span> <span class="s2">&quot;complained&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;ncV2XwymRUKbPek_MIM-Gw&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span> <span class="mf">1377214260.049634</span><span class="p">,</span>
-  <span class="s2">&quot;recipient&quot;</span><span class="o">:</span> <span class="s2">&quot;foo@example.com&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span> <span class="p">[],</span>
-  <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span> <span class="p">{},</span>
-  <span class="s2">&quot;flags&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;is-test-mode&quot;</span><span class="o">:</span> <span class="kc">false</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;message&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;to&quot;</span><span class="o">:</span> <span class="s2">&quot;foo@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;message-id&quot;</span><span class="o">:</span> <span class="s2">&quot;20130718032413.263EE2E0926@example.com&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;from&quot;</span><span class="o">:</span> <span class="s2">&quot;John Doe &lt;sender@example.com&gt;&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;subject&quot;</span><span class="o">:</span> <span class="s2">&quot;This is the subject.&quot;</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;attachments&quot;</span><span class="o">:</span> <span class="p">[],</span>
-    <span class="s2">&quot;size&quot;</span><span class="o">:</span> <span class="mi">18937</span>
-  <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><strong>Stored:</strong></p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="s2">&quot;event&quot;</span><span class="o">:</span><span class="s2">&quot;stored&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;czsjqFATSlC3QtAK-C80nw&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;timestamp&quot;</span><span class="o">:</span><span class="mf">1378335036.859382</span><span class="p">,</span>
-   <span class="s2">&quot;storage&quot;</span><span class="o">:</span><span class="p">{</span>
-      <span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="s2">&quot;https://api.mailgun.net/v3/domains/ninomail.com/messages/WyI3MDhjODgwZTZlIiwgIjF6&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;key&quot;</span><span class="o">:</span><span class="s2">&quot;WyI3MDhjODgwZTZlIiwgIjF6&quot;</span>
-   <span class="p">},</span>
-   <span class="s2">&quot;campaigns&quot;</span><span class="o">:</span><span class="p">[],</span>
-   <span class="s2">&quot;user-variables&quot;</span><span class="o">:</span><span class="p">{},</span>
-   <span class="s2">&quot;flags&quot;</span><span class="o">:</span><span class="p">{</span>
-      <span class="s2">&quot;is-test-mode&quot;</span><span class="o">:</span><span class="kc">false</span>
-   <span class="p">},</span>
-   <span class="s2">&quot;tags&quot;</span><span class="o">:</span><span class="p">[],</span>
-   <span class="s2">&quot;message&quot;</span><span class="o">:</span><span class="p">{</span>
-      <span class="s2">&quot;headers&quot;</span><span class="o">:</span><span class="p">{</span>
-         <span class="s2">&quot;to&quot;</span><span class="o">:</span><span class="s2">&quot;satshabad &lt;satshabad@mailgun.com&gt;&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;message-id&quot;</span><span class="o">:</span><span class="s2">&quot;CAC8xyJxAO7Y0sr=3r-rJ4C6ULZs3cSVPPqYEXLHtarKOKaOCKw@mail.gmail.com&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;from&quot;</span><span class="o">:</span><span class="s2">&quot;Someone &lt;someone@example.com&gt;&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;subject&quot;</span><span class="o">:</span><span class="s2">&quot;Re: A TEST&quot;</span>
-      <span class="p">},</span>
-      <span class="s2">&quot;attachments&quot;</span><span class="o">:</span><span class="p">[],</span>
-      <span class="s2">&quot;recipients&quot;</span><span class="o">:</span><span class="p">[</span>
-         <span class="s2">&quot;satshabad@mailgun.com&quot;</span>
-      <span class="p">],</span>
-      <span class="s2">&quot;size&quot;</span><span class="o">:</span><span class="mi">2566</span>
-   <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec odio lectus, vehicula ut commodo in, vehicula ut est. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque ut semper nisl. Mauris in neque fringilla, tristique sapien eu, sodales orci. Vestibulum eget viverra lacus. Nullam eget lacinia nisl. Duis malesuada mi eget felis auctor, eu tempus nisi elementum. Maecenas tortor turpis, porttitor quis mi id, hendrerit lobortis libero. Nulla sapien tellus, dictum sed ornare a, blandit eu diam.
+
+Nunc magna tortor, viverra id dui sit amet, iaculis convallis risus. In hac habitasse platea dictumst. Sed feugiat nunc luctus, rutrum lorem ut, sollicitudin lectus. Nunc ligula turpis, feugiat at porta ut, lacinia ut ipsum. Duis dignissim sapien a diam iaculis posuere. Pellentesque vulputate lectus et odio viverra, in gravida eros aliquam. Quisque hendrerit cursus est ac sodales. Sed rhoncus, odio vel varius condimentum, augue felis congue sem, in vulputate justo quam vitae ipsum.
 </div>
 
 <div style="margin-bottom:500px"></div>
 <span id="salesforce"></span><h1>Salesforce<a class="headerlink" href="#salesforce" title="Permalink to this headline">¶</a></h1>
-<p>The Segment HTTP Tracking API lets you record analytics data from any website or application. The requests hit our servers, and we route your data to any integration you want!</p>
-
-<div class="highlight-url"><div class="highlight"><pre><span></span>GET /&lt;domain&gt;/events
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The Events API replaces the deprecated Logs API endpoint. You should
-use the Events API moving forward.</p>
-</div>
-
-
-<p>A request should define a time range and can specify a set of filters to apply.
-In response, a page of events is returned along with URLs that can be used to
-retrieve the next and previous result pages. To traverse the entire range, you
-should keep requesting the next page URLs returned returned along with result
-pages until an empty result page is reached.</p>
-<p>Both next and previous page URLs are always returned, even when retrieving one
-of them makes no sense. There are two such cases: previous page URL for the first
-result page, and next page URL for the last result page; requesting these URLs
-always returns an empty result page.</p>
+<div class="Page-body"><main class="Page-main Prose"><div class="Page-contents" data-swiftype-name="body" data-swiftype-type="text"><p>Salesforce is a leader in on-demand customer relationship management. <a href="http://salesforce.com">Visit Website</a></p><p>Take your company’s analysis to the next level by <strong>adding Salesforce as a Source to Segment.</strong> We’ll automatically collect objects like <code>Accounts</code>, <code>Campaigns</code>, and <code>Tasks</code> and load them into your data warehouse.</p><h2 id="getting-started" class="Permalink">Getting Started<a class="Permalink-link" href="#getting-started"> <i class="Permalink-icon ss-link"></i> </a></h2><ol><li><p>From your workspace’s <code>/sources</code> page, click <code>add source</code>.</p></li><li><p>Choose Salesforce.</p></li><li><p>Give the source a nickname and a schema name. The nickname will be used to designate the source in the Segment interface, and the schema name is the namespace you’ll be querying against in your warehouse. Both can be whatever you like, but we recommend sticking to something that reflects the source itself, like <code>Salesforce</code> for nickname and <code>sfdc</code>, <code>salesforce</code>, or <code>sfdc_prod</code> for the schema name.</p><p><strong>Note</strong> that you can add multiple instances if you have multiple SalesForce accounts. That’s why we allow you to customize the source’s nickname and schema name!</p><p><img src="https://d2mxuefqeaa7sj.cloudfront.net/s_5EDF18D9931125CB560A4FAA3A28517D98AF7BCE3EB8C58293C0C22EA726D86A_1455653102179_SFDC_schema.png" alt=""></p></li><li><p>Finally, just click <strong>Connect</strong> on the next page to OAuth into Salesforce.</p></li></ol><p>That’s it!</p><h2 id="api-access" class="Permalink">API Access<a class="Permalink-link" href="#api-access"> <i class="Permalink-icon ss-link"></i> </a></h2><p>In order for Segment to collect and sync your Salesforce data, you must enable API access for the user that you are connecting to Segment with. For more information on how to confirm or change API access for a Salesforce user, please follow Salesforce’s <a href="https://help.salesforce.com/articleView?id=admin_userperms.htm">recommended documentation</a>.</p><h2 id="components" class="Permalink">Components<a class="Permalink-link" href="#components"> <i class="Permalink-icon ss-link"></i> </a></h2><h3 id="sync" class="Permalink">Sync<a class="Permalink-link" href="#sync"> <i class="Permalink-icon ss-link"></i> </a></h3><p>Salesforce has a sync component, which means we’ll make requests to their API on your behalf on a 3 hour interval to pull the latest data into Segment. In the initial sync, we’ll grab all the Salesforce objects (and their corresponding properties) according to the Collections table below. The objects will be written into a separate schema, corresponding to the source instance’s schema name you designated upon creation. For example, if you went with <code>sfdc_prod</code>, the <code>leads</code> collection will be accessible at <code>sfdc_prod.leads</code> in SQL.</p><p>Our sync component uses an upsert API, so the data in your warehouse loaded via sync will reflect the latest state of the corresponding resource in Salesforce. For example, if <code>lead_status</code> from <code>active</code> to <code>inactive</code> between syncs, on its next sync that tickets status will be <code>inactive</code>.</p><p>The source syncs and warehouse syncs are independent processes. Source runs pull your data into the Segment Hub, and warehouse runs flush that data to your warehouse. Sources will sync with Segment every 3 hours. Depending on your Warehouses plan, we will push the Source data to your warehouse on the interval associated with your billing plan.</p><p>At the moment, we don’t support filtering which objects or properties get synced. If you’re interested in this feature, please let us know!</p><h2 id="collections" class="Permalink">Collections<a class="Permalink-link" href="#collections"> <i class="Permalink-icon ss-link"></i> </a></h2><p>Collections are the groupings of resources we pull from your source. In your warehouse, each collection gets its own table.</p><p><strong>For a complete visual breakdown of the Salesforce collections, all their properties, and ID linkages between objects,</strong> <a href="https://www.lucidchart.com/publicSegments/view/06c1e292-285b-4d0d-a5cd-fc0940ec5ec2">view the visual schema here</a> <strong>or</strong> <a href="https://www.lucidchart.com/documents/view/1e9f6a05-b4bd-4872-975d-b087d0f92a7e">download it in PDF form here</a>.</p><h3 id="custom-objects" class="Permalink">Custom Objects<a class="Permalink-link" href="#custom-objects"> <i class="Permalink-icon ss-link"></i> </a></h3><p>If you’d like to sync any SFDC custom objects, just <a href="/help/contact">contact us</a> and we’ll get it set up. Please include the <a href="https://help.salesforce.com/articleView?id=000007594&amp;language=en_US&amp;type=1">API names</a> of the custom objects. We’ll add support for this to the UI soon!</p><h3 id="custom-fields" class="Permalink">Custom Fields<a class="Permalink-link" href="#custom-fields"> <i class="Permalink-icon ss-link"></i> </a></h3><p>If you’ve added custom fields to an existing collection, <a href="/help/contact">contact us</a> and we’ll get those set up to sync. You do not need to include the field names.</p><h3 id="deleting-records" class="Permalink">Deleting Records<a class="Permalink-link" href="#deleting-records"> <i class="Permalink-icon ss-link"></i> </a></h3><p>Segment supports the use of soft deletes in Salesforce. If you perform a soft delete on a record in Salesforce, your next one to two warehouses syncs will change the value of <code>is_deleted</code> for the assoicated record to <code>True</code>.</p><p>At this time, we do not support hard deletes in Salesforce. Use of hard deletes will result in the data remaining in the warehouse with <code>is_deleted</code> set to <code>False</code>.</p><table><thead><tr><th>Collection</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>accounts</td><td>object</td><td>An individual account, which is an organization involved with your business (such as customers, competitors, and partners). Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_account.htm">Account</a> resource in Salesforce</td></tr><tr><td>account_contact_roles</td><td>object</td><td>The role that a given Contact plays on an Account. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_accountcontactrole.htm">AccountContactRole</a> resource in Salesforce</td></tr><tr><td>account_tags</td><td>object</td><td>Associates a word or short phrase with an Account. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_accounttag.htm">AccountTag</a> resource in Salesforce</td></tr><tr><td>campaigns</td><td>object</td><td>A marketing campaign, such as a direct mail promotion, webinar, or trade show. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_campaign.htm">Campaign</a> resource in Salesforce</td></tr><tr><td>campaign_members</td><td>object</td><td>The association between a Campaign and either a Lead or Contact. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_campaignmember.htm">CampaignMember</a> resource in Salesforce</td></tr><tr><td>campaign_shares</td><td>object</td><td>Represents a list of access levels to a Campaign along with an explanation of the access level. For example, if you have access to a record because you own it, the Access Level value is Full and Reason for Access value is Owner. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_campaignshare.htm">CampaignShare</a> resource in Salesforce</td></tr><tr><td>campaign_tags</td><td>object</td><td>Associates a word or short phrase with a Campaign. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_campaigntag.htm">CampaignTag</a> resource in Salesforce</td></tr><tr><td>cases</td><td>object</td><td>A customer issue such as a customer’s feedback, problem, or question. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_case.htm">Case</a> resource in Salesforce</td></tr><tr><td>case_comments</td><td>object</td><td>A comment that provides additional information about the associated Case. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_casecomment.htm">CaseComment</a> resource in Salesforce</td></tr><tr><td>case_contact_role</td><td>object</td><td>The role that a given Contact plays on a Case. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_casecontactrole.htm">CaseContactRole</a> resource in Salesforce</td></tr><tr><td>case_solution</td><td>object</td><td>The association between a particular Case and a particular Solution. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_casesolution.htm">CaseSolution</a> resource in Salesforce</td></tr><tr><td>case_tags</td><td>object</td><td>Associates a word or short phrase with a Case Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_casetag.htm">CaseTag</a> resource in Salesforce</td></tr><tr><td>contacts</td><td>object</td><td>A contact, which is an individual associated with an Account. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_contact.htm">Contact</a> resource in Salesforce</td></tr><tr><td>contact_tags</td><td>object</td><td>Associates a word or short phrase with a Contact. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_contacttag.htm">ContactTag</a> resource in Salesforce</td></tr><tr><td>contracts</td><td>object</td><td>A contract (a business agreement) associated with an Account. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_contract.htm">Contract</a> resource in Salesforce</td></tr><tr><td>contract_tags</td><td>object</td><td>Associates a word or short phrase with a Contract. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_contracttag.htm">ContractTag</a> resource in Salesforce</td></tr><tr><td>dashboards</td><td>object</td><td>Represents a dashboard, which shows data from custom reports as visual components. Access is read-only. This object is available in API version 20.0 and later. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_dashboard.htm">Dashboard</a> resource in Salesforce</td></tr><tr><td>dashboard_tags</td><td>object</td><td>Associates a word or short phrase with a Dashboard. This object is available inAPI version 20.0 and later. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_dashboardtag.htm">DashboardTag</a> resource in Salesforce</td></tr><tr><td>documents</td><td>object</td><td>A file that a user has uploaded. Unlike Attachment objects, Documents are not attached to a parent object. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_document.htm">Document</a> resource in Salesforce</td></tr><tr><td>document_tags</td><td>object</td><td>Associates a word or short phrase with a Document. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_documenttag.htm">DocumentTag</a> resource in Salesforce</td></tr><tr><td>events</td><td>object</td><td>A calendar appointment event. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_event.htm">Event</a> resource in Salesforce</td></tr><tr><td>event_tags</td><td>object</td><td>Associates a word or short phrase with an Event. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_eventtag.htm">EventTag</a> resource in Salesforce</td></tr><tr><td>_group</td><td>object</td><td>A set of User records. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_group.htm">Group</a> resource in Salesforce</td></tr><tr><td>leads</td><td>object</td><td>A lead, which is a prospect or potential Opportunity. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_lead.htm">Lead</a> resource in Salesforce</td></tr><tr><td>lead_tags</td><td>object</td><td>Associates a word or short phrase with a Lead. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_leadtag.htm">LeadTag</a> resource in Salesforce</td></tr><tr><td>names</td><td>object</td><td>Non-queryable object that provides information about foreign key traversals when the foreign key has more than one parent. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_name.htm">Name</a> resource in Salesforce</td></tr><tr><td>notes</td><td>object</td><td>A note, which is text associated with an Attachment, Contact, Contract,Opportunity, or custom object. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_note.htm">Note</a> resource in Salesforce</td></tr><tr><td>note_tags</td><td>object</td><td>Associates a word or short phrase with a Note. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_notetag.htm">NoteTag</a> resource in Salesforce</td></tr><tr><td>opportunities</td><td>object</td><td>An opportunity, which is a sale or pending deal. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunity.htm">Opportunity</a> resource in Salesforce</td></tr><tr><td>opportunity_competitor</td><td>object</td><td>A competitor on an Opportunity. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunitycompetitor.htm">OpportunityCompetitor</a> resource in Salesforce</td></tr><tr><td>opportunity_contact_role</td><td>object</td><td>The role that a Contact plays on an Opportunity. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunitycontactrole.htm">OpportunityContactRole</a> resource in Salesforce</td></tr><tr><td>opportunity_field_history</td><td>object</td><td>Represents the history of changes to the values in the fields of an opportunity. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunityfieldhistory.htm">OpportunityFieldHistory</a> resource in Salesforce</td></tr><tr><td>opportunity_product</td><td>object</td><td>An opportunity line item, which is a member of the list of Product2 records associated with an Opportunity, along with other information about those products on that opportunity. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunitylineitem.htm">OpportunityLineItem</a> resource in Salesforce</td></tr><tr><td>opportunity_line_item_schedules</td><td>object</td><td>Information about the quantity, revenue distribution, and delivery dates for a particular OpportunityLineItem. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunitylineitemschedule.htm">OpportunityLineItemSchedule</a> resource in Salesforce</td></tr><tr><td>opportunity_stage</td><td>object</td><td>The stage of an Opportunity in the sales pipeline, such as New Lead, Negotiating, Pending, Closed, and so on. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunitystage.htm">OpportunityStage</a> resource in Salesforce</td></tr><tr><td>opportunity_tag</td><td>object</td><td>Associates a word or short phrase with an Opportunity. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_opportunitytag.htm">OpportunityTag</a> resource in Salesforce</td></tr><tr><td>period</td><td>object</td><td>A fiscal period. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_period.htm">Period</a> resource in Salesforce</td></tr><tr><td>price_books</td><td>object</td><td>A price book that contains the list of products (Product2 records) that your organization sells. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_pricebook2.htm">Pricebook2</a> resource in Salesforce</td></tr><tr><td>price_book_entries</td><td>object</td><td>A product entry (an association between a Pricebook2 and Product2) in a price book. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_pricebookentry.htm">PricebookEntry</a> resource in Salesforce</td></tr><tr><td>products</td><td>object</td><td>A product that your organization sells. A product is member of the list of items in a Pricebook2. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_product2.htm">Product2</a> resource in Salesforce</td></tr><tr><td>profile</td><td>object</td><td>A profile, which defines a set of user permissions for performing different operations, such as querying, adding, updating, or deleting information. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_profile.htm">Profile</a> resource in Salesforce</td></tr><tr><td>solutions</td><td>object</td><td>A detailed description of a customer issue and the resolution of that issue. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_solution.htm">Solution</a> resource in Salesforce</td></tr><tr><td>solution_tags</td><td>object</td><td>Associates a word or short phrase with a Solution. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_solutiontag.htm">SolutionTag</a> resource in Salesforce</td></tr><tr><td>tasks</td><td>object</td><td>An activity or to-do item to perform or that has been performed. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_task.htm">Task</a> resource in Salesforce</td></tr><tr><td>task_tags</td><td>object</td><td>Associates a word or short phrase with a Task. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_tasktag.htm">TaskTag</a> resource in Salesforce</td></tr><tr><td>users</td><td>object</td><td>A user in your organization. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_user.htm">User</a> resource in Salesforce</td></tr><tr><td>user_login</td><td>object</td><td>Represents the settings that affect a user’s ability to log into an organization. This object is available in API version 29.0 and later. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_userlogin.htm">UserLogin</a> resource in Salesforce</td></tr><tr><td>role</td><td>object</td><td>A role in your organization. Corresponds to <a href="https://developer.salesforce.com/docs/atlas.en-us.api.meta/api/sforce_api_objects_userrole.htm">UserRole</a> resource in Salesforce</td></tr></tbody></table><hr><p>If you have any questions or see anywhere we can improve our documentation, please <a href="/contact/">let us know</a> or kick off a conversation in the <a href="https://community.segment.com/">Segment Community</a>!</p></div><footer class="Page-footer"><span class="Feedback"><span>Was this document helpful?</span> <span class="Feedback-btn-wrapper"><label id="Feedback-yes" class="Feedback-btn"><input type="radio"> <span class="Feedback-btn-label">Yes</span></label><label id="Feedback-no" class="Feedback-btn"><input type="radio"> <span class="Feedback-btn-label">No</span></label></span></span></footer></main></div>
 
 <span id="stripe"></span><h1>Stripe<a class="headerlink" href="#stripe" title="Permalink to this headline">¶</a></h1>
 <p>Our server-side sources let you send analytics data directly from your servers. We only recommend tracking from your servers when client-side tracking won’t work. Check out our guide on server-side tracking if you’re not sure whether it makes sense for your use case.</p>
@@ -2263,43 +1944,12 @@ previous request:</p>
     </script>
 
 
-<script type="text/javascript">
-  var Swiftype = window.Swiftype || {};
-  (function() {
-    Swiftype.key = 'dpKXg3Qg6P5paq8LDpDu';
-    Swiftype.inputElement = '#st-search-input';
-    Swiftype.resultContainingElement = '#st-results-container';
-    Swiftype.attachElement = '#st-search-input';
-    Swiftype.renderStyle = "overlay";
-
-
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = "http://swiftype.com/embed.js";
-    var entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(script, entry);
-  }());
-</script>
 
 <!-- Ace editor for editable code -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.1.01/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript">
-  (function() {
-    var timer;
-    function waitForSwiftype() {
-      if (Swiftype.Util && Swiftype.Util.pingSearchResultClick) {
-        clearInterval(timer);
-        Swiftype.Util.pingSearchResultClick = function(docId, query, destinationUrl, theWindow) {
-          var url = Swiftype.root_url + "/api/v1/public/analytics/pc?engine_key=" + Swiftype.key + "&doc_id=" + docId + "&q=" + query;
-          var queryAnchor = query.replace(/\s+/g, '-').toLowerCase();
-          Swiftype.Util.pingUrl(url, destinationUrl + '?highlight=' + query + '#' + queryAnchor, theWindow);
-        };
-      }
-    }
-    timer = setInterval(waitForSwiftype, 500);
-  })();
+
 
    // $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
    // $('#clear-search').click(function(){
